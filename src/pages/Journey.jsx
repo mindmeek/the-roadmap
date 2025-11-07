@@ -1,5 +1,4 @@
 
-
 import React, { useState, useEffect } from 'react';
 import { User } from '@/entities/User';
 import { RoadmapContent } from '@/entities/RoadmapContent'; // Assuming RoadmapContent entity is here
@@ -580,9 +579,9 @@ export default function JourneyPage() {
                                 <Target className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--text-main)] mb-1 sm:mb-2">My 90-Day Journey</h1>
-                                <p className="text-sm sm:text-base text-[var(--text-soft)] truncate">{stageInfo?.title || 'Your Journey'}</p>
-                                <p className="text-xs sm:text-sm font-semibold text-[var(--primary-gold)] mt-1 line-clamp-2">{journey?.title}</p>
+                                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--text-main)] dark:text-white mb-1 sm:mb-2">My 90-Day Journey</h1>
+                                <p className="text-sm sm:text-base text-[var(--text-soft)] dark:text-gray-300 truncate">{stageInfo?.title || 'Your Journey'}</p>
+                                <p className="text-xs sm:text-sm font-semibold text-[var(--primary-gold)] dark:text-yellow-400 mt-1 line-clamp-2">{journey?.title}</p>
                             </div>
                         </div>
                         
@@ -637,11 +636,11 @@ export default function JourneyPage() {
                                 <button onClick={() => handleToggleMonth(monthIndex)} className="w-full p-4 text-left bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border-b border-gray-200 dark:border-gray-700">
                                     <div className="flex justify-between items-center">
                                         <div>
-                                            <h2 className="text-xl font-bold text-[var(--text-main)] flex items-center gap-3">
+                                            <h2 className="text-xl font-bold text-[var(--text-main)] dark:text-white flex items-center gap-3">
                                                 {month.title}
                                                 {isCurrentMonth && <span className="text-xs bg-[var(--primary-gold)] text-white px-2 py-1 rounded-full">Current</span>}
                                             </h2>
-                                            <p className="text-sm text-[var(--text-soft)] mt-1">
+                                            <p className="text-sm text-[var(--text-soft)] dark:text-gray-400 mt-1">
                                                 {completedWeeksInMonth}/{totalWeeksInMonth} weeks completed
                                             </p>
                                         </div>
@@ -661,13 +660,13 @@ export default function JourneyPage() {
                                                 <div key={weekIndex} className={`border rounded-md p-4 ${isCurrentWeek ? 'border-[var(--primary-gold)] bg-yellow-50 dark:bg-yellow-900/20' : 'border-gray-200 dark:border-gray-700'}`}>
                                                     <div className="flex justify-between items-start">
                                                         <div className="flex-1">
-                                                            <h3 className="text-lg font-semibold text-[var(--text-main)] mb-2">
+                                                            <h3 className="text-lg font-semibold text-[var(--text-main)] dark:text-white mb-2">
                                                                 Week {globalWeekNumber}: {week.title}
                                                             </h3>
                                                             
                                                             <ul className="space-y-1 mb-3">
                                                                 {bulletPoints.map((point, idx) => (
-                                                                    <li key={idx} className="flex items-start gap-2 text-sm text-[var(--text-soft)]">
+                                                                    <li key={idx} className="flex items-start gap-2 text-sm text-[var(--text-soft)] dark:text-gray-400">
                                                                         <span className="text-[var(--primary-gold)] mt-1">•</span>
                                                                         <span>{point}</span>
                                                                     </li>
