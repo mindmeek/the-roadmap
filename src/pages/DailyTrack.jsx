@@ -7,7 +7,7 @@ import { Calendar, TrendingUp, Target, Edit3, Save, Plus, Trash2, ListChecks, Ch
 import { format, subDays } from "date-fns";
 import { handleGamification } from '@/functions/handleGamification';
 import { generateDailyTasks } from '@/functions/generateDailyTasks';
-import { roadmapData } from '../components/roadmap';
+import roadmapData from '../components/roadmap';
 
 export default function DailyTrack() {
   const navigate = useNavigate();
