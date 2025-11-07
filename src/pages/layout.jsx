@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { User, Notification } from '@/entities/all';
@@ -8,8 +7,6 @@ import {
     Newspaper, Mic, LifeBuoy, Zap, Briefcase, FileText, Settings, LogOut, Sun, Moon,
     Grid, MessageSquare, Sparkles, ChevronDown
 } from 'lucide-react';
-import PrioritiesDropdown from './components/header/PrioritiesDropdown';
-import ScheduleDropdown from './components/header/ScheduleDropdown';
 
 // NavItem Component - Helper for rendering individual navigation items
 const NavItem = ({ item, isActive, onClick }) => {
@@ -18,10 +15,10 @@ const NavItem = ({ item, isActive, onClick }) => {
 
     const handleClick = (e) => {
         if (item.action) {
-            e.preventDefault(); // Prevent default link behavior if an action is defined
+            e.preventDefault();
             item.action();
         }
-        if (onClick) onClick(); // Propagate click event, e.g., to close parent collapsible section
+        if (onClick) onClick();
     };
 
     const content = (
@@ -31,13 +28,13 @@ const NavItem = ({ item, isActive, onClick }) => {
         </>
     );
 
-    if (item.url && !item.action) { // Render as Link if it has a URL and no specific action
+    if (item.url && !item.action) {
         return (
             <Link to={item.url} className={commonClasses} onClick={onClick}>
                 {content}
             </Link>
         );
-    } else { // Render as button for items with actions or no direct URL
+    } else {
         return (
             <button onClick={handleClick} className={`w-full text-left ${commonClasses}`}>
                 {content}
@@ -46,22 +43,19 @@ const NavItem = ({ item, isActive, onClick }) => {
     }
 };
 
-// CollapsibleSection Component - Renders a collapsible section with a background-styled title
+// CollapsibleSection Component
 const CollapsibleSection = ({ title, items, isOpen, onToggle, location, user }) => {
-    // Filter items based on user's subscription level if 'requiredLevel' is specified
     const filteredItems = items.filter(item => {
         if (item.requiredLevel) {
-            // Ensure user and subscription_level exist before comparison
             return user && user.subscription_level && user.subscription_level === item.requiredLevel;
         }
-        return true; // Include item if no requiredLevel is specified
+        return true;
     });
 
-    // If no items are present after filtering, do not render the section
     if (filteredItems.length === 0) return null;
 
     return (
-        <div className="mb-4"> {/* Margin for spacing between sections */}
+        <div className="mb-4">
             <button
                 onClick={onToggle}
                 className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-white uppercase tracking-wider bg-gray-800 hover:bg-gray-700 rounded-md transition-colors mb-2"
@@ -69,14 +63,14 @@ const CollapsibleSection = ({ title, items, isOpen, onToggle, location, user }) 
                 <span>{title}</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'transform rotate-180' : ''}`} />
             </button>
-            {isOpen && ( // Only show items if the section is open
+            {isOpen && (
                 <div className="space-y-1 mt-2">
                     {filteredItems.map((item) => (
                         <NavItem
-                            key={item.url || item.title} // Use URL as key, fallback to title for action-only items
+                            key={item.url || item.title}
                             item={item}
                             isActive={location.pathname === item.url}
-                            onClick={onToggle} // Close section when an item is clicked for a common accordion behavior
+                            onClick={onToggle}
                         />
                     ))}
                 </div>
@@ -373,7 +367,6 @@ export default function Layout({ children }) {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // State for managing open/collapsed sections in the desktop sidebar
     const [openSections, setOpenSections] = useState({
         main: true,
         community: true,
@@ -450,7 +443,6 @@ export default function Layout({ children }) {
 
     return (
         <div className="flex h-screen bg-white dark:bg-black">
-            {/* Desktop Sidebar */}
             <div className="hidden lg:flex lg:flex-shrink-0">
                 <div className="flex flex-col w-64 bg-[#111827] text-white">
                     <div className="h-16 flex items-center justify-center font-bold text-xl border-b border-gray-800">
@@ -459,7 +451,6 @@ export default function Layout({ children }) {
                     <div className="flex-1 flex flex-col overflow-y-auto">
                         <UserProfileSidebar />
                         <nav className="flex-1 px-2 py-4">
-                             {/* Main Section */}
                              <CollapsibleSection
                                  title="Main"
                                  items={mainNavItems}
@@ -469,7 +460,6 @@ export default function Layout({ children }) {
                                  user={user}
                              />
 
-                             {/* Community Section */}
                              <CollapsibleSection
                                  title="Community"
                                  items={communityNavItems}
@@ -479,7 +469,6 @@ export default function Layout({ children }) {
                                  user={user}
                              />
 
-                             {/* Resources Section */}
                              <CollapsibleSection
                                  title="Resources"
                                  items={resourcesNavItems}
@@ -489,7 +478,6 @@ export default function Layout({ children }) {
                                  user={user}
                              />
 
-                             {/* Admin Section (only if user is admin and items exist) */}
                              {adminNavItems.length > 0 && (
                                 <CollapsibleSection
                                     title="Admin"
@@ -511,7 +499,6 @@ export default function Layout({ children }) {
                 </div>
             </div>
 
-            {/* Main content */}
             <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
                 <div className="lg:hidden h-16 bg-black text-white flex justify-between items-center px-4 border-b border-gray-800">
                     <span className="font-bold">The Launchpad</span>
@@ -542,7 +529,6 @@ export default function Layout({ children }) {
             <ElyzetChatModal isOpen={isElyzetModalOpen} onClose={() => setIsElyzetModalOpen(false)} />
             <MobileBottomNav user={user} />
             
-            {/* Floating Ask Elyzet Button - CORRECTED */}
             <button
                 onClick={() => setIsElyzetModalOpen(true)}
                 className="fixed bottom-24 right-4 lg:bottom-6 lg:right-6 bg-[var(--primary-gold)] text-white p-3 rounded-full shadow-lg z-[60] flex items-center space-x-2 hover:bg-opacity-90 hover:scale-105 transition-all duration-200"
