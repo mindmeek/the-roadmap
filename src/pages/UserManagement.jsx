@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { User } from '@/entities/User';
-import { Loader2, Search, UserCheck, UserX, Crown, Shield, ChevronDown, ChevronUp } from 'lucide-react';
+import { Loader2, Search, UserCheck, UserX, Crown, Shield, ChevronDown, ChevronUp, Trash2, PauseCircle, PlayCircle } from 'lucide-react';
 
 export default function UserManagement() {
     const [users, setUsers] = useState([]);
@@ -10,6 +11,7 @@ export default function UserManagement() {
     const [currentUser, setCurrentUser] = useState(null);
     const [expandedUserId, setExpandedUserId] = useState(null);
     const [upgradingUserId, setUpgradingUserId] = useState(null);
+    const [processingUserId, setProcessingUserId] = useState(null); // New state for general processing
 
     useEffect(() => {
         loadUsers();
@@ -60,6 +62,56 @@ export default function UserManagement() {
             alert('An error occurred while updating the subscription.');
         } finally {
             setUpgradingUserId(null);
+        }
+    };
+
+    const handlePauseAccount = async (user) => {
+        const isPaused = user.account_status === 'paused';
+        const action = isPaused ? 'unpause' : 'pause';
+        
+        if (!confirm(`Are you sure you want to ${action} ${user.full_name}'s account?`)) {
+            return;
+        }
+
+        setProcessingUserId(user.id);
+        try {
+            await base44.entities.User.update(user.id, {
+                account_status: isPaused ? 'active' : 'paused'
+            });
+            
+            alert(`Account successfully ${isPaused ? 'unpaused' : 'paused'}!`);
+            await loadUsers();
+        } catch (error) {
+            console.error('Error pausing/unpausing account:', error);
+            alert('An error occurred while updating the account status.');
+        } finally {
+            setProcessingUserId(null);
+        }
+    };
+
+    const handleDeleteAccount = async (user) => {
+        if (!confirm(`⚠️ WARNING: This will permanently delete ${user.full_name}'s account and ALL their data. This action cannot be undone. Are you absolutely sure?`)) {
+            return;
+        }
+
+        // Double confirmation for safety
+        const confirmText = prompt('Type "DELETE" to confirm permanent deletion:');
+        if (confirmText !== 'DELETE') {
+            alert('Deletion cancelled.');
+            return;
+        }
+
+        setProcessingUserId(user.id);
+        try {
+            await base44.asServiceRole.entities.User.delete(user.id);
+            
+            alert('User account permanently deleted.');
+            await loadUsers();
+        } catch (error) {
+            console.error('Error deleting user:', error);
+            alert('An error occurred while deleting the account: ' + error.message);
+        } finally {
+            setProcessingUserId(null);
         }
     };
 
@@ -115,7 +167,7 @@ export default function UserManagement() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                 <div className="card p-4">
                     <div className="text-2xl font-bold text-[var(--text-main)]">{users.length}</div>
                     <div className="text-sm text-[var(--text-soft)]">Total Users</div>
@@ -132,6 +184,12 @@ export default function UserManagement() {
                     </div>
                     <div className="text-sm text-[var(--text-soft)]">Free Members</div>
                 </div>
+                <div className="card p-4">
+                    <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+                        {users.filter(u => u.account_status === 'paused').length}
+                    </div>
+                    <div className="text-sm text-[var(--text-soft)]">Paused Accounts</div>
+                </div>
             </div>
 
             {/* Users List */}
@@ -143,14 +201,14 @@ export default function UserManagement() {
                                 <th className="px-6 py-3 text-left text-xs font-medium text-[var(--text-soft)] uppercase tracking-wider">User</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-[var(--text-soft)] uppercase tracking-wider">Stage</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-[var(--text-soft)] uppercase tracking-wider">Subscription</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-[var(--text-soft)] uppercase tracking-wider">Role</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-[var(--text-soft)] uppercase tracking-wider">Status</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-[var(--text-soft)] uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-[var(--border-color)]">
                             {filteredUsers.map((user) => (
                                 <React.Fragment key={user.id}>
-                                    <tr className="hover:bg-gray-50 dark:hover:bg-gray-800">
+                                    <tr className={`hover:bg-gray-50 dark:hover:bg-gray-800 ${user.account_status === 'paused' ? 'opacity-60' : ''}`}>
                                         <td className="px-6 py-4">
                                             <div className="flex items-center">
                                                 <img
@@ -159,7 +217,12 @@ export default function UserManagement() {
                                                     className="w-10 h-10 rounded-full mr-3"
                                                 />
                                                 <div>
-                                                    <div className="font-medium text-[var(--text-main)]">{user.full_name}</div>
+                                                    <div className="font-medium text-[var(--text-main)]">
+                                                        {user.full_name}
+                                                        {user.account_status === 'paused' && (
+                                                            <span className="ml-2 text-xs text-orange-600 dark:text-orange-400">(Paused)</span>
+                                                        )}
+                                                    </div>
                                                     <div className="text-sm text-[var(--text-soft)]">{user.email}</div>
                                                     {user.business_name && (
                                                         <div className="text-xs text-[var(--text-soft)] italic">{user.business_name}</div>
@@ -192,8 +255,16 @@ export default function UserManagement() {
                                                     <Shield className="w-3 h-3 mr-1" />
                                                     Admin
                                                 </span>
+                                            ) : user.account_status === 'paused' ? (
+                                                <span className="flex items-center text-xs text-orange-600 dark:text-orange-400">
+                                                    <PauseCircle className="w-3 h-3 mr-1" />
+                                                    Paused
+                                                </span>
                                             ) : (
-                                                <span className="text-xs text-[var(--text-soft)]">User</span>
+                                                <span className="flex items-center text-xs text-green-600 dark:text-green-400">
+                                                    <UserCheck className="w-3 h-3 mr-1" />
+                                                    Active
+                                                </span>
                                             )}
                                         </td>
                                         <td className="px-6 py-4">
@@ -269,6 +340,60 @@ export default function UserManagement() {
                                                         <p className="text-xs text-[var(--text-soft)] mt-2">
                                                             Current: <span className="font-medium">{user.subscription_level === 'business_hq' ? 'Business HQ' : 'Free'}</span>
                                                         </p>
+                                                    </div>
+
+                                                    {/* Account Actions */}
+                                                    <div className="border-t border-[var(--border-color)] pt-4">
+                                                        <h4 className="font-semibold text-[var(--text-main)] mb-3">Account Actions</h4>
+                                                        <div className="flex flex-wrap gap-2">
+                                                            <button
+                                                                onClick={() => handlePauseAccount(user)}
+                                                                disabled={processingUserId === user.id || user.role === 'admin'}
+                                                                className={`btn btn-sm disabled:opacity-50 ${
+                                                                    user.account_status === 'paused' 
+                                                                        ? 'bg-green-600 text-white hover:bg-green-700' 
+                                                                        : 'bg-orange-600 text-white hover:bg-orange-700'
+                                                                }`}
+                                                            >
+                                                                {processingUserId === user.id ? (
+                                                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                                                ) : user.account_status === 'paused' ? (
+                                                                    <>
+                                                                        <PlayCircle className="w-4 h-4 mr-1" />
+                                                                        Unpause Account
+                                                                    </>
+                                                                ) : (
+                                                                    <>
+                                                                        <PauseCircle className="w-4 h-4 mr-1" />
+                                                                        Pause Account
+                                                                    </>
+                                                                )}
+                                                            </button>
+                                                            <button
+                                                                onClick={() => handleDeleteAccount(user)}
+                                                                disabled={processingUserId === user.id || user.role === 'admin'}
+                                                                className="btn bg-red-600 text-white hover:bg-red-700 btn-sm disabled:opacity-50"
+                                                            >
+                                                                {processingUserId === user.id ? (
+                                                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                                                ) : (
+                                                                    <>
+                                                                        <Trash2 className="w-4 h-4 mr-1" />
+                                                                        Delete Account
+                                                                    </>
+                                                                )}
+                                                            </button>
+                                                        </div>
+                                                        {user.role === 'admin' && (
+                                                            <p className="text-xs text-orange-600 dark:text-orange-400 mt-2">
+                                                                ⚠️ Cannot pause or delete admin accounts
+                                                            </p>
+                                                        )}
+                                                        {user.account_status === 'paused' && (
+                                                            <p className="text-xs text-[var(--text-soft)] mt-2">
+                                                                This account is currently paused. User cannot access the platform.
+                                                            </p>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </td>
