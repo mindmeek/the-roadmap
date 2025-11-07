@@ -6,7 +6,7 @@ import { createPageUrl } from '@/utils';
 import {
     Menu, X, Bell, Users, Video, Shield, Calendar, Home, Compass, BarChart, BookOpen,
     Newspaper, Mic, LifeBuoy, Zap, Briefcase, FileText, Settings, LogOut, Sun, Moon,
-    Grid, MessageSquare, Sparkles, ChevronDown // Added ChevronDown import
+    Grid, MessageSquare, Sparkles, ChevronDown
 } from 'lucide-react';
 import PrioritiesDropdown from './components/header/PrioritiesDropdown';
 import ScheduleDropdown from './components/header/ScheduleDropdown';

@@ -4,8 +4,7 @@ import { User, StrategyDocument } from '@/entities/all';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { ArrowLeft, Save, Target, Loader2, CheckCircle, Lightbulb, Plus, Minus, Sparkles } from 'lucide-react';
-import StrategyToolGuide from '../../components/strategy/StrategyToolGuide';
-import AITeamModal from '@/components/ai/AITeamModal'; // Added import
+import AITeamModal from '@/components/ai/AITeamModal';
 
 const canvasSides = [
     {
@@ -251,7 +250,7 @@ export default function ValuePropositionCanvasPage() { // Renamed from StrategyF
     });
 
     return (
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8"> {/* Changed max-w-4xl to max-w-6xl */}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {/* Detailed Introduction Section */}
             <div className="card p-6 md:p-8">
                 <div className="text-center md:text-left md:flex md:items-center md:space-x-4 w-full mb-6">
@@ -475,8 +474,6 @@ export default function ValuePropositionCanvasPage() { // Renamed from StrategyF
                     </button>
                 </div>
             </div>
-
-            <StrategyToolGuide tool="value_proposition_canvas" />
 
             {/* AI Team Modal */}
             <AITeamModal

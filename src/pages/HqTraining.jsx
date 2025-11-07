@@ -2,9 +2,9 @@
 import { useState, useEffect } from 'react';
 import SubscriptionGate from '../components/subscription/SubscriptionGate';
 import { User } from '@/entities/User';
-import { Loader2, Crown } from 'lucide-react'; // Removed Video as it's no longer used in the updated layout
-import { Link } from 'react-router-dom'; // Assuming Link is from react-router-dom
-import { createPageUrl } from '@/utils/url'; // Assuming createPageUrl is a utility function
+import { Loader2, Crown } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 
 export default function HqTrainingPage() {
     const [user, setUser] = useState(null);
