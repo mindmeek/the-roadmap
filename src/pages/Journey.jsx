@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { User } from '@/entities/User';
 import { RoadmapContent } from '@/entities/RoadmapContent'; // Assuming RoadmapContent entity is here
@@ -633,7 +634,7 @@ export default function JourneyPage() {
 
                         return (
                             <div key={monthIndex} className="card overflow-hidden">
-                                <button onClick={() => handleToggleMonth(monthIndex)} className="w-full p-4 text-left bg-gray-50 hover:bg-gray-100 border-b border-gray-200">
+                                <button onClick={() => handleToggleMonth(monthIndex)} className="w-full p-4 text-left bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border-b border-gray-200 dark:border-gray-700">
                                     <div className="flex justify-between items-center">
                                         <div>
                                             <h2 className="text-xl font-bold text-[var(--text-main)] flex items-center gap-3">
@@ -644,7 +645,7 @@ export default function JourneyPage() {
                                                 {completedWeeksInMonth}/{totalWeeksInMonth} weeks completed
                                             </p>
                                         </div>
-                                        <ChevronDown className={`w-6 h-6 text-gray-500 transition-transform ${expandedMonth === monthIndex ? 'rotate-180' : ''}`} />
+                                        <ChevronDown className={`w-6 h-6 text-gray-500 dark:text-gray-400 transition-transform ${expandedMonth === monthIndex ? 'rotate-180' : ''}`} />
                                     </div>
                                 </button>
 
@@ -657,7 +658,7 @@ export default function JourneyPage() {
                                             const bulletPoints = getWeekBulletPoints(week);
                                             
                                             return (
-                                                <div key={weekIndex} className={`border rounded-md p-4 ${isCurrentWeek ? 'border-[var(--primary-gold)] bg-yellow-50' : 'border-gray-200'}`}>
+                                                <div key={weekIndex} className={`border rounded-md p-4 ${isCurrentWeek ? 'border-[var(--primary-gold)] bg-yellow-50 dark:bg-yellow-900/20' : 'border-gray-200 dark:border-gray-700'}`}>
                                                     <div className="flex justify-between items-start">
                                                         <div className="flex-1">
                                                             <h3 className="text-lg font-semibold text-[var(--text-main)] mb-2">

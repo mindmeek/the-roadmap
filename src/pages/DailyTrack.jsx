@@ -361,7 +361,7 @@ export default function DailyTrack() {
         <div className="card p-6 md:p-8">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
             <div className="flex items-center space-x-4">
-                <div className="bg-gray-100 p-4 rounded-md"><Calendar className="w-8 h-8 text-[var(--primary-gold)]" /></div>
+                <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-md"><Calendar className="w-8 h-8 text-[var(--primary-gold)]" /></div>
                 <div>
                     <h1 className="text-3xl">Daily 1% Tracker</h1>
                     <p className="text-[var(--text-soft)] text-lg">{format(new Date(), 'EEEE, MMMM d, yyyy')}</p>
@@ -380,13 +380,13 @@ export default function DailyTrack() {
         <div className="card p-6">
             <h2 className="text-xl font-bold mb-4">30-Day Progress</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <div className="bg-green-50 text-center p-4 rounded-lg"><div className="text-3xl font-bold text-green-600">{currentStreak}</div><div className="text-green-700">Day Streak</div></div>
-                <div className="bg-blue-50 text-center p-4 rounded-lg"><div className="text-3xl font-bold text-blue-600">{monthlyProgress.length}</div><div className="text-blue-700">Days Tracked</div></div>
-                <div className="bg-yellow-50 text-center p-4 rounded-lg"><div className="text-3xl font-bold text-yellow-600">{progressPercentage}%</div><div className="text-yellow-700">Today's Progress</div></div>
+                <div className="bg-green-50 dark:bg-green-900/20 text-center p-4 rounded-lg"><div className="text-3xl font-bold text-green-600 dark:text-green-400">{currentStreak}</div><div className="text-green-700 dark:text-green-300">Day Streak</div></div>
+                <div className="bg-blue-50 dark:bg-blue-900/20 text-center p-4 rounded-lg"><div className="text-3xl font-bold text-blue-600 dark:text-blue-400">{monthlyProgress.length}</div><div className="text-blue-700 dark:text-blue-300">Days Tracked</div></div>
+                <div className="bg-yellow-50 dark:bg-yellow-900/20 text-center p-4 rounded-lg"><div className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">{progressPercentage}%</div><div className="text-yellow-700 dark:text-yellow-300">Today's Progress</div></div>
             </div>
             <div className="flex flex-wrap gap-1">
                 {progressData30Days.map(day => (
-                    <div key={day.date} className={`w-8 h-8 rounded ${day.hasEntry ? (day.percentage > 50 ? 'bg-green-500' : 'bg-yellow-400') : 'bg-gray-200'}`} title={`${day.date}: ${day.percentage}%`}></div>
+                    <div key={day.date} className={`w-8 h-8 rounded ${day.hasEntry ? (day.percentage > 50 ? 'bg-green-500' : 'bg-yellow-400') : 'bg-gray-200 dark:bg-gray-700'}`} title={`${day.date}: ${day.percentage}%`}></div>
                 ))}
             </div>
         </div>
@@ -428,7 +428,7 @@ export default function DailyTrack() {
                         )}
                     </div>
                 )) : (
-                    <div className="text-center text-gray-500 py-4 bg-gray-50 rounded-lg">
+                    <div className="text-center text-gray-500 dark:text-gray-400 py-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                         <p>No tasks for today. Add some to get started!</p>
                         {isEditing && 
                             <button onClick={() => setShowActionSelector(true)} className="btn btn-secondary mt-2" disabled={isGenerating}>
@@ -466,7 +466,7 @@ export default function DailyTrack() {
                 {isEditing ? (
                     <textarea value={formData.reflection} onChange={(e) => setFormData(prev => ({...prev, reflection: e.target.value}))} className="form-input h-32" placeholder="What went well? What could be improved?"></textarea>
                 ) : (
-                    <p className="whitespace-pre-wrap min-h-[8rem] bg-gray-50 p-3 rounded">{formData.reflection || 'No reflection added.'}</p>
+                    <p className="whitespace-pre-wrap min-h-[8rem] bg-gray-50 dark:bg-gray-800 p-3 rounded">{formData.reflection || 'No reflection added.'}</p>
                 )}
             </div>
             <div className="card p-6">

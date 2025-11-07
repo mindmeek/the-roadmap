@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { User, Notification } from '@/entities/all';
@@ -356,7 +357,7 @@ const MobileMenu = ({ onClose, user }) => {
     );
 };
 
-export default function Layout({ children }) {
+export default function Layout({ children, currentPageName }) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -442,7 +443,7 @@ export default function Layout({ children }) {
     }
 
     return (
-        <div className="flex h-screen bg-white dark:bg-black">
+        <div className="flex h-screen bg-white dark:bg-black overflow-hidden">
             <div className="hidden lg:flex lg:flex-shrink-0">
                 <div className="flex flex-col w-64 bg-[#111827] text-white">
                     <div className="h-16 flex items-center justify-center font-bold text-xl border-b border-gray-800">
@@ -499,7 +500,7 @@ export default function Layout({ children }) {
                 </div>
             </div>
 
-            <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
+            <div className="flex flex-col w-0 flex-1 overflow-hidden">
                 <div className="lg:hidden h-16 bg-black text-white flex justify-between items-center px-4 border-b border-gray-800">
                     <span className="font-bold">The Launchpad</span>
                     <button onClick={() => setIsMobileMenuOpen(true)}>
@@ -518,16 +519,248 @@ export default function Layout({ children }) {
                             {showNotificationDropdown && <NotificationDropdown />}
                         </div>
                     </div>
-                    <main className="p-4 lg:p-8 lg:pt-20">
-                        {children}
+                    <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none py-6 pb-24 lg:pb-6">
+                        <div style={{
+                            backgroundColor: 'var(--background-main)',
+                            minHeight: '100%',
+                            fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, sans-serif'
+                        }}>
+                            <style>{`
+                            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@900&family=Inter:wght@400;500;600;700&display=swap');
+
+                            :root {
+                              --primary-gold: #8B6F4E;
+                              --background-main: #FFFFFF;
+                              --background-card: #FFFFFF;
+                              --text-main: #1F2937;
+                              --text-soft: #6B7280;
+                              --border-color: #E5E7EB;
+                              --radius: 5px;
+                            }
+
+                            .dark {
+                              --background-main: #000000;
+                              --background-card: #1E293B;
+                              --text-main: #F8FAFC;
+                              --text-soft: #94A3B8;
+                              --border-color: #334155;
+                            }
+
+                            body {
+                              background-color: var(--background-main);
+                              color: var(--text-main);
+                              transition: background-color 0.3s ease, color 0.3s ease;
+                            }
+
+                            h1 {
+                              font-family: 'Poppins', sans-serif;
+                              font-weight: 900;
+                              color: var(--text-main);
+                            }
+
+                            header h1 {
+                               font-family: 'Poppins', sans-serif;
+                               font-weight: 900;
+                               color: #FFFFFF;
+                            }
+
+                            .card {
+                              background-color: var(--background-card);
+                              border-radius: var(--radius);
+                              box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+                              border: 1px solid var(--border-color);
+                              transition: background-color 0.3s ease, border-color 0.3s ease;
+                            }
+
+                            .dark .card {
+                              box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+                            }
+
+                            .btn {
+                              border-radius: var(--radius);
+                              transition: all 0.2s ease;
+                              cursor: pointer;
+                              font-weight: 500;
+                              padding: 0.5rem 1rem;
+                              display: inline-flex;
+                              align-items: center;
+                              gap: 0.5rem;
+                              border: 1px solid transparent;
+                            }
+
+                            .btn-primary {
+                              background-color: var(--primary-gold);
+                              color: white;
+                            }
+                            .btn-primary:hover {
+                              opacity: 0.9;
+                            }
+
+                            .btn-secondary {
+                              background-color: var(--background-card);
+                              color: var(--primary-gold);
+                              border-color: var(--primary-gold);
+                            }
+                            .btn-secondary:hover {
+                              background-color: var(--primary-gold);
+                              color: white;
+                            }
+
+                            .btn-ghost {
+                              background-color: transparent;
+                              color: var(--text-soft);
+                            }
+                            .btn-ghost:hover {
+                              background-color: rgba(243, 244, 246, 0.5);
+                              color: var(--text-main);
+                            }
+
+                            .dark .btn-ghost:hover {
+                              background-color: rgba(55, 65, 81, 0.5);
+                            }
+
+                            .form-input {
+                              background-color: var(--background-card);
+                              border-radius: var(--radius);
+                              border: 1px solid var(--border-color);
+                              padding: 0.75rem 1rem;
+                              width: 100%;
+                              color: var(--text-main);
+                              transition: border-color 0.2s ease, background-color 0.2s ease;
+                            }
+                            .form-input:focus {
+                              outline: none;
+                              border-color: var(--primary-gold);
+                              box-shadow: 0 0 0 2px rgba(139, 111, 78, 0.2);
+                            }
+
+                            .dark h1,
+                            .dark h2,
+                            .dark h3,
+                            .dark h4,
+                            .dark h5,
+                            .dark h6 {
+                              color: var(--text-main) !important;
+                            }
+
+                            .dark p,
+                            .dark span,
+                            .dark div {
+                              color: var(--text-main);
+                            }
+
+                            /* Dark mode utility classes */
+                            .dark .bg-white {
+                              background-color: var(--background-card) !important;
+                            }
+
+                            .dark .bg-gray-50 {
+                              background-color: #1E293B !important;
+                            }
+
+                            .dark .bg-gray-100 {
+                              background-color: #334155 !important;
+                            }
+
+                            .dark .bg-blue-50 {
+                              background-color: rgba(59, 130, 246, 0.1) !important;
+                            }
+
+                            .dark .bg-green-50 {
+                              background-color: rgba(34, 197, 94, 0.1) !important;
+                            }
+
+                            .dark .bg-yellow-50 {
+                              background-color: rgba(234, 179, 8, 0.1) !important;
+                            }
+
+                            .dark .bg-red-50 {
+                              background-color: rgba(239, 68, 68, 0.1) !important;
+                            }
+
+                            .dark .bg-indigo-50 {
+                              background-color: rgba(99, 102, 241, 0.1) !important;
+                            }
+
+                            .dark .bg-purple-50 {
+                              background-color: rgba(168, 85, 247, 0.1) !important;
+                            }
+
+                            .dark .bg-pink-50 {
+                              background-color: rgba(236, 72, 153, 0.1) !important;
+                            }
+
+                            .dark .text-gray-500 {
+                              color: var(--text-soft) !important;
+                            }
+
+                            .dark .text-gray-600 {
+                              color: var(--text-soft) !important;
+                            }
+
+                            .dark .text-gray-700 {
+                              color: var(--text-main) !important;
+                            }
+
+                            .dark .text-gray-800 {
+                              color: var(--text-main) !important;
+                            }
+
+                            .dark .text-gray-900 {
+                              color: var(--text-main) !important;
+                            }
+
+                            .dark .border-gray-200 {
+                              border-color: var(--border-color) !important;
+                            }
+
+                            .dark .border-gray-300 {
+                              border-color: var(--border-color) !important;
+                            }
+
+                            /* PWA Safe Areas */
+                            @supports(padding: max(0px)) {
+                              .safe-top {
+                                padding-top: max(env(safe-area-inset-top), 0px);
+                              }
+                              .safe-bottom {
+                                padding-bottom: max(env(safe-area-inset-bottom), 0px);
+                              }
+                              .safe-left {
+                                padding-left: max(env(safe-area-inset-left), 0px);
+                              }
+                              .safe-right {
+                                padding-right: max(env(safe-area-inset-right), 0px);
+                              }
+                            }
+
+                            /* Performance optimizations */
+                            * {
+                              -webkit-tap-highlight-color: transparent;
+                            }
+
+                            img {
+                              content-visibility: auto;
+                            }
+
+                            .page-transition {
+                              animation: pageSlide 0.3s ease-out;
+                            }
+                          `}</style>
+
+                            <div className="page-transition">
+                                {children}
+                            </div>
+                        </div>
                     </main>
                 </div>
+            
+                <MobileBottomNav user={user} />
             </div>
 
             {isMobileMenuOpen && <MobileMenu onClose={() => setIsMobileMenuOpen(false)} user={user} />}
             <PodcastModal isOpen={isPodcastModalOpen} onClose={() => setIsPodcastModalOpen(false)} />
             <ElyzetChatModal isOpen={isElyzetModalOpen} onClose={() => setIsElyzetModalOpen(false)} />
-            <MobileBottomNav user={user} />
             
             <button
                 onClick={() => setIsElyzetModalOpen(true)}
