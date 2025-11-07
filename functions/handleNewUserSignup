@@ -1,0 +1,191 @@
+
+import { createClientFromRequest } from 'npm:@base44/sdk@0.5.0';
+import { Resend } from 'npm:resend@2.0.0';
+
+const resend = new Resend(Deno.env.get('RESEND_API_KEY'));
+
+const GHL_API_KEY = Deno.env.get("GOHIGHLEVEL_API_KEY");
+const GHL_LOCATION_ID = Deno.env.get("GOHIGHLEVEL_LOCATION_ID");
+const FROM_EMAIL = Deno.env.get('RESEND_FROM_EMAIL');
+const BASE_URL = Deno.env.get('BASE_URL') || 'https://app.thebminds.com';
+
+Deno.serve(async (req) => {
+    const base44 = createClientFromRequest(req);
+    
+    try {
+        const { newUser } = await req.json();
+        if (!newUser) {
+            throw new Error("New user data is required.");
+        }
+
+        console.log(`Processing new user signup: ${newUser.email}`);
+        console.log(`User data:`, {
+            firstName: newUser.first_name,
+            lastName: newUser.last_name,
+            fullName: newUser.full_name,
+            email: newUser.email,
+            city: newUser.city,
+            subscriptionLevel: newUser.subscription_level
+        });
+
+        // --- 1. GoHighLevel Contact Creation ---
+        if (GHL_API_KEY && GHL_LOCATION_ID) {
+            try {
+                // Determine the appropriate tag based on subscription level
+                const ghlTags = ['The Business Minds Member'];
+                if (newUser.subscription_level === 'business_hq') {
+                    ghlTags.push('businesshq');
+                } else if (newUser.subscription_level === 'launchpad') {
+                    ghlTags.push('launchunlimited');
+                } else {
+                    ghlTags.push('freelaunch');
+                }
+
+                // Use the new first_name and last_name fields, with fallback to full_name
+                const firstName = newUser.first_name || newUser.full_name?.split(' ')[0] || '';
+                const lastName = newUser.last_name || newUser.full_name?.split(' ').slice(1).join(' ') || '';
+                const fullName = `${firstName} ${lastName}`.trim();
+
+                console.log(`Creating GHL contact with:`, {
+                    firstName,
+                    lastName,
+                    fullName,
+                    tags: ghlTags
+                });
+
+                const ghlContactData = {
+                    firstName: firstName,
+                    lastName: lastName,
+                    name: fullName || newUser.full_name || '',
+                    email: newUser.email,
+                    phone: newUser.phone_number || '',
+                    city: newUser.city || '',
+                    tags: ghlTags,
+                    source: 'The Business Minds Platform',
+                    customFields: [
+                        {
+                            key: 'entrepreneurship_stage',
+                            field_value: newUser.entrepreneurship_stage || ''
+                        },
+                        {
+                            key: 'selected_goal',
+                            field_value: newUser.selected_goal || ''
+                        },
+                        {
+                            key: 'subscription_level',
+                            field_value: newUser.subscription_level || 'free'
+                        }
+                    ]
+                };
+
+                console.log(`Sending to GHL API:`, JSON.stringify(ghlContactData, null, 2));
+
+                const response = await fetch(`https://services.leadconnectorhq.com/contacts/`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${GHL_API_KEY}`,
+                        'Version': '2021-07-28',
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ...ghlContactData,
+                        locationId: GHL_LOCATION_ID
+                    })
+                });
+
+                console.log(`GHL API Response Status: ${response.status}`);
+                
+                if (!response.ok) {
+                    const errorBody = await response.text();
+                    console.error(`GHL API Error: ${response.status} ${response.statusText} - ${errorBody}`);
+                    throw new Error(`GHL API Error: ${response.statusText}`);
+                }
+
+                const ghlContact = await response.json();
+                console.log(`Successfully created GHL contact:`, ghlContact);
+
+                // Save the GHL contact ID back to the user
+                if (ghlContact.contact?.id) {
+                    await base44.asServiceRole.entities.User.update(newUser.id, {
+                        ghl_contact_id: ghlContact.contact.id
+                    });
+                    console.log(`Saved GHL contact ID ${ghlContact.contact.id} to user ${newUser.id}`);
+                }
+
+            } catch (error) {
+                console.error("Failed to create GoHighLevel contact:", error.message);
+                console.error("Full error:", error);
+                // Don't block the process if GHL fails, but log it for debugging
+            }
+        } else {
+            console.warn("GOHIGHLEVEL_API_KEY or GOHIGHLEVEL_LOCATION_ID not set. Skipping GoHighLevel contact creation.");
+        }
+
+        // --- 2. Admin Notifications (In-App and Email) ---
+        if (FROM_EMAIL) {
+            try {
+                const admins = await base44.asServiceRole.entities.User.filter({ role: 'admin' });
+                const userManagementUrl = `${BASE_URL}/UserManagement`;
+
+                // Use the accurate full name for notifications
+                const displayName = newUser.full_name || `${newUser.first_name} ${newUser.last_name}`.trim();
+
+                for (const admin of admins) {
+                    // In-App Notification
+                    await base44.asServiceRole.entities.Notification.create({
+                        recipient_email: admin.email,
+                        type: 'general',
+                        title: '🎉 New User Signup!',
+                        message: `${displayName} (${newUser.email}) has joined as ${newUser.subscription_level === 'launchpad' ? 'Launchpad Unlimited' : 'Launchpad Starter'}.`,
+                        link: userManagementUrl
+                    });
+
+                    // Email Notification
+                    await resend.emails.send({
+                        from: `The Business Minds <${FROM_EMAIL}>`,
+                        to: admin.email,
+                        subject: `🎉 New User: ${displayName} (${newUser.subscription_level === 'launchpad' ? 'Paid' : 'Free'})`,
+                        html: `
+                            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                                <h2 style="color: #8B6F4E;">New User Signup</h2>
+                                <p>A new user has joined The Business Minds platform:</p>
+                                <ul>
+                                    <li><strong>Name:</strong> ${displayName}</li>
+                                    <li><strong>Email:</strong> ${newUser.email}</li>
+                                    <li><strong>City:</strong> ${newUser.city || 'N/A'}</li>
+                                    <li><strong>Stage:</strong> ${newUser.entrepreneurship_stage || 'N/A'}</li>
+                                    <li><strong>Subscription:</strong> ${newUser.subscription_level === 'launchpad' ? 'Launchpad Unlimited' : 'Launchpad Starter (Free)'}</li>
+                                </ul>
+                                <p><a href="${userManagementUrl}" style="background-color: #8B6F4E; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Manage Users →</a></p>
+                            </div>
+                        `
+                    });
+                }
+                console.log(`Sent new user notifications to ${admins.length} admins.`);
+            } catch (error) {
+                console.error("Failed to send admin notifications:", error.message);
+            }
+        } else {
+            console.warn("RESEND_FROM_EMAIL not set. Skipping admin email notifications.");
+        }
+
+        return new Response(JSON.stringify({ 
+            success: true, 
+            message: "User processed successfully",
+            ghl_contact_created: !!(GHL_API_KEY && GHL_LOCATION_ID)
+        }), {
+            headers: { "Content-Type": "application/json" }
+        });
+
+    } catch (error) {
+        console.error("Error in handleNewUserSignup function:", error);
+        return new Response(JSON.stringify({ 
+            success: false,
+            error: error.message 
+        }), {
+            status: 500,
+            headers: { "Content-Type": "application/json" }
+        });
+    }
+});
