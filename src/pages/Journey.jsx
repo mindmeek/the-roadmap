@@ -569,49 +569,55 @@ export default function JourneyPage() {
     return (
         <div className="px-4 pb-20 md:pb-8">
             <div className="max-w-6xl mx-auto space-y-6">
-                <div className="card p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
-                    <div className="flex items-start justify-between mb-4">
-                        <div className="flex items-start gap-4">
-                            <div className="bg-[var(--primary-gold)] p-3 rounded-lg">
-                                <Target className="w-8 h-8 text-white" />
+                {/* Mobile-Responsive Header Card */}
+                <div className="card p-4 sm:p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
+                    {/* Mobile: Stack Everything Vertically, Desktop: Side by Side */}
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between mb-4">
+                        {/* Left Content - Icon and Text */}
+                        <div className="flex items-start gap-3 sm:gap-4">
+                            <div className="bg-[var(--primary-gold)] p-2 sm:p-3 rounded-lg flex-shrink-0">
+                                <Target className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                             </div>
-                            <div>
-                                <h1 className="text-3xl font-bold text-[var(--text-main)] mb-2">My 90-Day Journey</h1>
-                                <p className="text-[var(--text-soft)]">{stageInfo?.title || 'Your Journey'}</p>
-                                <p className="text-sm font-semibold text-[var(--primary-gold)] mt-1">{journey?.title}</p>
+                            <div className="flex-1 min-w-0">
+                                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--text-main)] mb-1 sm:mb-2">My 90-Day Journey</h1>
+                                <p className="text-sm sm:text-base text-[var(--text-soft)] truncate">{stageInfo?.title || 'Your Journey'}</p>
+                                <p className="text-xs sm:text-sm font-semibold text-[var(--primary-gold)] mt-1 line-clamp-2">{journey?.title}</p>
                             </div>
                         </div>
-                        <div className="flex gap-2">
+                        
+                        {/* Right Buttons - Full Width on Mobile, Auto Width on Desktop */}
+                        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto sm:flex-shrink-0">
                             <button 
                                 onClick={handleChangeGoal}
                                 disabled={isChangingGoal}
-                                className="btn btn-secondary text-sm"
+                                className="btn btn-secondary text-sm w-full sm:w-auto whitespace-nowrap"
                             >
                                 {isChangingGoal ? (
                                     <>
                                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                        Changing...
+                                        <span>Changing...</span>
                                     </>
                                 ) : (
                                     <>
                                         <RefreshCw className="w-4 h-4 mr-2" />
-                                        Change Goal
+                                        <span>Change Goal</span>
                                     </>
                                 )}
                             </button>
                             <button 
                                 onClick={handleRestartJourney}
-                                className="btn btn-ghost text-sm"
+                                className="btn btn-ghost text-sm w-full sm:w-auto whitespace-nowrap"
                             >
                                 <RotateCcw className="w-4 h-4 mr-2" />
-                                Restart
+                                <span>Restart</span>
                             </button>
                         </div>
                     </div>
 
+                    {/* Free User Benefits Message */}
                     {user?.subscription_level === 'free' && (
-                        <div className="mt-4 p-3 bg-blue-100 dark:bg-blue-900/30 border border-blue-300 dark:border-blue-700 rounded-lg">
-                            <p className="text-sm text-blue-800 dark:text-blue-200">
+                        <div className="mt-3 sm:mt-4 p-3 bg-blue-100 dark:bg-blue-900/30 border border-blue-300 dark:border-blue-700 rounded-lg">
+                            <p className="text-xs sm:text-sm text-blue-800 dark:text-blue-200">
                                 <strong>Free Member Benefits:</strong> You have {user.goal_changes_count >= 1 ? 'used your one goal change' : 'one goal change remaining'} • 
                                 Unlimited journey restarts • Lifetime access to your notes and progress
                             </p>
