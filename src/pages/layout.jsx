@@ -395,14 +395,14 @@ export default function Layout({ children }) {
                 }
             } catch (e) {
                 if (location.pathname !== '/Login') {
-                   // navigate(createPageUrl('Login')); // Uncomment if not logged in users should be redirected to login
+                   // navigate(createPageUrl('Login'));
                 }
             } finally {
                 setLoading(false);
             }
         };
         fetchUser();
-    }, [location.pathname, navigate]); // Added navigate to dependency array
+    }, [location.pathname, navigate]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -444,8 +444,6 @@ export default function Layout({ children }) {
         return <div className="bg-white dark:bg-black h-screen flex items-center justify-center text-white">Loading...</div>;
     }
 
-    // If user is not logged in AND not on login/onboarding page, keep children as is
-    // This logic handles public routes or redirects outside of the layout
     if(location.pathname === '/Onboarding' || location.pathname === '/Login') {
       return <>{children}</>;
     }
@@ -470,8 +468,6 @@ export default function Layout({ children }) {
                                  location={location}
                                  user={user}
                              />
-                             <PrioritiesDropdown />
-                             <ScheduleDropdown />
 
                              {/* Community Section */}
                              <CollapsibleSection
