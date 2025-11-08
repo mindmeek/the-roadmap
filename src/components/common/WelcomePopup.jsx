@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { X, Target, Sparkles, Layers, Users, Zap, ArrowRight, CheckCircle2, BookOpen, Repeat, Calendar, Crown, Smartphone, Apple } from 'lucide-react';
+import { X, Target, Sparkles, Users, Zap, ArrowRight, BookOpen, CheckCircle2, Calendar, Crown, Smartphone, Apple, TrendingUp } from 'lucide-react';
 
 export default function WelcomePopup({ isOpen, onClose, user }) {
   const [isMobile, setIsMobile] = useState(false);
@@ -18,7 +18,10 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
 
   if (!isOpen) return null;
 
-  const isFreeUser = user?.subscription_level === 'free';
+  const isOnTrial = user?.is_premium_trial_user && user?.trial_status === 'active';
+  const trialDaysRemaining = user?.trial_expires_on ? 
+    Math.ceil((new Date(user.trial_expires_on) - new Date()) / (1000 * 60 * 60 * 24)) : 0;
+  
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   const isAndroid = /android/i.test(navigator.userAgent);
 
@@ -50,52 +53,91 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
             </p>
           </div>
 
-          {/* Platform Goals */}
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-4 sm:p-6 mb-6 text-left border border-blue-200 dark:border-blue-700">
-            <h3 className="font-semibold text-[var(--text-main)] mb-3 text-lg flex items-center gap-2">
-              <Target className="w-5 h-5 text-[var(--primary-gold)]" />
-              Your Platform Journey
-            </h3>
-            <div className="grid md:grid-cols-3 gap-3 sm:gap-4">
-              <div className="flex items-start gap-3">
-                <div className="bg-[var(--primary-gold)] rounded-full p-2 flex-shrink-0">
-                  <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-[var(--text-main)] mb-1 text-sm">Quick Start Foundation</h4>
-                  <p className="text-xs text-[var(--text-soft)]">Complete essential setup: domain, email, and brand basics</p>
-                </div>
+          {/* Trial Status Banner */}
+          {isOnTrial && (
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg p-4 mb-6 border-2 border-green-500">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <TrendingUp className="w-6 h-6 text-green-600" />
+                <h3 className="font-bold text-lg text-[var(--text-main)]">🎉 You Have Full Premium Access!</h3>
               </div>
-              <div className="flex items-start gap-3">
-                <div className="bg-[var(--primary-gold)] rounded-full p-2 flex-shrink-0">
-                  <Target className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-[var(--text-main)] mb-1 text-sm">90-Day Journey</h4>
-                  <p className="text-xs text-[var(--text-soft)]">Follow your personalized roadmap to success</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="bg-[var(--primary-gold)] rounded-full p-2 flex-shrink-0">
-                  <Users className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-[var(--text-main)] mb-1 text-sm">Community</h4>
-                  <p className="text-xs text-[var(--text-soft)]">Connect, learn, and grow with peers</p>
-                </div>
-              </div>
+              <p className="text-sm text-[var(--text-soft)] mb-2">
+                Your <strong>14-day premium trial</strong> is active. Explore everything The Business Minds has to offer!
+              </p>
+              <p className="text-xs text-green-700 dark:text-green-300 font-semibold">
+                ⏰ {trialDaysRemaining} day{trialDaysRemaining !== 1 ? 's' : ''} remaining
+              </p>
             </div>
+          )}
+
+          {/* Next Step Question */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-6 mb-6 text-center border border-blue-200 dark:border-blue-700">
+            <h3 className="font-bold text-xl text-[var(--text-main)] mb-4">
+              What's Your Next Logical Step?
+            </h3>
+            <p className="text-sm text-[var(--text-soft)] mb-4">
+              Choose where you'd like to begin your entrepreneurial journey:
+            </p>
+          </div>
+
+          {/* Action Options */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            {/* Option 1: Start 90-Day Plan */}
+            <Link
+              to={createPageUrl('Journey')}
+              onClick={handleClose}
+              className="card p-6 hover:border-[var(--primary-gold)] transition-all text-center group cursor-pointer"
+            >
+              <div className="bg-[var(--primary-gold)] w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <Target className="w-7 h-7 text-white" />
+              </div>
+              <h4 className="font-bold text-[var(--text-main)] mb-2">Start Your 90-Day Plan</h4>
+              <p className="text-sm text-[var(--text-soft)]">
+                Follow your personalized roadmap to business success
+              </p>
+            </Link>
+
+            {/* Option 2: Introduce Yourself */}
+            <a
+              href="https://thebminds.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleClose}
+              className="card p-6 hover:border-[var(--primary-gold)] transition-all text-center group cursor-pointer"
+            >
+              <div className="bg-purple-600 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <Users className="w-7 h-7 text-white" />
+              </div>
+              <h4 className="font-bold text-[var(--text-main)] mb-2">Introduce Yourself</h4>
+              <p className="text-sm text-[var(--text-soft)]">
+                Connect with fellow entrepreneurs in the community
+              </p>
+            </a>
+
+            {/* Option 3: Do Quick Wins */}
+            <Link
+              to={createPageUrl('QuickStartFoundation')}
+              onClick={handleClose}
+              className="card p-6 hover:border-[var(--primary-gold)] transition-all text-center group cursor-pointer"
+            >
+              <div className="bg-green-600 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <Zap className="w-7 h-7 text-white" />
+              </div>
+              <h4 className="font-bold text-[var(--text-main)] mb-2">Do Your Quick Wins</h4>
+              <p className="text-sm text-[var(--text-soft)]">
+                Get your essentials set up fast: domain, email, brand
+              </p>
+            </Link>
           </div>
 
           {/* Community Introduction */}
           <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-lg p-4 sm:p-6 mb-6 text-left border border-purple-200 dark:border-purple-700">
             <h3 className="font-semibold text-[var(--text-main)] mb-3 text-lg flex items-center gap-2">
               <Users className="w-5 h-5 text-purple-600" />
-              Join The Community & Introduce Yourself!
+              The Business Minds Community
             </h3>
             <p className="text-sm text-[var(--text-soft)] mb-4">
               You now have access to <strong>The Business Minds Community</strong> - an exclusive network of entrepreneurs. 
-              Sign in with the same credentials you just created and introduce yourself to fellow members!
+              Sign in with the same credentials you just created!
             </p>
             <div className="bg-white dark:bg-gray-800 rounded-lg p-3 mb-4">
               <p className="text-xs text-[var(--text-soft)] mb-2">
@@ -116,49 +158,7 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
                 </li>
               </ul>
             </div>
-            <a
-              href="https://app.thebminds.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary w-full justify-center text-sm"
-            >
-              <Users className="w-4 h-4 mr-2" />
-              Access Community Now
-            </a>
           </div>
-
-          {/* Your Membership Benefits */}
-          {isFreeUser && (
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-4 mb-6 border border-blue-200 dark:border-blue-700 text-left">
-              <h3 className="font-semibold text-[var(--text-main)] mb-2 flex items-center justify-center gap-2 text-base">
-                <CheckCircle2 className="w-5 h-5 text-blue-600" />
-                Your Free Membership Includes
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left text-xs sm:text-sm">
-                <div className="flex items-start gap-2">
-                  <BookOpen className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-medium text-[var(--text-main)]">Foundation Tools</p>
-                    <p className="text-xs text-[var(--text-soft)]">5 strategic documents forever</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Target className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-medium text-[var(--text-main)]">ONE 90-Day Journey</p>
-                    <p className="text-xs text-[var(--text-soft)]">Plus one goal change</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Repeat className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-medium text-[var(--text-main)]">Unlimited Restarts</p>
-                    <p className="text-xs text-[var(--text-soft)]">Repeat your journey anytime</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
 
           {/* Mobile App Download Buttons */}
           {isMobile && (
@@ -196,93 +196,39 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
                   </a>
                 )}
               </div>
-              <p className="text-xs text-[var(--text-soft)] mt-3 text-center">
-                Or continue using the web version - it works great on all devices!
-              </p>
             </div>
           )}
 
-          {/* Action Buttons */}
-          <div className="space-y-3">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <Link
-                to={createPageUrl('QuickStartFoundation')}
-                onClick={handleClose}
-                className="btn btn-primary w-full text-sm sm:text-base py-3 flex items-center justify-center gap-2"
-              >
-                <Zap className="w-4 h-4 sm:w-5 sm:h-5" />
-                Start with Quick Wins
-              </Link>
-              <Link
-                to={createPageUrl('Journey')}
-                onClick={handleClose}
-                className="btn btn-secondary w-full text-sm sm:text-base py-3 flex items-center justify-center gap-2"
-              >
-                <Target className="w-4 h-4 sm:w-5 sm:h-5" />
-                My 90-Day Journey
-              </Link>
-            </div>
-
-            {user?.subscription_level === 'free' && (
-              <Link
-                to={createPageUrl('StrategySession')}
-                onClick={handleClose}
-                className="btn bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 w-full text-sm sm:text-base py-3 flex items-center justify-center gap-2"
-              >
-                <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
-                Schedule Free Strategy Session
-              </Link>
-            )}
-
-            {isFreeUser && (
-              <Link
-                to={createPageUrl('Upgrade')}
-                onClick={handleClose}
-                className="btn bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 text-white hover:from-yellow-600 hover:to-[var(--primary-gold)] w-full text-sm sm:text-base py-3 flex items-center justify-center gap-2"
-              >
-                <Crown className="w-4 h-4 sm:w-5 sm:h-5" />
-                Unlock Full Access with The HQ
-              </Link>
-            )}
-
-            <button
-              onClick={handleClose}
-              className="text-[var(--text-soft)] hover:text-[var(--text-main)] text-sm w-full py-2"
-            >
-              I'll explore on my own
-            </button>
-          </div>
-
-          {/* The HQ Information */}
-          {isFreeUser && (
-            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 text-left">
-              <h4 className="font-semibold text-[var(--text-main)] mb-2 text-base flex items-center gap-2">
-                <Crown className="w-5 h-5 text-[var(--primary-gold)]" />
-                Want More? Upgrade to The Business Minds HQ
-              </h4>
-              <p className="text-xs sm:text-sm text-[var(--text-soft)] mb-3">
-                Get unlimited access to all journeys, advanced strategy tools, priority support, and exclusive training content.
-              </p>
-              <div className="grid grid-cols-2 gap-2 text-xs">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
-                  <span className="text-[var(--text-soft)]">Unlimited Journeys</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
-                  <span className="text-[var(--text-soft)]">All Strategy Tools</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
-                  <span className="text-[var(--text-soft)]">Unlimited AI Access</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
-                  <span className="text-[var(--text-soft)]">HQ Training Content</span>
+          {/* Upgrade to HQ CTA */}
+          {!isOnTrial && (
+            <div className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-lg p-4 mb-4 border border-[var(--primary-gold)]">
+              <div className="flex items-start gap-3">
+                <Crown className="w-6 h-6 text-[var(--primary-gold)] flex-shrink-0 mt-1" />
+                <div className="flex-1 text-left">
+                  <h4 className="font-bold text-[var(--text-main)] mb-2">Unlock The Business Minds HQ</h4>
+                  <p className="text-sm text-[var(--text-soft)] mb-3">
+                    Get unlimited journeys, all strategy tools, AI access, and exclusive training content.
+                  </p>
+                  <a
+                    href="https://TheBusinessMinds.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary text-sm inline-flex items-center"
+                  >
+                    <Crown className="w-4 h-4 mr-2" />
+                    Upgrade to The HQ
+                  </a>
                 </div>
               </div>
             </div>
           )}
+
+          <button
+            onClick={handleClose}
+            className="text-[var(--text-soft)] hover:text-[var(--text-main)] text-sm w-full py-2 mt-4"
+          >
+            I'll explore on my own
+          </button>
         </div>
       </div>
     </div>
