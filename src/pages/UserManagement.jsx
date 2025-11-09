@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { User } from '@/entities/User';
-import { Loader2, Search, UserCheck, UserX, Crown, Shield, ChevronDown, ChevronUp, Trash2, PauseCircle, PlayCircle } from 'lucide-react';
+import { Loader2, Search, UserCheck, UserX, Crown, Shield, ChevronDown, ChevronUp, Trash2, PauseCircle, PlayCircle, Gift } from 'lucide-react';
 
 export default function UserManagement() {
     const [users, setUsers] = useState([]);
@@ -62,6 +62,35 @@ export default function UserManagement() {
             alert('An error occurred while updating the subscription.');
         } finally {
             setUpgradingUserId(null);
+        }
+    };
+
+    const handleGrantTrial = async (userId, durationDays = 14) => {
+        if (!confirm(`Grant this user a ${durationDays}-day premium trial?`)) {
+            return;
+        }
+
+        setProcessingUserId(userId);
+        try {
+            const user = users.find(u => u.id === userId);
+            
+            const { data } = await base44.functions.invoke('handleNewUserSignup', {
+                userId: userId,
+                email: user.email,
+                fullName: user.full_name
+            });
+
+            if (data.success) {
+                alert(`${durationDays}-day premium trial granted successfully!`);
+                await loadUsers();
+            } else {
+                alert(`Failed to grant trial: ${data.error || 'Unknown error'}`);
+            }
+        } catch (error) {
+            console.error('Error granting trial:', error);
+            alert('An error occurred while granting the trial.');
+        } finally {
+            setProcessingUserId(null);
         }
     };
 
@@ -167,7 +196,7 @@ export default function UserManagement() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
                 <div className="card p-4">
                     <div className="text-2xl font-bold text-[var(--text-main)]">{users.length}</div>
                     <div className="text-sm text-[var(--text-soft)]">Total Users</div>
@@ -183,6 +212,12 @@ export default function UserManagement() {
                         {users.filter(u => u.subscription_level === 'free').length}
                     </div>
                     <div className="text-sm text-[var(--text-soft)]">Free Members</div>
+                </div>
+                <div className="card p-4">
+                    <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                        {users.filter(u => u.is_premium_trial_user && u.trial_status === 'active').length}
+                    </div>
+                    <div className="text-sm text-[var(--text-soft)]">Active Trials</div>
                 </div>
                 <div className="card p-4">
                     <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
@@ -237,7 +272,12 @@ export default function UserManagement() {
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className="flex items-center space-x-2">
-                                                {user.subscription_level === 'business_hq' ? (
+                                                {user.is_premium_trial_user && user.trial_status === 'active' ? (
+                                                    <span className="flex items-center px-2 py-1 text-xs rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                                        <Gift className="w-3 h-3 mr-1" />
+                                                        Trial Active
+                                                    </span>
+                                                ) : user.subscription_level === 'business_hq' ? (
                                                     <span className="flex items-center px-2 py-1 text-xs rounded-full bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 text-white">
                                                         <Crown className="w-3 h-3 mr-1" />
                                                         Business HQ
@@ -306,6 +346,48 @@ export default function UserManagement() {
                                                             <p className="text-sm text-[var(--text-main)]">Level {user.level || 1}</p>
                                                         </div>
                                                     </div>
+
+                                                    {/* Trial Status */}
+                                                    {user.is_premium_trial_user && user.trial_status === 'active' && (
+                                                        <div className="border-t border-[var(--border-color)] pt-4">
+                                                            <h4 className="font-semibold text-[var(--text-main)] mb-2">Trial Status</h4>
+                                                            <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-200 dark:border-green-700">
+                                                                <p className="text-sm text-green-800 dark:text-green-200">
+                                                                    <strong>Active Premium Trial</strong>
+                                                                </p>
+                                                                <p className="text-xs text-green-700 dark:text-green-300 mt-1">
+                                                                    Expires: {new Date(user.trial_expires_on).toLocaleDateString()}
+                                                                </p>
+                                                                <p className="text-xs text-green-700 dark:text-green-300">
+                                                                    Days remaining: {Math.ceil((new Date(user.trial_expires_on) - new Date()) / (1000 * 60 * 60 * 24))}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    )}
+
+                                                    {/* Grant Trial Section */}
+                                                    {!user.is_premium_trial_user && user.trial_status !== 'active' && (
+                                                        <div className="border-t border-[var(--border-color)] pt-4">
+                                                            <h4 className="font-semibold text-[var(--text-main)] mb-3">Grant Premium Trial</h4>
+                                                            <button
+                                                                onClick={() => handleGrantTrial(user.id, 14)}
+                                                                disabled={processingUserId === user.id}
+                                                                className="btn bg-green-600 text-white hover:bg-green-700 btn-sm disabled:opacity-50"
+                                                            >
+                                                                {processingUserId === user.id ? (
+                                                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                                                ) : (
+                                                                    <>
+                                                                        <Gift className="w-4 h-4 mr-1" />
+                                                                        Grant 14-Day Premium Trial
+                                                                    </>
+                                                                )}
+                                                            </button>
+                                                            <p className="text-xs text-[var(--text-soft)] mt-2">
+                                                                This will give the user full premium access for 14 days and send them a welcome email.
+                                                            </p>
+                                                        </div>
+                                                    )}
 
                                                     {/* Manual Subscription Management */}
                                                     <div className="border-t border-[var(--border-color)] pt-4">
