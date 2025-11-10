@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -9,86 +8,141 @@ const lessons = [
   {
     id: "domain-name",
     title: "How to Choose the Right Domain Name",
-    description: "A step-by-step process to find a domain that aligns with your brand and long-term goals.",
+    description: "Your domain is your digital foundation. Learn the psychology behind memorable domain names, common pitfalls to avoid, and a step-by-step process to find a domain that aligns with your brand identity and long-term business vision.",
     category: "Branding",
-    icon: Globe
+    icon: Globe,
+    keyTakeaways: [
+      "Understand the psychology of memorable domain names",
+      "Master the art of balancing brevity with clarity",
+      "Learn how domain extensions impact credibility and SEO"
+    ]
   },
   {
     id: "morning-routine",
     title: "The Entrepreneur's Morning Routine",
-    description: "Supercharge your day with a proven routine for peak performance and mental clarity.",
+    description: "Design and build your personalized morning routine step-by-step. Discover how successful entrepreneurs structure their mornings to maximize energy, focus, and productivity. Create a sustainable routine that sets you up for peak performance throughout the day.",
     category: "Productivity",
-    icon: Zap
+    icon: Zap,
+    keyTakeaways: [
+      "Build your custom morning routine with our interactive tool",
+      "Learn the science behind peak morning productivity",
+      "Implement habits used by top-performing entrepreneurs"
+    ]
   },
   {
     id: "customer-research",
     title: "5-Minute Customer Research",
-    description: "Get deep customer insights fast without expensive surveys or focus groups.",
+    description: "Master rapid customer research techniques that deliver deep insights without expensive surveys. Learn to extract valuable customer intelligence from existing data, social listening, and strategic questions that reveal what customers truly want.",
     category: "Market Research",
-    icon: Users
+    icon: Users,
+    keyTakeaways: [
+      "Leverage existing data for customer insights",
+      "Master social listening techniques for real-time feedback",
+      "Ask the right questions that reveal true customer needs"
+    ]
   },
   {
     id: "pricing-psychology",
     title: "Pricing Psychology Essentials",
-    description: "Master the principles that make customers say 'yes' to higher prices.",
+    description: "Discover the cognitive biases and psychological principles that influence purchasing decisions. Learn advanced pricing strategies including anchoring, charm pricing, and value framing that can increase conversions and maximize revenue without competing on price alone.",
     category: "Sales",
-    icon: DollarSign
+    icon: DollarSign,
+    keyTakeaways: [
+      "Apply proven pricing psychology principles",
+      "Use anchoring and framing to influence perception",
+      "Design pricing tiers that maximize revenue"
+    ]
   },
   {
     id: "social-proof",
     title: "Building Social Proof Fast",
-    description: "Create credibility and trust with potential customers, even when you're starting from zero.",
+    description: "Create powerful credibility signals even when starting from zero. Learn systematic approaches to generating testimonials, case studies, and social validation that overcome buyer skepticism and accelerate trust-building with potential customers.",
     category: "Marketing",
-    icon: Star
+    icon: Star,
+    keyTakeaways: [
+      "Generate authentic testimonials quickly",
+      "Create compelling case studies that sell",
+      "Leverage micro-influencers for instant credibility"
+    ]
   },
   {
     id: "email-sequences",
     title: "High-Converting Email Sequences",
-    description: "Automate your sales process and nurture leads into paying customers.",
+    description: "Design automated email workflows that nurture leads into paying customers. Master the art of storytelling in email, strategic timing, and psychological triggers that drive action. Learn to build sequences that work 24/7 to grow your business.",
     category: "Email Marketing",
-    icon: Mail
+    icon: Mail,
+    keyTakeaways: [
+      "Craft compelling email subject lines that get opens",
+      "Structure sequences for maximum conversion",
+      "Use storytelling and psychology to drive action"
+    ]
   },
   {
     id: "productivity-hacks",
     title: "10 Productivity Hacks for Entrepreneurs",
-    description: "Get more done in less time while reducing stress and overwhelm.",
+    description: "Implement battle-tested productivity systems used by successful entrepreneurs. Learn to eliminate decision fatigue, optimize your energy levels, and create systems that multiply your output. Transform from busy to truly productive with these proven techniques.",
     category: "Productivity",
-    icon: Clock
+    icon: Clock,
+    keyTakeaways: [
+      "Master time-blocking and energy management",
+      "Eliminate decision fatigue with smart systems",
+      "Implement the Pomodoro Technique effectively"
+    ]
   },
   {
     id: "sales-conversations",
     title: "Mastering Sales Conversations",
-    description: "Turn prospects into customers with conversation frameworks that feel natural and authentic.",
+    description: "Transform your sales approach with frameworks that feel natural and authentic. Learn active listening techniques, objection handling, and how to guide prospects to yes without being pushy. Discover the psychology of persuasion that works.",
     category: "Sales",
-    icon: Handshake
+    icon: Handshake,
+    keyTakeaways: [
+      "Master the 80/20 listening rule in sales",
+      "Handle objections using the Feel-Felt-Found method",
+      "Close deals without pressure tactics"
+    ]
   },
   {
     id: "business-structures",
     title: "Choosing Your Business Structure",
-    description: "Understand the legal and financial implications of LLCs, S-Corps, and more.",
+    description: "Navigate the complex world of business entities with clarity. Understand the legal, tax, and liability implications of LLCs, S-Corps, and C-Corps. Make informed decisions that protect your assets and optimize your tax position for long-term success.",
     category: "Legal & Finance",
-    icon: Briefcase
+    icon: Briefcase,
+    keyTakeaways: [
+      "Understand liability protection across entity types",
+      "Compare tax implications of different structures",
+      "Know when to transition from sole proprietor to LLC"
+    ]
   },
   {
     id: "networking-strategy",
     title: "Strategic Networking for Entrepreneurs",
-    description: "Build meaningful business relationships that drive growth and opportunities.",
+    description: "Build a powerful network that drives real business opportunities. Learn to identify high-value connections, cultivate meaningful relationships, and provide value that creates reciprocity. Transform networking from awkward to authentic.",
     category: "Networking",
-    icon: Users
+    icon: Users,
+    keyTakeaways: [
+      "Identify and connect with high-value contacts",
+      "Build relationships that create opportunities",
+      "Give value first to receive value later"
+    ]
   },
   {
     id: "cash-flow-management",
     title: "Cash Flow Management Basics",
-    description: "Keep your business financially healthy with smart cash flow strategies.",
+    description: "Master the lifeblood of your business with proven cash flow strategies. Learn to forecast accurately, manage receivables, and create cash reserves. Understand the metrics that matter and avoid the cash flow mistakes that kill businesses.",
     category: "Finance",
-    icon: DollarSign
+    icon: DollarSign,
+    keyTakeaways: [
+      "Create accurate 90-day cash flow forecasts",
+      "Implement systems for managing receivables",
+      "Build emergency cash reserves systematically"
+    ]
   }
 ];
 
 export default function QuickLessons() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [filteredLessons, setFilteredLessons] = useState(lessons); // Added for consistency
+  const [filteredLessons, setFilteredLessons] = useState(lessons);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -96,7 +150,6 @@ export default function QuickLessons() {
         const userData = await User.me();
         setUser(userData);
       } catch (e) {
-        // Not logged in or error fetching user, keep user null
         console.error("Failed to fetch user:", e);
       } finally {
         setLoading(false);
@@ -108,21 +161,19 @@ export default function QuickLessons() {
   const hasAccessToLesson = (lessonIndex) => {
     if (!user) return false;
 
-    // Full access roles/subscription levels
     if (user.role === 'admin' || user.role === 'thought_leader' || user.subscription_level === 'launchpad' || user.subscription_level === 'business_hq') {
       return true;
     }
     
-    // Free trial access logic
     if (user.subscription_level === 'free') {
       const today = new Date();
       const trialExpiry = user.free_trial_expires_on ? new Date(user.free_trial_expires_on) : null;
       if (trialExpiry && today <= trialExpiry) {
-        return lessonIndex < 6; // First 6 lessons accessible during active trial (about half)
+        return lessonIndex < 6;
       }
     }
     
-    return false; // Default: no access
+    return false;
   };
   
   if (loading) {
@@ -148,14 +199,17 @@ export default function QuickLessons() {
             </div>
           </div>
           
-          <div className="bg-blue-50 border border-blue-200 p-6 rounded-lg mt-6">
+          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 p-6 rounded-lg mt-6">
             <div className="flex items-start space-x-4">
               <Zap className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
               <div>
                 <h3 className="font-bold text-[var(--text-main)] mb-2">Learn & Apply Immediately</h3>
-                <p className="text-[var(--text-main)] leading-relaxed">
+                <p className="text-[var(--text-main)] leading-relaxed mb-3">
                   These quick lessons focus on practical business skills you can implement right away. 
                   Each lesson is designed to give you actionable knowledge that directly impacts your business operations.
+                </p>
+                <p className="text-[var(--text-main)] leading-relaxed">
+                  Unlike theoretical courses, these lessons provide <strong>battle-tested frameworks</strong> and <strong>step-by-step processes</strong> used by successful entrepreneurs. Every lesson includes specific action steps, practical tips, and recommended tools to help you implement immediately and see real results in your business.
                 </p>
               </div>
             </div>
@@ -181,7 +235,7 @@ export default function QuickLessons() {
                 )}
                 
                 <div className="flex items-center space-x-4 mb-4">
-                  <div className="bg-gray-100 p-3 rounded-md group-hover:bg-[var(--primary-gold)] group-hover:text-white transition-colors">
+                  <div className="bg-gray-100 dark:bg-gray-700 p-3 rounded-md group-hover:bg-[var(--primary-gold)] group-hover:text-white transition-colors">
                     <lesson.icon className="w-6 h-6" />
                   </div>
                   <div className="text-xs font-semibold uppercase text-[var(--text-soft)] tracking-wider">{lesson.category}</div>
@@ -189,7 +243,22 @@ export default function QuickLessons() {
                 <h3 className={`text-lg font-bold text-[var(--text-main)] mb-2 flex-grow ${hasAccess ? 'group-hover:text-[var(--primary-gold)]' : ''} transition-colors`}>
                   {lesson.title}
                 </h3>
-                <p className="text-sm text-[var(--text-soft)] line-clamp-2 mb-4">{lesson.description}</p>
+                <p className="text-sm text-[var(--text-soft)] line-clamp-3 mb-4">{lesson.description}</p>
+                
+                {/* Key Takeaways */}
+                {lesson.keyTakeaways && (
+                  <div className="mb-4 bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-md">
+                    <p className="text-xs font-semibold text-[var(--text-main)] mb-2">Key Takeaways:</p>
+                    <ul className="space-y-1">
+                      {lesson.keyTakeaways.map((takeaway, idx) => (
+                        <li key={idx} className="text-xs text-[var(--text-soft)] flex items-start">
+                          <CheckCircle className="w-3 h-3 text-[var(--primary-gold)] mr-1 flex-shrink-0 mt-0.5" />
+                          <span>{takeaway}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
                 
                 <div className="flex items-center justify-between mt-auto">
                   <div className="text-xs text-[var(--text-soft)] flex items-center">
@@ -217,7 +286,7 @@ export default function QuickLessons() {
         
         {/* Upgrade CTA for Free Users */}
         {user && user.subscription_level === 'free' && (
-          <div className="card p-8 bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-200 mt-8">
+          <div className="card p-8 bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border border-purple-200 dark:border-purple-700 mt-8">
             <div className="text-center">
               <Crown className="w-12 h-12 text-[var(--primary-gold)] mx-auto mb-4" />
               <h3 className="text-2xl font-bold text-[var(--text-main)] mb-4">
