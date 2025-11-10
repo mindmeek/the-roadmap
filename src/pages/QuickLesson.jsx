@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Lightbulb, ArrowLeft, CheckCircle, Clock, Target, Save, Copy, Zap, Sparkles } from "lucide-react";
+import { Lightbulb, ArrowLeft, CheckCircle, Clock, Target, Save, Zap, Sparkles } from "lucide-react";
 
 const quickLessons = {
   "domain-name": {
@@ -31,32 +30,6 @@ const quickLessons = {
       { name: "Google Domains", description: "Google's domain registration service" }
     ]
   },
-  "swot-analysis": {
-    title: "SWOT Analysis for Business Success",
-    readTime: "12 min read",
-    category: "Strategy",
-    overview: "SWOT Analysis (Strengths, Weaknesses, Opportunities, Threats) is a strategic planning framework that helps you understand your business's current position and develop actionable strategies for growth.",
-    whyItHelps: "SWOT analysis provides clarity on where your business stands, reveals untapped opportunities, identifies potential risks, and helps you make informed strategic decisions based on honest self-assessment.",
-    actionSteps: [
-      "**Identify Your Strengths:** List what your business does well. Consider unique skills, resources, competitive advantages, strong relationships, or superior processes.",
-      "**Acknowledge Your Weaknesses:** Honestly assess areas needing improvement. This might include skill gaps, resource limitations, or operational inefficiencies.",
-      "**Spot Opportunities:** Look for external factors you can leverage. Market trends, competitor gaps, technology advances, or regulatory changes.",
-      "**Recognize Threats:** Identify external challenges that could harm your business. Competition, economic downturns, changing customer preferences, or new regulations.",
-      "**Create Action Plans:** For each quadrant, develop 2-3 specific strategies to leverage strengths, address weaknesses, capitalize on opportunities, and mitigate threats.",
-      "**Review Quarterly:** SWOT analysis isn't a one-time exercise. Update it every 3 months as your business and market evolve."
-    ],
-    practicalTips: [
-      "Get input from employees, customers, and advisors for objective perspectives",
-      "Use data and metrics to support your assessments, not just gut feelings",
-      "Prioritize items in each quadrant by impact and feasibility",
-      "Turn your SWOT into a strategic action plan with deadlines and owners"
-    ],
-    tools: [
-      { name: "The Command Hub Form Builder", description: "Create surveys to gather SWOT input from team and customers" },
-      { name: "The Command Hub CRM", description: "Track customer feedback and market data for analysis" },
-      { name: "Google Sheets", description: "Free SWOT analysis templates for organization" }
-    ]
-  },
   "morning-routine": {
     title: "The Entrepreneur's Morning Routine",
     readTime: "10 min read",
@@ -82,221 +55,6 @@ const quickLessons = {
       { name: "The Command Hub Calendar", description: "Schedule your morning routine blocks and set reminders" },
       { name: "Headspace", description: "Guided meditation and mindfulness exercises" }
     ]
-  },
-  "customer-research": {
-    title: "5-Minute Customer Research",
-    readTime: "7 min read",
-    category: "Market Research",
-    overview: "Understanding your customers doesn't require expensive market research. With the right approach, you can gather valuable customer insights quickly and inexpensively to improve your products and marketing.",
-    whyItHelps: "Quick customer research helps you make data-driven decisions, identify pain points, validate ideas, and create products and messages that truly resonate with your target audience.",
-    actionSteps: [
-      "**Use Your CRM Data:** Check your customer demographics, purchase history, and interaction patterns in The Command Hub's CRM for valuable insights.",
-      "**Social Media Listening:** Search your brand name, product keywords, and competitor names on social platforms using The Command Hub's Social Media Planner.",
-      "**Survey Existing Customers:** Create a 3-question survey using The Command Hub's Form Builder: What brought you to us? What's your biggest challenge? What would make you recommend us?",
-      "**Check Review Sites:** Read reviews of your business and competitors on Google, Yelp, Facebook using The Command Hub's Review Management feature.",
-      "**Analyze Customer Communications:** Review SMS and email interactions through The Command Hub to identify common questions and concerns.",
-      "**Interview One Customer Weekly:** Schedule brief 15-minute calls with customers. Ask about their challenges, goals, and experience with your product."
-    ],
-    practicalTips: [
-      "Create customer personas based on your CRM data and research findings",
-      "Keep a customer feedback spreadsheet to track common themes",
-      "Use The Command Hub's automation to send follow-up research surveys",
-      "Join Facebook groups and online communities where your customers hang out"
-    ],
-    tools: [
-      { name: "The Command Hub CRM", description: "Track customer demographics, behavior, and interaction history" },
-      { name: "The Command Hub Form Builder", description: "Create quick customer research surveys" },
-      { name: "The Command Hub Review Management", description: "Monitor and analyze customer reviews across platforms" }
-    ]
-  },
-  "pricing-psychology": {
-    title: "Pricing Psychology Essentials",
-    readTime: "9 min read",
-    category: "Sales",
-    overview: "Pricing isn't just about covering costs and making profit. How you present and structure your prices dramatically affects customer perception, purchase decisions, and your overall revenue.",
-    whyItHelps: "Understanding pricing psychology helps you maximize revenue, improve conversion rates, and position your products appropriately in the market without competing solely on price.",
-    actionSteps: [
-      "**Use Charm Pricing Strategically:** Prices ending in 9 (like $19.99) can increase sales by up to 30% compared to round numbers, especially for lower-priced items.",
-      "**Create Price Anchoring:** Show a higher-priced option first to make your main offering seem more reasonable. This is why menus list expensive items at the top.",
-      "**Bundle Products Effectively:** Group products together at a discount using The Command Hub's payment features. Customers perceive bundles as better value.",
-      "**Offer Three Tiers:** Present three pricing options with your preferred choice in the middle using The Command Hub's sales funnels. Most people choose the middle option.",
-      "**Show Value Before Price:** Always communicate benefits and value before revealing the price in your sales funnels and proposals.",
-      "**Use Social Proof:** Display customer testimonials and success stories near pricing using The Command Hub's review management system."
-    ],
-    practicalTips: [
-      "Test different price points using The Command Hub's sales funnel A/B testing",
-      "Use The Command Hub's payment system to offer payment plans for higher prices",
-      "Remove dollar signs in digital materials - they can create 'payment pain'",
-      "Regularly review and adjust prices based on The Command Hub's sales data"
-    ],
-    tools: [
-      { name: "The Command Hub Sales Funnels", description: "Create and test different pricing presentations" },
-      { name: "The Command Hub Payment System", description: "Set up payment plans and process transactions" },
-      { name: "The Command Hub Review Management", description: "Gather and display social proof near pricing" }
-    ]
-  },
-  "social-proof": {
-    title: "Building Social Proof Fast",
-    readTime: "6 min read",
-    category: "Marketing",
-    overview: "Social proof is the psychological phenomenon where people look to others' actions to guide their own behavior. For new businesses, creating social proof quickly is essential for building trust and credibility.",
-    whyItHelps: "Social proof reduces the perceived risk of buying from you, increases conversion rates, builds brand credibility, and helps overcome the natural skepticism people have toward new businesses.",
-    actionSteps: [
-      "**Collect Testimonials Immediately:** Use The Command Hub's review management system to automatically request testimonials after every successful transaction or interaction.",
-      "**Create Case Studies:** Document customer success stories using The Command Hub's CRM data to show before/after scenarios with specific results.",
-      "**Display Customer Count:** Show how many customers you've served using data from The Command Hub's CRM and payment systems.",
-      "**Leverage Personal Networks:** Use The Command Hub's SMS marketing to ask friends, family, and colleagues to leave honest reviews on Google and Facebook.",
-      "**Partner with Influencers:** Connect with micro-influencers using The Command Hub's CRM to track partnerships and collaborations.",
-      "**Show Media Mentions:** Create a press section on your website in The Command Hub to display any media coverage or industry recognition."
-    ],
-    practicalTips: [
-      "Use The Command Hub's automation to send review requests 24 hours after purchase",
-      "Include photos and specific results in testimonials when possible",
-      "Create a simple email template in The Command Hub for review requests",
-      "Respond to all reviews professionally through The Command Hub's review management"
-    ],
-    tools: [
-      { name: "The Command Hub Review Management", description: "Collect, manage, and display customer reviews" },
-      { name: "The Command Hub CRM", description: "Track customer success stories and case study data" },
-      { name: "The Command Hub Website Builder", description: "Create testimonial pages and social proof sections" }
-    ]
-  },
-  "email-sequences": {
-    title: "High-Converting Email Sequences",
-    readTime: "10 min read",
-    category: "Email Marketing",
-    overview: "Email sequences are automated series of emails sent to nurture leads, onboard new customers, or recover abandoned carts. They work 24/7 to build relationships and drive sales for your business.",
-    whyItHelps: "Automated email sequences save you time, ensure consistent communication with your audience, build trust on autopilot, and guide potential customers through the sales process without manual intervention.",
-    actionSteps: [
-      "**Define Your Goal:** What do you want this sequence to achieve? Use The Command Hub's marketing automation to set up different sequences for different goals.",
-      "**Segment Your Audience:** Use The Command Hub's CRM to create targeted lists based on customer behavior, interests, and purchase history.",
-      "**Map Out the Sequence:** Plan your emails using The Command Hub's automation workflow builder with proper timing between each message.",
-      "**Write Compelling Subject Lines:** Test different subject lines using The Command Hub's A/B testing features to optimize open rates.",
-      "**Provide Value in Every Email:** Each email should offer tips, resources, or insights. Use The Command Hub's content library to store valuable resources.",
-      "**Include Clear Call to Actions:** Direct readers to your landing pages in The Command Hub, booking calendar, or payment system.",
-      "**Track and Optimize:** Monitor performance using The Command Hub's detailed analytics and adjust your sequences accordingly."
-    ],
-    practicalTips: [
-      "Use The Command Hub's personalization features to include subscriber names and relevant details",
-      "Keep emails focused on single topics using The Command Hub's email templates",
-      "Set up automatic sequences in The Command Hub for welcome series, nurture campaigns, and follow-ups",
-      "Use The Command Hub's mobile app to monitor email performance on the go"
-    ],
-    tools: [
-      { name: "The Command Hub Marketing Automation", description: "Create sophisticated email sequences and workflows" },
-      { name: "The Command Hub CRM", description: "Segment audiences and track email engagement" },
-      { name: "The Command Hub Analytics", description: "Monitor email performance and optimize campaigns" }
-    ]
-  },
-  "productivity-hacks": {
-    title: "10 Productivity Hacks for Entrepreneurs",
-    readTime: "12 min read",
-    category: "Productivity",
-    overview: "Entrepreneurs wear many hats, making productivity essential for success. These hacks are simple yet powerful techniques to help you get more done in less time, reduce stress, and focus on what truly matters.",
-    whyItHelps: "By implementing these hacks, you can reclaim your time, reduce overwhelm, improve your focus, and make consistent progress on your most important business goals.",
-    actionSteps: [
-      "**Eat The Frog:** Tackle your most difficult task first thing in the morning. Use The Command Hub's calendar to block time for your hardest tasks.",
-      "**Time Blocking:** Schedule your entire day using The Command Hub's appointment calendar system to eliminate decision-making and ensure focus.",
-      "**The Pomodoro Technique:** Work in focused 25-minute intervals. Use The Command Hub's mobile app to set timers and track productivity.",
-      "**The Two-Minute Rule:** If a task takes less than two minutes, do it immediately. Use The Command Hub's CRM to quickly update contacts and notes.",
-      "**Batch Similar Tasks:** Group activities together using The Command Hub's calendar. Answer all emails, make calls, and update CRM in dedicated blocks.",
-      "**Set Daily Priorities:** Use The Command Hub's dashboard to identify your top 3 daily priorities and track completion.",
-      "**Turn Off Notifications:** Use The Command Hub's mobile app notification settings to control when you receive alerts during focus time.",
-      "**Use The Command Hub's Automation:** Set up automated workflows to handle repetitive tasks like follow-ups, appointment reminders, and lead nurturing.",
-      "**Plan Your Day:** Use The Command Hub's calendar the night before to plan your priorities and schedule for the next day.",
-      "**Delegate Through Automation:** Use The Command Hub's marketing automation to handle tasks that don't require personal attention."
-    ],
-    practicalTips: [
-      "Use The Command Hub's mobile app to stay productive on the go",
-      "Set up automated reminders in The Command Hub for important tasks",
-      "Use The Command Hub's social media planner to batch content creation",
-      "Review weekly performance using The Command Hub's analytics dashboard"
-    ],
-    tools: [
-      { name: "The Command Hub Calendar", description: "Advanced scheduling and time blocking features" },
-      { name: "The Command Hub Mobile App", description: "Manage your business productivity on the go" },
-      { name: "The Command Hub Marketing Automation", description: "Automate repetitive business tasks" }
-    ]
-  },
-  "sales-conversations": {
-    title: "Mastering Sales Conversations",
-    readTime: "11 min read",
-    category: "Sales",
-    overview: "Effective sales conversations are not about pushy tactics; they're about understanding a customer's needs and showing how your product or service is the best solution. Mastering this skill is crucial for any entrepreneur.",
-    whyItHelps: "By improving your sales conversations, you can increase your conversion rates, build stronger customer relationships, and gain valuable insights into your customers' needs and challenges.",
-    actionSteps: [
-      "**Start with Research:** Use The Command Hub's CRM to research prospects before calls. Review their interaction history and previous touchpoints.",
-      "**Listen More Than You Talk:** Aim for an 80/20 balance. Use The Command Hub's call recording features (where legal) to review your conversations.",
-      "**Ask Open-Ended Questions:** Prepare questions in The Command Hub's CRM that start with 'What,' 'How,' and 'Why' to encourage detailed responses.",
-      "**Focus on Pain Points:** Use The Command Hub's CRM to document customer challenges and pain points for future reference.",
-      "**Connect Features to Benefits:** Create benefit-focused scripts in The Command Hub that connect your features to specific customer pain points.",
-      "**Handle Objections:** Develop objection-handling scripts in The Command Hub using the 'Feel, Felt, Found' method for common concerns.",
-      "**Establish Clear Next Steps:** Use The Command Hub's calendar to schedule follow-ups immediately after sales calls and send calendar invites."
-    ],
-    practicalTips: [
-      "Use The Command Hub's business phone number for professional calling presence",
-      "Create objection-handling templates in The Command Hub for quick reference",
-      "Set up automated follow-up sequences in The Command Hub after sales calls",
-      "Track sales conversation outcomes in The Command Hub's CRM for continuous improvement"
-    ],
-    tools: [
-      { name: "The Command Hub CRM", description: "Track sales conversations, prospects, and deal progress" },
-      { name: "The Command Hub Business Phone", description: "Professional calling with recording capabilities" },
-      { name: "The Command Hub Calendar", description: "Schedule and manage sales calls and follow-ups" }
-    ]
-  },
-  "mindset-resilience": {
-    title: "Building Entrepreneurial Resilience",
-    readTime: "9 min read",
-    category: "Mindset",
-    overview: "Entrepreneurship is a marathon of challenges and setbacks. Resilience is the mental toughness that allows you to bounce back from failure, adapt to change, and maintain your motivation through difficult times.",
-    whyItHelps: "Resilience prevents burnout, improves decision-making under pressure, and is the single most important trait for long-term entrepreneurial success. It turns challenges into growth opportunities.",
-    actionSteps: [
-      "**Reframe Failure as Feedback:** Use The Command Hub's CRM to document lessons learned from setbacks and failed initiatives for future reference.",
-      "**Practice Gratitude:** Use The Command Hub's mobile app to set daily reminders for gratitude practice and track your mindset progress.",
-      "**Build a Strong Support Network:** Use The Command Hub's community builder to create a support network of fellow entrepreneurs and mentors.",
-      "**Focus on What You Can Control:** Use The Command Hub's analytics to focus on metrics you can influence rather than external factors.",
-      "**Celebrate Small Wins:** Track and celebrate milestones using The Command Hub's CRM and automated milestone emails to your team.",
-      "**Prioritize Self-Care:** Use The Command Hub's calendar to schedule self-care activities and protect your mental health time.",
-      "**Develop a Growth Mindset:** Document your learning journey using The Command Hub's courses feature to track personal development."
-    ],
-    practicalTips: [
-      "Use The Command Hub's community feature to connect with other resilient entrepreneurs",
-      "Set up automated encouraging messages to yourself using The Command Hub's SMS marketing",
-      "Track your resilience journey using The Command Hub's analytics and reporting features",
-      "Create a 'lessons learned' database in The Command Hub's CRM for future reference"
-    ],
-    tools: [
-      { name: "The Command Hub Community Builder", description: "Connect with supportive entrepreneurs and mentors" },
-      { name: "The Command Hub Mobile App", description: "Access mindset resources and reminders on the go" },
-      { name: "The Command Hub Courses", description: "Access personal development and resilience training" }
-    ]
-  },
-  "business-structures": {
-    title: "Choosing Your Business Structure",
-    readTime: "12 min read",
-    category: "Legal & Finance",
-    overview: "Choosing the right legal structure for your business (e.g., Sole Proprietorship, LLC, S-Corp) is a foundational decision that impacts your liability, taxes, and ability to raise money.",
-    whyItHelps: "The right structure can protect your personal assets from business debts, save you thousands in taxes, and make your business more attractive to investors and partners.",
-    actionSteps: [
-      "**Understand Sole Proprietorship:** This is the default for a one-person business. Set up basic business processes in The Command Hub even as a sole proprietor.",
-      "**Learn about LLC:** Most popular for small businesses. Use The Command Hub's payment system to keep business finances separate from personal.",
-      "**Explore S-Corporation:** Can offer tax savings for profitable businesses. Use The Command Hub's financial tracking to determine when S-Corp election makes sense.",
-      "**Consider C-Corporation:** Best for raising venture capital. The Command Hub's CRM can help track investor relationships and communications.",
-      "**Consult a Professional:** Use The Command Hub's CRM to find and track relationships with lawyers and accountants in your area.",
-      "**Register Your Business:** Use The Command Hub's form builder to organize required documents and track registration deadlines."
-    ],
-    practicalTips: [
-      "Use The Command Hub's payment system to maintain separate business banking from day one",
-      "Track business formation expenses and deadlines using The Command Hub's CRM",
-      "Set up proper business processes in The Command Hub regardless of your chosen structure",
-      "Use The Command Hub's document storage to keep formation documents organized"
-    ],
-    tools: [
-      { name: "The Command Hub Payment System", description: "Separate business finances and track business income" },
-      { name: "The Command Hub CRM", description: "Track relationships with legal and financial professionals" },
-      { name: "LegalZoom", description: "Online business formation services" }
-    ]
   }
 };
 
@@ -318,7 +76,6 @@ export default function QuickLessonPage() {
       navigate(createPageUrl("QuickLessons"));
     }
 
-    // Load saved progress
     const savedSteps = localStorage.getItem(`quick_lesson_${lesson}_steps`);
     if (savedSteps) {
       setCompletedSteps(JSON.parse(savedSteps));
@@ -328,7 +85,7 @@ export default function QuickLessonPage() {
     if (savedNotes) {
       setNotes(savedNotes);
     }
-  }, [window.location.search, navigate]); // Added navigate to dependency array
+  }, [navigate]);
 
   const handleStepToggle = (stepIndex) => {
     const newCompletedSteps = {
@@ -336,16 +93,16 @@ export default function QuickLessonPage() {
       [stepIndex]: !completedSteps[stepIndex]
     };
     setCompletedSteps(newCompletedSteps);
-    if (lessonId) { // Ensure lessonId exists before saving
+    if (lessonId) {
       localStorage.setItem(`quick_lesson_${lessonId}_steps`, JSON.stringify(newCompletedSteps));
     }
   };
 
   const handleSaveNotes = () => {
-    if (lessonId) { // Ensure lessonId exists before saving
+    if (lessonId) {
       localStorage.setItem(`quick_lesson_${lessonId}_notes`, notes);
       const button = document.getElementById('save-notes-btn');
-      if (button) { // Check if button exists
+      if (button) {
         const originalText = button.innerHTML;
         button.innerHTML = '<span class="flex items-center gap-2"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>Saved!</span>';
         setTimeout(() => {
@@ -370,8 +127,6 @@ export default function QuickLessonPage() {
   const completedStepsCount = Object.values(completedSteps).filter(Boolean).length;
   const totalSteps = currentLesson.actionSteps.length;
   const progressPercentage = totalSteps > 0 ? Math.round((completedStepsCount / totalSteps) * 100) : 0;
-
-  // Check if this is the morning routine lesson
   const isMorningRoutineLesson = lessonId === 'morning-routine';
 
   return (

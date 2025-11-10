@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -212,7 +211,6 @@ export default function MindsetHacksPage() {
   const hasAccessToHack = (originalHackIndex) => {
     if (!user) return false;
 
-    // Full access for Admins, Thought Leaders, and specific paid subscription levels
     if (user.role === 'admin' || 
         user.role === 'thought_leader' || 
         user.subscription_level === 'launchpad' || 
@@ -221,20 +219,18 @@ export default function MindsetHacksPage() {
       return true;
     }
     
-    // Free users only get access to the first 6 hacks during an active trial
     if (user.subscription_level === 'free') {
       const today = new Date();
       const trialExpiry = user.free_trial_expires_on ? new Date(user.free_trial_expires_on) : null;
       
       if (trialExpiry && !isNaN(trialExpiry.getTime()) && today <= trialExpiry) {
-        return originalHackIndex < 6; // Free access to the first 6 items during trial
+        return originalHackIndex < 6;
       }
     }
     
-    return false; // Default: no access
+    return false;
   };
 
-  // Dynamically generate categories to include all existing ones from mindsetHacks
   const allCategories = ['All', ...new Set(mindsetHacks.map(hack => hack.category))].sort();
   const difficulties = ['All', 'Beginner', 'Intermediate', 'Advanced'];
 
@@ -246,17 +242,17 @@ export default function MindsetHacksPage() {
 
   const getDifficultyColor = (difficulty) => {
     switch(difficulty) {
-      case 'Beginner': return 'text-green-600 bg-green-100';
-      case 'Intermediate': return 'text-yellow-600 bg-yellow-100';
-      case 'Advanced': return 'text-red-600 bg-red-100';
+      case 'Beginner': return 'text-green-600 bg-green-100 dark:bg-green-900/30 dark:text-green-400';
+      case 'Intermediate': return 'text-yellow-600 bg-yellow-100 dark:bg-yellow-900/30 dark:text-yellow-400';
+      case 'Advanced': return 'text-red-600 bg-red-100 dark:bg-red-900/30 dark:text-red-400';
       default: return 'text-gray-600 bg-gray-100';
     }
   };
 
   const getImpactColor = (impact) => {
     switch(impact) {
-      case 'High': return 'text-purple-600 bg-purple-100';
-      case 'Medium': return 'text-blue-600 bg-blue-100';
+      case 'High': return 'text-purple-600 bg-purple-100 dark:bg-purple-900/30 dark:text-purple-400';
+      case 'Medium': return 'text-blue-600 bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400';
       default: return 'text-gray-600 bg-gray-100';
     }
   };
@@ -368,7 +364,6 @@ export default function MindsetHacksPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           {filteredHacks.map((hack) => {
             const IconComponent = hack.icon;
-            // Find the original index of the hack in the full mindsetHacks array
             const originalIndex = mindsetHacks.findIndex(h => h.id === hack.id);
             const hasAccess = user ? hasAccessToHack(originalIndex) : false;
             
@@ -417,7 +412,7 @@ export default function MindsetHacksPage() {
                   
                   {/* Key Benefits */}
                   {hack.keyBenefits && (
-                    <div className="mb-4 bg-green-50 dark:bg-green-900/20 p-3 rounded-md">
+                    <div className="mb-4 bg-green-50 dark:bg-green-900/20 p-3 rounded-md border border-green-100 dark:border-green-800">
                       <p className="text-xs font-semibold text-[var(--text-main)] mb-2">Key Benefits:</p>
                       <ul className="space-y-1">
                         {hack.keyBenefits.map((benefit, idx) => (

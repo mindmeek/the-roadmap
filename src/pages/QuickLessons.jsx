@@ -142,7 +142,6 @@ const lessons = [
 export default function QuickLessons() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [filteredLessons, setFilteredLessons] = useState(lessons);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -218,7 +217,7 @@ export default function QuickLessons() {
 
         {/* Lessons Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredLessons.map((lesson, index) => {
+          {lessons.map((lesson, index) => {
             const hasAccess = hasAccessToLesson(index);
             return (
               <div
@@ -247,7 +246,7 @@ export default function QuickLessons() {
                 
                 {/* Key Takeaways */}
                 {lesson.keyTakeaways && (
-                  <div className="mb-4 bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-md">
+                  <div className="mb-4 bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-md border border-yellow-100 dark:border-yellow-800">
                     <p className="text-xs font-semibold text-[var(--text-main)] mb-2">Key Takeaways:</p>
                     <ul className="space-y-1">
                       {lesson.keyTakeaways.map((takeaway, idx) => (
