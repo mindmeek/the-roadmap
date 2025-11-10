@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Lightbulb, ArrowLeft, CheckCircle, Clock, Target, Save, Copy, Zap } from "lucide-react";
+import { Lightbulb, ArrowLeft, CheckCircle, Clock, Target, Save, Copy, Zap, Sparkles } from "lucide-react";
 
 const quickLessons = {
   "domain-name": {
@@ -371,6 +371,9 @@ export default function QuickLessonPage() {
   const totalSteps = currentLesson.actionSteps.length;
   const progressPercentage = totalSteps > 0 ? Math.round((completedStepsCount / totalSteps) * 100) : 0;
 
+  // Check if this is the morning routine lesson
+  const isMorningRoutineLesson = lessonId === 'morning-routine';
+
   return (
     <div className="px-4 pb-20 md:pb-8">
       <div className="max-w-4xl mx-auto space-y-6">
@@ -393,7 +396,7 @@ export default function QuickLessonPage() {
           </div>
 
           <div className="flex items-start space-x-4">
-            <div className="bg-gray-100 p-4 rounded-md mt-1">
+            <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-md mt-1">
               <Lightbulb className="w-8 h-8 text-[var(--primary-gold)]" />
             </div>
             <div className="flex-1">
@@ -407,13 +410,36 @@ export default function QuickLessonPage() {
           </div>
         </div>
 
+        {/* Morning Routine Interactive CTA */}
+        {isMorningRoutineLesson && (
+          <div className="card p-6 bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 text-white">
+            <div className="flex items-start gap-4">
+              <Zap className="w-8 h-8 flex-shrink-0" />
+              <div className="flex-1">
+                <h3 className="text-xl font-bold mb-2">🎯 Build Your Custom Morning Routine!</h3>
+                <p className="text-white/90 mb-4">
+                  Don't just read about it - create your personalized morning routine with our interactive builder. 
+                  Design your perfect morning step-by-step and track your progress daily.
+                </p>
+                <button
+                  onClick={() => navigate(createPageUrl('MorningRoutineBuilder'))}
+                  className="btn bg-white text-[var(--primary-gold)] hover:bg-gray-100"
+                >
+                  <Sparkles className="w-4 h-4 mr-2" />
+                  Build My Morning Routine →
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Progress Tracker */}
         <div className="card p-6">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold text-[var(--text-main)]">Your Progress</h3>
             <span className="text-sm text-[var(--text-soft)]">{progressPercentage}% complete</span>
           </div>
-          <div className="bg-gray-200 h-2 rounded-full overflow-hidden">
+          <div className="bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
             <div 
               className="h-full transition-all duration-500 bg-[var(--primary-gold)]"
               style={{ width: `${progressPercentage}%` }}
@@ -428,7 +454,7 @@ export default function QuickLessonPage() {
             {currentLesson.overview}
           </p>
 
-          <div className="bg-blue-50 border border-blue-200 p-6 rounded-md">
+          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 p-6 rounded-md">
             <h3 className="font-bold text-[var(--text-main)] mb-2 flex items-center">
               <Zap className="w-5 h-5 mr-2 text-blue-600" />
               Why This Helps Your Business
@@ -462,7 +488,7 @@ export default function QuickLessonPage() {
         {/* Practical Tips */}
         <div className="card p-8">
           <h2 className="text-2xl font-bold text-[var(--text-main)] mb-6">Practical Tips</h2>
-          <div className="bg-yellow-50 border border-yellow-200 p-6 rounded-md">
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 p-6 rounded-md">
             <ul className="space-y-3">
               {currentLesson.practicalTips.map((tip, index) => (
                 <li key={index} className="flex items-start space-x-3">
@@ -480,7 +506,7 @@ export default function QuickLessonPage() {
             <h2 className="text-2xl font-bold text-[var(--text-main)] mb-6">Recommended Tools</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {currentLesson.tools.map((tool, index) => (
-                <div key={index} className="bg-gray-50 border border-gray-200 p-4 rounded-md">
+                <div key={index} className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 rounded-md">
                   <h4 className="font-semibold text-[var(--text-main)] mb-2">{tool.name}</h4>
                   <p className="text-sm text-[var(--text-soft)]">{tool.description}</p>
                 </div>
@@ -510,9 +536,9 @@ export default function QuickLessonPage() {
             className="form-input h-32 resize-none mb-4"
           />
           
-          <div className="bg-blue-50 border border-blue-200 p-4 rounded-md">
-            <h4 className="font-semibold text-blue-900 mb-2">💡 Make the Most of This Lesson</h4>
-            <ul className="text-sm text-blue-800 space-y-1">
+          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 p-4 rounded-md">
+            <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">💡 Make the Most of This Lesson</h4>
+            <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
               <li>• Write down specific action items you'll implement this week</li>
               <li>• Set deadlines for completing each action step</li>
               <li>• Note any tools or resources you want to explore further</li>
@@ -524,7 +550,7 @@ export default function QuickLessonPage() {
         {/* Completion Message */}
         {progressPercentage === 100 && (
           <div className="card p-8 text-center">
-            <div className="bg-green-100 p-4 inline-block rounded-full mb-4">
+            <div className="bg-green-100 dark:bg-green-900/20 p-4 inline-block rounded-full mb-4">
               <CheckCircle className="w-12 h-12 text-green-600" />
             </div>
             <h3 className="text-2xl font-bold text-[var(--text-main)] mb-2">Lesson Complete!</h3>

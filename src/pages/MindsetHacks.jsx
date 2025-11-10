@@ -9,122 +9,182 @@ const mindsetHacks = [
   {
     id: "growth-mindset",
     title: "Growth vs Fixed Mindset",
-    description: "Develop a growth mindset to unlock your potential, embrace challenges, and see failures as learning opportunities.",
+    description: "Transform your relationship with challenges and failure. Learn how developing a growth mindset unlocks your potential, helps you embrace difficult situations as opportunities, and builds the mental resilience needed for entrepreneurial success. Discover the neuroscience behind mindset shifts.",
     readTime: "6 min",
     icon: TrendingUp,
     category: "Mindset",
     difficulty: "Beginner",
-    impact: "High"
+    impact: "High",
+    keyBenefits: [
+      "Reframe failures as valuable learning experiences",
+      "Build resilience through challenge acceptance",
+      "Develop continuous improvement mindset"
+    ]
   },
   {
     id: "decision-fatigue",
     title: "Overcoming Decision Fatigue",
-    description: "Streamline decisions to preserve mental energy for important choices. Optimize your decision-making process.",
+    description: "Preserve your mental energy for critical decisions by eliminating trivial choices. Learn why Steve Jobs wore the same outfit daily, how to structure your day to protect decision-making capacity, and proven strategies to optimize your cognitive resources for high-impact business choices.",
     readTime: "5 min",
     icon: Brain,
     category: "Mental Performance",
     difficulty: "Intermediate",
-    impact: "Medium"
+    impact: "Medium",
+    keyBenefits: [
+      "Save mental energy for important decisions",
+      "Create decision-making frameworks",
+      "Reduce cognitive load through automation"
+    ]
   },
   {
     id: "power-of-no",
     title: "The Power of Saying No",
-    description: "Protect your time and energy by learning to decline non-essential requests. Master boundary setting.",
+    description: "Master the art of strategic refusal to protect your time and energy. Learn boundary-setting techniques that preserve relationships while prioritizing your goals. Discover how saying no to good opportunities creates space for great ones, and develop scripts for declining requests gracefully.",
     readTime: "4 min",
     icon: Target,
     category: "Boundaries",
     difficulty: "Intermediate",
-    impact: "Medium"
+    impact: "Medium",
+    keyBenefits: [
+      "Protect time for high-priority projects",
+      "Maintain healthy professional boundaries",
+      "Focus energy on aligned opportunities"
+    ]
   },
   {
     id: "three-ps",
     title: "The Three P's of Time Management",
-    description: "Prioritize, Plan, and Perform for maximum productivity. A systematic approach to managing time effectively.",
+    description: "Implement a systematic approach to time mastery through Prioritize, Plan, and Perform. Learn the Eisenhower Matrix for task prioritization, advanced time-blocking techniques, and execution strategies that ensure your most important work gets done consistently.",
     readTime: "4 min",
     icon: Timer,
     category: "Productivity",
     difficulty: "Beginner",
-    impact: "High"
+    impact: "High",
+    keyBenefits: [
+      "Master priority-based task management",
+      "Implement effective time-blocking systems",
+      "Reduce overwhelm through structure"
+    ]
   },
   {
     id: "mental-models",
     title: "Essential Mental Models for Entrepreneurs",
-    description: "Powerful thinking frameworks for better decision-making. Upgrade your cognitive toolkit.",
+    description: "Upgrade your cognitive toolkit with powerful thinking frameworks used by successful entrepreneurs. Master first principles thinking, second-order consequences, inversion, and other models that transform how you approach problems. Learn to think like Charlie Munger and make better strategic decisions.",
     readTime: "10 min",
     icon: Brain,
     category: "Decision Making",
     difficulty: "Advanced",
-    impact: "High"
+    impact: "High",
+    keyBenefits: [
+      "Apply first principles thinking to complex problems",
+      "Use inversion to avoid failure modes",
+      "Think in second-order consequences"
+    ]
   },
   {
     id: "8020-rule",
     title: "The 80/20 Rule (Pareto Principle)",
-    description: "Focus on the 20% of activities that drive 80% of your results. A comprehensive guide to prioritization.",
+    description: "Discover how 20% of your activities drive 80% of your results. Learn to identify your high-leverage tasks, eliminate time-wasters, and focus your energy where it creates maximum impact. Master the art of ruthless prioritization using data-driven analysis and strategic thinking.",
     readTime: "5 min",
     icon: Target,
     category: "Productivity",
     difficulty: "Intermediate",
-    impact: "High"
+    impact: "High",
+    keyBenefits: [
+      "Identify your highest-impact activities",
+      "Eliminate or delegate low-value tasks",
+      "Multiply results through strategic focus"
+    ]
   },
   {
     id: "flow-state",
     title: "Achieving Flow State",
-    description: "Enter the zone of peak performance and sustained focus. Optimize your mental state for maximum output.",
+    description: "Enter the zone of peak performance where time disappears and your best work emerges effortlessly. Learn the neuroscience of flow, how to trigger it consistently, and environmental factors that enhance or inhibit this optimal state. Become 500% more productive during flow sessions.",
     readTime: "7 min",
     icon: Focus,
     category: "Performance",
     difficulty: "Intermediate",
-    impact: "High"
+    impact: "High",
+    keyBenefits: [
+      "Trigger flow states consistently",
+      "Optimize environment for deep focus",
+      "Achieve 5x productivity during sessions"
+    ]
   },
   {
     id: "fear-setting",
     title: "Fear Setting Exercise",
-    description: "Tim Ferriss's technique for overcoming fear and taking calculated risks. Transform fear into action.",
+    description: "Transform paralyzing fear into actionable clarity using Tim Ferriss's proven framework. Learn to define worst-case scenarios realistically, develop prevention strategies, and create recovery plans. Discover how fear-setting reveals that risks are often more manageable than you imagine.",
     readTime: "8 min",
     icon: Target,
     category: "Risk Management",
     difficulty: "Advanced",
-    impact: "High"
+    impact: "High",
+    keyBenefits: [
+      "Quantify and rationalize your fears",
+      "Create prevention and recovery plans",
+      "Take calculated risks with confidence"
+    ]
   },
   {
     id: "systems-thinking",
     title: "Systems Thinking for Business",
-    description: "Build systems that work without you to scale your business effectively. Create scalable processes.",
+    description: "Build a business that runs without you. Learn to identify systemizable processes, create standard operating procedures, and leverage automation to scale efficiently. Discover how to document knowledge, build repeatable workflows, and transition from operator to CEO.",
     readTime: "9 min",
     icon: BarChart3,
     category: "Business Strategy",
     difficulty: "Advanced",
-    impact: "High"
+    impact: "High",
+    keyBenefits: [
+      "Create systems that enable scaling",
+      "Free yourself from day-to-day operations",
+      "Build a valuable, sellable business asset"
+    ]
   },
   {
     id: "minimum-viable-progress",
     title: "Minimum Viable Progress",
-    description: "Make consistent progress even when you don't feel motivated. Build unstoppable momentum.",
+    description: "Never have a zero-progress day again. Learn to overcome resistance and procrastination by committing to impossibly small actions that build unstoppable momentum. Discover why 2 minutes of work is infinitely better than zero, and how tiny consistent actions compound into massive results.",
     readTime: "5 min",
     icon: Zap,
     category: "Consistency",
     difficulty: "Beginner",
-    impact: "Medium"
+    impact: "Medium",
+    keyBenefits: [
+      "Overcome procrastination with tiny commitments",
+      "Build momentum from minimal actions",
+      "Maintain consistency even on tough days"
+    ]
   },
   {
     id: "compound-effect",
     title: "The Compound Effect in Business",
-    description: "Small consistent actions compound into massive long-term results. Harness the power of consistency.",
+    description: "Harness the power of small, consistent actions that compound into extraordinary results. Understand the mathematics of exponential growth, learn to identify compounding activities in your business, and develop the patience and discipline to trust the process when results aren't immediately visible.",
     readTime: "6 min",
     icon: BarChart3,
     category: "Growth",
     difficulty: "Beginner",
-    impact: "High"
+    impact: "High",
+    keyBenefits: [
+      "Leverage exponential growth in business",
+      "Build consistency that creates momentum",
+      "Trust long-term processes over quick wins"
+    ]
   },
   {
     id: "two-minute-rule",
     title: "The Two-Minute Rule",
-    description: "If it takes less than 2 minutes, do it now. Eliminate task pile-up and reduce mental clutter.",
+    description: "Eliminate task pile-up and reduce mental clutter with this simple productivity principle. Learn to identify quick-win tasks, execute them immediately, and prevent the psychological weight of accumulating small to-dos. Master the art of decisive action for minor tasks.",
     readTime: "3 min",
     icon: Zap,
     category: "Productivity",
     difficulty: "Beginner",
-    impact: "Medium"
+    impact: "Medium",
+    keyBenefits: [
+      "Clear mental clutter from small tasks",
+      "Build action-taking momentum",
+      "Prevent task accumulation"
+    ]
   }
 ];
 
@@ -225,14 +285,19 @@ export default function MindsetHacksPage() {
             </div>
           </div>
           
-          <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 p-6 rounded-lg">
+          <div className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border border-yellow-200 dark:border-yellow-700 p-6 rounded-lg">
             <div className="flex items-start space-x-4">
               <Star className="w-6 h-6 text-[var(--primary-gold)] mt-1 flex-shrink-0" />
               <div>
                 <h3 className="font-bold text-[var(--text-main)] mb-2">Master Your Mental Game</h3>
-                <p className="text-[var(--text-main)] leading-relaxed">
+                <p className="text-[var(--text-main)] leading-relaxed mb-3">
                   These mindset frameworks focus on the mental aspects of entrepreneurship. Learn to think differently, 
                   overcome mental barriers, and develop the psychological resilience needed for business success.
+                </p>
+                <p className="text-[var(--text-main)] leading-relaxed">
+                  Your mindset is your competitive advantage. These frameworks teach you to <strong>think like successful entrepreneurs</strong>, 
+                  make better decisions under pressure, and maintain peak mental performance. Each hack includes proven techniques from 
+                  psychology, neuroscience, and real-world business experience to <strong>rewire how you approach challenges, risks, and opportunities</strong>.
                 </p>
                 {user && user.subscription_level === 'free' && (
                   <p className="text-[var(--primary-gold)] font-semibold mt-3">
@@ -322,7 +387,7 @@ export default function MindsetHacksPage() {
                 {/* Header */}
                 <div className="p-6 pb-4">
                   <div className="flex items-start justify-between mb-4">
-                    <div className="bg-gray-100 p-3 rounded-lg group-hover:bg-[var(--primary-gold)] group-hover:text-white transition-colors">
+                    <div className="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg group-hover:bg-[var(--primary-gold)] group-hover:text-white transition-colors">
                       <IconComponent className="w-6 h-6" />
                     </div>
                     <div className="flex flex-col items-end space-y-2">
@@ -339,7 +404,7 @@ export default function MindsetHacksPage() {
                     {hack.title}
                   </h3>
                   
-                  <span className="text-xs text-[var(--primary-gold)] font-medium px-3 py-1 bg-yellow-50 rounded-full">
+                  <span className="text-xs text-[var(--primary-gold)] font-medium px-3 py-1 bg-yellow-50 dark:bg-yellow-900/20 rounded-full">
                     {hack.category}
                   </span>
                 </div>
@@ -349,6 +414,21 @@ export default function MindsetHacksPage() {
                   <p className="text-[var(--text-soft)] text-sm leading-relaxed mb-4 line-clamp-3">
                     {hack.description}
                   </p>
+                  
+                  {/* Key Benefits */}
+                  {hack.keyBenefits && (
+                    <div className="mb-4 bg-green-50 dark:bg-green-900/20 p-3 rounded-md">
+                      <p className="text-xs font-semibold text-[var(--text-main)] mb-2">Key Benefits:</p>
+                      <ul className="space-y-1">
+                        {hack.keyBenefits.map((benefit, idx) => (
+                          <li key={idx} className="text-xs text-[var(--text-soft)] flex items-start">
+                            <CheckCircle className="w-3 h-3 text-green-600 mr-1 flex-shrink-0 mt-0.5" />
+                            <span>{benefit}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                   
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2 text-xs text-[var(--text-soft)]">
@@ -378,7 +458,7 @@ export default function MindsetHacksPage() {
 
         {/* Upgrade CTA for Free Users */}
         {user && user.subscription_level === 'free' && (
-          <div className="card p-8 bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-200">
+          <div className="card p-8 bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border border-purple-200 dark:border-purple-700">
             <div className="text-center">
               <Crown className="w-12 h-12 text-[var(--primary-gold)] mx-auto mb-4" />
               <h3 className="text-2xl font-bold text-[var(--text-main)] mb-4">
@@ -399,7 +479,7 @@ export default function MindsetHacksPage() {
         )}
 
         {/* Call to Action */}
-        <div className="card p-8 text-center bg-gradient-to-br from-gray-50 to-yellow-50">
+        <div className="card p-8 text-center bg-gradient-to-br from-gray-50 to-yellow-50 dark:from-gray-900 dark:to-yellow-900/20">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4">
               Ready to Transform Your Business Mindset?
