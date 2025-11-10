@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -202,13 +203,24 @@ export default function QuickLessons() {
             <div className="flex items-start space-x-4">
               <Zap className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-bold text-[var(--text-main)] mb-2">Learn & Apply Immediately</h3>
+                <h3 className="font-bold text-[var(--text-main)] mb-3 text-lg">Why Quick Lessons Are Different</h3>
+                
                 <p className="text-[var(--text-main)] leading-relaxed mb-3">
-                  These quick lessons focus on practical business skills you can implement right away. 
-                  Each lesson is designed to give you actionable knowledge that directly impacts your business operations.
+                  These aren't your typical business tutorials. Quick Lessons are <strong>laser-focused, battle-tested frameworks</strong> 
+                  distilled from years of real-world entrepreneurial experience. Each lesson cuts through the noise to give you exactly 
+                  what you need to know—nothing more, nothing less.
                 </p>
+                
+                <p className="text-[var(--text-main)] leading-relaxed mb-3">
+                  Unlike theoretical courses that leave you wondering "now what?", every Quick Lesson is designed for <strong>immediate implementation</strong>. 
+                  You'll get specific action steps, practical tips drawn from successful businesses, and recommended tools that integrate 
+                  seamlessly into your workflow. This is actionable knowledge you can apply today and see results from this week.
+                </p>
+                
                 <p className="text-[var(--text-main)] leading-relaxed">
-                  Unlike theoretical courses, these lessons provide <strong>battle-tested frameworks</strong> and <strong>step-by-step processes</strong> used by successful entrepreneurs. Every lesson includes specific action steps, practical tips, and recommended tools to help you implement immediately and see real results in your business.
+                  Whether you're choosing a domain name, mastering sales conversations, or building social proof from zero, these lessons 
+                  provide the <strong>strategic frameworks and tactical execution plans</strong> that successful entrepreneurs use daily. 
+                  Each one is crafted to save you hours of research and costly trial-and-error by giving you proven processes that work.
                 </p>
               </div>
             </div>

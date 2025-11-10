@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -285,18 +286,29 @@ export default function MindsetHacksPage() {
             <div className="flex items-start space-x-4">
               <Star className="w-6 h-6 text-[var(--primary-gold)] mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-bold text-[var(--text-main)] mb-2">Master Your Mental Game</h3>
+                <h3 className="font-bold text-[var(--text-main)] mb-3 text-lg">Your Mindset Is Your Ultimate Competitive Advantage</h3>
+                
                 <p className="text-[var(--text-main)] leading-relaxed mb-3">
-                  These mindset frameworks focus on the mental aspects of entrepreneurship. Learn to think differently, 
-                  overcome mental barriers, and develop the psychological resilience needed for business success.
+                  Success in business isn't just about strategy and tactics—it's about <strong>how you think, decide, and respond</strong> to 
+                  challenges. These mindset frameworks represent the mental operating systems used by the world's most successful entrepreneurs. 
+                  They're not motivational fluff; they're <strong>cognitive tools backed by psychology, neuroscience, and decades of business research</strong>.
                 </p>
+                
+                <p className="text-[var(--text-main)] leading-relaxed mb-3">
+                  Each framework teaches you to <strong>think differently about fundamental business challenges</strong>—from handling fear and making 
+                  difficult decisions under pressure, to building mental resilience that keeps you moving forward when others quit. You'll learn 
+                  to reframe failures as data, turn anxiety into action, and develop the psychological endurance needed for long-term success.
+                </p>
+                
                 <p className="text-[var(--text-main)] leading-relaxed">
-                  Your mindset is your competitive advantage. These frameworks teach you to <strong>think like successful entrepreneurs</strong>, 
-                  make better decisions under pressure, and maintain peak mental performance. Each hack includes proven techniques from 
-                  psychology, neuroscience, and real-world business experience to <strong>rewire how you approach challenges, risks, and opportunities</strong>.
+                  These aren't abstract concepts—they're <strong>practical mental models you can apply immediately</strong> to improve decision-making, 
+                  boost productivity, overcome procrastination, and maintain peak performance. From beginner-friendly principles like the Two-Minute 
+                  Rule to advanced frameworks like Systems Thinking, each hack is designed to <strong>rewire your approach to entrepreneurship</strong> 
+                  and give you the mental edge that separates successful founders from those who struggle.
                 </p>
+                
                 {user && user.subscription_level === 'free' && (
-                  <p className="text-[var(--primary-gold)] font-semibold mt-3">
+                  <p className="text-[var(--primary-gold)] font-semibold mt-4">
                     ✨ Free Trial Access included for select frameworks!
                   </p>
                 )}
