@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Target, Users, DollarSign, Rocket, Sparkles, Crown } from 'lucide-react';
+import { X, Target, Users, DollarSign, Rocket, Sparkles, Crown, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 
@@ -55,6 +55,43 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
                             </p>
                         </div>
                     )}
+                </div>
+
+                {/* Inspiring Message */}
+                <div className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-b border-gray-200 dark:border-gray-700">
+                    <div className="flex items-start gap-3">
+                        <TrendingUp className="w-6 h-6 text-[var(--primary-gold)] mt-1 flex-shrink-0" />
+                        <div>
+                            <h3 className="text-lg font-bold text-[var(--text-main)] mb-2">
+                                You're Exactly Where You Need to Be
+                            </h3>
+                            <p className="text-sm text-[var(--text-main)] leading-relaxed mb-3">
+                                Every successful entrepreneur started right where you are now—with a vision and the courage to take action. 
+                                The difference between dreamers and achievers? <strong>A proven system and consistent execution.</strong>
+                            </p>
+                            <div className="bg-white/50 dark:bg-gray-800/50 p-3 space-y-2" style={{ borderRadius: '2px' }}>
+                                <p className="text-xs text-[var(--text-main)] font-semibold mb-1">As a Business Minds member, you get:</p>
+                                <ul className="space-y-1 text-xs text-[var(--text-soft)]">
+                                    <li className="flex items-center gap-2">
+                                        <span className="text-[var(--primary-gold)]">→</span>
+                                        <span><strong>Foundation Roadmap:</strong> Strategic clarity through proven business frameworks</span>
+                                    </li>
+                                    <li className="flex items-center gap-2">
+                                        <span className="text-[var(--primary-gold)]">→</span>
+                                        <span><strong>90-Day Journey:</strong> Actionable weekly steps tailored to your stage & goals</span>
+                                    </li>
+                                    <li className="flex items-center gap-2">
+                                        <span className="text-[var(--primary-gold)]">→</span>
+                                        <span><strong>AI Business Team:</strong> 6 expert assistants available 24/7 for guidance</span>
+                                    </li>
+                                    <li className="flex items-center gap-2">
+                                        <span className="text-[var(--primary-gold)]">→</span>
+                                        <span><strong>Community Support:</strong> Connect with entrepreneurs who understand your journey</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Content */}
