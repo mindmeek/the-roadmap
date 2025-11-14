@@ -1,265 +1,107 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ChevronRight, CheckCircle2, Circle, Calendar, Target, TrendingUp, AlertTriangle, Loader2 } from 'lucide-react';
-import { RoadmapContent } from '@/entities/all';
+import { Target, ChevronRight, Calendar, TrendingUp } from 'lucide-react';
+import moment from 'moment';
 
 export default function JourneyTimeline({ user }) {
-    const [expandedMonth, setExpandedMonth] = useState(null);
-    const [roadmapWeeks, setRoadmapWeeks] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [currentWeek, setCurrentWeek] = useState(1);
+    const [currentMonth, setCurrentMonth] = useState(1);
+    const [daysRemaining, setDaysRemaining] = useState(90);
 
-    if (!user || !user.entrepreneurship_stage || !user.selected_goal) {
-        return (
-            <div className="card p-6">
-                <div className="text-center">
-                    <AlertTriangle className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
-                    <h3 className="text-lg font-semibold text-[var(--text-main)] mb-2">No Journey Selected</h3>
-                    <p className="text-[var(--text-soft)] mb-4">
-                        Complete your onboarding to start your 90-day journey.
-                    </p>
-                    <Link to={createPageUrl('Onboarding')} className="btn btn-primary">
-                        Start Onboarding
-                    </Link>
-                </div>
-            </div>
-        );
-    }
-
-    const currentMonth = (user.current_month || 1) - 1;
-    const completedWeeks = user.completed_weeks || [];
-    const currentWeek = user.current_week || 1;
-
-    // Load weeks for specific month from database
-    const loadWeeksForMonth = async (monthIndex) => {
-        setLoading(true);
-        try {
-            const monthNumber = monthIndex + 1;
-            const weeks = await RoadmapContent.filter({
-                stage: user.entrepreneurship_stage,
-                goal_id: user.selected_goal,
-                month_number: monthNumber,
-                is_published: true
-            });
+    useEffect(() => {
+        if (user?.journey_start_date) {
+            const startDate = moment(user.journey_start_date);
+            const today = moment();
+            const daysPassed = today.diff(startDate, 'days');
             
-            // Sort by week_number
-            const sortedWeeks = weeks.sort((a, b) => a.week_number - b.week_number);
-            setRoadmapWeeks(sortedWeeks);
-        } catch (error) {
-            console.error('Error loading weeks:', error);
-            setRoadmapWeeks([]);
-        } finally {
-            setLoading(false);
+            setCurrentWeek(Math.min(Math.floor(daysPassed / 7) + 1, 13));
+            setCurrentMonth(Math.min(Math.floor(daysPassed / 30) + 1, 3));
+            setDaysRemaining(Math.max(90 - daysPassed, 0));
         }
-    };
+    }, [user]);
 
-    const toggleMonth = async (monthIndex) => {
-        if (expandedMonth === monthIndex) {
-            setExpandedMonth(null);
-            setRoadmapWeeks([]);
-        } else {
-            setExpandedMonth(monthIndex);
-            await loadWeeksForMonth(monthIndex);
-        }
-    };
-
-    const getMonthProgress = (monthIndex) => {
-        // Calculate progress based on completed weeks in this month
-        const monthNumber = monthIndex + 1;
-        const startWeek = (monthNumber - 1) * 4 + 1;
-        const endWeek = monthNumber * 4;
-        
-        const weeksInMonth = [];
-        for (let w = startWeek; w <= endWeek; w++) {
-            weeksInMonth.push(w);
-        }
-        
-        const completedInMonth = weeksInMonth.filter(w => completedWeeks.includes(w)).length;
-        return Math.round((completedInMonth / weeksInMonth.length) * 100);
-    };
-
-    // Static month titles based on stage and goal
-    const getMonthTitle = (monthIndex) => {
-        const monthNumber = monthIndex + 1;
-        
-        // Default titles by stage
-        const defaultTitles = {
-            vision: [
-                'Month 1: Vision & Validation',
-                'Month 2: Business Structure & Brand',
-                'Month 3: Launch & Growth'
-            ],
-            startup: [
-                'Month 1: Market Research & Strategy',
-                'Month 2: Operations & Financial Planning',
-                'Month 3: Launch Strategy & Execution'
-            ],
-            growth: [
-                'Month 1: Optimization Foundation',
-                'Month 2: Systems & Scaling',
-                'Month 3: Growth & Expansion'
-            ]
-        };
-
-        return defaultTitles[user.entrepreneurship_stage]?.[monthIndex] || `Month ${monthNumber}`;
-    };
-
-    const months = [0, 1, 2]; // Three months
+    const progressPercentage = Math.min(((90 - daysRemaining) / 90) * 100, 100);
 
     return (
-        <div className="card p-6">
-            <div className="flex items-center justify-between mb-6">
-                <div>
-                    <h2 className="text-2xl font-bold text-[var(--text-main)]">Your Journey Timeline</h2>
-                    <p className="text-sm text-[var(--text-soft)] mt-1">
-                        {user.entrepreneurship_stage} Stage - {user.selected_goal?.replace(/_/g, ' ')}
-                    </p>
-                </div>
-                <Link to={createPageUrl('Journey')} className="btn btn-secondary text-sm">
-                    View Full Journey
-                    <ChevronRight className="w-4 h-4 ml-1" />
+        <div className="card p-4 sm:p-6 h-full flex flex-col" style={{ borderRadius: '2px' }}>
+            <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)] flex items-center gap-2">
+                    <Target className="w-5 h-5 text-[var(--primary-gold)]" />
+                    Your 90-Day Journey
+                </h3>
+                <Link 
+                    to={createPageUrl('Journey')} 
+                    className="text-[var(--primary-gold)] hover:underline flex items-center text-xs sm:text-sm font-medium"
+                >
+                    View Full Roadmap <ChevronRight className="w-4 h-4 ml-1" />
                 </Link>
             </div>
 
-            {/* Progress Celebration */}
-            {completedWeeks.length > 0 && (
-                <div className="mb-6 p-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg border-2 border-green-200 dark:border-green-700">
-                    <div className="flex items-start gap-3">
-                        <div className="text-3xl">🚀</div>
-                        <div className="flex-1">
-                            <h4 className="font-bold text-green-800 dark:text-green-200 mb-1">
-                                You're Making Progress! {completedWeeks.length} Week{completedWeeks.length !== 1 ? 's' : ''} Complete
-                            </h4>
-                            <p className="text-sm text-green-700 dark:text-green-300">
-                                You're in <strong>Week {currentWeek}</strong> of your 90-Day Journey. Each week builds on your Foundation strategy. Keep executing!
-                            </p>
+            {user?.selected_goal ? (
+                <div className="flex-1 flex flex-col">
+                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-4 mb-4" style={{ borderRadius: '2px' }}>
+                        <p className="text-xs text-[var(--text-soft)] mb-1">Your Goal</p>
+                        <h4 className="font-bold text-[var(--text-main)] mb-2">{user.selected_goal}</h4>
+                        <p className="text-xs text-[var(--text-soft)]">
+                            {user.entrepreneurship_stage} Stage • Week {currentWeek} of 13
+                        </p>
+                    </div>
+
+                    <div className="space-y-4 mb-4">
+                        <div>
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-sm font-medium text-[var(--text-soft)]">Journey Progress</span>
+                                <span className="text-sm font-bold text-[var(--primary-gold)]">{Math.round(progressPercentage)}%</span>
+                            </div>
+                            <div className="w-full bg-gray-200 dark:bg-gray-700 h-3" style={{ borderRadius: '2px' }}>
+                                <div 
+                                    className="bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 h-3 transition-all duration-500"
+                                    style={{ width: `${progressPercentage}%`, borderRadius: '2px' }}
+                                ></div>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                            <div className="bg-white dark:bg-gray-800 p-3 border border-gray-200 dark:border-gray-700" style={{ borderRadius: '2px' }}>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <Calendar className="w-4 h-4 text-blue-600" />
+                                    <span className="text-xs text-[var(--text-soft)]">Days Left</span>
+                                </div>
+                                <p className="text-2xl font-bold text-[var(--text-main)]">{daysRemaining}</p>
+                            </div>
+                            <div className="bg-white dark:bg-gray-800 p-3 border border-gray-200 dark:border-gray-700" style={{ borderRadius: '2px' }}>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <TrendingUp className="w-4 h-4 text-green-600" />
+                                    <span className="text-xs text-[var(--text-soft)]">Current Month</span>
+                                </div>
+                                <p className="text-2xl font-bold text-[var(--text-main)]">{currentMonth} of 3</p>
+                            </div>
                         </div>
                     </div>
+
+                    <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <Link 
+                            to={createPageUrl('Journey')}
+                            className="btn btn-primary w-full justify-center text-sm"
+                        >
+                            <Target className="w-4 h-4 mr-2" />
+                            Continue Journey
+                        </Link>
+                    </div>
+                </div>
+            ) : (
+                <div className="flex-1 flex flex-col items-center justify-center text-center py-6">
+                    <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-full mb-4">
+                        <Target className="w-8 h-8 text-[var(--text-soft)]" />
+                    </div>
+                    <h4 className="font-semibold text-[var(--text-main)] mb-2">No Active Journey</h4>
+                    <p className="text-sm text-[var(--text-soft)] mb-4">Start your personalized 90-day roadmap</p>
+                    <Link to={createPageUrl('Onboarding')} className="btn btn-primary text-sm">
+                        Set Up Journey
+                    </Link>
                 </div>
             )}
-
-            <div className="space-y-4">
-                {months.map((monthIndex) => {
-                    const isCurrentMonth = monthIndex === currentMonth;
-                    const progress = getMonthProgress(monthIndex);
-                    const isExpanded = expandedMonth === monthIndex;
-
-                    return (
-                        <div key={monthIndex} className={`border rounded-lg overflow-hidden transition-all ${
-                            isCurrentMonth ? 'border-[var(--primary-gold)] bg-yellow-50 dark:bg-yellow-900/10' : 'border-gray-200 dark:border-gray-700'
-                        }`}>
-                            <button
-                                onClick={() => toggleMonth(monthIndex)}
-                                className="w-full p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                            >
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className={`p-2 rounded-lg ${
-                                            isCurrentMonth 
-                                                ? 'bg-[var(--primary-gold)] text-white' 
-                                                : 'bg-gray-100 dark:bg-gray-700 text-[var(--text-soft)]'
-                                        }`}>
-                                            <Calendar className="w-5 h-5" />
-                                        </div>
-                                        <div>
-                                            <h3 className="font-semibold text-[var(--text-main)]">
-                                                {getMonthTitle(monthIndex)}
-                                            </h3>
-                                            <p className="text-sm text-[var(--text-soft)]">{progress}% complete</p>
-                                        </div>
-                                    </div>
-                                    <ChevronRight className={`w-5 h-5 text-[var(--text-soft)] transition-transform ${
-                                        isExpanded ? 'rotate-90' : ''
-                                    }`} />
-                                </div>
-                                <div className="mt-3 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                    <div 
-                                        className="bg-[var(--primary-gold)] h-2 rounded-full transition-all duration-300"
-                                        style={{ width: `${progress}%` }}
-                                    ></div>
-                                </div>
-                            </button>
-
-                            {isExpanded && (
-                                <div className="border-t border-gray-200 dark:border-gray-700 p-4 bg-white dark:bg-gray-800">
-                                    {loading ? (
-                                        <div className="flex items-center justify-center py-8">
-                                            <Loader2 className="w-6 h-6 animate-spin text-[var(--primary-gold)]" />
-                                            <span className="ml-2 text-[var(--text-soft)]">Loading weeks...</span>
-                                        </div>
-                                    ) : roadmapWeeks.length > 0 ? (
-                                        <div className="space-y-2">
-                                            {roadmapWeeks.map((week) => {
-                                                const isCompleted = completedWeeks.includes(week.week_number);
-                                                const isCurrent = week.week_number === currentWeek;
-
-                                                return (
-                                                    <Link
-                                                        key={week.id}
-                                                        to={createPageUrl('Week') + `?week=${week.week_number}`}
-                                                        className={`block p-3 rounded-lg border transition-all hover:shadow-md ${
-                                                            isCurrent 
-                                                                ? 'border-[var(--primary-gold)] bg-yellow-50 dark:bg-yellow-900/20' 
-                                                                : 'border-gray-200 dark:border-gray-700 hover:border-[var(--primary-gold)]'
-                                                        }`}
-                                                    >
-                                                        <div className="flex items-center justify-between">
-                                                            <div className="flex items-center gap-3">
-                                                                {isCompleted ? (
-                                                                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
-                                                                ) : (
-                                                                    <Circle className="w-5 h-5 text-gray-400 flex-shrink-0" />
-                                                                )}
-                                                                <div>
-                                                                    <p className="font-medium text-[var(--text-main)]">
-                                                                        Week {week.week_number}: {week.week_title}
-                                                                    </p>
-                                                                    {week.week_description && (
-                                                                        <p className="text-xs text-[var(--text-soft)] mt-1">
-                                                                            {week.week_description}
-                                                                        </p>
-                                                                    )}
-                                                                    {isCurrent && (
-                                                                        <span className="text-xs text-[var(--primary-gold)] font-semibold">Current Week - Take Action!</span>
-                                                                    )}
-                                                                    {isCompleted && (
-                                                                        <span className="text-xs text-green-600 dark:text-green-400 font-semibold flex items-center gap-1 mt-1">
-                                                                            ✓ Completed
-                                                                        </span>
-                                                                    )}
-                                                                </div>
-                                                            </div>
-                                                            <ChevronRight className="w-4 h-4 text-[var(--text-soft)]" />
-                                                        </div>
-                                                    </Link>
-                                                );
-                                            })}
-                                        </div>
-                                    ) : (
-                                        <div className="text-center py-8">
-                                            <p className="text-[var(--text-soft)]">No weeks found for this month.</p>
-                                            <p className="text-xs text-[var(--text-soft)] mt-2">
-                                                Content may still be in development.
-                                            </p>
-                                        </div>
-                                    )}
-                                </div>
-                            )}
-                        </div>
-                    );
-                })}
-            </div>
-
-            {/* Implementation Reminder */}
-            <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg border-2 border-blue-200 dark:border-blue-700">
-                <p className="text-sm text-[var(--text-main)] font-medium flex items-start gap-2">
-                    <Target className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
-                    <span>
-                        <strong>Journey Implementation:</strong> Each week's action steps reference your Foundation strategy documents. Complete your Foundation first, then execute your Journey with clarity. Stuck? Ask your <Link to={createPageUrl('ElyzetAIAssistants')} className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">AI Team</Link> for guidance!
-                    </span>
-                </p>
-            </div>
         </div>
     );
 }
