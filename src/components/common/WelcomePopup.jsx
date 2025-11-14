@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Target, Users, DollarSign, Rocket, Sparkles, Crown, ArrowRight } from 'lucide-react';
+import { X, Target, Users, DollarSign, Rocket, Crown, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 
@@ -34,11 +34,14 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
                         <X className="w-5 h-5 text-gray-400" />
                     </button>
                     
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-[var(--primary-gold)] mb-3" style={{ borderRadius: '2px' }}>
-                        <Sparkles className="w-8 h-8 text-white" />
+                    <div className="flex items-center justify-center gap-4 mb-3">
+                        <img 
+                            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/bb3a4dba9_SmallAppIcon.png" 
+                            alt="Business Minds" 
+                            className="w-12 h-12"
+                        />
+                        <h2 className="text-3xl font-bold text-[var(--text-main)]">Welcome to Your Journey</h2>
                     </div>
-                    
-                    <h2 className="text-3xl font-bold text-[var(--text-main)] mb-2">Welcome to Your Journey</h2>
                     <p className="text-[var(--text-soft)]">Let's turn your vision into reality</p>
                     
                     {showTrialInfo && (
@@ -79,27 +82,27 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
                         </div>
                     </div>
 
-                    {/* Primary Actions - Centered */}
-                    <div className="max-w-2xl mx-auto">
+                    {/* Primary Actions - Side by Side */}
+                    <div className="max-w-3xl mx-auto">
                         <h3 className="font-bold text-[var(--text-main)] mb-4 text-center">Choose Your First Step</h3>
-                        <div className="space-y-3">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <Link
                                 to={createPageUrl('Journey')}
                                 onClick={onClose}
                                 className="group block p-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:shadow-lg transition-all"
                                 style={{ borderRadius: '2px' }}
                             >
-                                <div className="flex items-center justify-between">
+                                <div className="flex flex-col gap-3">
                                     <div className="flex items-center gap-3">
                                         <div className="bg-white/20 p-2" style={{ borderRadius: '2px' }}>
                                             <Target className="w-5 h-5" />
                                         </div>
-                                        <div>
+                                        <div className="flex-1">
                                             <div className="font-bold">Start Your 90-Day Journey</div>
-                                            <div className="text-xs text-white/80">Weekly action steps to achieve your goals</div>
                                         </div>
                                     </div>
-                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                    <div className="text-xs text-white/80">Weekly action steps to achieve your goals</div>
+                                    <ArrowRight className="w-5 h-5 ml-auto group-hover:translate-x-1 transition-transform" />
                                 </div>
                             </Link>
 
@@ -109,23 +112,23 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
                                 className="group block p-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:shadow-lg transition-all"
                                 style={{ borderRadius: '2px' }}
                             >
-                                <div className="flex items-center justify-between">
+                                <div className="flex flex-col gap-3">
                                     <div className="flex items-center gap-3">
                                         <div className="bg-white/20 p-2" style={{ borderRadius: '2px' }}>
                                             <DollarSign className="w-5 h-5" />
                                         </div>
-                                        <div>
+                                        <div className="flex-1">
                                             <div className="font-bold">Calculate Financial Freedom</div>
-                                            <div className="text-xs text-white/80">Define your freedom number and revenue goals</div>
                                         </div>
                                     </div>
-                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                    <div className="text-xs text-white/80">Define your freedom number and revenue goals</div>
+                                    <ArrowRight className="w-5 h-5 ml-auto group-hover:translate-x-1 transition-transform" />
                                 </div>
                             </Link>
                         </div>
                     </div>
 
-                    {/* Secondary CTAs - Community & Upgrade */}
+                    {/* Secondary CTAs - Community & Upgrade Side by Side */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
                         {/* Community CTA */}
                         <div className="p-5 border-2 border-purple-200 dark:border-purple-700 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20" style={{ borderRadius: '2px' }}>
@@ -168,45 +171,43 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
                         </div>
 
                         {/* HQ Upgrade CTA */}
-                        {user?.subscription_level === 'free' && (
-                            <div className="p-5 border-2 border-[var(--primary-gold)] bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20" style={{ borderRadius: '2px' }}>
-                                <div className="flex items-start gap-3 mb-3">
-                                    <div className="bg-gradient-to-br from-[var(--primary-gold)] to-yellow-600 p-2 flex-shrink-0" style={{ borderRadius: '2px' }}>
-                                        <Crown className="w-6 h-6 text-white" />
-                                    </div>
-                                    <div className="flex-1">
-                                        <h3 className="font-bold text-[var(--text-main)] mb-1">Unlock The Full HQ Experience</h3>
-                                        <p className="text-sm text-[var(--text-soft)] mb-3">
-                                            Get unlimited access to every tool, training, and resource you need to scale your business faster than ever.
-                                        </p>
-                                    </div>
+                        <div className="p-5 border-2 border-[var(--primary-gold)] bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20" style={{ borderRadius: '2px' }}>
+                            <div className="flex items-start gap-3 mb-3">
+                                <div className="bg-gradient-to-br from-[var(--primary-gold)] to-yellow-600 p-2 flex-shrink-0" style={{ borderRadius: '2px' }}>
+                                    <Crown className="w-6 h-6 text-white" />
                                 </div>
-                                
-                                <ul className="space-y-2 text-sm text-[var(--text-soft)] mb-4">
-                                    <li className="flex items-start gap-2">
-                                        <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
-                                        <span><strong>Unlimited Journeys:</strong> Switch goals anytime and access every roadmap</span>
-                                    </li>
-                                    <li className="flex items-start gap-2">
-                                        <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
-                                        <span><strong>All Strategy Tools:</strong> Full Foundation Roadmap access</span>
-                                    </li>
-                                    <li className="flex items-start gap-2">
-                                        <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
-                                        <span><strong>Unlimited AI Access:</strong> Use all assistants with no restrictions</span>
-                                    </li>
-                                </ul>
-
-                                <Link
-                                    to={createPageUrl('Upgrade')}
-                                    onClick={onClose}
-                                    className="btn w-full justify-center bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 text-white border-0 hover:shadow-lg"
-                                >
-                                    <Crown className="w-4 h-4 mr-2" />
-                                    Upgrade to The HQ - $99/mo
-                                </Link>
+                                <div className="flex-1">
+                                    <h3 className="font-bold text-[var(--text-main)] mb-1">Unlock The Full HQ Experience</h3>
+                                    <p className="text-sm text-[var(--text-soft)] mb-3">
+                                        Get unlimited access to every tool, training, and resource you need to scale your business faster than ever.
+                                    </p>
+                                </div>
                             </div>
-                        )}
+                            
+                            <ul className="space-y-2 text-sm text-[var(--text-soft)] mb-4">
+                                <li className="flex items-start gap-2">
+                                    <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
+                                    <span><strong>Unlimited Journeys:</strong> Switch goals anytime and access every roadmap</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
+                                    <span><strong>All Strategy Tools:</strong> Full Foundation Roadmap access</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
+                                    <span><strong>Unlimited AI Access:</strong> Use all assistants with no restrictions</span>
+                                </li>
+                            </ul>
+
+                            <Link
+                                to={createPageUrl('Upgrade')}
+                                onClick={onClose}
+                                className="btn w-full justify-center bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 text-white border-0 hover:shadow-lg"
+                            >
+                                <Crown className="w-4 h-4 mr-2" />
+                                {user?.subscription_level === 'free' ? 'Upgrade to The HQ - $99/mo' : 'Learn More About The HQ'}
+                            </Link>
+                        </div>
                     </div>
 
                     {/* Footer */}
