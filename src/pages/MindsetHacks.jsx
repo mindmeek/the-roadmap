@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Brain, Clock, Target, TrendingUp, Zap, Focus, Timer, BarChart3, Lightbulb, CheckCircle, ArrowRight, Star, Filter, Lock, Crown } from "lucide-react";
+import { Brain, Clock, Target, TrendingUp, Zap, Focus, Timer, BarChart3, Lightbulb, CheckCircle, ArrowRight, Star, Filter, Lock, Crown, ChevronDown } from "lucide-react";
 import { User } from '@/entities/User'; 
 
 const mindsetHacks = [
@@ -193,6 +193,7 @@ export default function MindsetHacksPage() {
   const [selectedDifficulty, setSelectedDifficulty] = useState("All");
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showDescription, setShowDescription] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -282,19 +283,30 @@ export default function MindsetHacksPage() {
             </div>
           </div>
           
-          <div className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border border-yellow-200 dark:border-yellow-700 p-6 rounded-lg">
-            <div className="flex items-start space-x-4">
-              <Star className="w-6 h-6 text-[var(--primary-gold)] mt-1 flex-shrink-0" />
-              <div>
-                <h3 className="font-bold text-[var(--text-main)] mb-3 text-lg">Your Mindset Is Your Ultimate Competitive Advantage</h3>
-                
-                <p className="text-[var(--text-main)] leading-relaxed mb-3">
+          {/* Collapsible Description */}
+          <div className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg overflow-hidden">
+            <button
+              onClick={() => setShowDescription(!showDescription)}
+              className="w-full p-4 flex items-center justify-between hover:bg-yellow-100 dark:hover:bg-yellow-900/30 transition-colors"
+            >
+              <div className="flex items-center gap-3">
+                <Star className="w-5 h-5 text-[var(--primary-gold)] flex-shrink-0" />
+                <h3 className="font-bold text-[var(--text-main)] text-base md:text-lg text-left">
+                  Your Mindset Is Your Ultimate Competitive Advantage
+                </h3>
+              </div>
+              <ChevronDown className={`w-5 h-5 text-[var(--text-soft)] flex-shrink-0 transition-transform ${showDescription ? 'rotate-180' : ''}`} />
+            </button>
+            
+            {showDescription && (
+              <div className="px-6 pb-6 pt-2 space-y-3">
+                <p className="text-[var(--text-main)] leading-relaxed">
                   Success in business isn't just about strategy and tactics—it's about <strong>how you think, decide, and respond</strong> to 
                   challenges. These mindset frameworks represent the mental operating systems used by the world's most successful entrepreneurs. 
                   They're not motivational fluff; they're <strong>cognitive tools backed by psychology, neuroscience, and decades of business research</strong>.
                 </p>
                 
-                <p className="text-[var(--text-main)] leading-relaxed mb-3">
+                <p className="text-[var(--text-main)] leading-relaxed">
                   Each framework teaches you to <strong>think differently about fundamental business challenges</strong>—from handling fear and making 
                   difficult decisions under pressure, to building mental resilience that keeps you moving forward when others quit. You'll learn 
                   to reframe failures as data, turn anxiety into action, and develop the psychological endurance needed for long-term success.
@@ -308,12 +320,12 @@ export default function MindsetHacksPage() {
                 </p>
                 
                 {user && user.subscription_level === 'free' && (
-                  <p className="text-[var(--primary-gold)] font-semibold mt-4">
+                  <p className="text-[var(--primary-gold)] font-semibold">
                     ✨ Free Trial Access included for select frameworks!
                   </p>
                 )}
               </div>
-            </div>
+            )}
           </div>
         </div>
 
