@@ -489,63 +489,89 @@ export default function DashboardPage() {
                     </div>
                 )}
 
-                {/* Community Welcome Card */}
-                <div className="card p-6 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border-2 border-purple-200 dark:border-purple-700" style={{ borderRadius: '2px' }}>
-                    <div className="flex flex-col lg:flex-row items-start gap-6">
-                        <div className="flex-shrink-0 mx-auto lg:mx-0">
-                            <div className="bg-gradient-to-br from-purple-500 to-blue-600 p-4 rounded-full">
-                                <Users className="w-10 h-10 text-white" />
+                {/* Community + Upgrade CTAs SIDE BY SIDE */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                    {/* Community CTA */}
+                    <div className="card p-6 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border-2 border-purple-200 dark:border-purple-700" style={{ borderRadius: '2px' }}>
+                        <div className="flex items-start gap-4 mb-4">
+                            <div className="bg-gradient-to-br from-purple-500 to-blue-600 p-3 rounded-xl flex-shrink-0">
+                                <Users className="w-6 h-6 text-white" />
+                            </div>
+                            <div className="flex-1">
+                                <h3 className="text-lg font-bold text-[var(--text-main)] mb-2">
+                                    Join The Business Minds Community
+                                </h3>
+                                <p className="text-sm text-[var(--text-soft)] mb-4">
+                                    Connect with a thriving network of entrepreneurs who understand your journey and are committed to mutual growth.
+                                </p>
                             </div>
                         </div>
-                        <div className="flex-1 text-center lg:text-left">
-                            <h3 className="text-xl md:text-2xl font-bold text-[var(--text-main)] mb-2">
-                                🎉 Welcome to The Business Minds Community!
-                            </h3>
-                            <p className="text-[var(--text-soft)] mb-4">
-                                You're now part of an exclusive network of entrepreneurs. Connect, learn, and grow with peers who share your journey.
-                            </p>
-                            
-                            <div className="bg-white dark:bg-gray-800 rounded-lg p-4 mb-4 text-left">
-                                <h4 className="font-semibold text-[var(--text-main)] mb-3">Your Community Benefits:</h4>
-                                <ul className="space-y-2 text-sm text-[var(--text-soft)]">
-                                    <li className="flex items-start gap-2">
-                                        <span className="text-purple-600 dark:text-purple-400 font-bold">✓</span>
-                                        <span><strong>Network with Entrepreneurs</strong> - Connect with peers at every stage of growth</span>
-                                    </li>
-                                    <li className="flex items-start gap-2">
-                                        <span className="text-purple-600 dark:text-purple-400 font-bold">✓</span>
-                                        <span><strong>Weekly Live Group Coaching</strong> - Join Christopher Shaw every Tuesday & Thursday (1:15-2:00 PM PST)</span>
-                                    </li>
-                                    <li className="flex items-start gap-2">
-                                        <span className="text-purple-600 dark:text-purple-400 font-bold">✓</span>
-                                        <span><strong>Get Real-Time Support</strong> - Ask questions, share wins, and receive feedback from the community</span>
-                                    </li>
-                                </ul>
-                            </div>
+                        
+                        <ul className="space-y-2 text-sm text-[var(--text-soft)] mb-4">
+                            <li className="flex items-start gap-2">
+                                <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
+                                <span><strong>Weekly Live Coaching:</strong> Join group sessions every Tuesday & Thursday with Christopher Shaw</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
+                                <span><strong>Real-Time Support:</strong> Get answers, share wins, and receive feedback from fellow entrepreneurs</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
+                                <span><strong>Networking Opportunities:</strong> Build valuable connections with entrepreneurs at every stage</span>
+                            </li>
+                        </ul>
 
-                            <div className="flex flex-col sm:flex-row gap-3">
-                                <Link 
-                                    to={createPageUrl('TheCommunity')}
-                                    className="btn btn-primary flex items-center justify-center"
-                                >
-                                    <Users className="w-5 h-5 mr-2" />
-                                    Access Community Now
-                                </Link>
-                                {user?.subscription_level === 'free' && (
-                                    <Link 
-                                        to={createPageUrl('Upgrade')}
-                                        className="btn btn-secondary flex items-center justify-center"
-                                    >
-                                        <Rocket className="w-5 h-5 mr-2" />
-                                        Upgrade for Full Access
-                                    </Link>
-                                )}
-                            </div>
-                            <p className="text-xs text-[var(--text-soft)] mt-3">
-                                💡 Use the same login credentials from The Roadmap to access the community
-                            </p>
-                        </div>
+                        <Link 
+                            to={createPageUrl('TheCommunity')}
+                            className="btn btn-primary w-full justify-center"
+                        >
+                            <Users className="w-4 h-4 mr-2" />
+                            Access Community Now
+                        </Link>
                     </div>
+
+                    {/* Upgrade CTA */}
+                    {user?.subscription_level === 'free' && (
+                        <div className="card p-6 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-[var(--primary-gold)]" style={{ borderRadius: '2px' }}>
+                            <div className="flex items-start gap-4 mb-4">
+                                <div className="bg-gradient-to-br from-[var(--primary-gold)] to-yellow-600 p-3 rounded-xl flex-shrink-0">
+                                    <Rocket className="w-6 h-6 text-white" />
+                                </div>
+                                <div className="flex-1">
+                                    <h3 className="text-lg font-bold text-[var(--text-main)] mb-2">
+                                        Unlock The Full HQ Experience
+                                    </h3>
+                                    <p className="text-sm text-[var(--text-soft)] mb-4">
+                                        Get unlimited access to every tool, training, and resource you need to scale your business faster than ever.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <ul className="space-y-2 text-sm text-[var(--text-soft)] mb-4">
+                                <li className="flex items-start gap-2">
+                                    <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
+                                    <span><strong>Unlimited 90-Day Journeys:</strong> Switch goals anytime and access every roadmap</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
+                                    <span><strong>All Strategy Tools:</strong> Full access to the Foundation Roadmap and advanced templates</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
+                                    <span><strong>Priority Support:</strong> Get faster responses and exclusive training sessions</span>
+                                </li>
+                            </ul>
+
+                            <Link 
+                                to={createPageUrl('Upgrade')}
+                                className="btn w-full justify-center bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 text-white hover:shadow-lg"
+                            >
+                                <Rocket className="w-4 h-4 mr-2" />
+                                Upgrade to The HQ - $99/month
+                            </Link>
+                        </div>
+                    )}
                 </div>
 
                 {/* Foundation Roadmap Visual */}
