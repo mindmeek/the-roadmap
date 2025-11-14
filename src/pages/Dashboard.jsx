@@ -34,6 +34,7 @@ import AITeamModal from '../components/ai/AITeamModal';
 import WelcomePopup from '../components/common/WelcomePopup';
 import UpcomingTasksPreview from '../components/dashboard/UpcomingTasksPreview';
 import DailyInsightTabs from '../components/dashboard/DailyInsightTabs';
+import EntrepreneurshipStageProgress from '../components/dashboard/EntrepreneurshipStageProgress';
 
 // AI Team Info for avatars and names
 const AI_TEAM_INFO = {
@@ -292,7 +293,7 @@ export default function DashboardPage() {
                     </div>
                 </div>
 
-                {/* Journey Timeline & Financial Snapshot - MOVED UP */}
+                {/* Journey Timeline & Financial Snapshot */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
                     <div className="lg:col-span-2">
                         <JourneyTimeline user={user} />
@@ -301,6 +302,59 @@ export default function DashboardPage() {
                         <FinancialSnapshot user={user} />
                     </div>
                 </div>
+
+                {/* Today's Progress & Upcoming Tasks - SIDE BY SIDE */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                    {/* Today's Progress */}
+                    <div className="card p-4 sm:p-6" style={{ borderRadius: '2px' }}>
+                        <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+                            <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)] flex items-center flex-wrap gap-2">
+                                <TrendingUp className="w-5 h-5 text-[var(--primary-gold)]" />
+                                <span>Today's Progress</span>
+                                <Tooltip content="Track your daily 1% improvements. Small, consistent actions compound into massive results over time.">
+                                    <HelpCircle className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+                                </Tooltip>
+                            </h3>
+                            <Link to={createPageUrl('DailyTrack')} className="text-[var(--primary-gold)] hover:underline flex items-center text-xs sm:text-sm font-medium">
+                                Track More <ChevronRight className="w-4 h-4 ml-1" />
+                            </Link>
+                        </div>
+                        {totalTasksToday > 0 ? (
+                            <div>
+                                <div className="flex items-center justify-between mb-2">
+                                    <span className="text-xs sm:text-sm text-[var(--text-soft)]">
+                                        {completedTasksToday} of {totalTasksToday} tasks completed
+                                    </span>
+                                    <span className="text-xs sm:text-sm font-bold text-[var(--primary-gold)]">
+                                        {Math.round((completedTasksToday / totalTasksToday) * 100)}%
+                                    </span>
+                                </div>
+                                <div className="w-full bg-gray-200 dark:bg-gray-700 h-3" style={{ borderRadius: '2px' }}>
+                                    <div 
+                                        className="bg-gradient-to-r from-green-500 to-emerald-600 h-3 transition-all"
+                                        style={{ width: `${(completedTasksToday / totalTasksToday) * 100}%`, borderRadius: '2px' }}
+                                    ></div>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="text-center py-6">
+                                <p className="text-[var(--text-soft)] mb-4 text-sm">No tasks tracked today yet.</p>
+                                <Link to={createPageUrl('DailyTrack')} className="btn btn-primary text-sm">
+                                    <CheckCircle className="w-4 h-4 mr-2" />
+                                    Start Tracking
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+
+                    <UpcomingTasksPreview />
+                </div>
+
+                {/* Daily Insights - FULL WIDTH */}
+                <DailyInsightTabs />
+
+                {/* Entrepreneurship Stage Progress - NEW */}
+                <EntrepreneurshipStageProgress user={user} />
 
                 {/* Meet Your AI Team */}
                 {aiSuggestion && recommendedAgent && (
@@ -436,54 +490,6 @@ export default function DashboardPage() {
                         </div>
                     </div>
                 )}
-
-                {/* Today's Progress Summary */}
-                <div className="card p-4 sm:p-6" style={{ borderRadius: '2px' }}>
-                    <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-                        <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)] flex items-center flex-wrap gap-2">
-                            <TrendingUp className="w-5 h-5 text-[var(--primary-gold)]" />
-                            <span>Today's Progress</span>
-                            <Tooltip content="Track your daily 1% improvements. Small, consistent actions compound into massive results over time.">
-                                <HelpCircle className="w-4 h-4 text-gray-400 dark:text-gray-500" />
-                            </Tooltip>
-                        </h3>
-                        <Link to={createPageUrl('DailyTrack')} className="text-[var(--primary-gold)] hover:underline flex items-center text-xs sm:text-sm font-medium">
-                            Track More <ChevronRight className="w-4 h-4 ml-1" />
-                        </Link>
-                    </div>
-                    {totalTasksToday > 0 ? (
-                        <div>
-                            <div className="flex items-center justify-between mb-2">
-                                <span className="text-xs sm:text-sm text-[var(--text-soft)]">
-                                    {completedTasksToday} of {totalTasksToday} tasks completed
-                                </span>
-                                <span className="text-xs sm:text-sm font-bold text-[var(--primary-gold)]">
-                                    {Math.round((completedTasksToday / totalTasksToday) * 100)}%
-                                </span>
-                            </div>
-                            <div className="w-full bg-gray-200 dark:bg-gray-700 h-3" style={{ borderRadius: '2px' }}>
-                                <div 
-                                    className="bg-gradient-to-r from-green-500 to-emerald-600 h-3 transition-all"
-                                    style={{ width: `${(completedTasksToday / totalTasksToday) * 100}%`, borderRadius: '2px' }}
-                                ></div>
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="text-center py-6">
-                            <p className="text-[var(--text-soft)] mb-4 text-sm">No tasks tracked today yet.</p>
-                            <Link to={createPageUrl('DailyTrack')} className="btn btn-primary text-sm">
-                                <CheckCircle className="w-4 h-4 mr-2" />
-                                Start Tracking
-                            </Link>
-                        </div>
-                    )}
-                </div>
-
-                {/* Upcoming Tasks & Daily Insights Row - NEW */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                    <UpcomingTasksPreview />
-                    <DailyInsightTabs />
-                </div>
 
                 {/* Community Welcome Card */}
                 <div className="card p-6 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border-2 border-purple-200 dark:border-purple-700" style={{ borderRadius: '2px' }}>

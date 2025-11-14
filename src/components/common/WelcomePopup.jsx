@@ -1,20 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { X, Target, Sparkles, Users, Zap, ArrowRight, BookOpen, CheckCircle2, Calendar, Crown, Smartphone, Apple, TrendingUp, Lightbulb, Rocket, BarChart3, Layers, DollarSign, Route, Cog } from 'lucide-react';
+import { X, Target, Sparkles, Users, Zap, DollarSign, Route, Crown, TrendingUp } from 'lucide-react';
 
 export default function WelcomePopup({ isOpen, onClose, user }) {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-      const mobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
-      setIsMobile(mobile);
-    };
-    checkMobile();
-  }, []);
-
   if (!isOpen) return null;
 
   const isOnTrial = user?.is_premium_trial_user && user?.trial_status === 'active';
@@ -37,7 +26,7 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
       className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[200] p-4"
       onClick={handleBackdropClick}
     >
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto relative transform transition-all">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative transform transition-all">
         <div className="sticky top-0 bg-white dark:bg-gray-800 z-10 p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
           <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-main)]">
             🎉 Welcome, {user?.first_name || 'Entrepreneur'}!
@@ -67,77 +56,13 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
             </div>
           )}
 
-          {/* Your Entrepreneurial Journey - 3 Stages */}
-          <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-lg p-6 border border-indigo-200 dark:border-indigo-700">
-            <h3 className="font-bold text-xl text-[var(--text-main)] mb-4 text-center flex items-center justify-center gap-2">
-              <Target className="w-6 h-6 text-indigo-600" />
-              Your Entrepreneurial Journey
-            </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-blue-200 dark:border-blue-700">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="bg-blue-500 rounded-full p-2">
-                    <Lightbulb className="w-4 h-4 text-white" />
-                  </div>
-                  <h4 className="font-bold text-sm text-[var(--text-main)]">Vision Stage</h4>
-                </div>
-                <p className="text-xs text-[var(--text-soft)] mb-2">
-                  <strong>Goal:</strong> Build foundation
-                </p>
-                <div className="bg-blue-50 dark:bg-blue-900/20 rounded p-2">
-                  <p className="text-xs text-blue-700 dark:text-blue-300 flex items-center gap-1">
-                    <Layers className="w-3 h-3" />
-                    <strong>Tools:</strong> Foundation Roadmap
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-green-200 dark:border-green-700">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="bg-green-500 rounded-full p-2">
-                    <Route className="w-4 h-4 text-white" />
-                  </div>
-                  <h4 className="font-bold text-sm text-[var(--text-main)]">Startup Stage</h4>
-                </div>
-                <p className="text-xs text-[var(--text-soft)] mb-2">
-                  <strong>Goal:</strong> Effective customer journey
-                </p>
-                <div className="bg-green-50 dark:bg-green-900/20 rounded p-2">
-                  <p className="text-xs text-green-700 dark:text-green-300 flex items-center gap-1">
-                    <Target className="w-3 h-3" />
-                    <strong>Tools:</strong> 90-Day Journey
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-purple-200 dark:border-purple-700">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="bg-purple-500 rounded-full p-2">
-                    <Cog className="w-4 h-4 text-white" />
-                  </div>
-                  <h4 className="font-bold text-sm text-[var(--text-main)]">Growth Stage</h4>
-                </div>
-                <p className="text-xs text-[var(--text-soft)] mb-2">
-                  <strong>Goal:</strong> Automate & Streamline
-                </p>
-                <div className="bg-purple-50 dark:bg-purple-900/20 rounded p-2">
-                  <p className="text-xs text-purple-700 dark:text-purple-300 flex items-center gap-1">
-                    <Sparkles className="w-3 h-3" />
-                    <strong>Tools:</strong> AI & Analytics
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* Next Step Question */}
           <div className="text-center">
             <h3 className="font-bold text-xl text-[var(--text-main)] mb-2">
               What's Your Next Logical Step?
             </h3>
             <p className="text-sm text-[var(--text-soft)] mb-4">
-              Choose where you'd like to begin:
+              Choose where you'd like to begin your journey:
             </p>
           </div>
 
@@ -146,7 +71,7 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
             <Link
               to={createPageUrl('Journey')}
               onClick={handleClose}
-              className="card p-4 hover:border-[var(--primary-gold)] transition-all text-center group cursor-pointer"
+              className="card p-5 hover:border-[var(--primary-gold)] transition-all text-center group cursor-pointer"
             >
               <div className="bg-[var(--primary-gold)] w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
                 <Target className="w-6 h-6 text-white" />
@@ -162,7 +87,7 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleClose}
-              className="card p-4 hover:border-[var(--primary-gold)] transition-all text-center group cursor-pointer"
+              className="card p-5 hover:border-[var(--primary-gold)] transition-all text-center group cursor-pointer"
             >
               <div className="bg-purple-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
                 <Users className="w-6 h-6 text-white" />
@@ -176,7 +101,7 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
             <Link
               to={createPageUrl('FreedomCalculator')}
               onClick={handleClose}
-              className="card p-4 hover:border-[var(--primary-gold)] transition-all text-center group cursor-pointer"
+              className="card p-5 hover:border-[var(--primary-gold)] transition-all text-center group cursor-pointer"
             >
               <div className="bg-green-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
                 <DollarSign className="w-6 h-6 text-white" />
