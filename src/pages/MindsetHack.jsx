@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -122,43 +121,6 @@ const mindsetHacks = {
       "Letting 2-minute tasks interrupt flow sessions—batch them instead"
     ]
   },
-  "energy-management": {
-    title: "Energy Management Over Time Management",
-    readTime: "7 min read",
-    overview: "Traditional time management focuses on squeezing more tasks into your day. Energy management takes a smarter approach: aligning your most important work with your natural energy peaks and valleys. Here's the truth—not all hours of your day are equal. You have times when you're mentally sharp, creative, and focused, and other times when you're sluggish, distracted, and low-energy. Most entrepreneurs ignore this and try to power through all day, resulting in mediocre work and burnout. Energy management is about recognizing your unique energy patterns and strategically matching different types of work to your energy levels. High-energy periods are for your most important, creative, or complex work. Low-energy periods are for routine tasks like email, admin work, or meetings. This approach isn't about working more hours—it's about making your hours count by working with your biology instead of against it. The result? Higher quality output, better decision-making, and sustainable productivity without exhaustion.",
-    whyItHelps: "Energy management leads to higher quality work, better decision-making, and reduced burnout. By working with your natural rhythms, you can accomplish more in less time while feeling more fulfilled.",
-    actionSteps: [
-      "**Track Your Energy:** For one week, note your energy levels every 2 hours on a scale of 1-10. Identify your natural peaks and valleys.",
-      "**Match Tasks to Energy:** Schedule your most important, creative work during high-energy periods. Save routine tasks for low-energy times.",
-      "**Protect Peak Hours:** Guard your high-energy times from meetings, emails, or interruptions. Use these for your most important work.",
-      "**Manage Energy Drains:** Identify what drains your energy (difficult people, certain tasks, environments) and minimize or eliminate these when possible."
-    ],
-    practicalTips: [
-      "Most people have peak energy 2-4 hours after waking up",
-      "Take regular breaks to maintain energy throughout the day",
-      "Notice how different foods, exercise, and sleep affect your energy levels"
-    ]
-  },
-  "deep-work": {
-    title: "Deep Work Principles",
-    readTime: "8 min read",
-    overview: "Deep work is the ability to focus intensely on cognitively demanding tasks without distraction. In our hyperconnected world of constant notifications, messages, and interruptions, the capacity for deep work is becoming increasingly rare—and increasingly valuable. Deep work is where breakthrough ideas emerge, complex problems get solved, and your most important projects move forward. It's the opposite of shallow work (checking email, attending meetings, browsing social media), which fills your day but produces little meaningful progress. The challenge is that deep work doesn't come naturally in today's environment. Your brain has been trained to seek constant stimulation and quick dopamine hits from notifications. Breaking this pattern requires deliberate practice and environmental design. But the payoff is enormous: you can accomplish in 2-3 hours of deep work what might take an entire day of distracted work. Deep work is a superpower for entrepreneurs—it's how you create the products, strategies, and content that set your business apart.",
-    whyItHelps: "In a world of constant digital distraction, the ability to perform deep work is becoming increasingly rare and valuable. Mastering it allows you to produce high-quality, creative work that can't be easily replicated, giving you a massive competitive advantage.",
-    actionSteps: [
-      "**Schedule Deep Work Blocks:** Use The Command Hub Calendar to block out 90-minute to 2-hour windows for focused work. Treat these appointments as non-negotiable.",
-      "**Choose Your Deep Work Ritual:** Create a routine to signal the start of deep work. This could be making a specific cup of tea, closing your office door, or turning on focus music.",
-      "**Eliminate All Distractions:** Turn off your phone, close all unnecessary browser tabs, and disable notifications on your computer.",
-      "**Use The Command Hub Social Planner:** Schedule your social media posts in advance using The Command Hub so you don't need to be on social media during deep work blocks.",
-      "**Track Your Deep Work Hours:** Use a simple spreadsheet or The Command Hub's CRM to log your deep work hours each day. Aim to gradually increase the time.",
-      "**Embrace Boredom:** Don't pull out your phone every time you have a spare moment. Allowing your mind to be bored can improve your ability to focus."
-    ],
-    practicalTips: [
-      "Work in a dedicated space free from interruptions",
-      "Inform your team or family about your deep work schedule",
-      "Have a clear goal for each deep work session",
-      "Use The Command Hub Mobile App to manage urgent tasks outside of your focus blocks"
-    ]
-  },
   "decision-fatigue": {
     title: "Overcoming Decision Fatigue",
     readTime: "5 min read",
@@ -189,30 +151,11 @@ const mindsetHacks = {
       "Overthinking trivial choices that don't significantly impact outcomes"
     ]
   },
-  "habit-stacking": {
-    title: "Habit Stacking for Success",
-    readTime: "6 min read",
-    overview: "Habit stacking is a technique where you link a new desired habit to an existing habit you already do each day. The formula is: 'After [CURRENT HABIT], I will [NEW HABIT].'",
-    whyItHelps: "This method leverages existing neural pathways in your brain, making it significantly easier to adopt new positive behaviors. It removes the need for motivation and makes habit formation feel more natural and automatic.",
-    actionSteps: [
-      "**Identify Your Existing Habits:** Make a list of things you do every day without fail (e.g., 'After I pour my morning coffee...', 'After I brush my teeth...').",
-      "**Choose a Small New Habit:** Select a new habit that takes less than two minutes to complete (e.g., '...I will meditate for one minute.', '...I will write down my top priority for the day.').",
-      "**Create Your Habit Stack Formula:** Clearly state your habit stack. For example: 'After I finish my morning coffee, I will open The Command Hub Calendar and review my top 3 priorities.'",
-      "**Make It Obvious:** Set up your environment for success. If your new habit is to review your finances, have The Command Hub's payment dashboard open on your computer.",
-      "**Start Small and Build Up:** Once the new habit is established, you can gradually increase its duration or difficulty.",
-      "**Track Your Streak:** Use a journal or a simple checklist in The Command Hub notes to track your consistency. Don't break the chain!"
-    ],
-    practicalTips: [
-      "Use The Command Hub Mobile App to set a reminder for your new habit stack",
-      "Choose a current habit that has the same frequency as your desired new habit",
-      "Be very specific. 'After I close my laptop for the day, I will write down one thing I'm grateful for.'"
-    ]
-  },
   "power-of-no": {
     title: "The Power of Saying No",
     readTime: "4 min read",
     category: "Boundaries",
-    overview: "Saying 'no' is a critical skill for entrepreneurs. Every time you say 'yes' to something, you are saying 'no' to something else—often your own priorities. Learning to decline non-essential requests protects your time, energy, and focus.",
+    overview: "Saying 'no' is a critical skill for entrepreneurs. Every time you say 'yes' to something, you are saying 'no' to something else—often your own priorities. Learning to decline non-essential requests protects your time, energy, and focus. Warren Buffett said, 'The difference between successful people and really successful people is that really successful people say no to almost everything.' Most entrepreneurs struggle with saying no because they fear missing opportunities, disappointing people, or appearing uncooperative. But the reality is that saying yes to everything leads to scattered focus, mediocre results, and burnout. Strategic refusal is about being selective with your commitments so you can excel at what truly matters. Mastering the art of saying 'no' prevents burnout, keeps you focused on your most important goals, and ensures you are in control of your schedule, rather than letting others dictate your priorities.",
     deepDive: "Warren Buffett said, 'The difference between successful people and really successful people is that really successful people say no to almost everything.' Most entrepreneurs struggle with saying no because they fear missing opportunities, disappointing people, or appearing uncooperative. But the reality is that saying yes to everything leads to scattered focus, mediocre results, and burnout. Strategic refusal is about being selective with your commitments so you can excel at what truly matters.",
     whyItHelps: "Mastering the art of saying 'no' prevents burnout, keeps you focused on your most important goals, and ensures you are in control of your schedule, rather than letting others dictate your priorities.",
     psychologyBehind: "Humans have a natural desire to please others and avoid conflict. Saying 'no' triggers fear of rejection or social exclusion. However, research shows that people respect those who have clear boundaries more than those who agree to everything. When you say no to protect your priorities, you signal that your time is valuable and you're focused—traits that actually increase respect and opportunities.",
@@ -242,7 +185,7 @@ const mindsetHacks = {
     title: "Build Systems That Work Without You",
     readTime: "9 min read",
     category: "Business Strategy",
-    overview: "Systems thinking is the process of building automated and repeatable processes for every aspect of your business. The goal is to create a business that can run and grow without your direct involvement in every single task.",
+    overview: "Systems thinking is the process of building automated and repeatable processes for every aspect of your business. The goal is to create a business that can run and grow without your direct involvement in every single task. Michael Gerber's 'The E-Myth' explains that most businesses fail because they're dependent on the owner doing everything. True business success comes from building systems that allow the business to operate independently. McDonald's succeeded not because they make the best burgers, but because they created a system that produces consistent results regardless of who's working. Your goal is to become the architect of systems, not the operator of tasks. Building systems allows you to scale your business, free up your time to work ON the business instead of IN it, ensure consistent quality, and ultimately build a valuable asset that isn't dependent on you.",
     deepDive: "Michael Gerber's 'The E-Myth' explains that most businesses fail because they're dependent on the owner doing everything. True business success comes from building systems that allow the business to operate independently. McDonald's succeeded not because they make the best burgers, but because they created a system that produces consistent results regardless of who's working. Your goal is to become the architect of systems, not the operator of tasks.",
     whyItHelps: "Building systems allows you to scale your business, free up your time to work ON the business instead of IN it, ensure consistent quality, and ultimately build a valuable asset that isn't dependent on you.",
     typesOfSystems: "Operations systems (how you deliver your product/service), Marketing systems (how you attract and convert customers), Sales systems (how you close deals), Financial systems (how you manage money), and HR systems (how you hire, train, and manage people). Each area needs documented, repeatable processes.",
@@ -269,30 +212,11 @@ const mindsetHacks = {
       "Not updating systems as the business evolves"
     ]
   },
-  "feedback-loops": {
-    title: "Creating Effective Feedback Loops",
-    readTime: "5 min read",
-    overview: "A feedback loop is a process where the outputs of a system are circled back and used as inputs. In business, it means systematically collecting and using feedback from customers and data to continuously improve.",
-    whyItHelps: "Effective feedback loops help you stay aligned with customer needs, identify problems before they become crises, innovate faster, and make data-driven decisions instead of relying on guesswork.",
-    actionSteps: [
-      "**Automate Customer Surveys:** Use The Command Hub's Form Builder and Marketing Automation to send a survey 7 days after a purchase or service completion.",
-      "**Monitor Social Media:** Use The Command Hub's Social Media Planner to track mentions of your brand and competitors to gather unsolicited feedback.",
-      "**Analyze Sales Data:** Regularly review your sales data in The Command Hub's Payment System and CRM to see what's selling and what's not.",
-      "**Conduct 'Win/Loss' Analysis:** When you gain or lose a major client, use The Command Hub's CRM to document why. Look for patterns.",
-      "**Schedule Regular Check-ins:** Use The Command Hub Calendar to schedule weekly team meetings and monthly customer check-in calls to actively ask for feedback.",
-      "**Close the Loop:** When you implement a change based on feedback, let the customers or team members who suggested it know. This encourages more feedback."
-    ],
-    practicalTips: [
-      "Make it easy for customers to give feedback with a simple form on your website",
-      "Focus on trends, not individual comments",
-      "Use The Command Hub's Review Management to centralize and analyze public feedback"
-    ]
-  },
   "compound-effect": {
     title: "The Compound Effect in Business",
     readTime: "6 min read",
     category: "Growth",
-    overview: "The compound effect is the principle of reaping huge rewards from a series of small, smart choices. It's the idea that small, consistent actions over a long period of time lead to massive, transformative results.",
+    overview: "The compound effect is the principle of reaping huge rewards from a series of small, smart choices. It's the idea that small, consistent actions over a long period of time lead to massive, transformative results. Darren Hardy's book 'The Compound Effect' illustrates this with a simple example: if you improve by just 1% every day for a year, you'll end up 37 times better (not 365% better—that's the power of compounding). In business, this means that small, consistent actions like sending one prospecting email daily, creating one piece of content weekly, or improving one process monthly compound into dramatic results over time. The challenge is that results are often invisible for months, requiring patience and faith in the process. This principle helps entrepreneurs stay motivated during the early stages when results aren't immediately obvious. It proves that you don't need to make huge, radical changes to achieve great success—you just need to be consistent.",
     deepDive: "Darren Hardy's book 'The Compound Effect' illustrates this with a simple example: if you improve by just 1% every day for a year, you'll end up 37 times better (not 365% better—that's the power of compounding). In business, this means that small, consistent actions like sending one prospecting email daily, creating one piece of content weekly, or improving one process monthly compound into dramatic results over time. The challenge is that results are often invisible for months, requiring patience and faith in the process.",
     whyItHelps: "This principle helps entrepreneurs stay motivated during the early stages when results aren't immediately obvious. It proves that you don't need to make huge, radical changes to achieve great success—you just need to be consistent.",
     mathematicsOfCompounding: "If you get 1% better each day: Day 1 = 1.00, Day 30 = 1.35, Day 365 = 37.78. If you get 1% worse each day: Day 1 = 1.00, Day 30 = 0.74, Day 365 = 0.03. Small choices, compounded over time, create vastly different outcomes. This is true for habits, skills, relationships, and revenue.",
@@ -322,7 +246,7 @@ const mindsetHacks = {
     title: "Essential Mental Models for Entrepreneurs",
     readTime: "10 min read",
     category: "Decision Making",
-    overview: "Mental models are frameworks for thinking. They are simplified representations of how the world works that help you understand complex situations and make better decisions. Successful entrepreneurs use a toolbox of mental models to solve problems.",
+    overview: "Mental models are frameworks for thinking. They are simplified representations of how the world works that help you understand complex situations and make better decisions. Successful entrepreneurs use a toolbox of mental models to solve problems. Charlie Munger, Warren Buffett's business partner, advocates for developing a 'latticework of mental models' from multiple disciplines. He believes that having 80-90 mental models from fields like psychology, economics, biology, physics, and mathematics allows you to see problems from multiple angles and make better decisions. Most people over-rely on a single way of thinking; multi-disciplinary thinkers have a massive advantage in business. Using mental models helps you avoid common thinking errors, see problems from multiple perspectives, and make smarter strategic decisions. It's like having a set of proven software for your brain.",
     deepDive: "Charlie Munger, Warren Buffett's business partner, advocates for developing a 'latticework of mental models' from multiple disciplines. He believes that having 80-90 mental models from fields like psychology, economics, biology, physics, and mathematics allows you to see problems from multiple angles and make better decisions. Most people over-rely on a single way of thinking; multi-disciplinary thinkers have a massive advantage in business.",
     whyItHelps: "Using mental models helps you avoid common thinking errors, see problems from multiple perspectives, and make smarter strategic decisions. It's like having a set of proven software for your brain.",
     coreModels: "First Principles Thinking (break problems into fundamental truths), Second-Order Thinking (consider consequences of consequences), Inversion (think backwards from failure), Circle of Competence (know what you know), Occam's Razor (simplest explanation is usually correct), Margin of Safety (build in buffer for error), Opportunity Cost (what you give up by choosing one option).",
@@ -352,7 +276,7 @@ const mindsetHacks = {
     title: "Achieving Flow State",
     readTime: "7 min read",
     category: "Performance",
-    overview: "Flow is a mental state where a person is fully immersed in an activity with energized focus, full involvement, and enjoyment. It's often called being 'in the zone,' and it's where you produce your best work.",
+    overview: "Flow is a mental state where a person is fully immersed in an activity with energized focus, full involvement, and enjoyment. It's often called being 'in the zone,' and it's where you produce your best work. Psychologist Mihaly Csikszentmihalyi identified flow as the optimal state of human performance. During flow, time seems to disappear, distractions fade away, and you feel a sense of complete control and effortless action. Elite athletes, artists, and entrepreneurs all describe experiencing flow during their best performances. The state is characterized by intense concentration, loss of self-consciousness, and intrinsic motivation. Achieving a state of flow can make you up to 500% more productive. It boosts creativity, speeds up learning, and makes work feel effortless and enjoyable, which is crucial for long-term entrepreneurial stamina.",
     deepDive: "Psychologist Mihaly Csikszentmihalyi identified flow as the optimal state of human performance. During flow, time seems to disappear, distractions fade away, and you feel a sense of complete control and effortless action. Elite athletes, artists, and entrepreneurs all describe experiencing flow during their best performances. The state is characterized by intense concentration, loss of self-consciousness, and intrinsic motivation.",
     whyItHelps: "Achieving a state of flow can make you up to 500% more productive. It boosts creativity, speeds up learning, and makes work feel effortless and enjoyable, which is crucial for long-term entrepreneurial stamina.",
     scienceOfFlow: "During flow, your brain releases neurochemicals including dopamine, norepinephrine, endorphins, anandamide, and serotonin. These chemicals enhance pattern recognition, accelerate learning, and create a powerful sense of satisfaction. Brain imaging shows increased activity in areas associated with focused attention and decreased activity in the prefrontal cortex (responsible for self-criticism), which explains why flow feels 'effortless.'",
@@ -378,30 +302,11 @@ const mindsetHacks = {
       "Not creating environmental triggers that signal flow time to your brain"
     ]
   },
-  "batch-processing": {
-    title: "Batch Processing for Efficiency",
-    readTime: "4 min read",
-    overview: "Batch processing, or 'task batching,' is a productivity technique where you group similar tasks together and complete them in one dedicated time block, rather than spreading them throughout the day.",
-    whyItHelps: "Every time you switch between different types of tasks (e.g., from writing an email to designing a graphic), your brain pays a 'cognitive switching penalty.' Batching minimizes this penalty, saving you time and mental energy.",
-    actionSteps: [
-      "**Identify Your Common Tasks:** Make a list of your recurring tasks, like answering emails, making sales calls, creating social media content, and paying invoices.",
-      "**Group Similar Tasks into Batches:** Create logical groups. For example: 'Communications Batch' (emails, calls), 'Content Batch' (blogging, social posts), 'Admin Batch' (invoices, bookkeeping).",
-      "**Schedule Your Batches:** Use The Command Hub Calendar to assign specific time blocks for each batch. For example, 'Monday 9-10 AM: Content Batch.'",
-      "**Use The Command Hub's Tools:** Use the Social Media Planner to batch a whole week of content. Use the Payment System to handle all invoices at once.",
-      "**Stick to the Batch:** When you are in a batch block, work only on those tasks. Avoid the temptation to check a quick email during your 'Content Batch'.",
-      "**Prepare for Your Batches:** Gather everything you need for a batch before you start. For a 'Content Batch', have all your ideas and images ready to go."
-    ],
-    practicalTips: [
-      "Start with just one or two batches, like an 'email batch'",
-      "Use The Command Hub Mobile App to jot down ideas for future batches as they come to you",
-      "Analyze your time for a week to see where batching could have the biggest impact"
-    ]
-  },
   "fear-setting": {
     title: "Fear Setting Exercise",
     readTime: "8 min read",
     category: "Risk Management",
-    overview: "Created by Tim Ferriss, fear-setting is an exercise for defining and overcoming your fears. Instead of setting goals, you define the worst-case scenarios of taking action, what you could do to prevent them, and how you would recover.",
+    overview: "Created by Tim Ferriss, fear-setting is an exercise for defining and overcoming your fears. Instead of setting goals, you define the worst-case scenarios of taking action, what you could do to prevent them, and how you would recover. Most people avoid risk not because the actual consequences are devastating, but because their fears are vague and undefined. Fear-setting transforms abstract anxiety into concrete, manageable problems. Tim Ferriss used this exercise before leaving his corporate job to start his own business. He realized that even the worst-case scenario (running out of money and having to find a new job) was temporary and survivable. This clarity gave him the courage to take the leap, leading to massive success. This exercise helps you realize that your fears are often exaggerated and manageable. It transforms vague anxieties into concrete, solvable problems, giving you the clarity and courage to take calculated risks.",
     deepDive: "Most people avoid risk not because the actual consequences are devastating, but because their fears are vague and undefined. Fear-setting transforms abstract anxiety into concrete, manageable problems. Tim Ferriss used this exercise before leaving his corporate job to start his own business. He realized that even the worst-case scenario (running out of money and having to find a new job) was temporary and survivable. This clarity gave him the courage to take the leap, leading to massive success.",
     whyItHelps: "This exercise helps you realize that your fears are often exaggerated and manageable. It transforms vague anxieties into concrete, solvable problems, giving you the clarity and courage to take calculated risks.",
     whenToUse: "Use fear-setting before making major business decisions: launching a new product, quitting your job to go full-time, pivoting your business model, making a large investment, hiring your first employee, or any decision where fear is paralyzing you.",
@@ -431,7 +336,7 @@ const mindsetHacks = {
     title: "Minimum Viable Progress",
     readTime: "5 min read",
     category: "Consistency",
-    overview: "Minimum Viable Progress (MVP) is the smallest amount of progress you can make on a task to keep momentum, even on days when you feel unmotivated or overwhelmed. It's the antidote to procrastination.",
+    overview: "Minimum Viable Progress (MVP) is the smallest amount of progress you can make on a task to keep momentum, even on days when you feel unmotivated or overwhelmed. It's the antidote to procrastination. The concept of 'Minimum Viable Progress' is adapted from the Lean Startup principle of 'Minimum Viable Product.' The insight is the same: something small is infinitely better than nothing. Many entrepreneurs fall into the trap of all-or-nothing thinking: 'If I can't work for 3 hours on this project, I won't work on it at all.' This leads to zero-progress days that kill momentum. MVP thinking says: even 2 minutes of work maintains your psychological momentum and compounds over time. This technique bypasses the mental resistance of starting a large task. By committing to a tiny, non-intimidating step, you build momentum that often carries you much further than you initially planned, ensuring you never have a 'zero-progress' day.",
     deepDive: "The concept of 'Minimum Viable Progress' is adapted from the Lean Startup principle of 'Minimum Viable Product.' The insight is the same: something small is infinitely better than nothing. Many entrepreneurs fall into the trap of all-or-nothing thinking: 'If I can't work for 3 hours on this project, I won't work on it at all.' This leads to zero-progress days that kill momentum. MVP thinking says: even 2 minutes of work maintains your psychological momentum and compounds over time.",
     whyItHelps: "This technique bypasses the mental resistance of starting a large task. By committing to a tiny, non-intimidating step, you build momentum that often carries you much further than you initially planned, ensuring you never have a 'zero-progress' day.",
     psychologyBehind: "Starting is often harder than continuing. Once you begin a task, the Zeigarnik Effect kicks in—your brain wants to finish what it started. By committing to just a tiny MVP, you trick your brain into starting, and momentum usually carries you forward. Additionally, seeing consistent progress (even small) releases dopamine, which reinforces the behavior.",
@@ -505,7 +410,7 @@ export default function MindsetHack() {
     const button = document.getElementById('save-notes-btn');
     if (button) {
       const originalText = button.innerHTML;
-      button.innerHTML = '<span class="flex items-center gap-2"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>Saved!</span>';
+      button.innerHTML = '<span class="flex items-center gap-2"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L7 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>Saved!</span>';
       setTimeout(() => {
         button.innerHTML = originalText;
       }, 2000);
