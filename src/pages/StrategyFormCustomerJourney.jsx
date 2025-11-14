@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { User, StrategyDocument } from '@/entities/all';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Loader2, Save, ChevronRight, CheckCircle, UserCircle, Eye, Search, ShoppingCart, HeartHandshake, Trophy, Share2, MessageSquare, Palette, Globe, DollarSign, Smartphone, FolderKanban, Star, Users, Zap, Lightbulb, Sparkles } from 'lucide-react';
+import { Loader2, Save, ChevronRight, CheckCircle, UserCircle, Eye, Search, ShoppingCart, HeartHandshake, Trophy, Share2, MessageSquare, Palette, Globe, DollarSign, Smartphone, FolderKanban, Star, Users, Zap, Lightbulb, Sparkles, Plus, X } from 'lucide-react';
 import SubscriptionGate from '../components/subscription/SubscriptionGate';
 import AITeamModal from '@/components/ai/AITeamModal';
 
@@ -17,14 +17,10 @@ const DEMOGRAPHICS_OPTIONS = {
     occupation: ['Corporate Professional', 'Entrepreneur', 'Freelancer', 'Student', 'Retired', 'Homemaker', 'Other']
 };
 
-const PSYCHOGRAPHICS_OPTIONS = {
-    values: ['Innovation', 'Tradition', 'Family', 'Success', 'Freedom', 'Security', 'Community', 'Sustainability', 'Efficiency', 'Quality'],
-    interests: ['Technology', 'Business', 'Health & Fitness', 'Travel', 'Arts & Culture', 'Sports', 'Education', 'Finance', 'Entertainment', 'Food & Dining'],
-    lifestyle: ['Fast-paced', 'Balanced', 'Minimalist', 'Luxury-oriented', 'Family-focused', 'Career-driven', 'Health-conscious', 'Adventure-seeking'],
-    personality: ['Analytical', 'Creative', 'Pragmatic', 'Innovative', 'Traditional', 'Risk-taker', 'Cautious', 'Social', 'Independent']
-};
+// Consolidated suggestions for multi-value inputs
+const PSYCHOGRAPHICS_SUGGESTIONS = ['Innovation', 'Tradition', 'Family', 'Success', 'Freedom', 'Security', 'Community', 'Sustainability', 'Efficiency', 'Quality', 'Technology', 'Business', 'Health & Fitness', 'Travel', 'Arts & Culture', 'Sports', 'Education', 'Finance', 'Entertainment', 'Food & Dining', 'Fast-paced', 'Balanced', 'Minimalist', 'Luxury-oriented', 'Family-focused', 'Career-driven', 'Health-conscious', 'Adventure-seeking', 'Analytical', 'Creative', 'Pragmatic', 'Innovative', 'Traditional', 'Risk-taker', 'Cautious', 'Social', 'Independent'];
 
-const PAIN_POINTS_OPTIONS = [
+const PAIN_POINTS_SUGGESTIONS = [
     'Lack of time',
     'Limited budget',
     'Information overload',
@@ -39,7 +35,7 @@ const PAIN_POINTS_OPTIONS = [
     'Competition pressure'
 ];
 
-const GOALS_OPTIONS = [
+const GOALS_SUGGESTIONS = [
     'Start a business',
     'Grow existing business',
     'Achieve financial freedom',
@@ -54,7 +50,7 @@ const GOALS_OPTIONS = [
     'Improve efficiency'
 ];
 
-const VALUES_OPTIONS = [
+const VALUES_SUGGESTIONS = [
     'Integrity',
     'Excellence',
     'Innovation',
@@ -101,20 +97,20 @@ const STAGES = [
         connectionTip: 'Speak to their pain points with empathy. Use language like "We know how overwhelming it feels when..." or "You\'re not alone in struggling with..." Show you understand their frustration before offering solutions. The key is to be helpful first, salesy never. Position yourself as a guide, not a vendor.',
         howStagesConnect: 'Awareness leads naturally into Consideration. Once your customer knows you exist and sees that you understand their problem, they\'ll want to learn more. The content you create in the Awareness stage (blog posts, social media, ads) should seamlessly guide them to educational resources in the Consideration stage (webinars, case studies, free trials).',
         hqFeatures: [
-            { 
-                name: 'Social Media Manager', 
-                description: 'Schedule and publish posts across all major platforms (Facebook, Instagram, LinkedIn, Twitter, TikTok) from one unified calendar. Create content once, distribute everywhere. Track engagement metrics to see which messages resonate most with your ideal customer. Set up automated posting schedules so you\'re always visible, even when you\'re sleeping.', 
-                icon: Share2 
+            {
+                name: 'Social Media Manager',
+                description: 'Schedule and publish posts across all major platforms (Facebook, Instagram, LinkedIn, Twitter, TikTok) from one unified calendar. Create content once, distribute everywhere. Track engagement metrics to see which messages resonate most with your ideal customer. Set up automated posting schedules so you\'re always visible, even when you\'re sleeping.',
+                icon: Share2
             },
-            { 
-                name: 'Ads Management', 
-                description: 'Create, launch, and manage Facebook, Instagram, and Google Ads campaigns without leaving The HQ. Built-in targeting tools help you reach your exact ideal customer. Real-time analytics show which ads are driving traffic and conversions. A/B test different ad creatives and copy to optimize performance. Note: This is a $20/month add-on, and we never take a cut of your ad spend - every dollar goes directly to your campaigns.', 
-                icon: Zap 
+            {
+                name: 'Ads Management',
+                description: 'Create, launch, and manage Facebook, Instagram, and Google Ads campaigns without leaving The HQ. Built-in targeting tools help you reach your exact ideal customer. Real-time analytics show which ads are driving traffic and conversions. A/B test different ad creatives and copy to optimize performance. Note: This is a $20/month add-on, and we never take a cut of your ad spend - every dollar goes directly to your campaigns.',
+                icon: Zap
             },
-            { 
-                name: 'Marketing Automation', 
-                description: 'Capture leads automatically from your website, social media, and ads. Set up "if/then" workflows that trigger based on customer behavior (e.g., "If someone downloads the free guide, add them to the 7-day email sequence"). Tag and segment leads based on interests, actions, and demographics. Send personalized follow-up messages that nurture trust before you ever ask for a sale.', 
-                icon: Zap 
+            {
+                name: 'Marketing Automation',
+                description: 'Capture leads automatically from your website, social media, and ads. Set up "if/then" workflows that trigger based on customer behavior (e.g., "If someone downloads the free guide, add them to the 7-day email sequence"). Tag and segment leads based on interests, actions, and demographics. Send personalized follow-up messages that nurture trust before you ever ask for a sale.',
+                icon: Zap
             }
         ]
     },
@@ -131,25 +127,25 @@ const STAGES = [
         connectionTip: 'Provide value without pressure. Offer educational content, transparent comparisons, and social proof (testimonials, case studies). Use language like "See how it works for yourself" or "Here\'s what others in your situation discovered..." Build trust through education. Never hide your pricing or make false promises. The more transparent and helpful you are, the more they\'ll trust you when it\'s time to buy.',
         howStagesConnect: 'Consideration naturally flows into Decision. As your customer becomes educated about their options and confident in your solution, they move closer to purchase. The educational content and trust you build in Consideration removes objections and friction in the Decision stage. By the time they\'re ready to buy, it should feel like an easy, natural next step.',
         hqFeatures: [
-            { 
-                name: 'Drag-and-Drop Website Builder', 
-                description: 'Build stunning, mobile-responsive websites and landing pages without any coding. Choose from hundreds of professionally-designed templates or start from scratch. Customize every element with drag-and-drop simplicity. Built-in SEO tools ensure Google can find your site. A/B test different page versions to optimize conversions. Integrate forms that automatically add leads to your CRM.', 
-                icon: Globe 
+            {
+                name: 'Drag-and-Drop Website Builder',
+                description: 'Build stunning, mobile-responsive websites and landing pages without any coding. Choose from hundreds of professionally-designed templates or start from scratch. Customize every element with drag-and-drop simplicity. Built-in SEO tools ensure Google can find your site. A/B test different page versions to optimize conversions. Integrate forms that automatically add leads to your CRM.',
+                icon: Globe
             },
-            { 
-                name: 'Funnel Builder', 
-                description: 'Create multi-step sales funnels that guide prospects from interest to purchase. Build opt-in pages, sales pages, upsell pages, and thank you pages - all connected in a seamless flow. Pre-built funnel templates for common business models (coaches, consultants, e-commerce, courses, etc.). Track conversion rates at every step to identify and fix drop-off points. Integrate payment processing for instant sales.', 
-                icon: FolderKanban 
+            {
+                name: 'Funnel Builder',
+                description: 'Create multi-step sales funnels that guide prospects from interest to purchase. Build opt-in pages, sales pages, upsell pages, and thank you pages - all connected in a seamless flow. Pre-built funnel templates for common business models (coaches, consultants, e-commerce, courses, etc.). Track conversion rates at every step to identify and fix drop-off points. Integrate payment processing for instant sales.',
+                icon: FolderKanban
             },
-            { 
-                name: 'Webinar Feature', 
-                description: 'Host live or automated webinars to educate and convert your audience at scale. Built-in registration pages with customizable fields. Automated reminder emails to reduce no-shows. Live chat during webinars for real-time Q&A. Replay options for those who couldn\'t attend live. Analytics show watch time, engagement, and conversion rates. Integrate with your CRM to track which attendees become customers.', 
-                icon: Users 
+            {
+                name: 'Webinar Feature',
+                description: 'Host live or automated webinars to educate and convert your audience at scale. Built-in registration pages with customizable fields. Automated reminder emails to reduce no-shows. Live chat during webinars for real-time Q&A. Replay options for those who couldn\'t attend live. Analytics show watch time, engagement, and conversion rates. Integrate with your CRM to track which attendees become customers.',
+                icon: Users
             },
-            { 
-                name: 'Marketing Automation (Consideration)', 
-                description: 'Deliver the right educational content at the right time based on prospect behavior. Create "drip campaigns" that nurture leads over days or weeks. Segment prospects based on interests (e.g., "pricing interested" vs "feature interested") and send tailored content. Track email opens, clicks, and engagement to see what resonates. Automatically score leads based on engagement so you know who\'s hot and ready for a sales call.', 
-                icon: Zap 
+            {
+                name: 'Marketing Automation (Consideration)',
+                description: 'Deliver the right educational content at the right time based on prospect behavior. Create "drip campaigns" that nurture leads over days or weeks. Segment prospects based on interests (e.g., "pricing interested" vs "feature interested") and send tailored content. Track email opens, clicks, and engagement to see what resonates. Automatically score leads based on engagement so you know who\'s hot and ready for a sales call.',
+                icon: Zap
             }
         ]
     },
@@ -166,25 +162,25 @@ const STAGES = [
         connectionTip: 'Remove all friction and risk. Use language like "Start your free trial - no credit card required," "Cancel anytime," or "30-day money-back guarantee." Celebrate their decision: "You\'re about to transform your business." Make them feel smart and confident. Follow up immediately (automated email within minutes) to reinforce they made the right choice and outline clear next steps. The faster they see value, the less buyer\'s remorse they\'ll feel.',
         howStagesConnect: 'Decision leads directly into Service. The moment your customer completes the purchase, the Service stage begins. The welcome email they receive, the onboarding process you deliver, and the support you provide in the first 30 days will determine whether they stay a customer or churn. Make the transition from "buyer" to "happy customer" seamless and celebratory.',
         hqFeatures: [
-            { 
-                name: 'Unlimited Estimates & Invoices', 
-                description: 'Generate and send professional, branded estimates and invoices with one click. Customizable templates match your brand. Include payment links so customers can pay instantly online (credit card, ACH, Apple Pay, Google Pay). Track invoice status in real-time (sent, viewed, paid). Set up automatic payment reminders for overdue invoices. Accept deposits or payment plans. Sync with your accounting software (QuickBooks, Xero) for seamless bookkeeping.', 
-                icon: DollarSign 
+            {
+                name: 'Unlimited Estimates & Invoices',
+                description: 'Generate and send professional, branded estimates and invoices with one click. Customizable templates match your brand. Include payment links so customers can pay instantly online (credit card, ACH, Apple Pay, Google Pay). Track invoice status in real-time (sent, viewed, paid). Set up automatic payment reminders for overdue invoices. Accept deposits or payment plans. Sync with your accounting software (QuickBooks, Xero) for seamless bookkeeping.',
+                icon: DollarSign
             },
-            { 
-                name: 'Mobile App Payments', 
-                description: 'Accept payments anywhere using The HQ mobile app. Perfect for in-person sales, events, or consultations. Supports credit/debit cards, Apple Pay, Google Pay, and ACH transfers. Generate payment links on-the-fly and text or email them to customers. Instant payment confirmation with digital receipts. All transactions automatically sync with your CRM and accounting, so your books are always up-to-date.', 
-                icon: Smartphone 
+            {
+                name: 'Mobile App Payments',
+                description: 'Accept payments anywhere using The HQ mobile app. Perfect for in-person sales, events, or consultations. Supports credit/debit cards, Apple Pay, Google Pay, and ACH transfers. Generate payment links on-the-fly and text or email them to customers. Instant payment confirmation with digital receipts. All transactions automatically sync with your CRM and accounting, so your books are always up-to-date.',
+                icon: Smartphone
             },
-            { 
-                name: 'CRM (Customer Relationship Management)', 
-                description: 'Visualize your sales pipeline with drag-and-drop deal stages (e.g., "Prospect," "Qualified," "Proposal Sent," "Negotiation," "Closed Won"). Track every interaction with each lead (emails sent, calls made, meetings scheduled). Set automated follow-up reminders so you never forget to check in. Assign deals to team members and track their performance. Built-in reporting shows conversion rates, average deal size, and sales velocity. Integrates with email, calendar, and phone for seamless communication.', 
-                icon: FolderKanban 
+            {
+                name: 'CRM (Customer Relationship Management)',
+                description: 'Visualize your sales pipeline with drag-and-drop deal stages (e.g., "Prospect," "Qualified," "Proposal Sent," "Negotiation," "Closed Won"). Track every interaction with each lead (emails sent, calls made, meetings scheduled). Set automated follow-up reminders so you never forget to check in. Assign deals to team members and track their performance. Built-in reporting shows conversion rates, average deal size, and sales velocity. Integrates with email, calendar, and phone for seamless communication.',
+                icon: FolderKanban
             },
-            { 
-                name: 'Marketing Automation (Decision)', 
-                description: 'Send timely "decision nudges" automatically - abandoned cart reminders, expiring offer alerts, limited-time discount notifications. Trigger purchase confirmation emails instantly upon payment. Deliver digital products or access credentials automatically. Send personalized "welcome to the family" sequences that celebrate the customer\'s decision and outline next steps. Tag customers in your CRM based on what they purchased so you can upsell or cross-sell later.', 
-                icon: Zap 
+            {
+                name: 'Marketing Automation (Decision)',
+                description: 'Send timely "decision nudges" automatically - abandoned cart reminders, expiring offer alerts, limited-time discount notifications. Trigger purchase confirmation emails instantly upon payment. Deliver digital products or access credentials automatically. Send personalized "welcome to the family" sequences that celebrate the customer\'s decision and outline next steps. Tag customers in your CRM based on what they purchased so you can upsell or cross-sell later.',
+                icon: Zap
             }
         ]
     },
@@ -201,20 +197,20 @@ const STAGES = [
         connectionTip: 'Make them feel like a VIP. Use language like "Welcome to the family!" or "We\'re here to ensure your success." Check in proactively: "How\'s your first week going?" Celebrate small wins: "You\'ve completed your setup - great job!" Show you care about their success, not just their money. The better your onboarding and service experience, the less likely they are to churn and the more likely they are to refer others.',
         howStagesConnect: 'Service leads into Loyalty. The quality of service you provide in the first 30-90 days determines whether customers stay, leave, or become raving fans. Happy, well-served customers naturally become advocates. They leave reviews, refer friends, and buy more. Poor service experiences lead to churn and negative reviews. The Service stage is where you earn the right to ask for loyalty.',
         hqFeatures: [
-            { 
-                name: 'Client Portal', 
-                description: 'Provide each customer with a secure, branded portal where they can access everything they need. Upload files, documents, and digital products for instant download. Display invoices, payment history, and account status. Show project progress with visual timelines. Enable two-way messaging between clients and your team. Customers log in once and have everything at their fingertips - no more digging through emails. Fully white-labled with your logo and brand colors.', 
-                icon: FolderKanban 
+            {
+                name: 'Client Portal',
+                description: 'Provide each customer with a secure, branded portal where they can access everything they need. Upload files, documents, and digital products for instant download. Display invoices, payment history, and account status. Show project progress with visual timelines. Enable two-way messaging between clients and your team. Customers log in once and have everything at their fingertips - no more digging through emails. Fully white-labled with your logo and brand colors.',
+                icon: FolderKanban
             },
-            { 
-                name: 'Automated Onboarding Workflows', 
-                description: 'Create step-by-step onboarding sequences that deliver the right content at the right time. Day 1: Welcome video and setup guide. Day 3: Quick-win tutorial. Day 7: Check-in email. Day 30: Success milestone celebration. Trigger workflows based on customer actions (e.g., "If they complete setup, send the advanced training"). Include videos, PDFs, checklists, and calendar links. Track completion rates to see where customers get stuck and improve your onboarding.', 
-                icon: Zap 
+            {
+                name: 'Automated Onboarding Workflows',
+                description: 'Create step-by-step onboarding sequences that deliver the right content at the right time. Day 1: Welcome video and setup guide. Day 3: Quick-win tutorial. Day 7: Check-in email. Day 30: Success milestone celebration. Trigger workflows based on customer actions (e.g., "If they complete setup, send the advanced training"). Include videos, PDFs, checklists, and calendar links. Track completion rates to see where customers get stuck and improve your onboarding.',
+                icon: Zap
             },
-            { 
-                name: 'Customer Support Management', 
-                description: 'Consolidate all support requests from email, live chat, social media, and your Client Portal into one unified inbox. Assign tickets to team members and track response times. Set up automated responses for common questions (e.g., "How do I reset my password?"). Create a knowledge base of FAQs that customers can search before contacting support. Track customer satisfaction with post-resolution surveys. Identify trends in support requests to improve your product or documentation.', 
-                icon: MessageSquare 
+            {
+                name: 'Customer Support Management',
+                description: 'Consolidate all support requests from email, live chat, social media, and your Client Portal into one unified inbox. Assign tickets to team members and track response times. Set up automated responses for common questions (e.g., "How do I reset my password?"). Create a knowledge base of FAQs that customers can search before contacting support. Track customer satisfaction with post-resolution surveys. Identify trends in support requests to improve your product or documentation.',
+                icon: MessageSquare
             }
         ]
     },
@@ -231,34 +227,130 @@ const STAGES = [
         connectionTip: 'Celebrate their success and make them part of your story. Use language like "Look how far you\'ve come!" or "You\'re a rockstar!" Invite them to exclusive events (VIP webinars, early access to new features). Feature their testimonials and case studies (with permission). Give them opportunities to contribute and lead (affiliate program, community moderators, guest blog posts). Make them feel valued and special. The more you celebrate them, the more they\'ll celebrate you.',
         howStagesConnect: 'Loyalty completes the customer journey, but it also feeds back into Awareness. Loyal customers become your most effective marketing channel. Their reviews boost your credibility in the Awareness stage. Their referrals bring pre-sold prospects who trust you before they even meet you. Their testimonials remove objections in the Consideration and Decision stages. A strong Loyalty program turns customers into a self-sustaining growth engine.',
         hqFeatures: [
-            { 
-                name: 'Review Management', 
-                description: 'Automate review requests at the perfect moment - after a customer achieves a win, completes a milestone, or expresses satisfaction. Send review requests via email or SMS with direct links to Google, Facebook, Yelp, Trustpilot, and more. Track review response rates and see which customers leave reviews. Respond to reviews (both positive and negative) directly from The HQ. Showcase top reviews on your website and marketing materials. Monitor your online reputation with review alerts.', 
-                icon: Star 
+            {
+                name: 'Review Management',
+                description: 'Automate review requests at the perfect moment - after a customer achieves a win, completes a milestone, or expresses satisfaction. Send review requests via email or SMS with direct links to Google, Facebook, Yelp, Trustpilot, and more. Track review response rates and see which customers leave reviews. Respond to reviews (both positive and negative) directly from The HQ. Showcase top reviews on your website and marketing materials. Monitor your online reputation with review alerts.',
+                icon: Star
             },
-            { 
-                name: 'Marketing Automation (Loyalty)', 
-                description: 'Implement loyalty programs with automated reward emails ("You\'ve earned 500 points!"), milestone celebrations ("Happy 1-year anniversary!"), and re-engagement campaigns ("We miss you - here\'s 20% off to come back"). Send personalized upsell and cross-sell offers based on purchase history. Trigger win-back campaigns for churned customers. Create VIP tiers with exclusive perks and automated communications. Track customer lifetime value and engagement scores to identify your most valuable customers.', 
-                icon: Zap 
+            {
+                name: 'Marketing Automation (Loyalty)',
+                description: 'Implement loyalty programs with automated reward emails ("You\'ve earned 500 points!"), milestone celebrations ("Happy 1-year anniversary!"), and re-engagement campaigns ("We miss you - here\'s 20% off to come back"). Send personalized upsell and cross-sell offers based on purchase history. Trigger win-back campaigns for churned customers. Create VIP tiers with exclusive perks and automated communications. Track customer lifetime value and engagement scores to identify your most valuable customers.',
+                icon: Zap
             },
-            { 
-                name: 'Full Affiliate Program', 
-                description: 'Launch a comprehensive affiliate program in minutes. Affiliates get unique tracking links, a dedicated dashboard (via the Client Portal), and real-time commission tracking. Set custom commission structures (flat fee, percentage, recurring, or tiered). Automate commission payouts monthly. Provide affiliates with pre-made marketing materials (email templates, social media graphics, ad copy). Track affiliate performance and identify top promoters. Affiliates can see their referrals, earnings, and payout history all within their Client Portal.', 
-                icon: Users 
+            {
+                name: 'Full Affiliate Program',
+                description: 'Launch a comprehensive affiliate program in minutes. Affiliates get unique tracking links, a dedicated dashboard (via the Client Portal), and real-time commission tracking. Set custom commission structures (flat fee, percentage, recurring, or tiered). Automate commission payouts monthly. Provide affiliates with pre-made marketing materials (email templates, social media graphics, ad copy). Track affiliate performance and identify top promoters. Affiliates can see their referrals, earnings, and payout history all within their Client Portal.',
+                icon: Users
             },
-            { 
-                name: 'Private/Public Social Community', 
-                description: 'Build a branded social community (like Facebook Groups, but fully owned by you) where customers can connect, share wins, ask questions, and support each other. Moderate content, pin important announcements, and create discussion topics. Gamify engagement with badges, leaderboards, and challenges. Host exclusive community-only events (live Q&As, workshops, masterminds). Communities create a sense of belonging that dramatically reduces churn. Members can network, collaborate, and refer each other - turning your customer base into a thriving ecosystem.', 
-                icon: Users 
+            {
+                name: 'Private/Public Social Community',
+                description: 'Build a branded social community (like Facebook Groups, but fully owned by you) where customers can connect, share wins, ask questions, and support each other. Moderate content, pin important announcements, and create discussion topics. Gamify engagement with badges, leaderboards, and challenges. Host exclusive community-only events (live Q&As, workshops, masterminds). Communities create a sense of belonging that dramatically reduces churn. Members can network, collaborate, and refer each other - turning your customer base into a thriving ecosystem.',
+                icon: Users
             },
-            { 
-                name: 'Surveys & Forms', 
-                description: 'Gather continuous feedback with automated surveys sent at key touchpoints (after purchase, after support interaction, quarterly check-ins). Create custom forms for testimonial collection, feature requests, or satisfaction ratings. Analyze survey results with built-in reporting to identify trends and improvement areas. Trigger follow-up workflows based on survey responses (e.g., "If NPS score is low, alert support team"). Show customers you\'re listening by implementing their feedback and communicating changes.', 
-                icon: MessageSquare 
+            {
+                name: 'Surveys & Forms',
+                description: 'Gather continuous feedback with automated surveys sent at key touchpoints (after purchase, after support interaction, quarterly check-ins). Create custom forms for testimonial collection, feature requests, or satisfaction ratings. Analyze survey results with built-in reporting to identify trends and improvement areas. Trigger follow-up workflows based on survey responses (e.g., "If NPS score is low, alert support team"). Show customers you\'re listening by implementing their feedback and communicating changes.',
+                icon: MessageSquare
             }
         ]
     }
 ];
+
+// Multi-value input component
+const MultiValueInput = ({ values = [], onChange, suggestions = [], placeholder = "Type and press Enter" }) => {
+    const [inputValue, setInputValue] = useState('');
+    const [showSuggestions, setShowSuggestions] = useState(false);
+
+    const addValue = (value) => {
+        const trimmedValue = value.trim();
+        if (trimmedValue && !values.includes(trimmedValue)) {
+            onChange([...values, trimmedValue]);
+            setInputValue('');
+            setShowSuggestions(false);
+        }
+    };
+
+    const removeValue = (index) => {
+        onChange(values.filter((_, i) => i !== index));
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            addValue(inputValue);
+        } else if (e.key === 'Tab' && inputValue && showSuggestions && filteredSuggestions.length > 0) {
+            e.preventDefault(); // Prevent tab from moving focus
+            addValue(filteredSuggestions[0]); // Autocomplete with the first suggestion
+        }
+    };
+
+    const filteredSuggestions = suggestions.filter(s =>
+        s.toLowerCase().includes(inputValue.toLowerCase()) && !values.includes(s)
+    );
+
+    return (
+        <div className="space-y-2">
+            <div className="relative">
+                <input
+                    type="text"
+                    value={inputValue}
+                    onChange={(e) => {
+                        setInputValue(e.target.value);
+                        setShowSuggestions(e.target.value.length > 0);
+                    }}
+                    onKeyDown={handleKeyDown}
+                    onFocus={() => setShowSuggestions(inputValue.length > 0)}
+                    onBlur={() => setTimeout(() => setShowSuggestions(false), 100)} // Delay to allow click on suggestions
+                    placeholder={placeholder}
+                    className="form-input pr-12" // Adjusted padding for button
+                />
+                <button
+                    type="button"
+                    onClick={() => addValue(inputValue)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 btn btn-primary text-xs py-1 px-3"
+                    disabled={!inputValue.trim()}
+                >
+                    <Plus className="w-4 h-4" />
+                </button>
+
+                {showSuggestions && filteredSuggestions.length > 0 && (
+                    <div className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg max-h-48 overflow-y-auto">
+                        {filteredSuggestions.slice(0, 10).map((suggestion, index) => (
+                            <button
+                                key={index}
+                                type="button"
+                                onClick={() => addValue(suggestion)}
+                                className="w-full text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm text-[var(--text-main)]"
+                            >
+                                {suggestion}
+                            </button>
+                        ))}
+                    </div>
+                )}
+            </div>
+
+            {values.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                    {values.map((value, index) => (
+                        <span
+                            key={index}
+                            className="inline-flex items-center gap-1 px-3 py-1 bg-[var(--primary-gold)] text-white rounded-full text-sm"
+                        >
+                            {value}
+                            <button
+                                type="button"
+                                onClick={() => removeValue(index)}
+                                className="hover:bg-white/20 rounded-full p-0.5"
+                            >
+                                <X className="w-3 h-3" />
+                            </button>
+                        </span>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+};
 
 export default function StrategyFormCustomerJourneyPage() {
     const navigate = useNavigate();
@@ -272,7 +364,7 @@ export default function StrategyFormCustomerJourneyPage() {
     const [aiContext, setAiContext] = useState({});
 
     const [formData, setFormData] = useState({
-        persona: { 
+        persona: {
             name: '',
             age_range: '',
             gender: '',
@@ -280,13 +372,10 @@ export default function StrategyFormCustomerJourneyPage() {
             income_level: '',
             education: '',
             occupation: '',
-            values: '',
-            interests: '',
-            lifestyle: '',
-            personality: '',
-            pain_points: '',
-            goals: '',
-            core_values: '',
+            psychographics: [], // Now an array
+            pain_points: [],     // Now an array
+            goals: [],           // Now an array
+            core_values: [],     // Now an array
             research_method: '',
             decision_speed: '',
             price_sensitivity: '',
@@ -308,24 +397,32 @@ export default function StrategyFormCustomerJourneyPage() {
             const currentUser = await User.me();
             setUser(currentUser);
 
-            const journeyDocs = await StrategyDocument.filter({ 
-                created_by: currentUser.email, 
-                document_type: 'customer_journey' 
+            const journeyDocs = await StrategyDocument.filter({
+                created_by: currentUser.email,
+                document_type: 'customer_journey'
             });
 
             if (journeyDocs.length > 0) {
                 setExistingDocument(journeyDocs[0]);
-                // Ensure all keys from formData are present in the loaded content,
-                // filling with defaults if not to prevent uncontrolled component warnings.
+                const loadedContent = journeyDocs[0].content;
+
                 setFormData(prev => ({
                     ...prev,
-                    ...journeyDocs[0].content,
-                    persona: { ...prev.persona, ...journeyDocs[0].content.persona },
-                    awareness: { ...prev.awareness, ...journeyDocs[0].content.awareness },
-                    consideration: { ...prev.consideration, ...journeyDocs[0].content.consideration },
-                    decision: { ...prev.decision, ...journeyDocs[0].content.decision },
-                    service: { ...prev.service, ...journeyDocs[0].content.service },
-                    loyalty: { ...prev.loyalty, ...journeyDocs[0].content.loyalty },
+                    ...loadedContent,
+                    persona: {
+                        ...prev.persona,
+                        ...loadedContent.persona,
+                        // Ensure array fields exist and are arrays
+                        psychographics: loadedContent.persona?.psychographics || [],
+                        pain_points: loadedContent.persona?.pain_points || [],
+                        goals: loadedContent.persona?.goals || [],
+                        core_values: loadedContent.persona?.core_values || []
+                    },
+                    awareness: { ...prev.awareness, ...loadedContent.awareness },
+                    consideration: { ...prev.consideration, ...loadedContent.consideration },
+                    decision: { ...prev.decision, ...loadedContent.decision },
+                    service: { ...prev.service, ...loadedContent.service },
+                    loyalty: { ...prev.loyalty, ...loadedContent.loyalty },
                 }));
             }
         } catch (error) {
@@ -345,6 +442,23 @@ export default function StrategyFormCustomerJourneyPage() {
 
             if (idealClientDocs.length > 0) {
                 const idealClient = idealClientDocs[0].content;
+
+                // Helper to safely get a single value from idealClient and wrap in array
+                const getArrayValue = (field) => {
+                    const value = Array.isArray(idealClient[field]) ? idealClient[field][0] : idealClient[field];
+                    return value ? [value] : [];
+                };
+
+                // Helper to get array of values from idealClient and flatten/filter
+                const getMultiArrayValue = (...fields) => {
+                    const values = fields.flatMap(field => {
+                        const val = Array.isArray(idealClient[field]) ? idealClient[field] : (idealClient[field] ? [idealClient[field]] : []);
+                        return val.filter(v => v); // Filter out any empty strings or nulls
+                    });
+                    return [...new Set(values)]; // Ensure uniqueness
+                };
+
+
                 setFormData(prev => ({
                     ...prev,
                     persona: {
@@ -356,13 +470,15 @@ export default function StrategyFormCustomerJourneyPage() {
                         income_level: Array.isArray(idealClient.income_level) ? idealClient.income_level[0] || '' : idealClient.income_level || '',
                         education: Array.isArray(idealClient.education) ? idealClient.education[0] || '' : idealClient.education || '',
                         occupation: Array.isArray(idealClient.occupation) ? idealClient.occupation[0] || '' : idealClient.occupation || '',
-                        values: Array.isArray(idealClient.values) ? idealClient.values[0] || '' : idealClient.values || '',
-                        interests: Array.isArray(idealClient.interests) ? idealClient.interests[0] || '' : idealClient.interests || '',
-                        lifestyle: Array.isArray(idealClient.lifestyle) ? idealClient.lifestyle[0] || '' : idealClient.lifestyle || '',
-                        personality: Array.isArray(idealClient.personality) ? idealClient.personality[0] || '' : idealClient.personality || '',
-                        pain_points: Array.isArray(idealClient.pain_points) ? idealClient.pain_points[0] || '' : idealClient.pain_points || '',
-                        goals: Array.isArray(idealClient.goals) ? idealClient.goals[0] || '' : idealClient.goals || '',
-                        core_values: Array.isArray(idealClient.core_values) ? idealClient.core_values[0] || '' : idealClient.core_values || '',
+
+                        // Map old single values to new array types, combining psychographics
+                        psychographics: getMultiArrayValue(
+                            'values', 'interests', 'lifestyle', 'personality'
+                        ),
+                        pain_points: getArrayValue('pain_points'),
+                        goals: getArrayValue('goals'),
+                        core_values: getArrayValue('core_values'),
+
                         research_method: Array.isArray(idealClient.research_method) ? idealClient.research_method[0] || '' : idealClient.research_method || '',
                         decision_speed: Array.isArray(idealClient.decision_speed) ? idealClient.decision_speed[0] || '' : idealClient.decision_speed || '',
                         price_sensitivity: Array.isArray(idealClient.price_sensitivity) ? idealClient.price_sensitivity[0] || '' : idealClient.price_sensitivity || '',
@@ -401,11 +517,20 @@ export default function StrategyFormCustomerJourneyPage() {
         }));
     };
 
+    const handleArrayChange = (field, values) => {
+        setFormData(prev => ({
+            ...prev,
+            persona: {
+                ...prev.persona,
+                [field]: values
+            }
+        }));
+    };
+
     const handleSave = async () => {
         setIsSaving(true);
         try {
-            // Determine if all stages are complete based on key fields in formData
-            const allStagesComplete = 
+            const allStagesComplete =
                 !!formData.persona.name &&
                 !!formData.awareness.discovery_channels &&
                 !!formData.consideration.evaluation_criteria &&
@@ -428,7 +553,6 @@ export default function StrategyFormCustomerJourneyPage() {
                 await StrategyDocument.create(documentData);
             }
 
-            // Check if this completion qualifies for the HQ discount
             if (allStagesComplete && user.subscription_level === 'free' && !user.customer_journey_completed_date) {
                 await User.updateMyUserData({
                     customer_journey_completed_date: new Date().toISOString().split('T')[0]
@@ -454,7 +578,6 @@ export default function StrategyFormCustomerJourneyPage() {
         const sectionTitle = `Customer Journey - ${stageInfo.title}`;
         let notes = [];
 
-        // General stage instructions
         if (stageInfo.instructions) {
             notes.push({ content: `General instructions for this stage: ${stageInfo.instructions}` });
         }
@@ -469,7 +592,7 @@ export default function StrategyFormCustomerJourneyPage() {
 
         if (stageId === 'persona') {
             notes.push({ content: `Current Persona Name: ${currentStageData.name || 'Not yet defined'}` });
-            
+
             notes.push({ content: "Demographics:" });
             if (currentStageData.age_range) notes.push({ content: `- Age Range: ${currentStageData.age_range}` });
             if (currentStageData.gender) notes.push({ content: `- Gender: ${currentStageData.gender}` });
@@ -478,15 +601,10 @@ export default function StrategyFormCustomerJourneyPage() {
             if (currentStageData.education) notes.push({ content: `- Education: ${currentStageData.education}` });
             if (currentStageData.occupation) notes.push({ content: `- Occupation: ${currentStageData.occupation}` });
 
-            notes.push({ content: "Psychographics:" });
-            if (currentStageData.values) notes.push({ content: `- Values: ${currentStageData.values}` });
-            if (currentStageData.interests) notes.push({ content: `- Interests: ${currentStageData.interests}` });
-            if (currentStageData.lifestyle) notes.push({ content: `- Lifestyle: ${currentStageData.lifestyle}` });
-            if (currentStageData.personality) notes.push({ content: `- Personality: ${currentStageData.personality}` });
-
-            if (currentStageData.pain_points) notes.push({ content: `Primary Pain Point: ${currentStageData.pain_points}` });
-            if (currentStageData.goals) notes.push({ content: `Primary Goal: ${currentStageData.goals}` });
-            if (currentStageData.core_values) notes.push({ content: `Core Values: ${currentStageData.core_values}` });
+            if (currentStageData.psychographics?.length > 0) notes.push({ content: `Psychographics: ${currentStageData.psychographics.join(', ')}` });
+            if (currentStageData.pain_points?.length > 0) notes.push({ content: `Pain Points: ${currentStageData.pain_points.join(', ')}` });
+            if (currentStageData.goals?.length > 0) notes.push({ content: `Goals: ${currentStageData.goals.join(', ')}` });
+            if (currentStageData.core_values?.length > 0) notes.push({ content: `Core Values: ${currentStageData.core_values.join(', ')}` });
 
             notes.push({ content: "Buying Behaviors:" });
             if (currentStageData.research_method) notes.push({ content: `- Research Method: ${currentStageData.research_method}` });
@@ -494,7 +612,6 @@ export default function StrategyFormCustomerJourneyPage() {
             if (currentStageData.price_sensitivity) notes.push({ content: `- Price Sensitivity: ${currentStageData.price_sensitivity}` });
             if (currentStageData.preferred_contact) notes.push({ content: `- Preferred Contact: ${currentStageData.preferred_contact}` });
 
-            // Add a prompt for Charlie
             notes.push({ content: "Charlie, help me refine this persona description. What additional details or insights could make this persona more vivid and actionable for marketing purposes?" });
 
         } else if (stageId === 'awareness') {
@@ -515,13 +632,13 @@ export default function StrategyFormCustomerJourneyPage() {
             if (currentStageData.preferred_methods) notes.push({ content: `Preferred payment/engagement methods: ${currentStageData.preferred_methods}` });
             notes.push({ content: "Charlie, how can I optimize my sales process to reduce friction and address potential obstacles for my ideal client at the decision stage? Suggest guarantees or incentives." });
 
-        } else if (stageId === 'service') { // Corresponds to outline's 'retention' in spirit of post-purchase
+        } else if (stageId === 'service') {
             if (currentStageData.onboarding_process) notes.push({ content: `Current onboarding process: ${currentStageData.onboarding_process}` });
             if (currentStageData.support_needs) notes.push({ content: `Known customer support needs: ${currentStageData.support_needs}` });
             if (currentStageData.communication_preferences) notes.push({ content: `Customer communication preferences: ${currentStageData.communication_preferences}` });
             notes.push({ content: "Charlie, provide ideas for an exceptional post-purchase experience and customer support strategy to ensure customer satisfaction and reduce churn." });
 
-        } else if (stageId === 'loyalty') { // Corresponds to outline's 'advocacy'
+        } else if (stageId === 'loyalty') {
             if (currentStageData.retention_strategies) notes.push({ content: `Existing retention strategies: ${currentStageData.retention_strategies}` });
             if (currentStageData.advocacy_opportunities) notes.push({ content: `Known advocacy opportunities: ${currentStageData.advocacy_opportunities}` });
             if (currentStageData.feedback_mechanisms) notes.push({ content: `Current feedback mechanisms: ${currentStageData.feedback_mechanisms}` });
@@ -530,7 +647,7 @@ export default function StrategyFormCustomerJourneyPage() {
 
         setAiContext({
             sectionTitle: sectionTitle,
-            userNotes: notes.filter(note => note.content.trim() !== '') // Remove empty notes
+            userNotes: notes.filter(note => note.content.trim() !== '')
         });
         setShowAIAssistant(true);
     }, [formData, STAGES]);
@@ -570,7 +687,7 @@ export default function StrategyFormCustomerJourneyPage() {
                         Understanding This Stage
                     </h3>
                     <p className="text-[var(--text-soft)] mb-4">{stage.instructions}</p>
-                    
+
                     {!isPersona && (
                         <>
                             {stage.streamlinesBusiness && (
@@ -579,21 +696,21 @@ export default function StrategyFormCustomerJourneyPage() {
                                     <p className="text-[var(--text-soft)]">{stage.streamlinesBusiness}</p>
                                 </div>
                             )}
-                            
+
                             {stage.realWorldExample && (
                                 <div className="mb-4">
                                     <h4 className="font-semibold text-[var(--text-main)] mb-2">🌍 Real-World Example:</h4>
                                     <p className="text-[var(--text-soft)] italic">{stage.realWorldExample}</p>
                                 </div>
                             )}
-                            
+
                             {stage.emotions && (
                                 <div className="mb-4">
                                     <h4 className="font-semibold text-[var(--text-main)] mb-2">❤️ Customer Emotions:</h4>
                                     <p className="text-[var(--text-soft)]">{stage.emotions}</p>
                                 </div>
                             )}
-                            
+
                             {stage.connectionTip && (
                                 <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border-l-4 border-yellow-500">
                                     <h4 className="font-semibold text-[var(--text-main)] mb-2">🤝 Connection Tip:</h4>
@@ -602,7 +719,7 @@ export default function StrategyFormCustomerJourneyPage() {
                             )}
                         </>
                     )}
-                    
+
                     {isPersona && stage.connectionTip && (
                         <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border-l-4 border-yellow-500 mt-4">
                             <h4 className="font-semibold text-[var(--text-main)] mb-2">🤝 Why This Matters:</h4>
@@ -665,7 +782,7 @@ export default function StrategyFormCustomerJourneyPage() {
                         {/* Demographics Section */}
                         <div className="card p-6">
                             <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Demographics</h3>
-                            
+
                             <div className="space-y-4">
                                 <div>
                                     <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Age Range</label>
@@ -753,121 +870,70 @@ export default function StrategyFormCustomerJourneyPage() {
                             </div>
                         </div>
 
-                        {/* Psychographics Section */}
+                        {/* Psychographics Section - INTERACTIVE */}
                         <div className="card p-6">
                             <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Psychographics</h3>
-                            
-                            <div className="space-y-4">
-                                <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Values</label>
-                                    <select
-                                        value={formData.persona.values || ''}
-                                        onChange={(e) => handleSelectChange('values', e.target.value)}
-                                        className="form-input"
-                                    >
-                                        <option value="">Select primary value</option>
-                                        {PSYCHOGRAPHICS_OPTIONS.values.map(option => (
-                                            <option key={option} value={option}>{option}</option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Interests</label>
-                                    <select
-                                        value={formData.persona.interests || ''}
-                                        onChange={(e) => handleSelectChange('interests', e.target.value)}
-                                        className="form-input"
-                                    >
-                                        <option value="">Select primary interest</option>
-                                        {PSYCHOGRAPHICS_OPTIONS.interests.map(option => (
-                                            <option key={option} value={option}>{option}</option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Lifestyle</label>
-                                    <select
-                                        value={formData.persona.lifestyle || ''}
-                                        onChange={(e) => handleSelectChange('lifestyle', e.target.value)}
-                                        className="form-input"
-                                    >
-                                        <option value="">Select lifestyle</option>
-                                        {PSYCHOGRAPHICS_OPTIONS.lifestyle.map(option => (
-                                            <option key={option} value={option}>{option}</option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Personality</label>
-                                    <select
-                                        value={formData.persona.personality || ''}
-                                        onChange={(e) => handleSelectChange('personality', e.target.value)}
-                                        className="form-input"
-                                    >
-                                        <option value="">Select personality type</option>
-                                        {PSYCHOGRAPHICS_OPTIONS.personality.map(option => (
-                                            <option key={option} value={option}>{option}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                Values, Interests, Lifestyle & Personality Traits
+                            </label>
+                            <MultiValueInput
+                                values={formData.persona.psychographics}
+                                onChange={(values) => handleArrayChange('psychographics', values)}
+                                suggestions={PSYCHOGRAPHICS_SUGGESTIONS}
+                                placeholder="Add psychographic traits (e.g., Innovation, Creative, Fast-paced)"
+                            />
+                            <p className="text-xs text-[var(--text-soft)] mt-2">Add as many as apply. These help you understand their mindset and lifestyle.</p>
                         </div>
 
-                        {/* Pain Points */}
+                        {/* Pain Points - INTERACTIVE */}
                         <div className="card p-6">
                             <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Pain Points</h3>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Primary Pain Point</label>
-                            <select
-                                value={formData.persona.pain_points || ''}
-                                onChange={(e) => handleSelectChange('pain_points', e.target.value)}
-                                className="form-input"
-                            >
-                                <option value="">Select pain point</option>
-                                {PAIN_POINTS_OPTIONS.map(option => (
-                                    <option key={option} value={option}>{option}</option>
-                                ))}
-                            </select>
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                What problems or frustrations do they face?
+                            </label>
+                            <MultiValueInput
+                                values={formData.persona.pain_points}
+                                onChange={(values) => handleArrayChange('pain_points', values)}
+                                suggestions={PAIN_POINTS_SUGGESTIONS}
+                                placeholder="Add pain points (e.g., Lack of time, Limited budget)"
+                            />
+                            <p className="text-xs text-[var(--text-soft)] mt-2">Understanding their pain points helps you create targeted solutions.</p>
                         </div>
 
-                        {/* Goals & Aspirations */}
+                        {/* Goals & Aspirations - INTERACTIVE */}
                         <div className="card p-6">
                             <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Goals & Aspirations</h3>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Primary Goal</label>
-                            <select
-                                value={formData.persona.goals || ''}
-                                onChange={(e) => handleSelectChange('goals', e.target.value)}
-                                className="form-input"
-                            >
-                                <option value="">Select goal</option>
-                                {GOALS_OPTIONS.map(option => (
-                                    <option key={option} value={option}>{option}</option>
-                                ))}
-                            </select>
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                What are they trying to achieve?
+                            </label>
+                            <MultiValueInput
+                                values={formData.persona.goals}
+                                onChange={(values) => handleArrayChange('goals', values)}
+                                suggestions={GOALS_SUGGESTIONS}
+                                placeholder="Add goals (e.g., Start a business, Achieve financial freedom)"
+                            />
+                            <p className="text-xs text-[var(--text-soft)] mt-2">Their goals drive their decisions and actions.</p>
                         </div>
 
-                        {/* Core Values */}
+                        {/* Core Values - INTERACTIVE */}
                         <div className="card p-6">
                             <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Core Values</h3>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Primary Value</label>
-                            <select
-                                value={formData.persona.core_values || ''}
-                                onChange={(e) => handleSelectChange('core_values', e.target.value)}
-                                className="form-input"
-                            >
-                                <option value="">Select core value</option>
-                                {VALUES_OPTIONS.map(option => (
-                                    <option key={option} value={option}>{option}</option>
-                                ))}
-                            </select>
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                What principles guide their decisions?
+                            </label>
+                            <MultiValueInput
+                                values={formData.persona.core_values}
+                                onChange={(values) => handleArrayChange('core_values', values)}
+                                suggestions={VALUES_SUGGESTIONS}
+                                placeholder="Add core values (e.g., Integrity, Innovation, Family)"
+                            />
+                            <p className="text-xs text-[var(--text-soft)] mt-2">Core values help you align your messaging with what matters most to them.</p>
                         </div>
 
                         {/* Buying Behaviors */}
                         <div className="card p-6">
                             <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Buying Behaviors</h3>
-                            
+
                             <div className="space-y-4">
                                 <div>
                                     <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Research Method</label>
@@ -1169,14 +1235,14 @@ export default function StrategyFormCustomerJourneyPage() {
         <SubscriptionGate user={user} requiredLevel="business_hq" feature="the Customer Journey mapping tool">
             <div className="px-4 pb-20 md:pb-8">
                 <div className="max-w-4xl mx-auto space-y-6">
-                    
+
                     {/* Header */}
                     <div className="card p-6">
                         <h1 className="text-3xl font-bold mb-2">Map Your Customer Journey</h1>
                         <p className="text-[var(--text-soft)]">
                             Understand your customer's experience at every stage and discover how The Business Minds HQ streamlines each touchpoint.
                         </p>
-                        
+
                         {/* AI Help Banner */}
                         <div className="mt-4 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-l-4 border-yellow-500 rounded">
                             <div className="flex items-start gap-2">
