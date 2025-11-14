@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { X, Target, Sparkles, Users, Zap, ArrowRight, BookOpen, CheckCircle2, Calendar, Crown, Smartphone, Apple, TrendingUp, Lightbulb, Rocket, BarChart3, Layers } from 'lucide-react';
+import { X, Target, Sparkles, Users, Zap, ArrowRight, BookOpen, CheckCircle2, Calendar, Crown, Smartphone, Apple, TrendingUp, Lightbulb, Rocket, BarChart3, Layers, DollarSign, Route, Cog } from 'lucide-react';
 
 export default function WelcomePopup({ isOpen, onClose, user }) {
   const [isMobile, setIsMobile] = useState(false);
@@ -96,12 +96,12 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
               <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-green-200 dark:border-green-700">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="bg-green-500 rounded-full p-2">
-                    <Rocket className="w-4 h-4 text-white" />
+                    <Route className="w-4 h-4 text-white" />
                   </div>
                   <h4 className="font-bold text-sm text-[var(--text-main)]">Startup Stage</h4>
                 </div>
                 <p className="text-xs text-[var(--text-soft)] mb-2">
-                  <strong>Goal:</strong> Launch and validate
+                  <strong>Goal:</strong> Effective customer journey
                 </p>
                 <div className="bg-green-50 dark:bg-green-900/20 rounded p-2">
                   <p className="text-xs text-green-700 dark:text-green-300 flex items-center gap-1">
@@ -114,12 +114,12 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
               <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-purple-200 dark:border-purple-700">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="bg-purple-500 rounded-full p-2">
-                    <BarChart3 className="w-4 h-4 text-white" />
+                    <Cog className="w-4 h-4 text-white" />
                   </div>
                   <h4 className="font-bold text-sm text-[var(--text-main)]">Growth Stage</h4>
                 </div>
                 <p className="text-xs text-[var(--text-soft)] mb-2">
-                  <strong>Goal:</strong> Scale and optimize
+                  <strong>Goal:</strong> Automate & Streamline
                 </p>
                 <div className="bg-purple-50 dark:bg-purple-900/20 rounded p-2">
                   <p className="text-xs text-purple-700 dark:text-purple-300 flex items-center gap-1">
@@ -174,16 +174,16 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
             </a>
 
             <Link
-              to={createPageUrl('QuickStartFoundation')}
+              to={createPageUrl('FreedomCalculator')}
               onClick={handleClose}
               className="card p-4 hover:border-[var(--primary-gold)] transition-all text-center group cursor-pointer"
             >
               <div className="bg-green-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
-                <Zap className="w-6 h-6 text-white" />
+                <DollarSign className="w-6 h-6 text-white" />
               </div>
-              <h4 className="font-bold text-[var(--text-main)] mb-2 text-sm">Do Your Quick Wins</h4>
+              <h4 className="font-bold text-[var(--text-main)] mb-2 text-sm">Set Your Financial Goals</h4>
               <p className="text-xs text-[var(--text-soft)]">
-                Get essentials set up fast
+                Calculate your freedom number
               </p>
             </Link>
           </div>
