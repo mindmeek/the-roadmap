@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User, DailyProgress, CommunityHighlight, Event, StrategyDocument } from '@/entities/all';
 import { Link } from 'react-router-dom';
@@ -19,7 +18,7 @@ import {
     ArrowRight,
     BookOpen,
     Award,
-    Rocket // Added Rocket icon import
+    Rocket
 } from 'lucide-react';
 import moment from 'moment';
 
@@ -33,6 +32,8 @@ import ActionCard from '../components/dashboard/ActionCard';
 import Tooltip from '../components/common/Tooltip';
 import AITeamModal from '../components/ai/AITeamModal';
 import WelcomePopup from '../components/common/WelcomePopup';
+import UpcomingTasksPreview from '../components/dashboard/UpcomingTasksPreview';
+import DailyInsightTabs from '../components/dashboard/DailyInsightTabs';
 
 // AI Team Info for avatars and names
 const AI_TEAM_INFO = {
@@ -97,17 +98,14 @@ export default function DashboardPage() {
             const currentUser = await User.me();
             setUser(currentUser);
 
-            // Check if user has completed their journey setup
             const userHasJourney = !!(currentUser.journey_start_date && currentUser.selected_goal);
             setHasJourney(userHasJourney);
 
-            // Show welcome popup for newly onboarded users
             const welcomePopupShown = localStorage.getItem('welcomePopupShown');
             if (currentUser.onboarding_completed && !welcomePopupShown && userHasJourney) {
                 setShowWelcomePopup(true);
             }
 
-            // Load today's progress
             const today = moment().format('YYYY-MM-DD');
             const progressRecords = await DailyProgress.filter({ 
                 created_by: currentUser.email, 
@@ -117,17 +115,14 @@ export default function DashboardPage() {
                 setTodayProgress(progressRecords[0]);
             }
 
-            // Load community highlights
             const highlights = await CommunityHighlight.filter({ is_active: true });
             setCommunityHighlights(highlights);
 
-            // Load upcoming events
             const now = moment().format('YYYY-MM-DDTHH:mm');
             const events = await Event.filter({ is_published: true });
             const upcoming = events.filter(e => e.event_date >= now).slice(0, 3);
             setUpcomingEvents(upcoming);
 
-            // Load Customer Journey Progress (only for free users who haven't completed it)
             if (currentUser.subscription_level === 'free' && !currentUser.customer_journey_completed_date) {
                 const customerJourneyDoc = await StrategyDocument.filter({
                     created_by: currentUser.email,
@@ -201,7 +196,6 @@ export default function DashboardPage() {
         );
     }
 
-    // Show "Choose Your Journey" screen if no journey is set up yet
     if (!hasJourney) {
         return (
             <div className="px-3 sm:px-4 pb-20 md:pb-8">
@@ -295,6 +289,16 @@ export default function DashboardPage() {
                                 View Foundation
                             </Link>
                         </div>
+                    </div>
+                </div>
+
+                {/* Journey Timeline & Financial Snapshot - MOVED UP */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+                    <div className="lg:col-span-2">
+                        <JourneyTimeline user={user} />
+                    </div>
+                    <div>
+                        <FinancialSnapshot user={user} />
                     </div>
                 </div>
 
@@ -407,7 +411,6 @@ export default function DashboardPage() {
                                     Complete your <strong>Customer Journey Map</strong> and unlock <span className="text-purple-600 dark:text-purple-400 font-bold">$49.99/month for 3 months</span> (regular $99/month)!
                                 </p>
                                 
-                                {/* Progress Bar */}
                                 <div className="mb-3 sm:mb-4">
                                     <div className="flex items-center justify-between mb-2">
                                         <span className="text-xs sm:text-sm font-medium text-[var(--text-soft)]">
@@ -434,7 +437,55 @@ export default function DashboardPage() {
                     </div>
                 )}
 
-                {/* Community Welcome Card - NEW */}
+                {/* Today's Progress Summary */}
+                <div className="card p-4 sm:p-6" style={{ borderRadius: '2px' }}>
+                    <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+                        <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)] flex items-center flex-wrap gap-2">
+                            <TrendingUp className="w-5 h-5 text-[var(--primary-gold)]" />
+                            <span>Today's Progress</span>
+                            <Tooltip content="Track your daily 1% improvements. Small, consistent actions compound into massive results over time.">
+                                <HelpCircle className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+                            </Tooltip>
+                        </h3>
+                        <Link to={createPageUrl('DailyTrack')} className="text-[var(--primary-gold)] hover:underline flex items-center text-xs sm:text-sm font-medium">
+                            Track More <ChevronRight className="w-4 h-4 ml-1" />
+                        </Link>
+                    </div>
+                    {totalTasksToday > 0 ? (
+                        <div>
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-xs sm:text-sm text-[var(--text-soft)]">
+                                    {completedTasksToday} of {totalTasksToday} tasks completed
+                                </span>
+                                <span className="text-xs sm:text-sm font-bold text-[var(--primary-gold)]">
+                                    {Math.round((completedTasksToday / totalTasksToday) * 100)}%
+                                </span>
+                            </div>
+                            <div className="w-full bg-gray-200 dark:bg-gray-700 h-3" style={{ borderRadius: '2px' }}>
+                                <div 
+                                    className="bg-gradient-to-r from-green-500 to-emerald-600 h-3 transition-all"
+                                    style={{ width: `${(completedTasksToday / totalTasksToday) * 100}%`, borderRadius: '2px' }}
+                                ></div>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="text-center py-6">
+                            <p className="text-[var(--text-soft)] mb-4 text-sm">No tasks tracked today yet.</p>
+                            <Link to={createPageUrl('DailyTrack')} className="btn btn-primary text-sm">
+                                <CheckCircle className="w-4 h-4 mr-2" />
+                                Start Tracking
+                            </Link>
+                        </div>
+                    )}
+                </div>
+
+                {/* Upcoming Tasks & Daily Insights Row - NEW */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                    <UpcomingTasksPreview />
+                    <DailyInsightTabs />
+                </div>
+
+                {/* Community Welcome Card */}
                 <div className="card p-6 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border-2 border-purple-200 dark:border-purple-700" style={{ borderRadius: '2px' }}>
                     <div className="flex flex-col lg:flex-row items-start gap-6">
                         <div className="flex-shrink-0 mx-auto lg:mx-0">
@@ -490,59 +541,6 @@ export default function DashboardPage() {
                                 💡 Use the same login credentials from The Roadmap to access the community
                             </p>
                         </div>
-                    </div>
-                </div>
-
-                {/* Today's Progress Summary */}
-                <div className="card p-4 sm:p-6" style={{ borderRadius: '2px' }}>
-                    <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-                        <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)] flex items-center flex-wrap gap-2">
-                            <TrendingUp className="w-5 h-5 text-[var(--primary-gold)]" />
-                            <span>Today's Progress</span>
-                            <Tooltip content="Track your daily 1% improvements. Small, consistent actions compound into massive results over time.">
-                                <HelpCircle className="w-4 h-4 text-gray-400 dark:text-gray-500" />
-                            </Tooltip>
-                        </h3>
-                        <Link to={createPageUrl('DailyTrack')} className="text-[var(--primary-gold)] hover:underline flex items-center text-xs sm:text-sm font-medium">
-                            Track More <ChevronRight className="w-4 h-4 ml-1" />
-                        </Link>
-                    </div>
-                    {totalTasksToday > 0 ? (
-                        <div>
-                            <div className="flex items-center justify-between mb-2">
-                                <span className="text-xs sm:text-sm text-[var(--text-soft)]">
-                                    {completedTasksToday} of {totalTasksToday} tasks completed
-                                </span>
-                                <span className="text-xs sm:text-sm font-bold text-[var(--primary-gold)]">
-                                    {Math.round((completedTasksToday / totalTasksToday) * 100)}%
-                                </span>
-                            </div>
-                            <div className="w-full bg-gray-200 dark:bg-gray-700 h-3" style={{ borderRadius: '2px' }}>
-                                <div 
-                                    className="bg-gradient-to-r from-green-500 to-emerald-600 h-3 transition-all"
-                                    style={{ width: `${(completedTasksToday / totalTasksToday) * 100}%`, borderRadius: '2px' }}
-                                ></div>
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="text-center py-6">
-                            <p className="text-[var(--text-soft)] mb-4 text-sm">No tasks tracked today yet.</p>
-                            <Link to={createPageUrl('DailyTrack')} className="btn btn-primary text-sm">
-                                <CheckCircle className="w-4 h-4 mr-2" />
-                                Start Tracking
-                            </Link>
-                        </div>
-                    )}
-                </div>
-
-                {/* Journey Timeline & Gamification + Financial Snapshot */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-                    <div className="lg:col-span-2">
-                        <JourneyTimeline user={user} />
-                    </div>
-                    <div className="space-y-4 sm:space-y-6">
-                        <GamificationDisplay user={user} />
-                        <FinancialSnapshot user={user} />
                     </div>
                 </div>
 

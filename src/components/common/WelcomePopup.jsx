@@ -7,7 +7,6 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Detect if user is on mobile device
     const checkMobile = () => {
       const userAgent = navigator.userAgent || navigator.vendor || window.opera;
       const mobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
@@ -30,9 +29,19 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
     onClose();
   };
 
+  // Close on outside click
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      handleClose();
+    }
+  };
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[200] p-4 overflow-y-auto">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-2xl max-w-4xl w-full p-6 sm:p-8 relative transform transition-all animate-in fade-in-0 zoom-in-95 my-8">
+    <div 
+      className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[200] p-4 overflow-y-auto"
+      onClick={handleBackdropClick}
+    >
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-2xl max-w-2xl w-full p-6 sm:p-8 relative transform transition-all animate-in fade-in-0 zoom-in-95 my-8">
         <button
           onClick={handleClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
@@ -226,45 +235,6 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
               </ul>
             </div>
           </div>
-
-          {/* Mobile App Download Buttons */}
-          {isMobile && (
-            <div className="bg-gradient-to-r from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 rounded-lg p-4 sm:p-6 mb-6 border border-green-200 dark:border-green-700">
-              <h3 className="font-semibold text-[var(--text-main)] mb-3 text-lg flex items-center justify-center gap-2">
-                <Smartphone className="w-5 h-5 text-green-600" />
-                Download Our Mobile App
-              </h3>
-              <p className="text-sm text-[var(--text-soft)] mb-4 text-center">
-                Get the full experience on your mobile device. Download the app for easy access on the go!
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {isIOS && (
-                  <a
-                    href="https://apps.apple.com/app/your-app-id"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn bg-black text-white hover:bg-gray-800 w-full justify-center text-sm"
-                  >
-                    <Apple className="w-5 h-5 mr-2" />
-                    Download for iOS
-                  </a>
-                )}
-                {isAndroid && (
-                  <a
-                    href="https://play.google.com/store/apps/details?id=your.app.id"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn bg-green-600 text-white hover:bg-green-700 w-full justify-center text-sm"
-                  >
-                    <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
-                    </svg>
-                    Download for Android
-                  </a>
-                )}
-              </div>
-            </div>
-          )}
 
           {/* Upgrade to HQ CTA */}
           {!isOnTrial && (

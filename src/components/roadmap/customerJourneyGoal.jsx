@@ -7,7 +7,7 @@ export const customerJourneyGoal = {
             weeks: [
                 {
                     weekNumber: 1,
-                    title: "Understand Your Customer & Journey Framework",
+                    title: "Understand Your Customer Persona & Journey Framework",
                     description: "Deepen understanding of ideal client and introduce holistic customer journey",
                     whyItMatters: "Without deep understanding, marketing and sales become guesswork.",
                     howItStreamlines: "Creates single source of truth aligning entire team.",
@@ -48,9 +48,9 @@ export const customerJourneyGoal = {
                     ],
                     actionSteps: [
                         {
-                            title: "Review and Refine Ideal Client Profiles",
+                            title: "Review and Refine Customer Persona Profiles",
                             description: "Enhance personas with emotional depth",
-                            deliverable: "Updated Ideal Client Profile",
+                            deliverable: "Updated Customer Persona Profile",
                             timeEstimate: "3-4 hours",
                             foundationStepId: 'ideal_client',
                             linkTo: 'StrategyFormIdealClient',
