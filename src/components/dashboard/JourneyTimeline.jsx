@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -12,7 +11,7 @@ export default function JourneyTimeline({ user }) {
 
     if (!user || !user.entrepreneurship_stage || !user.selected_goal) {
         return (
-            <div className="card p-6">
+            <div className="card p-6 h-full flex items-center justify-center">
                 <div className="text-center">
                     <AlertTriangle className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
                     <h3 className="text-lg font-semibold text-[var(--text-main)] mb-2">No Journey Selected</h3>
@@ -108,7 +107,7 @@ export default function JourneyTimeline({ user }) {
     const months = [0, 1, 2]; // Three months
 
     return (
-        <div className="card p-6">
+        <div className="card p-6 h-full flex flex-col">
             <div className="flex items-center justify-between mb-6">
                 <div>
                     <h2 className="text-2xl font-bold text-[var(--text-main)]">Your Journey Timeline</h2>
@@ -139,7 +138,7 @@ export default function JourneyTimeline({ user }) {
                 </div>
             )}
 
-            <div className="space-y-4">
+            <div className="space-y-4 flex-1 overflow-y-auto">
                 {months.map((monthIndex) => {
                     const isCurrentMonth = monthIndex === currentMonth;
                     const progress = getMonthProgress(monthIndex);
