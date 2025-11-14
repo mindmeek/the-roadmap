@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Target, Users, DollarSign, Rocket, Sparkles, TrendingUp } from 'lucide-react';
+import { X, Target, Users, DollarSign, Rocket, Sparkles, TrendingUp, Crown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 
@@ -23,7 +23,7 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
             className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
             onClick={handleBackdropClick}
         >
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto">
                 {/* Header */}
                 <div className="relative bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 p-8 text-white">
                     <button
@@ -118,43 +118,6 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
                                 </div>
                             </Link>
 
-                            {/* Join the Community */}
-                            <Link
-                                to={createPageUrl('TheCommunity')}
-                                onClick={onClose}
-                                className="block group"
-                            >
-                                <div className="p-5 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-2 border-purple-200 dark:border-purple-700 rounded-xl hover:shadow-lg transition-all">
-                                    <div className="flex items-start gap-4">
-                                        <div className="bg-purple-600 p-3 rounded-lg flex-shrink-0 group-hover:scale-110 transition-transform">
-                                            <Users className="w-6 h-6 text-white" />
-                                        </div>
-                                        <div className="flex-1">
-                                            <h4 className="text-lg font-bold text-[var(--text-main)] mb-2 group-hover:text-purple-600 transition-colors">
-                                                Connect with Fellow Entrepreneurs →
-                                            </h4>
-                                            <p className="text-sm text-[var(--text-soft)] mb-3">
-                                                Join a supportive community of like-minded entrepreneurs who understand your journey.
-                                            </p>
-                                            <ul className="space-y-1 text-xs text-[var(--text-soft)]">
-                                                <li className="flex items-center gap-2">
-                                                    <span className="text-purple-600">✓</span>
-                                                    <span>Share wins, ask questions, and get real feedback</span>
-                                                </li>
-                                                <li className="flex items-center gap-2">
-                                                    <span className="text-purple-600">✓</span>
-                                                    <span>Weekly live group coaching sessions</span>
-                                                </li>
-                                                <li className="flex items-center gap-2">
-                                                    <span className="text-purple-600">✓</span>
-                                                    <span>Network with entrepreneurs at every stage</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Link>
-
                             {/* Set Financial Goals */}
                             <Link
                                 to={createPageUrl('FreedomCalculator')}
@@ -194,44 +157,93 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
                         </div>
                     </div>
 
-                    {/* Upgrade CTA */}
-                    {user?.subscription_level === 'free' && (
-                        <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
-                            <div className="bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 text-white p-6 rounded-xl">
-                                <div className="flex items-start gap-3 mb-4">
-                                    <Rocket className="w-6 h-6 flex-shrink-0 mt-1" />
-                                    <div>
-                                        <h4 className="text-lg font-bold mb-2">Unlock Your Full Potential with The HQ</h4>
-                                        <p className="text-sm text-white/90 mb-4">
-                                            Get unlimited access to every tool, feature, and resource you need to build and scale your business faster.
-                                        </p>
-                                        <ul className="space-y-2 text-sm text-white/90 mb-4">
-                                            <li className="flex items-center gap-2">
-                                                <span className="text-white font-bold">✓</span>
-                                                <span>Unlimited 90-Day Journeys - switch goals anytime</span>
-                                            </li>
-                                            <li className="flex items-center gap-2">
-                                                <span className="text-white font-bold">✓</span>
-                                                <span>Full access to all strategy tools and templates</span>
-                                            </li>
-                                            <li className="flex items-center gap-2">
-                                                <span className="text-white font-bold">✓</span>
-                                                <span>Priority support and exclusive training</span>
-                                            </li>
-                                        </ul>
-                                        <Link
-                                            to={createPageUrl('Upgrade')}
-                                            onClick={onClose}
-                                            className="inline-flex items-center gap-2 bg-white text-[var(--primary-gold)] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-                                        >
-                                            <Rocket className="w-4 h-4" />
-                                            Upgrade to The HQ - $99/month
-                                        </Link>
-                                    </div>
+                    {/* Community + HQ Upgrade - SIDE BY SIDE */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Community Info Box */}
+                        <div className="p-5 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-2 border-purple-200 dark:border-purple-700 rounded-xl">
+                            <div className="flex items-start gap-3 mb-3">
+                                <div className="bg-purple-600 p-2.5 rounded-lg flex-shrink-0">
+                                    <Users className="w-5 h-5 text-white" />
+                                </div>
+                                <div className="flex-1">
+                                    <h4 className="font-bold text-[var(--text-main)] mb-1 text-base">
+                                        The Business Minds Community
+                                    </h4>
+                                    <p className="text-xs text-[var(--text-soft)] mb-3">
+                                        Connect with entrepreneurs who understand your journey
+                                    </p>
                                 </div>
                             </div>
+                            
+                            <ul className="space-y-2 text-xs text-[var(--text-soft)] mb-4">
+                                <li className="flex items-start gap-2">
+                                    <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
+                                    <span><strong>Weekly Live Coaching:</strong> Join Tuesday & Thursday sessions with Christopher Shaw</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
+                                    <span><strong>Network & Collaborate:</strong> Build valuable connections at every business stage</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
+                                    <span><strong>Real-Time Support:</strong> Get instant feedback and answers from the community</span>
+                                </li>
+                            </ul>
+
+                            <a
+                                href="https://thebminds.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn btn-secondary w-full justify-center text-sm bg-purple-600 text-white border-purple-600 hover:bg-purple-700"
+                            >
+                                <Users className="w-4 h-4 mr-2" />
+                                Access Community
+                            </a>
                         </div>
-                    )}
+
+                        {/* HQ Upgrade Info Box */}
+                        {user?.subscription_level === 'free' && (
+                            <div className="p-5 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-[var(--primary-gold)] rounded-xl">
+                                <div className="flex items-start gap-3 mb-3">
+                                    <div className="bg-gradient-to-br from-[var(--primary-gold)] to-yellow-600 p-2.5 rounded-lg flex-shrink-0">
+                                        <Rocket className="w-5 h-5 text-white" />
+                                    </div>
+                                    <div className="flex-1">
+                                        <h4 className="font-bold text-[var(--text-main)] mb-1 text-base">
+                                            Unlock The Full HQ
+                                        </h4>
+                                        <p className="text-xs text-[var(--text-soft)] mb-3">
+                                            Get unlimited access to accelerate your success
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <ul className="space-y-2 text-xs text-[var(--text-soft)] mb-4">
+                                    <li className="flex items-start gap-2">
+                                        <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
+                                        <span><strong>Unlimited Journeys:</strong> Switch goals anytime and explore every roadmap</span>
+                                    </li>
+                                    <li className="flex items-start gap-2">
+                                        <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
+                                        <span><strong>All Strategy Tools:</strong> Full Foundation Roadmap access and premium templates</span>
+                                    </li>
+                                    <li className="flex items-start gap-2">
+                                        <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
+                                        <span><strong>Unlimited AI Access:</strong> Use all AI assistants with no restrictions</span>
+                                    </li>
+                                </ul>
+
+                                <Link
+                                    to={createPageUrl('Upgrade')}
+                                    onClick={onClose}
+                                    className="btn w-full justify-center text-sm bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 text-white hover:shadow-lg"
+                                >
+                                    <Crown className="w-4 h-4 mr-2" />
+                                    Upgrade to The HQ - $99/mo
+                                </Link>
+                            </div>
+                        )}
+                    </div>
 
                     {/* Close Button */}
                     <button
