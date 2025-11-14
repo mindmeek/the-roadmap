@@ -8,7 +8,7 @@ const mindsetHacks = [
   {
     id: "growth-mindset",
     title: "Growth vs Fixed Mindset",
-    description: "Transform your relationship with challenges and failure. Learn how developing a growth mindset unlocks your potential, helps you embrace difficult situations as opportunities, and builds the mental resilience needed for entrepreneurial success. Discover the neuroscience behind mindset shifts.",
+    description: "Your mindset—the beliefs you hold about your abilities—is one of the most important factors determining your success as an entrepreneur. A growth mindset is the belief that your abilities, intelligence, and skills can be developed through dedication, hard work, and learning from mistakes. In contrast, a fixed mindset assumes that your talents and abilities are static—you either have them or you don't. Entrepreneurs with a growth mindset see failures as learning opportunities, embrace challenges as chances to improve, and persist through obstacles. Those with a fixed mindset often give up when things get difficult, avoid challenges to protect their ego, and view criticism as a personal attack. The good news? Your mindset isn't fixed—you can develop a growth mindset through awareness and practice. This shift in thinking is transformative because it changes how you respond to every challenge, setback, and opportunity in your business journey.",
     readTime: "6 min",
     icon: TrendingUp,
     category: "Mindset",
@@ -23,7 +23,7 @@ const mindsetHacks = [
   {
     id: "decision-fatigue",
     title: "Overcoming Decision Fatigue",
-    description: "Preserve your mental energy for critical decisions by eliminating trivial choices. Learn why Steve Jobs wore the same outfit daily, how to structure your day to protect decision-making capacity, and proven strategies to optimize your cognitive resources for high-impact business choices.",
+    description: "As an entrepreneur, you make hundreds of decisions every single day—from trivial choices like what to eat for breakfast to critical decisions like whether to pivot your business model or hire a new employee. What most entrepreneurs don't realize is that every decision, regardless of size, depletes the same limited pool of mental energy. This phenomenon is called decision fatigue. As you make more decisions throughout the day, the quality of your decisions progressively deteriorates. You become more impulsive, more likely to avoid making decisions altogether, or more prone to choosing the easiest option rather than the best one. This is why you might make poor business choices late at night or why you feel mentally exhausted after a day of meetings. The good news? You can combat decision fatigue by reducing the number of trivial decisions you make, automating routine choices, and scheduling your most important decisions for times when your mental energy is highest. This isn't about being lazy—it's about preserving your mental resources for the decisions that truly matter.",
     readTime: "5 min",
     icon: Brain,
     category: "Mental Performance",
@@ -38,7 +38,7 @@ const mindsetHacks = [
   {
     id: "power-of-no",
     title: "The Power of Saying No",
-    description: "Master the art of strategic refusal to protect your time and energy. Learn boundary-setting techniques that preserve relationships while prioritizing your goals. Discover how saying no to good opportunities creates space for great ones, and develop scripts for declining requests gracefully.",
+    description: "Saying 'no' is a critical skill for entrepreneurs. Every time you say 'yes' to something, you are saying 'no' to something else—often your own priorities. Learning to decline non-essential requests protects your time, energy, and focus. Warren Buffett said, 'The difference between successful people and really successful people is that really successful people say no to almost everything.' Most entrepreneurs struggle with saying no because they fear missing opportunities, disappointing people, or appearing uncooperative. But the reality is that saying yes to everything leads to scattered focus, mediocre results, and burnout. Strategic refusal is about being selective with your commitments so you can excel at what truly matters. Master the art of strategic refusal to protect your time and energy. Learn boundary-setting techniques that preserve relationships while prioritizing your goals. Discover how saying no to good opportunities creates space for great ones, and develop scripts for declining requests gracefully.",
     readTime: "4 min",
     icon: Target,
     category: "Boundaries",
@@ -53,7 +53,7 @@ const mindsetHacks = [
   {
     id: "three-ps",
     title: "The Three P's of Time Management",
-    description: "Implement a systematic approach to time mastery through Prioritize, Plan, and Perform. Learn the Eisenhower Matrix for task prioritization, advanced time-blocking techniques, and execution strategies that ensure your most important work gets done consistently.",
+    description: "The Three P's—Prioritize, Plan, and Perform—create a simple but powerful framework for managing your time and accomplishing what matters most. Most entrepreneurs feel overwhelmed by endless to-do lists and competing demands on their time. The Three P's solve this by creating a systematic daily routine. First, you Prioritize by identifying the most important tasks that will move your business forward. Second, you Plan by scheduling specific time blocks for those priorities. Third, you Perform by executing with focus and minimizing distractions. This framework eliminates the constant decision-making about 'what should I do next?' and replaces it with a clear, structured approach. The beauty of the Three P's is its simplicity—you can implement it immediately and see results within days. It transforms chaotic, reactive days into productive, intentional ones where you're consistently making progress on your most important goals.",
     readTime: "4 min",
     icon: Timer,
     category: "Productivity",
@@ -68,7 +68,7 @@ const mindsetHacks = [
   {
     id: "mental-models",
     title: "Essential Mental Models for Entrepreneurs",
-    description: "Upgrade your cognitive toolkit with powerful thinking frameworks used by successful entrepreneurs. Master first principles thinking, second-order consequences, inversion, and other models that transform how you approach problems. Learn to think like Charlie Munger and make better strategic decisions.",
+    description: "Mental models are frameworks for thinking. They are simplified representations of how the world works that help you understand complex situations and make better decisions. Successful entrepreneurs use a toolbox of mental models to solve problems. Charlie Munger, Warren Buffett's business partner, advocates for developing a 'latticework of mental models' from multiple disciplines. He believes that having 80-90 mental models from fields like psychology, economics, biology, physics, and mathematics allows you to see problems from multiple angles and make better decisions. Most people over-rely on a single way of thinking; multi-disciplinary thinkers have a massive advantage in business. Upgrade your cognitive toolkit with powerful thinking frameworks used by successful entrepreneurs. Master first principles thinking, second-order consequences, inversion, and other models that transform how you approach problems. Learn to think like Charlie Munger and make better strategic decisions.",
     readTime: "10 min",
     icon: Brain,
     category: "Decision Making",
@@ -83,7 +83,7 @@ const mindsetHacks = [
   {
     id: "8020-rule",
     title: "The 80/20 Rule (Pareto Principle)",
-    description: "Discover how 20% of your activities drive 80% of your results. Learn to identify your high-leverage tasks, eliminate time-wasters, and focus your energy where it creates maximum impact. Master the art of ruthless prioritization using data-driven analysis and strategic thinking.",
+    description: "The 80/20 rule, also known as the Pareto Principle, is one of the most powerful concepts for business success. It states that roughly 80% of your results come from just 20% of your efforts. This means that a small portion of your activities, customers, products, or strategies are responsible for the majority of your outcomes. As an entrepreneur, understanding this principle can transform how you spend your time and energy. Instead of spreading yourself thin trying to do everything, you can identify which specific activities generate the most value and focus relentlessly on those. This isn't about working harder—it's about working smarter by eliminating or delegating the tasks that don't move the needle. When applied correctly, the 80/20 rule helps you achieve more with less effort, stress, and time. Discover how 20% of your activities drive 80% of your results. Learn to identify your high-leverage tasks, eliminate time-wasters, and focus your energy where it creates maximum impact.",
     readTime: "5 min",
     icon: Target,
     category: "Productivity",
@@ -98,7 +98,7 @@ const mindsetHacks = [
   {
     id: "flow-state",
     title: "Achieving Flow State",
-    description: "Enter the zone of peak performance where time disappears and your best work emerges effortlessly. Learn the neuroscience of flow, how to trigger it consistently, and environmental factors that enhance or inhibit this optimal state. Become 500% more productive during flow sessions.",
+    description: "Flow is a mental state where a person is fully immersed in an activity with energized focus, full involvement, and enjoyment. It's often called being 'in the zone,' and it's where you produce your best work. Deep work is the ability to focus intensely on cognitively demanding tasks without distraction. In our hyperconnected world of constant notifications, messages, and interruptions, the capacity for deep work is becoming increasingly rare—and increasingly valuable. Deep work is where breakthrough ideas emerge, complex problems get solved, and your most important projects move forward. Enter the zone of peak performance where time disappears and your best work emerges effortlessly. Learn the neuroscience of flow, how to trigger it consistently, and environmental factors that enhance or inhibit this optimal state. The payoff is enormous: you can accomplish in 2-3 hours of deep work what might take an entire day of distracted work. Become 500% more productive during flow sessions.",
     readTime: "7 min",
     icon: Focus,
     category: "Performance",
@@ -113,7 +113,7 @@ const mindsetHacks = [
   {
     id: "fear-setting",
     title: "Fear Setting Exercise",
-    description: "Transform paralyzing fear into actionable clarity using Tim Ferriss's proven framework. Learn to define worst-case scenarios realistically, develop prevention strategies, and create recovery plans. Discover how fear-setting reveals that risks are often more manageable than you imagine.",
+    description: "Created by Tim Ferriss, fear-setting is an exercise for defining and overcoming your fears. Instead of setting goals, you define the worst-case scenarios of taking action, what you could do to prevent them, and how you would recover. Most people avoid risk not because the actual consequences are devastating, but because their fears are vague and undefined. Fear-setting transforms abstract anxiety into concrete, manageable problems. Tim Ferriss used this exercise before leaving his corporate job to start his own business. He realized that even the worst-case scenario (running out of money and having to find a new job) was temporary and survivable. This clarity gave him the courage to take the leap, leading to massive success. Transform paralyzing fear into actionable clarity using Tim Ferriss's proven framework. Learn to define worst-case scenarios realistically, develop prevention strategies, and create recovery plans. Discover how fear-setting reveals that risks are often more manageable than you imagine.",
     readTime: "8 min",
     icon: Target,
     category: "Risk Management",
@@ -128,7 +128,7 @@ const mindsetHacks = [
   {
     id: "systems-thinking",
     title: "Systems Thinking for Business",
-    description: "Build a business that runs without you. Learn to identify systemizable processes, create standard operating procedures, and leverage automation to scale efficiently. Discover how to document knowledge, build repeatable workflows, and transition from operator to CEO.",
+    description: "Systems thinking is the process of building automated and repeatable processes for every aspect of your business. The goal is to create a business that can run and grow without your direct involvement in every single task. Michael Gerber's 'The E-Myth' explains that most businesses fail because they're dependent on the owner doing everything. True business success comes from building systems that allow the business to operate independently. McDonald's succeeded not because they make the best burgers, but because they created a system that produces consistent results regardless of who's working. Your goal is to become the architect of systems, not the operator of tasks. Build a business that runs without you. Learn to identify systemizable processes, create standard operating procedures, and leverage automation to scale efficiently. Discover how to document knowledge, build repeatable workflows, and transition from operator to CEO.",
     readTime: "9 min",
     icon: BarChart3,
     category: "Business Strategy",
@@ -143,7 +143,7 @@ const mindsetHacks = [
   {
     id: "minimum-viable-progress",
     title: "Minimum Viable Progress",
-    description: "Never have a zero-progress day again. Learn to overcome resistance and procrastination by committing to impossibly small actions that build unstoppable momentum. Discover why 2 minutes of work is infinitely better than zero, and how tiny consistent actions compound into massive results.",
+    description: "Minimum Viable Progress (MVP) is the smallest amount of progress you can make on a task to keep momentum, even on days when you feel unmotivated or overwhelmed. It's the antidote to procrastination. The concept is adapted from the Lean Startup principle of 'Minimum Viable Product.' The insight is the same: something small is infinitely better than nothing. Many entrepreneurs fall into the trap of all-or-nothing thinking: 'If I can't work for 3 hours on this project, I won't work on it at all.' This leads to zero-progress days that kill momentum. MVP thinking says: even 2 minutes of work maintains your psychological momentum and compounds over time. Never have a zero-progress day again. Learn to overcome resistance and procrastination by committing to impossibly small actions that build unstoppable momentum. Discover why 2 minutes of work is infinitely better than zero, and how tiny consistent actions compound into massive results.",
     readTime: "5 min",
     icon: Zap,
     category: "Consistency",
@@ -158,7 +158,7 @@ const mindsetHacks = [
   {
     id: "compound-effect",
     title: "The Compound Effect in Business",
-    description: "Harness the power of small, consistent actions that compound into extraordinary results. Understand the mathematics of exponential growth, learn to identify compounding activities in your business, and develop the patience and discipline to trust the process when results aren't immediately visible.",
+    description: "The compound effect is the principle of reaping huge rewards from a series of small, smart choices. It's the idea that small, consistent actions over a long period of time lead to massive, transformative results. Darren Hardy's book 'The Compound Effect' illustrates this with a simple example: if you improve by just 1% every day for a year, you'll end up 37 times better (not 365% better—that's the power of compounding). In business, this means that small, consistent actions like sending one prospecting email daily, creating one piece of content weekly, or improving one process monthly compound into dramatic results over time. The challenge is that results are often invisible for months, requiring patience and faith in the process. Harness the power of small, consistent actions that compound into extraordinary results. Understand the mathematics of exponential growth, learn to identify compounding activities in your business, and develop the patience and discipline to trust the process when results aren't immediately visible.",
     readTime: "6 min",
     icon: BarChart3,
     category: "Growth",
@@ -173,7 +173,7 @@ const mindsetHacks = [
   {
     id: "two-minute-rule",
     title: "The Two-Minute Rule",
-    description: "Eliminate task pile-up and reduce mental clutter with this simple productivity principle. Learn to identify quick-win tasks, execute them immediately, and prevent the psychological weight of accumulating small to-dos. Master the art of decisive action for minor tasks.",
+    description: "The Two-Minute Rule is a deceptively simple productivity technique with powerful results: if a task takes less than two minutes to complete, do it immediately rather than adding it to your to-do list. This one principle can dramatically reduce the mental clutter and overwhelm that entrepreneurs face daily. Think about how many quick tasks you encounter throughout the day—responding to a short email, approving an invoice, making a brief phone call, filing a document. Each time you think 'I'll do that later' and add it to your list, you're creating future work for yourself. The Two-Minute Rule eliminates this problem by having you handle small tasks on the spot. This prevents the accumulation of dozens of minor to-dos that collectively create stress and distraction. More importantly, it maintains momentum throughout your day, giving you a sense of completion and progress that fuels motivation and productivity. Eliminate task pile-up and reduce mental clutter with this simple productivity principle.",
     readTime: "3 min",
     icon: Zap,
     category: "Productivity",
