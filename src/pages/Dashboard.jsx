@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { User, DailyProgress, CommunityHighlight, Event, StrategyDocument } from '@/entities/all';
 import { Link } from 'react-router-dom';
@@ -35,6 +36,7 @@ import WelcomePopup from '../components/common/WelcomePopup';
 import UpcomingTasksPreview from '../components/dashboard/UpcomingTasksPreview';
 import DailyInsightTabs from '../components/dashboard/DailyInsightTabs';
 import EntrepreneurshipStageProgress from '../components/dashboard/EntrepreneurshipStageProgress';
+import MemberActionChecklist from '../components/dashboard/MemberActionChecklist';
 
 // AI Team Info for avatars and names
 const AI_TEAM_INFO = {
@@ -293,8 +295,8 @@ export default function DashboardPage() {
                     </div>
                 </div>
 
-                {/* Entrepreneurship Stage Progress - MODERNIZED */}
-                <EntrepreneurshipStageProgress user={user} />
+                {/* Member Action Checklist */}
+                <MemberActionChecklist />
 
                 {/* Journey Timeline & Financial Snapshot & Daily Insights */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
@@ -306,6 +308,9 @@ export default function DashboardPage() {
                         <DailyInsightTabs />
                     </div>
                 </div>
+
+                {/* Entrepreneurship Stage Progress - MOVED HERE */}
+                <EntrepreneurshipStageProgress user={user} />
 
                 {/* Today's Progress & Upcoming Tasks - SIDE BY SIDE */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
@@ -514,11 +519,11 @@ export default function DashboardPage() {
                             </li>
                             <li className="flex items-start gap-2">
                                 <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
-                                <span><strong>Real-Time Support:</strong> Get answers, share wins, and receive feedback from fellow entrepreneurs</span>
+                                <span><strong>Network & Collaborate:</strong> Build valuable connections at every business stage</span>
                             </li>
                             <li className="flex items-start gap-2">
                                 <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
-                                <span><strong>Networking Opportunities:</strong> Build valuable connections with entrepreneurs at every stage</span>
+                                <span><strong>Real-Time Support:</strong> Get instant feedback and answers from the community</span>
                             </li>
                         </ul>
 
@@ -533,7 +538,7 @@ export default function DashboardPage() {
 
                     {/* Upgrade CTA */}
                     {user?.subscription_level === 'free' && (
-                        <div className="card p-6 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-[var(--primary-gold)]" style={{ borderRadius: '2px' }}>
+                        <div className="card p-6 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-[var(--primary-gold)] rounded-xl">
                             <div className="flex items-start gap-4 mb-4">
                                 <div className="bg-gradient-to-br from-[var(--primary-gold)] to-yellow-600 p-3 rounded-xl flex-shrink-0">
                                     <Rocket className="w-6 h-6 text-white" />
@@ -551,15 +556,15 @@ export default function DashboardPage() {
                             <ul className="space-y-2 text-sm text-[var(--text-soft)] mb-4">
                                 <li className="flex items-start gap-2">
                                     <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
-                                    <span><strong>Unlimited 90-Day Journeys:</strong> Switch goals anytime and access every roadmap</span>
+                                    <span><strong>Unlimited Journeys:</strong> Switch goals anytime and access every roadmap</span>
                                 </li>
                                 <li className="flex items-start gap-2">
                                     <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
-                                    <span><strong>All Strategy Tools:</strong> Full access to the Foundation Roadmap and advanced templates</span>
+                                    <span><strong>All Strategy Tools:</strong> Full Foundation Roadmap access and premium templates</span>
                                 </li>
                                 <li className="flex items-start gap-2">
                                     <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
-                                    <span><strong>Priority Support:</strong> Get faster responses and exclusive training sessions</span>
+                                    <span><strong>Unlimited AI Access:</strong> Use all AI assistants with no restrictions</span>
                                 </li>
                             </ul>
 
@@ -568,7 +573,7 @@ export default function DashboardPage() {
                                 className="btn w-full justify-center bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 text-white hover:shadow-lg"
                             >
                                 <Rocket className="w-4 h-4 mr-2" />
-                                Upgrade to The HQ - $99/month
+                                Upgrade to The HQ - $99/mo
                             </Link>
                         </div>
                     )}
