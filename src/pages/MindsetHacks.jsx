@@ -345,8 +345,8 @@ export default function MindsetHacksPage() {
             return (
               <Link
                 key={hack.id}
-                to={createPageUrl("MindsetHack") + `?id=${hack.id}`}
-                className="card p-6 flex flex-col hover:shadow-xl hover:scale-105 transition-all duration-300 group overflow-hidden"
+                to={createPageUrl(`MindsetHack?hack=${hack.id}`)}
+                className="card p-6 flex flex-col hover:shadow-lg transition-all hover:border-[var(--primary-gold)] group"
               >
                 {/* Header */}
                 <div className="pb-4">
@@ -355,10 +355,10 @@ export default function MindsetHacksPage() {
                       <IconComponent className="w-6 h-6" />
                     </div>
                     <div className="flex flex-col items-end space-y-2">
-                      <span className={`text-xs px-2 py-1 rounded-full font-medium ${getDifficultyColor(hack.difficulty)}`}>
+                      <span className={`text-xs px-2 py-1 rounded-full font-semibold ${getDifficultyColor(hack.difficulty)}`}>
                         {hack.difficulty}
                       </span>
-                      <span className={`text-xs px-2 py-1 rounded-full font-medium ${getImpactColor(hack.impact)}`}>
+                      <span className={`text-xs px-2 py-1 rounded-full font-semibold ${getImpactColor(hack.impact)}`}>
                         {hack.impact} Impact
                       </span>
                     </div>
@@ -375,7 +375,7 @@ export default function MindsetHacksPage() {
 
                 {/* Content */}
                 <div className="flex flex-col flex-grow">
-                  <p className="text-[var(--text-soft)] text-sm leading-relaxed mb-4 line-clamp-3">
+                  <p className="text-[var(--text-soft)] text-sm leading-relaxed mb-4 line-clamp-3 flex-grow">
                     {hack.description}
                   </p>
                   
@@ -395,15 +395,15 @@ export default function MindsetHacksPage() {
                   )}
                   
                   <div className="flex items-center justify-between mt-auto">
-                    <div className="flex items-center space-x-2 text-xs text-[var(--text-soft)]">
-                      <Clock className="w-4 h-4" />
-                      <span>{hack.readTime} read</span>
+                    <div className="flex items-center text-xs text-[var(--text-soft)]">
+                      <Clock className="w-4 h-4 mr-1" />
+                      <span>{hack.readTime}</span>
                     </div>
                     <span
-                      className="btn btn-secondary text-sm group-hover:bg-[var(--primary-gold)] group-hover:text-white group-hover:border-[var(--primary-gold)] transition-all flex items-center"
+                      className="text-[var(--primary-gold)] text-sm font-medium flex items-center"
                     >
                       <span>Learn More</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform ml-1" />
+                      <ArrowRight className="w-4 h-4 ml-1" />
                     </span>
                   </div>
                 </div>
