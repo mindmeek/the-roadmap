@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { User, DailyProgress, CommunityHighlight, Event, StrategyDocument } from '@/entities/all';
 import { Link } from 'react-router-dom';
@@ -297,19 +298,19 @@ export default function DashboardPage() {
                 {/* Member Action Checklist */}
                 <MemberActionChecklist />
 
-                {/* Entrepreneurship Stage Progress */}
-                <EntrepreneurshipStageProgress user={user} />
-
                 {/* Journey Timeline & Financial Snapshot & Daily Insights */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
                     <div className="lg:col-span-2">
                         <JourneyTimeline user={user} />
                     </div>
-                    <div className="space-y-4 sm:space-y-6 flex flex-col">
+                    <div className="space-y-4 sm:space-y-6">
                         <FinancialSnapshot user={user} />
                         <DailyInsightTabs />
                     </div>
                 </div>
+
+                {/* Entrepreneurship Stage Progress - MOVED HERE */}
+                <EntrepreneurshipStageProgress user={user} />
 
                 {/* Today's Progress & Upcoming Tasks - SIDE BY SIDE */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
@@ -503,10 +504,10 @@ export default function DashboardPage() {
                             </div>
                             <div className="flex-1">
                                 <h3 className="text-lg font-bold text-[var(--text-main)] mb-2">
-                                    Access The Business Minds Community
+                                    Join The Business Minds Community
                                 </h3>
                                 <p className="text-sm text-[var(--text-soft)] mb-4">
-                                    You're already a member! Log in to connect with a thriving network of entrepreneurs who understand your journey and are committed to mutual growth.
+                                    Connect with a thriving network of entrepreneurs who understand your journey and are committed to mutual growth.
                                 </p>
                             </div>
                         </div>
@@ -526,15 +527,13 @@ export default function DashboardPage() {
                             </li>
                         </ul>
 
-                        <a
-                            href="https://thebminds.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <Link 
+                            to={createPageUrl('TheCommunity')}
                             className="btn btn-primary w-full justify-center"
                         >
                             <Users className="w-4 h-4 mr-2" />
-                            Login to Community
-                        </a>
+                            Access Community Now
+                        </Link>
                     </div>
 
                     {/* Upgrade CTA */}
