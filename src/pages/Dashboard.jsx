@@ -293,14 +293,17 @@ export default function DashboardPage() {
                     </div>
                 </div>
 
+                {/* Entrepreneurship Stage Progress - MODERNIZED */}
+                <EntrepreneurshipStageProgress user={user} />
+
                 {/* Journey Timeline & Financial Snapshot & Daily Insights */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-                    <div className="lg:col-span-2 space-y-4 sm:space-y-6">
+                    <div className="lg:col-span-2">
                         <JourneyTimeline user={user} />
-                        <DailyInsightTabs />
                     </div>
-                    <div>
+                    <div className="space-y-4 sm:space-y-6">
                         <FinancialSnapshot user={user} />
+                        <DailyInsightTabs />
                     </div>
                 </div>
 
@@ -350,9 +353,6 @@ export default function DashboardPage() {
 
                     <UpcomingTasksPreview />
                 </div>
-
-                {/* Entrepreneurship Stage Progress */}
-                <EntrepreneurshipStageProgress user={user} />
 
                 {/* Meet Your AI Team */}
                 {aiSuggestion && recommendedAgent && (
@@ -488,9 +488,6 @@ export default function DashboardPage() {
                         </div>
                     </div>
                 )}
-
-                {/* Entrepreneurship Stage Progress */}
-                <EntrepreneurshipStageProgress user={user} />
 
                 {/* Community Welcome Card */}
                 <div className="card p-6 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border-2 border-purple-200 dark:border-purple-700" style={{ borderRadius: '2px' }}>
