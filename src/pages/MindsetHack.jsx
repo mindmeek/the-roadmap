@@ -505,7 +505,7 @@ export default function MindsetHack() {
     const button = document.getElementById('save-notes-btn');
     if (button) {
       const originalText = button.innerHTML;
-      button.innerHTML = '<span class="flex items-center gap-2"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1="evenodd"></path></svg>Saved!</span>';
+      button.innerHTML = '<span class="flex items-center gap-2"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>Saved!</span>';
       setTimeout(() => {
         button.innerHTML = originalText;
       }, 2000);
@@ -728,7 +728,7 @@ export default function MindsetHack() {
           />
           
           <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 p-4 rounded-md">
-            <h4 className="font-semibold text-green-900 dark:text="green-100 mb-2">🧠 Reflection Questions</h4>
+            <h4 className="font-semibold text-green-900 dark:text-green-100 mb-2">🧠 Reflection Questions</h4>
             <ul className="text-sm text-green-800 dark:text-green-200 space-y-1">
               <li>• How does this mindset hack apply to your current business challenges?</li>
               <li>• What specific examples can you think of from your own experience?</li>
