@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User, DailyProgress, CommunityHighlight, Event, StrategyDocument } from '@/entities/all';
 import { Link } from 'react-router-dom';
@@ -35,7 +34,6 @@ import AITeamModal from '../components/ai/AITeamModal';
 import WelcomePopup from '../components/common/WelcomePopup';
 import UpcomingTasksPreview from '../components/dashboard/UpcomingTasksPreview';
 import DailyInsightTabs from '../components/dashboard/DailyInsightTabs';
-import EntrepreneurshipStageProgress from '../components/dashboard/EntrepreneurshipStageProgress';
 import MemberActionChecklist from '../components/dashboard/MemberActionChecklist';
 
 // AI Team Info for avatars and names
@@ -300,17 +298,14 @@ export default function DashboardPage() {
 
                 {/* Journey Timeline & Financial Snapshot & Daily Insights */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-                    <div className="lg:col-span-2">
+                    <div className="lg:col-span-2 h-full">
                         <JourneyTimeline user={user} />
                     </div>
-                    <div className="space-y-4 sm:space-y-6">
+                    <div className="space-y-4 sm:space-y-6 h-full flex flex-col">
                         <FinancialSnapshot user={user} />
                         <DailyInsightTabs />
                     </div>
                 </div>
-
-                {/* Entrepreneurship Stage Progress - MOVED HERE */}
-                <EntrepreneurshipStageProgress user={user} />
 
                 {/* Today's Progress & Upcoming Tasks - SIDE BY SIDE */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
@@ -504,7 +499,7 @@ export default function DashboardPage() {
                             </div>
                             <div className="flex-1">
                                 <h3 className="text-lg font-bold text-[var(--text-main)] mb-2">
-                                    Join The Business Minds Community
+                                    Login to The Business Minds Community
                                 </h3>
                                 <p className="text-sm text-[var(--text-soft)] mb-4">
                                     Connect with a thriving network of entrepreneurs who understand your journey and are committed to mutual growth.
