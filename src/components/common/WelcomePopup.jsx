@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Target, Users, DollarSign, Rocket, Sparkles, Crown, TrendingUp } from 'lucide-react';
+import { X, Target, Users, DollarSign, Rocket, Sparkles, Crown, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 
@@ -20,252 +20,152 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
 
     return (
         <div 
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-4"
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
             onClick={handleBackdropClick}
         >
-            <div className="bg-white dark:bg-gray-900 shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto" style={{ borderRadius: '2px' }}>
+            <div className="bg-white dark:bg-gray-900 shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto" style={{ borderRadius: '2px' }}>
                 {/* Header */}
-                <div className="relative bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 p-4 sm:p-6 text-white">
+                <div className="relative p-8 text-center border-b border-gray-100 dark:border-gray-800">
                     <button
                         onClick={onClose}
-                        className="absolute top-2 right-2 sm:top-3 sm:right-3 p-1.5 sm:p-2 hover:bg-white/20 transition-colors"
+                        className="absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                         style={{ borderRadius: '2px' }}
                     >
-                        <X className="w-4 h-4" />
+                        <X className="w-5 h-5 text-gray-400" />
                     </button>
                     
-                    <div className="flex items-center gap-2 sm:gap-3">
-                        <div className="bg-white/20 p-1.5 sm:p-2 backdrop-blur-sm" style={{ borderRadius: '2px' }}>
-                            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
-                        </div>
-                        <div>
-                            <h2 className="text-lg sm:text-2xl font-bold">Welcome to Your Journey! 🎉</h2>
-                            <p className="text-white/90 text-xs sm:text-sm">Let's turn your vision into reality</p>
-                        </div>
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-[var(--primary-gold)] mb-4" style={{ borderRadius: '2px' }}>
+                        <Sparkles className="w-8 h-8 text-white" />
                     </div>
                     
+                    <h2 className="text-3xl font-bold text-[var(--text-main)] mb-2">Welcome to Your Journey</h2>
+                    <p className="text-[var(--text-soft)]">Let's turn your vision into reality</p>
+                    
                     {showTrialInfo && (
-                        <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-2 sm:p-3 mt-3 sm:mt-4" style={{ borderRadius: '2px' }}>
-                            <div className="flex items-center gap-2 mb-1">
-                                <Rocket className="w-3 h-3 sm:w-4 sm:h-4" />
-                                <span className="font-semibold text-xs sm:text-sm">Your 14-Day Premium Trial is Active!</span>
-                            </div>
-                            <p className="text-xs text-white/90">
-                                You have <strong>{trialDaysRemaining} days</strong> of full access to explore everything.
-                            </p>
+                        <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-sm font-medium" style={{ borderRadius: '2px' }}>
+                            <Rocket className="w-4 h-4" />
+                            <span>{trialDaysRemaining} days left in your premium trial</span>
                         </div>
                     )}
                 </div>
 
-                {/* Inspiring Message */}
-                <div className="p-4 sm:p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-b border-gray-200 dark:border-gray-700">
-                    <div className="flex flex-col sm:flex-row items-start gap-2 sm:gap-3">
-                        <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--primary-gold)] flex-shrink-0" />
-                        <div className="w-full">
-                            <h3 className="text-base sm:text-lg font-bold text-[var(--text-main)] mb-2">
-                                You're Exactly Where You Need to Be
-                            </h3>
-                            <p className="text-xs sm:text-sm text-[var(--text-main)] leading-relaxed mb-2 sm:mb-3">
-                                Every successful entrepreneur started right where you are now—with a vision and the courage to take action. 
-                                The difference between dreamers and achievers? <strong>A proven system and consistent execution.</strong>
-                            </p>
-                            <div className="bg-white/50 dark:bg-gray-800/50 p-2 sm:p-3 space-y-2" style={{ borderRadius: '2px' }}>
-                                <p className="text-xs font-semibold text-[var(--text-main)] mb-1">As a Business Minds member, you get:</p>
-                                <ul className="space-y-1 text-xs text-[var(--text-soft)]">
-                                    <li className="flex items-start gap-2">
-                                        <span className="text-[var(--primary-gold)] flex-shrink-0">→</span>
-                                        <span><strong>Foundation Roadmap:</strong> Strategic clarity through proven business frameworks</span>
-                                    </li>
-                                    <li className="flex items-start gap-2">
-                                        <span className="text-[var(--primary-gold)] flex-shrink-0">→</span>
-                                        <span><strong>90-Day Journey:</strong> Actionable weekly steps tailored to your stage & goals</span>
-                                    </li>
-                                    <li className="flex items-start gap-2">
-                                        <span className="text-[var(--primary-gold)] flex-shrink-0">→</span>
-                                        <span><strong>AI Business Team:</strong> 6 expert assistants available 24/7 for guidance</span>
-                                    </li>
-                                    <li className="flex items-start gap-2">
-                                        <span className="text-[var(--primary-gold)] flex-shrink-0">→</span>
-                                        <span><strong>Community Support:</strong> Connect with entrepreneurs who understand your journey</span>
-                                    </li>
-                                </ul>
+                {/* Main Content */}
+                <div className="p-8 space-y-6">
+                    {/* Hero Message */}
+                    <div className="text-center max-w-lg mx-auto">
+                        <p className="text-[var(--text-main)] leading-relaxed mb-4">
+                            Every successful entrepreneur started where you are now. The difference? 
+                            <strong> A proven system and consistent execution.</strong>
+                        </p>
+                        <div className="grid grid-cols-2 gap-3 text-sm">
+                            <div className="p-3 bg-gray-50 dark:bg-gray-800" style={{ borderRadius: '2px' }}>
+                                <div className="font-semibold text-[var(--text-main)] mb-1">Foundation Roadmap</div>
+                                <div className="text-xs text-[var(--text-soft)]">Strategic clarity</div>
+                            </div>
+                            <div className="p-3 bg-gray-50 dark:bg-gray-800" style={{ borderRadius: '2px' }}>
+                                <div className="font-semibold text-[var(--text-main)] mb-1">90-Day Journey</div>
+                                <div className="text-xs text-[var(--text-soft)]">Actionable steps</div>
+                            </div>
+                            <div className="p-3 bg-gray-50 dark:bg-gray-800" style={{ borderRadius: '2px' }}>
+                                <div className="font-semibold text-[var(--text-main)] mb-1">AI Business Team</div>
+                                <div className="text-xs text-[var(--text-soft)]">24/7 guidance</div>
+                            </div>
+                            <div className="p-3 bg-gray-50 dark:bg-gray-800" style={{ borderRadius: '2px' }}>
+                                <div className="font-semibold text-[var(--text-main)] mb-1">Community</div>
+                                <div className="text-xs text-[var(--text-soft)]">Expert support</div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                {/* Content */}
-                <div className="p-4 sm:p-6 space-y-4 sm:space-y-5">
+                    {/* Primary Actions */}
                     <div>
-                        <h3 className="text-base sm:text-lg font-bold text-[var(--text-main)] mb-3 sm:mb-4">Choose Your First Step:</h3>
-                        
-                        {/* Steps Side by Side */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-5">
-                            {/* Start Your 90-Day Plan */}
+                        <h3 className="font-bold text-[var(--text-main)] mb-4 text-center">Choose Your First Step</h3>
+                        <div className="space-y-3">
                             <Link
                                 to={createPageUrl('Journey')}
                                 onClick={onClose}
-                                className="block group"
+                                className="group block p-5 bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:shadow-lg transition-all"
+                                style={{ borderRadius: '2px' }}
                             >
-                                <div className="p-3 sm:p-4 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border border-blue-200 dark:border-blue-700 hover:shadow-lg transition-all h-full" style={{ borderRadius: '2px' }}>
-                                    <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
-                                        <div className="bg-blue-600 p-1.5 sm:p-2 flex-shrink-0 group-hover:scale-110 transition-transform" style={{ borderRadius: '2px' }}>
-                                            <Target className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                                <div className="flex items-center justify-between mb-2">
+                                    <div className="flex items-center gap-3">
+                                        <div className="bg-white/20 p-2" style={{ borderRadius: '2px' }}>
+                                            <Target className="w-5 h-5" />
                                         </div>
-                                        <div className="flex-1">
-                                            <h4 className="text-sm sm:text-base font-bold text-[var(--text-main)] mb-1 group-hover:text-blue-600 transition-colors">
-                                                Start Your 90-Day Journey
-                                            </h4>
-                                            <p className="text-xs text-[var(--text-soft)]">
-                                                Follow a proven roadmap with weekly action steps
-                                            </p>
+                                        <div>
+                                            <div className="font-bold">Start Your 90-Day Journey</div>
+                                            <div className="text-xs text-white/80">Weekly action steps to achieve your goals</div>
                                         </div>
                                     </div>
-                                    <ul className="space-y-1 text-xs text-[var(--text-soft)]">
-                                        <li className="flex items-center gap-2">
-                                            <span className="text-blue-600">✓</span>
-                                            <span>Weekly actionable tasks</span>
-                                        </li>
-                                        <li className="flex items-center gap-2">
-                                            <span className="text-blue-600">✓</span>
-                                            <span>Track progress & milestones</span>
-                                        </li>
-                                    </ul>
+                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </div>
                             </Link>
 
-                            {/* Set Financial Goals */}
                             <Link
                                 to={createPageUrl('FreedomCalculator')}
                                 onClick={onClose}
-                                className="block group"
+                                className="group block p-5 bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:shadow-lg transition-all"
+                                style={{ borderRadius: '2px' }}
                             >
-                                <div className="p-3 sm:p-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-700 hover:shadow-lg transition-all h-full" style={{ borderRadius: '2px' }}>
-                                    <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
-                                        <div className="bg-green-600 p-1.5 sm:p-2 flex-shrink-0 group-hover:scale-110 transition-transform" style={{ borderRadius: '2px' }}>
-                                            <DollarSign className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                                <div className="flex items-center justify-between mb-2">
+                                    <div className="flex items-center gap-3">
+                                        <div className="bg-white/20 p-2" style={{ borderRadius: '2px' }}>
+                                            <DollarSign className="w-5 h-5" />
                                         </div>
-                                        <div className="flex-1">
-                                            <h4 className="text-sm sm:text-base font-bold text-[var(--text-main)] mb-1 group-hover:text-green-600 transition-colors">
-                                                Define Financial Freedom
-                                            </h4>
-                                            <p className="text-xs text-[var(--text-soft)]">
-                                                Calculate your freedom number and path
-                                            </p>
+                                        <div>
+                                            <div className="font-bold">Calculate Financial Freedom</div>
+                                            <div className="text-xs text-white/80">Define your freedom number and revenue goals</div>
                                         </div>
                                     </div>
-                                    <ul className="space-y-1 text-xs text-[var(--text-soft)]">
-                                        <li className="flex items-center gap-2">
-                                            <span className="text-green-600">✓</span>
-                                            <span>Personal freedom number</span>
-                                        </li>
-                                        <li className="flex items-center gap-2">
-                                            <span className="text-green-600">✓</span>
-                                            <span>Revenue milestones</span>
-                                        </li>
-                                    </ul>
+                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </div>
                             </Link>
                         </div>
                     </div>
 
-                    {/* Community + HQ Upgrade - SIDE BY SIDE */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                        {/* Community Info Box */}
-                        <div className="p-3 sm:p-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border border-purple-200 dark:border-purple-700" style={{ borderRadius: '2px' }}>
-                            <div className="flex items-start gap-2 mb-2 sm:mb-3">
-                                <div className="bg-purple-600 p-1.5 sm:p-2 flex-shrink-0" style={{ borderRadius: '2px' }}>
-                                    <Users className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-                                </div>
-                                <div className="flex-1">
-                                    <h4 className="font-bold text-[var(--text-main)] text-xs sm:text-sm mb-1">
-                                        The Business Minds Community
-                                    </h4>
-                                    <p className="text-xs text-[var(--text-soft)]">
-                                        Connect with fellow entrepreneurs
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            <ul className="space-y-1 text-xs text-[var(--text-soft)] mb-2 sm:mb-3">
-                                <li className="flex items-start gap-2">
-                                    <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
-                                    <span>Weekly Live Coaching</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
-                                    <span>Network & Collaborate</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
-                                    <span>Real-Time Support</span>
-                                </li>
-                            </ul>
+                    {/* Secondary Actions */}
+                    <div className="grid grid-cols-2 gap-3">
+                        <a
+                            href="https://thebminds.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-4 border-2 border-gray-200 dark:border-gray-700 hover:border-purple-500 dark:hover:border-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all text-center group"
+                            style={{ borderRadius: '2px' }}
+                        >
+                            <Users className="w-6 h-6 text-purple-600 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+                            <div className="font-semibold text-[var(--text-main)] text-sm mb-1">Community</div>
+                            <div className="text-xs text-[var(--text-soft)]">Connect & learn</div>
+                        </a>
 
-                            <a
-                                href="https://thebminds.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn btn-secondary w-full justify-center text-xs bg-purple-600 text-white border-purple-600 hover:bg-purple-700"
+                        {user?.subscription_level === 'free' && (
+                            <Link
+                                to={createPageUrl('Upgrade')}
+                                onClick={onClose}
+                                className="p-4 border-2 border-[var(--primary-gold)] hover:bg-[var(--primary-gold)] hover:text-white transition-all text-center group"
                                 style={{ borderRadius: '2px' }}
                             >
-                                <Users className="w-3 h-3 mr-2" />
-                                Access Community
-                            </a>
-                        </div>
-
-                        {/* HQ Upgrade Info Box */}
-                        {user?.subscription_level === 'free' && (
-                            <div className="p-3 sm:p-4 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border border-[var(--primary-gold)]" style={{ borderRadius: '2px' }}>
-                                <div className="flex items-start gap-2 mb-2 sm:mb-3">
-                                    <div className="bg-gradient-to-br from-[var(--primary-gold)] to-yellow-600 p-1.5 sm:p-2 flex-shrink-0" style={{ borderRadius: '2px' }}>
-                                        <Rocket className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-                                    </div>
-                                    <div className="flex-1">
-                                        <h4 className="font-bold text-[var(--text-main)] text-xs sm:text-sm mb-1">
-                                            Unlock The Full HQ
-                                        </h4>
-                                        <p className="text-xs text-[var(--text-soft)]">
-                                            Unlimited access to all tools
-                                        </p>
-                                    </div>
-                                </div>
-                                
-                                <ul className="space-y-1 text-xs text-[var(--text-soft)] mb-2 sm:mb-3">
-                                    <li className="flex items-start gap-2">
-                                        <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
-                                        <span>Unlimited Journeys</span>
-                                    </li>
-                                    <li className="flex items-start gap-2">
-                                        <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
-                                        <span>All Strategy Tools</span>
-                                    </li>
-                                    <li className="flex items-start gap-2">
-                                        <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
-                                        <span>Unlimited AI Access</span>
-                                    </li>
-                                </ul>
-
-                                <Link
-                                    to={createPageUrl('Upgrade')}
-                                    onClick={onClose}
-                                    className="btn w-full justify-center text-xs bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 text-white hover:shadow-lg"
-                                    style={{ borderRadius: '2px' }}
-                                >
-                                    <Crown className="w-3 h-3 mr-2" />
-                                    Upgrade - $99/mo
-                                </Link>
-                            </div>
+                                <Crown className="w-6 h-6 text-[var(--primary-gold)] group-hover:text-white mx-auto mb-2 group-hover:scale-110 transition-all" />
+                                <div className="font-semibold text-[var(--text-main)] group-hover:text-white text-sm mb-1">Upgrade</div>
+                                <div className="text-xs text-[var(--text-soft)] group-hover:text-white/90">Full HQ access</div>
+                            </Link>
                         )}
                     </div>
 
-                    {/* Close Button */}
-                    <button
-                        onClick={onClose}
-                        className="w-full py-2 text-xs text-[var(--text-soft)] hover:text-[var(--text-main)] transition-colors"
-                    >
-                        I'll explore on my own →
-                    </button>
+                    {/* 30-Day Guarantee */}
+                    <div className="text-center pt-4 border-t border-gray-100 dark:border-gray-800">
+                        <div className="inline-flex items-center gap-2 text-sm text-[var(--text-soft)] mb-3">
+                            <div className="w-8 h-8 bg-green-100 dark:bg-green-900/20 flex items-center justify-center" style={{ borderRadius: '2px' }}>
+                                <span className="text-green-600">✓</span>
+                            </div>
+                            <span>30-Day Money-Back Guarantee</span>
+                        </div>
+                        <button
+                            onClick={onClose}
+                            className="text-sm text-[var(--text-soft)] hover:text-[var(--text-main)] transition-colors"
+                        >
+                            I'll explore on my own →
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
