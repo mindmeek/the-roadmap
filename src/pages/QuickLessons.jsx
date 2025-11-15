@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { User } from '@/entities/User';
-import { Lightbulb, Zap, Clock, Target, Users, CheckCircle, Briefcase, Globe, DollarSign, Mail, Handshake, Star, ArrowRight } from 'lucide-react';
+import { Lightbulb, Zap, Clock, Target, Users, CheckCircle, Briefcase, Globe, DollarSign, Mail, Handshake, Star, ArrowRight, ChevronDown } from 'lucide-react';
 
 const lessons = [
   {
@@ -141,9 +141,9 @@ const lessons = [
 
 export default function QuickLessons() {
   const [loading, setLoading] = useState(true);
+  const [showDescription, setShowDescription] = useState(false);
 
   useEffect(() => {
-    // No longer need to fetch user or check access
     setLoading(false);
   }, []);
   
@@ -170,32 +170,43 @@ export default function QuickLessons() {
             </div>
           </div>
           
-          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 p-6 rounded-lg mt-6">
-            <div className="flex items-start space-x-4">
-              <Zap className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
-              <div>
-                <h3 className="font-bold text-[var(--text-main)] mb-3 text-lg">Why Quick Lessons Are Different</h3>
-                
-                <p className="text-[var(--text-main)] leading-relaxed mb-3">
-                  These aren't your typical business tutorials. Quick Lessons are <strong>laser-focused, battle-tested frameworks</strong> 
-                  distilled from years of real-world entrepreneurial experience. Each lesson cuts through the noise to give you exactly 
-                  what you need to know—nothing more, nothing less.
-                </p>
-                
-                <p className="text-[var(--text-main)] leading-relaxed mb-3">
-                  Unlike theoretical courses that leave you wondering "now what?", every Quick Lesson is designed for <strong>immediate implementation</strong>. 
-                  You'll get specific action steps, practical tips drawn from successful businesses, and recommended tools that integrate 
-                  seamlessly into your workflow. This is actionable knowledge you can apply today and see results from this week.
-                </p>
-                
-                <p className="text-[var(--text-main)] leading-relaxed">
-                  Whether you're choosing a domain name, mastering sales conversations, or building social proof from zero, these lessons 
-                  provide the <strong>strategic frameworks and tactical execution plans</strong> that successful entrepreneurs use daily. 
-                  Each one is crafted to save you hours of research and costly trial-and-error by giving you proven processes that work.
-                </p>
+          {/* Expandable Description */}
+          <button
+            onClick={() => setShowDescription(!showDescription)}
+            className="mt-4 text-[var(--primary-gold)] text-sm font-medium hover:underline flex items-center mx-auto md:mx-0"
+          >
+            {showDescription ? 'Hide Details' : 'Learn More About Quick Lessons'}
+            <ChevronDown className={`w-4 h-4 ml-1 transition-transform ${showDescription ? 'rotate-180' : ''}`} />
+          </button>
+
+          {showDescription && (
+            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 p-6 rounded-lg mt-6">
+              <div className="flex items-start space-x-4">
+                <Zap className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
+                <div>
+                  <h3 className="font-bold text-[var(--text-main)] mb-3 text-lg">Why Quick Lessons Are Different</h3>
+                  
+                  <p className="text-[var(--text-main)] leading-relaxed mb-3">
+                    These aren't your typical business tutorials. Quick Lessons are <strong>laser-focused, battle-tested frameworks</strong> 
+                    distilled from years of real-world entrepreneurial experience. Each lesson cuts through the noise to give you exactly 
+                    what you need to know—nothing more, nothing less.
+                  </p>
+                  
+                  <p className="text-[var(--text-main)] leading-relaxed mb-3">
+                    Unlike theoretical courses that leave you wondering "now what?", every Quick Lesson is designed for <strong>immediate implementation</strong>. 
+                    You'll get specific action steps, practical tips drawn from successful businesses, and recommended tools that integrate 
+                    seamlessly into your workflow. This is actionable knowledge you can apply today and see results from this week.
+                  </p>
+                  
+                  <p className="text-[var(--text-main)] leading-relaxed">
+                    Whether you're choosing a domain name, mastering sales conversations, or building social proof from zero, these lessons 
+                    provide the <strong>strategic frameworks and tactical execution plans</strong> that successful entrepreneurs use daily. 
+                    Each one is crafted to save you hours of research and costly trial-and-error by giving you proven processes that work.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Lessons Grid */}
