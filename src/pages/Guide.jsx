@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -246,6 +247,166 @@ const guideContent = {
       "Hiring too many people too fast—overhead destroys cash flow",
       "Neglecting systems and processes—leads to chaos and quality issues",
       "Losing focus by chasing too many growth opportunities at once"
+    ]
+  },
+
+  "energy-management": {
+    title: "Energy Management Over Time Management",
+    readTime: "7 min read",
+    category: "Performance",
+    overview: "Time management is overrated—energy management is what truly matters. You can have all the time in the world, but if you lack energy, you won't accomplish anything meaningful. This guide teaches you to work with your natural energy rhythms, protect your peak performance windows, and sustainably maximize output without burnout.",
+    whyItHelps: "Energy management allows you to accomplish more in 4 focused hours than most people do in 12 distracted hours. It prevents burnout, improves decision-making quality, and creates sustainable high performance. Top performers don't work more hours—they work during their best hours.",
+    deepDive: "Your energy fluctuates throughout the day in predictable patterns called ultradian rhythms (90-120 minute cycles). Most people fight their natural rhythms, forcing themselves to work when energy is low and wasting peak hours on low-value tasks. Smart entrepreneurs align their most important work with peak energy times and rest during natural dips.",
+    actionSteps: [
+      "**Track Your Energy Patterns:** For one week, rate your energy level every hour (1-10 scale). Note when you feel most alert, creative, and focused vs. when you're sluggish and distracted. Look for patterns: Are you sharpest in the morning? Do you hit a slump after lunch? Identify your peak 2-3 hour window.",
+      "**Schedule Deep Work During Peak Energy:** Block your highest-energy hours for your most important, cognitively demanding work: strategic thinking, creative projects, complex problem-solving, important writing or content creation. Protect this time fiercely—no meetings, no email, no distractions.",
+      "**Handle Admin During Low Energy:** Save routine tasks for when your energy naturally dips: answering emails, scheduling appointments, data entry, filing expenses, social media posting. These tasks don't require peak brain power and keep you productive during low-energy periods.",
+      "**Take Strategic Breaks:** Don't power through energy dips—they're natural. Take a 10-15 minute break every 90 minutes: Walk outside (daylight helps reset energy), Do light stretching or movement, Have a healthy snack, Practice 2-minute breathing exercises. Brief breaks restore focus better than pushing through fatigue.",
+      "**Optimize Your Sleep:** Energy management starts with quality sleep. Prioritize 7-9 hours nightly: Go to bed and wake up at consistent times (even weekends), Avoid screens 1 hour before bed (blue light disrupts sleep), Keep bedroom cool (65-68°F optimal), Avoid caffeine after 2 PM. Better sleep = better energy = better results.",
+      "**Manage Physical Energy:** Your body fuels your brain—treat it accordingly: Eat protein and healthy fats (sustained energy) vs. sugar (energy crashes), Stay hydrated (even mild dehydration reduces cognitive function), Exercise 20-30 minutes daily (boosts energy all day), Limit alcohol (disrupts sleep quality). Physical health directly impacts mental performance.",
+      "**Say No to Energy Vampires:** Identify and eliminate activities that drain disproportionate energy: Toxic relationships or negative people, Pointless meetings that could be emails, Decision-heavy tasks done when tired, Multitasking (context switching drains energy fast). Protect your energy like you protect your time.",
+      "**Use the 90-Minute Rule:** Work in focused 90-minute blocks aligned with natural ultradian rhythms. After 90 minutes, take a real break (not checking email—that's still work). This rhythm maximizes productivity while preventing burnout. Two 90-minute focused blocks beat eight hours of distracted work."
+    ],
+    practicalTips: [
+      "Use morning hours for your most important work—willpower and focus peak early",
+      "Schedule meetings in the afternoon when your energy naturally dips",
+      "Track energy patterns for 2 weeks to find your unique optimal times",
+      "Coffee strategically—use it to boost already-decent energy, not to fight exhaustion",
+      "Stand up or move every 30-45 minutes to maintain blood flow and alertness"
+    ],
+    commonMistakes: [
+      "Filling your best hours with meetings instead of important work",
+      "Trying to be equally productive at all hours of the day",
+      "Ignoring physical health's impact on mental energy",
+      "Pushing through exhaustion instead of taking strategic breaks"
+    ]
+  },
+
+  "deep-work": {
+    title: "Deep Work Principles",
+    readTime: "8 min read",
+    category: "Productivity",
+    overview: "Deep work—focused, uninterrupted time on cognitively demanding tasks—is the superpower of the knowledge economy. Most people are so distracted by shallow work (email, meetings, notifications) that they never enter a state of deep work. This guide teaches you to cultivate deep work as your competitive advantage.",
+    whyItHelps: "Deep work allows you to produce higher quality output in less time, learn complex skills faster, and create work that stands out. One hour of deep work can accomplish what would take 4-6 hours of distracted work. Mastering deep work is how top performers dramatically outpace their peers.",
+    deepDive: "Cal Newport's research shows deep work is increasingly rare and increasingly valuable. Most professionals spend 60%+ of their day on shallow work—tasks that don't require full cognitive engagement. The ability to quickly master complex information and produce elite-level output is becoming the defining skill of successful knowledge workers. Deep work isn't just about productivity—it's about creating meaningful, excellent work.",
+    actionSteps: [
+      "**Eliminate All Distractions:** Deep work requires zero interruptions. Before starting: Turn off all notifications (phone, computer, smartwatch), Put phone in another room or drawer (out of sight, out of mind), Close all browser tabs except what you need, Use website blockers (Freedom, Cold Turkey, StayFocusd), Put 'Do Not Disturb' sign if working around others. Your environment must support complete focus.",
+      "**Create Deep Work Rituals:** Develop a consistent routine that signals 'deep work time' to your brain: Same location (dedicate a spot for deep work), Same time (your peak energy hours), Same starter ritual (specific tea/coffee, 2-minute meditation, reviewing goals), Same music or silence (whatever helps you focus). Rituals reduce friction and help you enter flow faster.",
+      "**Use Time Blocking:** Schedule deep work sessions in advance—don't wait for free time to magically appear: Block 2-4 hour chunks on your calendar, Treat them as non-negotiable appointments, Schedule at least 3-4 deep work sessions per week, Cluster deep work on certain days if possible (full 'deep work days'). What gets scheduled gets done.",
+      "**Work in 90-120 Minute Sprints:** Deep work is intense—you can't sustain it all day: Set a timer for 90-120 minutes, Work with complete focus until timer ends, Take a real 15-20 minute break (walk, stretch, snack), Resume for another sprint if energy allows. Most people can handle 2-3 deep work sessions per day maximum.",
+      "**Have a Clear Goal:** Deep work requires knowing exactly what you're working on: Define specific output before starting ('Write 1,500 words of proposal' not 'work on proposal'), Break big projects into deep-work-sized chunks, Keep a running list of deep work tasks ready to go, Review your goal briefly before each session. Clarity prevents wasted focus figuring out what to do.",
+      "**Build Your Focus Stamina:** Deep work is like a muscle—it strengthens with practice: Start with 30-60 minute sessions if you're new, Gradually increase duration as focus improves, Don't multitask or check phone during sessions (this trains distraction), Meditate 5-10 minutes daily (builds attention control). Expect it to feel uncomfortable at first—that's growth.",
+      "**Schedule Shallow Work Separately:** Batch shallow tasks (email, admin, meetings) into dedicated blocks: Check email only 2-3 times per day (specific times), Batch all meetings on certain days or afternoons, Handle admin tasks in low-energy periods, Use templates and automation where possible. Protect deep work time from shallow work encroachment.",
+      "**Track and Measure:** Monitor your deep work practice: Log hours spent in deep work weekly, Track what you accomplished in each session, Notice correlation between deep work hours and results, Aim for 15-20 hours of deep work per week. Measurement creates accountability and shows progress."
+    ],
+    practicalTips: [
+      "Use the '20-second rule'—make distractions 20 seconds harder to access (phone in bag, browser blocked)",
+      "Tell colleagues/family when you're in deep work mode so they don't interrupt",
+      "Use white noise or focus music (Brain.fm, Noisli) to maintain concentration",
+      "Start with ONE deep work session per day before scaling up",
+      "End each session by noting what to work on next (reduces startup friction next time)"
+    ],
+    commonMistakes: [
+      "Trying to do deep work with notifications still on",
+      "Not scheduling deep work—hoping you'll find time later",
+      "Attempting deep work during your low-energy hours",
+      "Working too long without breaks (leads to diminishing returns)"
+    ]
+  },
+
+  "habit-stacking": {
+    title: "Habit Stacking for Success",
+    readTime: "6 min read",
+    category: "Habits",
+    overview: "Habit stacking is a simple but powerful technique: you build new habits by linking them to existing habits. Instead of relying on motivation, you leverage your brain's automatic behaviors to create new routines. This guide shows you how to stack habits for personal and business success.",
+    whyItHelps: "Habit stacking makes new behaviors stick because you're working with your brain's natural wiring, not against it. It eliminates the 'when should I do this?' problem by creating automatic triggers. Small habit stacks compound into major lifestyle and business improvements.",
+    deepDive: "Your brain loves patterns and automatically executes established habits without conscious thought. When you link a new desired behavior to an existing habit, the old habit becomes a trigger for the new one. This leverages existing neural pathways instead of trying to build new ones from scratch. James Clear's research shows habit stacking is one of the most effective behavior change strategies.",
+    actionSteps: [
+      "**Identify Your Existing Habits:** List habits you already do consistently every day: Morning coffee, brushing teeth, checking email, lunch break, commute home, dinner, bedtime routine. These are your anchors—reliable behaviors you can stack onto.",
+      "**Choose One New Habit:** Start with ONE new habit to stack (don't try to change everything at once): Make it small (2 minutes or less to start), Make it specific (not 'exercise'—'do 10 push-ups'), Make it valuable (aligned with your goals), Make it achievable (don't stack 'run 5 miles' if you don't run). Success breeds success—start tiny.",
+      "**Create Your Habit Stack Formula:** Use this format: 'After [EXISTING HABIT], I will [NEW HABIT].' Examples: After I pour my morning coffee, I will write one page in my gratitude journal. After I sit down at my desk, I will review my top 3 priorities for the day. After I close my laptop for the day, I will do 10 minutes of stretching. The existing habit triggers the new one automatically.",
+      "**Make It Obvious:** Reduce friction and create environmental cues: Place items you need for the new habit next to your trigger habit (journal next to coffee maker, yoga mat by desk), Use visual reminders (sticky notes, phone wallpaper), Tell someone your habit stack (accountability), Set a phone reminder for the first week (until automatic). Make the new behavior impossible to forget.",
+      "**Start Small, Then Build:** Master the tiny version before expanding: Week 1-2: Do the minimal viable version (1 push-up, 1 page written), Week 3-4: Increase slightly if it feels easy (5 push-ups, 2 pages), Week 5+: Continue gradually increasing. Small wins build confidence and cement the habit. Most people fail by starting too big.",
+      "**Track Your Streak:** Use a simple tracking system: Paper calendar with X's for each completed day, Habit tracking app (Streaks, Habitica, Done), Spreadsheet or journal. Seeing your streak motivates you to keep going—breaking a 20-day streak hurts, so you'll push through resistance to maintain it.",
+      "**Create Multiple Stacks:** Once one habit stack is automatic (4-6 weeks), add another: Stack different habits onto different triggers throughout your day, Build morning stack, midday stack, evening stack, Keep each stack small (2-3 habits max per trigger). Multiple small stacks compound into massive behavior change.",
+      "**Adjust Based on Reality:** If a stack isn't working after 2 weeks: Is the trigger consistent? (If not, choose a more reliable anchor), Is the new habit too hard? (Make it smaller), Is the timing wrong? (Try different trigger), Is it actually valuable? (Abandon it and try something else). Adapt rather than quit entirely."
+    ],
+    practicalTips: [
+      "Write your habit stack formula on a sticky note where you'll see it daily",
+      "Use 'temptation bundling'—pair a habit you need with one you enjoy",
+      "Start with 1-2 stacks maximum—master before adding more",
+      "Stack new business habits onto work routines (after opening laptop, after first client call)",
+      "Review and adjust monthly—habits should serve your goals"
+    ],
+    commonMistakes: [
+      "Trying to stack too many habits at once (leads to overwhelm and failure)",
+      "Making the new habit too big (start embarrassingly small)",
+      "Choosing an inconsistent trigger (it must happen every single day)",
+      "Not tracking progress (you lose momentum without visible wins)"
+    ]
+  },
+
+  "feedback-loops": {
+    title: "Creating Effective Feedback Loops",
+    readTime: "5 min read",
+    category: "Improvement",
+    overview: "Feedback loops are systems that show you the results of your actions, allowing you to adjust and improve continuously. Businesses and individuals with tight feedback loops iterate faster, avoid costly mistakes longer, and outperform competitors. This guide teaches you to build feedback mechanisms that drive constant improvement.",
+    whyItHelps: "Fast feedback prevents you from spending months going in the wrong direction. It allows rapid learning, quick pivots, and continuous optimization. Companies that measure and respond to feedback grow faster and more sustainably than those flying blind.",
+    deepDive: "The faster you get feedback on your decisions, the faster you can course-correct. Amazon's Jeff Bezos famously said their biggest advantage is how quickly they can test, learn, and iterate. Most businesses wait too long to get feedback (quarterly reviews, annual planning) and miss opportunities to adapt. The best entrepreneurs create daily or weekly feedback loops on key metrics.",
+    actionSteps: [
+      "**Identify Your Key Metrics:** Choose 3-5 numbers that truly indicate success: Revenue/sales (overall business health), Customer acquisition cost vs. lifetime value (marketing efficiency), Customer satisfaction score (product-market fit), Conversion rates (funnel performance), Time to completion (operational efficiency). Focus on metrics you can actually influence and that predict future success.",
+      "**Create a Measurement System:** Set up ways to track your metrics consistently: Dashboard (Google Sheets, Data Studio, or software like Geckoboard), Weekly check-ins (Friday afternoon review), Automated reports (email yourself weekly summaries), Visual tracking (graphs on wall, numbers on whiteboard). Make data visible and easy to access—out of sight is out of mind.",
+      "**Set Review Cadences:** Schedule regular feedback reviews: Daily: Quick check on critical metrics (5 minutes), Weekly: Deep dive on key numbers and trends (30 minutes), Monthly: Big picture progress toward goals (1 hour), Quarterly: Strategic adjustments and goal setting (2-3 hours). Consistent review rhythms catch problems early and capitalize on opportunities.",
+      "**Ask for Customer Feedback Early and Often:** Don't wait for customers to volunteer feedback—actively seek it: Post-purchase survey (how was your experience? What could be better?), Net Promoter Score (would you recommend us? Why or why not?), User testing (watch someone use your product/service), Direct conversations (call your best customers quarterly), Social media listening (what are people saying?). Customers tell you what to fix and what to double down on.",
+      "**Implement Small Experiments:** Test changes before fully committing: A/B test one variable at a time (headline, pricing, offer), Run tests for 1-2 weeks minimum (enough data to be significant), Measure results objectively (not what you hope, what actually happened), Scale what works, kill what doesn't. Small experiments with fast feedback prevent expensive failures.",
+      "**Create Leading Indicators:** Don't just track lagging indicators (what already happened): Lagging: Revenue (result of past actions), Leading: Number of sales calls made, proposals sent (predicts future revenue). Lagging: Customer churn (lost customers), Leading: Customer satisfaction scores, support ticket volume (predicts churn). Leading indicators give you time to adjust before problems become crises.",
+      "**Build Accountability Systems:** External feedback accelerates improvement: Weekly mastermind check-ins (share numbers and get input), Business coach or mentor (objective perspective), Accountability partner (exchange progress updates), Public commitments (announce goals to create social pressure). When someone else sees your results, you're more likely to act on feedback.",
+      "**Close the Loop:** Feedback is useless without action: After each review, identify 1-3 action items, Assign ownership and deadlines, Implement changes, Measure if changes improved results, Repeat. The loop only works if you actually respond to what you learn. Awareness without action is wasted feedback."
+    ],
+    practicalTips: [
+      "Start with just one key metric if you're overwhelmed—better to track one well than track many poorly",
+      "Use tools that automate data collection (Google Analytics, Stripe, CRM analytics)",
+      "Set 'tripwires'—alerts when numbers hit certain thresholds (revenue drops 20%, etc.)",
+      "Share metrics with your team—transparency improves performance",
+      "Celebrate wins when feedback is positive—positive reinforcement matters"
+    ],
+    commonMistakes: [
+      "Tracking vanity metrics that don't indicate real success (social media followers vs. actual sales)",
+      "Collecting feedback but never acting on it",
+      "Waiting too long between reviews (monthly isn't frequent enough for fast-moving businesses)",
+      "Not segmenting data (overall conversion rate hides what's working and what isn't)"
+    ]
+  },
+
+  "batch-processing": {
+    title: "Batch Processing for Efficiency",
+    readTime: "4 min read",
+    category: "Productivity",
+    overview: "Batch processing means grouping similar tasks together and completing them in one focused session. Instead of bouncing between different types of work, you do all of one kind of task at once. This dramatically reduces context switching, increases focus, and multiplies your productivity.",
+    whyItHelps: "Context switching—jumping between different types of tasks—costs 20-40 minutes of productivity each time. By batching similar tasks, you eliminate this waste. You also build momentum on each type of work, allowing you to work faster and with higher quality.",
+    deepDive: "Every time you switch tasks, your brain needs time to context switch—to stop thinking about the old task and ramp up on the new one. Research shows this 'switching cost' is significant even for small tasks. Batch processing keeps your brain in one 'mode' (creative, analytical, administrative) for extended periods, maximizing flow and minimizing wasted mental energy.",
+    actionSteps: [
+      "**Identify Batchable Tasks:** Look for tasks you do repeatedly: Email (reading and responding), Social media posting, Content creation (blog posts, videos), Client calls or meetings, Invoicing and bookkeeping, Meal prep, Errands. Anything you do more than once per week is batchable.",
+      "**Create Batching Schedules:** Assign specific time blocks for batches: Email: 10 AM and 3 PM only (30 min each), Content creation: Monday and Thursday mornings (2 hours), Calls: Tuesday and Friday afternoons (3 hours), Admin: Friday afternoon (1 hour). Outside these blocks, those tasks don't exist—you resist the urge to do them.",
+      "**Batch Email and Communication:** The biggest time waster for most people: Turn off email notifications, Check email only 2-3 scheduled times per day, Process entire inbox in one session (read, respond, file, delete), Use templates for common responses, Set expectations with others ('I check email at 10 AM and 3 PM'). Constant email checking fragments your day and destroys productivity.",
+      "**Batch Content Creation:** Create multiple pieces at once: Write 4-6 social posts in one sitting, Record 4-5 videos in one session, Batch edit photos or graphics, Schedule everything using a content scheduler. Creating in batches is faster because you stay in 'creative mode' and reuse setups (lighting, equipment, research).",
+      "**Batch Meetings and Calls:** Cluster all calls on certain days or time blocks: Set 'office hours' for client calls (e.g., Tuesday 1-4 PM), Schedule all team meetings on same day, Batch networking calls together, Leave other days meeting-free for deep work. This protects your deep work time and reduces daily context switching.",
+      "**Use Batch Templates:** Create templates to speed up batched work: Email response templates, Social media post templates, Meeting agenda templates, Invoice templates, Proposal templates. Templates let you batch faster because you're filling in blanks, not creating from scratch each time.",
+      "**Set Up Triggers:** Make batching automatic: 'When I open my laptop Monday morning, I batch create content', 'When I finish lunch, I batch process email', 'When it's 3 PM Friday, I batch admin tasks'. These if-then rules reduce decision fatigue and ensure batching happens consistently.",
+      "**Batch Weekly Reviews:** Do all planning and review in one session: Every Friday or Sunday, batch review the past week and plan the next: What worked? What didn't?, What are priorities for next week?, What can I eliminate or delegate?, Block time for batches on calendar. One planning session prevents constant reactivity all week."
+    ],
+    practicalTips: [
+      "Start by batching just ONE task type to prove the concept",
+      "Use timers to maintain focus during batches (Pomodoro technique)",
+      "Close unnecessary tabs/apps before batching to avoid distractions",
+      "Batch errands too—one trip to multiple stores beats multiple trips",
+      "Communicate your batching schedule to team/clients so they know when you're available"
+    ],
+    commonMistakes: [
+      "Checking email constantly instead of in scheduled batches",
+      "Saying yes to meetings outside your batched meeting times",
+      "Trying to batch tasks that genuinely need immediate attention (true emergencies)",
+      "Not blocking batching time on your calendar (it won't happen without dedicated time)"
     ]
   }
 };
