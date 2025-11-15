@@ -82,6 +82,7 @@ import StrategyFormAffiliateProgram from './pages/StrategyFormAffiliateProgram';
 import StrategyFormStrategicPartnerships from './pages/StrategyFormStrategicPartnerships';
 import StrategyFormAutomation from './pages/StrategyFormAutomation';
 import MorningRoutineBuilder from './pages/MorningRoutineBuilder';
+import Guide from './pages/Guide';
 import Layout from './Layout.jsx';
 
 
@@ -170,6 +171,7 @@ export const PAGES = {
     "StrategyFormStrategicPartnerships": StrategyFormStrategicPartnerships,
     "StrategyFormAutomation": StrategyFormAutomation,
     "MorningRoutineBuilder": MorningRoutineBuilder,
+    "Guide": Guide,
 }
 
 export const pagesConfig = {

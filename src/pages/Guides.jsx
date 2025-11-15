@@ -1,10 +1,72 @@
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { BookOpen, Clock, Target, TrendingUp, Zap, Focus, Timer, BarChart3, Lightbulb, CheckCircle, Filter, Lock, Crown, ArrowRight } from "lucide-react";
+import { BookOpen, Clock, Target, TrendingUp, Zap, Focus, Timer, BarChart3, Lightbulb, CheckCircle, Filter, Lock, Crown, ArrowRight, Rocket, DollarSign, Users, Briefcase, TrendingDown, Palette, Scale } from "lucide-react";
 
 const guides = [
+  {
+    id: "starting-first-business",
+    title: "Starting Your First Business",
+    description: "A complete step-by-step guide covering legal structures, initial market research, validating your business idea, and launching successfully.",
+    readTime: "15 min",
+    icon: Rocket,
+    category: "Foundation",
+    stage: "Vision"
+  },
+  {
+    id: "marketing-sales-funnel",
+    title: "Building a Marketing & Sales Funnel",
+    description: "Learn how to attract leads, nurture them through strategic touchpoints, and convert them into paying customers systematically.",
+    readTime: "12 min",
+    icon: TrendingUp,
+    category: "Marketing",
+    stage: "Startup"
+  },
+  {
+    id: "financial-planning",
+    title: "Essential Financial Planning for Entrepreneurs",
+    description: "Master budgeting, cash flow forecasting, pricing strategies, and funding options to build a financially healthy business.",
+    readTime: "14 min",
+    icon: DollarSign,
+    category: "Finance",
+    stage: "Startup"
+  },
+  {
+    id: "brand-identity",
+    title: "Creating a Powerful Brand Identity",
+    description: "Define your brand values, voice, visual elements, and messaging to create a memorable brand that resonates with your target audience.",
+    readTime: "10 min",
+    icon: Palette,
+    category: "Branding",
+    stage: "Vision"
+  },
+  {
+    id: "productivity-masterclass",
+    title: "Productivity Masterclass for Business Owners",
+    description: "Advanced time management techniques, energy optimization, and productivity systems to maximize output and minimize overwhelm.",
+    readTime: "13 min",
+    icon: Timer,
+    category: "Productivity",
+    stage: "Startup"
+  },
+  {
+    id: "hiring-first-team",
+    title: "Hiring Your First Team Member",
+    description: "Navigate recruitment, interviewing, onboarding, and managing your first hire successfully to scale your business.",
+    readTime: "11 min",
+    icon: Users,
+    category: "Team Building",
+    stage: "Growth"
+  },
+  {
+    id: "scaling-strategies",
+    title: "Scaling Strategies for Growth",
+    description: "Advanced tactics for expanding operations, entering new markets, and scaling revenue while maintaining quality and culture.",
+    readTime: "16 min",
+    icon: TrendingUp,
+    category: "Growth",
+    stage: "Growth"
+  },
   {
     id: "energy-management",
     title: "Energy Management Over Time Management",
@@ -58,13 +120,11 @@ export default function GuidesPage() {
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    // No longer need to check user access
     setLoading(false);
   }, []);
 
-  // Dynamically generate categories based on guides data
   const availableCategories = [...new Set(guides.map(guide => guide.category))];
-  const availableStages = ['Vision', 'Startup', 'Growth']; // Explicitly defined stages
+  const availableStages = ['Vision', 'Startup', 'Growth'];
 
   const filteredGuides = guides.filter(guide => {
     const categoryMatch = selectedCategory === "all" || guide.category === selectedCategory;
@@ -92,7 +152,7 @@ export default function GuidesPage() {
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl">Essential Business Guides</h1>
-              <p className="text-[var(--text-soft)] text-base md:text-lg">Comprehensive guides for building and growing your business</p>
+              <p className="text-[var(--text-soft)] text-base md:text-lg">Comprehensive step-by-step guides for building and growing your business</p>
             </div>
           </div>
         </div>
