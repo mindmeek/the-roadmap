@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -29,7 +28,8 @@ const focusedPrograms = [
     badgeColor: "bg-green-600 text-white",
     nextProgram: "foundation",
     connectionReason: "With cash flow established, you're ready to build proper business infrastructure",
-    order: 1
+    order: 1,
+    contentKey: "quick_business_wins"
   },
   {
     id: "foundation",
@@ -47,7 +47,8 @@ const focusedPrograms = [
     badgeColor: "bg-blue-600 text-white",
     nextProgram: "brand_identity",
     connectionReason: "With a solid foundation, you can now create a memorable brand identity",
-    order: 2
+    order: 2,
+    contentKey: "build_foundation"
   },
   {
     id: "brand_identity",
@@ -65,7 +66,8 @@ const focusedPrograms = [
     badgeColor: "bg-purple-600 text-white",
     nextProgram: "educate_audience",
     connectionReason: "Your brand is ready - now use it to educate and build authority",
-    order: 3
+    order: 3,
+    contentKey: "brand_identity"
   },
   {
     id: "educate_audience",
@@ -83,7 +85,8 @@ const focusedPrograms = [
     badgeColor: "bg-green-800 text-white",
     nextProgram: "nurture_relationships",
     connectionReason: "As an authority, deepen connections with your engaged audience",
-    order: 4
+    order: 4,
+    contentKey: "educate_audience"
   },
   {
     id: "nurture_relationships",
@@ -101,7 +104,8 @@ const focusedPrograms = [
     badgeColor: "bg-pink-600 text-white",
     nextProgram: "increase_leads",
     connectionReason: "Strong relationships create referrals - now systematize lead generation",
-    order: 5
+    order: 5,
+    contentKey: "nurture_relationships"
   },
   {
     id: "increase_leads",
@@ -119,7 +123,8 @@ const focusedPrograms = [
     badgeColor: "bg-yellow-600 text-white",
     nextProgram: "form_partnerships",
     connectionReason: "More leads create leverage for strategic partnerships",
-    order: 6
+    order: 6,
+    contentKey: "increase_leads"
   },
   {
     id: "form_partnerships",
@@ -137,7 +142,8 @@ const focusedPrograms = [
     badgeColor: "bg-indigo-600 text-white",
     nextProgram: "grow_community",
     connectionReason: "Partnerships expand your reach - now build your own community",
-    order: 7
+    order: 7,
+    contentKey: "form_partnerships"
   },
   {
     id: "grow_community",
@@ -155,7 +161,8 @@ const focusedPrograms = [
     badgeColor: "bg-orange-600 text-white",
     nextProgram: "systematize_scale",
     connectionReason: "A thriving community needs systems to scale sustainably",
-    order: 8
+    order: 8,
+    contentKey: "grow_community"
   },
   {
     id: "systematize_scale",
@@ -173,7 +180,8 @@ const focusedPrograms = [
     badgeColor: "bg-cyan-600 text-white",
     nextProgram: "build_authority",
     connectionReason: "Scalable systems free you to focus on thought leadership",
-    order: 9
+    order: 9,
+    contentKey: "systematize_scale"
   },
   {
     id: "build_authority",
@@ -191,7 +199,8 @@ const focusedPrograms = [
     badgeColor: "bg-red-600 text-white",
     nextProgram: "multiply_impact",
     connectionReason: "Authority gives you the platform to multiply your impact",
-    order: 10
+    order: 10,
+    contentKey: "build_authority"
   },
   {
     id: "multiply_impact",
@@ -209,7 +218,8 @@ const focusedPrograms = [
     badgeColor: "bg-emerald-600 text-white",
     nextProgram: "step_into_leadership",
     connectionReason: "Multiplied impact positions you as an industry leader",
-    order: 11
+    order: 11,
+    contentKey: "multiply_impact"
   },
   {
     id: "step_into_leadership",
@@ -227,7 +237,8 @@ const focusedPrograms = [
     badgeColor: "bg-gray-600 text-white",
     nextProgram: null,
     connectionReason: null,
-    order: 12
+    order: 12,
+    contentKey: "step_into_leadership"
   }
 ];
 
