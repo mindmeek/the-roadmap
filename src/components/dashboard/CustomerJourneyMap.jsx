@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { 
@@ -16,10 +15,12 @@ import {
     ChevronDown,
     ChevronUp,
     Sparkles,
-    Share2, // New icon for Social Media Manager
-    Zap, // New icon for Marketing Automation
-    Globe, // New icon for Website & Funnel Builder
-    Users // New icon for CRM & Pipeline Management
+    Share2,
+    Zap,
+    Globe,
+    Users,
+    Square,
+    CheckSquare
 } from 'lucide-react';
 import Tooltip from '../common/Tooltip';
 
@@ -46,6 +47,13 @@ const journeyStages = [
             'Social media content showcasing expertise',
             'SEO-optimized website with clear problem statements',
             'Free resources (guides, checklists) that provide value'
+        ],
+        recommendedTools: [
+            { name: 'WordPress / Blog Platform', description: 'Publish SEO-optimized content', inHQ: false },
+            { name: 'Canva', description: 'Create social media graphics and content', inHQ: false },
+            { name: 'Social Media Scheduler', description: 'Schedule posts across platforms', inHQ: true },
+            { name: 'Google Analytics', description: 'Track website traffic and behavior', inHQ: false },
+            { name: 'Email Marketing', description: 'Build your email list with lead magnets', inHQ: true }
         ]
     },
     {
@@ -71,6 +79,13 @@ const journeyStages = [
             'Free consultations or demos',
             'Email nurture sequences with educational content',
             'Webinars or video demonstrations'
+        ],
+        recommendedTools: [
+            { name: 'Email Automation', description: 'Automated nurture sequences', inHQ: true },
+            { name: 'Calendly', description: 'Easy booking for consultations', inHQ: true },
+            { name: 'Zoom / Meeting Software', description: 'Host webinars and demos', inHQ: false },
+            { name: 'Testimonial Software', description: 'Collect and display reviews', inHQ: true },
+            { name: 'Landing Page Builder', description: 'Create comparison pages', inHQ: true }
         ]
     },
     {
@@ -96,6 +111,13 @@ const journeyStages = [
             'Simplified checkout process',
             'Immediate confirmation and next steps',
             'Limited-time offers to create urgency'
+        ],
+        recommendedTools: [
+            { name: 'Payment Processor', description: 'Accept payments online (Stripe, PayPal)', inHQ: true },
+            { name: 'Checkout / Cart Software', description: 'Simple checkout process', inHQ: true },
+            { name: 'E-signature Tool', description: 'Digital contracts and agreements', inHQ: false },
+            { name: 'Invoice Software', description: 'Professional invoicing', inHQ: true },
+            { name: 'CRM', description: 'Track sales pipeline', inHQ: true }
         ]
     },
     {
@@ -121,6 +143,13 @@ const journeyStages = [
             'Help documentation and FAQs',
             'Proactive support based on usage patterns',
             'Exclusive member benefits and community access'
+        ],
+        recommendedTools: [
+            { name: 'Customer Portal', description: 'Client access to resources and info', inHQ: true },
+            { name: 'Help Desk / Ticketing', description: 'Manage support requests', inHQ: true },
+            { name: 'Project Management', description: 'Track client projects', inHQ: true },
+            { name: 'Survey Tool', description: 'Gather customer feedback', inHQ: true },
+            { name: 'Knowledge Base', description: 'Self-service help documentation', inHQ: true }
         ]
     },
     {
@@ -146,11 +175,18 @@ const journeyStages = [
             'Request testimonials and case studies',
             'Feature customer success stories',
             'Create a community where advocates connect'
+        ],
+        recommendedTools: [
+            { name: 'Referral Program Software', description: 'Track and reward referrals', inHQ: true },
+            { name: 'Community Platform', description: 'Build customer community', inHQ: true },
+            { name: 'Review Management', description: 'Collect and showcase reviews', inHQ: true },
+            { name: 'Loyalty Program', description: 'Reward repeat customers', inHQ: true },
+            { name: 'Email Marketing', description: 'Stay in touch with past customers', inHQ: true }
         ]
     }
 ];
 
-const StageCard = ({ stage, isExpanded, onToggle }) => {
+const StageCard = ({ stage, isExpanded, onToggle, checkedTools, onToolToggle }) => {
     const Icon = stage.icon;
     
     return (
@@ -249,6 +285,51 @@ const StageCard = ({ stage, isExpanded, onToggle }) => {
                             ))}
                         </ul>
                     </div>
+
+                    {/* Recommended Tools */}
+                    <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 p-4 rounded-lg border border-indigo-200 dark:border-indigo-700">
+                        <h4 className="font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
+                            <Zap className="w-4 h-4 text-[var(--primary-gold)]" />
+                            Recommended Software & Tools
+                        </h4>
+                        <p className="text-xs text-[var(--text-soft)] mb-4">
+                            Check off the tools you currently use for this stage:
+                        </p>
+                        <div className="space-y-3">
+                            {stage.recommendedTools.map((tool, idx) => {
+                                const toolKey = `${stage.id}_${idx}`;
+                                const isChecked = checkedTools[toolKey] || false;
+                                
+                                return (
+                                    <div key={idx} className="flex items-start gap-3 bg-white dark:bg-gray-800 p-3 rounded-lg">
+                                        <button
+                                            onClick={() => onToolToggle(toolKey)}
+                                            className="mt-0.5 flex-shrink-0"
+                                        >
+                                            {isChecked ? (
+                                                <CheckSquare className="w-5 h-5 text-green-600" />
+                                            ) : (
+                                                <Square className="w-5 h-5 text-gray-400" />
+                                            )}
+                                        </button>
+                                        <div className="flex-1 min-w-0">
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <h5 className={`font-semibold text-sm ${isChecked ? 'line-through text-gray-500' : 'text-[var(--text-main)]'}`}>
+                                                    {tool.name}
+                                                </h5>
+                                                {tool.inHQ && (
+                                                    <span className="px-2 py-0.5 bg-[var(--primary-gold)] text-white text-xs rounded-full whitespace-nowrap">
+                                                        In The HQ
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <p className="text-xs text-[var(--text-soft)]">{tool.description}</p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
                 </div>
             )}
         </div>
@@ -257,9 +338,30 @@ const StageCard = ({ stage, isExpanded, onToggle }) => {
 
 export default function CustomerJourneyMap() {
     const [expandedStage, setExpandedStage] = useState('awareness');
+    const [checkedTools, setCheckedTools] = useState({});
+
+    useEffect(() => {
+        const saved = localStorage.getItem('customerJourneyTools');
+        if (saved) {
+            try {
+                setCheckedTools(JSON.parse(saved));
+            } catch (e) {
+                console.error('Error loading checked tools:', e);
+            }
+        }
+    }, []);
 
     const handleToggle = (stageId) => {
         setExpandedStage(expandedStage === stageId ? null : stageId);
+    };
+
+    const handleToolToggle = (toolKey) => {
+        const newCheckedTools = {
+            ...checkedTools,
+            [toolKey]: !checkedTools[toolKey]
+        };
+        setCheckedTools(newCheckedTools);
+        localStorage.setItem('customerJourneyTools', JSON.stringify(newCheckedTools));
     };
 
     return (
@@ -314,6 +416,8 @@ export default function CustomerJourneyMap() {
                         stage={stage}
                         isExpanded={expandedStage === stage.id}
                         onToggle={() => handleToggle(stage.id)}
+                        checkedTools={checkedTools}
+                        onToolToggle={handleToolToggle}
                     />
                 ))}
             </div>
