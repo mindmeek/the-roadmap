@@ -98,7 +98,7 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
                                         <div className="bg-white/20 p-2 sm:p-3 backdrop-blur-sm" style={{ borderRadius: '2px' }}>
                                             <Target className="w-5 h-5 sm:w-8 sm:h-8" />
                                         </div>
-                                        <h4 className="text-lg sm:text-2xl font-black">Start Your 90-Day Journey</h4>
+                                        <h4 className="text-base sm:text-lg font-black">Start Your 90-Day Journey</h4>
                                     </div>
                                     <p className="text-white/90 text-xs sm:text-base mb-4 sm:mb-6 leading-relaxed">
                                         Follow a proven, step-by-step roadmap designed to transform your business vision into reality in just 90 days.
@@ -122,7 +122,7 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
                                         <div className="bg-white/20 p-2 sm:p-3 backdrop-blur-sm" style={{ borderRadius: '2px' }}>
                                             <DollarSign className="w-5 h-5 sm:w-8 sm:h-8" />
                                         </div>
-                                        <h4 className="text-lg sm:text-2xl font-black">Calculate Your Freedom Number</h4>
+                                        <h4 className="text-base sm:text-lg font-black">Calculate Your Freedom Number</h4>
                                     </div>
                                     <p className="text-white/90 text-xs sm:text-base mb-4 sm:mb-6 leading-relaxed">
                                         Discover exactly how much you need to earn to achieve true financial freedom and design your business around it.
