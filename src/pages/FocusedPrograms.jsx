@@ -331,7 +331,7 @@ const ProgramCard = ({ program, hasAccess, isCompleted, isCurrent, isFreeProgram
         <div className="flex gap-3">
           {hasAccess ? (
             <Link
-              to={createPageUrl(`CourseDetails?courseTitle=${encodeURIComponent(program.title)}`)}
+              to={createPageUrl(`FocusedProgram?program=${program.contentKey}`)}
               className="flex-1 btn btn-primary justify-center text-sm"
             >
               {isCurrent ? 'Continue' : isCompleted ? 'Review' : 'Start'} Program
@@ -505,7 +505,7 @@ export default function Focused90DayProgramsPage() {
               <h3 className="text-2xl font-bold text-[var(--text-main)] mb-2">{currentProgram.title}</h3>
               <p className="text-[var(--text-soft)] mb-4">{currentProgram.description}</p>
               <Link
-                to={createPageUrl(`CourseDetails?courseTitle=${encodeURIComponent(currentProgram.title)}`)}
+                to={createPageUrl(`FocusedProgram?program=${currentProgram.contentKey}`)}
                 className="btn btn-primary inline-flex items-center"
               >
                 Continue Program <ArrowRight className="w-4 h-4 ml-2" />
