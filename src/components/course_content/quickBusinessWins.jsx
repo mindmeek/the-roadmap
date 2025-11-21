@@ -18,36 +18,31 @@ export const quickBusinessWinsRoadmap = {
                     title: "Audit Your Current Revenue Streams",
                     description: "Analyze what's already working and identify untapped opportunities.",
                     action: "List all current products/services, calculate profit margins, identify top 20% of revenue generators, and spot opportunities for upsells or price increases.",
-                    deliverable: "Complete revenue audit with top 3 quick-win opportunities identified",
-                    hq_features: "Use Financial Projections tool to analyze profit margins and The HQ AI Assistant for opportunity analysis"
+                    deliverable: "Complete revenue audit with top 3 quick-win opportunities identified"
                 },
                 {
                     title: "Re-engage Past Customers",
                     description: "Your easiest sales come from people who already know and trust you.",
                     action: "Create list of past customers, segment by purchase history, craft personalized re-engagement email, offer exclusive 'comeback' discount or new value.",
-                    deliverable: "Re-engagement campaign sent to past customer list",
-                    hq_features: "Use Email Marketing AI Assistant to craft personalized re-engagement campaigns"
+                    deliverable: "Re-engagement campaign sent to past customer list"
                 },
                 {
                     title: "Optimize Your Pricing",
                     description: "Quick revenue boost through strategic price adjustments.",
                     action: "Review competitor pricing, test 10-20% price increase on select items, create higher-tier offering, bundle products for increased value perception.",
-                    deliverable: "Updated pricing strategy with at least one premium option",
-                    hq_features: "Use Pricing Strategies tool and Competitor Analysis AI to optimize your pricing"
+                    deliverable: "Updated pricing strategy with at least one premium option"
                 },
                 {
                     title: "Create a Flash Offer",
                     description: "Generate urgency and immediate cash flow with a limited-time offer.",
                     action: "Design 48-72 hour flash sale, set clear deadline, create urgency messaging, promote across all channels, deliver exceptional value.",
-                    deliverable: "Flash offer launched with promotion schedule",
-                    hq_features: "Use Social Media AI and Email Marketing AI to create and promote your flash offer"
+                    deliverable: "Flash offer launched with promotion schedule"
                 },
                 {
                     title: "Leverage Your Network",
                     description: "Ask for referrals and introductions from your existing network.",
                     action: "List 20 people in your network, craft personalized ask for referrals, offer referral incentive, follow up personally, make it easy to share.",
-                    deliverable: "Referral requests sent to 20+ network contacts",
-                    hq_features: "Track connections in Member Directory and use AI Assistant to craft referral request messages"
+                    deliverable: "Referral requests sent to 20+ network contacts"
                 }
             ]
         },
