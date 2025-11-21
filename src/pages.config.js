@@ -84,6 +84,8 @@ import StrategyFormAutomation from './pages/StrategyFormAutomation';
 import MorningRoutineBuilder from './pages/MorningRoutineBuilder';
 import Guide from './pages/Guide';
 import FocusedProgram from './pages/FocusedProgram';
+import NicheRoadmaps from './pages/NicheRoadmaps';
+import NicheRoadmap from './pages/NicheRoadmap';
 import __Layout from './Layout.jsx';
 
 
@@ -174,6 +176,8 @@ export const PAGES = {
     "MorningRoutineBuilder": MorningRoutineBuilder,
     "Guide": Guide,
     "FocusedProgram": FocusedProgram,
+    "NicheRoadmaps": NicheRoadmaps,
+    "NicheRoadmap": NicheRoadmap,
 }
 
 export const pagesConfig = {
