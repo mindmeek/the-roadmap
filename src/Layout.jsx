@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -50,6 +49,7 @@ const learningGrowthItems = [
     { href: "MindsetHacks", icon: Brain, label: "Mindset", mobileLabel: "Mindset" },
     { href: "Guides", icon: Map, label: "Guides", mobileLabel: "Guides" },
     { href: "FocusedPrograms", icon: Award, label: "90-Day Focused Programs", mobileLabel: "Programs" },
+    { href: "NicheRoadmaps", icon: Target, label: "Niche Growth Roadmaps", mobileLabel: "Niche Plans" },
     { href: "Magazine", icon: Newspaper, label: "Magazine", mobileLabel: "Magazine" },
     { href: "HqTraining", icon: Video, label: "The HQ Training", mobileLabel: "HQ Training", requiredLevel: 'business_hq' }
 ];
