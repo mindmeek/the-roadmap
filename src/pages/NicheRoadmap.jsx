@@ -4,10 +4,11 @@ import { createPageUrl } from '@/utils';
 import { ArrowLeft, CheckCircle, Clock, Target, ChevronDown, ChevronUp, Award, Loader2, Lock, Sparkles, TrendingUp, Zap, Info } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { bookAuthorGrowthRoadmap } from '@/components/course_content/bookAuthorGrowth';
+import { lifeCoachGrowthRoadmap } from '@/components/course_content/lifeCoachGrowth';
 
 const programContentMap = {
   'book_author_growth': bookAuthorGrowthRoadmap,
-  // Add more as they're created
+  'life_coach_growth': lifeCoachGrowthRoadmap,
 };
 
 export default function NicheRoadmapPage() {

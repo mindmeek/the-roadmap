@@ -50,7 +50,7 @@ const nichePrograms = [
       "Establish thought leadership platform"
     ],
     contentKey: "life_coach_growth",
-    comingSoon: true
+    comingSoon: false
   },
   {
     id: "non-profit",
