@@ -987,10 +987,8 @@ export default function Layout({ children, currentPageName }) {
     }, []);
 
     const handleCloseWelcomePopup = () => {
-        if (showWelcomePopup) {
-            setShowWelcomePopup(false);
-            localStorage.setItem('welcomePopupShown', 'true');
-        }
+        setShowWelcomePopup(false);
+        localStorage.setItem('welcomePopupShown', 'true');
     };
 
     // Enhanced PWA Setup
