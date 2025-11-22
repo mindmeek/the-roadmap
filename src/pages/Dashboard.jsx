@@ -489,7 +489,7 @@ export default function DashboardPage() {
                     </div>
                 )}
 
-                {/* Community + Upgrade CTAs SIDE BY SIDE */}
+                {/* Community + SOP + Upgrade CTAs */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                     {/* Community CTA */}
                     <div className="card p-6 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border-2 border-purple-200 dark:border-purple-700" style={{ borderRadius: '2px' }}>
@@ -531,9 +531,49 @@ export default function DashboardPage() {
                         </Link>
                     </div>
 
+                    {/* SOP Library CTA */}
+                    <div className="card p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200 dark:border-green-700" style={{ borderRadius: '2px' }}>
+                        <div className="flex items-start gap-4 mb-4">
+                            <div className="bg-gradient-to-br from-green-500 to-emerald-600 p-3 rounded-xl flex-shrink-0">
+                                <BookOpen className="w-6 h-6 text-white" />
+                            </div>
+                            <div className="flex-1">
+                                <h3 className="text-lg font-bold text-[var(--text-main)] mb-2">
+                                    Standard Operating Procedures
+                                </h3>
+                                <p className="text-sm text-[var(--text-soft)] mb-4">
+                                    Document, organize, and scale your business processes with AI-powered SOP creation.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <ul className="space-y-2 text-sm text-[var(--text-soft)] mb-4">
+                            <li className="flex items-start gap-2">
+                                <span className="text-green-600 dark:text-green-400 font-bold flex-shrink-0">✓</span>
+                                <span><strong>AI Generation:</strong> Create SOPs instantly from simple descriptions</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <span className="text-green-600 dark:text-green-400 font-bold flex-shrink-0">✓</span>
+                                <span><strong>Organize by Category:</strong> Sales, operations, marketing, and more</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <span className="text-green-600 dark:text-green-400 font-bold flex-shrink-0">✓</span>
+                                <span><strong>Scale Your Business:</strong> Build systems that work without you</span>
+                            </li>
+                        </ul>
+
+                        <Link 
+                            to={createPageUrl('SOPs')}
+                            className="btn btn-primary w-full justify-center"
+                        >
+                            <BookOpen className="w-4 h-4 mr-2" />
+                            Manage SOPs
+                        </Link>
+                    </div>
+
                     {/* Upgrade CTA */}
                     {user?.subscription_level === 'free' && (
-                        <div className="card p-6 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-[var(--primary-gold)] rounded-xl">
+                        <div className="card p-6 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-[var(--primary-gold)] rounded-xl lg:col-span-2">
                             <div className="flex items-start gap-4 mb-4">
                                 <div className="bg-gradient-to-br from-[var(--primary-gold)] to-yellow-600 p-3 rounded-xl flex-shrink-0">
                                     <Rocket className="w-6 h-6 text-white" />
