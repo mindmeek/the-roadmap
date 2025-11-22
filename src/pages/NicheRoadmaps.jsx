@@ -74,7 +74,7 @@ const nichePrograms = [
       "Implement impact measurement dashboard"
     ],
     contentKey: "non_profit_growth",
-    comingSoon: true
+    comingSoon: false
   }
 ];
 

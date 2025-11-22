@@ -5,10 +5,12 @@ import { ArrowLeft, CheckCircle, Clock, Target, ChevronDown, ChevronUp, Award, L
 import { base44 } from '@/api/base44Client';
 import { bookAuthorGrowthRoadmap } from '@/components/course_content/bookAuthorGrowth';
 import { lifeCoachGrowthRoadmap } from '@/components/course_content/lifeCoachGrowth';
+import { nonProfitGrowthRoadmap } from '@/components/course_content/nonProfitGrowth';
 
 const programContentMap = {
   'book_author_growth': bookAuthorGrowthRoadmap,
   'life_coach_growth': lifeCoachGrowthRoadmap,
+  'non_profit_growth': nonProfitGrowthRoadmap,
 };
 
 export default function NicheRoadmapPage() {
