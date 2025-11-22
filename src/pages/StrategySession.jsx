@@ -218,11 +218,11 @@ export default function StrategySession() {
 
                     <div className="card p-6 md:p-8" style={{ borderRadius: '2px' }}>
                         <h2 className="text-2xl font-bold text-center mb-6">Book Your 1-on-1 Strategy Session</h2>
-                        <div className="h-[750px] overflow-hidden rounded-md border border-gray-200">
+                        <div style={{ height: '1000px', overflow: 'auto' }} className="rounded-md border border-gray-200">
                             <iframe
                                 src="https://link.thebusinessminds.com/widget/booking/hNMeB0q9hHejksqFMmMS"
                                 style={{ width: '100%', height: '100%', border: 'none' }}
-                                scrolling="no"
+                                scrolling="yes"
                                 title="Strategy Session Booking"
                             ></iframe>
                         </div>
