@@ -977,7 +977,7 @@ export default function Layout({ children, currentPageName }) {
 
                 const welcomePopupShown = localStorage.getItem('welcomePopupShown');
                 if (userData && userData.onboarding_completed && !welcomePopupShown) {
-                    setShowWelcomePopup(true);
+                    setTimeout(() => setShowWelcomePopup(true), 500);
                 }
             } catch (e) {
                 // Not logged in
@@ -987,8 +987,10 @@ export default function Layout({ children, currentPageName }) {
     }, []);
 
     const handleCloseWelcomePopup = () => {
-        setShowWelcomePopup(false);
-        localStorage.setItem('welcomePopupShown', 'true');
+        if (showWelcomePopup) {
+            setShowWelcomePopup(false);
+            localStorage.setItem('welcomePopupShown', 'true');
+        }
     };
 
     // Enhanced PWA Setup
