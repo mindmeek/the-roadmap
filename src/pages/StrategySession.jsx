@@ -54,8 +54,7 @@ export default function StrategySession() {
                     {
                         title: "Clarify Your Vision & Mission",
                         description: "Define your 'why' and long-term business goals",
-                        link: createPageUrl('VisionStrategySession'),
-                        duration: "45 min interactive session"
+                        link: createPageUrl('VisionStrategySession')
                     }
                 ]
             },
@@ -68,14 +67,12 @@ export default function StrategySession() {
                     {
                         title: "Launch & Validation Strategy",
                         description: "Build your brand, validate your offer, and create your first funnel",
-                        link: createPageUrl('StartupStrategySession'),
-                        duration: "60 min intensive session"
+                        link: createPageUrl('StartupStrategySession')
                     },
                     {
                         title: "SOP & Systems Planning",
                         description: "Set up basic operating procedures and quality systems for consistency",
-                        link: createPageUrl('SOPPoliciesAI'),
-                        duration: "Chat with Elyzet AI"
+                        link: createPageUrl('SOPPoliciesAI')
                     }
                 ]
             },
@@ -88,14 +85,12 @@ export default function StrategySession() {
                     {
                         title: "Scale & Optimize Strategy",
                         description: "Optimize operations, build your team, and expand your reach",
-                        link: createPageUrl('GrowthStrategySession'),
-                        duration: "90 min comprehensive session"
+                        link: createPageUrl('GrowthStrategySession')
                     },
                     {
                         title: "Advanced SOP & Policy Development",
                         description: "Create comprehensive procedures, employee handbooks, and compliance systems",
-                        link: createPageUrl('SOPPoliciesAI'),
-                        duration: "Chat with Elyzet AI"
+                        link: createPageUrl('SOPPoliciesAI')
                     }
                 ]
             }
@@ -200,10 +195,6 @@ export default function StrategySession() {
                                             <div className="flex-1">
                                                 <h3 className="text-lg font-bold text-[var(--text-main)] mb-2">{session.title}</h3>
                                                 <p className="text-[var(--text-soft)] mb-3">{session.description}</p>
-                                                <div className="inline-flex items-center text-sm text-[var(--primary-gold)] bg-yellow-50 px-3 py-1 rounded-full">
-                                                    <CalendarCheck className="w-4 h-4 mr-2" />
-                                                    <span>{session.duration}</span>
-                                                </div>
                                             </div>
                                             <Link to={session.link} className="btn btn-primary">
                                                 Start Session
