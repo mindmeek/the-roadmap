@@ -86,6 +86,10 @@ import Guide from './pages/Guide';
 import FocusedProgram from './pages/FocusedProgram';
 import NicheRoadmaps from './pages/NicheRoadmaps';
 import NicheRoadmap from './pages/NicheRoadmap';
+import SOPs from './pages/SOPs';
+import CreateSOP from './pages/CreateSOP';
+import EditSOP from './pages/EditSOP';
+import ViewSOP from './pages/ViewSOP';
 import __Layout from './Layout.jsx';
 
 
@@ -178,6 +182,10 @@ export const PAGES = {
     "FocusedProgram": FocusedProgram,
     "NicheRoadmaps": NicheRoadmaps,
     "NicheRoadmap": NicheRoadmap,
+    "SOPs": SOPs,
+    "CreateSOP": CreateSOP,
+    "EditSOP": EditSOP,
+    "ViewSOP": ViewSOP,
 }
 
 export const pagesConfig = {
