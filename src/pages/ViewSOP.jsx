@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, Edit, Printer, Download, Loader2, Tag, Calendar, FileText } from 'lucide-react';
+import { ArrowLeft, Edit, Printer, Download, Loader2, Tag, Calendar, FileText, Copy, Check } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 export default function ViewSOPPage() {
   const navigate = useNavigate();
   const [sop, setSop] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     loadSOP();
@@ -39,6 +40,16 @@ export default function ViewSOPPage() {
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(sop.content);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      console.error('Failed to copy:', error);
+    }
   };
 
   const getStatusColor = (status) => {
@@ -80,6 +91,13 @@ export default function ViewSOPPage() {
             <p className="text-[var(--text-soft)]">{sop.description}</p>
           </div>
           <div className="flex gap-3">
+            <button
+              onClick={handleCopy}
+              className="btn btn-secondary inline-flex items-center"
+            >
+              {copied ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
+              {copied ? 'Copied!' : 'Copy'}
+            </button>
             <button
               onClick={handlePrint}
               className="btn btn-secondary inline-flex items-center"
