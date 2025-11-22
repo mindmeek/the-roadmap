@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { BookOpen, Award, Heart, ArrowRight, Lock, Loader2, Target, Sparkles, TrendingUp } from 'lucide-react';
+import { BookOpen, Award, Heart, ArrowRight, Lock, Loader2, Target, Sparkles, TrendingUp, ShoppingCart, Users } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const nichePrograms = [
@@ -32,7 +32,7 @@ const nichePrograms = [
     id: "life-coach",
     title: "Life Coach Business Plan",
     subtitle: "90-Day Client Acquisition System",
-    description: "Coming soon: Build a thriving coaching practice with consistent client flow, premium pricing, and impactful transformations.",
+    description: "Build a thriving coaching practice with consistent client flow, premium pricing, and impactful transformations using The Business Minds HQ.",
     icon: Award,
     color: "from-purple-600 to-pink-600",
     imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&h=400&fit=crop",
@@ -56,7 +56,7 @@ const nichePrograms = [
     id: "non-profit",
     title: "Non-Profit Growth Plan",
     subtitle: "90-Day Fundraising & Impact System",
-    description: "Coming soon: Scale your mission with donor acquisition, volunteer management, and measurable community impact.",
+    description: "Scale your mission with donor acquisition, volunteer management, and measurable community impact using The Business Minds HQ.",
     icon: Heart,
     color: "from-green-600 to-emerald-600",
     imageUrl: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&h=400&fit=crop",
@@ -74,6 +74,54 @@ const nichePrograms = [
       "Implement impact measurement dashboard"
     ],
     contentKey: "non_profit_growth",
+    comingSoon: false
+  },
+  {
+    id: "ecommerce",
+    title: "E-Commerce Store Growth Plan",
+    subtitle: "90-Day Revenue & Scale System",
+    description: "Launch and scale your online store to consistent profitability using The Business Minds HQ. Build automated systems for traffic, conversions, and customer retention.",
+    icon: ShoppingCart,
+    color: "from-orange-600 to-red-600",
+    imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=400&fit=crop",
+    metrics: [
+      { label: "Revenue", value: "$10K-30K in 90 days" },
+      { label: "Customers", value: "200-500 acquired" },
+      { label: "Traffic", value: "5K-10K monthly" },
+      { label: "Conversion", value: "2-4% rate" }
+    ],
+    highlights: [
+      "Build professional store on The Business Minds HQ",
+      "Launch profitable Facebook & Google Shopping ads",
+      "Create email automation for cart recovery and upsells",
+      "Implement loyalty and referral programs",
+      "Optimize for conversions and repeat purchases"
+    ],
+    contentKey: "ecommerce_growth",
+    comingSoon: false
+  },
+  {
+    id: "private-community",
+    title: "Private Community Growth Plan",
+    subtitle: "90-Day Membership System",
+    description: "Launch and scale a thriving paid membership community using The Business Minds HQ. Create recurring revenue while building a loyal tribe around your expertise.",
+    icon: Users,
+    color: "from-indigo-600 to-purple-600",
+    imageUrl: "https://images.unsplash.com/photo-1521737711867-e8d9d1085a48?w=800&h=400&fit=crop",
+    metrics: [
+      { label: "Members", value: "100-300 paying" },
+      { label: "Revenue", value: "$5K-15K MRR" },
+      { label: "Engagement", value: "60%+ weekly active" },
+      { label: "Retention", value: "85%+ monthly" }
+    ],
+    highlights: [
+      "Build community on The Business Minds HQ platform",
+      "Design tiered membership with premium add-ons",
+      "Create automated member acquisition funnel",
+      "Implement engagement and retention systems",
+      "Scale to 500+ members profitably"
+    ],
+    contentKey: "private_community_growth",
     comingSoon: false
   }
 ];
