@@ -1,4 +1,3 @@
-
 import { Package, ShoppingCart, TrendingUp, CreditCard, Truck, Target, Users, Search, BarChart, Zap, DollarSign, Mail, Camera, Megaphone, Rocket } from 'lucide-react';
 
 export const onlineStoreRoadmap = {
@@ -45,9 +44,9 @@ export const onlineStoreRoadmap = {
                 {
                     day: 3,
                     title: "Choose Your E-commerce Platform",
-                    description: "Select the right platform for your store based on your needs and budget.",
+                    description: "Select the right platform for your store based on your needs and budget. The HQ lets you host WordPress websites and connect to Shopify stores seamlessly.",
                     tasks: [
-                        "Compare platforms: Shopify, WooCommerce, BigCommerce, Squarespace",
+                        "Compare platforms: Shopify, WooCommerce, The HQ Website Builder",
                         "Evaluate based on: pricing, ease of use, features, scalability",
                         "Sign up for a free trial of your chosen platform",
                         "Explore the dashboard and familiarize yourself with basic features"
