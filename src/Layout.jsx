@@ -55,6 +55,7 @@ const learningGrowthItems = [
 ];
 
 const connectBuildItems = [
+    { href: "TheHQ", icon: Building, label: "The Business Minds HQ", mobileLabel: "The HQ", requiredLevel: 'business_hq' },
     { href: "TheCommunity", icon: Users, label: "Community", mobileLabel: "Community" },
     { href: "MyBusinesses", icon: Briefcase, label: "My Businesses", mobileLabel: "Businesses" },
     { href: "Partners", icon: Handshake, label: "Partners", mobileLabel: "Partners" },
