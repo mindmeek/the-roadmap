@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Users, Download, Zap, Calendar, MessageSquare, Brain, ArrowRight } from 'lucide-react';
+import { User } from '@/entities/User';
 
 const AppleLogo = () => (
     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
@@ -142,10 +143,49 @@ const AppDownloadSection = () => (
 );
 
 export default function TheCommunityPage() {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const userData = await User.me();
+                setUser(userData);
+            } catch (e) {
+                // Not logged in
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchUser();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center min-h-screen">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--primary-gold)]"></div>
+            </div>
+        );
+    }
+
     return (
         <div className="px-4 pb-8">
             <div className="max-w-7xl mx-auto space-y-6">
                 <CommunityIntro />
+                
+                {/* Embedded Community */}
+                <div className="card p-4" style={{ borderRadius: '2px' }}>
+                    <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4">Access The Community</h2>
+                    <div style={{ height: '800px', width: '100%' }} className="rounded-md border border-gray-200 dark:border-gray-700 overflow-hidden">
+                        <iframe
+                            src="https://thebminds.com"
+                            style={{ width: '100%', height: '100%', border: 'none' }}
+                            title="The Business Minds Community"
+                            allow="fullscreen"
+                        ></iframe>
+                    </div>
+                </div>
+
                 <AppDownloadSection />
             </div>
         </div>
