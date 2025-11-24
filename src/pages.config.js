@@ -90,6 +90,7 @@ import SOPs from './pages/SOPs';
 import CreateSOP from './pages/CreateSOP';
 import EditSOP from './pages/EditSOP';
 import ViewSOP from './pages/ViewSOP';
+import TheHQ from './pages/TheHQ';
 import __Layout from './Layout.jsx';
 
 
@@ -186,6 +187,7 @@ export const PAGES = {
     "CreateSOP": CreateSOP,
     "EditSOP": EditSOP,
     "ViewSOP": ViewSOP,
+    "TheHQ": TheHQ,
 }
 
 export const pagesConfig = {
