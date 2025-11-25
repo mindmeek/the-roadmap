@@ -3,7 +3,7 @@ import { User } from '@/entities/User';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Award, CalendarCheck, Target, ArrowRight, Users, TrendingUp, Rocket } from 'lucide-react';
-import SubscriptionGate from '../components/subscription/SubscriptionGate';
+
 
 export default function StrategySession() {
     const [user, setUser] = useState(null);
@@ -111,13 +111,7 @@ export default function StrategySession() {
 
     return (
         <div className="px-4 pb-20 md:pb-8">
-            <SubscriptionGate 
-                user={user} 
-                requiredLevel="business_hq"
-                customMessage="Our exclusive 1-on-1 Strategy Sessions are reserved for Business Minds HQ members. Upgrade to unlock personalized guidance tailored to your business needs."
-                customUpgradeText="Unlock Personalized Strategy Sessions"
-            >
-                <div className="max-w-4xl mx-auto space-y-6">
+            <div className="max-w-4xl mx-auto space-y-6">
                     <div className="card p-6 md:p-8" style={{ borderRadius: '2px' }}>
                         <div className="text-center md:text-left md:flex md:items-center md:space-x-4 w-full">
                             <div className="bg-gray-100 p-3 md:p-4 rounded-md mb-3 md:mb-0 mx-auto md:mx-0 w-fit">
@@ -219,7 +213,6 @@ export default function StrategySession() {
                         </div>
                     </div>
                 </div>
-            </SubscriptionGate>
-        </div>
-    );
-}
+                </div>
+                );
+                }
