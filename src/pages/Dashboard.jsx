@@ -103,8 +103,9 @@ export default function DashboardPage() {
             setHasJourney(userHasJourney);
 
             const welcomePopupShown = localStorage.getItem('welcomePopupShown');
-            if (currentUser.onboarding_completed && !welcomePopupShown && userHasJourney) {
+            if (currentUser.onboarding_completed && !welcomePopupShown) {
                 setShowWelcomePopup(true);
+                localStorage.setItem('welcomePopupShown', 'true');
             }
 
             const today = moment().format('YYYY-MM-DD');
