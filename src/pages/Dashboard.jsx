@@ -31,7 +31,7 @@ import QuoteOfTheDayCard from '../components/dashboard/QuoteOfTheDayCard';
 import ActionCard from '../components/dashboard/ActionCard';
 import Tooltip from '../components/common/Tooltip';
 import AITeamModal from '../components/ai/AITeamModal';
-import WelcomePopup from '../components/common/WelcomePopup';
+
 import UpcomingTasksPreview from '../components/dashboard/UpcomingTasksPreview';
 import DailyInsightTabs from '../components/dashboard/DailyInsightTabs';
 import MemberActionChecklist from '../components/dashboard/MemberActionChecklist';
@@ -87,7 +87,7 @@ export default function DashboardPage() {
     const [aiAssistantType, setAiAssistantType] = useState('elyzet');
     const [aiSuggestion, setAiSuggestion] = useState(null);
     const [hasJourney, setHasJourney] = useState(false);
-    const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+    
 
     useEffect(() => {
         loadDashboardData();
@@ -102,11 +102,7 @@ export default function DashboardPage() {
             const userHasJourney = !!(currentUser.journey_start_date && currentUser.selected_goal);
             setHasJourney(userHasJourney);
 
-            const welcomePopupShown = localStorage.getItem('welcomePopupShown');
-            if (currentUser.onboarding_completed && !welcomePopupShown) {
-                setShowWelcomePopup(true);
-                localStorage.setItem('welcomePopupShown', 'true');
-            }
+
 
             const today = moment().format('YYYY-MM-DD');
             const progressRecords = await DailyProgress.filter({ 
@@ -732,9 +728,6 @@ export default function DashboardPage() {
                 <QuoteOfTheDayCard />
 
             </div>
-
-            {/* Welcome Popup */}
-            <WelcomePopup isOpen={showWelcomePopup} onClose={() => setShowWelcomePopup(false)} user={user} />
 
             {/* AI Team Modal */}
             <AITeamModal
