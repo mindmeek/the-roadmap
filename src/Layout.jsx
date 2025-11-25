@@ -39,7 +39,7 @@ const myJourneyHubItems = [
     { href: "DailyTrack", icon: BarChart2, label: "Daily 1% Tracker", mobileLabel: "Daily 1%" },
     { href: "Schedule", icon: Calendar, label: "Daily Scheduler", mobileLabel: "Schedule" },
     { href: "LiveWebinar", icon: Video, label: "Live Webinars", mobileLabel: "Webinars" },
-    { href: "StrategySession", icon: Award, label: "1-on-1 Strategy Session", mobileLabel: "Strategy", requiredLevel: 'business_hq' },
+    { href: "StrategySession", icon: Award, label: "1-on-1 Strategy Session", mobileLabel: "Strategy" },
     { href: "ElyzetAIAssistants", icon: Sparkles, label: "Your Business Employee", mobileLabel: "AI Assistant" },
 ];
 
