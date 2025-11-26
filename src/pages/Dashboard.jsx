@@ -496,26 +496,26 @@ export default function DashboardPage() {
                             </div>
                             <div className="flex-1">
                                 <h3 className="text-lg font-bold text-[var(--text-main)] mb-2">
-                                    Login to The Business Minds Community
+                                    You're Part of The Business Minds Community! 🎉
                                 </h3>
                                 <p className="text-sm text-[var(--text-soft)] mb-4">
-                                    Connect with a thriving network of entrepreneurs who understand your journey and are committed to mutual growth.
+                                    Login to ask questions about your current journey, get feedback on your progress, and connect with fellow entrepreneurs.
                                 </p>
                             </div>
                         </div>
-                        
+
                         <ul className="space-y-2 text-sm text-[var(--text-soft)] mb-4">
                             <li className="flex items-start gap-2">
                                 <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
-                                <span><strong>Weekly Live Coaching:</strong> Join group sessions every Tuesday & Thursday with Christopher Shaw</span>
+                                <span><strong>Ask Questions:</strong> Get answers about your 90-day journey and foundation roadmap</span>
                             </li>
                             <li className="flex items-start gap-2">
                                 <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
-                                <span><strong>Network & Collaborate:</strong> Build valuable connections at every business stage</span>
+                                <span><strong>Weekly Live Coaching:</strong> Join group sessions every Tuesday & Thursday</span>
                             </li>
                             <li className="flex items-start gap-2">
                                 <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
-                                <span><strong>Real-Time Support:</strong> Get instant feedback and answers from the community</span>
+                                <span><strong>Share Your Wins:</strong> Celebrate milestones and inspire others</span>
                             </li>
                         </ul>
 
@@ -524,7 +524,7 @@ export default function DashboardPage() {
                             className="btn btn-primary w-full justify-center"
                         >
                             <Users className="w-4 h-4 mr-2" />
-                            Access Community Now
+                            Login to Community
                         </Link>
                     </div>
 
