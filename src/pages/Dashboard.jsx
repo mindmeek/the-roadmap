@@ -35,6 +35,7 @@ import AITeamModal from '../components/ai/AITeamModal';
 import UpcomingTasksPreview from '../components/dashboard/UpcomingTasksPreview';
 import DailyInsightTabs from '../components/dashboard/DailyInsightTabs';
 import MemberActionChecklist from '../components/dashboard/MemberActionChecklist';
+import VisionStageProgress from '../components/dashboard/VisionStageProgress';
 
 // AI Team Info for avatars and names
 const AI_TEAM_INFO = {
@@ -292,6 +293,9 @@ export default function DashboardPage() {
 
                 {/* Member Action Checklist */}
                 <MemberActionChecklist />
+
+                {/* Vision Stage Progress - Only shows for vision stage free users */}
+                <VisionStageProgress user={user} />
 
                 {/* Journey Timeline & Financial Snapshot & Daily Insights */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">

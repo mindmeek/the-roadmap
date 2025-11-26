@@ -1,17 +1,33 @@
-
 import React, { useState, useEffect } from 'react';
-import { User } from '@/entities/User';
-import { Crown, Check, Zap, Users, Brain, BarChart, Calendar, Shield, Sparkles, Rocket, Globe, TrendingUp, Search, Smartphone, Code, Lock } from 'lucide-react';
+import { User, StrategyDocument } from '@/entities/all';
+import { Crown, Check, Zap, Users, Brain, BarChart, Calendar, Shield, Sparkles, Rocket, Globe, TrendingUp, Search, Smartphone, Code, Lock, Gift } from 'lucide-react';
 
 export default function UpgradePage() {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [hasCompletedCustomerJourney, setHasCompletedCustomerJourney] = useState(false);
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 const userData = await User.me();
                 setUser(userData);
+                
+                // Check if user completed customer journey for discount eligibility
+                if (userData && userData.subscription_level === 'free') {
+                    if (userData.customer_journey_completed_date) {
+                        setHasCompletedCustomerJourney(true);
+                    } else {
+                        // Check if customer journey doc is complete
+                        const docs = await StrategyDocument.filter({
+                            created_by: userData.email,
+                            document_type: 'customer_journey'
+                        });
+                        if (docs.length > 0 && docs[0].is_completed) {
+                            setHasCompletedCustomerJourney(true);
+                        }
+                    }
+                }
             } catch (error) {
                 console.error("Error fetching user:", error);
             } finally {
@@ -117,6 +133,40 @@ export default function UpgradePage() {
                     </p>
                 </div>
 
+                {/* Exclusive Discount Banner for Eligible Users */}
+                {!isHQMember && hasCompletedCustomerJourney && (
+                    <div className="card p-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-2 border-purple-400 relative overflow-hidden">
+                        <div className="flex flex-col md:flex-row items-center gap-4">
+                            <div className="bg-white/20 p-4 rounded-full flex-shrink-0">
+                                <Gift className="w-10 h-10 text-white" />
+                            </div>
+                            <div className="flex-1 text-center md:text-left">
+                                <h2 className="text-2xl md:text-3xl font-bold mb-2">🎉 You've Unlocked Your Exclusive Discount!</h2>
+                                <p className="text-white/90 text-lg mb-2">
+                                    Congratulations on completing your Customer Journey Map!
+                                </p>
+                                <div className="flex items-center justify-center md:justify-start gap-3 flex-wrap">
+                                    <span className="text-3xl font-bold">$49.99/month</span>
+                                    <span className="text-white/70 line-through text-xl">$99/month</span>
+                                    <span className="bg-white text-purple-600 px-3 py-1 rounded-full text-sm font-bold">
+                                        SAVE 50% for 3 months!
+                                    </span>
+                                </div>
+                            </div>
+                            <button 
+                                onClick={handleUpgradeClick}
+                                className="btn bg-white text-purple-600 hover:bg-gray-100 font-bold text-lg px-8 py-3 flex-shrink-0"
+                            >
+                                <Rocket className="w-5 h-5 mr-2" />
+                                Claim Your Discount
+                            </button>
+                        </div>
+                        <p className="text-center text-white/80 text-sm mt-4">
+                            💡 Use code <strong>JOURNEY50</strong> at checkout to apply your discount automatically
+                        </p>
+                    </div>
+                )}
+
                 {/* Main HQ Plan (if not already a member) */}
                 {!isHQMember && (
                     <div className="card p-8 md:p-12 bg-gradient-to-br from-black to-gray-900 text-white border-4 border-[var(--primary-gold)] relative overflow-hidden">
@@ -131,10 +181,23 @@ export default function UpgradePage() {
                             <h2 className="text-3xl md:text-4xl font-bold mb-2">The Business Minds HQ</h2>
                             <p className="text-gray-300 text-lg mb-6">Your All-in-One Business Growth Platform</p>
                             
-                            <div className="flex items-baseline justify-center mb-4">
-                                <span className="text-6xl font-bold">$99</span>
-                                <span className="text-2xl text-gray-400 ml-2">/month</span>
-                            </div>
+                            {hasCompletedCustomerJourney ? (
+                                <>
+                                    <div className="flex items-baseline justify-center mb-2">
+                                        <span className="text-4xl text-gray-500 line-through mr-3">$99</span>
+                                        <span className="text-6xl font-bold text-green-400">$49.99</span>
+                                        <span className="text-2xl text-gray-400 ml-2">/month</span>
+                                    </div>
+                                    <p className="text-sm text-green-400 font-semibold mb-4">🎁 Your exclusive 3-month discount is applied!</p>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="flex items-baseline justify-center mb-4">
+                                        <span className="text-6xl font-bold">$99</span>
+                                        <span className="text-2xl text-gray-400 ml-2">/month</span>
+                                    </div>
+                                </>
+                            )}
                             <p className="text-sm text-gray-400 mb-8">Everything you need to succeed, one simple price</p>
 
                             <button 
@@ -142,9 +205,13 @@ export default function UpgradePage() {
                                 className="btn btn-primary text-lg px-12 py-4 inline-flex items-center"
                             >
                                 <Rocket className="w-5 h-5 mr-2" />
-                                Upgrade to The HQ Now
+                                {hasCompletedCustomerJourney ? 'Claim Your Discount Now' : 'Upgrade to The HQ Now'}
                             </button>
-                            <p className="text-sm text-gray-400 mt-4">⚡ Use code <strong className="text-[var(--primary-gold)]">LAUNCH30</strong> for 30% off your first month</p>
+                            {hasCompletedCustomerJourney ? (
+                                <p className="text-sm text-green-400 mt-4">💡 Use code <strong>JOURNEY50</strong> at checkout</p>
+                            ) : (
+                                <p className="text-sm text-gray-400 mt-4">⚡ Use code <strong className="text-[var(--primary-gold)]">LAUNCH30</strong> for 30% off your first month</p>
+                            )}
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
