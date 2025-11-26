@@ -141,10 +141,10 @@ export default function MemberActionChecklist() {
             </button>
           </div>
           <h3 className="font-bold text-[var(--text-main)] mb-2">
-            Join The Community
+            You're in the Community! 🎉
           </h3>
           <p className="text-sm text-[var(--text-soft)] mb-4">
-            Connect with fellow entrepreneurs and introduce yourself to the community.
+            Login to ask questions about your journey and connect with fellow entrepreneurs.
           </p>
           <a
             href="https://thebminds.com"
@@ -152,7 +152,7 @@ export default function MemberActionChecklist() {
             rel="noopener noreferrer"
             className="text-sm text-purple-600 hover:text-purple-700 font-medium flex items-center group"
           >
-            Access Community <ExternalLink className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
+            Login to Community <ExternalLink className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
           </a>
         </div>
 
