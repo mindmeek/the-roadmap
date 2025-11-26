@@ -143,17 +143,37 @@ export default function MemberActionChecklist() {
           <h3 className="font-bold text-[var(--text-main)] mb-2">
             You're in the Community! 🎉
           </h3>
-          <p className="text-sm text-[var(--text-soft)] mb-4">
+          <p className="text-sm text-[var(--text-soft)] mb-3">
             Login to ask questions about your journey and connect with fellow entrepreneurs.
           </p>
           <a
             href="https://thebminds.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-purple-600 hover:text-purple-700 font-medium flex items-center group"
+            className="text-sm text-purple-600 hover:text-purple-700 font-medium flex items-center group mb-3"
           >
             Login to Community <ExternalLink className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
           </a>
+          <div className="flex items-center gap-2 pt-2 border-t border-gray-200 dark:border-gray-700">
+            <span className="text-xs text-[var(--text-soft)]">Get the app:</span>
+            <a
+              href="https://apps.apple.com/us/app/the-business-minds/id6467439618"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-purple-600 hover:text-purple-700 font-medium"
+            >
+              iOS
+            </a>
+            <span className="text-gray-300">|</span>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.thebusinessminds1.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-purple-600 hover:text-purple-700 font-medium"
+            >
+              Android
+            </a>
+          </div>
         </div>
 
         {/* Understanding Levels */}
