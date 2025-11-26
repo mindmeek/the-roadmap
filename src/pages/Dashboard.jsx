@@ -282,9 +282,9 @@ export default function DashboardPage() {
                                 <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
                                 Track Today's Progress
                             </Link>
-                            <Link to={createPageUrl('MyFoundationRoadmap')} className="btn btn-secondary bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 text-xs sm:text-sm md:text-base w-full sm:w-auto justify-center">
-                                <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-                                View Foundation
+                            <Link to={createPageUrl('Journey')} className="btn btn-secondary bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 text-xs sm:text-sm md:text-base w-full sm:w-auto justify-center">
+                                <Target className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
+                                Continue Your 90-Day Journey
                             </Link>
                         </div>
                     </div>
