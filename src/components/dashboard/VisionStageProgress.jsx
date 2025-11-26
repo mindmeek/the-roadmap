@@ -77,8 +77,8 @@ export default function VisionStageProgress({ user }) {
         }
     };
 
-    // Only show for vision stage free users
-    if (!user || user.entrepreneurship_stage !== 'vision' || user.subscription_level !== 'free') {
+    // Only show for free users (any stage)
+    if (!user || user.subscription_level !== 'free') {
         return null;
     }
 
@@ -99,7 +99,7 @@ export default function VisionStageProgress({ user }) {
                 <div className="flex-1 w-full">
                     <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
                         <h3 className="text-lg font-bold text-[var(--text-main)] flex items-center gap-2">
-                            <span>🎯 Vision Stage Progress</span>
+                            <span>🎯 Foundation Progress</span>
                         </h3>
                         <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
                             {completedSteps.length}/{VISION_STAGE_STEPS.length} Complete
@@ -119,7 +119,7 @@ export default function VisionStageProgress({ user }) {
                             ></div>
                         </div>
                         <p className="text-xs text-[var(--text-soft)] mt-1">
-                            {progressPercentage}% of Vision Stage foundation complete
+                            {progressPercentage}% of foundation complete
                         </p>
                     </div>
 
