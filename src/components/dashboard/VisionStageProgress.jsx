@@ -2,54 +2,56 @@ import React, { useState, useEffect } from 'react';
 import { StrategyDocument } from '@/entities/all';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { CheckCircle, Circle, ChevronRight, Target, Sparkles, Crown } from 'lucide-react';
+import { CheckCircle, Circle, ChevronRight, Target, Sparkles, Crown, Rocket, TrendingUp } from 'lucide-react';
 
-const VISION_STAGE_STEPS = [
-    {
-        id: 'ideal_client',
-        title: 'Define Your Ideal Client',
-        description: 'Know exactly who you serve',
-        documentType: 'ideal_client',
-        link: 'StrategyFormIdealClient',
-        icon: '👤'
+const STAGE_STEPS_CONFIG = {
+    vision: {
+        title: 'Vision Stage',
+        description: 'Build your strategic foundation',
+        icon: Target,
+        color: 'blue',
+        steps: [
+            { id: 'ideal_client', title: 'Define Your Ideal Client', documentType: 'ideal_client', link: 'StrategyFormIdealClient', icon: '👤' },
+            { id: 'value_proposition', title: 'Craft Your Value Proposition', documentType: 'value_proposition_canvas', link: 'StrategyFormValueProposition', icon: '💎' },
+            { id: 'business_model', title: 'Map Your Business Model', documentType: 'business_model_canvas', link: 'StrategyFormBusinessModelCanvas', icon: '📊' },
+            { id: 'customer_journey', title: 'Create Customer Journey', documentType: 'customer_journey', link: 'StrategyFormCustomerJourney', icon: '🗺️' },
+            { id: 'swot', title: 'Complete SWOT Analysis', documentType: 'swot_analysis', link: 'StrategyFormSWOTAnalysis', icon: '⚡' }
+        ]
     },
-    {
-        id: 'value_proposition',
-        title: 'Craft Your Value Proposition',
-        description: 'What makes you unique',
-        documentType: 'value_proposition_canvas',
-        link: 'StrategyFormValueProposition',
-        icon: '💎'
+    startup: {
+        title: 'Startup Stage',
+        description: 'Launch and validate your business',
+        icon: Rocket,
+        color: 'green',
+        steps: [
+            { id: 'value_ladder', title: 'Build Your Value Ladder', documentType: 'value_ladder', link: 'StrategyFormValueLadder', icon: '🪜' },
+            { id: 'brand_identity', title: 'Create Brand Identity', documentType: 'brand_identity', link: 'StrategyFormBrandIdentity', icon: '🎨' },
+            { id: 'content_strategy', title: 'Plan Content Strategy', documentType: 'content_strategy', link: 'StrategyFormContentStrategy', icon: '📝' },
+            { id: 'social_media', title: 'Social Media Strategy', documentType: 'social_media', link: 'StrategyFormSocialMedia', icon: '📱' },
+            { id: 'email_marketing', title: 'Email Marketing Setup', documentType: 'email_marketing', link: 'StrategyFormEmailMarketing', icon: '📧' }
+        ]
     },
-    {
-        id: 'business_model',
-        title: 'Map Your Business Model',
-        description: 'How your business works',
-        documentType: 'business_model_canvas',
-        link: 'StrategyFormBusinessModelCanvas',
-        icon: '📊'
-    },
-    {
-        id: 'customer_journey',
-        title: 'Create Customer Journey',
-        description: 'The path to purchase',
-        documentType: 'customer_journey',
-        link: 'StrategyFormCustomerJourney',
-        icon: '🗺️'
-    },
-    {
-        id: 'swot',
-        title: 'Complete SWOT Analysis',
-        description: 'Strengths & opportunities',
-        documentType: 'swot_analysis',
-        link: 'StrategyFormSWOTAnalysis',
-        icon: '⚡'
+    growth: {
+        title: 'Growth Stage',
+        description: 'Scale and optimize your business',
+        icon: TrendingUp,
+        color: 'purple',
+        steps: [
+            { id: 'pricing_strategies', title: 'Optimize Pricing', documentType: 'pricing_strategies', link: 'StrategyFormPricingStrategies', icon: '💰' },
+            { id: 'automation', title: 'Build Automation Systems', documentType: 'automation', link: 'StrategyFormAutomation', icon: '⚙️' },
+            { id: 'strategic_partnerships', title: 'Strategic Partnerships', documentType: 'strategic_partnerships', link: 'StrategyFormStrategicPartnerships', icon: '🤝' },
+            { id: 'community_building', title: 'Community Building', documentType: 'community_building', link: 'StrategyFormCommunityBuilding', icon: '👥' },
+            { id: 'affiliate_program', title: 'Affiliate Program', documentType: 'affiliate_program', link: 'StrategyFormAffiliateProgram', icon: '🔗' }
+        ]
     }
-];
+};
 
-export default function VisionStageProgress({ user }) {
+export default function FoundationProgress({ user }) {
     const [completedSteps, setCompletedSteps] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const stageConfig = STAGE_STEPS_CONFIG[user?.entrepreneurship_stage] || STAGE_STEPS_CONFIG.vision;
+    const currentSteps = stageConfig.steps;
 
     useEffect(() => {
         loadProgress();
@@ -62,7 +64,7 @@ export default function VisionStageProgress({ user }) {
             const docs = await StrategyDocument.filter({ created_by: user.email });
             const completed = [];
             
-            VISION_STAGE_STEPS.forEach(step => {
+            currentSteps.forEach(step => {
                 const doc = docs.find(d => d.document_type === step.documentType);
                 if (doc && doc.is_completed) {
                     completed.push(step.id);
@@ -71,61 +73,88 @@ export default function VisionStageProgress({ user }) {
             
             setCompletedSteps(completed);
         } catch (error) {
-            console.error('Error loading vision progress:', error);
+            console.error('Error loading foundation progress:', error);
         } finally {
             setLoading(false);
         }
     };
 
-    // Only show for free users (any stage)
+    // Only show for free users
     if (!user || user.subscription_level !== 'free') {
         return null;
     }
 
-    const progressPercentage = Math.round((completedSteps.length / VISION_STAGE_STEPS.length) * 100);
-    const nextStep = VISION_STAGE_STEPS.find(step => !completedSteps.includes(step.id));
+    const progressPercentage = currentSteps.length > 0 ? Math.round((completedSteps.length / currentSteps.length) * 100) : 0;
+    const nextStep = currentSteps.find(step => !completedSteps.includes(step.id));
+    
+    const colorClasses = {
+        blue: {
+            bg: 'from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20',
+            border: 'border-blue-300 dark:border-blue-700',
+            iconBg: 'bg-blue-100 dark:bg-blue-800',
+            iconText: 'text-blue-600 dark:text-blue-400',
+            progressBar: 'from-blue-500 to-indigo-600'
+        },
+        green: {
+            bg: 'from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20',
+            border: 'border-green-300 dark:border-green-700',
+            iconBg: 'bg-green-100 dark:bg-green-800',
+            iconText: 'text-green-600 dark:text-green-400',
+            progressBar: 'from-green-500 to-emerald-600'
+        },
+        purple: {
+            bg: 'from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20',
+            border: 'border-purple-300 dark:border-purple-700',
+            iconBg: 'bg-purple-100 dark:bg-purple-800',
+            iconText: 'text-purple-600 dark:text-purple-400',
+            progressBar: 'from-purple-500 to-pink-600'
+        }
+    };
+    
+    const colors = colorClasses[stageConfig.color] || colorClasses.blue;
+    const StageIcon = stageConfig.icon;
 
     if (loading) {
         return null;
     }
 
     return (
-        <div className="card p-4 sm:p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-300 dark:border-blue-700" style={{ borderRadius: '2px' }}>
+        <div className={`card p-4 sm:p-6 bg-gradient-to-br ${colors.bg} border-2 ${colors.border}`} style={{ borderRadius: '2px' }}>
             <div className="flex flex-col sm:flex-row items-start gap-4">
-                <div className="bg-blue-100 dark:bg-blue-800 p-3 rounded-lg flex-shrink-0 mx-auto sm:mx-0">
-                    <Target className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                <div className={`${colors.iconBg} p-3 rounded-lg flex-shrink-0 mx-auto sm:mx-0`}>
+                    <StageIcon className={`w-6 h-6 ${colors.iconText}`} />
                 </div>
                 
                 <div className="flex-1 w-full">
                     <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
                         <h3 className="text-lg font-bold text-[var(--text-main)] flex items-center gap-2">
-                            <span>🎯 Foundation Progress</span>
+                            <span>🎯 {stageConfig.title} Progress</span>
                         </h3>
-                        <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
-                            {completedSteps.length}/{VISION_STAGE_STEPS.length} Complete
+                        <span className={`text-sm font-bold ${colors.iconText}`}>
+                            {completedSteps.length}/{currentSteps.length} Complete
                         </span>
                     </div>
                     
                     <p className="text-sm text-[var(--text-soft)] mb-3">
-                        Complete your foundational strategy tools to build a solid base for your business.
+                        {stageConfig.description} — complete these strategy tools to move forward.
                     </p>
 
                     {/* Progress Bar */}
                     <div className="mb-4">
                         <div className="w-full bg-gray-200 dark:bg-gray-700 h-3" style={{ borderRadius: '2px' }}>
                             <div 
-                                className="bg-gradient-to-r from-blue-500 to-indigo-600 h-3 transition-all duration-500"
+                                className={`bg-gradient-to-r ${colors.progressBar} h-3 transition-all duration-500`}
                                 style={{ width: `${progressPercentage}%`, borderRadius: '2px' }}
                             ></div>
                         </div>
                         <p className="text-xs text-[var(--text-soft)] mt-1">
-                            {progressPercentage}% of foundation complete
+                            {progressPercentage}% of {stageConfig.title.toLowerCase()} foundation complete
                         </p>
                     </div>
 
                     {/* Step List */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 mb-4">
-                        {VISION_STAGE_STEPS.map((step) => {
+                        {currentSteps.map((step) => {
                             const isCompleted = completedSteps.includes(step.id);
                             return (
                                 <Link
@@ -157,9 +186,9 @@ export default function VisionStageProgress({ user }) {
 
                     {/* Next Step CTA */}
                     {nextStep && (
-                        <div className="flex flex-col sm:flex-row items-center gap-3 p-3 bg-white dark:bg-gray-800 rounded-lg border border-blue-200 dark:border-blue-700">
+                        <div className={`flex flex-col sm:flex-row items-center gap-3 p-3 bg-white dark:bg-gray-800 rounded-lg border ${colors.border}`}>
                             <div className="flex items-center gap-2 flex-1">
-                                <Sparkles className="w-4 h-4 text-blue-600" />
+                                <Sparkles className={`w-4 h-4 ${colors.iconText}`} />
                                 <span className="text-sm text-[var(--text-main)]">
                                     <strong>Next step:</strong> {nextStep.title}
                                 </span>
