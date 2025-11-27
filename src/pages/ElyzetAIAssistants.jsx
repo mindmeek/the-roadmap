@@ -160,33 +160,67 @@ export default function ElyzetAIAssistants() {
                             {member.description}
                         </p>
 
-                        <div className="mb-4">
-                            <h4 className="text-xs font-semibold text-[var(--text-main)] mb-2 uppercase">
-                                Expertise
-                            </h4>
-                            <ul className="space-y-1">
-                                {member.expertise.slice(0, 3).map((skill, index) => (
-                                    <li key={index} className="text-xs text-[var(--text-soft)] flex items-center gap-2">
-                                        <div className="w-1 h-1 bg-[var(--primary-gold)] rounded-full" />
-                                        {skill}
-                                    </li>
-                                ))}
-                                {member.expertise.length > 3 && (
-                                    <li className="text-xs text-[var(--text-soft)] italic">
-                                        + {member.expertise.length - 3} more areas
-                                    </li>
-                                )}
-                            </ul>
-                        </div>
+                        <button
+                            onClick={() => toggleDetails(member.id)}
+                            className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline flex items-center mb-4"
+                        >
+                            {showDetails[member.id] ? 'Show Less' : 'Tell me more'} 
+                            {/* Chevron icon manually rendered since imports might not cover it if not used elsewhere, but ChevronRight is imported */}
+                            <svg 
+                                className={`w-4 h-4 ml-1 transition-transform ${showDetails[member.id] ? 'rotate-90' : ''}`} 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                viewBox="0 0 24 24" 
+                                fill="none" 
+                                stroke="currentColor" 
+                                strokeWidth="2" 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round"
+                            >
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
 
-                        <div className="mb-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                            <h4 className="text-xs font-semibold text-[var(--text-main)] mb-1">
-                                Best For:
-                            </h4>
-                            <p className="text-xs text-[var(--text-soft)]">
-                                {member.bestFor}
-                            </p>
-                        </div>
+                        {showDetails[member.id] && (
+                            <div className="space-y-4 mb-4 animate-fadeIn">
+                                <div>
+                                    <h4 className="text-sm font-semibold text-[var(--text-main)] mb-2">
+                                        How {member.name} Helps You Streamline Your Business:
+                                    </h4>
+                                    <p className="text-sm text-[var(--text-soft)]">
+                                        {member.howTheyHelp}
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 className="text-sm font-semibold text-[var(--text-main)] mb-2">
+                                        Real-World Example:
+                                    </h4>
+                                    <p className="text-sm text-[var(--text-soft)]">
+                                        {member.realWorldExample}
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 className="text-xs font-semibold text-[var(--text-main)] mb-2 uppercase">
+                                        Key Expertise Areas
+                                    </h4>
+                                    <ul className="space-y-1">
+                                        {member.expertise.map((skill, index) => (
+                                            <li key={index} className="text-xs text-[var(--text-soft)] flex items-center gap-2">
+                                                <div className="w-1 h-1 bg-[var(--primary-gold)] rounded-full" />
+                                                {skill}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                    <h4 className="text-xs font-semibold text-[var(--text-main)] mb-1">
+                                        Best For:
+                                    </h4>
+                                    <p className="text-xs text-[var(--text-soft)]">
+                                        {member.bestFor}
+                                    </p>
+                                </div>
+                            </div>
+                        )}
 
                         <button
                             onClick={() => openAssistant(member)}
