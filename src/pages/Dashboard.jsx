@@ -60,7 +60,14 @@ export default function DashboardPage() {
     const [aiAssistantType, setAiAssistantType] = useState('elyzet');
     const [aiSuggestion, setAiSuggestion] = useState(null);
     const [hasJourney, setHasJourney] = useState(false);
-    
+    const [expandedMembers, setExpandedMembers] = useState({});
+
+    const toggleMemberDetails = (id) => {
+        setExpandedMembers(prev => ({
+            ...prev,
+            [id]: !prev[id]
+        }));
+    };
 
     useEffect(() => {
         loadDashboardData();
