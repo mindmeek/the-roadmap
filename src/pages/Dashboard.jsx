@@ -18,7 +18,8 @@ import {
     ArrowRight,
     BookOpen,
     Award,
-    Rocket
+    Rocket,
+    MessageSquare
 } from 'lucide-react';
 import moment from 'moment';
 
