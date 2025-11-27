@@ -37,45 +37,17 @@ import DailyInsightTabs from '../components/dashboard/DailyInsightTabs';
 import MemberActionChecklist from '../components/dashboard/MemberActionChecklist';
 import FoundationProgress from '../components/dashboard/VisionStageProgress';
 
-// AI Team Info for avatars and names
-const AI_TEAM_INFO = {
-    elyzet: {
-        name: "Elyzet",
-        role: "Chief Strategist",
-        avatar: "👔",
-        color: "from-indigo-500 to-purple-600"
-    },
-    ava: {
-        name: "Ava",
-        role: "Marketing Strategist", 
-        avatar: "🎯",
-        color: "from-pink-500 to-rose-600"
-    },
-    sam: {
-        name: "Sam",
-        role: "Social Media Guru",
-        avatar: "📱",
-        color: "from-blue-500 to-cyan-600"
-    },
-    charlie: {
-        name: "Charlie",
-        role: "Content Copywriter",
-        avatar: "✍️",
-        color: "from-yellow-500 to-orange-600"
-    },
-    finley: {
-        name: "Finley",
-        role: "Financial Forecaster",
-        avatar: "💰",
-        color: "from-green-500 to-emerald-600"
-    },
-    olivia: {
-        name: "Olivia",
-        role: "Operations Optimizer",
-        avatar: "⚙️",
-        color: "from-orange-500 to-amber-600"
-    }
-};
+import { AI_TEAM_MEMBERS } from '../utils/aiTeamInfo';
+
+const AI_TEAM_INFO = AI_TEAM_MEMBERS.reduce((acc, member) => {
+    acc[member.id] = {
+        name: member.name,
+        role: member.role,
+        avatar: member.avatar,
+        color: member.color,
+    };
+    return acc;
+}, {});
 
 export default function DashboardPage() {
     const [user, setUser] = useState(null);
@@ -355,93 +327,69 @@ export default function DashboardPage() {
                     <UpcomingTasksPreview />
                 </div>
 
-                {/* Meet Your AI Team */}
+                {/* Meet Your AI Team - Streamlined */}
                 {aiSuggestion && recommendedAgent && (
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                        {/* Left: Recommended AI Agent */}
-                        <div className={`card p-4 sm:p-6 bg-gradient-to-br ${recommendedAgent.color} text-white shadow-xl hover:shadow-2xl transition-all`} style={{ borderRadius: '2px' }}>
-                            <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
-                                <div className="text-4xl sm:text-5xl md:text-6xl flex-shrink-0 animate-bounce mx-auto sm:mx-0">
-                                    {recommendedAgent.avatar}
+                    <div className="mb-6">
+                        <div className={`card p-8 sm:p-10 bg-gradient-to-br ${recommendedAgent.color} text-white shadow-xl hover:shadow-2xl transition-all mx-auto`} style={{ borderRadius: '2px' }}>
+                            <div className="flex flex-col items-center justify-center text-center gap-6">
+                                {/* Header with Icon */}
+                                <div className="flex items-center justify-center gap-2 mb-2">
+                                    <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 animate-pulse" />
+                                    <span className="text-sm sm:text-base font-semibold uppercase tracking-widest opacity-90 border-b border-white/30 pb-1">
+                                        AI Support for Your Journey
+                                    </span>
                                 </div>
-                                <div className="flex-1 text-center sm:text-left w-full">
-                                    <div className="flex items-center gap-2 mb-2 justify-center sm:justify-start flex-wrap">
-                                        <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 animate-pulse" />
-                                        <span className="text-xs sm:text-sm font-semibold uppercase tracking-wide opacity-90">
-                                            AI Support for Your Journey
-                                        </span>
+
+                                {/* Avatar */}
+                                <div className="relative">
+                                    <div className="text-7xl sm:text-8xl animate-bounce drop-shadow-2xl transform hover:scale-110 transition-transform duration-300 cursor-pointer">
+                                        {recommendedAgent.avatar}
                                     </div>
-                                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1">
+                                    <div className="absolute -bottom-2 -right-2 bg-white text-black text-xs font-bold px-2 py-1 rounded-full shadow-lg">
+                                        Online
+                                    </div>
+                                </div>
+
+                                {/* Name & Role */}
+                                <div>
+                                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 tracking-tight">
                                         Meet {recommendedAgent.name}
                                     </h3>
-                                    <p className="text-xs sm:text-sm opacity-90 mb-2 sm:mb-3">
-                                        {recommendedAgent.role} • Based on your {user.entrepreneurship_stage} stage
-                                    </p>
-                                    <p className="text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed">
-                                        {aiSuggestion.message}
-                                    </p>
-                                    <button
-                                        onClick={() => openAIAssistant(aiSuggestion.assistant)}
-                                        className="btn bg-white text-gray-900 hover:bg-gray-100 font-semibold w-full sm:w-auto text-sm sm:text-base"
-                                    >
-                                        <Sparkles className="w-4 h-4 mr-2" />
-                                        {aiSuggestion.cta}
-                                    </button>
-                                    <p className="text-xs mt-2 sm:mt-3 opacity-75">
-                                        💡 {recommendedAgent.name} will guide you to the right Foundation tools
+                                    <p className="text-sm sm:text-base md:text-lg opacity-90 font-medium bg-white/10 px-4 py-1 rounded-full inline-block backdrop-blur-sm">
+                                        {recommendedAgent.role} • Expert for {user.entrepreneurship_stage} Stage
                                     </p>
                                 </div>
-                            </div>
-                        </div>
 
-                        {/* Right: Meet the Full AI Team */}
-                        <div className="card p-4 sm:p-6 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700" style={{ borderRadius: '2px' }}>
-                            <div className="flex items-center gap-2 mb-3 sm:mb-4">
-                                <Users className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--primary-gold)]" />
-                                <h3 className="text-base sm:text-lg md:text-xl font-bold text-[var(--text-main)]">
-                                    Your AI Business Team
-                                </h3>
-                            </div>
-                            <p className="text-xs sm:text-sm text-[var(--text-soft)] mb-2 sm:mb-3">
-                                Six expert AI assistants designed to support your entrepreneurial journey. They'll help you work through your Foundation Roadmap, 90-Day Journey, and daily challenges.
-                            </p>
-                            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-2 sm:p-3 mb-3 sm:mb-4">
-                                <p className="text-xs text-blue-800 dark:text-blue-200 flex items-start gap-2">
-                                    <Target className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0 mt-0.5" />
-                                    <span><strong>How it works:</strong> Ask questions about your current task, and the AI will provide guidance and direct you to the right tools in your Foundation Roadmap or Journey to implement.</span>
+                                {/* Message */}
+                                <div className="max-w-2xl bg-black/20 p-6 rounded-xl backdrop-blur-sm border border-white/10">
+                                    <p className="text-base sm:text-lg md:text-xl leading-relaxed font-light italic">
+                                        "{aiSuggestion.message}"
+                                    </p>
+                                </div>
+
+                                {/* CTA Buttons */}
+                                <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                                    <button
+                                        onClick={() => openAIAssistant(aiSuggestion.assistant)}
+                                        className="btn bg-white text-gray-900 hover:bg-gray-100 font-bold text-base sm:text-lg px-8 py-4 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all flex items-center justify-center"
+                                    >
+                                        <MessageSquare className="w-5 h-5 mr-2" />
+                                        {aiSuggestion.cta}
+                                    </button>
+                                    
+                                    <Link 
+                                        to={createPageUrl('ElyzetAIAssistants')}
+                                        className="btn bg-black/30 text-white hover:bg-black/40 border border-white/30 backdrop-blur-sm font-semibold text-base sm:text-lg px-8 py-4 flex items-center justify-center"
+                                    >
+                                        <Users className="w-5 h-5 mr-2" />
+                                        Meet Full AI Team
+                                    </Link>
+                                </div>
+
+                                <p className="text-xs sm:text-sm mt-2 opacity-75 font-medium">
+                                    💡 {recommendedAgent.name} is ready to guide you through your Foundation Roadmap tasks
                                 </p>
                             </div>
-                            
-                            {/* Mini AI Team Grid */}
-                            <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-3 sm:mb-4">
-                                {Object.entries(AI_TEAM_INFO).map(([key, agent]) => (
-                                    <button
-                                        key={key}
-                                        onClick={() => openAIAssistant(key)}
-                                        className="p-2 sm:p-3 rounded-lg border-2 border-gray-200 dark:border-gray-700 hover:border-[var(--primary-gold)] hover:shadow-md transition-all text-left bg-white dark:bg-gray-800"
-                                    >
-                                        <div className="flex items-center gap-2">
-                                            <span className="text-xl sm:text-2xl">{agent.avatar}</span>
-                                            <div className="flex-1 min-w-0">
-                                                <p className="font-semibold text-xs sm:text-sm text-[var(--text-main)] truncate">
-                                                    {agent.name}
-                                                </p>
-                                                <p className="text-[10px] sm:text-xs text-[var(--text-soft)] truncate">
-                                                    {agent.role}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </button>
-                                ))}
-                            </div>
-
-                            <Link 
-                                to={createPageUrl('ElyzetAIAssistants')}
-                                className="btn btn-secondary w-full justify-center text-xs sm:text-sm"
-                            >
-                                Learn More About Your AI Team
-                                <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 ml-2" />
-                            </Link>
                         </div>
                     </div>
                 )}
@@ -618,46 +566,7 @@ export default function DashboardPage() {
                 {/* Foundation Roadmap Visual */}
                 <FoundationRoadmapVisual user={user} />
 
-                {/* How It All Connects - SIMPLIFIED */}
-                <div className="card p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-700" style={{ borderRadius: '2px' }}>
-                    <div className="flex items-start gap-4">
-                        <div className="bg-blue-100 dark:bg-blue-800 p-3 rounded-lg flex-shrink-0">
-                            <Zap className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                        </div>
-                        <div className="flex-1">
-                            <h3 className="text-xl font-bold text-[var(--text-main)] mb-2 flex items-center gap-2">
-                                How It All Connects
-                                <Tooltip content="Every tool in The Roadmap works together. Your Foundation provides clarity, your 90-Day Journey creates momentum, and daily tracking ensures progress.">
-                                    <HelpCircle className="w-4 h-4 text-gray-400 dark:text-gray-500" />
-                                </Tooltip>
-                            </h3>
-                            <p className="text-sm text-[var(--text-soft)] mb-4">
-                                Each tool in The Roadmap is designed to work together. Your <strong>Foundation Roadmap</strong> provides strategic clarity, your <strong>90-Day Journey</strong> creates execution momentum, and <strong>Daily Tracking</strong> ensures consistent progress toward your goals.
-                            </p>
-                            <div className="flex flex-wrap gap-2 mb-4">
-                                <span className="inline-flex items-center text-xs px-3 py-1 bg-white dark:bg-gray-800 rounded-full border border-blue-200 dark:border-blue-700 text-[var(--text-main)]">
-                                    <BookOpen className="w-3 h-3 mr-1 text-blue-600 dark:text-blue-400" />
-                                    Foundation → Strategy
-                                </span>
-                                <span className="inline-flex items-center text-xs px-3 py-1 bg-white dark:bg-gray-800 rounded-full border border-blue-200 dark:border-blue-700 text-[var(--text-main)]">
-                                    <Target className="w-3 h-3 mr-1 text-blue-600 dark:text-blue-400" />
-                                    90-Day Journey → Execution
-                                </span>
-                                <span className="inline-flex items-center text-xs px-3 py-1 bg-white dark:bg-gray-800 rounded-full border border-blue-200 dark:border-blue-700 text-[var(--text-main)]">
-                                    <TrendingUp className="w-3 h-3 mr-1 text-blue-600 dark:text-blue-400" />
-                                    Daily Tracker → Progress
-                                </span>
-                            </div>
-                            <Link 
-                                to={createPageUrl('Guides')}
-                                className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-                            >
-                                Learn more about the complete system
-                                <ArrowRight className="w-4 h-4 ml-1" />
-                            </Link>
-                        </div>
-                    </div>
-                </div>
+
 
                 {/* Quick Actions Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
@@ -728,8 +637,7 @@ export default function DashboardPage() {
                     </div>
                 )}
 
-                {/* Quote of the Day */}
-                <QuoteOfTheDayCard />
+
 
             </div>
 
