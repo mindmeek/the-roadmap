@@ -37,7 +37,7 @@ import DailyInsightTabs from '../components/dashboard/DailyInsightTabs';
 import MemberActionChecklist from '../components/dashboard/MemberActionChecklist';
 import FoundationProgress from '../components/dashboard/VisionStageProgress';
 
-import { AI_TEAM_MEMBERS } from '../utils/aiTeamInfo';
+import { AI_TEAM_MEMBERS } from '../components/ai/aiTeamInfo';
 
 const AI_TEAM_INFO = AI_TEAM_MEMBERS.reduce((acc, member) => {
     acc[member.id] = {

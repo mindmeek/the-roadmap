@@ -12,7 +12,7 @@ import {
     BookOpen
 } from 'lucide-react';
 
-import { AI_TEAM_MEMBERS } from '../utils/aiTeamInfo';
+import { AI_TEAM_MEMBERS } from '../components/ai/aiTeamInfo';
 
 export default function ElyzetAIAssistants() {
     const [user, setUser] = useState(null);
