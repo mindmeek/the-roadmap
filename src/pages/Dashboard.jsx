@@ -376,14 +376,79 @@ export default function DashboardPage() {
                     </div>
                 )}
                 
-                <div className="text-center">
-                    <Link 
-                        to={createPageUrl('ElyzetAIAssistants')}
-                        className="text-sm font-medium text-[var(--primary-gold)] hover:underline inline-flex items-center"
-                    >
-                        Meet your full AI Business Team
-                        <ChevronRight className="w-4 h-4 ml-1" />
-                    </Link>
+                {/* Right: Meet the Full AI Team */}
+                <div className="card p-4 sm:p-6 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700" style={{ borderRadius: '2px' }}>
+                    <div className="flex items-center gap-2 mb-3 sm:mb-4">
+                        <Users className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--primary-gold)]" />
+                        <h3 className="text-base sm:text-lg md:text-xl font-bold text-[var(--text-main)]">
+                            Your AI Business Team
+                        </h3>
+                    </div>
+                    <p className="text-xs sm:text-sm text-[var(--text-soft)] mb-2 sm:mb-3">
+                        Six expert AI assistants designed to support your entrepreneurial journey.
+                    </p>
+                    
+                    <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1 custom-scrollbar">
+                        {AI_TEAM_MEMBERS.map((member) => (
+                            <div 
+                                key={member.id}
+                                className={`border rounded-lg transition-all ${
+                                    expandedMembers[member.id] 
+                                        ? 'bg-gray-50 dark:bg-gray-800 border-[var(--primary-gold)]' 
+                                        : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                                }`}
+                            >
+                                <button
+                                    onClick={() => toggleMemberDetails(member.id)}
+                                    className="w-full flex items-center p-3 text-left"
+                                >
+                                    <span className="text-2xl mr-3">{member.avatar}</span>
+                                    <div className="flex-1 min-w-0">
+                                        <h4 className="font-bold text-sm text-[var(--text-main)]">{member.name}</h4>
+                                        <p className="text-xs text-[var(--primary-gold)] font-medium truncate">{member.role}</p>
+                                    </div>
+                                    <ChevronRight 
+                                        className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${
+                                            expandedMembers[member.id] ? 'rotate-90' : ''
+                                        }`} 
+                                    />
+                                </button>
+                                
+                                {expandedMembers[member.id] && (
+                                    <div className="px-3 pb-3 pt-0 animate-fadeIn">
+                                        <div className="h-px w-full bg-gray-200 dark:bg-gray-700 mb-3"></div>
+                                        <p className="text-xs text-[var(--text-soft)] mb-3 leading-relaxed">
+                                            {member.description}
+                                        </p>
+                                        
+                                        <div className="bg-blue-50 dark:bg-blue-900/20 p-2 rounded mb-3">
+                                            <p className="text-xs text-blue-800 dark:text-blue-200">
+                                                <strong>Best For:</strong> {member.bestFor}
+                                            </p>
+                                        </div>
+
+                                        <button
+                                            onClick={() => openAIAssistant(member.id)}
+                                            className={`btn btn-primary w-full py-1.5 text-xs flex items-center justify-center bg-gradient-to-r ${member.color}`}
+                                        >
+                                            <MessageSquare className="w-3 h-3 mr-1.5" />
+                                            Talk to {member.name}
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                    
+                    <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+                        <Link 
+                            to={createPageUrl('ElyzetAIAssistants')}
+                            className="text-xs sm:text-sm font-medium text-[var(--primary-gold)] hover:underline flex items-center justify-center"
+                        >
+                            View Full Team Details
+                            <ChevronRight className="w-3 h-3 ml-1" />
+                        </Link>
+                    </div>
                 </div>
 
                 {/* Customer Journey Completion Incentive */}
