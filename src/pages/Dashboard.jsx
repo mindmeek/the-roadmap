@@ -328,11 +328,12 @@ export default function DashboardPage() {
                     <UpcomingTasksPreview />
                 </div>
 
-                {/* Meet Your AI Team - Streamlined */}
+                {/* Meet Your AI Team */}
                 {aiSuggestion && recommendedAgent && (
-                    <div className="mb-6">
-                        <div className={`card p-8 sm:p-10 bg-gradient-to-br ${recommendedAgent.color} text-white shadow-xl hover:shadow-2xl transition-all mx-auto`} style={{ borderRadius: '2px' }}>
-                            <div className="flex flex-col items-center justify-center text-center gap-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                        {/* Recommended Agent */}
+                        <div className={`card p-8 sm:p-10 bg-gradient-to-br ${recommendedAgent.color} text-white shadow-xl hover:shadow-2xl transition-all h-full`} style={{ borderRadius: '2px' }}>
+                            <div className="flex flex-col items-center justify-center text-center gap-6 h-full">
                                 {/* Header with Icon */}
                                 <div className="flex items-center justify-center gap-2 mb-2">
                                     <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 animate-pulse" />
@@ -368,28 +369,52 @@ export default function DashboardPage() {
                                     </p>
                                 </div>
 
-                                {/* CTA Buttons */}
-                                <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                                {/* CTA Button - Main */}
+                                <div className="w-full">
                                     <button
                                         onClick={() => openAIAssistant(aiSuggestion.assistant)}
-                                        className="btn bg-white text-gray-900 hover:bg-gray-100 font-bold text-base sm:text-lg px-8 py-4 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all flex items-center justify-center"
+                                        className="btn bg-white text-gray-900 hover:bg-gray-100 font-bold text-base sm:text-lg px-8 py-4 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all flex items-center justify-center w-full"
                                     >
                                         <MessageSquare className="w-5 h-5 mr-2" />
                                         {aiSuggestion.cta}
                                     </button>
-                                    
-                                    <Link 
-                                        to={createPageUrl('ElyzetAIAssistants')}
-                                        className="btn bg-black/30 text-white hover:bg-black/40 border border-white/30 backdrop-blur-sm font-semibold text-base sm:text-lg px-8 py-4 flex items-center justify-center"
-                                    >
-                                        <Users className="w-5 h-5 mr-2" />
-                                        Meet Full AI Team
-                                    </Link>
+                                    <p className="text-xs sm:text-sm mt-3 opacity-75 font-medium">
+                                        💡 {recommendedAgent.name} is ready to guide you through your Foundation Roadmap tasks
+                                    </p>
                                 </div>
+                            </div>
+                        </div>
 
-                                <p className="text-xs sm:text-sm mt-2 opacity-75 font-medium">
-                                    💡 {recommendedAgent.name} is ready to guide you through your Foundation Roadmap tasks
-                                </p>
+                        {/* Other Team Members */}
+                        <div className="card p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 h-full flex flex-col" style={{ borderRadius: '2px' }}>
+                            <div className="flex items-center justify-between mb-4">
+                                <div>
+                                    <h3 className="text-xl font-bold text-[var(--text-main)]">Meet the Rest of the Team</h3>
+                                    <p className="text-sm text-[var(--text-soft)]">Specialized experts for every business need</p>
+                                </div>
+                                <Link 
+                                    to={createPageUrl('ElyzetAIAssistants')}
+                                    className="text-sm font-medium text-[var(--primary-gold)] hover:underline flex items-center"
+                                >
+                                    View All <ArrowRight className="w-4 h-4 ml-1" />
+                                </Link>
+                            </div>
+                            
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-y-auto flex-1 pr-1">
+                                {AI_TEAM_MEMBERS.filter(m => m.id !== recommendedAgent.id).map(member => (
+                                    <button
+                                        key={member.id}
+                                        onClick={() => openAIAssistant(member.id)}
+                                        className="p-3 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all text-left flex items-start gap-3 border border-gray-100 dark:border-gray-600 group h-full"
+                                    >
+                                        <span className="text-2xl group-hover:scale-110 transition-transform duration-300">{member.avatar}</span>
+                                        <div className="min-w-0">
+                                            <div className="font-bold text-sm text-[var(--text-main)] truncate">{member.name}</div>
+                                            <div className="text-[10px] uppercase tracking-wider text-[var(--primary-gold)] font-bold mb-1">{member.role}</div>
+                                            <p className="text-xs text-[var(--text-soft)] line-clamp-2 leading-relaxed">{member.description}</p>
+                                        </div>
+                                    </button>
+                                ))}
                             </div>
                         </div>
                     </div>
