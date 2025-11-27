@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { User } from '@/entities/User';
 import AITeamModal from '@/components/ai/AITeamModal';
 import { 
@@ -9,7 +9,8 @@ import {
     Zap,
     TrendingUp,
     Target,
-    BookOpen
+    BookOpen,
+    ChevronRight
 } from 'lucide-react';
 
 const AI_TEAM_MEMBERS = [
@@ -116,6 +117,14 @@ export default function ElyzetAIAssistants() {
     const [loading, setLoading] = useState(true);
     const [selectedAssistant, setSelectedAssistant] = useState(null);
     const [aiModalOpen, setAiModalOpen] = useState(false);
+    const [showDetails, setShowDetails] = useState({});
+
+    const toggleDetails = useCallback((id) => {
+        setShowDetails(prev => ({
+            ...prev,
+            [id]: !prev[id]
+        }));
+    }, []);
 
     React.useEffect(() => {
         loadUser();
