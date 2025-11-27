@@ -79,10 +79,12 @@ export default function FoundationProgress({ user }) {
         }
     };
 
-    // Only show for free users
-    if (!user || user.subscription_level !== 'free') {
+    // Show for all users
+    if (!user) {
         return null;
     }
+    
+    const isFreeUser = user.subscription_level === 'free';
 
     const progressPercentage = currentSteps.length > 0 ? Math.round((completedSteps.length / currentSteps.length) * 100) : 0;
     const nextStep = currentSteps.find(step => !completedSteps.includes(step.id));
@@ -202,22 +204,42 @@ export default function FoundationProgress({ user }) {
                         </div>
                     )}
 
-                    {/* Upgrade Incentive */}
+                    {/* Progress Incentive */}
                     {progressPercentage >= 60 && (
-                        <div className="mt-4 p-3 bg-gradient-to-r from-[var(--primary-gold)]/10 to-yellow-500/10 border border-[var(--primary-gold)] rounded-lg">
+                        <div className={`mt-4 p-3 rounded-lg ${isFreeUser ? 'bg-gradient-to-r from-[var(--primary-gold)]/10 to-yellow-500/10 border border-[var(--primary-gold)]' : 'bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border border-purple-300 dark:border-purple-700'}`}>
                             <div className="flex items-center gap-2 mb-2">
-                                <Crown className="w-4 h-4 text-[var(--primary-gold)]" />
+                                {isFreeUser ? (
+                                    <Crown className="w-4 h-4 text-[var(--primary-gold)]" />
+                                ) : (
+                                    <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                                )}
                                 <span className="text-sm font-bold text-[var(--text-main)]">You're making great progress!</span>
                             </div>
-                            <p className="text-xs text-[var(--text-soft)] mb-2">
-                                Complete your Customer Journey to unlock <strong className="text-[var(--primary-gold)]">$49.99/month for 3 months</strong> on The HQ.
-                            </p>
-                            <Link
-                                to={createPageUrl('Upgrade')}
-                                className="text-xs text-[var(--primary-gold)] font-medium hover:underline flex items-center"
-                            >
-                                View HQ Benefits <ChevronRight className="w-3 h-3 ml-1" />
-                            </Link>
+                            {isFreeUser ? (
+                                <>
+                                    <p className="text-xs text-[var(--text-soft)] mb-2">
+                                        Complete your Customer Journey to unlock <strong className="text-[var(--primary-gold)]">$49.99/month for 3 months</strong> on The HQ.
+                                    </p>
+                                    <Link
+                                        to={createPageUrl('Upgrade')}
+                                        className="text-xs text-[var(--primary-gold)] font-medium hover:underline flex items-center"
+                                    >
+                                        View HQ Benefits <ChevronRight className="w-3 h-3 ml-1" />
+                                    </Link>
+                                </>
+                            ) : (
+                                <>
+                                    <p className="text-xs text-[var(--text-soft)] mb-2">
+                                        Share your progress and connect with fellow entrepreneurs in the community!
+                                    </p>
+                                    <Link
+                                        to={createPageUrl('TheCommunity')}
+                                        className="text-xs text-purple-600 dark:text-purple-400 font-medium hover:underline flex items-center"
+                                    >
+                                        Share in Community <ChevronRight className="w-3 h-3 ml-1" />
+                                    </Link>
+                                </>
+                            )}
                         </div>
                     )}
                 </div>
