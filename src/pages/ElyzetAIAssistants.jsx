@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { User } from '@/entities/User';
 import AITeamModal from '@/components/ai/AITeamModal';
 import { 
@@ -9,25 +9,113 @@ import {
     Zap,
     TrendingUp,
     Target,
-    BookOpen,
-    ChevronRight
+    BookOpen
 } from 'lucide-react';
 
-import { AI_TEAM_MEMBERS } from '../components/ai/aiTeamInfo';
+const AI_TEAM_MEMBERS = [
+    {
+        id: 'elyzet',
+        name: 'Elyzet',
+        role: 'Chief Strategist',
+        avatar: '👔',
+        color: 'from-indigo-500 to-purple-600',
+        description: 'Your strategic advisor for big-picture thinking, mission & vision, and long-term business planning.',
+        expertise: [
+            'Mission & Vision Statements',
+            'Strategic Business Planning',
+            'Goal Setting & Alignment',
+            'Business Model Design',
+            'Decision-Making Guidance'
+        ],
+        bestFor: 'When you need clarity on your business direction, want to align your actions with your vision, or need help making strategic decisions.'
+    },
+    {
+        id: 'charlie',
+        name: 'Charlie',
+        role: 'Content Copywriter',
+        avatar: '✍️',
+        color: 'from-yellow-500 to-orange-600',
+        description: 'Your master wordsmith for all business writing - from website copy to emails, blogs to sales pages.',
+        expertise: [
+            'Website Copy & Sales Pages',
+            'Email Marketing Campaigns',
+            'Blog Posts & Articles',
+            'Ad Copy & Social Captions',
+            'SEO Content Writing'
+        ],
+        bestFor: 'When you need compelling copy written, want to improve your messaging, or need help with any business writing project.'
+    },
+    {
+        id: 'ava',
+        name: 'Ava',
+        role: 'Marketing Strategist',
+        avatar: '🎯',
+        color: 'from-pink-500 to-rose-600',
+        description: 'Your marketing expert who helps you attract and convert your ideal clients with smart, effective strategies.',
+        expertise: [
+            'Ideal Client Profiling',
+            'Value Proposition Design',
+            'Marketing Strategy',
+            'Brand Messaging',
+            'Customer Acquisition'
+        ],
+        bestFor: 'When you need to define your target market, craft compelling marketing messages, or develop strategies to attract more customers.'
+    },
+    {
+        id: 'sam',
+        name: 'Sam',
+        role: 'Social Media Guru',
+        avatar: '📱',
+        color: 'from-blue-500 to-cyan-600',
+        description: 'Your social media specialist who knows what works online and helps you build authentic connections.',
+        expertise: [
+            'Social Media Strategy',
+            'Content Creation Ideas',
+            'Platform Selection',
+            'Engagement Tactics',
+            'Social Media Branding'
+        ],
+        bestFor: 'When you need help choosing platforms, creating engaging content, or building an authentic online community.'
+    },
+    {
+        id: 'finley',
+        name: 'Finley',
+        role: 'Financial Forecaster',
+        avatar: '💰',
+        color: 'from-green-500 to-emerald-600',
+        description: 'Your financial advisor who makes the numbers make sense and helps you price for profit.',
+        expertise: [
+            'Pricing Strategy',
+            'Financial Projections',
+            'Value Ladder Design',
+            'Revenue Planning',
+            'Profit Optimization'
+        ],
+        bestFor: 'When you need help with pricing, creating financial forecasts, or designing revenue strategies that scale.'
+    },
+    {
+        id: 'olivia',
+        name: 'Olivia',
+        role: 'Operations Optimizer',
+        avatar: '⚙️',
+        color: 'from-orange-500 to-amber-600',
+        description: 'Your operations expert who helps you build systems, processes, and a business that runs smoothly.',
+        expertise: [
+            'Legal Structure Selection',
+            'Business Operations Setup',
+            'Systems & Processes',
+            'Standard Operating Procedures',
+            'Efficiency Optimization'
+        ],
+        bestFor: 'When you need to set up your business structure, create efficient systems, or optimize your operations.'
+    }
+];
 
 export default function ElyzetAIAssistants() {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [selectedAssistant, setSelectedAssistant] = useState(null);
     const [aiModalOpen, setAiModalOpen] = useState(false);
-    const [showDetails, setShowDetails] = useState({});
-
-    const toggleDetails = useCallback((id) => {
-        setShowDetails(prev => ({
-            ...prev,
-            [id]: !prev[id]
-        }));
-    }, []);
 
     React.useEffect(() => {
         loadUser();
@@ -161,54 +249,33 @@ export default function ElyzetAIAssistants() {
                             {member.description}
                         </p>
 
-                        <button
-                            onClick={() => toggleDetails(member.id)}
-                            className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline flex items-center mb-4"
-                        >
-                            {showDetails[member.id] ? 'Show Less' : 'Tell me more'} <ChevronRight className={`w-4 h-4 ml-1 transition-transform ${showDetails[member.id] ? 'rotate-90' : ''}`} />
-                        </button>
+                        <div className="mb-4">
+                            <h4 className="text-xs font-semibold text-[var(--text-main)] mb-2 uppercase">
+                                Expertise
+                            </h4>
+                            <ul className="space-y-1">
+                                {member.expertise.slice(0, 3).map((skill, index) => (
+                                    <li key={index} className="text-xs text-[var(--text-soft)] flex items-center gap-2">
+                                        <div className="w-1 h-1 bg-[var(--primary-gold)] rounded-full" />
+                                        {skill}
+                                    </li>
+                                ))}
+                                {member.expertise.length > 3 && (
+                                    <li className="text-xs text-[var(--text-soft)] italic">
+                                        + {member.expertise.length - 3} more areas
+                                    </li>
+                                )}
+                            </ul>
+                        </div>
 
-                        {showDetails[member.id] && (
-                            <div className="space-y-4 mb-4">
-                                <div>
-                                    <h4 className="text-sm font-semibold text-[var(--text-main)] mb-2">
-                                        How {member.name} Helps You Streamline Your Business:
-                                    </h4>
-                                    <p className="text-sm text-[var(--text-soft)]">
-                                        {member.howTheyHelp}
-                                    </p>
-                                </div>
-                                <div>
-                                    <h4 className="text-sm font-semibold text-[var(--text-main)] mb-2">
-                                        Real-World Example:
-                                    </h4>
-                                    <p className="text-sm text-[var(--text-soft)]">
-                                        {member.realWorldExample}
-                                    </p>
-                                </div>
-                                <div>
-                                    <h4 className="text-xs font-semibold text-[var(--text-main)] mb-2 uppercase">
-                                        Key Expertise Areas
-                                    </h4>
-                                    <ul className="space-y-1">
-                                        {member.expertise.map((skill, index) => (
-                                            <li key={index} className="text-xs text-[var(--text-soft)] flex items-center gap-2">
-                                                <div className="w-1 h-1 bg-[var(--primary-gold)] rounded-full" />
-                                                {skill}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                                <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                                    <h4 className="text-xs font-semibold text-[var(--text-main)] mb-1">
-                                        Best For:
-                                    </h4>
-                                    <p className="text-xs text-[var(--text-soft)]">
-                                        {member.bestFor}
-                                    </p>
-                                </div>
-                            </div>
-                        )}
+                        <div className="mb-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                            <h4 className="text-xs font-semibold text-[var(--text-main)] mb-1">
+                                Best For:
+                            </h4>
+                            <p className="text-xs text-[var(--text-soft)]">
+                                {member.bestFor}
+                            </p>
+                        </div>
 
                         <button
                             onClick={() => openAssistant(member)}
