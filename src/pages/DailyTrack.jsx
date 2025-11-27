@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { User, DailyProgress, RoadmapContent } from "@/entities/all";
+import { User, DailyProgress } from "@/entities/all";
+import { RoadmapContent } from "@/entities/RoadmapContent";
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Calendar, TrendingUp, Target, Edit3, Save, Plus, Trash2, ListChecks, CheckCircle, Loader2, Sparkles, AlertTriangle, X, ChevronRight } from "lucide-react";
