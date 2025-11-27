@@ -27,7 +27,7 @@ import FoundationRoadmapVisual from '../components/dashboard/FoundationRoadmapVi
 import JourneyTimeline from '../components/dashboard/JourneyTimeline';
 import FinancialSnapshot from '../components/dashboard/FinancialSnapshot';
 import GamificationDisplay from '../components/dashboard/GamificationDisplay';
-import QuoteOfTheDayCard from '../components/dashboard/QuoteOfTheDayCard';
+
 import ActionCard from '../components/dashboard/ActionCard';
 import Tooltip from '../components/common/Tooltip';
 import AITeamModal from '../components/ai/AITeamModal';
