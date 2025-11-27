@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from "react";
-import { User, DailyProgress } from "@/entities/all";
+import { User, DailyProgress, RoadmapContent } from "@/entities/all";
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Calendar, TrendingUp, Target, Edit3, Save, Plus, Trash2, ListChecks, CheckCircle, Loader2, Sparkles, AlertTriangle, X, ChevronRight } from "lucide-react";
@@ -47,51 +46,22 @@ export default function DailyTrack() {
       });
       console.log("Roadmap data structure:", roadmapData);
 
-      // Try multiple possible roadmap structures
+      // Fetch Roadmap Content from DB
       try {
-        const stage = userData.entrepreneurship_stage;
-        const goalId = userData.selected_goal;
-        const monthIndex = (userData.current_month || 1) - 1;
-        const weekIndex = (userData.current_week || 1) - 1;
+        const weekInMonth = ((userData.current_week - 1) % 4) + 1;
+        const content = await RoadmapContent.filter({
+            stage: userData.entrepreneurship_stage,
+            goal_id: userData.selected_goal,
+            month_number: userData.current_month,
+            week_number: weekInMonth,
+            is_published: true
+        });
 
-        let actionSteps = [];
-
-        // Method 1: Check roadmapData[stage].goals[goalId] structure
-        if (roadmapData && roadmapData[stage] && roadmapData[stage].goals && roadmapData[stage].goals[goalId]) {
-          const journey = roadmapData[stage].goals[goalId];
-          if (journey.months && journey.months[monthIndex] && journey.months[monthIndex].weeks && journey.months[monthIndex].weeks[weekIndex]) {
-            actionSteps = journey.months[monthIndex].weeks[weekIndex].actionSteps || [];
-            console.log("Found action steps using Method 1:", actionSteps);
-          }
+        if (content && content.length > 0) {
+            setWeeklyActionSteps(content[0].action_steps || []);
+        } else {
+            setWeeklyActionSteps([]);
         }
-
-        // Method 2: Check roadmapData.specialized structure (if Method 1 failed)
-        if (actionSteps.length === 0 && roadmapData && roadmapData.specialized) {
-          if (roadmapData.specialized[goalId] && 
-              roadmapData.specialized[goalId].months && 
-              roadmapData.specialized[goalId].months[monthIndex] && 
-              roadmapData.specialized[goalId].months[monthIndex].weeks && 
-              roadmapData.specialized[goalId].months[monthIndex].weeks[weekIndex]) {
-            actionSteps = roadmapData.specialized[goalId].months[monthIndex].weeks[weekIndex].actionSteps || [];
-            console.log("Found action steps using Method 2:", actionSteps);
-          }
-        }
-
-        // Method 3: Check roadmapData.foundation structure (if Methods 1 & 2 failed)
-        if (actionSteps.length === 0 && roadmapData && roadmapData.foundation) {
-          if (roadmapData.foundation[goalId] && 
-              roadmapData.foundation[goalId].months && 
-              roadmapData.foundation[goalId].months[monthIndex] && 
-              roadmapData.foundation[goalId].months[monthIndex].weeks && 
-              roadmapData.foundation[goalId].months[monthIndex].weeks[weekIndex]) {
-            actionSteps = roadmapData.foundation[goalId].months[monthIndex].weeks[weekIndex].actionSteps || [];
-            console.log("Found action steps using Method 3:", actionSteps);
-          }
-        }
-
-        console.log("Final action steps:", actionSteps);
-        setWeeklyActionSteps(actionSteps);
-
       } catch (roadmapError) {
         console.error("Error accessing roadmap data:", roadmapError);
         setWeeklyActionSteps([]);
