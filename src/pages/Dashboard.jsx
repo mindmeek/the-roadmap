@@ -366,36 +366,18 @@ export default function DashboardPage() {
                             </div>
                         </div>
 
-                        {/* Right: Meet the Full AI Team */}
-                        <div className="card p-4 sm:p-6 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700" style={{ borderRadius: '2px' }}>
-                            <div className="flex items-center gap-2 mb-3 sm:mb-4">
-                                <Users className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--primary-gold)]" />
-                                <h3 className="text-base sm:text-lg md:text-xl font-bold text-[var(--text-main)]">
-                                    Your AI Business Team
-                                </h3>
-                            </div>
-                            <p className="text-xs sm:text-sm text-[var(--text-soft)] mb-2 sm:mb-3">
-                                Six expert AI assistants designed to support your entrepreneurial journey. They'll help you work through your Foundation Roadmap, 90-Day Journey, and daily challenges.
-                            </p>
-                            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-2 sm:p-3 mb-3 sm:mb-4">
-                                <p className="text-xs text-blue-800 dark:text-blue-200 flex items-start gap-2">
-                                    <Target className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0 mt-0.5" />
-                                    <span><strong>How it works:</strong> Ask questions about your current task, and the AI will provide guidance and direct you to the right tools in your Foundation Roadmap or Journey to implement.</span>
-                                </p>
-                            </div>
-                            
-                            <div className="mt-6">
-                                <Link 
-                                    to={createPageUrl('ElyzetAIAssistants')}
-                                    className="btn btn-secondary w-full justify-center text-xs sm:text-sm"
-                                >
-                                    Meet the Full AI Team
-                                    <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 ml-2" />
-                                </Link>
-                            </div>
-                        </div>
                     </div>
                 )}
+                
+                <div className="text-center">
+                    <Link 
+                        to={createPageUrl('ElyzetAIAssistants')}
+                        className="text-sm font-medium text-[var(--primary-gold)] hover:underline inline-flex items-center"
+                    >
+                        Meet your full AI Business Team
+                        <ChevronRight className="w-4 h-4 ml-1" />
+                    </Link>
+                </div>
 
                 {/* Customer Journey Completion Incentive */}
                 {user.subscription_level === 'free' && !user.customer_journey_completed_date && (
