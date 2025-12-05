@@ -988,12 +988,12 @@ export default function Layout({ children, currentPageName }) {
             }, []);
 
             const handleCloseWelcomePopup = async () => {
-            setShowWelcomePopup(false);
-            try {
-            await User.updateMyUserData({ welcome_popup_seen: true });
-            } catch (error) {
-            console.error("Failed to update welcome popup status", error);
-            }
+                setShowWelcomePopup(false);
+                try {
+                    await base44.auth.updateMe({ welcome_popup_seen: true });
+                } catch (error) {
+                    console.error("Failed to update welcome popup status", error);
+                }
             };
 
     // Enhanced PWA Setup
