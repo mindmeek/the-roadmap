@@ -2,65 +2,121 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Plus, Building, Briefcase, ExternalLink, Crown, Star, Globe, CheckCircle, ArrowRight, Clock, Edit3, Users, MapPin, Mail, Phone, Eye } from 'lucide-react';
+import { Plus, Building, Briefcase, ExternalLink, Crown, Star, Globe, CheckCircle, ArrowRight, Clock, Edit3, Users, MapPin, Mail, Phone, Eye, UserPlus, Check, X } from 'lucide-react';
+import BusinessTeamModal from '@/components/business/BusinessTeamModal';
 
 export default function MyBusinessesPage() {
     const [user, setUser] = useState(null);
     const [businesses, setBusinesses] = useState([]);
     const [businessMembers, setBusinessMembers] = useState({});
+    const [invitations, setInvitations] = useState([]);
     const [loading, setLoading] = useState(true);
+    
+    // Modal State
+    const [isTeamModalOpen, setIsTeamModalOpen] = useState(false);
+    const [selectedBusiness, setSelectedBusiness] = useState(null);
 
     useEffect(() => {
-        const loadData = async () => {
-            try {
-                const userData = await base44.auth.me();
-                setUser(userData);
-
-                // Get all businesses where user is a member
-                const userMemberships = await base44.entities.BusinessMember.filter({
-                    user_email: userData.email
-                });
-
-                if (userMemberships.length > 0) {
-                    // Fetch full business details for each membership
-                    const businessPromises = userMemberships.map(async (membership) => {
-                        try {
-                            const bizData = await base44.entities.Business.get(membership.business_id);
-                            return { ...bizData, userRole: membership.role };
-                        } catch (e) {
-                            console.error("Error loading business:", e);
-                            return null;
-                        }
-                    });
-
-                    const businessData = await Promise.all(businessPromises);
-                    const validBusinesses = businessData.filter(b => b !== null);
-                    setBusinesses(validBusinesses);
-
-                    // Fetch all members for each business
-                    const membersPromises = validBusinesses.map(async (biz) => {
-                        const members = await base44.entities.BusinessMember.filter({
-                            business_id: biz.id
-                        });
-                        return { businessId: biz.id, members };
-                    });
-
-                    const membersData = await Promise.all(membersPromises);
-                    const membersMap = {};
-                    membersData.forEach(({ businessId, members }) => {
-                        membersMap[businessId] = members;
-                    });
-                    setBusinessMembers(membersMap);
-                }
-            } catch (error) {
-                console.error("Error loading user data:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         loadData();
     }, []);
+
+    const loadData = async () => {
+        try {
+            const userData = await base44.auth.me();
+            setUser(userData);
+
+            // 1. Get Pending Invitations
+            const myInvites = await base44.entities.BusinessInvitation.filter({
+                recipient_email: userData.email,
+                status: 'pending'
+            });
+            
+            // Enhance invitations with business names
+            const invitesWithDetails = await Promise.all(myInvites.map(async (invite) => {
+                const biz = await base44.entities.Business.get(invite.business_id);
+                return { ...invite, businessName: biz?.name || 'Unknown Business' };
+            }));
+            setInvitations(invitesWithDetails);
+
+            // 2. Get all businesses where user is a member
+            const userMemberships = await base44.entities.BusinessMember.filter({
+                user_email: userData.email
+            });
+
+            if (userMemberships.length > 0) {
+                // Fetch full business details for each membership
+                const businessPromises = userMemberships.map(async (membership) => {
+                    try {
+                        const bizData = await base44.entities.Business.get(membership.business_id);
+                        return { ...bizData, userRole: membership.role };
+                    } catch (e) {
+                        console.error("Error loading business:", e);
+                        return null;
+                    }
+                });
+
+                const businessData = await Promise.all(businessPromises);
+                const validBusinesses = businessData.filter(b => b !== null);
+                setBusinesses(validBusinesses);
+
+                // Fetch preview members for each business (limit 5 for efficiency)
+                // We use the backend function if we want full list, but for preview standard RLS might only show self.
+                // However, if we updated RLS or rely on the fact that previously it was showing members...
+                // Actually, the previous code used BusinessMember.filter({ business_id: biz.id }). 
+                // If RLS restricts this to only 'me', then the preview list will only show 'me'.
+                // To fix this for the dashboard view, we should use the getBusinessMembers function if possible, 
+                // or just accept that preview might be limited without service role.
+                // Let's stick to the previous pattern but maybe use the function if needed. 
+                // For now, let's keep the standard filter, if it fails to show others, that's a known RLS limitation we solved with the Modal.
+                
+                const membersPromises = validBusinesses.map(async (biz) => {
+                    // Try fetching via function to see all members
+                    try {
+                         const { data } = await base44.functions.invoke('getBusinessMembers', { business_id: biz.id });
+                         return { businessId: biz.id, members: data.members || [] };
+                    } catch (e) {
+                        return { businessId: biz.id, members: [] };
+                    }
+                });
+
+                const membersData = await Promise.all(membersPromises);
+                const membersMap = {};
+                membersData.forEach(({ businessId, members }) => {
+                    membersMap[businessId] = members;
+                });
+                setBusinessMembers(membersMap);
+            }
+        } catch (error) {
+            console.error("Error loading data:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleRespondToInvite = async (inviteId, accept) => {
+        try {
+            const { data, error } = await base44.functions.invoke('acceptBusinessInvitation', {
+                invitation_id: inviteId,
+                accept: accept
+            });
+            
+            if (error || data.error) {
+                alert("Error: " + (error?.message || data?.error));
+                return;
+            }
+
+            // Remove from list and reload data
+            setInvitations(prev => prev.filter(i => i.id !== inviteId));
+            if (accept) loadData(); // Reload to show new business
+        } catch (error) {
+            console.error("Error responding to invite:", error);
+        }
+    };
+
+    const openTeamModal = (business) => {
+        setSelectedBusiness(business);
+        setIsTeamModalOpen(true);
+    };
 
     if (loading) {
         return (
@@ -73,7 +129,6 @@ export default function MyBusinessesPage() {
     const isPaidMember = user?.subscription_level === 'business_hq';
     const isStartupOrGrowth = user?.entrepreneurship_stage === 'startup' || user?.entrepreneurship_stage === 'growth';
     const canAccessDirectory = isPaidMember && isStartupOrGrowth;
-
     const defaultLogo = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/fa6078871_LargeAppIcon.png";
 
     const getRoleBadge = (role) => {
@@ -86,7 +141,7 @@ export default function MyBusinessesPage() {
     };
 
     return (
-        <div className="px-4 sm:px-6 lg:px-8 py-8 max-w-6xl mx-auto">
+        <div className="px-4 sm:px-6 lg:px-8 py-8 max-w-6xl mx-auto pb-24">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
                 <div>
                     <h1 className="text-3xl font-bold text-[var(--text-main)]">My Businesses</h1>
@@ -98,16 +153,52 @@ export default function MyBusinessesPage() {
                 </Link>
             </div>
 
+            {/* Invitations Section */}
+            {invitations.length > 0 && (
+                <div className="mb-8 animate-in fade-in slide-in-from-top-4">
+                    <h2 className="text-lg font-semibold text-[var(--text-main)] mb-4 flex items-center gap-2">
+                        <Mail className="w-5 h-5 text-[var(--primary-gold)]" />
+                        Pending Invitations
+                    </h2>
+                    <div className="space-y-3">
+                        {invitations.map(invite => (
+                            <div key={invite.id} className="card p-4 border-l-4 border-[var(--primary-gold)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                                <div>
+                                    <p className="font-medium text-[var(--text-main)]">
+                                        You have been invited to join <span className="font-bold">{invite.businessName}</span> as a <span className="capitalize">{invite.role_to_assign}</span>.
+                                    </p>
+                                    {invite.message && <p className="text-sm text-[var(--text-soft)] mt-1">"{invite.message}"</p>}
+                                </div>
+                                <div className="flex gap-2">
+                                    <button 
+                                        onClick={() => handleRespondToInvite(invite.id, true)}
+                                        className="btn bg-green-600 hover:bg-green-700 text-white flex items-center gap-1 px-3 py-1.5 text-sm"
+                                    >
+                                        <Check className="w-4 h-4" /> Accept
+                                    </button>
+                                    <button 
+                                        onClick={() => handleRespondToInvite(invite.id, false)}
+                                        className="btn bg-red-100 hover:bg-red-200 text-red-700 flex items-center gap-1 px-3 py-1.5 text-sm"
+                                    >
+                                        <X className="w-4 h-4" /> Decline
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
             {/* Business Cards Section */}
             {businesses.length > 0 ? (
                 <div className="space-y-6 mb-8">
                     {businesses.map((business) => {
                         const members = businessMembers[business.id] || [];
                         const roleBadge = getRoleBadge(business.userRole);
-                        const canEdit = business.userRole === 'owner' || business.userRole === 'admin';
+                        const canManageTeam = business.userRole === 'owner' || business.userRole === 'admin';
 
                         return (
-                            <div key={business.id} className="card p-6">
+                            <div key={business.id} className="card p-6 hover:shadow-md transition-shadow">
                                 {/* Business Header */}
                                 <div className="flex flex-col md:flex-row gap-6 mb-6">
                                     <div className="flex-shrink-0">
@@ -118,7 +209,7 @@ export default function MyBusinessesPage() {
                                         />
                                     </div>
                                     <div className="flex-grow">
-                                        <div className="flex items-start justify-between gap-4">
+                                        <div className="flex items-start justify-between gap-4 flex-wrap">
                                             <div>
                                                 <div className="flex items-center gap-3 mb-2">
                                                     <h2 className="text-2xl font-bold text-[var(--text-main)]">{business.name}</h2>
@@ -133,22 +224,31 @@ export default function MyBusinessesPage() {
                                                     <p className="text-[var(--primary-gold)] font-medium">{business.industry}</p>
                                                 )}
                                             </div>
-                                            <div className="flex gap-2">
+                                            <div className="flex gap-2 flex-wrap">
                                                 <Link 
                                                     to={createPageUrl('BusinessProfile') + '?id=' + business.id}
-                                                    className="btn btn-secondary"
+                                                    className="btn btn-secondary text-sm"
                                                 >
                                                     <Eye className="w-4 h-4 mr-2" />
-                                                    View Profile
+                                                    View
                                                 </Link>
-                                                {canEdit && (
-                                                    <Link 
-                                                        to={createPageUrl('EditBusiness') + '?id=' + business.id}
-                                                        className="btn btn-primary"
-                                                    >
-                                                        <Edit3 className="w-4 h-4 mr-2" />
-                                                        Manage
-                                                    </Link>
+                                                {canManageTeam && (
+                                                    <>
+                                                        <Link 
+                                                            to={createPageUrl('EditBusiness') + '?id=' + business.id}
+                                                            className="btn btn-secondary text-sm"
+                                                        >
+                                                            <Edit3 className="w-4 h-4 mr-2" />
+                                                            Edit
+                                                        </Link>
+                                                        <button 
+                                                            onClick={() => openTeamModal(business)}
+                                                            className="btn btn-primary text-sm"
+                                                        >
+                                                            <Users className="w-4 h-4 mr-2" />
+                                                            Team
+                                                        </button>
+                                                    </>
                                                 )}
                                             </div>
                                         </div>
@@ -159,18 +259,6 @@ export default function MyBusinessesPage() {
                                                 <div className="flex items-center gap-2 text-sm text-[var(--text-soft)]">
                                                     <MapPin className="w-4 h-4" />
                                                     <span>{business.city}</span>
-                                                </div>
-                                            )}
-                                            {business.public_email && (
-                                                <div className="flex items-center gap-2 text-sm text-[var(--text-soft)]">
-                                                    <Mail className="w-4 h-4" />
-                                                    <span>{business.public_email}</span>
-                                                </div>
-                                            )}
-                                            {business.public_phone && (
-                                                <div className="flex items-center gap-2 text-sm text-[var(--text-soft)]">
-                                                    <Phone className="w-4 h-4" />
-                                                    <span>{business.public_phone}</span>
                                                 </div>
                                             )}
                                             {business.website_url && (
@@ -187,86 +275,64 @@ export default function MyBusinessesPage() {
                                                 </div>
                                             )}
                                         </div>
-
-                                        {/* Description */}
-                                        {business.description && (
-                                            <p className="text-[var(--text-soft)] mt-4 line-clamp-2">
-                                                {business.description}
-                                            </p>
-                                        )}
                                     </div>
                                 </div>
 
-                                {/* Team Members Section */}
+                                {/* Team Members Preview */}
                                 {members.length > 0 && (
-                                    <div className="border-t pt-4">
+                                    <div className="border-t border-gray-100 dark:border-gray-800 pt-4">
                                         <div className="flex items-center justify-between mb-3">
-                                            <h3 className="font-semibold text-[var(--text-main)] flex items-center gap-2">
-                                                <Users className="w-4 h-4" />
-                                                Team Members ({members.length})
+                                            <h3 className="text-sm font-semibold text-[var(--text-main)] flex items-center gap-2">
+                                                <Users className="w-4 h-4 text-[var(--text-soft)]" />
+                                                Team ({members.length})
                                             </h3>
+                                            {canManageTeam && (
+                                                <button 
+                                                    onClick={() => openTeamModal(business)}
+                                                    className="text-xs text-[var(--primary-gold)] hover:underline font-medium"
+                                                >
+                                                    Manage Team
+                                                </button>
+                                            )}
                                         </div>
-                                        <div className="flex flex-wrap gap-3">
-                                            {members.slice(0, 8).map((member) => (
+                                        <div className="flex flex-wrap gap-2">
+                                            {members.slice(0, 6).map((member) => (
                                                 <div 
                                                     key={member.id}
-                                                    className="flex items-center gap-2 bg-gray-50 dark:bg-gray-800 px-3 py-2 rounded-lg"
+                                                    className="relative group"
+                                                    title={`${member.full_name} (${member.role})`}
                                                 >
                                                     <img 
                                                         src={member.profile_picture_url || defaultLogo}
                                                         alt={member.full_name}
-                                                        className="w-8 h-8 rounded-full object-cover"
+                                                        className={`w-8 h-8 rounded-full object-cover border-2 ${
+                                                            member.role === 'owner' ? 'border-purple-400' : 
+                                                            member.role === 'admin' ? 'border-blue-400' : 
+                                                            'border-transparent'
+                                                        }`}
                                                     />
-                                                    <div className="min-w-0">
-                                                        <p className="text-sm font-medium text-[var(--text-main)] truncate">
-                                                            {member.full_name}
-                                                        </p>
-                                                        <p className="text-xs text-[var(--text-soft)] capitalize">
-                                                            {member.role}
-                                                        </p>
-                                                    </div>
                                                 </div>
                                             ))}
-                                            {members.length > 8 && (
-                                                <div className="flex items-center justify-center bg-gray-50 dark:bg-gray-800 px-4 py-2 rounded-lg">
-                                                    <span className="text-sm text-[var(--text-soft)]">
-                                                        +{members.length - 8} more
-                                                    </span>
+                                            {members.length > 6 && (
+                                                <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-xs text-[var(--text-soft)] font-medium">
+                                                    +{members.length - 6}
                                                 </div>
                                             )}
                                         </div>
                                     </div>
                                 )}
 
-                                {/* Directory Status */}
-                                <div className="border-t pt-4 mt-4">
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex items-center gap-2">
-                                            {business.is_publicly_listed ? (
-                                                <>
-                                                    <CheckCircle className="w-4 h-4 text-green-600" />
-                                                    <span className="text-sm text-green-600 dark:text-green-400 font-medium">
-                                                        Listed on The Index
-                                                    </span>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <Clock className="w-4 h-4 text-gray-400" />
-                                                    <span className="text-sm text-[var(--text-soft)]">
-                                                        Not listed publicly
-                                                    </span>
-                                                </>
-                                            )}
+                                {/* Directory Status (Simplified) */}
+                                <div className="border-t border-gray-100 dark:border-gray-800 pt-4 mt-4 flex items-center gap-2">
+                                    {business.is_publicly_listed ? (
+                                        <div className="flex items-center gap-1 text-green-600 text-xs font-medium">
+                                            <CheckCircle className="w-3 h-3" /> Listed on The Index
                                         </div>
-                                        {canEdit && (
-                                            <Link 
-                                                to={createPageUrl('EditBusiness') + '?id=' + business.id}
-                                                className="text-sm text-[var(--primary-gold)] hover:underline"
-                                            >
-                                                Update Settings
-                                            </Link>
-                                        )}
-                                    </div>
+                                    ) : (
+                                        <div className="flex items-center gap-1 text-[var(--text-soft)] text-xs">
+                                            <Clock className="w-3 h-3" /> Not listed publicly
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         );
@@ -286,163 +352,35 @@ export default function MyBusinessesPage() {
                 </div>
             )}
 
+            {/* Team Management Modal */}
+            <BusinessTeamModal 
+                isOpen={isTeamModalOpen}
+                onClose={() => setIsTeamModalOpen(false)}
+                business={selectedBusiness}
+                currentUser={user}
+            />
+
             {/* The Index Section */}
-            {canAccessDirectory ? (
-                <div className="space-y-6">
-                    <div className="card p-8 bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 border-2 border-red-600">
-                        <div className="flex flex-col md:flex-row items-start gap-6">
-                            <div className="flex-shrink-0">
-                               <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/29ba9d749_Indexlogo.png" alt="The Index Logo" className="h-12 w-auto bg-black p-2 rounded-md" />
-                            </div>
-                            <div className="flex-1">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <h2 className="text-2xl font-bold text-[var(--text-main)]">Get Listed on The Index</h2>
-                                    <div className="flex items-center gap-2 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                                        <Crown className="w-4 h-4" />
-                                        Paid Member Benefit
-                                    </div>
-                                </div>
-                                <p className="text-[var(--text-soft)] mb-4 text-lg leading-relaxed">
-                                    List your business on our public directory at <span className="font-semibold text-red-600">TheIndex.cc</span> and get discovered by potential clients and partners.
-                                </p>
-                                
-                                <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-md my-4 flex items-center gap-3">
-                                    <Clock className="w-5 h-5"/>
-                                    <div>
-                                        <p className="font-bold">Launching Soon!</p>
-                                        <p>The Index directory will be live in approximately 3 weeks. We'll notify you when you can add your listing!</p>
-                                    </div>
-                                </div>
-
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                                    <div className="flex items-center gap-3">
-                                        <CheckCircle className="w-5 h-5 text-green-600" />
-                                        <span className="text-[var(--text-main)]">Professional business listing</span>
-                                    </div>
-                                    <div className="flex items-center gap-3">
-                                        <CheckCircle className="w-5 h-5 text-green-600" />
-                                        <span className="text-[var(--text-main)]">SEO-optimized profile</span>
-                                    </div>
-                                    <div className="flex items-center gap-3">
-                                        <CheckCircle className="w-5 h-5 text-green-600" />
-                                        <span className="text-[var(--text-main)]">Direct client inquiries</span>
-                                    </div>
-                                    <div className="flex items-center gap-3">
-                                        <CheckCircle className="w-5 h-5 text-green-600" />
-                                        <span className="text-[var(--text-main)]">Enhanced visibility</span>
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-col sm:flex-row gap-4 mt-6">
-                                    <button 
-                                        disabled
-                                        className="btn btn-primary flex items-center gap-2 bg-gray-400 cursor-not-allowed"
-                                    >
-                                        <Building className="w-5 h-5" />
-                                        Access Directory Portal (Coming Soon)
-                                    </button>
-                                    <a 
-                                        href="https://theindex.cc" 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="btn btn-secondary flex items-center gap-2"
-                                    >
-                                        <Globe className="w-5 h-5" />
-                                        Visit TheIndex.cc
-                                        <ExternalLink className="w-4 h-4" />
-                                    </a>
-                                </div>
-                            </div>
+            {canAccessDirectory && (
+                <div className="card p-8 bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 border-2 border-red-600 mt-8">
+                    <div className="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+                        <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/29ba9d749_Indexlogo.png" alt="The Index Logo" className="h-12 w-auto bg-black p-2 rounded-md" />
+                        <div className="flex-1">
+                            <h2 className="text-xl font-bold text-[var(--text-main)] mb-1">Get Listed on The Index</h2>
+                            <p className="text-[var(--text-soft)] text-sm">
+                                List your business on our public directory at <span className="font-semibold text-red-600">TheIndex.cc</span>.
+                            </p>
                         </div>
-                    </div>
-                </div>
-            ) : (
-                <div className="space-y-6">
-                    <div className="card p-8 text-center bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
-                        <div className="flex justify-center mb-6">
-                           <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/29ba9d749_Indexlogo.png" alt="The Index Logo" className="h-16 w-auto" />
-                        </div>
-                        <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4">
-                           Get Listed on The Index
-                        </h2>
-                        <p className="text-[var(--text-soft)] text-lg mb-8 max-w-2xl mx-auto">
-                            Get your business discovered by potential clients and partners on our exclusive member directory at <span className="font-semibold text-[var(--primary-gold)]">TheIndex.cc</span>. 
-                            This premium feature is available to paid members who have reached the Startup or Growth stage.
-                        </p>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 max-w-4xl mx-auto">
-                            <div className="text-center">
-                                <div className="bg-green-100 dark:bg-green-800 p-3 rounded-lg w-fit mx-auto mb-3">
-                                    <Globe className="w-6 h-6 text-green-600 dark:text-green-300" />
-                                </div>
-                                <h3 className="font-semibold text-[var(--text-main)] mb-2">Public Visibility</h3>
-                                <p className="text-sm text-[var(--text-soft)]">Get found by potential clients searching our directory</p>
-                            </div>
-                            <div className="text-center">
-                                <div className="bg-purple-100 dark:bg-purple-800 p-3 rounded-lg w-fit mx-auto mb-3">
-                                    <Star className="w-6 h-6 text-purple-600 dark:text-purple-300" />
-                                </div>
-                                <h3 className="font-semibold text-[var(--text-main)] mb-2">Professional Profile</h3>
-                                <p className="text-sm text-[var(--text-soft)]">Showcase your services, gallery, and testimonials</p>
-                            </div>
-                            <div className="text-center">
-                                <div className="bg-orange-100 dark:bg-orange-800 p-3 rounded-lg w-fit mx-auto mb-3">
-                                    <CheckCircle className="w-6 h-6 text-orange-600 dark:text-orange-300" />
-                                </div>
-                                <h3 className="font-semibold text-[var(--text-main)] mb-2">Direct Inquiries</h3>
-                                <p className="text-sm text-[var(--text-soft)]">Receive leads directly through your listing</p>
-                            </div>
-                        </div>
-
-                        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 mb-8 max-w-2xl mx-auto">
-                            <h3 className="font-semibold text-[var(--text-main)] mb-4">Requirements for Directory Access:</h3>
-                            <div className="space-y-3">
-                                <div className="flex items-center gap-3 justify-center">
-                                    {isPaidMember ? (
-                                        <CheckCircle className="w-5 h-5 text-green-600" />
-                                    ) : (
-                                        <div className="w-5 h-5 rounded-full border-2 border-gray-300"></div>
-                                    )}
-                                    <span className={isPaidMember ? "text-green-600" : "text-[var(--text-soft)]"}>
-                                        Paid Membership (Business HQ)
-                                    </span>
-                                </div>
-                                <div className="flex items-center gap-3 justify-center">
-                                    {isStartupOrGrowth ? (
-                                        <CheckCircle className="w-5 h-5 text-green-600" />
-                                    ) : (
-                                        <div className="w-5 h-5 rounded-full border-2 border-gray-300"></div>
-                                    )}
-                                    <span className={isStartupOrGrowth ? "text-green-600" : "text-[var(--text-soft)]"}>
-                                        Startup or Growth Stage (Currently: {user?.entrepreneurship_stage || 'Vision'} Stage)
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            {!isPaidMember && (
-                                <Link to={createPageUrl("Upgrade")} className="btn btn-primary">
-                                    <Crown className="w-5 h-5 mr-2" />
-                                    Upgrade to Unlock Access
-                                </Link>
-                            )}
-                            {!isStartupOrGrowth && (
-                                <Link to={createPageUrl("Journey")} className="btn btn-secondary">
-                                    <ArrowRight className="w-5 h-5 mr-2" />
-                                    Continue Your Journey
-                                </Link>
-                            )}
-                            <a 
-                                href="https://theindex.cc" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="btn btn-ghost"
-                            >
-                                <Globe className="w-5 h-5 mr-2" />
-                                Visit TheIndex.cc
-                            </a>
-                        </div>
+                        <a 
+                            href="https://theindex.cc" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="btn btn-secondary flex items-center gap-2"
+                        >
+                            <Globe className="w-4 h-4" />
+                            Visit TheIndex.cc
+                            <ExternalLink className="w-3 h-3" />
+                        </a>
                     </div>
                 </div>
             )}
