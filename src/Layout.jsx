@@ -976,21 +976,24 @@ export default function Layout({ children, currentPageName }) {
                 const userData = await User.me();
                 setUser(userData);
 
-                const welcomePopupShown = localStorage.getItem('welcomePopupShown');
-                if (userData && userData.onboarding_completed && !welcomePopupShown) {
+                if (userData && userData.onboarding_completed && !userData.welcome_popup_seen) {
                     setTimeout(() => setShowWelcomePopup(true), 500);
                 }
             } catch (e) {
                 // Not logged in
             }
-        };
-        fetchUserAndCheckOnboarding();
-    }, []);
+            };
+            fetchUserAndCheckOnboarding();
+            }, []);
 
-    const handleCloseWelcomePopup = () => {
-        setShowWelcomePopup(false);
-        localStorage.setItem('welcomePopupShown', 'true');
-    };
+            const handleCloseWelcomePopup = async () => {
+            setShowWelcomePopup(false);
+            try {
+            await User.updateMyUserData({ welcome_popup_seen: true });
+            } catch (error) {
+            console.error("Failed to update welcome popup status", error);
+            }
+            };
 
     // Enhanced PWA Setup
     useEffect(() => {
