@@ -597,6 +597,13 @@ export default function DashboardPage() {
                 {/* Quick Actions Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                     <ActionCard
+                        title="Annual Strategy"
+                        description="Plan your year and quarterly goals"
+                        icon={Calendar}
+                        link="AnnualPlanning"
+                        color="from-indigo-500 to-purple-600"
+                    />
+                    <ActionCard
                         title="Daily 1% Tracker"
                         description="Log today's progress and wins"
                         icon={TrendingUp}
