@@ -37,6 +37,7 @@ const myJourneyHubItems = [
     { href: "MyFoundationRoadmap", icon: Layers, label: "My Foundation Roadmap", mobileLabel: "Foundation" },
     { href: "QuickStartFoundation", icon: Zap, label: "Quick Wins", mobileLabel: "Quick Wins" },
     { href: "FreedomCalculator", icon: PiggyBank, label: "My Financial Goal", mobileLabel: "Financial Goal" },
+    { href: "AnnualPlanning", icon: Calendar, label: "Annual Strategy", mobileLabel: "Annual Plan" },
     { href: "DailyTrack", icon: BarChart2, label: "Daily 1% Tracker", mobileLabel: "Daily 1%" },
     { href: "Schedule", icon: Calendar, label: "Daily Scheduler", mobileLabel: "Schedule" },
     { href: "LiveWebinar", icon: Video, label: "Live Webinars", mobileLabel: "Webinars" },
