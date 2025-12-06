@@ -19,7 +19,8 @@ import {
     BookOpen,
     Award,
     Rocket,
-    MessageSquare
+    MessageSquare,
+    Newspaper
 } from 'lucide-react';
 import moment from 'moment';
 
@@ -595,7 +596,7 @@ export default function DashboardPage() {
 
 
                 {/* Quick Actions Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                     <ActionCard
                         title="Annual Strategy"
                         description="Plan your year and quarterly goals"
@@ -604,25 +605,11 @@ export default function DashboardPage() {
                         color="from-indigo-500 to-purple-600"
                     />
                     <ActionCard
-                        title="Daily 1% Tracker"
-                        description="Log today's progress and wins"
-                        icon={TrendingUp}
-                        link="DailyTrack"
-                        color="from-blue-500 to-blue-600"
-                    />
-                    <ActionCard
-                        title="Community"
-                        description="Connect with entrepreneurs"
-                        icon={Users}
-                        link="TheCommunity"
-                        color="from-purple-500 to-purple-600"
-                    />
-                    <ActionCard
-                        title="Daily Scheduler"
-                        description="Plan your productive day"
-                        icon={Calendar}
-                        link="Schedule"
-                        color="from-green-500 to-green-600"
+                        title="Magazine"
+                        description="Read the latest insights and trends"
+                        icon={Newspaper}
+                        link="Magazine"
+                        color="from-pink-500 to-rose-600"
                     />
                 </div>
 
