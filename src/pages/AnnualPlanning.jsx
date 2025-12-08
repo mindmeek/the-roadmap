@@ -174,12 +174,12 @@ export default function AnnualPlanningPage() {
         }
     };
 
-    const QuestionnaireModal = () => {
+    const renderQuestionnaire = () => {
+        if (!showQuestionnaire) return null;
+        
         const questions = getQuestions();
         const currentQ = questions[questionnaireStep];
         const isLast = questionnaireStep === questions.length - 1;
-
-        if (!showQuestionnaire) return null;
 
         return (
             <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
@@ -336,7 +336,7 @@ export default function AnnualPlanningPage() {
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
-            <QuestionnaireModal />
+            {renderQuestionnaire()}
             {/* Header */}
             <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10">
                 <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
