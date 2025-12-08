@@ -22,7 +22,10 @@ Deno.serve(async (req) => {
         Please generate a structured plan with:
         1. An inspiring Title.
         2. A detailed Vision Description.
-        3. 4 Quarterly Objectives, each with 2-3 Key Results (measurable outcomes).
+        3. 4 Quarterly Objectives.
+        4. For each Objective, provide:
+           - 2-3 Key Results (measurable outcomes)
+           - Specific Strategy & Tactics to achieve this objective (a paragraph or bullet points)
         
         Output MUST be valid JSON matching this structure:
         {
@@ -32,6 +35,7 @@ Deno.serve(async (req) => {
                 {
                     "quarter": 1,
                     "objective": "String",
+                    "tactics": "String",
                     "key_results": ["String", "String"]
                 },
                 ... (for all 4 quarters)
@@ -53,12 +57,13 @@ Deno.serve(async (req) => {
                             properties: {
                                 quarter: { type: "number" },
                                 objective: { type: "string" },
+                                tactics: { type: "string" },
                                 key_results: { 
                                     type: "array", 
                                     items: { type: "string" } 
                                 }
                             },
-                            required: ["quarter", "objective", "key_results"]
+                            required: ["quarter", "objective", "tactics", "key_results"]
                         }
                     }
                 },
