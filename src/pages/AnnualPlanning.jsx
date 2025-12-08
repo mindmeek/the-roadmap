@@ -460,26 +460,30 @@ export default function AnnualPlanningPage() {
                     </div>
                     
                     {/* Financial Goal Card */}
-                    <div className="card p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-100 dark:border-green-800 flex flex-col justify-center">
-                        <div className="text-center">
-                            <div className="inline-block bg-white dark:bg-gray-800 p-3 rounded-full shadow-sm mb-3">
-                                <Target className="w-6 h-6 text-green-600" />
+                    <div className="card p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex flex-col justify-center">
+                        <div className="flex items-center gap-4">
+                            <div className="bg-green-100 dark:bg-green-900/30 p-3 rounded-lg text-green-600 dark:text-green-400">
+                                <Target className="w-6 h-6" />
                             </div>
-                            <h3 className="text-sm font-semibold text-green-900 dark:text-green-200 uppercase tracking-wide mb-1">Financial Freedom Goal</h3>
-                            <p className="text-3xl font-bold text-green-700 dark:text-green-300">
-                                {financialGoal 
-                                    ? `$${parseInt(financialGoal).toLocaleString()}` 
-                                    : currentPlan.financial_goal_snapshot 
-                                        ? currentPlan.financial_goal_snapshot 
-                                        : "$0"
-                                }
-                            </p>
-                            <p className="text-xs text-green-800 dark:text-green-400 mt-2">Annual Revenue Target</p>
-                            {!financialGoal && (
-                                <button onClick={() => navigate(createPageUrl('FreedomCalculator'))} className="text-xs text-green-600 hover:underline mt-2">
-                                    Set Goal
-                                </button>
-                            )}
+                            <div>
+                                <h3 className="text-xs font-medium text-[var(--text-soft)] uppercase tracking-wider mb-1">Financial Freedom Goal</h3>
+                                <div className="flex items-baseline gap-2">
+                                    <p className="text-2xl font-bold text-[var(--text-main)]">
+                                        {financialGoal 
+                                            ? `$${parseInt(financialGoal).toLocaleString()}` 
+                                            : currentPlan.financial_goal_snapshot 
+                                                ? currentPlan.financial_goal_snapshot 
+                                                : "$0"
+                                        }
+                                    </p>
+                                    <span className="text-xs text-[var(--text-soft)]">/ year</span>
+                                </div>
+                                {!financialGoal && (
+                                    <button onClick={() => navigate(createPageUrl('FreedomCalculator'))} className="text-xs text-[var(--primary-gold)] hover:underline mt-1">
+                                        Set Goal
+                                    </button>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
