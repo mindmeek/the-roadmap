@@ -133,7 +133,7 @@ const nichePrograms = [
     color: "from-yellow-600 to-orange-600",
     imageUrl: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&h=400&fit=crop",
     metrics: [
-      { label: "Downloads", value: "1,000+ monthly" },
+      { label: "Streams", value: "1,000+ monthly" },
       { label: "Episodes", value: "12+ published" },
       { label: "Revenue", value: "First sponsors" },
       { label: "Growth", value: "Organic reach" }

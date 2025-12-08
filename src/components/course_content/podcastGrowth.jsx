@@ -1,18 +1,18 @@
-import { Mic, Users, Megaphone, DollarSign, Target, Award, MonitorPlay, Zap, BarChart } from 'lucide-react';
+import { Mic, Users, Megaphone, DollarSign, Target, Award, MonitorPlay, Zap, BarChart, Radio } from 'lucide-react';
 
 export const podcastGrowthRoadmap = {
   courseTitle: "Podcast Growth Plan",
-  courseDescription: "Launch, grow, and monetize a professional podcast in 90 days. This roadmap guides you from concept to chart-topping show with a loyal audience.",
+  courseDescription: "Launch, grow, and monetize a professional podcast in 90 days. Leverage our partners Riverside.fm for AI-powered recording/distribution and EqualizerRadio.com for exposure.",
   
   successMetrics: {
-    downloads: "1,000+ monthly downloads",
+    downloads: "1,000+ monthly streams",
     episodes: "12+ episodes published",
     reviews: "50+ 5-star reviews",
     revenue: "First sponsorship or monetized offer"
   },
 
   kpiChecklist: [
-    { metric: "Weekly Downloads", target: "250+ per week" },
+    { metric: "Weekly Streams", target: "250+ per week" },
     { metric: "Listener Retention", target: "75%+ completion rate" },
     { metric: "Social Shares", target: "10+ per episode" },
     { metric: "Email Subscribers", target: "100+ from podcast" }
@@ -53,29 +53,29 @@ export const podcastGrowthRoadmap = {
     },
     {
       weekNumber: 2,
-      weekTitle: "Equipment & Tech Setup",
-      weekDescription: "Get the right gear and set up your hosting platform.",
+      weekTitle: "Equipment & Partner Setup",
+      weekDescription: "Get the right gear and set up your Riverside.fm account.",
       icon: Mic,
       dailyTime: "1 hour",
-      weeklyGoal: "Record a high-quality test episode.",
+      weeklyGoal: "Set up Riverside.fm and record a test.",
       tasks: [
         {
-          title: "Equipment Acquisition",
-          description: "Purchase or gather essential recording gear (mic, headphones, software).",
-          action: "Review the 'Podcast Gear Guide' in Quick Lessons.",
+          title: "Equipment or Studio Access",
+          description: "Purchase essential gear OR book a pro studio.",
+          action: "Local to Dallas, TX? Book a session at our partner **The Beacon LLC** (thebeacon.llc). Otherwise, review the 'Podcast Gear Guide' in Quick Lessons.",
           hqTools: ["Quick Lessons"],
           deliverable: "Recording Setup Ready"
         },
         {
-          title: "Hosting Platform Setup",
-          description: "Choose a podcast host (e.g., Libsyn, Buzzsprout) to distribute your show.",
-          action: "Create account and set up RSS feed settings.",
-          deliverable: "Podcast Hosting Account"
+          title: "Sign Up with Riverside.fm",
+          description: "Join our partner **Riverside.fm** for studio-quality recording, AI editing, and instant distribution.",
+          action: "Create your Riverside.fm account. This will be your hub for recording video/audio and automatically distributing to Spotify & Apple Podcasts.",
+          deliverable: "Riverside Account Created"
         },
         {
           title: "Record Intro/Outro & Trailer",
           description: "Record a professional intro/outro and a 1-minute trailer episode.",
-          action: "Script with Elyzet AI and record.",
+          action: "Script with Elyzet AI and record using Riverside's high-quality studio.",
           hqTools: ["Elyzet AI"],
           deliverable: "Audio Files (Intro, Outro, Trailer)"
         }
@@ -99,7 +99,7 @@ export const podcastGrowthRoadmap = {
         {
           title: "Record Launch Episodes",
           description: "Record 3 full episodes to have ready for launch day.",
-          action: "Batch record episodes 1-3.",
+          action: "Batch record episodes 1-3 on Riverside.fm.",
           deliverable: "3 Raw Episode Recordings"
         },
         {
@@ -113,28 +113,28 @@ export const podcastGrowthRoadmap = {
     },
     {
       weekNumber: 4,
-      weekTitle: "Editing & Launch Strategy",
-      weekDescription: "Polish your audio and prepare for the big launch.",
+      weekTitle: "AI Editing & Distribution",
+      weekDescription: "Polish your content using Riverside's AI tools and prepare for launch.",
       icon: MonitorPlay,
       dailyTime: "2 hours",
-      weeklyGoal: "Submit podcast to Apple/Spotify and schedule launch.",
+      weeklyGoal: "Finalize episodes and set up distribution.",
       tasks: [
         {
-          title: "Edit & Produce Episodes",
-          description: "Edit your 3 launch episodes (add intro/outro, remove noise).",
-          action: "Edit or outsource production.",
-          deliverable: "3 Final MP3 Files"
+          title: "AI Editing with Riverside",
+          description: "Use Riverside's text-based editor and AI Magic Clips to polish your video and audio.",
+          action: "Edit your 3 launch episodes using Riverside's AI features to remove silence/filler words instantly.",
+          deliverable: "3 Final Episodes"
         },
         {
-          title: "Submit to Directories",
-          description: "Submit your RSS feed to Apple Podcasts, Spotify, Google, etc.",
-          action: "Submit via hosting platform (takes up to 5 days for approval).",
-          deliverable: "Directory Approvals"
+          title: "Instant Distribution Setup",
+          description: "Connect your Riverside account to Spotify and Apple Podcasts.",
+          action: "Complete the one-click distribution setup in your Riverside dashboard.",
+          deliverable: "Distribution Channels Connected"
         },
         {
           title: "Create Launch Assets",
-          description: "Create social media graphics and audiograms for launch.",
-          action: "Use AI to generate show notes and social captions.",
+          description: "Create social media graphics and AI clips for launch.",
+          action: "Use Riverside's 'Magic Clips' to generate viral social media shorts from your episodes.",
           hqTools: ["Elyzet AI"],
           deliverable: "Launch Marketing Asset Pack"
         }
@@ -145,7 +145,7 @@ export const podcastGrowthRoadmap = {
     {
       weekNumber: 5,
       weekTitle: "Launch Week!",
-      weekDescription: "Execute your launch plan and drive initial downloads.",
+      weekDescription: "Execute your launch plan and drive initial streams.",
       icon: Megaphone,
       dailyTime: "2 hours",
       weeklyGoal: "Get into 'New & Noteworthy' consideration.",
@@ -153,7 +153,7 @@ export const podcastGrowthRoadmap = {
         {
           title: "Publish Launch Batch",
           description: "Release the trailer and first 3 episodes simultaneously.",
-          action: "Publish via hosting provider.",
+          action: "Publish via Riverside/Hosting provider.",
           deliverable: "Live Podcast!"
         },
         {
@@ -161,35 +161,35 @@ export const podcastGrowthRoadmap = {
           description: "Ask friends, family, and email list to subscribe, rate, and review.",
           action: "Send 'Podcast Launch' email blast using HQ template.",
           hqTools: ["Email Marketing"],
-          deliverable: "Initial 50+ Downloads"
+          deliverable: "Initial 50+ Streams"
         },
         {
           title: "Social Media Blitz",
           description: "Post daily about the launch across all channels.",
-          action: "Share audiograms and behind-the-scenes content.",
+          action: "Share your Riverside Magic Clips and behind-the-scenes content.",
           deliverable: "Social Buzz"
         }
       ]
     },
     {
       weekNumber: 6,
-      weekTitle: "Guest Strategy & Networking",
-      weekDescription: "Leverage other people's audiences to grow.",
-      icon: Users,
+      weekTitle: "Partners & Promotion",
+      weekDescription: "Leverage partners like Equalizer Radio to grow.",
+      icon: Radio,
       dailyTime: "1 hour",
-      weeklyGoal: "Secure 2 guest spots on other podcasts.",
+      weeklyGoal: "Secure promotion on Equalizer Radio.",
       tasks: [
+        {
+          title: "Get Featured on Equalizer Radio",
+          description: "Submit your show to our partner **EqualizerRadio.com**, the 24/7 uplifting entrepreneur station.",
+          action: "Submit your RSS feed and best episode to Equalizer Radio for rotation consideration.",
+          deliverable: "Submission Confirmation"
+        },
         {
           title: "Podcast Swapping",
           description: "Identify 5 podcasts in your niche to do promo swaps or guest interviews.",
           action: "Research and pitch hosts.",
           deliverable: "Promo Swap Agreements"
-        },
-        {
-          title: "Guest Promotion Pack",
-          description: "Send assets to your guests so they can share their episode.",
-          action: "Create a 'Guest Swipe File' with graphics and links.",
-          deliverable: "Sent Guest Packs"
         }
       ]
     },
@@ -234,8 +234,8 @@ export const podcastGrowthRoadmap = {
         },
         {
           title: "Website Integration",
-          description: "Embed episodes on your website with full transcripts.",
-          action: "Create blog posts for each episode.",
+          description: "Embed episodes on your website with full transcripts (via Riverside).",
+          action: "Create blog posts for each episode using Riverside transcripts.",
           deliverable: "Podcast Blog Section"
         }
       ]
@@ -268,7 +268,7 @@ export const podcastGrowthRoadmap = {
     {
       weekNumber: 10,
       weekTitle: "Monetization Strategy",
-      weekDescription: "Turn your downloads into dollars.",
+      weekDescription: "Turn your streams into dollars.",
       icon: DollarSign,
       dailyTime: "1 hour",
       weeklyGoal: "Define your monetization model.",
@@ -305,7 +305,7 @@ export const podcastGrowthRoadmap = {
         {
           title: "Repurposing Workflow",
           description: "Turn 1 episode into 10 pieces of content (TikToks, Reels, Tweets).",
-          action: "Create a standard operating procedure (SOP) for repurposing.",
+          action: "Create a standard operating procedure (SOP) for repurposing using Riverside clips.",
           hqTools: ["SOP Library"],
           deliverable: "Repurposing SOP"
         }
@@ -321,7 +321,7 @@ export const podcastGrowthRoadmap = {
       tasks: [
         {
           title: "Analyze Metrics",
-          description: "Review downloads, retention, and growth trends.",
+          description: "Review streams, retention, and growth trends on Riverside/Spotify.",
           action: "Fill out the '90-Day Review' document.",
           deliverable: "Performance Report"
         },
