@@ -19,6 +19,9 @@ export default function AnnualPlanningPage() {
     const [isEditing, setIsEditing] = useState(false);
     const [isGenerating, setIsGenerating] = useState(false);
     const [activeQuarter, setActiveQuarter] = useState(1);
+    const [showQuestionnaire, setShowQuestionnaire] = useState(false);
+    const [questionnaireStep, setQuestionnaireStep] = useState(0);
+    const [answers, setAnswers] = useState({});
 
     useEffect(() => {
         loadData();
@@ -58,19 +61,102 @@ export default function AnnualPlanningPage() {
         }
     };
 
-    const handleGeneratePlan = async () => {
+    // Dynamic Questions Configuration
+    const getQuestions = () => {
+        const stage = user?.entrepreneurship_stage || 'vision';
+        
+        const commonQuestions = [
+            {
+                id: 'main_goal',
+                label: "What is your #1 goal for the upcoming year?",
+                type: 'text',
+                placeholder: "e.g., Launch my product, Hit $100k revenue..."
+            },
+            {
+                id: 'resources',
+                label: "How much time can you dedicate weekly?",
+                type: 'select',
+                options: ["0-5 hours", "5-10 hours", "10-20 hours", "20-40 hours", "Full time (40+)"]
+            }
+        ];
+
+        const stageSpecific = {
+            vision: [
+                {
+                    id: 'challenges',
+                    label: "What's stopping you from starting?",
+                    type: 'multi-select',
+                    options: ["I don't have a clear idea", "I have too many ideas", "Fear of failure", "Lack of capital", "No business knowledge"]
+                },
+                {
+                    id: 'skills',
+                    label: "What are your core strengths?",
+                    type: 'text',
+                    placeholder: "e.g., Marketing, Coding, Writing..."
+                }
+            ],
+            startup: [
+                {
+                    id: 'challenges',
+                    label: "Biggest startup challenge right now?",
+                    type: 'multi-select',
+                    options: ["Finding product-market fit", "Getting first customers", "Building the MVP", "Pricing strategy", "Legal/Admin setup"]
+                },
+                {
+                    id: 'revenue_status',
+                    label: "Current Revenue Status",
+                    type: 'select',
+                    options: ["Pre-revenue", "Sporadic sales", "Consistent but low", "Growing steadily"]
+                }
+            ],
+            growth: [
+                {
+                    id: 'challenges',
+                    label: "What is the bottleneck to scaling?",
+                    type: 'multi-select',
+                    options: ["Hiring/Team management", "Operational chaos", "Marketing costs", "Customer retention", "Automation"]
+                },
+                {
+                    id: 'focus_area',
+                    label: "Primary Focus Area",
+                    type: 'select',
+                    options: ["Team Expansion", "New Market Entry", "Product Line Extension", "Process Optimization"]
+                }
+            ]
+        };
+
+        return [...commonQuestions, ...(stageSpecific[stage] || stageSpecific.vision)];
+    };
+
+    const handleAnswer = (id, value) => {
+        setAnswers(prev => ({ ...prev, [id]: value }));
+    };
+
+    const toggleMultiSelect = (id, option) => {
+        setAnswers(prev => {
+            const current = prev[id] || [];
+            if (current.includes(option)) {
+                return { ...prev, [id]: current.filter(i => i !== option) };
+            } else {
+                return { ...prev, [id]: [...current, option] };
+            }
+        });
+    };
+
+    const submitQuestionnaire = async () => {
+        setShowQuestionnaire(false);
         setIsGenerating(true);
         try {
-            const { data } = await base44.functions.invoke('generateAnnualPlanDraft', {
-                year: currentPlan.year,
-                vision: currentPlan.vision_description,
-                entrepreneurship_stage: user?.entrepreneurship_stage
+            const { data } = await base44.functions.invoke('generateAnnualPlan', {
+                questionnaire_responses: answers,
+                entrepreneurship_stage: user?.entrepreneurship_stage,
+                selected_goal: user?.selected_goal
             });
 
             if (data?.plan) {
                 const newObjectives = data.plan.quarterly_objectives.map(obj => ({
                     ...obj,
-                    status: "not_started" // Ensure status field exists
+                    status: "not_started"
                 }));
 
                 setCurrentPlan(prev => ({
@@ -79,12 +165,124 @@ export default function AnnualPlanningPage() {
                     vision_description: data.plan.vision_description,
                     quarterly_objectives: newObjectives
                 }));
+                setIsEditing(true); // Put into edit mode to review
             }
         } catch (error) {
             console.error("Error generating plan:", error);
         } finally {
             setIsGenerating(false);
         }
+    };
+
+    const QuestionnaireModal = () => {
+        const questions = getQuestions();
+        const currentQ = questions[questionnaireStep];
+        const isLast = questionnaireStep === questions.length - 1;
+
+        if (!showQuestionnaire) return null;
+
+        return (
+            <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+                <motion.div 
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="bg-white dark:bg-gray-900 rounded-xl shadow-2xl max-w-lg w-full p-6 border border-gray-200 dark:border-gray-700"
+                >
+                    <div className="mb-6">
+                        <div className="flex justify-between items-center mb-2">
+                            <h3 className="text-xl font-bold text-[var(--text-main)]">Let's Build Your Plan</h3>
+                            <span className="text-xs text-[var(--text-soft)]">Step {questionnaireStep + 1} of {questions.length}</span>
+                        </div>
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full">
+                            <div 
+                                className="bg-[var(--primary-gold)] h-2 rounded-full transition-all duration-300" 
+                                style={{ width: `${((questionnaireStep + 1) / questions.length) * 100}%` }}
+                            ></div>
+                        </div>
+                    </div>
+
+                    <div className="min-h-[200px]">
+                        <h4 className="text-lg font-medium mb-4 text-[var(--text-main)]">{currentQ.label}</h4>
+                        
+                        {currentQ.type === 'text' && (
+                            <input 
+                                type="text" 
+                                className="form-input w-full" 
+                                placeholder={currentQ.placeholder}
+                                value={answers[currentQ.id] || ''}
+                                onChange={(e) => handleAnswer(currentQ.id, e.target.value)}
+                                autoFocus
+                            />
+                        )}
+
+                        {currentQ.type === 'select' && (
+                            <div className="space-y-2">
+                                {currentQ.options.map(opt => (
+                                    <button
+                                        key={opt}
+                                        onClick={() => handleAnswer(currentQ.id, opt)}
+                                        className={`w-full p-3 text-left rounded-lg border transition-all ${
+                                            answers[currentQ.id] === opt 
+                                                ? 'border-[var(--primary-gold)] bg-[var(--primary-gold)]/10 text-[var(--primary-gold)]' 
+                                                : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800'
+                                        }`}
+                                    >
+                                        {opt}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+
+                        {currentQ.type === 'multi-select' && (
+                            <div className="space-y-2">
+                                {currentQ.options.map(opt => (
+                                    <button
+                                        key={opt}
+                                        onClick={() => toggleMultiSelect(currentQ.id, opt)}
+                                        className={`w-full p-3 text-left rounded-lg border transition-all flex justify-between items-center ${
+                                            (answers[currentQ.id] || []).includes(opt)
+                                                ? 'border-[var(--primary-gold)] bg-[var(--primary-gold)]/10 text-[var(--primary-gold)]' 
+                                                : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800'
+                                        }`}
+                                    >
+                                        <span>{opt}</span>
+                                        {(answers[currentQ.id] || []).includes(opt) && <CheckCircle2 className="w-4 h-4" />}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="flex justify-between mt-6 pt-4 border-t border-gray-100 dark:border-gray-800">
+                        <button 
+                            onClick={() => {
+                                if (questionnaireStep > 0) setQuestionnaireStep(p => p - 1);
+                                else setShowQuestionnaire(false);
+                            }}
+                            className="btn btn-ghost"
+                        >
+                            Back
+                        </button>
+                        <button 
+                            onClick={() => {
+                                if (isLast) submitQuestionnaire();
+                                else setQuestionnaireStep(p => p + 1);
+                            }}
+                            disabled={!answers[currentQ.id] || (Array.isArray(answers[currentQ.id]) && answers[currentQ.id].length === 0)}
+                            className="btn btn-primary"
+                        >
+                            {isLast ? 'Generate Plan' : 'Next'}
+                        </button>
+                    </div>
+                </motion.div>
+            </div>
+        );
+    };
+
+    const handleGeneratePlan = () => {
+        setQuestionnaireStep(0);
+        setAnswers({});
+        setShowQuestionnaire(true);
     };
 
     const handleSavePlan = async () => {
@@ -138,6 +336,7 @@ export default function AnnualPlanningPage() {
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
+            <QuestionnaireModal />
             {/* Header */}
             <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10">
                 <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
