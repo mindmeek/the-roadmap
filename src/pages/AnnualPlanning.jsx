@@ -22,6 +22,7 @@ export default function AnnualPlanningPage() {
     const [showQuestionnaire, setShowQuestionnaire] = useState(false);
     const [questionnaireStep, setQuestionnaireStep] = useState(0);
     const [answers, setAnswers] = useState({});
+    const [financialGoal, setFinancialGoal] = useState(null);
 
     useEffect(() => {
         loadData();
@@ -36,8 +37,20 @@ export default function AnnualPlanningPage() {
             const userPlans = await AnnualPlan.filter({ created_by: userData.email }, "-year");
             setPlans(userPlans);
             
+            if (userData.financial_projections?.freedom_number) {
+                setFinancialGoal(userData.financial_projections.freedom_number);
+            }
+
             if (userPlans.length > 0) {
-                setCurrentPlan(userPlans[0]);
+                // Migrate old string key_results to objects if necessary
+                const plan = userPlans[0];
+                const migratedObjectives = plan.quarterly_objectives.map(obj => ({
+                    ...obj,
+                    key_results: obj.key_results.map(kr => 
+                        typeof kr === 'string' ? { text: kr, is_completed: false, added_to_daily: false } : kr
+                    )
+                }));
+                setCurrentPlan({ ...plan, quarterly_objectives: migratedObjectives });
             } else {
                 // Initialize empty state for new plan creation
                 setCurrentPlan({
@@ -48,6 +61,7 @@ export default function AnnualPlanningPage() {
                         quarter: q,
                         objective: "",
                         key_results: [],
+                        linked_resources: [],
                         status: "not_started"
                     })),
                     status: "draft"
@@ -156,13 +170,18 @@ export default function AnnualPlanningPage() {
             if (data?.plan) {
                 const newObjectives = data.plan.quarterly_objectives.map(obj => ({
                     ...obj,
-                    status: "not_started"
+                    status: "not_started",
+                    // Ensure key results are objects
+                    key_results: obj.key_results.map(kr => 
+                        typeof kr === 'string' ? { text: kr, is_completed: false } : kr
+                    )
                 }));
 
                 setCurrentPlan(prev => ({
                     ...prev,
                     title: data.plan.title,
                     vision_description: data.plan.vision_description,
+                    financial_goal_snapshot: data.plan.financial_goal_snapshot,
                     quarterly_objectives: newObjectives
                 }));
                 setIsEditing(true); // Put into edit mode to review
@@ -314,14 +333,38 @@ export default function AnnualPlanningPage() {
         if (!newObjectives[quarterIndex].key_results) {
             newObjectives[quarterIndex].key_results = [];
         }
-        newObjectives[quarterIndex].key_results.push("");
+        newObjectives[quarterIndex].key_results.push({ text: "", is_completed: false });
         setCurrentPlan(prev => ({ ...prev, quarterly_objectives: newObjectives }));
     };
 
-    const updateKeyResult = (quarterIndex, krIndex, value) => {
+    const updateKeyResultText = (quarterIndex, krIndex, value) => {
         const newObjectives = [...currentPlan.quarterly_objectives];
-        newObjectives[quarterIndex].key_results[krIndex] = value;
+        newObjectives[quarterIndex].key_results[krIndex] = {
+            ...newObjectives[quarterIndex].key_results[krIndex],
+            text: value
+        };
         setCurrentPlan(prev => ({ ...prev, quarterly_objectives: newObjectives }));
+    };
+
+    const toggleKeyResult = async (quarterIndex, krIndex) => {
+        const newObjectives = [...currentPlan.quarterly_objectives];
+        const kr = newObjectives[quarterIndex].key_results[krIndex];
+        newObjectives[quarterIndex].key_results[krIndex] = {
+            ...kr,
+            is_completed: !kr.is_completed
+        };
+        
+        // Optimistic update
+        setCurrentPlan(prev => ({ ...prev, quarterly_objectives: newObjectives }));
+
+        // Save to DB if plan exists
+        if (currentPlan.id) {
+            try {
+                await AnnualPlan.update(currentPlan.id, { quarterly_objectives: newObjectives });
+            } catch (error) {
+                console.error("Failed to save progress", error);
+            }
+        }
     };
 
     const removeKeyResult = (quarterIndex, krIndex) => {
@@ -377,40 +420,66 @@ export default function AnnualPlanningPage() {
             </div>
 
             <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
-                {/* Vision Section */}
-                <div className="card p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border-indigo-100 dark:border-indigo-800">
-                    <div className="flex items-start gap-4">
-                        <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
-                            <Target className="w-6 h-6 text-indigo-600" />
+                {/* Vision & Financial Goal Section */}
+                <div className="grid md:grid-cols-3 gap-6">
+                    <div className="md:col-span-2 card p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border-indigo-100 dark:border-indigo-800">
+                        <div className="flex items-start gap-4">
+                            <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
+                                <Target className="w-6 h-6 text-indigo-600" />
+                            </div>
+                            <div className="flex-1 space-y-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-indigo-900 dark:text-indigo-200 mb-1">Annual Theme / Title</label>
+                                    {isEditing ? (
+                                        <input 
+                                            type="text" 
+                                            value={currentPlan.title}
+                                            onChange={(e) => setCurrentPlan(prev => ({ ...prev, title: e.target.value }))}
+                                            className="form-input text-lg font-bold"
+                                            placeholder="e.g., The Year of Expansion"
+                                        />
+                                    ) : (
+                                        <h2 className="text-2xl font-bold text-[var(--text-main)]">{currentPlan.title || "Untitled Plan"}</h2>
+                                    )}
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-indigo-900 dark:text-indigo-200 mb-1">Strategic Vision</label>
+                                    {isEditing ? (
+                                        <textarea 
+                                            value={currentPlan.vision_description}
+                                            onChange={(e) => setCurrentPlan(prev => ({ ...prev, vision_description: e.target.value }))}
+                                            className="form-input h-24"
+                                            placeholder="What does success look like by December 31st?"
+                                        />
+                                    ) : (
+                                        <p className="text-[var(--text-main)] whitespace-pre-wrap">{currentPlan.vision_description || "No vision defined yet."}</p>
+                                    )}
+                                </div>
+                            </div>
                         </div>
-                        <div className="flex-1 space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium text-indigo-900 dark:text-indigo-200 mb-1">Annual Theme / Title</label>
-                                {isEditing ? (
-                                    <input 
-                                        type="text" 
-                                        value={currentPlan.title}
-                                        onChange={(e) => setCurrentPlan(prev => ({ ...prev, title: e.target.value }))}
-                                        className="form-input text-lg font-bold"
-                                        placeholder="e.g., The Year of Expansion"
-                                    />
-                                ) : (
-                                    <h2 className="text-2xl font-bold text-[var(--text-main)]">{currentPlan.title || "Untitled Plan"}</h2>
-                                )}
+                    </div>
+                    
+                    {/* Financial Goal Card */}
+                    <div className="card p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-100 dark:border-green-800 flex flex-col justify-center">
+                        <div className="text-center">
+                            <div className="inline-block bg-white dark:bg-gray-800 p-3 rounded-full shadow-sm mb-3">
+                                <Target className="w-6 h-6 text-green-600" />
                             </div>
-                            <div>
-                                <label className="block text-sm font-medium text-indigo-900 dark:text-indigo-200 mb-1">Strategic Vision</label>
-                                {isEditing ? (
-                                    <textarea 
-                                        value={currentPlan.vision_description}
-                                        onChange={(e) => setCurrentPlan(prev => ({ ...prev, vision_description: e.target.value }))}
-                                        className="form-input h-24"
-                                        placeholder="What does success look like by December 31st?"
-                                    />
-                                ) : (
-                                    <p className="text-[var(--text-main)] whitespace-pre-wrap">{currentPlan.vision_description || "No vision defined yet."}</p>
-                                )}
-                            </div>
+                            <h3 className="text-sm font-semibold text-green-900 dark:text-green-200 uppercase tracking-wide mb-1">Financial Freedom Goal</h3>
+                            <p className="text-3xl font-bold text-green-700 dark:text-green-300">
+                                {financialGoal 
+                                    ? `$${parseInt(financialGoal).toLocaleString()}` 
+                                    : currentPlan.financial_goal_snapshot 
+                                        ? currentPlan.financial_goal_snapshot 
+                                        : "$0"
+                                }
+                            </p>
+                            <p className="text-xs text-green-800 dark:text-green-400 mt-2">Annual Revenue Target</p>
+                            {!financialGoal && (
+                                <button onClick={() => navigate(createPageUrl('FreedomCalculator'))} className="text-xs text-green-600 hover:underline mt-2">
+                                    Set Goal
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -480,29 +549,49 @@ export default function AnnualPlanningPage() {
                                     <label className="block text-sm font-medium text-[var(--text-soft)] mb-2">Key Results (Measurable Outcomes)</label>
                                     <div className="space-y-3">
                                         {currentPlan.quarterly_objectives[activeQuarter-1].key_results?.map((kr, idx) => (
-                                            <div key={idx} className="flex items-center gap-3">
-                                                <div className="mt-1">
-                                                    <Target className="w-4 h-4 text-gray-400" />
-                                                </div>
+                                            <div key={idx} className="flex items-start gap-3">
+                                                {isEditing ? (
+                                                    <div className="mt-3">
+                                                        <Target className="w-4 h-4 text-gray-400" />
+                                                    </div>
+                                                ) : (
+                                                    <button 
+                                                        onClick={() => toggleKeyResult(activeQuarter-1, idx)}
+                                                        className="mt-3 flex-shrink-0"
+                                                    >
+                                                        {kr.is_completed ? (
+                                                            <CheckCircle2 className="w-5 h-5 text-green-500" />
+                                                        ) : (
+                                                            <Circle className="w-5 h-5 text-gray-300 hover:text-[var(--primary-gold)]" />
+                                                        )}
+                                                    </button>
+                                                )}
+                                                
                                                 {isEditing ? (
                                                     <>
                                                         <input 
                                                             type="text"
-                                                            value={kr}
-                                                            onChange={(e) => updateKeyResult(activeQuarter-1, idx, e.target.value)}
+                                                            value={kr.text || kr}
+                                                            onChange={(e) => updateKeyResultText(activeQuarter-1, idx, e.target.value)}
                                                             className="form-input flex-1"
                                                             placeholder="e.g., Reach $50k in revenue"
                                                         />
                                                         <button 
                                                             onClick={() => removeKeyResult(activeQuarter-1, idx)}
-                                                            className="p-2 text-red-500 hover:bg-red-50 rounded-full"
+                                                            className="p-2 text-red-500 hover:bg-red-50 rounded-full mt-1"
                                                         >
                                                             <Trash2 className="w-4 h-4" />
                                                         </button>
                                                     </>
                                                 ) : (
-                                                    <div className="flex-1 p-3 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700">
-                                                        {kr}
+                                                    <div className={`flex-1 p-3 rounded border transition-all ${
+                                                        kr.is_completed 
+                                                            ? 'bg-green-50 dark:bg-green-900/10 border-green-200 dark:border-green-800' 
+                                                            : 'bg-gray-50 dark:bg-gray-800 border-gray-100 dark:border-gray-700'
+                                                    }`}>
+                                                        <p className={`${kr.is_completed ? 'line-through text-gray-500' : 'text-[var(--text-main)]'}`}>
+                                                            {kr.text || kr}
+                                                        </p>
                                                     </div>
                                                 )}
                                             </div>
@@ -518,6 +607,33 @@ export default function AnnualPlanningPage() {
                                         )}
                                     </div>
                                 </div>
+
+                                {/* Linked Resources */}
+                                {!isEditing && currentPlan.quarterly_objectives[activeQuarter-1].linked_resources?.length > 0 && (
+                                    <div className="pt-4 border-t border-gray-100 dark:border-gray-700">
+                                        <h4 className="text-sm font-bold text-[var(--text-main)] mb-3 flex items-center gap-2">
+                                            <Sparkles className="w-4 h-4 text-[var(--primary-gold)]" />
+                                            Recommended Resources
+                                        </h4>
+                                        <div className="grid sm:grid-cols-2 gap-3">
+                                            {currentPlan.quarterly_objectives[activeQuarter-1].linked_resources.map((resource, idx) => (
+                                                <button
+                                                    key={idx}
+                                                    onClick={() => navigate(createPageUrl(resource.url))}
+                                                    className="flex items-center gap-3 p-3 text-left bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-lg transition-colors group"
+                                                >
+                                                    <div className="bg-blue-100 dark:bg-blue-900/30 p-2 rounded text-blue-600 dark:text-blue-400 group-hover:bg-blue-200 dark:group-hover:bg-blue-800/50 transition-colors">
+                                                        <ArrowLeft className="w-4 h-4 rotate-180" />
+                                                    </div>
+                                                    <div>
+                                                        <span className="text-sm font-semibold text-[var(--text-main)] block">{resource.title}</span>
+                                                        <span className="text-xs text-[var(--text-soft)]">Open Tool</span>
+                                                    </div>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </motion.div>
                     </AnimatePresence>

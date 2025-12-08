@@ -11,39 +11,37 @@ Deno.serve(async (req) => {
 
         const { questionnaire_responses, entrepreneurship_stage, selected_goal } = await req.json();
 
-        // Fetch existing plan if any (optional, for context, but usually generating new)
-        // We can just rely on the user context.
-
-        // Platform Resources Context
+        // Platform Resources Context with URLs
         const platformResources = `
-        Available Platform Resources to reference in the plan:
+        Available Platform Resources to reference in the plan (use these exact URLs):
         
-        1. STRATEGY DOCUMENTS (Tools to define business foundation):
-           - Business Model Canvas (Business Logic)
-           - SWOT Analysis (Strengths, Weaknesses)
-           - Ideal Client Avatar (Target Audience)
-           - Value Proposition Canvas (Product-Market Fit)
-           - Value Ladder (Pricing Strategy)
-           - Lean Canvas (Startup validation)
-           - Competitive Analysis
-           - Customer Journey Map
-           - Podcast Plan (The Beacon Studio)
-           - Brand Kit (Identity)
+        1. STRATEGY DOCUMENTS:
+           - Business Model Canvas: "StrategyFormBusinessModelCanvas"
+           - SWOT Analysis: "StrategyFormSWOTAnalysis"
+           - Ideal Client Avatar: "StrategyFormIdealClient"
+           - Value Proposition Canvas: "StrategyFormValueProposition"
+           - Value Ladder: "StrategyFormValueLadder"
+           - Lean Canvas: "StrategyFormLeanCanvas"
+           - Competitive Analysis: "CompetitorAnalysis"
+           - Customer Journey Map: "StrategyFormCustomerJourney"
+           - Podcast Plan: "TheBeacon"
+           - Brand Kit: "StrategyFormBrandKit"
 
-        2. FOCUSED PROGRAMS (90-Day Guided Journeys):
-           - Vision to Reality (For Vision Stage)
-           - Launch Your Business (For Startup Stage)
-           - Scale & Automate (For Growth Stage)
-           - Content Mastery
-           - Sales Accelerator
+        2. FOCUSED PROGRAMS:
+           - Vision to Reality: "FocusedProgram?id=vision-reality"
+           - Launch Your Business: "FocusedProgram?id=launch-business"
+           - Scale & Automate: "FocusedProgram?id=scale-automate"
+           - Content Mastery: "Courses"
+           - Sales Accelerator: "Courses"
 
         3. CORE TOOLS:
-           - Daily 1% Tracker (Habit building)
-           - Daily Schedule (Time blocking)
-           - The Community (Networking & Support)
-           - Freedom Calculator (Financial goals)
-           - SOP Library (Systems & Processes)
-           - My Businesses (Profile management)
+           - Daily 1% Tracker: "DailyTrack"
+           - Daily Schedule: "Schedule"
+           - The Community: "TheCommunity"
+           - Freedom Calculator (Financial goals): "FreedomCalculator"
+           - SOP Library: "SOPs"
+           - My Businesses: "MyBusinesses"
+           - Strategy Session: "StrategySession"
         `;
 
         const prompt = `
@@ -60,24 +58,30 @@ Deno.serve(async (req) => {
         ${JSON.stringify(questionnaire_responses, null, 2)}
 
         INSTRUCTIONS:
-        1. Analyze the user's stage, goal, and answers.
+        1. Analyze the user's stage, goal, financial targets, and answers.
         2. Create an inspiring 'Title' and 'Vision Description' for the year.
         3. Define objectives for all 4 Quarters (Q1-Q4).
-        4. For each quarter, set a main 'Objective' and 3-5 specific 'Key Results'.
-        5. **CRITICAL**: You MUST reference specific 'Platform Resources' (listed above) in the Key Results where relevant. 
-           Example: "Complete the [Ideal Client Avatar] document" or "Start the [Launch Your Business] program".
-        6. Ensure the plan is realistic but ambitious, directly addressing their challenges.
+        4. For each quarter, set a main 'Objective'.
+        5. Add 3-5 specific 'Key Results'. These must be ACTIONABLE and MEASURABLE.
+        6. **CRITICAL**: Suggest 1-2 'Linked Resources' from the list above that will help achieve the objective.
+        7. Ensure the plan is realistic but ambitious, directly addressing their challenges.
 
         OUTPUT FORMAT:
-        Return ONLY a JSON object matching the following schema (no markdown, no intro text):
+        Return ONLY a JSON object matching the following schema:
         {
             "title": "string",
             "vision_description": "string",
+            "financial_goal_snapshot": "string (summary of their financial target)",
             "quarterly_objectives": [
                 {
                     "quarter": number,
                     "objective": "string",
-                    "key_results": ["string", "string", ...],
+                    "key_results": [
+                        { "text": "string", "is_completed": false, "added_to_daily": false }
+                    ],
+                    "linked_resources": [
+                        { "title": "string", "url": "string" }
+                    ],
                     "status": "not_started"
                 }
             ]
@@ -91,6 +95,7 @@ Deno.serve(async (req) => {
                 properties: {
                     title: { type: "string" },
                     vision_description: { type: "string" },
+                    financial_goal_snapshot: { type: "string" },
                     quarterly_objectives: {
                         type: "array",
                         items: {
@@ -100,7 +105,26 @@ Deno.serve(async (req) => {
                                 objective: { type: "string" },
                                 key_results: { 
                                     type: "array", 
-                                    items: { type: "string" } 
+                                    items: { 
+                                        type: "object",
+                                        properties: {
+                                            text: { type: "string" },
+                                            is_completed: { type: "boolean", default: false },
+                                            added_to_daily: { type: "boolean", default: false }
+                                        },
+                                        required: ["text"]
+                                    } 
+                                },
+                                linked_resources: {
+                                    type: "array",
+                                    items: {
+                                        type: "object",
+                                        properties: {
+                                            title: { type: "string" },
+                                            url: { type: "string" }
+                                        },
+                                        required: ["title", "url"]
+                                    }
                                 },
                                 status: { type: "string", enum: ["not_started"], default: "not_started" }
                             },
@@ -112,18 +136,6 @@ Deno.serve(async (req) => {
             }
         });
 
-        // Create the plan in the database
-        const planData = {
-            year: new Date().getFullYear(), // or next year depending on logic, let's assume current/coming year
-            ...result,
-            status: 'draft'
-        };
-
-        // We'll return the plan data to the frontend so it can decide whether to update an existing one or create new
-        // OR we can just create/update here. 
-        // The frontend logic in AnnualPlanningPage.js handles saving usually, but the prompt asked for the AI to create it.
-        // Let's return the data and let frontend populate the state (User can review before saving).
-        
         return Response.json({ plan: result });
 
     } catch (error) {
