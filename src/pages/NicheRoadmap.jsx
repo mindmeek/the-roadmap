@@ -8,6 +8,7 @@ import { lifeCoachGrowthRoadmap } from '@/components/course_content/lifeCoachGro
 import { nonProfitGrowthRoadmap } from '@/components/course_content/nonProfitGrowth';
 import { ecommerceGrowthRoadmap } from '@/components/course_content/ecommerceGrowth';
 import { privateCommunityGrowthRoadmap } from '@/components/course_content/privateCommunityGrowth';
+import { podcastGrowthRoadmap } from '@/components/course_content/podcastGrowth';
 
 const programContentMap = {
   'book_author_growth': bookAuthorGrowthRoadmap,
@@ -15,6 +16,7 @@ const programContentMap = {
   'non_profit_growth': nonProfitGrowthRoadmap,
   'ecommerce_growth': ecommerceGrowthRoadmap,
   'private_community_growth': privateCommunityGrowthRoadmap,
+  'podcast_growth': podcastGrowthRoadmap,
 };
 
 export default function NicheRoadmapPage() {

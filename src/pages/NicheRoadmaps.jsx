@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { BookOpen, Award, Heart, ArrowRight, Lock, Loader2, Target, Sparkles, TrendingUp, ShoppingCart, Users } from 'lucide-react';
+import { BookOpen, Award, Heart, ArrowRight, Lock, Loader2, Target, Sparkles, TrendingUp, ShoppingCart, Users, Mic } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const nichePrograms = [
@@ -122,6 +122,30 @@ const nichePrograms = [
       "Scale to 500+ members profitably"
     ],
     contentKey: "private_community_growth",
+    comingSoon: false
+  },
+  {
+    id: "podcast-host",
+    title: "Podcast Growth Plan",
+    subtitle: "90-Day Launch & Scale System",
+    description: "Launch a chart-topping podcast, build a loyal listener base, and monetize your show using The Business Minds HQ.",
+    icon: Mic,
+    color: "from-yellow-600 to-orange-600",
+    imageUrl: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&h=400&fit=crop",
+    metrics: [
+      { label: "Downloads", value: "1,000+ monthly" },
+      { label: "Episodes", value: "12+ published" },
+      { label: "Revenue", value: "First sponsors" },
+      { label: "Growth", value: "Organic reach" }
+    ],
+    highlights: [
+      "Launch professional podcast from scratch",
+      "Get into 'New & Noteworthy' on Apple",
+      "Build automated guest booking system",
+      "Monetize with sponsors and affiliates",
+      "Repurpose content for social growth"
+    ],
+    contentKey: "podcast_growth",
     comingSoon: false
   }
 ];
