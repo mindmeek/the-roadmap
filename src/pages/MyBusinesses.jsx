@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Plus, Building, Briefcase, ExternalLink, Crown, Star, Globe, CheckCircle, ArrowRight, Clock, Edit3, Users, MapPin, Mail, Phone, Eye, UserPlus, Check, X } from 'lucide-react';
 import BusinessTeamModal from '@/components/business/BusinessTeamModal';
+import RestartTourButton from '@/components/common/RestartTourButton';
 
 export default function MyBusinessesPage() {
     const [user, setUser] = useState(null);
@@ -147,10 +148,13 @@ export default function MyBusinessesPage() {
                     <h1 className="text-3xl font-bold text-[var(--text-main)]">My Businesses</h1>
                     <p className="text-[var(--text-soft)] mt-2">Manage your business profiles and team members</p>
                 </div>
-                <Link to={createPageUrl('EditBusiness')} className="btn btn-primary">
-                    <Plus className="w-5 h-5 mr-2" />
-                    Add New Business
-                </Link>
+                <div className="flex items-center gap-2">
+                    <RestartTourButton tourKey="my_businesses" />
+                    <Link to={createPageUrl('EditBusiness')} className="btn btn-primary">
+                        <Plus className="w-5 h-5 mr-2" />
+                        Add New Business
+                    </Link>
+                </div>
             </div>
 
             {/* Invitations Section */}

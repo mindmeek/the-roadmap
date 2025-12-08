@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Users, Download, Zap, Calendar, MessageSquare, Brain, ArrowRight } from 'lucide-react';
 import { User } from '@/entities/User';
+import RestartTourButton from '@/components/common/RestartTourButton';
 
 const AppleLogo = () => (
     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
@@ -23,7 +24,10 @@ const CommunityIntro = () => (
                 </div>
             </div>
             <div className="flex-1">
-                <h1 className="text-3xl font-bold text-[var(--text-main)] mb-3">Welcome to The Business Minds Community!</h1>
+                <div className="flex justify-between items-start">
+                    <h1 className="text-3xl font-bold text-[var(--text-main)] mb-3">Welcome to The Business Minds Community!</h1>
+                    <RestartTourButton tourKey="community" />
+                </div>
                 <p className="text-lg text-[var(--text-soft)] mb-6">
                     This is your private space to connect with fellow entrepreneurs, share your journey, and grow together. While the Launch Pad provides your roadmap, the community provides the support and network to fuel your success. The same login you used for the Launch Pad gives you access here.
                 </p>

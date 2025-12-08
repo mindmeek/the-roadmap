@@ -8,6 +8,7 @@ import { format, subDays } from "date-fns";
 import { handleGamification } from '@/functions/handleGamification';
 import { generateDailyTasks } from '@/functions/generateDailyTasks';
 import roadmapData from '../components/roadmap';
+import RestartTourButton from '@/components/common/RestartTourButton';
 
 export default function DailyTrack() {
   const navigate = useNavigate();
@@ -338,11 +339,14 @@ export default function DailyTrack() {
                     <p className="text-[var(--text-soft)] text-lg">{format(new Date(), 'EEEE, MMMM d, yyyy')}</p>
                 </div>
             </div>
-            {!isEditing && (
-              <button onClick={() => setIsEditing(true)} className="btn btn-secondary mt-4 md:mt-0"><Edit3 className="w-4 h-4 mr-2" />Edit Today</button>
-            )}
+            <div className="flex items-center gap-2 mt-4 md:mt-0">
+                <RestartTourButton tourKey="daily_track" />
+                {!isEditing && (
+                  <button onClick={() => setIsEditing(true)} className="btn btn-secondary"><Edit3 className="w-4 h-4 mr-2" />Edit Today</button>
+                )}
+            </div>
              {isEditing && (
-                <button onClick={() => navigate(createPageUrl('Schedule'))} className="btn btn-primary mt-4 md:mt-0"><ListChecks className="w-4 h-4 mr-2" />Plan My Day</button>
+                <button onClick={() => navigate(createPageUrl('Schedule'))} className="btn btn-primary"><ListChecks className="w-4 h-4 mr-2" />Plan My Day</button>
              )}
           </div>
         </div>

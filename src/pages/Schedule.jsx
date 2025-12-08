@@ -8,6 +8,7 @@ import { Calendar, Clock, Plus, Edit, Trash2, Save, X, Download, Sparkles, Loade
 import { exportSchedule } from '@/functions/exportSchedule';
 import { generateScheduleTemplate } from '@/functions/generateScheduleTemplate';
 import roadmapData from '../components/roadmap';
+import RestartTourButton from '@/components/common/RestartTourButton';
 
 const categoryColors = {
   deep_work: "bg-blue-500",
@@ -663,6 +664,7 @@ export default function SchedulePage() {
                 </div>
               </div>
               <div className="flex items-center gap-2">
+                <RestartTourButton tourKey="schedule" />
                 <button onClick={() => handleDateChange(addDays(selectedDate, -1))} className="btn btn-secondary p-2"> {/* subDays changed to addDays(-1) */}
                   <ChevronDown className="w-5 h-5"/> {/* Changed ChevronLeft to ChevronDown */}
                 </button>

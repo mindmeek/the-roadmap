@@ -38,6 +38,7 @@ import UpcomingTasksPreview from '../components/dashboard/UpcomingTasksPreview';
 import DailyInsightTabs from '../components/dashboard/DailyInsightTabs';
 import MemberActionChecklist from '../components/dashboard/MemberActionChecklist';
 import FoundationProgress from '../components/dashboard/VisionStageProgress';
+import RestartTourButton from '../components/common/RestartTourButton';
 
 import { AI_TEAM_MEMBERS } from '../components/ai/aiTeamInfo';
 
@@ -236,7 +237,11 @@ export default function DashboardPage() {
                     }}
                 >
                     <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
-                    
+
+                    <div className="absolute top-4 right-4 z-20">
+                        <RestartTourButton tourKey="dashboard" className="text-white hover:text-[var(--primary-gold)] bg-black/20 hover:bg-black/40 border border-white/10" />
+                    </div>
+
                     <div className="relative z-10 p-4 sm:p-6 md:p-8 lg:p-12">
                         <div className="flex items-center space-x-2 mb-2 sm:mb-3">
                             <Sparkles className="w-4 h-4 sm:w-5 sm:h-6 text-[var(--primary-gold)] animate-pulse" />
