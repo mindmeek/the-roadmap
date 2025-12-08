@@ -68,6 +68,50 @@ export default function TourGuide({ user }) {
                     placement: 'right',
                     spotlightPadding: 0,
                 },
+                {
+                    target: '#nav-item-FreedomCalculator',
+                    content: (
+                        <div>
+                            <h3 className="text-lg font-bold mb-2">Financial Goal</h3>
+                            <p>Define your financial independence number and track your progress towards it.</p>
+                        </div>
+                    ),
+                    placement: 'right',
+                    spotlightPadding: 0,
+                },
+                {
+                    target: '#nav-item-StrategySession',
+                    content: (
+                        <div>
+                            <h3 className="text-lg font-bold mb-2">Strategy Sessions</h3>
+                            <p>Book your 1-on-1 strategy sessions to get personalized guidance for your business.</p>
+                        </div>
+                    ),
+                    placement: 'right',
+                    spotlightPadding: 0,
+                },
+                {
+                    target: '#nav-item-MindsetHacks',
+                    content: (
+                        <div>
+                            <h3 className="text-lg font-bold mb-2">Mindset</h3>
+                            <p>Access powerful mental frameworks to overcome blocks and stay focused on your goals.</p>
+                        </div>
+                    ),
+                    placement: 'right',
+                    spotlightPadding: 0,
+                },
+                {
+                    target: '#nav-item-LiveWebinar',
+                    content: (
+                        <div>
+                            <h3 className="text-lg font-bold mb-2">Live Webinars</h3>
+                            <p>Join our weekly live webinars for deep dives into business topics and Q&A.</p>
+                        </div>
+                    ),
+                    placement: 'right',
+                    spotlightPadding: 0,
+                },
             ]
         },
         'DailyTrack': {
