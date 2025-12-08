@@ -481,7 +481,7 @@ export default function AnnualPlanningPage() {
                                         Financial Freedom Goal
                                     </h3>
                                     <div className="flex items-baseline gap-2">
-                                        <p className="text-3xl font-bold text-white tracking-tight leading-none drop-shadow-sm">
+                                        <p className="text-xl font-bold text-white tracking-tight leading-none drop-shadow-sm">
                                             {financialGoal 
                                                 ? `$${(parseInt(financialGoal) * 12).toLocaleString()}` 
                                                 : currentPlan.financial_goal_snapshot 
