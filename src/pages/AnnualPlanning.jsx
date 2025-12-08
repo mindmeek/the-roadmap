@@ -460,30 +460,30 @@ export default function AnnualPlanningPage() {
                     </div>
                     
                     {/* Financial Goal Card */}
-                    <div className="card p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex flex-col justify-center">
-                        <div className="flex items-center gap-4">
-                            <div className="bg-green-100 dark:bg-green-900/30 p-3 rounded-lg text-green-600 dark:text-green-400">
-                                <Target className="w-6 h-6" />
-                            </div>
-                            <div>
-                                <h3 className="text-xs font-medium text-[var(--text-soft)] uppercase tracking-wider mb-1">Financial Freedom Goal</h3>
-                                <div className="flex items-baseline gap-2">
-                                    <p className="text-2xl font-bold text-[var(--text-main)]">
-                                        {financialGoal 
-                                            ? `$${parseInt(financialGoal).toLocaleString()}` 
-                                            : currentPlan.financial_goal_snapshot 
-                                                ? currentPlan.financial_goal_snapshot 
-                                                : "$0"
-                                        }
-                                    </p>
-                                    <span className="text-xs text-[var(--text-soft)]">/ year</span>
-                                </div>
+                    <div className="card px-6 py-5 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-between">
+                        <div>
+                            <div className="flex items-center gap-2 mb-1">
+                                <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Financial Freedom Goal</h3>
                                 {!financialGoal && (
-                                    <button onClick={() => navigate(createPageUrl('FreedomCalculator'))} className="text-xs text-[var(--primary-gold)] hover:underline mt-1">
+                                    <button onClick={() => navigate(createPageUrl('FreedomCalculator'))} className="text-[10px] text-[var(--primary-gold)] hover:underline">
                                         Set Goal
                                     </button>
                                 )}
                             </div>
+                            <div className="flex items-baseline gap-1">
+                                <p className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
+                                    {financialGoal 
+                                        ? `$${parseInt(financialGoal).toLocaleString()}` 
+                                        : currentPlan.financial_goal_snapshot 
+                                            ? currentPlan.financial_goal_snapshot 
+                                            : "$0"
+                                    }
+                                </p>
+                                <span className="text-xs text-gray-400 font-medium">/ year</span>
+                            </div>
+                        </div>
+                        <div className="h-10 w-10 rounded-full bg-gray-50 dark:bg-gray-700 flex items-center justify-center">
+                            <Target className="w-5 h-5 text-gray-400 dark:text-gray-300" />
                         </div>
                     </div>
                 </div>
