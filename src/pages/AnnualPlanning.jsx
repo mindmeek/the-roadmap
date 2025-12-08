@@ -6,7 +6,7 @@ import { createPageUrl } from '@/utils';
 import { 
     Target, Calendar, Sparkles, Plus, Trash2, Save, 
     ChevronDown, ChevronUp, CheckCircle2, Circle, Loader2, 
-    ArrowLeft, BarChart2 
+    ArrowLeft, BarChart2, PiggyBank, TrendingUp, DollarSign
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -34,7 +34,15 @@ export default function AnnualPlanningPage() {
             setPlans(userPlans);
             
             if (userPlans.length > 0) {
-                setCurrentPlan(userPlans[0]);
+                // Ensure key_results are objects for tracking
+                const plan = userPlans[0];
+                const migratedObjectives = plan.quarterly_objectives.map(obj => ({
+                    ...obj,
+                    key_results: Array.isArray(obj.key_results) 
+                        ? obj.key_results.map(kr => typeof kr === 'string' ? { text: kr, is_completed: false } : kr)
+                        : []
+                }));
+                setCurrentPlan({ ...plan, quarterly_objectives: migratedObjectives });
             } else {
                 // Initialize empty state for new plan creation
                 setCurrentPlan({
@@ -70,7 +78,8 @@ export default function AnnualPlanningPage() {
             if (data?.plan) {
                 const newObjectives = data.plan.quarterly_objectives.map(obj => ({
                     ...obj,
-                    status: "not_started" // Ensure status field exists
+                    status: "not_started",
+                    key_results: obj.key_results.map(kr => ({ text: kr, is_completed: false }))
                 }));
 
                 setCurrentPlan(prev => ({
@@ -116,13 +125,26 @@ export default function AnnualPlanningPage() {
         if (!newObjectives[quarterIndex].key_results) {
             newObjectives[quarterIndex].key_results = [];
         }
-        newObjectives[quarterIndex].key_results.push("");
+        newObjectives[quarterIndex].key_results.push({ text: "", is_completed: false });
         setCurrentPlan(prev => ({ ...prev, quarterly_objectives: newObjectives }));
     };
 
     const updateKeyResult = (quarterIndex, krIndex, value) => {
         const newObjectives = [...currentPlan.quarterly_objectives];
-        newObjectives[quarterIndex].key_results[krIndex] = value;
+        newObjectives[quarterIndex].key_results[krIndex] = { 
+            ...newObjectives[quarterIndex].key_results[krIndex], 
+            text: value 
+        };
+        setCurrentPlan(prev => ({ ...prev, quarterly_objectives: newObjectives }));
+    };
+
+    const toggleKeyResult = (quarterIndex, krIndex) => {
+        const newObjectives = [...currentPlan.quarterly_objectives];
+        const kr = newObjectives[quarterIndex].key_results[krIndex];
+        newObjectives[quarterIndex].key_results[krIndex] = {
+            ...kr,
+            is_completed: !kr.is_completed
+        };
         setCurrentPlan(prev => ({ ...prev, quarterly_objectives: newObjectives }));
     };
 
@@ -136,13 +158,15 @@ export default function AnnualPlanningPage() {
         return <div className="flex justify-center items-center h-screen"><Loader2 className="w-8 h-8 animate-spin text-[var(--primary-gold)]" /></div>;
     }
 
+    const financialGoal = user?.financial_projections?.freedom_number || 0;
+
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
             {/* Header */}
-            <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10">
-                <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10 shadow-sm">
+                <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <button onClick={() => navigate(-1)} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full">
+                        <button onClick={() => navigate(-1)} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors">
                             <ArrowLeft className="w-5 h-5 text-gray-500" />
                         </button>
                         <div>
@@ -169,150 +193,229 @@ export default function AnnualPlanningPage() {
                                 </button>
                             </>
                         ) : (
-                            <button onClick={() => setIsEditing(true)} className="btn btn-secondary text-sm">
-                                Edit Plan
+                            <button onClick={() => setIsEditing(true)} className="btn btn-secondary text-sm flex items-center gap-2">
+                                <Target className="w-4 h-4" /> Edit Plan
                             </button>
                         )}
                     </div>
                 </div>
             </div>
 
-            <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
-                {/* Vision Section */}
-                <div className="card p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border-indigo-100 dark:border-indigo-800">
-                    <div className="flex items-start gap-4">
-                        <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
-                            <Target className="w-6 h-6 text-indigo-600" />
-                        </div>
-                        <div className="flex-1 space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium text-indigo-900 dark:text-indigo-200 mb-1">Annual Theme / Title</label>
-                                {isEditing ? (
-                                    <input 
-                                        type="text" 
-                                        value={currentPlan.title}
-                                        onChange={(e) => setCurrentPlan(prev => ({ ...prev, title: e.target.value }))}
-                                        className="form-input text-lg font-bold"
-                                        placeholder="e.g., The Year of Expansion"
-                                    />
-                                ) : (
-                                    <h2 className="text-2xl font-bold text-[var(--text-main)]">{currentPlan.title || "Untitled Plan"}</h2>
-                                )}
+            <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
+                {/* Top Section: Vision & Financials */}
+                <div className="grid lg:grid-cols-3 gap-6">
+                    {/* Vision Board */}
+                    <div className="lg:col-span-2 card p-6 bg-white dark:bg-gray-800 border-l-4 border-[var(--primary-gold)] shadow-md">
+                        <div className="flex items-start gap-4">
+                            <div className="p-3 bg-indigo-50 dark:bg-indigo-900/30 rounded-xl">
+                                <Target className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
                             </div>
-                            <div>
-                                <label className="block text-sm font-medium text-indigo-900 dark:text-indigo-200 mb-1">Strategic Vision</label>
-                                {isEditing ? (
-                                    <textarea 
-                                        value={currentPlan.vision_description}
-                                        onChange={(e) => setCurrentPlan(prev => ({ ...prev, vision_description: e.target.value }))}
-                                        className="form-input h-24"
-                                        placeholder="What does success look like by December 31st?"
-                                    />
-                                ) : (
-                                    <p className="text-[var(--text-main)] whitespace-pre-wrap">{currentPlan.vision_description || "No vision defined yet."}</p>
-                                )}
+                            <div className="flex-1 space-y-4">
+                                <div>
+                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Annual Theme</label>
+                                    {isEditing ? (
+                                        <input 
+                                            type="text" 
+                                            value={currentPlan.title}
+                                            onChange={(e) => setCurrentPlan(prev => ({ ...prev, title: e.target.value }))}
+                                            className="form-input text-xl font-bold border-0 border-b border-gray-200 rounded-none px-0 focus:ring-0 focus:border-[var(--primary-gold)] bg-transparent"
+                                            placeholder="e.g., The Year of Expansion"
+                                        />
+                                    ) : (
+                                        <h2 className="text-2xl font-bold text-[var(--text-main)]">{currentPlan.title || "Untitled Plan"}</h2>
+                                    )}
+                                </div>
+                                <div>
+                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Strategic Vision</label>
+                                    {isEditing ? (
+                                        <textarea 
+                                            value={currentPlan.vision_description}
+                                            onChange={(e) => setCurrentPlan(prev => ({ ...prev, vision_description: e.target.value }))}
+                                            className="form-input h-24 w-full resize-none bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700"
+                                            placeholder="What does success look like by December 31st?"
+                                        />
+                                    ) : (
+                                        <p className="text-[var(--text-main)] leading-relaxed whitespace-pre-wrap">{currentPlan.vision_description || "No vision defined yet."}</p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Financial Goal Snapshot */}
+                    <div className="card p-6 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 border border-emerald-100 dark:border-emerald-800 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div className="flex justify-between items-start mb-4">
+                                <div className="p-2 bg-emerald-100 dark:bg-emerald-900/40 rounded-lg">
+                                    <PiggyBank className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                                </div>
+                                <button 
+                                    onClick={() => navigate(createPageUrl('FreedomCalculator'))}
+                                    className="text-xs font-medium text-emerald-600 hover:text-emerald-700 hover:underline"
+                                >
+                                    Update
+                                </button>
+                            </div>
+                            <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-200 uppercase tracking-wider mb-1">Financial Target</h3>
+                            <div className="flex items-baseline gap-1">
+                                <span className="text-3xl font-bold text-emerald-900 dark:text-emerald-100">
+                                    ${(parseInt(financialGoal) * 12).toLocaleString()}
+                                </span>
+                                <span className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">/ year</span>
+                            </div>
+                            <p className="text-xs text-emerald-600/80 mt-1">Based on your Freedom Number</p>
+                        </div>
+                        
+                        <div className="mt-6 pt-4 border-t border-emerald-100 dark:border-emerald-800/50">
+                            <div className="flex justify-between items-center text-sm">
+                                <span className="text-emerald-700 dark:text-emerald-300">Monthly Goal</span>
+                                <span className="font-bold text-emerald-800 dark:text-emerald-100">${parseInt(financialGoal).toLocaleString()}</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Quarterly Objectives */}
-                <div className="grid md:grid-cols-4 gap-4 mb-6">
-                    {[1, 2, 3, 4].map(q => (
-                        <button
-                            key={q}
-                            onClick={() => setActiveQuarter(q)}
-                            className={`p-4 rounded-lg border-2 transition-all ${
-                                activeQuarter === q 
-                                    ? 'border-[var(--primary-gold)] bg-white dark:bg-gray-800 shadow-md' 
-                                    : 'border-transparent bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700'
-                            }`}
-                        >
-                            <div className="text-xs font-bold uppercase text-[var(--text-soft)] mb-1">Quarter {q}</div>
-                            <div className="font-semibold text-[var(--text-main)] truncate">
-                                {currentPlan.quarterly_objectives[q-1]?.objective || "Set Objective"}
-                            </div>
-                        </button>
-                    ))}
-                </div>
+                {/* Quarterly Roadmap */}
+                <div>
+                    <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-lg font-bold text-[var(--text-main)] flex items-center gap-2">
+                            <BarChart2 className="w-5 h-5 text-[var(--primary-gold)]" />
+                            Execution Roadmap
+                        </h3>
+                    </div>
 
-                <div className="card p-6 min-h-[400px]">
+                    {/* Quarter Tabs */}
+                    <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+                        {[1, 2, 3, 4].map(q => {
+                            const isActive = activeQuarter === q;
+                            const obj = currentPlan.quarterly_objectives[q-1];
+                            const completedCount = obj?.key_results?.filter(k => k.is_completed).length || 0;
+                            const totalCount = obj?.key_results?.length || 0;
+                            const progress = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
+
+                            return (
+                                <button
+                                    key={q}
+                                    onClick={() => setActiveQuarter(q)}
+                                    className={`flex-1 min-w-[140px] p-4 rounded-xl border transition-all text-left relative overflow-hidden group ${
+                                        isActive 
+                                            ? 'bg-white dark:bg-gray-800 border-[var(--primary-gold)] shadow-md ring-1 ring-[var(--primary-gold)]/20' 
+                                            : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 opacity-70 hover:opacity-100'
+                                    }`}
+                                >
+                                    <div className="flex justify-between items-start mb-2">
+                                        <span className={`text-xs font-bold uppercase tracking-wider ${isActive ? 'text-[var(--primary-gold)]' : 'text-gray-500'}`}>Q{q}</span>
+                                        {isActive && <div className="w-2 h-2 rounded-full bg-[var(--primary-gold)]"></div>}
+                                    </div>
+                                    <div className="text-sm font-semibold text-[var(--text-main)] truncate mb-2">
+                                        {obj?.objective || "Set Objective"}
+                                    </div>
+                                    
+                                    {/* Mini Progress Bar */}
+                                    <div className="w-full bg-gray-100 dark:bg-gray-700 h-1.5 rounded-full overflow-hidden">
+                                        <div 
+                                            className="bg-green-500 h-full transition-all duration-500" 
+                                            style={{ width: `${progress}%` }}
+                                        ></div>
+                                    </div>
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    {/* Active Quarter Detail */}
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={activeQuarter}
-                            initial={{ opacity: 0, x: 10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -10 }}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.2 }}
+                            className="card p-6 bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700"
                         >
-                            <div className="flex items-center justify-between mb-6">
-                                <h3 className="text-xl font-bold text-[var(--text-main)] flex items-center gap-2">
-                                    <BarChart2 className="w-5 h-5 text-[var(--primary-gold)]" />
-                                    Q{activeQuarter} Objectives
-                                </h3>
-                                <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                                    currentPlan.quarterly_objectives[activeQuarter-1].status === 'completed' ? 'bg-green-100 text-green-700' :
-                                    currentPlan.quarterly_objectives[activeQuarter-1].status === 'in_progress' ? 'bg-blue-100 text-blue-700' :
-                                    'bg-gray-100 text-gray-600'
-                                }`}>
-                                    {currentPlan.quarterly_objectives[activeQuarter-1].status.replace('_', ' ').toUpperCase()}
-                                </span>
-                            </div>
-
-                            <div className="space-y-6">
-                                <div>
-                                    <label className="block text-sm font-medium text-[var(--text-soft)] mb-2">Main Objective</label>
-                                    {isEditing ? (
-                                        <input 
-                                            type="text"
-                                            value={currentPlan.quarterly_objectives[activeQuarter-1].objective}
-                                            onChange={(e) => updateQuarterlyObjective(activeQuarter-1, 'objective', e.target.value)}
-                                            className="form-input text-lg"
-                                            placeholder={`What is the main goal for Q${activeQuarter}?`}
-                                        />
-                                    ) : (
-                                        <p className="text-lg font-medium text-[var(--text-main)]">
-                                            {currentPlan.quarterly_objectives[activeQuarter-1].objective || "No objective set."}
-                                        </p>
-                                    )}
+                            <div className="flex flex-col md:flex-row gap-8">
+                                {/* Objective Column */}
+                                <div className="md:w-1/3 space-y-4">
+                                    <div>
+                                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Main Objective for Q{activeQuarter}</label>
+                                        {isEditing ? (
+                                            <textarea 
+                                                value={currentPlan.quarterly_objectives[activeQuarter-1].objective}
+                                                onChange={(e) => updateQuarterlyObjective(activeQuarter-1, 'objective', e.target.value)}
+                                                className="form-input text-lg font-medium w-full h-32 resize-none"
+                                                placeholder={`What is the one big thing you need to achieve in Q${activeQuarter}?`}
+                                            />
+                                        ) : (
+                                            <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-gray-100 dark:border-gray-700 h-full">
+                                                <p className="text-lg font-medium text-[var(--text-main)]">
+                                                    {currentPlan.quarterly_objectives[activeQuarter-1].objective || "No objective set."}
+                                                </p>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
 
-                                <div>
-                                    <label className="block text-sm font-medium text-[var(--text-soft)] mb-2">Key Results (Measurable Outcomes)</label>
+                                {/* Key Results Column */}
+                                <div className="md:w-2/3 space-y-4">
+                                    <div className="flex justify-between items-center">
+                                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider block">Key Results (Success Metrics)</label>
+                                        <span className="text-xs text-gray-400">
+                                            {currentPlan.quarterly_objectives[activeQuarter-1].key_results?.filter(k => k.is_completed).length || 0} / {currentPlan.quarterly_objectives[activeQuarter-1].key_results?.length || 0} Completed
+                                        </span>
+                                    </div>
+
                                     <div className="space-y-3">
                                         {currentPlan.quarterly_objectives[activeQuarter-1].key_results?.map((kr, idx) => (
-                                            <div key={idx} className="flex items-center gap-3">
-                                                <div className="mt-1">
-                                                    <Target className="w-4 h-4 text-gray-400" />
-                                                </div>
-                                                {isEditing ? (
-                                                    <>
+                                            <div key={idx} className="group flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors border border-transparent hover:border-gray-100 dark:hover:border-gray-700">
+                                                <button 
+                                                    onClick={() => !isEditing && toggleKeyResult(activeQuarter-1, idx)}
+                                                    className={`mt-1 flex-shrink-0 transition-colors ${isEditing ? 'cursor-default' : 'cursor-pointer'}`}
+                                                    disabled={isEditing}
+                                                >
+                                                    {kr.is_completed ? (
+                                                        <CheckCircle2 className="w-5 h-5 text-green-500" />
+                                                    ) : (
+                                                        <Circle className="w-5 h-5 text-gray-300 group-hover:text-[var(--primary-gold)]" />
+                                                    )}
+                                                </button>
+                                                
+                                                <div className="flex-1">
+                                                    {isEditing ? (
                                                         <input 
                                                             type="text"
-                                                            value={kr}
+                                                            value={kr.text || ""}
                                                             onChange={(e) => updateKeyResult(activeQuarter-1, idx, e.target.value)}
-                                                            className="form-input flex-1"
+                                                            className="form-input w-full text-sm py-1"
                                                             placeholder="e.g., Reach $50k in revenue"
                                                         />
-                                                        <button 
-                                                            onClick={() => removeKeyResult(activeQuarter-1, idx)}
-                                                            className="p-2 text-red-500 hover:bg-red-50 rounded-full"
-                                                        >
-                                                            <Trash2 className="w-4 h-4" />
-                                                        </button>
-                                                    </>
-                                                ) : (
-                                                    <div className="flex-1 p-3 bg-gray-50 dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700">
-                                                        {kr}
-                                                    </div>
+                                                    ) : (
+                                                        <span className={`text-sm ${kr.is_completed ? 'line-through text-gray-400' : 'text-[var(--text-main)]'}`}>
+                                                            {kr.text}
+                                                        </span>
+                                                    )}
+                                                </div>
+
+                                                {isEditing && (
+                                                    <button 
+                                                        onClick={() => removeKeyResult(activeQuarter-1, idx)}
+                                                        className="text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                                                    >
+                                                        <Trash2 className="w-4 h-4" />
+                                                    </button>
                                                 )}
                                             </div>
                                         ))}
                                         
+                                        {currentPlan.quarterly_objectives[activeQuarter-1].key_results?.length === 0 && !isEditing && (
+                                            <div className="text-center py-8 text-gray-400 text-sm">
+                                                No key results defined for this quarter.
+                                            </div>
+                                        )}
+
                                         {isEditing && (
                                             <button 
                                                 onClick={() => addKeyResult(activeQuarter-1)}
-                                                className="flex items-center gap-2 text-sm text-[var(--primary-gold)] font-medium mt-2 hover:underline px-2"
+                                                className="w-full py-2 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-400 hover:text-[var(--primary-gold)] hover:border-[var(--primary-gold)] transition-colors flex items-center justify-center gap-2"
                                             >
                                                 <Plus className="w-4 h-4" /> Add Key Result
                                             </button>
