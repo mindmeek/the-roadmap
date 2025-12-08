@@ -460,7 +460,7 @@ export default function AnnualPlanningPage() {
                     </div>
                     
                     {/* Financial Goal Card */}
-                    <div className="card h-full min-h-[120px] relative overflow-hidden border-0 shadow-lg group">
+                    <div className="card h-full min-h-[140px] relative overflow-hidden border-0 shadow-lg group">
                         {/* Background Image & Overlays */}
                         <div className="absolute inset-0 z-0">
                             <img 
@@ -468,22 +468,22 @@ export default function AnnualPlanningPage() {
                                 alt="Financial Success" 
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             />
-                            <div className="absolute inset-0 bg-emerald-900/80 mix-blend-multiply"></div>
-                            <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-900/40 to-transparent opacity-90"></div>
+                            <div className="absolute inset-0 bg-emerald-900/90 mix-blend-multiply"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-900/60 to-transparent opacity-95"></div>
                         </div>
 
                         {/* Content */}
-                        <div className="relative z-10 h-full p-6 flex flex-col justify-between">
-                            <div className="flex justify-between items-start">
+                        <div className="relative z-10 h-full p-4 flex flex-col justify-between">
+                            <div className="flex justify-between items-start mb-2">
                                 <div>
-                                    <h3 className="text-[10px] font-bold text-emerald-100/80 uppercase tracking-widest mb-2 flex items-center gap-2">
+                                    <h3 className="text-[10px] font-bold text-emerald-100/80 uppercase tracking-widest mb-1 flex items-center gap-2">
                                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                                         Financial Freedom Goal
                                     </h3>
                                     <div className="flex items-baseline gap-2">
                                         <p className="text-3xl font-bold text-white tracking-tight leading-none drop-shadow-sm">
                                             {financialGoal 
-                                                ? `$${parseInt(financialGoal).toLocaleString()}` 
+                                                ? `$${(parseInt(financialGoal) * 12).toLocaleString()}` 
                                                 : currentPlan.financial_goal_snapshot 
                                                     ? currentPlan.financial_goal_snapshot 
                                                     : "$0"
@@ -491,11 +491,10 @@ export default function AnnualPlanningPage() {
                                         </p>
                                         <span className="text-[10px] text-emerald-200/60 font-medium uppercase tracking-wide">/ year</span>
                                     </div>
+                                    <p className="text-[9px] text-emerald-200/50 mt-1 font-medium">
+                                        ${financialGoal ? parseInt(financialGoal).toLocaleString() : '0'} / month
+                                    </p>
                                 </div>
-                            </div>
-                            
-                            <div className="flex items-center justify-between mt-4">
-                                <p className="text-[10px] text-emerald-100/60 font-medium">Annual Revenue Target</p>
                                 {!financialGoal && (
                                     <button 
                                         onClick={() => navigate(createPageUrl('FreedomCalculator'))} 
@@ -505,6 +504,28 @@ export default function AnnualPlanningPage() {
                                     </button>
                                 )}
                             </div>
+                            
+                            {/* Monthly Breakdown Stats */}
+                            {user?.financial_projections && (
+                                <div className="mt-3 pt-3 border-t border-white/10 grid grid-cols-4 gap-2 divide-x divide-white/10 text-center">
+                                    <div className="px-1">
+                                        <p className="text-[8px] text-emerald-200/60 uppercase tracking-wider mb-0.5">Personal</p>
+                                        <p className="text-[9px] font-bold text-white">${parseInt(user.financial_projections.monthlyExpenses || 0).toLocaleString()}</p>
+                                    </div>
+                                    <div className="px-1">
+                                        <p className="text-[8px] text-emerald-200/60 uppercase tracking-wider mb-0.5">Salary</p>
+                                        <p className="text-[9px] font-bold text-white">${parseInt(user.financial_projections.desiredSalary || 0).toLocaleString()}</p>
+                                    </div>
+                                    <div className="px-1">
+                                        <p className="text-[8px] text-emerald-200/60 uppercase tracking-wider mb-0.5">Business</p>
+                                        <p className="text-[9px] font-bold text-white">${parseInt(user.financial_projections.businessExpenses || 0).toLocaleString()}</p>
+                                    </div>
+                                    <div className="px-1">
+                                        <p className="text-[8px] text-emerald-200/60 uppercase tracking-wider mb-0.5">Buffer</p>
+                                        <p className="text-[9px] font-bold text-white">{user.financial_projections.emergencyBuffer || 20}%</p>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
