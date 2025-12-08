@@ -473,15 +473,15 @@ export default function AnnualPlanningPage() {
                         </div>
 
                         {/* Content */}
-                        <div className="relative z-10 h-full p-4 flex flex-col justify-between">
-                            <div className="flex justify-between items-start mb-2">
+                        <div className="relative z-10 h-full p-6 flex flex-col justify-between">
+                            <div className="flex justify-between items-start mb-4">
                                 <div>
-                                    <h3 className="text-[10px] font-bold text-emerald-100/80 uppercase tracking-widest mb-1 flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                    <h3 className="text-xs font-bold text-emerald-100 uppercase tracking-widest mb-1 flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_rgba(52,211,153,0.5)]"></span>
                                         Financial Freedom Goal
                                     </h3>
                                     <div className="flex items-baseline gap-2">
-                                        <p className="text-xl font-bold text-white tracking-tight leading-none drop-shadow-sm">
+                                        <p className="text-3xl font-bold text-white tracking-tight leading-none drop-shadow-md">
                                             {financialGoal 
                                                 ? `$${(parseInt(financialGoal) * 12).toLocaleString()}` 
                                                 : currentPlan.financial_goal_snapshot 
@@ -489,40 +489,40 @@ export default function AnnualPlanningPage() {
                                                     : "$0"
                                             }
                                         </p>
-                                        <span className="text-[10px] text-emerald-200/60 font-medium uppercase tracking-wide">/ year</span>
+                                        <span className="text-sm text-emerald-200/80 font-medium">/ year</span>
                                     </div>
-                                    <p className="text-[9px] text-emerald-200/50 mt-1 font-medium">
-                                        ${financialGoal ? parseInt(financialGoal).toLocaleString() : '0'} / month
+                                    <p className="text-xs text-emerald-200/60 mt-1 font-medium">
+                                        Target: ${financialGoal ? parseInt(financialGoal).toLocaleString() : '0'} / month
                                     </p>
                                 </div>
                                 {!financialGoal && (
                                     <button 
                                         onClick={() => navigate(createPageUrl('FreedomCalculator'))} 
-                                        className="text-[10px] bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-full transition-all backdrop-blur-md border border-white/10 font-medium"
+                                        className="text-xs bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full transition-all backdrop-blur-md border border-white/10 font-medium shadow-sm hover:shadow-md"
                                     >
                                         Set Goal
                                     </button>
                                 )}
                             </div>
                             
-                            {/* Monthly Breakdown Stats */}
+                            {/* Breakdown Stats - Clean Grid */}
                             {user?.financial_projections && (
-                                <div className="mt-3 pt-3 border-t border-white/10 grid grid-cols-4 gap-2 divide-x divide-white/10 text-center">
-                                    <div className="px-1">
-                                        <p className="text-[8px] text-emerald-200/60 uppercase tracking-wider mb-0.5">Personal</p>
-                                        <p className="text-[9px] font-bold text-white">${parseInt(user.financial_projections.monthlyExpenses || 0).toLocaleString()}</p>
+                                <div className="mt-2 pt-4 border-t border-white/10 grid grid-cols-2 gap-4">
+                                    <div className="flex flex-col">
+                                        <span className="text-[10px] uppercase tracking-wider text-emerald-200/60 mb-0.5">Personal</span>
+                                        <span className="text-sm font-bold text-white">${parseInt(user.financial_projections.monthlyExpenses || 0).toLocaleString()}</span>
                                     </div>
-                                    <div className="px-1">
-                                        <p className="text-[8px] text-emerald-200/60 uppercase tracking-wider mb-0.5">Salary</p>
-                                        <p className="text-[9px] font-bold text-white">${parseInt(user.financial_projections.desiredSalary || 0).toLocaleString()}</p>
+                                    <div className="flex flex-col">
+                                        <span className="text-[10px] uppercase tracking-wider text-emerald-200/60 mb-0.5">Desired Salary</span>
+                                        <span className="text-sm font-bold text-white">${parseInt(user.financial_projections.desiredSalary || 0).toLocaleString()}</span>
                                     </div>
-                                    <div className="px-1">
-                                        <p className="text-[8px] text-emerald-200/60 uppercase tracking-wider mb-0.5">Business</p>
-                                        <p className="text-[9px] font-bold text-white">${parseInt(user.financial_projections.businessExpenses || 0).toLocaleString()}</p>
+                                    <div className="flex flex-col">
+                                        <span className="text-[10px] uppercase tracking-wider text-emerald-200/60 mb-0.5">Business Costs</span>
+                                        <span className="text-sm font-bold text-white">${parseInt(user.financial_projections.businessExpenses || 0).toLocaleString()}</span>
                                     </div>
-                                    <div className="px-1">
-                                        <p className="text-[8px] text-emerald-200/60 uppercase tracking-wider mb-0.5">Buffer</p>
-                                        <p className="text-[9px] font-bold text-white">{user.financial_projections.emergencyBuffer || 20}%</p>
+                                    <div className="flex flex-col">
+                                        <span className="text-[10px] uppercase tracking-wider text-emerald-200/60 mb-0.5">Safety Buffer</span>
+                                        <span className="text-sm font-bold text-white">{user.financial_projections.emergencyBuffer || 20}%</span>
                                     </div>
                                 </div>
                             )}
