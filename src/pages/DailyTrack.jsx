@@ -329,7 +329,7 @@ export default function DailyTrack() {
       <div className="max-w-4xl mx-auto space-y-6">
         
         {/* Header */}
-        <div className="card p-6 md:p-8">
+        <div id="daily-track-header" className="card p-6 md:p-8">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
             <div className="flex items-center space-x-4">
                 <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-md"><Calendar className="w-8 h-8 text-[var(--primary-gold)]" /></div>
@@ -348,7 +348,7 @@ export default function DailyTrack() {
         </div>
 
         {/* 30-Day Overview */}
-        <div className="card p-6">
+        <div id="daily-track-stats" className="card p-6">
             <h2 className="text-xl font-bold mb-4">30-Day Progress</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div className="bg-green-50 dark:bg-green-900/20 text-center p-4 rounded-lg"><div className="text-3xl font-bold text-green-600 dark:text-green-400">{currentStreak}</div><div className="text-green-700 dark:text-green-300">Day Streak</div></div>
@@ -363,7 +363,7 @@ export default function DailyTrack() {
         </div>
 
         {/* Today's Tasks */}
-        <div className="card p-6">
+        <div id="daily-track-tasks" className="card p-6">
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-bold">Today's Tasks ({completedTasks}/{totalTasks})</h2>
                 {isEditing && (
@@ -413,7 +413,7 @@ export default function DailyTrack() {
         </div>
 
         {/* Financial Goal Card */}
-        <div className="card p-6">
+        <div id="daily-track-financial" className="card p-6">
             <h2 className="text-xl font-bold mb-4">Financial Goals</h2>
             <div className="flex items-center space-x-2 mb-4">
                 <Target className="w-6 h-6 text-[var(--primary-gold)]" />
@@ -432,7 +432,7 @@ export default function DailyTrack() {
 
         {/* Reflection & Next Day */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="card p-6">
+            <div id="daily-track-reflection" className="card p-6">
                 <h2 className="text-xl font-bold mb-4">Daily Reflection</h2>
                 {isEditing ? (
                     <textarea value={formData.reflection} onChange={(e) => setFormData(prev => ({...prev, reflection: e.target.value}))} className="form-input h-32" placeholder="What went well? What could be improved?"></textarea>
@@ -440,7 +440,7 @@ export default function DailyTrack() {
                     <p className="whitespace-pre-wrap min-h-[8rem] bg-gray-50 dark:bg-gray-800 p-3 rounded">{formData.reflection || 'No reflection added.'}</p>
                 )}
             </div>
-            <div className="card p-6">
+            <div id="daily-track-next-day" className="card p-6">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-bold">Tomorrow's Focus</h2>
                     {isEditing && formData.next_day_focus_tasks.length < 3 && <button onClick={addNextDayTask} className="btn btn-primary"><Plus className="w-4 h-4"/></button>}

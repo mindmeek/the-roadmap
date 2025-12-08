@@ -142,7 +142,7 @@ export default function MyBusinessesPage() {
 
     return (
         <div className="px-4 sm:px-6 lg:px-8 py-8 max-w-6xl mx-auto pb-24">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+            <div id="my-businesses-header" className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
                 <div>
                     <h1 className="text-3xl font-bold text-[var(--text-main)]">My Businesses</h1>
                     <p className="text-[var(--text-soft)] mt-2">Manage your business profiles and team members</p>
@@ -191,7 +191,7 @@ export default function MyBusinessesPage() {
 
             {/* Business Cards Section */}
             {businesses.length > 0 ? (
-                <div className="space-y-6 mb-8">
+                <div id="my-businesses-list" className="space-y-6 mb-8">
                     {businesses.map((business) => {
                         const members = businessMembers[business.id] || [];
                         const roleBadge = getRoleBadge(business.userRole);
@@ -362,7 +362,7 @@ export default function MyBusinessesPage() {
 
             {/* The Index Section */}
             {canAccessDirectory && (
-                <div className="card p-8 bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 border-2 border-red-600 mt-8">
+                <div id="my-businesses-index" className="card p-8 bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 border-2 border-red-600 mt-8">
                     <div className="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
                         <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/29ba9d749_Indexlogo.png" alt="The Index Logo" className="h-12 w-auto bg-black p-2 rounded-md" />
                         <div className="flex-1">

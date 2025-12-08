@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User, Schedule } from '@/entities/all';
 import { createPageUrl } from '@/utils';
@@ -646,7 +645,7 @@ export default function SchedulePage() {
     <div className="px-4 pb-20 md:pb-8">
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="max-w-7xl mx-auto space-y-6">
-          <div className="card p-6 md:p-8">
+          <div id="schedule-header" className="card p-6 md:p-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="flex items-center space-x-4">
                 <div className="bg-gray-100 p-3 md:p-4 rounded-md">
@@ -676,7 +675,7 @@ export default function SchedulePage() {
           
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
             <div className="lg:col-span-1 space-y-6">
-              <div className="card p-6">
+              <div id="schedule-unscheduled-tasks" className="card p-6">
                 <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
                   <Edit className="w-5 h-5 text-[var(--primary-gold)]" /> {/* Changed ListChecks to Edit */}
                   Today's Tasks
@@ -729,7 +728,7 @@ export default function SchedulePage() {
                 </Droppable>
               </div>
 
-              <div className="card p-6 space-y-3">
+              <div id="schedule-actions" className="card p-6 space-y-3">
                  <h3 className="font-bold text-lg mb-2">Actions</h3>
                  <button 
                    onClick={generateAISchedule} 
@@ -750,7 +749,7 @@ export default function SchedulePage() {
               </div>
             </div>
 
-            <div className="lg:col-span-3 card p-6">
+            <div id="schedule-timeline" className="lg:col-span-3 card p-6">
               <div className="mb-4">
                 <p className="text-sm text-[var(--text-soft)]">
                   💡 Click on any time slot to add an activity

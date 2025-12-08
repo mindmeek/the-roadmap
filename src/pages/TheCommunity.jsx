@@ -15,7 +15,7 @@ const GooglePlayLogo = () => (
 );
 
 const CommunityIntro = () => (
-    <div className="card p-6 md:p-8 mb-6">
+    <div id="community-intro" className="card p-6 md:p-8 mb-6">
         <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-8">
             <div className="flex-shrink-0 mb-6 lg:mb-0 text-center">
                 <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-full inline-block">
@@ -55,7 +55,7 @@ const CommunityIntro = () => (
 );
 
 const AppDownloadSection = () => (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div id="community-app-download" className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Mobile App Download */}
         <div 
             className="card p-6 md:p-8 relative overflow-hidden text-white"
@@ -174,7 +174,7 @@ export default function TheCommunityPage() {
                 <CommunityIntro />
                 
                 {/* Embedded Community */}
-                <div className="card p-4" style={{ borderRadius: '2px' }}>
+                <div id="community-embed" className="card p-4" style={{ borderRadius: '2px' }}>
                     <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4">Access The Community</h2>
                     <div style={{ height: '800px', width: '100%' }} className="rounded-md border border-gray-200 dark:border-gray-700 overflow-hidden">
                         <iframe
