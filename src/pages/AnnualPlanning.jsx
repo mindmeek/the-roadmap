@@ -460,12 +460,12 @@ export default function AnnualPlanningPage() {
                     </div>
                     
                     {/* Financial Goal Card */}
-                    <div className="card p-6 bg-emerald-600 dark:bg-emerald-700 border-none shadow-md text-white flex flex-col justify-center h-full relative overflow-hidden">
+                    <div className="card p-5 bg-emerald-600 dark:bg-emerald-700 border-none shadow-md text-white flex flex-col justify-center h-full relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
                         <div className="relative z-10">
-                            <h3 className="text-xs font-medium text-emerald-100 uppercase tracking-widest mb-2 opacity-80">Financial Freedom Goal</h3>
+                            <h3 className="text-[10px] font-bold text-emerald-100 uppercase tracking-widest mb-1 opacity-90">Financial Freedom Goal</h3>
                             <div className="flex items-baseline gap-2 mb-1">
-                                <p className="text-3xl font-bold text-white tracking-tight">
+                                <p className="text-2xl font-bold text-white tracking-tight">
                                     {financialGoal 
                                         ? `$${parseInt(financialGoal).toLocaleString()}` 
                                         : currentPlan.financial_goal_snapshot 
@@ -475,9 +475,9 @@ export default function AnnualPlanningPage() {
                                 </p>
                             </div>
                             <div className="flex items-center justify-between">
-                                <p className="text-xs text-emerald-100/70">Annual Revenue Target</p>
+                                <p className="text-[10px] text-emerald-100/70">Annual Revenue Target</p>
                                 {!financialGoal && (
-                                    <button onClick={() => navigate(createPageUrl('FreedomCalculator'))} className="text-xs bg-white/20 hover:bg-white/30 text-white px-3 py-1 rounded-full transition-colors backdrop-blur-sm">
+                                    <button onClick={() => navigate(createPageUrl('FreedomCalculator'))} className="text-[10px] bg-white/20 hover:bg-white/30 text-white px-2 py-0.5 rounded-full transition-colors backdrop-blur-sm">
                                         Set Goal
                                     </button>
                                 )}
