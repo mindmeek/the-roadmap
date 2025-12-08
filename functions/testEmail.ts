@@ -1,0 +1,104 @@
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.4';
+import { Resend } from 'npm:resend@2.0.0';
+
+Deno.serve(async (req) => {
+    try {
+        const base44 = createClientFromRequest(req);
+        
+        const user = await base44.auth.me();
+        
+        if (!user || user.role !== 'admin') {
+            return new Response(JSON.stringify({ success: false, error: 'Forbidden', details: 'User is not an admin' }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+
+        const { testType, email, name } = await req.json();
+
+        const apiKey = Deno.env.get('RESEND_API_KEY');
+        const fromEmailAddress = Deno.env.get('RESEND_FROM_EMAIL');
+        
+        if (!apiKey || !fromEmailAddress) {
+            return new Response(JSON.stringify({ success: false, error: 'Configuration Error', details: 'Server is missing RESEND_API_KEY or RESEND_FROM_EMAIL.' }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+
+        const resend = new Resend(apiKey);
+        // Ensure we handle the case where fromEmailAddress might be just "email@domain.com" or "Name <email@domain.com>"
+        const fromEmail = fromEmailAddress.includes('<') ? fromEmailAddress : `The Business Minds <${fromEmailAddress}>`;
+        
+        const toEmail = email || user.email;
+        const recipientName = name || user.full_name?.split(' ')[0] || 'there';
+
+        const subjectMap = {
+            welcome: 'Welcome to The Business Minds! 🎉',
+            connection: `${user.full_name} wants to connect with you`,
+            reminder: "Don't forget to track your 1% today! 📈",
+        };
+        const subject = subjectMap[testType] || 'Test Email from Business Minds';
+
+        const emailPayload = {
+            from: fromEmail,
+            to: [toEmail],
+            subject: subject,
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9fafb;">
+                    <div style="background-color: white; border-radius: 8px; padding: 40px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/e1535f93c_gfg8788.png" alt="The Business Minds" style="height: 60px;">
+                        </div>
+                        <h1 style="color: #8B6F4E; text-align: center; margin-bottom: 20px;">Test Email from The Business Minds!</h1>
+                        <p style="color: #374151; font-size: 16px; line-height: 1.6;">
+                            Hi ${recipientName},
+                        </p>
+                        <p style="color: #374151; font-size: 16px; line-height: 1.6;">
+                            This is a test email for the <strong>'${testType}'</strong> template.
+                            <br>It was sent to <strong>${toEmail}</strong>.
+                        </p>
+                         <p style="color: #374151; font-size: 16px; line-height: 1.6;">
+                            This email confirms that the email sending functionality is working correctly with the full HTML template.
+                        </p>
+                        <div style="text-align: center; margin: 30px 0;">
+                            <a href="https://go.thebminds.com/Dashboard" 
+                               style="background-color: #8B6F4E; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
+                                Go to My Dashboard →
+                            </a>
+                        </div>
+                        <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 30px 0;">
+                        <p style="color: #6B7280; font-size: 14px; line-height: 1.5;">
+                            This is an automated test email.
+                        </p>
+                    </div>
+                </div>
+            `,
+            text: `This is a test email for the '${testType}' template. Sent to ${toEmail} for ${recipientName}.`
+        };
+
+        const emailResult = await resend.emails.send(emailPayload);
+
+        if (emailResult.error) {
+            console.error('Resend API Error:', emailResult.error);
+            return new Response(JSON.stringify({ 
+                success: false,
+                error: 'Resend API returned an error', 
+                details: emailResult.error
+            }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+
+        return new Response(JSON.stringify({ 
+            success: true, 
+            data: {
+                id: emailResult.data.id,
+                to: toEmail
+            }
+        }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+
+    } catch (error) {
+        console.error('Exception in testEmail function:', error);
+        return new Response(JSON.stringify({
+            success: false,
+            error: 'An exception occurred in the backend function.',
+            details: {
+                name: error.name,
+                message: error.message,
+            }
+        }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    }
+});
