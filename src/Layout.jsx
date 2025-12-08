@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import WelcomePopup from "@/components/common/WelcomePopup";
 import PWAInstallPrompt from "@/components/common/PWAInstallPrompt";
+import TourGuide from "@/components/common/TourGuide";
 
 // Updated navigation structure with simplified grouping
 const myJourneyHubItems = [
@@ -618,12 +619,13 @@ const NavItem = ({ item, isExpanded, isActive, onClick }) => {
                     ? 'bg-[var(--primary-gold)] text-white'
                     : 'text-gray-300 hover:bg-gray-800 hover:text-white'
             }`}
-        >
+            id={`nav-item-${item.href}`}
+            >
             {IconComponent && <IconComponent className={`mr-3 h-5 w-5 ${isActive ? 'text-white' : 'text-gray-500 group-hover:text-gray-300'} ${isExpanded ? '' : 'mx-auto mr-0'}`} />}
             {isExpanded && item.label}
-        </Link>
-    );
-};
+            </Link>
+            );
+            };
 
 const CollapsibleSection = ({ title, items, isExpanded, isOpen, onToggle, location, onItemClick, user }) => {
     const filteredItems = items.filter(item => {
@@ -1141,6 +1143,7 @@ export default function Layout({ children, currentPageName }) {
         <div className="flex h-screen bg-white dark:bg-black overflow-hidden">
             <GlobalSearchModal isOpen={isGlobalSearchOpen} onClose={() => setIsGlobalSearchOpen(false)} />
             <WelcomePopup isOpen={showWelcomePopup} onClose={handleCloseWelcomePopup} user={user} />
+            <TourGuide user={user} />
             <PWAInstallPrompt />
 
             <div className={`hidden lg:flex lg:flex-shrink-0 transition-all duration-300 ${isSidebarExpanded ? 'w-64' : 'w-20'}`}>

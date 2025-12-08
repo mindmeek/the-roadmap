@@ -226,6 +226,7 @@ export default function DashboardPage() {
                 
                 {/* Welcome Hero Section */}
                 <div 
+                    id="dashboard-hero"
                     className="relative overflow-hidden shadow-xl"
                     style={{ 
                         backgroundImage: 'url(https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/87939415f_lycs-architecture-U2BI3GMnSSE-unsplash.jpg)',
@@ -285,7 +286,7 @@ export default function DashboardPage() {
                 {/* Today's Progress & Upcoming Tasks - SIDE BY SIDE */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                     {/* Today's Progress */}
-                    <div className="card p-4 sm:p-6" style={{ borderRadius: '2px' }}>
+                    <div id="dashboard-daily-progress" className="card p-4 sm:p-6" style={{ borderRadius: '2px' }}>
                         <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
                             <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)] flex items-center flex-wrap gap-2">
                                 <TrendingUp className="w-5 h-5 text-[var(--primary-gold)]" />
