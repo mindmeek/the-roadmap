@@ -460,24 +460,47 @@ export default function AnnualPlanningPage() {
                     </div>
                     
                     {/* Financial Goal Card */}
-                    <div className="card p-5 bg-emerald-600 dark:bg-emerald-700 border-none shadow-md text-white flex flex-col justify-center h-full relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
-                        <div className="relative z-10">
-                            <h3 className="text-[10px] font-bold text-emerald-100 uppercase tracking-widest mb-1 opacity-90">Financial Freedom Goal</h3>
-                            <div className="flex items-baseline gap-2 mb-1">
-                                <p className="text-2xl font-bold text-white tracking-tight">
-                                    {financialGoal 
-                                        ? `$${parseInt(financialGoal).toLocaleString()}` 
-                                        : currentPlan.financial_goal_snapshot 
-                                            ? currentPlan.financial_goal_snapshot 
-                                            : "$0"
-                                    }
-                                </p>
+                    <div className="card h-full min-h-[120px] relative overflow-hidden border-0 shadow-lg group">
+                        {/* Background Image & Overlays */}
+                        <div className="absolute inset-0 z-0">
+                            <img 
+                                src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3" 
+                                alt="Financial Success" 
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-emerald-900/80 mix-blend-multiply"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-900/40 to-transparent opacity-90"></div>
+                        </div>
+
+                        {/* Content */}
+                        <div className="relative z-10 h-full p-6 flex flex-col justify-between">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <h3 className="text-[10px] font-bold text-emerald-100/80 uppercase tracking-widest mb-2 flex items-center gap-2">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                        Financial Freedom Goal
+                                    </h3>
+                                    <div className="flex items-baseline gap-2">
+                                        <p className="text-3xl font-bold text-white tracking-tight leading-none drop-shadow-sm">
+                                            {financialGoal 
+                                                ? `$${parseInt(financialGoal).toLocaleString()}` 
+                                                : currentPlan.financial_goal_snapshot 
+                                                    ? currentPlan.financial_goal_snapshot 
+                                                    : "$0"
+                                            }
+                                        </p>
+                                        <span className="text-[10px] text-emerald-200/60 font-medium uppercase tracking-wide">/ year</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="flex items-center justify-between">
-                                <p className="text-[10px] text-emerald-100/70">Annual Revenue Target</p>
+                            
+                            <div className="flex items-center justify-between mt-4">
+                                <p className="text-[10px] text-emerald-100/60 font-medium">Annual Revenue Target</p>
                                 {!financialGoal && (
-                                    <button onClick={() => navigate(createPageUrl('FreedomCalculator'))} className="text-[10px] bg-white/20 hover:bg-white/30 text-white px-2 py-0.5 rounded-full transition-colors backdrop-blur-sm">
+                                    <button 
+                                        onClick={() => navigate(createPageUrl('FreedomCalculator'))} 
+                                        className="text-[10px] bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-full transition-all backdrop-blur-md border border-white/10 font-medium"
+                                    >
                                         Set Goal
                                     </button>
                                 )}
