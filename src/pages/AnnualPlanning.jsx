@@ -158,7 +158,7 @@ export default function AnnualPlanningPage() {
         return <div className="flex justify-center items-center h-screen"><Loader2 className="w-8 h-8 animate-spin text-[var(--primary-gold)]" /></div>;
     }
 
-    const financialGoal = user?.financial_projections?.freedom_number || 0;
+    const financialGoal = user?.financial_projections?.freedomNumber || 0;
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
@@ -342,13 +342,29 @@ export default function AnnualPlanningPage() {
                                             <textarea 
                                                 value={currentPlan.quarterly_objectives[activeQuarter-1].objective}
                                                 onChange={(e) => updateQuarterlyObjective(activeQuarter-1, 'objective', e.target.value)}
-                                                className="form-input text-lg font-medium w-full h-32 resize-none"
+                                                className="form-input text-lg font-medium w-full h-24 resize-none mb-4"
                                                 placeholder={`What is the one big thing you need to achieve in Q${activeQuarter}?`}
                                             />
                                         ) : (
-                                            <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-gray-100 dark:border-gray-700 h-full">
+                                            <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-gray-100 dark:border-gray-700 mb-4">
                                                 <p className="text-lg font-medium text-[var(--text-main)]">
                                                     {currentPlan.quarterly_objectives[activeQuarter-1].objective || "No objective set."}
+                                                </p>
+                                            </div>
+                                        )}
+
+                                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Strategy & Tactics</label>
+                                        {isEditing ? (
+                                            <textarea 
+                                                value={currentPlan.quarterly_objectives[activeQuarter-1].tactics || ""}
+                                                onChange={(e) => updateQuarterlyObjective(activeQuarter-1, 'tactics', e.target.value)}
+                                                className="form-input text-sm w-full h-32 resize-none"
+                                                placeholder="How will you achieve this? List your key strategies and tactics..."
+                                            />
+                                        ) : (
+                                            <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-gray-100 dark:border-gray-700 min-h-[100px]">
+                                                <p className="text-sm text-[var(--text-main)] whitespace-pre-wrap">
+                                                    {currentPlan.quarterly_objectives[activeQuarter-1].tactics || "No tactics defined."}
                                                 </p>
                                             </div>
                                         )}
@@ -425,6 +441,43 @@ export default function AnnualPlanningPage() {
                             </div>
                         </motion.div>
                     </AnimatePresence>
+                </div>
+
+                {/* Success Tips Section */}
+                <div className="card p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-100 dark:border-blue-800">
+                    <h3 className="text-lg font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
+                        <Sparkles className="w-5 h-5 text-blue-500" />
+                        Tips for a Successful Year
+                    </h3>
+                    <div className="grid md:grid-cols-3 gap-6">
+                        <div className="flex gap-3">
+                            <div className="bg-white dark:bg-gray-800 p-2 rounded-lg h-fit shadow-sm">
+                                <Target className="w-5 h-5 text-blue-600" />
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-sm text-[var(--text-main)] mb-1">Focus on Fewer Goals</h4>
+                                <p className="text-xs text-[var(--text-soft)]">Don't try to do everything. Pick 1-2 major objectives per quarter and execute them relentlessly.</p>
+                            </div>
+                        </div>
+                        <div className="flex gap-3">
+                            <div className="bg-white dark:bg-gray-800 p-2 rounded-lg h-fit shadow-sm">
+                                <Calendar className="w-5 h-5 text-purple-600" />
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-sm text-[var(--text-main)] mb-1">Review Weekly</h4>
+                                <p className="text-xs text-[var(--text-soft)]">Set aside time every Sunday to review your progress and plan the week ahead based on these goals.</p>
+                            </div>
+                        </div>
+                        <div className="flex gap-3">
+                            <div className="bg-white dark:bg-gray-800 p-2 rounded-lg h-fit shadow-sm">
+                                <TrendingUp className="w-5 h-5 text-green-600" />
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-sm text-[var(--text-main)] mb-1">Track Leading Indicators</h4>
+                                <p className="text-xs text-[var(--text-soft)]">Focus on the actions you can control (calls made, content posted) rather than just the lagging results.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
