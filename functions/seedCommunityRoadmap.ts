@@ -482,7 +482,9 @@ Deno.serve(async (req) => {
                 resources: [],
                 tips: ["Focus on consistency.", "Engage authentically."],
                 common_challenges: ["Low initial engagement.", "Overwhelming moderation."],
-                success_criteria: [`${task.deliverable} completed`]
+                success_criteria: [`${task.deliverable} completed`],
+                time_estimate: "1-2 hours",
+                icon: "CheckCircle"
             }));
 
             toCreate.push({
