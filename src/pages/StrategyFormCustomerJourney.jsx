@@ -483,11 +483,41 @@ export default function StrategyFormCustomerJourneyPage() {
                         goals: Array.isArray(loadedContent.persona?.goals) ? loadedContent.persona.goals : [],
                         core_values: Array.isArray(loadedContent.persona?.core_values) ? loadedContent.persona.core_values : []
                     },
-                    awareness: { ...prev.awareness, ...safeObj(loadedContent.awareness), tools_checklist: Array.isArray(loadedContent.awareness?.tools_checklist) ? loadedContent.awareness.tools_checklist : [] },
-                    consideration: { ...prev.consideration, ...safeObj(loadedContent.consideration), tools_checklist: Array.isArray(loadedContent.consideration?.tools_checklist) ? loadedContent.consideration.tools_checklist : [] },
-                    decision: { ...prev.decision, ...safeObj(loadedContent.decision), tools_checklist: Array.isArray(loadedContent.decision?.tools_checklist) ? loadedContent.decision.tools_checklist : [] },
-                    service: { ...prev.service, ...safeObj(loadedContent.service), tools_checklist: Array.isArray(loadedContent.service?.tools_checklist) ? loadedContent.service.tools_checklist : [] },
-                    loyalty: { ...prev.loyalty, ...safeObj(loadedContent.loyalty), tools_checklist: Array.isArray(loadedContent.loyalty?.tools_checklist) ? loadedContent.loyalty.tools_checklist : [] },
+                    awareness: { 
+                        ...prev.awareness, 
+                        ...safeObj(loadedContent.awareness), 
+                        tools_checklist: Array.isArray(loadedContent.awareness?.tools_checklist) ? loadedContent.awareness.tools_checklist : [],
+                        selected_pathway: loadedContent.awareness?.selected_pathway || '',
+                        pathway_data: safeObj(loadedContent.awareness?.pathway_data)
+                    },
+                    consideration: { 
+                        ...prev.consideration, 
+                        ...safeObj(loadedContent.consideration), 
+                        tools_checklist: Array.isArray(loadedContent.consideration?.tools_checklist) ? loadedContent.consideration.tools_checklist : [],
+                        selected_pathway: loadedContent.consideration?.selected_pathway || '',
+                        pathway_data: safeObj(loadedContent.consideration?.pathway_data)
+                    },
+                    decision: { 
+                        ...prev.decision, 
+                        ...safeObj(loadedContent.decision), 
+                        tools_checklist: Array.isArray(loadedContent.decision?.tools_checklist) ? loadedContent.decision.tools_checklist : [],
+                        selected_pathway: loadedContent.decision?.selected_pathway || '',
+                        pathway_data: safeObj(loadedContent.decision?.pathway_data)
+                    },
+                    service: { 
+                        ...prev.service, 
+                        ...safeObj(loadedContent.service), 
+                        tools_checklist: Array.isArray(loadedContent.service?.tools_checklist) ? loadedContent.service.tools_checklist : [],
+                        selected_pathway: loadedContent.service?.selected_pathway || '',
+                        pathway_data: safeObj(loadedContent.service?.pathway_data)
+                    },
+                    loyalty: { 
+                        ...prev.loyalty, 
+                        ...safeObj(loadedContent.loyalty), 
+                        tools_checklist: Array.isArray(loadedContent.loyalty?.tools_checklist) ? loadedContent.loyalty.tools_checklist : [],
+                        selected_pathway: loadedContent.loyalty?.selected_pathway || '',
+                        pathway_data: safeObj(loadedContent.loyalty?.pathway_data)
+                    },
                 }));
             }
         } catch (error) {
