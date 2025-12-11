@@ -806,6 +806,44 @@ export default function StrategyFormCustomerJourneyPage() {
         }));
     };
 
+    const handleGenerateStrategy = async (stageId, pathwayId) => {
+        const stage = STAGES.find(s => s.id === stageId);
+        const pathway = stage.pathways.find(p => p.id === pathwayId);
+        const userContext = prompt(`Please describe your specific context for ${pathway.title} (e.g., "I sell organic dog treats to busy moms"):`);
+        
+        if (!userContext) return;
+
+        setIsSaving(true); // Reusing saving state for loading indicator
+        try {
+            const response = await base44.functions.invoke('generateStageStrategy', {
+                stage,
+                pathway,
+                userContext,
+                persona: formData.persona
+            });
+
+            if (response.data) {
+                // Merge generated data into pathway_data
+                setFormData(prev => ({
+                    ...prev,
+                    [stageId]: {
+                        ...prev[stageId],
+                        pathway_data: {
+                            ...prev[stageId].pathway_data,
+                            ...response.data
+                        }
+                    }
+                }));
+                alert('Strategy generated successfully! Review the details below.');
+            }
+        } catch (error) {
+            console.error("Error generating strategy:", error);
+            alert("Failed to generate strategy. Please try again.");
+        } finally {
+            setIsSaving(false);
+        }
+    };
+
     const handleSave = async () => {
         setIsSaving(true);
         try {
