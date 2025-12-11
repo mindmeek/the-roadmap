@@ -181,34 +181,44 @@ const STAGES = [
         description: 'How customers make a purchase',
         icon: ShoppingCart,
         color: 'from-yellow-500 to-yellow-600',
-        instructions: 'Your customer is ready to buy but needs final reassurance. They\'re looking at pricing, guarantees, ease of getting started, and payment options. Any friction here can cause them to abandon the purchase. Make it easy, clear, and low-risk. This is where all your hard work pays off - but only if you make the buying process seamless. Remove every possible obstacle. Offer guarantees. Celebrate their decision and make them feel smart for choosing you.',
-        streamlinesBusiness: 'The HQ\'s CRM tracks exactly where each lead is in the buying process with visual pipelines, automated follow-ups, and task reminders so no deal falls through the cracks. Unlimited Estimates & Invoices let you send professional quotes and invoices instantly, with online payment links included. Mobile App Payments mean you can close deals anywhere - at a coffee shop, at an event, even on a plane. Marketing Automation sends timely "nudge" emails (e.g., "Your quote expires in 24 hours") and celebrates purchases with welcome sequences.',
-        realWorldExample: 'Example: The startup founder is ready to commit. They see your clear pricing on your website (no hidden fees), a 14-day free trial (low risk), and can sign up in under 2 minutes via a simple form (built with The HQ\'s Funnel Builder). They enter their payment info, and The HQ processes it instantly via Mobile App Payments. Your automated welcome email arrives within seconds via Marketing Automation, outlining the next steps and making them feel confident they made the right choice. They\'re now in your CRM, tagged as a "New Customer," triggering your onboarding workflow.',
-        emotions: 'Excitement, Anxiety, Decisiveness, Fear of Making Wrong Choice, Anticipation',
-        connectionTip: 'Remove all friction and risk. Use language like "Start your free trial - no credit card required," "Cancel anytime," or "30-day money-back guarantee." Celebrate their decision: "You\'re about to transform your business." Make them feel smart and confident. Follow up immediately (automated email within minutes) to reinforce they made the right choice and outline clear next steps. The faster they see value, the less buyer\'s remorse they\'ll feel.',
-        howStagesConnect: 'Decision leads directly into Service. The moment your customer completes the purchase, the Service stage begins. The welcome email they receive, the onboarding process you deliver, and the support you provide in the first 30 days will determine whether they stay a customer or churn. Make the transition from "buyer" to "happy customer" seamless and celebratory.',
-        recommendedTools: ['Payment Processor (Stripe/PayPal)', 'Digital Signature Software', 'Invoicing Software', 'Checkout Page/Cart', 'Calendar/Booking Tool', 'Live Chat', 'Sales Pipeline/CRM'],
-        hqFeatures: [
+        instructions: 'Your customer is ready to buy but needs final reassurance. Make it easy, clear, and low-risk. Remove every possible obstacle.',
+        recommendedTools: ['Payment Processor', 'Digital Signature Software', 'Invoicing Software', 'Checkout Page/Cart', 'Calendar/Booking Tool'],
+        pathways: [
             {
-                name: 'Unlimited Estimates & Invoices',
-                description: 'Generate and send professional, branded estimates and invoices with one click. Customizable templates match your brand. Include payment links so customers can pay instantly online (credit card, ACH, Apple Pay, Google Pay). Track invoice status in real-time (sent, viewed, paid). Set up automatic payment reminders for overdue invoices. Accept deposits or payment plans. Sync with your accounting software (QuickBooks, Xero) for seamless bookkeeping.',
-                icon: DollarSign
+                id: 'self_service',
+                title: 'Self-Service Checkout',
+                description: 'Direct purchase via a shopping cart or checkout page. Best for lower-ticket or simple products.',
+                example: 'A customer adds a $49 course to cart and pays instantly via Stripe.',
+                formFields: [
+                    { id: 'checkout_flow', label: 'Describe the checkout steps:', placeholder: 'e.g., Cart -> Account Creation -> Payment' },
+                    { id: 'guarantee', label: 'What is your guarantee?', placeholder: 'e.g., 30-Day Money Back' }
+                ]
             },
             {
-                name: 'Mobile App Payments',
-                description: 'Accept payments anywhere using The HQ mobile app. Perfect for in-person sales, events, or consultations. Supports credit/debit cards, Apple Pay, Google Pay, and ACH transfers. Generate payment links on-the-fly and text or email them to customers. Instant payment confirmation with digital receipts. All transactions automatically sync with your CRM and accounting, so your books are always up-to-date.',
-                icon: Smartphone
+                id: 'consultative_sales',
+                title: 'Consultative Sales (Calls)',
+                description: 'High-touch sales process involving a discovery call or demo. Best for high-ticket services.',
+                example: 'A prospect books a 30-min strategy session to discuss a $5k consulting package.',
+                formFields: [
+                    { id: 'booking_process', label: 'How do they book a call?', placeholder: 'e.g., Calendly link on website' },
+                    { id: 'sales_script', label: 'Key points for your sales script:', placeholder: 'e.g., Diagnose problem, Prescribe solution' }
+                ]
             },
             {
-                name: 'CRM (Customer Relationship Management)',
-                description: 'Visualize your sales pipeline with drag-and-drop deal stages (e.g., "Prospect," "Qualified," "Proposal Sent," "Negotiation," "Closed Won"). Track every interaction with each lead (emails sent, calls made, meetings scheduled). Set automated follow-up reminders so you never forget to check in. Assign deals to team members and track their performance. Built-in reporting shows conversion rates, average deal size, and sales velocity. Integrates with email, calendar, and phone for seamless communication.',
-                icon: FolderKanban
-            },
-            {
-                name: 'Marketing Automation (Decision)',
-                description: 'Send timely "decision nudges" automatically - abandoned cart reminders, expiring offer alerts, limited-time discount notifications. Trigger purchase confirmation emails instantly upon payment. Deliver digital products or access credentials automatically. Send personalized "welcome to the family" sequences that celebrate the customer\'s decision and outline next steps. Tag customers in your CRM based on what they purchased so you can upsell or cross-sell later.',
-                icon: Zap
+                id: 'proposal_contract',
+                title: 'Proposal & Contract',
+                description: 'Custom solutions requiring a formal proposal and signed agreement.',
+                example: 'Sending a detailed PDF proposal for a custom website design project.',
+                formFields: [
+                    { id: 'proposal_elements', label: 'What goes into your proposal?', placeholder: 'e.g., Scope, Timeline, Pricing, Terms' },
+                    { id: 'signing_tool', label: 'How will they sign?', placeholder: 'e.g., DocuSign, HelloSign' }
+                ]
             }
+        ],
+        hqFeatures: [
+            { name: 'Unlimited Estimates & Invoices', description: 'Send professional quotes and invoices instantly.', icon: DollarSign },
+            { name: 'Mobile App Payments', description: 'Accept payments anywhere using The HQ mobile app.', icon: Smartphone },
+            { name: 'CRM', description: 'Track every deal stage and follow up automatically.', icon: FolderKanban }
         ]
     },
     {
@@ -217,29 +227,44 @@ const STAGES = [
         description: 'Post-purchase experience',
         icon: HeartHandshake,
         color: 'from-orange-500 to-orange-600',
-        instructions: 'The sale is just the beginning. This stage is where you deliver on your promises. Your customer needs to feel supported, confident they made the right choice, and see quick wins. Poor onboarding or service delivery is where churn happens. This is your chance to turn a one-time buyer into a lifelong customer. Exceed expectations. Proactively check in. Celebrate their progress. Make them feel like VIPs, not just transaction numbers.',
-        streamlinesBusiness: 'The HQ\'s Client Portal gives your customers a branded, secure hub where they can access downloads, view invoices, track project progress, and communicate with your team - all in one place. No more scattered emails or lost files. Automated Onboarding Workflows deliver welcome videos, setup guides, and milestone check-ins automatically, ensuring every customer gets a consistent, high-quality experience. Customer Support Management consolidates all support requests (email, chat, social media) into one inbox, with ticket tracking and automated responses for common questions.',
-        realWorldExample: 'Example: After signing up, the startup founder receives an automated welcome series via Marketing Automation with video tutorials, setup checklists, and quick-win guides. They access their personalized Client Portal (built with The HQ) with all setup guides, training videos, and access credentials organized beautifully. They can track their onboarding progress and see what\'s next. When they have a question, they message your support team via the Client Portal, and The HQ\'s Support Management routes it to the right person. They get a response within an hour. They feel supported and start seeing results quickly - reducing the likelihood of churn.',
-        emotions: 'Relief, Validation, Eagerness, Slight Overwhelm, Gratitude',
-        connectionTip: 'Make them feel like a VIP. Use language like "Welcome to the family!" or "We\'re here to ensure your success." Check in proactively: "How\'s your first week going?" Celebrate small wins: "You\'ve completed your setup - great job!" Show you care about their success, not just their money. The better your onboarding and service experience, the less likely they are to churn and the more likely they are to refer others.',
-        howStagesConnect: 'Service leads into Loyalty. The quality of service you provide in the first 30-90 days determines whether customers stay, leave, or become raving fans. Happy, well-served customers naturally become advocates. They leave reviews, refer friends, and buy more. Poor service experiences lead to churn and negative reviews. The Service stage is where you earn the right to ask for loyalty.',
-        recommendedTools: ['Client Portal/Membership Area', 'Helpdesk/Support Ticket System', 'Knowledge Base', 'Project Management Tool', 'Automated Email Onboarding', 'Survey Tool', 'Video Hosting'],
-        hqFeatures: [
+        instructions: 'The sale is just the beginning. This stage is where you deliver on your promises and turn buyers into happy customers.',
+        recommendedTools: ['Client Portal', 'Helpdesk', 'Knowledge Base', 'Project Management Tool', 'Automated Email Onboarding'],
+        pathways: [
             {
-                name: 'Client Portal',
-                description: 'Provide each customer with a secure, branded portal where they can access everything they need. Upload files, documents, and digital products for instant download. Display invoices, payment history, and account status. Show project progress with visual timelines. Enable two-way messaging between clients and your team. Customers log in once and have everything at their fingertips - no more digging through emails. Fully white-labled with your logo and brand colors.',
-                icon: FolderKanban
+                id: 'automated_onboarding',
+                title: 'Automated Onboarding',
+                description: 'Digital delivery of product/service with automated guidance.',
+                example: 'A welcome email series delivering login details and a "Getting Started" video course.',
+                formFields: [
+                    { id: 'welcome_email', label: 'What does the first email say?', placeholder: 'Welcome + Login Info' },
+                    { id: 'first_win', label: 'How do they get a "quick win" in the first 24h?', placeholder: 'e.g., Complete profile setup' }
+                ]
             },
             {
-                name: 'Automated Onboarding Workflows',
-                description: 'Create step-by-step onboarding sequences that deliver the right content at the right time. Day 1: Welcome video and setup guide. Day 3: Quick-win tutorial. Day 7: Check-in email. Day 30: Success milestone celebration. Trigger workflows based on customer actions (e.g., "If they complete setup, send the advanced training"). Include videos, PDFs, checklists, and calendar links. Track completion rates to see where customers get stuck and improve your onboarding.',
-                icon: Zap
+                id: 'high_touch_service',
+                title: 'White-Glove Service',
+                description: 'Personalized, 1-on-1 onboarding and service delivery.',
+                example: 'A kick-off call with an account manager to set up the client\'s software manually.',
+                formFields: [
+                    { id: 'kickoff_agenda', label: 'Agenda for the kick-off call:', placeholder: 'e.g., Introductions, Goal Setting, Timeline' },
+                    { id: 'checkin_schedule', label: 'When are your milestone check-ins?', placeholder: 'e.g., Weekly on Fridays' }
+                ]
             },
             {
-                name: 'Customer Support Management',
-                description: 'Consolidate all support requests from email, live chat, social media, and your Client Portal into one unified inbox. Assign tickets to team members and track response times. Set up automated responses for common questions (e.g., "How do I reset my password?"). Create a knowledge base of FAQs that customers can search before contacting support. Track customer satisfaction with post-resolution surveys. Identify trends in support requests to improve your product or documentation.',
-                icon: MessageSquare
+                id: 'hybrid_model',
+                title: 'Hybrid / Group Program',
+                description: 'A mix of self-paced content and group support calls.',
+                example: 'Access to a video library plus weekly group Q&A calls on Zoom.',
+                formFields: [
+                    { id: 'content_access', label: 'How do they access materials?', placeholder: 'e.g., Member Portal' },
+                    { id: 'community_support', label: 'How is group support delivered?', placeholder: 'e.g., Slack Channel + Weekly Zoom' }
+                ]
             }
+        ],
+        hqFeatures: [
+            { name: 'Client Portal', description: 'Secure hub for clients to access downloads, invoices, and updates.', icon: FolderKanban },
+            { name: 'Automated Workflows', description: 'Deliver welcome emails and onboarding steps automatically.', icon: Zap },
+            { name: 'Support Management', description: 'Consolidate support tickets from all channels.', icon: MessageSquare }
         ]
     },
     {
@@ -248,39 +273,44 @@ const STAGES = [
         description: 'Retaining and delighting customers',
         icon: Trophy,
         color: 'from-red-500 to-red-600',
-        instructions: 'Happy customers become repeat buyers and advocates. At this stage, you\'re deepening the relationship, encouraging renewals or additional purchases, and turning customers into raving fans who refer others. This is the most profitable stage. A loyal customer will spend 10x more over their lifetime than a one-time buyer. They\'ll refer friends, leave glowing reviews, and defend your brand online. Your goal is to make them feel appreciated, celebrated, and part of something bigger than a transaction.',
-        streamlinesBusiness: 'The HQ\'s Review Management automates review requests at the perfect moment (after a win or milestone), making it easy for happy customers to leave testimonials on Google, Facebook, Yelp, and more. The Full Affiliate Program turns customers into commission-earning promoters - they get a unique link, access their affiliate dashboard via the Client Portal, and earn recurring commissions for every referral. Private/Public Social Community lets you build a branded community (like Facebook Groups, but fully owned by you) where customers connect, share wins, and support each other - creating a sense of belonging that keeps them engaged long-term.',
-        realWorldExample: 'Example: After 3 months, the startup founder receives an automated review request via Review Management (triggered after they hit a milestone like "10 clients onboarded"). They happily leave a 5-star review because they\'re seeing real results. They join your Private Community (built with The HQ) where they network with other founders, share wins, and get advice. They sign up as an Affiliate, earning 20% recurring commissions, and refer 3 friends using their unique link (tracked via the Client Portal). They upgrade to a higher tier because they love the platform and want more features. This customer is now a brand advocate for life.',
-        emotions: 'Satisfaction, Pride, Loyalty, Enthusiasm, Belonging, Empowerment',
-        connectionTip: 'Celebrate their success and make them part of your story. Use language like "Look how far you\'ve come!" or "You\'re a rockstar!" Invite them to exclusive events (VIP webinars, early access to new features). Feature their testimonials and case studies (with permission). Give them opportunities to contribute and lead (affiliate program, community moderators, guest blog posts). Make them feel valued and special. The more you celebrate them, the more they\'ll celebrate you.',
-        howStagesConnect: 'Loyalty completes the customer journey, but it also feeds back into Awareness. Loyal customers become your most effective marketing channel. Their reviews boost your credibility in the Awareness stage. Their referrals bring pre-sold prospects who trust you before they even meet you. Their testimonials remove objections in the Consideration and Decision stages. A strong Loyalty program turns customers into a self-sustaining growth engine.',
-        recommendedTools: ['Review Management/Generation Tool', 'Affiliate Management Software', 'Community Platform', 'Loyalty Program Software', 'NPS/Feedback Tool', 'Referral Tracking', 'Email Automation (Re-engagement)'],
-        hqFeatures: [
+        instructions: 'Happy customers become repeat buyers and advocates. Deepen the relationship and encourage referrals.',
+        recommendedTools: ['Review Management', 'Affiliate Software', 'Community Platform', 'Loyalty Program'],
+        pathways: [
             {
-                name: 'Review Management',
-                description: 'Automate review requests at the perfect moment - after a customer achieves a win, completes a milestone, or expresses satisfaction. Send review requests via email or SMS with direct links to Google, Facebook, Yelp, Trustpilot, and more. Track review response rates and see which customers leave reviews. Respond to reviews (both positive and negative) directly from The HQ. Showcase top reviews on your website and marketing materials. Monitor your online reputation with review alerts.',
-                icon: Star
+                id: 'referral_program',
+                title: 'Referral / Affiliate Program',
+                description: 'Incentivize customers to refer friends in exchange for rewards or cash.',
+                example: 'Giving customers a unique link that earns them 20% commission on referrals.',
+                formFields: [
+                    { id: 'incentive', label: 'What is the reward?', placeholder: 'e.g., $50 credit or 10% cash' },
+                    { id: 'promotion_plan', label: 'How will you promote this program?', placeholder: 'e.g., Email after positive feedback' }
+                ]
             },
             {
-                name: 'Marketing Automation (Loyalty)',
-                description: 'Implement loyalty programs with automated reward emails ("You\'ve earned 500 points!"), milestone celebrations ("Happy 1-year anniversary!"), and re-engagement campaigns ("We miss you - here\'s 20% off to come back"). Send personalized upsell and cross-sell offers based on purchase history. Trigger win-back campaigns for churned customers. Create VIP tiers with exclusive perks and automated communications. Track customer lifetime value and engagement scores to identify your most valuable customers.',
-                icon: Zap
+                id: 'vip_community',
+                title: 'VIP Community',
+                description: 'Create an exclusive space for customers to connect and get extra value.',
+                example: 'A private Facebook group or Circle community for customers only.',
+                formFields: [
+                    { id: 'community_purpose', label: 'What is the main value of the community?', placeholder: 'e.g., Networking, Exclusive Content' },
+                    { id: 'engagement_plan', label: 'How will you keep it active?', placeholder: 'e.g., Weekly challenges, Expert AMAs' }
+                ]
             },
             {
-                name: 'Full Affiliate Program',
-                description: 'Launch a comprehensive affiliate program in minutes. Affiliates get unique tracking links, a dedicated dashboard (via the Client Portal), and real-time commission tracking. Set custom commission structures (flat fee, percentage, recurring, or tiered). Automate commission payouts monthly. Provide affiliates with pre-made marketing materials (email templates, social media graphics, ad copy). Track affiliate performance and identify top promoters. Affiliates can see their referrals, earnings, and payout history all within their Client Portal.',
-                icon: Users
-            },
-            {
-                name: 'Private/Public Social Community',
-                description: 'Build a branded social community (like Facebook Groups, but fully owned by you) where customers can connect, share wins, ask questions, and support each other. Moderate content, pin important announcements, and create discussion topics. Gamify engagement with badges, leaderboards, and challenges. Host exclusive community-only events (live Q&As, workshops, masterminds). Communities create a sense of belonging that dramatically reduces churn. Members can network, collaborate, and refer each other - turning your customer base into a thriving ecosystem.',
-                icon: Users
-            },
-            {
-                name: 'Surveys & Forms',
-                description: 'Gather continuous feedback with automated surveys sent at key touchpoints (after purchase, after support interaction, quarterly check-ins). Create custom forms for testimonial collection, feature requests, or satisfaction ratings. Analyze survey results with built-in reporting to identify trends and improvement areas. Trigger follow-up workflows based on survey responses (e.g., "If NPS score is low, alert support team"). Show customers you\'re listening by implementing their feedback and communicating changes.',
-                icon: MessageSquare
+                id: 'recurring_revenue',
+                title: 'Recurring / Subscription',
+                description: 'Offer ongoing value to turn one-time buyers into subscribers.',
+                example: 'Offering a monthly maintenance package after building a website.',
+                formFields: [
+                    { id: 'subscription_offer', label: 'What is the recurring offer?', placeholder: 'e.g., Monthly support, content updates' },
+                    { id: 'retention_tactic', label: 'How will you reduce churn?', placeholder: 'e.g., Quarterly reviews, loyalty bonuses' }
+                ]
             }
+        ],
+        hqFeatures: [
+            { name: 'Review Management', description: 'Automate review requests to boost your reputation.', icon: Star },
+            { name: 'Affiliate Program', description: 'Launch a tracking and payout system for referrals.', icon: Users },
+            { name: 'Social Community', description: 'Build a branded community to engage customers long-term.', icon: Users }
         ]
     }
 ];
