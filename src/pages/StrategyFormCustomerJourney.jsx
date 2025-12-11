@@ -969,7 +969,7 @@ export default function StrategyFormCustomerJourneyPage() {
     }, [formData]);
 
 // Memoized Stage Content to prevent re-renders and focus loss
-const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChange, handleSelectChange, handleArrayChange, handleImportFromIdealClient, isImporting, handleToolsChecklistChange, handlePathwaySelect, handlePathwayInputChange }) => {
+const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChange, handleSelectChange, handleArrayChange, handleImportFromIdealClient, isImporting, handleToolsChecklistChange, handlePathwaySelect, handlePathwayInputChange, handleGenerateStrategy, isGenerating }) => {
     const Icon = stage.icon;
     const isPersona = stage.id === 'persona';
 
