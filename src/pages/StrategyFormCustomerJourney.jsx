@@ -639,6 +639,30 @@ export default function StrategyFormCustomerJourneyPage() {
         });
     };
 
+    const handlePathwaySelect = (stage, pathwayId) => {
+        setFormData(prev => ({
+            ...prev,
+            [stage]: {
+                ...prev[stage],
+                selected_pathway: pathwayId,
+                // Reset pathway data if switching? No, keep it in case they switch back.
+            }
+        }));
+    };
+
+    const handlePathwayInputChange = (stage, fieldId, value) => {
+        setFormData(prev => ({
+            ...prev,
+            [stage]: {
+                ...prev[stage],
+                pathway_data: {
+                    ...prev[stage].pathway_data,
+                    [fieldId]: value
+                }
+            }
+        }));
+    };
+
     const handleSave = async () => {
         setIsSaving(true);
         try {
