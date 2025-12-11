@@ -1424,35 +1424,50 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                                         );
                                     })()}
 
-                                    {/* AI Generation Button */}
-                                    <div className="mb-6 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border border-purple-200 dark:border-purple-800 rounded-lg">
-                                        <div className="flex items-center justify-between">
-                                            <div>
-                                                <h4 className="font-bold text-[var(--text-main)] flex items-center">
-                                                    <Wand2 className="w-4 h-4 mr-2 text-purple-600" />
-                                                    Want Charlie to draft this strategy for you?
-                                                </h4>
-                                                <p className="text-sm text-[var(--text-soft)] mt-1">
-                                                    Provide a quick context and let AI fill out the details tailored to your business.
-                                                </p>
+                                    {/* AI Generation Section */}
+                                    <div className="mb-6 p-5 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border border-purple-200 dark:border-purple-800 rounded-lg shadow-sm">
+                                        <div className="flex items-center gap-2 mb-3">
+                                            <div className="p-1.5 bg-purple-100 dark:bg-purple-900/30 rounded-md">
+                                                <Wand2 className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                                             </div>
-                                            <button
-                                                onClick={() => handleGenerateStrategy(stage.id, formData[stage.id].selected_pathway)}
-                                                disabled={isGenerating}
-                                                className="btn btn-primary bg-purple-600 hover:bg-purple-700 text-white"
-                                            >
-                                                {isGenerating ? (
-                                                    <>
-                                                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                                        Generating...
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <Sparkles className="w-4 h-4 mr-2" />
-                                                        Auto-Generate
-                                                    </>
-                                                )}
-                                            </button>
+                                            <h4 className="font-bold text-[var(--text-main)]">
+                                                Fast-Track with Charlie AI
+                                            </h4>
+                                        </div>
+                                        
+                                        <div className="space-y-3">
+                                            <div>
+                                                <label className="block text-sm font-medium text-[var(--text-main)] mb-1">
+                                                    What is your offer and who is it for?
+                                                </label>
+                                                <textarea 
+                                                    value={generationContext}
+                                                    onChange={(e) => setGenerationContext(e.target.value)}
+                                                    placeholder="e.g., I'm selling a 12-week yoga course for stressed corporate executives."
+                                                    className="w-full p-3 rounded border border-purple-200 dark:border-purple-700 focus:ring-2 focus:ring-purple-500 text-sm bg-white dark:bg-gray-800 resize-none"
+                                                    rows="2"
+                                                />
+                                            </div>
+                                            
+                                            <div className="flex justify-end">
+                                                <button
+                                                    onClick={() => handleGenerateStrategy(stage.id, formData[stage.id].selected_pathway, generationContext)}
+                                                    disabled={isGenerating || !generationContext.trim()}
+                                                    className="btn btn-primary bg-purple-600 hover:bg-purple-700 text-white disabled:opacity-50 disabled:cursor-not-allowed text-sm py-2 px-4"
+                                                >
+                                                    {isGenerating ? (
+                                                        <>
+                                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                                            Drafting Strategy...
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <Sparkles className="w-4 h-4 mr-2" />
+                                                            Generate Draft
+                                                        </>
+                                                    )}
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
 
