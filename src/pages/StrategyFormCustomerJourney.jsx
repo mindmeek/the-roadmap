@@ -1261,6 +1261,12 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                     {/* Core Values - INTERACTIVE */}
                     <div className="card p-6">
                         <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Core Values</h3>
+                        
+                        <div className="mb-6 bg-indigo-50 dark:bg-indigo-900/10 p-4 rounded-lg border border-indigo-100 dark:border-indigo-800/30 text-sm">
+                            <p className="mb-2"><strong className="text-indigo-700 dark:text-indigo-400">Why it matters:</strong> Shared values build trust and long-term loyalty. Customers buy from brands that believe what they believe.</p>
+                            <p className="italic text-[var(--text-soft)]"><strong className="not-italic text-[var(--text-main)]">Example:</strong> Patagonia customers pay 2x more for a jacket because they share the value of "Environmental Protection." They are buying identity.</p>
+                        </div>
+
                         <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
                             What principles guide their decisions?
                         </label>
