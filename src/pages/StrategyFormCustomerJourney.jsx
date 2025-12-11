@@ -662,572 +662,599 @@ export default function StrategyFormCustomerJourneyPage() {
         setShowAIAssistant(true);
     }, [formData, STAGES]);
 
-    const StageContent = ({ stage, openAIHelp }) => {
-        const Icon = stage.icon;
-        const isPersona = stage.id === 'persona';
+// Memoized Stage Content to prevent re-renders and focus loss
+const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChange, handleSelectChange, handleArrayChange, handleImportFromIdealClient, isImporting, handleToolsChecklistChange }) => {
+    const Icon = stage.icon;
+    const isPersona = stage.id === 'persona';
 
-        return (
-            <div className="space-y-6">
-                {/* Stage Header */}
-                <div className={`bg-gradient-to-r ${stage.color} text-white p-6 rounded-lg`}>
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-4">
-                            <div className="bg-white/20 p-3 rounded-lg">
-                                <Icon className="w-8 h-8" />
-                            </div>
-                            <div>
-                                <h2 className="text-2xl font-bold">{stage.title}</h2>
-                                <p className="text-white/90 mt-1">{stage.description}</p>
-                            </div>
+    return (
+        <div className="space-y-6">
+            {/* Stage Header */}
+            <div className={`bg-gradient-to-r ${stage.color} text-white p-6 rounded-lg`}>
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                        <div className="bg-white/20 p-3 rounded-lg">
+                            <Icon className="w-8 h-8" />
                         </div>
-                        <button
-                            onClick={() => openAIHelp(stage.id)}
-                            className="text-white/80 hover:text-white transition-colors p-2 rounded-full hover:bg-white/20"
-                            title="Get AI Help for this stage"
-                        >
-                            <Sparkles className="w-6 h-6" />
-                        </button>
-                    </div>
-                </div>
-
-                {/* Stage Instructions */}
-                <div className="card p-6 bg-blue-50 dark:bg-blue-900/20">
-                    <h3 className="font-bold text-lg mb-3 flex items-center">
-                        <Lightbulb className="w-5 h-5 mr-2 text-blue-600" />
-                        Understanding This Stage
-                    </h3>
-                    <p className="text-[var(--text-soft)] mb-4">{stage.instructions}</p>
-
-                    {!isPersona && (
-                        <>
-                            {stage.streamlinesBusiness && (
-                                <div className="mb-4">
-                                    <h4 className="font-semibold text-[var(--text-main)] mb-2">💡 How The HQ Streamlines This:</h4>
-                                    <p className="text-[var(--text-soft)]">{stage.streamlinesBusiness}</p>
-                                </div>
-                            )}
-
-                            {stage.realWorldExample && (
-                                <div className="mb-4">
-                                    <h4 className="font-semibold text-[var(--text-main)] mb-2">🌍 Real-World Example:</h4>
-                                    <p className="text-[var(--text-soft)] italic">{stage.realWorldExample}</p>
-                                </div>
-                            )}
-
-                            {stage.emotions && (
-                                <div className="mb-4">
-                                    <h4 className="font-semibold text-[var(--text-main)] mb-2">❤️ Customer Emotions:</h4>
-                                    <p className="text-[var(--text-soft)]">{stage.emotions}</p>
-                                </div>
-                            )}
-
-                            {stage.connectionTip && (
-                                <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border-l-4 border-yellow-500">
-                                    <h4 className="font-semibold text-[var(--text-main)] mb-2">🤝 Connection Tip:</h4>
-                                    <p className="text-[var(--text-soft)]">{stage.connectionTip}</p>
-                                </div>
-                            )}
-                        </>
-                    )}
-
-                    {isPersona && stage.connectionTip && (
-                        <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border-l-4 border-yellow-500 mt-4">
-                            <h4 className="font-semibold text-[var(--text-main)] mb-2">🤝 Why This Matters:</h4>
-                            <p className="text-[var(--text-soft)]">{stage.connectionTip}</p>
-                        </div>
-                    )}
-
-                    {stage.howStagesConnect && (
-                        <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border-l-4 border-purple-500 mt-4">
-                            <h4 className="font-semibold text-[var(--text-main)] mb-2">🔄 How This Stage Connects:</h4>
-                            <p className="text-[var(--text-soft)]">{stage.howStagesConnect}</p>
-                        </div>
-                    )}
-                </div>
-
-                {isPersona ? (
-                    <div className="space-y-6">
-                        {/* Import Button */}
-                        <div className="card p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-700">
-                            <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-                                <div className="flex-1 text-center sm:text-left">
-                                    <h4 className="font-semibold text-[var(--text-main)] mb-1">Already Defined Your Ideal Client?</h4>
-                                    <p className="text-sm text-[var(--text-soft)]">Import your existing Ideal Client data to save time.</p>
-                                </div>
-                                <button
-                                    onClick={handleImportFromIdealClient}
-                                    disabled={isImporting}
-                                    className="btn btn-primary ml-0 sm:ml-4 flex-shrink-0 w-full sm:w-auto"
-                                >
-                                    {isImporting ? (
-                                        <>
-                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                            Importing...
-                                        </>
-                                    ) : (
-                                        <>
-                                            <ChevronRight className="w-4 h-4 mr-2" />
-                                            Import Data
-                                        </>
-                                    )}
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Customer Name */}
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                Give Your Ideal Customer a Name *
-                            </label>
-                            <input
-                                type="text"
-                                value={formData.persona.name}
-                                onChange={(e) => handleInputChange('persona', 'name', e.target.value)}
-                                placeholder="e.g., 'Startup Sarah' or 'Corporate Chris'"
-                                className="form-input"
-                            />
-                            <p className="text-xs text-[var(--text-soft)] mt-1">Naming your customer makes them real and helps you connect emotionally.</p>
-                        </div>
-
-                        {/* Demographics Section */}
-                        <div className="card p-6">
-                            <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Demographics</h3>
-
-                            <div className="space-y-4">
-                                <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Age Range</label>
-                                    <select
-                                        value={formData.persona.age_range || ''}
-                                        onChange={(e) => handleSelectChange('age_range', e.target.value)}
-                                        className="form-input"
-                                    >
-                                        <option value="">Select age range</option>
-                                        {DEMOGRAPHICS_OPTIONS.age_range.map(option => (
-                                            <option key={option} value={option}>{option}</option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Gender</label>
-                                    <select
-                                        value={formData.persona.gender || ''}
-                                        onChange={(e) => handleSelectChange('gender', e.target.value)}
-                                        className="form-input"
-                                    >
-                                        <option value="">Select gender</option>
-                                        {DEMOGRAPHICS_OPTIONS.gender.map(option => (
-                                            <option key={option} value={option}>{option}</option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Location</label>
-                                    <select
-                                        value={formData.persona.location || ''}
-                                        onChange={(e) => handleSelectChange('location', e.target.value)}
-                                        className="form-input"
-                                    >
-                                        <option value="">Select location</option>
-                                        {DEMOGRAPHICS_OPTIONS.location.map(option => (
-                                            <option key={option} value={option}>{option}</option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Income Level</label>
-                                    <select
-                                        value={formData.persona.income_level || ''}
-                                        onChange={(e) => handleSelectChange('income_level', e.target.value)}
-                                        className="form-input"
-                                    >
-                                        <option value="">Select income level</option>
-                                        {DEMOGRAPHICS_OPTIONS.income_level.map(option => (
-                                            <option key={option} value={option}>{option}</option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Education</label>
-                                    <select
-                                        value={formData.persona.education || ''}
-                                        onChange={(e) => handleSelectChange('education', e.target.value)}
-                                        className="form-input"
-                                    >
-                                        <option value="">Select education level</option>
-                                        {DEMOGRAPHICS_OPTIONS.education.map(option => (
-                                            <option key={option} value={option}>{option}</option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Occupation</label>
-                                    <select
-                                        value={formData.persona.occupation || ''}
-                                        onChange={(e) => handleSelectChange('occupation', e.target.value)}
-                                        className="form-input"
-                                    >
-                                        <option value="">Select occupation</option>
-                                        {DEMOGRAPHICS_OPTIONS.occupation.map(option => (
-                                            <option key={option} value={option}>{option}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Psychographics Section - INTERACTIVE */}
-                        <div className="card p-6">
-                            <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Psychographics</h3>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                Values, Interests, Lifestyle & Personality Traits
-                            </label>
-                            <MultiValueInput
-                                values={formData.persona.psychographics}
-                                onChange={(values) => handleArrayChange('psychographics', values)}
-                                suggestions={PSYCHOGRAPHICS_SUGGESTIONS}
-                                placeholder="Add psychographic traits (e.g., Innovation, Creative, Fast-paced)"
-                            />
-                            <p className="text-xs text-[var(--text-soft)] mt-2">Add as many as apply. These help you understand their mindset and lifestyle.</p>
-                        </div>
-
-                        {/* Pain Points - INTERACTIVE */}
-                        <div className="card p-6">
-                            <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Pain Points</h3>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                What problems or frustrations do they face?
-                            </label>
-                            <MultiValueInput
-                                values={formData.persona.pain_points}
-                                onChange={(values) => handleArrayChange('pain_points', values)}
-                                suggestions={PAIN_POINTS_SUGGESTIONS}
-                                placeholder="Add pain points (e.g., Lack of time, Limited budget)"
-                            />
-                            <p className="text-xs text-[var(--text-soft)] mt-2">Understanding their pain points helps you create targeted solutions.</p>
-                        </div>
-
-                        {/* Goals & Aspirations - INTERACTIVE */}
-                        <div className="card p-6">
-                            <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Goals & Aspirations</h3>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                What are they trying to achieve?
-                            </label>
-                            <MultiValueInput
-                                values={formData.persona.goals}
-                                onChange={(values) => handleArrayChange('goals', values)}
-                                suggestions={GOALS_SUGGESTIONS}
-                                placeholder="Add goals (e.g., Start a business, Achieve financial freedom)"
-                            />
-                            <p className="text-xs text-[var(--text-soft)] mt-2">Their goals drive their decisions and actions.</p>
-                        </div>
-
-                        {/* Core Values - INTERACTIVE */}
-                        <div className="card p-6">
-                            <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Core Values</h3>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                What principles guide their decisions?
-                            </label>
-                            <MultiValueInput
-                                values={formData.persona.core_values}
-                                onChange={(values) => handleArrayChange('core_values', values)}
-                                suggestions={VALUES_SUGGESTIONS}
-                                placeholder="Add core values (e.g., Integrity, Innovation, Family)"
-                            />
-                            <p className="text-xs text-[var(--text-soft)] mt-2">Core values help you align your messaging with what matters most to them.</p>
-                        </div>
-
-                        {/* Buying Behaviors */}
-                        <div className="card p-6">
-                            <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Buying Behaviors</h3>
-
-                            <div className="space-y-4">
-                                <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Research Method</label>
-                                    <select
-                                        value={formData.persona.research_method || ''}
-                                        onChange={(e) => handleSelectChange('research_method', e.target.value)}
-                                        className="form-input"
-                                    >
-                                        <option value="">Select research method</option>
-                                        {BUYING_BEHAVIORS_OPTIONS.research_method.map(option => (
-                                            <option key={option} value={option}>{option}</option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Decision Speed</label>
-                                    <select
-                                        value={formData.persona.decision_speed || ''}
-                                        onChange={(e) => handleSelectChange('decision_speed', e.target.value)}
-                                        className="form-input"
-                                    >
-                                        <option value="">Select decision speed</option>
-                                        {BUYING_BEHAVIORS_OPTIONS.decision_speed.map(option => (
-                                            <option key={option} value={option}>{option}</option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Price Sensitivity</label>
-                                    <select
-                                        value={formData.persona.price_sensitivity || ''}
-                                        onChange={(e) => handleSelectChange('price_sensitivity', e.target.value)}
-                                        className="form-input"
-                                    >
-                                        <option value="">Select price sensitivity</option>
-                                        {BUYING_BEHAVIORS_OPTIONS.price_sensitivity.map(option => (
-                                            <option key={option} value={option}>{option}</option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Preferred Contact Method</label>
-                                    <select
-                                        value={formData.persona.preferred_contact || ''}
-                                        onChange={(e) => handleSelectChange('preferred_contact', e.target.value)}
-                                        className="form-input"
-                                    >
-                                        <option value="">Select contact method</option>
-                                        {BUYING_BEHAVIORS_OPTIONS.preferred_contact.map(option => (
-                                            <option key={option} value={option}>{option}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
+                            <h2 className="text-2xl font-bold">{stage.title}</h2>
+                            <p className="text-white/90 mt-1">{stage.description}</p>
                         </div>
                     </div>
-                ) : (
+                    <button
+                        onClick={() => openAIHelp(stage.id)}
+                        className="text-white/80 hover:text-white transition-colors p-2 rounded-full hover:bg-white/20"
+                        title="Get AI Help for this stage"
+                    >
+                        <Sparkles className="w-6 h-6" />
+                    </button>
+                </div>
+            </div>
+
+            {/* Stage Instructions */}
+            <div className="card p-6 bg-blue-50 dark:bg-blue-900/20">
+                <h3 className="font-bold text-lg mb-3 flex items-center">
+                    <Lightbulb className="w-5 h-5 mr-2 text-blue-600" />
+                    Understanding This Stage
+                </h3>
+                <p className="text-[var(--text-soft)] mb-4">{stage.instructions}</p>
+
+                {!isPersona && (
                     <>
-                        {/* HQ Features Section */}
-                        {stage.hqFeatures && (
-                            <div className="card p-6 bg-gradient-to-br from-[var(--primary-gold)]/10 to-yellow-50 dark:to-yellow-900/10 border-2 border-[var(--primary-gold)]/30">
-                                <h3 className="font-bold text-lg mb-4 flex items-center">
-                                    <Zap className="w-5 h-5 mr-2 text-[var(--primary-gold)]" />
-                                    The HQ Features for {stage.title}
-                                </h3>
-                                <div className="space-y-3">
-                                    {stage.hqFeatures.map((feature, index) => {
-                                        const FeatureIcon = feature.icon;
-                                        return (
-                                            <div key={index} className="flex items-start space-x-3 bg-white dark:bg-gray-800 p-3 rounded-lg">
-                                                <div className="bg-[var(--primary-gold)]/10 p-2 rounded-md flex-shrink-0">
-                                                    <FeatureIcon className="w-4 h-4 text-[var(--primary-gold)]" />
-                                                </div>
-                                                <div>
-                                                    <h4 className="font-semibold text-sm text-[var(--text-main)]">{feature.name}</h4>
-                                                    <p className="text-xs text-[var(--text-soft)] mt-1">{feature.description}</p>
-                                                </div>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
+                        {stage.streamlinesBusiness && (
+                            <div className="mb-4">
+                                <h4 className="font-semibold text-[var(--text-main)] mb-2">💡 How The HQ Streamlines This:</h4>
+                                <p className="text-[var(--text-soft)]">{stage.streamlinesBusiness}</p>
                             </div>
                         )}
 
-                        {/* Stage-Specific Questions */}
-                        <div className="space-y-4">
-                            {stage.id === 'awareness' && (
-                                <>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            Discovery Channels
-                                        </label>
-                                        <textarea
-                                            value={formData.awareness.discovery_channels}
-                                            onChange={(e) => handleInputChange('awareness', 'discovery_channels', e.target.value)}
-                                            placeholder="How do potential customers currently find out about your business? (e.g., social media, Google search, referrals)"
-                                            className="form-input h-24"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            Initial Pain Points
-                                        </label>
-                                        <textarea
-                                            value={formData.awareness.pain_points}
-                                            onChange={(e) => handleInputChange('awareness', 'pain_points', e.target.value)}
-                                            placeholder="What problems are they aware of at this stage?"
-                                            className="form-input h-24"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            Key Messaging
-                                        </label>
-                                        <textarea
-                                            value={formData.awareness.messaging}
-                                            onChange={(e) => handleInputChange('awareness', 'messaging', e.target.value)}
-                                            placeholder="What message will grab their attention? How will you speak to their frustration and curiosity?"
-                                            className="form-input h-24"
-                                        />
-                                    </div>
-                                </>
-                            )}
+                        {stage.realWorldExample && (
+                            <div className="mb-4">
+                                <h4 className="font-semibold text-[var(--text-main)] mb-2">🌍 Real-World Example:</h4>
+                                <p className="text-[var(--text-soft)] italic">{stage.realWorldExample}</p>
+                            </div>
+                        )}
 
-                            {stage.id === 'consideration' && (
-                                <>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            Evaluation Criteria
-                                        </label>
-                                        <textarea
-                                            value={formData.consideration.evaluation_criteria}
-                                            onChange={(e) => handleInputChange('consideration', 'evaluation_criteria', e.target.value)}
-                                            placeholder="What factors do customers use to compare you to competitors?"
-                                            className="form-input h-24"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            Common Questions
-                                        </label>
-                                        <textarea
-                                            value={formData.consideration.common_questions}
-                                            onChange={(e) => handleInputChange('consideration', 'common_questions', e.target.value)}
-                                            placeholder="What questions do they typically ask during this stage?"
-                                            className="form-input h-24"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            Information Needs
-                                        </label>
-                                        <textarea
-                                            value={formData.consideration.information_needs}
-                                            onChange={(e) => handleInputChange('consideration', 'information_needs', e.target.value)}
-                                            placeholder="What information or resources do they need to move forward? How can you build trust through education?"
-                                            className="form-input h-24"
-                                        />
-                                    </div>
-                                </>
-                            )}
+                        {stage.emotions && (
+                            <div className="mb-4">
+                                <h4 className="font-semibold text-[var(--text-main)] mb-2">❤️ Customer Emotions:</h4>
+                                <p className="text-[var(--text-soft)]">{stage.emotions}</p>
+                            </div>
+                        )}
 
-                            {stage.id === 'decision' && (
-                                <>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            Purchase Decision Factors
-                                        </label>
-                                        <textarea
-                                            value={formData.decision.purchase_factors}
-                                            onChange={(e) => handleInputChange('decision', 'purchase_factors', e.target.value)}
-                                            placeholder="What factors influence their final purchase decision? (e.g., price, trust, urgency, guarantees)"
-                                            className="form-input h-24"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            Potential Obstacles
-                                        </label>
-                                        <textarea
-                                            value={formData.decision.obstacles}
-                                            onChange={(e) => handleInputChange('decision', 'obstacles', e.target.value)}
-                                            placeholder="What might prevent them from buying? How can you address these obstacles and reduce friction?"
-                                            className="form-input h-24"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            Preferred Payment Methods
-                                        </label>
-                                        <textarea
-                                            value={formData.decision.preferred_methods}
-                                            onChange={(e) => handleInputChange('decision', 'preferred_methods', e.target.value)}
-                                            placeholder="How do they prefer to pay or engage with your offer?"
-                                            className="form-input h-24"
-                                        />
-                                    </div>
-                                </>
-                            )}
-
-                            {stage.id === 'service' && (
-                                <>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            Onboarding Process
-                                        </label>
-                                        <textarea
-                                            value={formData.service.onboarding_process}
-                                            onChange={(e) => handleInputChange('service', 'onboarding_process', e.target.value)}
-                                            placeholder="What happens immediately after purchase? How do you onboard new clients and help them feel welcomed?"
-                                            className="form-input h-24"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            Support Needs
-                                        </label>
-                                        <textarea
-                                            value={formData.service.support_needs}
-                                            onChange={(e) => handleInputChange('service', 'support_needs', e.target.value)}
-                                            placeholder="What support or assistance do clients need during service delivery? How can you proactively address their concerns?"
-                                            className="form-input h-24"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            Communication Preferences
-                                        </label>
-                                        <textarea
-                                            value={formData.service.communication_preferences}
-                                            onChange={(e) => handleInputChange('service', 'communication_preferences', e.target.value)}
-                                            placeholder="How do clients prefer to communicate and receive updates?"
-                                            className="form-input h-24"
-                                        />
-                                    </div>
-                                </>
-                            )}
-
-                            {stage.id === 'loyalty' && (
-                                <>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            Retention Strategies
-                                        </label>
-                                        <textarea
-                                            value={formData.loyalty.retention_strategies}
-                                            onChange={(e) => handleInputChange('loyalty', 'retention_strategies', e.target.value)}
-                                            placeholder="How do you encourage repeat business and long-term relationships? How will you celebrate their success?"
-                                            className="form-input h-24"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            Advocacy Opportunities
-                                        </label>
-                                        <textarea
-                                            value={formData.loyalty.advocacy_opportunities}
-                                            onChange={(e) => handleInputChange('loyalty', 'advocacy_opportunities', e.target.value)}
-                                            placeholder="How can satisfied customers become advocates (referrals, testimonials, affiliates)? How will you make them feel special?"
-                                            className="form-input h-24"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            Feedback Mechanisms
-                                        </label>
-                                        <textarea
-                                            value={formData.loyalty.feedback_mechanisms}
-                                            onChange={(e) => handleInputChange('loyalty', 'feedback_mechanisms', e.target.value)}
-                                            placeholder="How do you gather and act on customer feedback to continuously improve?"
-                                            className="form-input h-24"
-                                        />
-                                    </div>
-                                </>
-                            )}
-                        </div>
+                        {stage.connectionTip && (
+                            <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border-l-4 border-yellow-500">
+                                <h4 className="font-semibold text-[var(--text-main)] mb-2">🤝 Connection Tip:</h4>
+                                <p className="text-[var(--text-soft)]">{stage.connectionTip}</p>
+                            </div>
+                        )}
                     </>
                 )}
+
+                {isPersona && stage.connectionTip && (
+                    <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border-l-4 border-yellow-500 mt-4">
+                        <h4 className="font-semibold text-[var(--text-main)] mb-2">🤝 Why This Matters:</h4>
+                        <p className="text-[var(--text-soft)]">{stage.connectionTip}</p>
+                    </div>
+                )}
+
+                {stage.howStagesConnect && (
+                    <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border-l-4 border-purple-500 mt-4">
+                        <h4 className="font-semibold text-[var(--text-main)] mb-2">🔄 How This Stage Connects:</h4>
+                        <p className="text-[var(--text-soft)]">{stage.howStagesConnect}</p>
+                    </div>
+                )}
             </div>
-        );
-    };
+
+            {isPersona ? (
+                <div className="space-y-6">
+                    {/* Import Button */}
+                    <div className="card p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-700">
+                        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+                            <div className="flex-1 text-center sm:text-left">
+                                <h4 className="font-semibold text-[var(--text-main)] mb-1">Already Defined Your Ideal Client?</h4>
+                                <p className="text-sm text-[var(--text-soft)]">Import your existing Ideal Client data to save time.</p>
+                            </div>
+                            <button
+                                onClick={handleImportFromIdealClient}
+                                disabled={isImporting}
+                                className="btn btn-primary ml-0 sm:ml-4 flex-shrink-0 w-full sm:w-auto"
+                            >
+                                {isImporting ? (
+                                    <>
+                                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                        Importing...
+                                    </>
+                                ) : (
+                                    <>
+                                        <ChevronRight className="w-4 h-4 mr-2" />
+                                        Import Data
+                                    </>
+                                )}
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Customer Name */}
+                    <div>
+                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                            Give Your Ideal Customer a Name *
+                        </label>
+                        <input
+                            type="text"
+                            value={formData.persona.name}
+                            onChange={(e) => handleInputChange('persona', 'name', e.target.value)}
+                            placeholder="e.g., 'Startup Sarah' or 'Corporate Chris'"
+                            className="form-input"
+                        />
+                        <p className="text-xs text-[var(--text-soft)] mt-1">Naming your customer makes them real and helps you connect emotionally.</p>
+                    </div>
+
+                    {/* Demographics Section */}
+                    <div className="card p-6">
+                        <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Demographics</h3>
+
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Age Range</label>
+                                <select
+                                    value={formData.persona.age_range || ''}
+                                    onChange={(e) => handleSelectChange('age_range', e.target.value)}
+                                    className="form-input"
+                                >
+                                    <option value="">Select age range</option>
+                                    {DEMOGRAPHICS_OPTIONS.age_range.map(option => (
+                                        <option key={option} value={option}>{option}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Gender</label>
+                                <select
+                                    value={formData.persona.gender || ''}
+                                    onChange={(e) => handleSelectChange('gender', e.target.value)}
+                                    className="form-input"
+                                >
+                                    <option value="">Select gender</option>
+                                    {DEMOGRAPHICS_OPTIONS.gender.map(option => (
+                                        <option key={option} value={option}>{option}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Location</label>
+                                <select
+                                    value={formData.persona.location || ''}
+                                    onChange={(e) => handleSelectChange('location', e.target.value)}
+                                    className="form-input"
+                                >
+                                    <option value="">Select location</option>
+                                    {DEMOGRAPHICS_OPTIONS.location.map(option => (
+                                        <option key={option} value={option}>{option}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Income Level</label>
+                                <select
+                                    value={formData.persona.income_level || ''}
+                                    onChange={(e) => handleSelectChange('income_level', e.target.value)}
+                                    className="form-input"
+                                >
+                                    <option value="">Select income level</option>
+                                    {DEMOGRAPHICS_OPTIONS.income_level.map(option => (
+                                        <option key={option} value={option}>{option}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Education</label>
+                                <select
+                                    value={formData.persona.education || ''}
+                                    onChange={(e) => handleSelectChange('education', e.target.value)}
+                                    className="form-input"
+                                >
+                                    <option value="">Select education level</option>
+                                    {DEMOGRAPHICS_OPTIONS.education.map(option => (
+                                        <option key={option} value={option}>{option}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Occupation</label>
+                                <select
+                                    value={formData.persona.occupation || ''}
+                                    onChange={(e) => handleSelectChange('occupation', e.target.value)}
+                                    className="form-input"
+                                >
+                                    <option value="">Select occupation</option>
+                                    {DEMOGRAPHICS_OPTIONS.occupation.map(option => (
+                                        <option key={option} value={option}>{option}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Psychographics Section - INTERACTIVE */}
+                    <div className="card p-6">
+                        <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Psychographics</h3>
+                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                            Values, Interests, Lifestyle & Personality Traits
+                        </label>
+                        <MultiValueInput
+                            values={formData.persona.psychographics}
+                            onChange={(values) => handleArrayChange('psychographics', values)}
+                            suggestions={PSYCHOGRAPHICS_SUGGESTIONS}
+                            placeholder="Add psychographic traits (e.g., Innovation, Creative, Fast-paced)"
+                        />
+                        <p className="text-xs text-[var(--text-soft)] mt-2">Add as many as apply. These help you understand their mindset and lifestyle.</p>
+                    </div>
+
+                    {/* Pain Points - INTERACTIVE */}
+                    <div className="card p-6">
+                        <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Pain Points</h3>
+                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                            What problems or frustrations do they face?
+                        </label>
+                        <MultiValueInput
+                            values={formData.persona.pain_points}
+                            onChange={(values) => handleArrayChange('pain_points', values)}
+                            suggestions={PAIN_POINTS_SUGGESTIONS}
+                            placeholder="Add pain points (e.g., Lack of time, Limited budget)"
+                        />
+                        <p className="text-xs text-[var(--text-soft)] mt-2">Understanding their pain points helps you create targeted solutions.</p>
+                    </div>
+
+                    {/* Goals & Aspirations - INTERACTIVE */}
+                    <div className="card p-6">
+                        <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Goals & Aspirations</h3>
+                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                            What are they trying to achieve?
+                        </label>
+                        <MultiValueInput
+                            values={formData.persona.goals}
+                            onChange={(values) => handleArrayChange('goals', values)}
+                            suggestions={GOALS_SUGGESTIONS}
+                            placeholder="Add goals (e.g., Start a business, Achieve financial freedom)"
+                        />
+                        <p className="text-xs text-[var(--text-soft)] mt-2">Their goals drive their decisions and actions.</p>
+                    </div>
+
+                    {/* Core Values - INTERACTIVE */}
+                    <div className="card p-6">
+                        <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Core Values</h3>
+                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                            What principles guide their decisions?
+                        </label>
+                        <MultiValueInput
+                            values={formData.persona.core_values}
+                            onChange={(values) => handleArrayChange('core_values', values)}
+                            suggestions={VALUES_SUGGESTIONS}
+                            placeholder="Add core values (e.g., Integrity, Innovation, Family)"
+                        />
+                        <p className="text-xs text-[var(--text-soft)] mt-2">Core values help you align your messaging with what matters most to them.</p>
+                    </div>
+
+                    {/* Buying Behaviors */}
+                    <div className="card p-6">
+                        <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Buying Behaviors</h3>
+
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Research Method</label>
+                                <select
+                                    value={formData.persona.research_method || ''}
+                                    onChange={(e) => handleSelectChange('research_method', e.target.value)}
+                                    className="form-input"
+                                >
+                                    <option value="">Select research method</option>
+                                    {BUYING_BEHAVIORS_OPTIONS.research_method.map(option => (
+                                        <option key={option} value={option}>{option}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Decision Speed</label>
+                                <select
+                                    value={formData.persona.decision_speed || ''}
+                                    onChange={(e) => handleSelectChange('decision_speed', e.target.value)}
+                                    className="form-input"
+                                >
+                                    <option value="">Select decision speed</option>
+                                    {BUYING_BEHAVIORS_OPTIONS.decision_speed.map(option => (
+                                        <option key={option} value={option}>{option}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Price Sensitivity</label>
+                                <select
+                                    value={formData.persona.price_sensitivity || ''}
+                                    onChange={(e) => handleSelectChange('price_sensitivity', e.target.value)}
+                                    className="form-input"
+                                >
+                                    <option value="">Select price sensitivity</option>
+                                    {BUYING_BEHAVIORS_OPTIONS.price_sensitivity.map(option => (
+                                        <option key={option} value={option}>{option}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Preferred Contact Method</label>
+                                <select
+                                    value={formData.persona.preferred_contact || ''}
+                                    onChange={(e) => handleSelectChange('preferred_contact', e.target.value)}
+                                    className="form-input"
+                                >
+                                    <option value="">Select contact method</option>
+                                    {BUYING_BEHAVIORS_OPTIONS.preferred_contact.map(option => (
+                                        <option key={option} value={option}>{option}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <>
+                    {/* Tools Checklist Section - NEW */}
+                    {stage.recommendedTools && (
+                        <div className="card p-6 bg-white dark:bg-gray-800 border-2 border-dashed border-gray-200 dark:border-gray-700">
+                            <h3 className="font-bold text-lg mb-4 flex items-center text-[var(--text-main)]">
+                                <Wrench className="w-5 h-5 mr-2 text-[var(--primary-gold)]" />
+                                Recommended Tools Checklist
+                            </h3>
+                            <p className="text-sm text-[var(--text-soft)] mb-4">
+                                Select the tools you plan to use or already use for this stage.
+                            </p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                {stage.recommendedTools.map((tool, index) => (
+                                    <label key={index} className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                        <input 
+                                            type="checkbox" 
+                                            checked={formData[stage.id]?.tools_checklist?.includes(tool) || false}
+                                            onChange={() => handleToolsChecklistChange(stage.id, tool)}
+                                            className="h-5 w-5 rounded border-gray-300 text-[var(--primary-gold)] focus:ring-[var(--primary-gold)]"
+                                        />
+                                        <span className="text-sm text-[var(--text-main)] font-medium">{tool}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* HQ Features Section */}
+                    {stage.hqFeatures && (
+                        <div className="card p-6 bg-gradient-to-br from-[var(--primary-gold)]/10 to-yellow-50 dark:to-yellow-900/10 border-2 border-[var(--primary-gold)]/30">
+                            <h3 className="font-bold text-lg mb-4 flex items-center">
+                                <Zap className="w-5 h-5 mr-2 text-[var(--primary-gold)]" />
+                                The HQ Features for {stage.title}
+                            </h3>
+                            <div className="space-y-3">
+                                {stage.hqFeatures.map((feature, index) => {
+                                    const FeatureIcon = feature.icon;
+                                    return (
+                                        <div key={index} className="flex items-start space-x-3 bg-white dark:bg-gray-800 p-3 rounded-lg">
+                                            <div className="bg-[var(--primary-gold)]/10 p-2 rounded-md flex-shrink-0">
+                                                <FeatureIcon className="w-4 h-4 text-[var(--primary-gold)]" />
+                                            </div>
+                                            <div>
+                                                <h4 className="font-semibold text-sm text-[var(--text-main)]">{feature.name}</h4>
+                                                <p className="text-xs text-[var(--text-soft)] mt-1">{feature.description}</p>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Stage-Specific Questions */}
+                    <div className="space-y-4">
+                        {stage.id === 'awareness' && (
+                            <>
+                                <div>
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                        Discovery Channels
+                                    </label>
+                                    <textarea
+                                        value={formData.awareness.discovery_channels}
+                                        onChange={(e) => handleInputChange('awareness', 'discovery_channels', e.target.value)}
+                                        placeholder="How do potential customers currently find out about your business? (e.g., social media, Google search, referrals)"
+                                        className="form-input h-24"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                        Initial Pain Points
+                                    </label>
+                                    <textarea
+                                        value={formData.awareness.pain_points}
+                                        onChange={(e) => handleInputChange('awareness', 'pain_points', e.target.value)}
+                                        placeholder="What problems are they aware of at this stage?"
+                                        className="form-input h-24"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                        Key Messaging
+                                    </label>
+                                    <textarea
+                                        value={formData.awareness.messaging}
+                                        onChange={(e) => handleInputChange('awareness', 'messaging', e.target.value)}
+                                        placeholder="What message will grab their attention? How will you speak to their frustration and curiosity?"
+                                        className="form-input h-24"
+                                    />
+                                </div>
+                            </>
+                        )}
+
+                        {stage.id === 'consideration' && (
+                            <>
+                                <div>
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                        Evaluation Criteria
+                                    </label>
+                                    <textarea
+                                        value={formData.consideration.evaluation_criteria}
+                                        onChange={(e) => handleInputChange('consideration', 'evaluation_criteria', e.target.value)}
+                                        placeholder="What factors do customers use to compare you to competitors?"
+                                        className="form-input h-24"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                        Common Questions
+                                    </label>
+                                    <textarea
+                                        value={formData.consideration.common_questions}
+                                        onChange={(e) => handleInputChange('consideration', 'common_questions', e.target.value)}
+                                        placeholder="What questions do they typically ask during this stage?"
+                                        className="form-input h-24"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                        Information Needs
+                                    </label>
+                                    <textarea
+                                        value={formData.consideration.information_needs}
+                                        onChange={(e) => handleInputChange('consideration', 'information_needs', e.target.value)}
+                                        placeholder="What information or resources do they need to move forward? How can you build trust through education?"
+                                        className="form-input h-24"
+                                    />
+                                </div>
+                            </>
+                        )}
+
+                        {stage.id === 'decision' && (
+                            <>
+                                <div>
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                        Purchase Decision Factors
+                                    </label>
+                                    <textarea
+                                        value={formData.decision.purchase_factors}
+                                        onChange={(e) => handleInputChange('decision', 'purchase_factors', e.target.value)}
+                                        placeholder="What factors influence their final purchase decision? (e.g., price, trust, urgency, guarantees)"
+                                        className="form-input h-24"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                        Potential Obstacles
+                                    </label>
+                                    <textarea
+                                        value={formData.decision.obstacles}
+                                        onChange={(e) => handleInputChange('decision', 'obstacles', e.target.value)}
+                                        placeholder="What might prevent them from buying? How can you address these obstacles and reduce friction?"
+                                        className="form-input h-24"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                        Preferred Payment Methods
+                                    </label>
+                                    <textarea
+                                        value={formData.decision.preferred_methods}
+                                        onChange={(e) => handleInputChange('decision', 'preferred_methods', e.target.value)}
+                                        placeholder="How do they prefer to pay or engage with your offer?"
+                                        className="form-input h-24"
+                                    />
+                                </div>
+                            </>
+                        )}
+
+                        {stage.id === 'service' && (
+                            <>
+                                <div>
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                        Onboarding Process
+                                    </label>
+                                    <textarea
+                                        value={formData.service.onboarding_process}
+                                        onChange={(e) => handleInputChange('service', 'onboarding_process', e.target.value)}
+                                        placeholder="What happens immediately after purchase? How do you onboard new clients and help them feel welcomed?"
+                                        className="form-input h-24"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                        Support Needs
+                                    </label>
+                                    <textarea
+                                        value={formData.service.support_needs}
+                                        onChange={(e) => handleInputChange('service', 'support_needs', e.target.value)}
+                                        placeholder="What support or assistance do clients need during service delivery? How can you proactively address their concerns?"
+                                        className="form-input h-24"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                        Communication Preferences
+                                    </label>
+                                    <textarea
+                                        value={formData.service.communication_preferences}
+                                        onChange={(e) => handleInputChange('service', 'communication_preferences', e.target.value)}
+                                        placeholder="How do clients prefer to communicate and receive updates?"
+                                        className="form-input h-24"
+                                    />
+                                </div>
+                            </>
+                        )}
+
+                        {stage.id === 'loyalty' && (
+                            <>
+                                <div>
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                        Retention Strategies
+                                    </label>
+                                    <textarea
+                                        value={formData.loyalty.retention_strategies}
+                                        onChange={(e) => handleInputChange('loyalty', 'retention_strategies', e.target.value)}
+                                        placeholder="How do you encourage repeat business and long-term relationships? How will you celebrate their success?"
+                                        className="form-input h-24"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                        Advocacy Opportunities
+                                    </label>
+                                    <textarea
+                                        value={formData.loyalty.advocacy_opportunities}
+                                        onChange={(e) => handleInputChange('loyalty', 'advocacy_opportunities', e.target.value)}
+                                        placeholder="How can satisfied customers become advocates (referrals, testimonials, affiliates)? How will you make them feel special?"
+                                        className="form-input h-24"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                        Feedback Mechanisms
+                                    </label>
+                                    <textarea
+                                        value={formData.loyalty.feedback_mechanisms}
+                                        onChange={(e) => handleInputChange('loyalty', 'feedback_mechanisms', e.target.value)}
+                                        placeholder="How do you gather and act on customer feedback to continuously improve?"
+                                        className="form-input h-24"
+                                    />
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </>
+            )}
+        </div>
+    );
+});
 
     if (loading) {
         return (
