@@ -89,29 +89,44 @@ const STAGES = [
         description: 'How customers discover you',
         icon: Eye,
         color: 'from-purple-500 to-purple-600',
-        instructions: 'At this stage, your customer is experiencing a problem or need but may not fully understand it yet. They\'re searching for information, asking questions, or noticing symptoms of their pain point. Your goal is to be visible where they\'re looking and speak to their initial concerns. This is your first impression - make it count by addressing their pain points with empathy and offering valuable information, not a sales pitch.',
-        streamlinesBusiness: 'The HQ\'s Social Media Manager allows you to schedule posts across Facebook, Instagram, LinkedIn, Twitter, and TikTok from one dashboard - ensuring consistent visibility without the time drain. The Ads Management feature lets you create, launch, and track Facebook, Instagram, and Google Ads campaigns directly in The HQ, with built-in analytics to see what\'s working. Marketing Automation captures leads the moment they engage with your content, automatically adding them to nurture sequences that build trust over time.',
-        realWorldExample: 'Example: A startup founder is frustrated with juggling multiple tools (CRM, email, website, calendar). They start Googling "all-in-one business platform" or see your social media post about "Stop paying for 10 different tools." You\'ve just entered their awareness. Your content speaks directly to their frustration, offering a free guide on "The True Cost of Tool Overload." They download it, and The HQ automatically adds them to a nurture sequence.',
-        emotions: 'Frustration, Curiosity, Confusion, Hope, Relief (that someone understands)',
-        connectionTip: 'Speak to their pain points with empathy. Use language like "We know how overwhelming it feels when..." or "You\'re not alone in struggling with..." Show you understand their frustration before offering solutions. The key is to be helpful first, salesy never. Position yourself as a guide, not a vendor.',
-        howStagesConnect: 'Awareness leads naturally into Consideration. Once your customer knows you exist and sees that you understand their problem, they\'ll want to learn more. The content you create in the Awareness stage (blog posts, social media, ads) should seamlessly guide them to educational resources in the Consideration stage (webinars, case studies, free trials).',
+        instructions: 'At this stage, your customer is experiencing a problem or need but may not fully understand it yet. They\'re searching for information, asking questions, or noticing symptoms of their pain point. Your goal is to be visible where they\'re looking and speak to their initial concerns.',
         recommendedTools: ['Social Media Scheduler', 'SEO Keyword Tool', 'Google Ads/Facebook Ads Manager', 'Content Calendar', 'Blog/CMS', 'Video Creation Tools', 'Canva/Design Software'],
-        hqFeatures: [
+        pathways: [
             {
-                name: 'Social Media Manager',
-                description: 'Schedule and publish posts across all major platforms (Facebook, Instagram, LinkedIn, Twitter, TikTok) from one unified calendar. Create content once, distribute everywhere. Track engagement metrics to see which messages resonate most with your ideal customer. Set up automated posting schedules so you\'re always visible, even when you\'re sleeping.',
-                icon: Share2
+                id: 'content_marketing',
+                title: 'Content Marketing (SEO & Blog)',
+                description: 'Attract customers by solving their problems with valuable content.',
+                example: 'A fitness coach writing blog posts about "How to lose weight after 40" that rank on Google.',
+                formFields: [
+                    { id: 'content_pillars', label: 'What are your 3-5 main content topics?', placeholder: 'e.g., Nutrition, Workouts, Mindset' },
+                    { id: 'keyword_strategy', label: 'What keywords are your customers searching for?', placeholder: 'e.g., "best home workout equipment"' }
+                ]
             },
             {
-                name: 'Ads Management',
-                description: 'Create, launch, and manage Facebook, Instagram, and Google Ads campaigns without leaving The HQ. Built-in targeting tools help you reach your exact ideal customer. Real-time analytics show which ads are driving traffic and conversions. A/B test different ad creatives and copy to optimize performance. Note: This is a $20/month add-on, and we never take a cut of your ad spend - every dollar goes directly to your campaigns.',
-                icon: Zap
+                id: 'social_media',
+                title: 'Social Media Growth',
+                description: 'Build an audience by engaging on platforms where your customers hang out.',
+                example: 'A fashion brand posting daily outfits on Instagram and using TikTok trends.',
+                formFields: [
+                    { id: 'primary_platforms', label: 'Which platforms will you focus on?', placeholder: 'e.g., Instagram, LinkedIn' },
+                    { id: 'content_mix', label: 'What type of content will you post?', placeholder: 'e.g., Educational reels, Behind the scenes, User content' }
+                ]
             },
             {
-                name: 'Marketing Automation',
-                description: 'Capture leads automatically from your website, social media, and ads. Set up "if/then" workflows that trigger based on customer behavior (e.g., "If someone downloads the free guide, add them to the 7-day email sequence"). Tag and segment leads based on interests, actions, and demographics. Send personalized follow-up messages that nurture trust before you ever ask for a sale.',
-                icon: Zap
+                id: 'paid_ads',
+                title: 'Paid Advertising',
+                description: 'Pay to put your message directly in front of your ideal customer.',
+                example: 'A SaaS company running LinkedIn ads targeting CTOs of mid-sized companies.',
+                formFields: [
+                    { id: 'budget', label: 'What is your monthly ad budget?', placeholder: 'e.g., $1000' },
+                    { id: 'target_audience', label: 'Who exactly are you targeting?', placeholder: 'e.g., Women aged 25-34 in New York' }
+                ]
             }
+        ],
+        hqFeatures: [
+            { name: 'Social Media Manager', description: 'Schedule and publish posts across all major platforms from one dashboard.', icon: Share2 },
+            { name: 'Ads Management', description: 'Create and track Facebook, Instagram, and Google Ads campaigns directly in The HQ.', icon: Zap },
+            { name: 'Marketing Automation', description: 'Capture leads automatically from your website, social media, and ads.', icon: Zap }
         ]
     },
     {
@@ -120,34 +135,44 @@ const STAGES = [
         description: 'How customers evaluate solutions',
         icon: Search,
         color: 'from-green-500 to-green-600',
-        instructions: 'Now your customer knows they have a problem and they\'re actively researching solutions. They\'re comparing options, reading reviews, watching demos, and evaluating whether your solution fits their needs. They need education, proof, and clarity. This is where you become a trusted advisor by providing transparent information, showcasing results, and removing doubts. The goal isn\'t to "convince" them - it\'s to help them make an informed decision.',
-        streamlinesBusiness: 'The HQ\'s Website & Funnel Builder lets you create high-converting landing pages and sales funnels in minutes using drag-and-drop templates. No coding required. Host Webinars directly in The HQ to educate prospects at scale, with built-in registration pages and automated reminder emails. Marketing Automation delivers targeted content based on what prospects are interested in - if they clicked on a pricing email, send them a comparison guide; if they watched a demo video, invite them to a Q&A session.',
-        realWorldExample: 'Example: The startup founder visits your website (built with The HQ\'s Website Builder), downloads a free guide on "Choosing the Right Business Platform," watches your webinar on streamlining operations (hosted via The HQ\'s Webinar feature), and receives a series of educational emails showcasing case studies (sent via Marketing Automation). They\'re evaluating you against 2-3 competitors. Your transparent pricing, real customer testimonials, and helpful content build trust and position you as the obvious choice.',
-        emotions: 'Skepticism, Analysis, Overwhelm, Cautious Optimism, Hope',
-        connectionTip: 'Provide value without pressure. Offer educational content, transparent comparisons, and social proof (testimonials, case studies). Use language like "See how it works for yourself" or "Here\'s what others in your situation discovered..." Build trust through education. Never hide your pricing or make false promises. The more transparent and helpful you are, the more they\'ll trust you when it\'s time to buy.',
-        howStagesConnect: 'Consideration naturally flows into Decision. As your customer becomes educated about their options and confident in your solution, they move closer to purchase. The educational content and trust you build in Consideration removes objections and friction in the Decision stage. By the time they\'re ready to buy, it should feel like an easy, natural next step.',
-        recommendedTools: ['Website/Landing Page Builder', 'Email Marketing Software', 'Webinar Platform', 'CRM', 'Lead Magnet Creation Tool', 'Analytics Tools', 'Retargeting Pixel'],
-        hqFeatures: [
+        instructions: 'Now your customer knows they have a problem and they\'re actively researching solutions. They need education, proof, and clarity. This is where you become a trusted advisor by providing transparent information, showcasing results, and removing doubts.',
+        recommendedTools: ['Website/Landing Page Builder', 'Email Marketing Software', 'Webinar Platform', 'CRM', 'Lead Magnet Creation Tool'],
+        pathways: [
             {
-                name: 'Drag-and-Drop Website Builder',
-                description: 'Build stunning, mobile-responsive websites and landing pages without any coding. Choose from hundreds of professionally-designed templates or start from scratch. Customize every element with drag-and-drop simplicity. Built-in SEO tools ensure Google can find your site. A/B test different page versions to optimize conversions. Integrate forms that automatically add leads to your CRM.',
-                icon: Globe
+                id: 'landing_page',
+                title: 'High-Converting Landing Page',
+                description: 'A single page focused on one offer with one call to action.',
+                example: 'A webinar registration page with no navigation menu, just a signup form.',
+                formFields: [
+                    { id: 'headline', label: 'What is your main headline?', placeholder: 'The promise of your offer' },
+                    { id: 'lead_magnet', label: 'What free value are you offering?', placeholder: 'e.g., Free Checklist, Video Training' }
+                ]
             },
             {
-                name: 'Funnel Builder',
-                description: 'Create multi-step sales funnels that guide prospects from interest to purchase. Build opt-in pages, sales pages, upsell pages, and thank you pages - all connected in a seamless flow. Pre-built funnel templates for common business models (coaches, consultants, e-commerce, courses, etc.). Track conversion rates at every step to identify and fix drop-off points. Integrate payment processing for instant sales.',
-                icon: FolderKanban
+                id: 'full_website',
+                title: 'Full Brand Website',
+                description: 'A multi-page site that builds credibility and tells your full story.',
+                example: 'A consulting firm website with About, Services, Case Studies, and Blog pages.',
+                formFields: [
+                    { id: 'sitemap', label: 'What main pages will you include?', placeholder: 'Home, About, Services, Contact' },
+                    { id: 'brand_story', label: 'What is the core story on your About page?', placeholder: 'Why you started this business' }
+                ]
             },
             {
-                name: 'Webinar Feature',
-                description: 'Host live or automated webinars to educate and convert your audience at scale. Built-in registration pages with customizable fields. Automated reminder emails to reduce no-shows. Live chat during webinars for real-time Q&A. Replay options for those who couldn\'t attend live. Analytics show watch time, engagement, and conversion rates. Integrate with your CRM to track which attendees become customers.',
-                icon: Users
-            },
-            {
-                name: 'Marketing Automation (Consideration)',
-                description: 'Deliver the right educational content at the right time based on prospect behavior. Create "drip campaigns" that nurture leads over days or weeks. Segment prospects based on interests (e.g., "pricing interested" vs "feature interested") and send tailored content. Track email opens, clicks, and engagement to see what resonates. Automatically score leads based on engagement so you know who\'s hot and ready for a sales call.',
-                icon: Zap
+                id: 'webinar_funnel',
+                title: 'Webinar/Masterclass Funnel',
+                description: 'Educate prospects via video before making an offer.',
+                example: 'A 45-minute masterclass on "How to Scale Your Business" ending with a pitch.',
+                formFields: [
+                    { id: 'webinar_topic', label: 'What will you teach?', placeholder: 'e.g., 3 Steps to Financial Freedom' },
+                    { id: 'offer_pitch', label: 'What is your offer at the end?', placeholder: 'e.g., Join my coaching program' }
+                ]
             }
+        ],
+        hqFeatures: [
+            { name: 'Website Builder', description: 'Build stunning websites and landing pages without coding.', icon: Globe },
+            { name: 'Funnel Builder', description: 'Create multi-step sales funnels that guide prospects to purchase.', icon: FolderKanban },
+            { name: 'Webinar Feature', description: 'Host live or automated webinars to educate and convert your audience.', icon: Users }
         ]
     },
     {
