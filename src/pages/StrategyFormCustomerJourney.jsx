@@ -434,20 +434,20 @@ export default function StrategyFormCustomerJourneyPage() {
             income_level: '',
             education: '',
             occupation: '',
-            psychographics: [], // Now an array
-            pain_points: [],     // Now an array
-            goals: [],           // Now an array
-            core_values: [],     // Now an array
+            psychographics: [],
+            pain_points: [],
+            goals: [],
+            core_values: [],
             research_method: '',
             decision_speed: '',
             price_sensitivity: '',
             preferred_contact: ''
         },
-        awareness: { discovery_channels: '', pain_points: '', messaging: '', tools_checklist: [] },
-        consideration: { evaluation_criteria: '', common_questions: '', information_needs: '', tools_checklist: [] },
-        decision: { purchase_factors: '', obstacles: '', preferred_methods: '', tools_checklist: [] },
-        service: { onboarding_process: '', support_needs: '', communication_preferences: '', tools_checklist: [] },
-        loyalty: { retention_strategies: '', advocacy_opportunities: '', feedback_mechanisms: '', tools_checklist: [] }
+        awareness: { discovery_channels: '', pain_points: '', messaging: '', tools_checklist: [], selected_pathway: '', pathway_data: {} },
+        consideration: { evaluation_criteria: '', common_questions: '', information_needs: '', tools_checklist: [], selected_pathway: '', pathway_data: {} },
+        decision: { purchase_factors: '', obstacles: '', preferred_methods: '', tools_checklist: [], selected_pathway: '', pathway_data: {} },
+        service: { onboarding_process: '', support_needs: '', communication_preferences: '', tools_checklist: [], selected_pathway: '', pathway_data: {} },
+        loyalty: { retention_strategies: '', advocacy_opportunities: '', feedback_mechanisms: '', tools_checklist: [], selected_pathway: '', pathway_data: {} }
     });
 
     useEffect(() => {
