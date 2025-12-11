@@ -1337,7 +1337,17 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
 
                     {/* Stage Content */}
                     <div className="card p-6">
-                        <StageContent stage={STAGES[currentStage]} openAIHelp={openAIHelp} />
+                        <StageContent 
+                            stage={STAGES[currentStage]} 
+                            openAIHelp={openAIHelp} 
+                            formData={formData}
+                            handleInputChange={handleInputChange}
+                            handleSelectChange={handleSelectChange}
+                            handleArrayChange={handleArrayChange}
+                            handleImportFromIdealClient={handleImportFromIdealClient}
+                            isImporting={isImporting}
+                            handleToolsChecklistChange={handleToolsChecklistChange}
+                        />
                     </div>
 
                     {/* Navigation Buttons */}
