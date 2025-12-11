@@ -406,25 +406,28 @@ export default function StrategyFormCustomerJourneyPage() {
 
             if (journeyDocs.length > 0) {
                 setExistingDocument(journeyDocs[0]);
-                const loadedContent = journeyDocs[0].content;
+                const loadedContent = journeyDocs[0].content || {};
+
+                // Helper to ensure an object is returned, not null
+                const safeObj = (obj) => (obj && typeof obj === 'object' && !Array.isArray(obj)) ? obj : {};
 
                 setFormData(prev => ({
                     ...prev,
                     ...loadedContent,
                     persona: {
                         ...prev.persona,
-                        ...loadedContent.persona,
+                        ...safeObj(loadedContent.persona),
                         // Ensure array fields exist and are arrays
-                        psychographics: loadedContent.persona?.psychographics || [],
-                        pain_points: loadedContent.persona?.pain_points || [],
-                        goals: loadedContent.persona?.goals || [],
-                        core_values: loadedContent.persona?.core_values || []
+                        psychographics: Array.isArray(loadedContent.persona?.psychographics) ? loadedContent.persona.psychographics : [],
+                        pain_points: Array.isArray(loadedContent.persona?.pain_points) ? loadedContent.persona.pain_points : [],
+                        goals: Array.isArray(loadedContent.persona?.goals) ? loadedContent.persona.goals : [],
+                        core_values: Array.isArray(loadedContent.persona?.core_values) ? loadedContent.persona.core_values : []
                     },
-                    awareness: { ...prev.awareness, ...loadedContent.awareness },
-                    consideration: { ...prev.consideration, ...loadedContent.consideration },
-                    decision: { ...prev.decision, ...loadedContent.decision },
-                    service: { ...prev.service, ...loadedContent.service },
-                    loyalty: { ...prev.loyalty, ...loadedContent.loyalty },
+                    awareness: { ...prev.awareness, ...safeObj(loadedContent.awareness) },
+                    consideration: { ...prev.consideration, ...safeObj(loadedContent.consideration) },
+                    decision: { ...prev.decision, ...safeObj(loadedContent.decision) },
+                    service: { ...prev.service, ...safeObj(loadedContent.service) },
+                    loyalty: { ...prev.loyalty, ...safeObj(loadedContent.loyalty) },
                 }));
             }
         } catch (error) {
