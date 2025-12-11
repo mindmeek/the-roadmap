@@ -1421,6 +1421,55 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                                         );
                                     })()}
 
+                                    {/* AI Generation Button */}
+                                    <div className="mb-6 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border border-purple-200 dark:border-purple-800 rounded-lg">
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                                <h4 className="font-bold text-[var(--text-main)] flex items-center">
+                                                    <Wand2 className="w-4 h-4 mr-2 text-purple-600" />
+                                                    Want Charlie to draft this strategy for you?
+                                                </h4>
+                                                <p className="text-sm text-[var(--text-soft)] mt-1">
+                                                    Provide a quick context and let AI fill out the details tailored to your business.
+                                                </p>
+                                            </div>
+                                            <button
+                                                onClick={() => handleGenerateStrategy(stage.id, formData[stage.id].selected_pathway)}
+                                                disabled={isGenerating}
+                                                className="btn btn-primary bg-purple-600 hover:bg-purple-700 text-white"
+                                            >
+                                                {isGenerating ? (
+                                                    <>
+                                                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                                        Generating...
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <Sparkles className="w-4 h-4 mr-2" />
+                                                        Auto-Generate
+                                                    </>
+                                                )}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Generated Implementation Plan */}
+                                    {formData[stage.id]?.pathway_data?.implementation_plan && (
+                                        <div className="mb-6 bg-white dark:bg-gray-800 p-5 rounded-lg border-2 border-purple-100 dark:border-purple-900/30 shadow-sm">
+                                            <h5 className="font-bold text-purple-800 dark:text-purple-400 mb-3 flex items-center">
+                                                <Rocket className="w-4 h-4 mr-2"/> Customized Action Plan
+                                            </h5>
+                                            <ul className="space-y-2">
+                                                {formData[stage.id].pathway_data.implementation_plan.map((step, i) => (
+                                                    <li key={i} className="text-sm text-[var(--text-main)] flex items-start">
+                                                        <span className="mr-2 text-purple-500 mt-1">•</span>
+                                                        <span>{step}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+
                                     {/* Pathway Specific Form */}
                                     <div className="space-y-4">
                                         {stage.pathways.find(p => p.id === formData[stage.id].selected_pathway)?.formFields.map(field => (
