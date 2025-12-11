@@ -1282,6 +1282,11 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                     {/* Buying Behaviors */}
                     <div className="card p-6">
                         <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Buying Behaviors</h3>
+                        
+                        <div className="mb-6 bg-orange-50 dark:bg-orange-900/10 p-4 rounded-lg border border-orange-100 dark:border-orange-800/30 text-sm">
+                            <p className="mb-2"><strong className="text-orange-700 dark:text-orange-400">Why it matters:</strong> Knowing <em>how</em> they buy removes friction. Mismatching your sales process with their buying style kills sales.</p>
+                            <p className="italic text-[var(--text-soft)]"><strong className="not-italic text-[var(--text-main)]">Example:</strong> An impulse buyer (fashion) needs a "1-Click Checkout." A careful buyer (software) needs a "Free Trial" and case studies.</p>
+                        </div>
 
                         <div className="space-y-4">
                             <div>
