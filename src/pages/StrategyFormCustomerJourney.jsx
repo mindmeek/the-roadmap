@@ -1240,6 +1240,12 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                     {/* Goals & Aspirations - INTERACTIVE */}
                     <div className="card p-6">
                         <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Goals & Aspirations</h3>
+                        
+                        <div className="mb-6 bg-green-50 dark:bg-green-900/10 p-4 rounded-lg border border-green-100 dark:border-green-800/30 text-sm">
+                            <p className="mb-2"><strong className="text-green-700 dark:text-green-400">Why it matters:</strong> This is where your customer <em>wants</em> to be. Your product is the bridge between their current pain and their future goal.</p>
+                            <p className="italic text-[var(--text-soft)]"><strong className="not-italic text-[var(--text-main)]">Example:</strong> A freelance writer buys a course not just to "learn SEO," but to achieve the goal of "Working from Bali." Sell the destination.</p>
+                        </div>
+
                         <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
                             What are they trying to achieve?
                         </label>
