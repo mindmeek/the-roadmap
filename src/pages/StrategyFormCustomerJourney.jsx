@@ -537,6 +537,23 @@ export default function StrategyFormCustomerJourneyPage() {
         }));
     };
 
+    const handleToolsChecklistChange = (stage, tool) => {
+        setFormData(prev => {
+            const currentChecklist = prev[stage]?.tools_checklist || [];
+            const newChecklist = currentChecklist.includes(tool)
+                ? currentChecklist.filter(t => t !== tool)
+                : [...currentChecklist, tool];
+            
+            return {
+                ...prev,
+                [stage]: {
+                    ...prev[stage],
+                    tools_checklist: newChecklist
+                }
+            };
+        });
+    };
+
     const handleSave = async () => {
         setIsSaving(true);
         try {
