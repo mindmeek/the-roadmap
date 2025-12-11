@@ -1718,6 +1718,8 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                             handleToolsChecklistChange={handleToolsChecklistChange}
                             handlePathwaySelect={handlePathwaySelect}
                             handlePathwayInputChange={handlePathwayInputChange}
+                            handleGenerateStrategy={handleGenerateStrategy}
+                            isGenerating={isSaving}
                         />
                     </div>
 
