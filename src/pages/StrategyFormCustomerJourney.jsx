@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { User, StrategyDocument } from '@/entities/all';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Loader2, Save, ChevronRight, CheckCircle, UserCircle, Eye, Search, ShoppingCart, HeartHandshake, Trophy, Share2, MessageSquare, Palette, Globe, DollarSign, Smartphone, FolderKanban, Star, Users, Zap, Lightbulb, Sparkles, Plus, X, Wrench } from 'lucide-react';
+import { Loader2, Save, ChevronRight, CheckCircle, UserCircle, Eye, Search, ShoppingCart, HeartHandshake, Trophy, Share2, MessageSquare, Palette, Globe, DollarSign, Smartphone, FolderKanban, Star, Users, Zap, Lightbulb, Sparkles, Plus, X, Wrench, Rocket } from 'lucide-react';
 import SubscriptionGate from '../components/subscription/SubscriptionGate';
 import AITeamModal from '@/components/ai/AITeamModal';
 
@@ -95,8 +95,18 @@ const STAGES = [
             {
                 id: 'content_marketing',
                 title: 'Content Marketing (SEO & Blog)',
-                description: 'Attract customers by solving their problems with valuable content.',
+                description: 'Attract customers by solving their problems with valuable content. This long-term strategy builds authority and organic traffic.',
                 example: 'A fitness coach writing blog posts about "How to lose weight after 40" that rank on Google.',
+                realWorldExample: 'A specialized law firm writes detailed guides on "Startup IP Protection" that rank #1 on Google. Founders searching for answers find the guide, trust the firm\'s expertise, and eventually book a consultation.',
+                pros: ['Sustainable long-term traffic (asset building)', 'Builds deep trust and authority', 'Lower cost per lead over time'],
+                cons: ['Slow results (6-12 months)', 'Requires consistent, high-quality writing', 'High competition for popular keywords'],
+                steps: [
+                    'Research keywords your ideal client is actually searching for (not just what you want to teach).',
+                    'Create a content calendar to ensure consistency (e.g., 1 high-quality post per week).',
+                    'Write comprehensive, helpful content that answers their specific questions better than competitors.',
+                    'Optimize content for on-page SEO (titles, headings, meta descriptions).',
+                    'Repurpose content into micro-content for social media to drive initial traffic.'
+                ],
                 formFields: [
                     { id: 'content_pillars', label: 'What are your 3-5 main content topics?', placeholder: 'e.g., Nutrition, Workouts, Mindset' },
                     { id: 'keyword_strategy', label: 'What keywords are your customers searching for?', placeholder: 'e.g., "best home workout equipment"' }
@@ -105,8 +115,18 @@ const STAGES = [
             {
                 id: 'social_media',
                 title: 'Social Media Growth',
-                description: 'Build an audience by engaging on platforms where your customers hang out.',
+                description: 'Build an audience by engaging on platforms where your customers hang out. Great for brand personality and community.',
                 example: 'A fashion brand posting daily outfits on Instagram and using TikTok trends.',
+                realWorldExample: 'A real estate agent uses Instagram Reels to show "Day in the Life" and home tour videos. Local buyers feel like they know her personality before they even reach out, creating a warm lead pipeline.',
+                pros: ['Fast feedback loop from audience', 'Builds community and brand loyalty', 'Visual and personality-driven'],
+                cons: ['Algorithm changes can hurt reach', 'Requires daily/consistent engagement', 'Hard to measure ROI initially'],
+                steps: [
+                    'Choose 1-2 primary platforms where your audience is most active (don\'t try to be everywhere).',
+                    'Define your "Content Pillars" (3-5 topics you stick to).',
+                    'Batch create content once a week to avoid burnout.',
+                    'Engage daily for 15 minutes (comment on potential customers\' posts).',
+                    'Use Stories/Stories to show behind-the-scenes and build connection.'
+                ],
                 formFields: [
                     { id: 'primary_platforms', label: 'Which platforms will you focus on?', placeholder: 'e.g., Instagram, LinkedIn' },
                     { id: 'content_mix', label: 'What type of content will you post?', placeholder: 'e.g., Educational reels, Behind the scenes, User content' }
@@ -115,8 +135,18 @@ const STAGES = [
             {
                 id: 'paid_ads',
                 title: 'Paid Advertising',
-                description: 'Pay to put your message directly in front of your ideal customer.',
+                description: 'Pay to put your message directly in front of your ideal customer. The fastest way to get data and traffic.',
                 example: 'A SaaS company running LinkedIn ads targeting CTOs of mid-sized companies.',
+                realWorldExample: 'An e-commerce brand launches Facebook Ads targeting "Dog Owners" with a video showing their indestructible toy. They spend $500 to test, find a winning ad, and scale to $10k/month in profitable spend.',
+                pros: ['Immediate traffic and results', 'Precise targeting of ideal demographics', 'Easily scalable once working'],
+                cons: ['Direct cost (pay to play)', 'Ad fatigue requires constant creative updates', 'Learning curve (easy to lose money if unskilled)'],
+                steps: [
+                    'Define a clear, irresistible offer (lead magnet or low-ticket product).',
+                    'Create 3-5 variations of ad creative (images/videos) and copy.',
+                    'Set up tracking pixels (Meta Pixel, Google Tag) on your website.',
+                    'Launch campaign with a testing budget (e.g., $20/day).',
+                    'Analyze data after 3-7 days, kill losing ads, and scale winners.'
+                ],
                 formFields: [
                     { id: 'budget', label: 'What is your monthly ad budget?', placeholder: 'e.g., $1000' },
                     { id: 'target_audience', label: 'Who exactly are you targeting?', placeholder: 'e.g., Women aged 25-34 in New York' }
@@ -141,8 +171,18 @@ const STAGES = [
             {
                 id: 'landing_page',
                 title: 'High-Converting Landing Page',
-                description: 'A single page focused on one offer with one call to action.',
+                description: 'A single page focused on one specific offer with one clear call to action. Ideal for ads or specific campaigns.',
                 example: 'A webinar registration page with no navigation menu, just a signup form.',
+                realWorldExample: 'A business coach runs ads to a "Free Productivity Guide" landing page. The page has a catchy headline, 3 bullet points of benefits, and a form. It converts at 40% because there are no other distractions.',
+                pros: ['Higher conversion rates for specific offers', 'No distractions/leaks', 'Easier to A/B test'],
+                cons: ['Doesn\'t tell the "full story" of the brand', 'Not good for general organic traffic', 'Can feel transactional'],
+                steps: [
+                    'Define the ONE goal of the page (e.g., get email address).',
+                    'Write a headline that promises a specific result/benefit.',
+                    'Create a lead magnet (free value) to exchange for contact info.',
+                    'Remove all navigation menus to keep focus on the form.',
+                    'Connect form to your email marketing tool for auto-delivery.'
+                ],
                 formFields: [
                     { id: 'headline', label: 'What is your main headline?', placeholder: 'The promise of your offer' },
                     { id: 'lead_magnet', label: 'What free value are you offering?', placeholder: 'e.g., Free Checklist, Video Training' }
@@ -151,8 +191,18 @@ const STAGES = [
             {
                 id: 'full_website',
                 title: 'Full Brand Website',
-                description: 'A multi-page site that builds credibility and tells your full story.',
+                description: 'A multi-page site that builds credibility, tells your full story, and serves as a central hub.',
                 example: 'A consulting firm website with About, Services, Case Studies, and Blog pages.',
+                realWorldExample: 'A boutique design agency has a beautiful 5-page site. Clients visit, read the "About Us" story, browse the "Portfolio," and feel confident that this is a legitimate, premium business before inquiring.',
+                pros: ['Builds long-term brand equity and SEO', 'Serves multiple audiences/goals', 'Central hub for all marketing'],
+                cons: ['Time-consuming to build and maintain', 'Lower direct conversion rate than funnels', 'Can be overwhelming to visitors'],
+                steps: [
+                    'Map out your site structure (Home, About, Services, Contact, Blog).',
+                    'Write copy for each page focusing on the customer ("You") not just the business ("We").',
+                    'Gather high-quality visuals (photos, branding).',
+                    'Build using a template or drag-and-drop builder.',
+                    'Ensure all forms/links work and mobile view is perfect.'
+                ],
                 formFields: [
                     { id: 'sitemap', label: 'What main pages will you include?', placeholder: 'Home, About, Services, Contact' },
                     { id: 'brand_story', label: 'What is the core story on your About page?', placeholder: 'Why you started this business' }
@@ -161,8 +211,18 @@ const STAGES = [
             {
                 id: 'webinar_funnel',
                 title: 'Webinar/Masterclass Funnel',
-                description: 'Educate prospects via video before making an offer.',
+                description: 'Educate prospects via video (live or recorded) before making an offer. Best for high-ticket or complex products.',
                 example: 'A 45-minute masterclass on "How to Scale Your Business" ending with a pitch.',
+                realWorldExample: 'A software company hosts a weekly "Demo & Strategy" webinar. Prospects register, learn about the methodology for 30 mins, see the tool in action for 15 mins, and are offered a special deal to sign up live.',
+                pros: ['Builds massive trust and authority quickly', 'Qualifies leads (time investment)', 'High conversion for high-ticket'],
+                cons: ['Low attendance rates (need reminders)', 'Tech complexity', 'Requires presentation skills'],
+                steps: [
+                    'Choose a topic that solves a specific, burning problem.',
+                    'Create a registration page and "Thank You" page.',
+                    'Design a slide deck that teaches value before pitching.',
+                    'Set up automated email reminders (24h, 1h, 15m before).',
+                    'Host live to perfect the pitch, then automate the recording.'
+                ],
                 formFields: [
                     { id: 'webinar_topic', label: 'What will you teach?', placeholder: 'e.g., 3 Steps to Financial Freedom' },
                     { id: 'offer_pitch', label: 'What is your offer at the end?', placeholder: 'e.g., Join my coaching program' }
@@ -187,8 +247,18 @@ const STAGES = [
             {
                 id: 'self_service',
                 title: 'Self-Service Checkout',
-                description: 'Direct purchase via a shopping cart or checkout page. Best for lower-ticket or simple products.',
+                description: 'Direct purchase via a shopping cart or checkout page. Best for lower-ticket (<$500) or simple products.',
                 example: 'A customer adds a $49 course to cart and pays instantly via Stripe.',
+                realWorldExample: 'A supplement brand allows customers to select their bottle size, subscribe for a discount, and checkout in 2 minutes. The process is frictionless, requiring no human interaction.',
+                pros: ['Scalable (sales happen while you sleep)', 'Low overhead cost', 'Convenient for the customer'],
+                cons: ['Lower price ceiling', 'Cart abandonment is common', 'Less chance to build personal relationship'],
+                steps: [
+                    'Select a payment processor (Stripe/PayPal) and checkout tool.',
+                    'Create a checkout page with "Trust Badges" (secure, money-back guarantee).',
+                    'Simplify the form (ask only for essential info).',
+                    'Set up an "Abandoned Cart" email sequence to recover lost sales.',
+                    'Test the flow on mobile to ensure it\'s seamless.'
+                ],
                 formFields: [
                     { id: 'checkout_flow', label: 'Describe the checkout steps:', placeholder: 'e.g., Cart -> Account Creation -> Payment' },
                     { id: 'guarantee', label: 'What is your guarantee?', placeholder: 'e.g., 30-Day Money Back' }
@@ -197,8 +267,18 @@ const STAGES = [
             {
                 id: 'consultative_sales',
                 title: 'Consultative Sales (Calls)',
-                description: 'High-touch sales process involving a discovery call or demo. Best for high-ticket services.',
+                description: 'High-touch sales process involving a discovery call or demo. Essential for high-ticket services ($2k+).',
                 example: 'A prospect books a 30-min strategy session to discuss a $5k consulting package.',
+                realWorldExample: 'A marketing agency drives leads to a "Free Strategy Call." On the call, they diagnose the client\'s issues and pitch a custom $3,000/month retainer. The personal connection closes the deal.',
+                pros: ['High conversion rate (20-50%)', 'Supports premium pricing', 'Builds deep relationship'],
+                cons: ['Time-intensive (unscalable without hiring)', 'Requires sales skills', 'Calendar management'],
+                steps: [
+                    'Set up a booking calendar (e.g., Calendly) synced to your schedule.',
+                    'Create a pre-call questionnaire to qualify leads (budget, timeline).',
+                    'Prepare a sales script: Diagnose -> Agitate -> Prescribe.',
+                    'Host the call on Zoom/video for better connection.',
+                    'Follow up immediately with a payment link or agreement.'
+                ],
                 formFields: [
                     { id: 'booking_process', label: 'How do they book a call?', placeholder: 'e.g., Calendly link on website' },
                     { id: 'sales_script', label: 'Key points for your sales script:', placeholder: 'e.g., Diagnose problem, Prescribe solution' }
@@ -207,8 +287,18 @@ const STAGES = [
             {
                 id: 'proposal_contract',
                 title: 'Proposal & Contract',
-                description: 'Custom solutions requiring a formal proposal and signed agreement.',
+                description: 'Custom solutions requiring a formal proposal and signed agreement. Standard for B2B and custom projects.',
                 example: 'Sending a detailed PDF proposal for a custom website design project.',
+                realWorldExample: 'An architect meets a client, discusses the vision, then sends a 10-page proposal outlining scope, phases, and fees. The client digitally signs and pays a deposit to start.',
+                pros: ['Clarity on custom scope', 'Legal protection for both parties', 'Professional perception'],
+                cons: ['Slower sales cycle', 'Administrative work to create proposals', 'Risk of "scope creep" if not defined'],
+                steps: [
+                    'Host a discovery meeting to gather all requirements.',
+                    'Draft a Scope of Work (SOW) detailing exactly what is/isn\'t included.',
+                    'Calculate pricing based on value or estimated hours.',
+                    'Use proposal software to send for digital signature.',
+                    'Require a deposit (e.g., 50%) upon signing to commit.'
+                ],
                 formFields: [
                     { id: 'proposal_elements', label: 'What goes into your proposal?', placeholder: 'e.g., Scope, Timeline, Pricing, Terms' },
                     { id: 'signing_tool', label: 'How will they sign?', placeholder: 'e.g., DocuSign, HelloSign' }
@@ -233,8 +323,18 @@ const STAGES = [
             {
                 id: 'automated_onboarding',
                 title: 'Automated Onboarding',
-                description: 'Digital delivery of product/service with automated guidance.',
+                description: 'Digital delivery of product/service with automated guidance. Perfect for courses, software, or digital downloads.',
                 example: 'A welcome email series delivering login details and a "Getting Started" video course.',
+                realWorldExample: 'A user buys a photo editing preset pack. They instantly get an email with the download link and a 2-minute video tutorial on how to install it. They achieve their "first win" (a better photo) within 10 minutes of buying.',
+                pros: ['Zero time cost per new customer', 'Consistent experience for everyone', 'Instant gratification'],
+                cons: ['Less personal connection', 'Tech errors can block access', 'Generic (one size fits all)'],
+                steps: [
+                    'Map out the ideal "first hour" experience for a new user.',
+                    'Record a short, friendly "Start Here" video.',
+                    'Set up an automated email that triggers immediately upon purchase.',
+                    'Create a simple PDF or web page with setup instructions.',
+                    'Test the flow yourself to ensure links work.'
+                ],
                 formFields: [
                     { id: 'welcome_email', label: 'What does the first email say?', placeholder: 'Welcome + Login Info' },
                     { id: 'first_win', label: 'How do they get a "quick win" in the first 24h?', placeholder: 'e.g., Complete profile setup' }
@@ -243,8 +343,18 @@ const STAGES = [
             {
                 id: 'high_touch_service',
                 title: 'White-Glove Service',
-                description: 'Personalized, 1-on-1 onboarding and service delivery.',
+                description: 'Personalized, 1-on-1 onboarding and service delivery. Expected for expensive retainers or consulting.',
                 example: 'A kick-off call with an account manager to set up the client\'s software manually.',
+                realWorldExample: 'A new wealth management client receives a welcome gift box. They have a 90-minute "Vision Call" with their advisor to set goals. The advisor handles all the paperwork transfer manually. The client feels taken care of.',
+                pros: ['Premium experience justifies high fees', 'High retention rates', 'Deep client relationship'],
+                cons: ['Expensive to deliver', 'Hard to scale (people dependent)', 'Relies on staff quality'],
+                steps: [
+                    'Send a personalized welcome email/video from the founder.',
+                    'Schedule a "Kick-Off Call" to align on goals and timelines.',
+                    'Assign a dedicated Account Manager.',
+                    'Create a shared project folder or Client Portal.',
+                    'Schedule recurring manual check-ins (e.g., monthly reviews).'
+                ],
                 formFields: [
                     { id: 'kickoff_agenda', label: 'Agenda for the kick-off call:', placeholder: 'e.g., Introductions, Goal Setting, Timeline' },
                     { id: 'checkin_schedule', label: 'When are your milestone check-ins?', placeholder: 'e.g., Weekly on Fridays' }
@@ -253,8 +363,18 @@ const STAGES = [
             {
                 id: 'hybrid_model',
                 title: 'Hybrid / Group Program',
-                description: 'A mix of self-paced content and group support calls.',
+                description: 'A mix of self-paced content and group support calls. Scales better than 1-on-1 but keeps personal touch.',
                 example: 'Access to a video library plus weekly group Q&A calls on Zoom.',
+                realWorldExample: 'A business accelerator offers a 12-week online course. Members watch videos on their own but join a Slack community and a weekly "Hot Seat" call with the mentor to get specific feedback.',
+                pros: ['Scalable but still personal', 'Community support adds value', 'Efficient use of expert time'],
+                cons: ['Balancing act (too much/little support)', 'Group dynamics management', 'Moderate tech needs'],
+                steps: [
+                    'Build a content portal for the "static" knowledge.',
+                    'Establish a community channel (Slack/Circle/FB Group).',
+                    'Schedule recurring "Office Hours" or Q&A calls.',
+                    'Hire a community manager or moderator as you grow.',
+                    'Create "paths" for members to help each other.'
+                ],
                 formFields: [
                     { id: 'content_access', label: 'How do they access materials?', placeholder: 'e.g., Member Portal' },
                     { id: 'community_support', label: 'How is group support delivered?', placeholder: 'e.g., Slack Channel + Weekly Zoom' }
@@ -273,14 +393,24 @@ const STAGES = [
         description: 'Retaining and delighting customers',
         icon: Trophy,
         color: 'from-red-500 to-red-600',
-        instructions: 'Happy customers become repeat buyers and advocates. Deepen the relationship and encourage referrals.',
+        instructions: 'Happy customers become repeat buyers and advocates. Deepen the relationship and encourage referrals. This is where profit margins maximize.',
         recommendedTools: ['Review Management', 'Affiliate Software', 'Community Platform', 'Loyalty Program'],
         pathways: [
             {
                 id: 'referral_program',
                 title: 'Referral / Affiliate Program',
-                description: 'Incentivize customers to refer friends in exchange for rewards or cash.',
+                description: 'Incentivize customers to refer friends in exchange for rewards or cash. Turns customers into a sales force.',
                 example: 'Giving customers a unique link that earns them 20% commission on referrals.',
+                realWorldExample: 'Dropbox gave extra free storage space to both the referrer and the invited friend. This "double-sided reward" fueled their massive viral growth with almost zero ad spend.',
+                pros: ['Low CAC (Cost Acquisition Cost)', 'High trust leads (warm intros)', 'Rewards loyal behavior'],
+                cons: ['Tracking complexity (needs software)', 'Margin reduction (payouts)', 'Needs promotion to work'],
+                steps: [
+                    'Decide on an incentive (Cash? Credit? Free product?).',
+                    'Choose a "double-sided" reward if possible (reward both parties).',
+                    'Set up tracking software to generate unique links.',
+                    'Promote the program in your footer, receipts, and user dashboard.',
+                    'Pay out rewards promptly to build trust.'
+                ],
                 formFields: [
                     { id: 'incentive', label: 'What is the reward?', placeholder: 'e.g., $50 credit or 10% cash' },
                     { id: 'promotion_plan', label: 'How will you promote this program?', placeholder: 'e.g., Email after positive feedback' }
@@ -289,8 +419,18 @@ const STAGES = [
             {
                 id: 'vip_community',
                 title: 'VIP Community',
-                description: 'Create an exclusive space for customers to connect and get extra value.',
+                description: 'Create an exclusive space for customers to connect, network, and get extra value.',
                 example: 'A private Facebook group or Circle community for customers only.',
+                realWorldExample: 'A software company creates a "Power Users" Slack channel. Members help each other solve problems, reducing support tickets for the company while building deep loyalty among users who feel like insiders.',
+                pros: ['Increases LTV (Lifetime Value)', 'Reduces churn (sticky)', 'User-generated content/support'],
+                cons: ['High moderation effort', 'Risk of "ghost town" if inactive', 'Platform fatigue'],
+                steps: [
+                    'Choose a platform your users already use (e.g., Facebook, Slack).',
+                    'Define the community purpose (Support? Networking? Exclusive news?).',
+                    'Seed initial content and discussions.',
+                    'Invite your top 10% customers first to set the tone.',
+                    'Schedule regular engagement events (AMAs, challenges).'
+                ],
                 formFields: [
                     { id: 'community_purpose', label: 'What is the main value of the community?', placeholder: 'e.g., Networking, Exclusive Content' },
                     { id: 'engagement_plan', label: 'How will you keep it active?', placeholder: 'e.g., Weekly challenges, Expert AMAs' }
@@ -299,8 +439,18 @@ const STAGES = [
             {
                 id: 'recurring_revenue',
                 title: 'Recurring / Subscription',
-                description: 'Offer ongoing value to turn one-time buyers into subscribers.',
+                description: 'Offer ongoing value to turn one-time buyers into subscribers. The holy grail of business models.',
                 example: 'Offering a monthly maintenance package after building a website.',
+                realWorldExample: 'A coffee roaster sells bags of beans but pushes a "Coffee Club" subscription. Subscribers save 10% and never run out. The roaster gets predictable monthly revenue instead of sporadic sales.',
+                pros: ['Predictable income', 'Increases business valuation', 'Habit-forming product usage'],
+                cons: ['Churn management becomes critical', 'Constant value delivery needed', 'Subscription fatigue'],
+                steps: [
+                    'Identify a recurring need your customer has (maintenance, refills, access).',
+                    'Create a subscription offer with a clear incentive (discount, exclusive access).',
+                    'Set up recurring billing in your payment processor.',
+                    'Create an onboarding flow for subscribers.',
+                    'Plan retention content to remind them of the value monthly.'
+                ],
                 formFields: [
                     { id: 'subscription_offer', label: 'What is the recurring offer?', placeholder: 'e.g., Monthly support, content updates' },
                     { id: 'retention_tactic', label: 'How will you reduce churn?', placeholder: 'e.g., Quarterly reviews, loyalty bonuses' }
@@ -1168,6 +1318,67 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                                             Change Strategy
                                         </button>
                                     </div>
+
+                                    {/* Detailed Strategy Info */}
+                                    {(() => {
+                                        const pathway = stage.pathways.find(p => p.id === formData[stage.id].selected_pathway);
+                                        if (!pathway) return null;
+                                        return (
+                                            <div className="mb-8 space-y-5">
+                                                <div className="grid md:grid-cols-2 gap-4">
+                                                    <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-100 dark:border-green-800/30">
+                                                        <h5 className="font-semibold text-green-800 dark:text-green-400 mb-2 flex items-center text-sm uppercase tracking-wide">
+                                                            <CheckCircle className="w-4 h-4 mr-2"/> Pros
+                                                        </h5>
+                                                        <ul className="space-y-1">
+                                                            {pathway.pros?.map((pro, i) => (
+                                                                <li key={i} className="text-sm text-[var(--text-soft)] flex items-start">
+                                                                    <span className="mr-2 text-green-500">•</span>
+                                                                    {pro}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                    <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-100 dark:border-red-800/30">
+                                                        <h5 className="font-semibold text-red-800 dark:text-red-400 mb-2 flex items-center text-sm uppercase tracking-wide">
+                                                            <X className="w-4 h-4 mr-2"/> Cons
+                                                        </h5>
+                                                        <ul className="space-y-1">
+                                                            {pathway.cons?.map((con, i) => (
+                                                                <li key={i} className="text-sm text-[var(--text-soft)] flex items-start">
+                                                                    <span className="mr-2 text-red-500">•</span>
+                                                                    {con}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div className="bg-blue-50 dark:bg-blue-900/10 p-5 rounded-lg border border-blue-100 dark:border-blue-800/30">
+                                                    <h5 className="font-bold text-blue-800 dark:text-blue-400 mb-3 flex items-center">
+                                                        <Rocket className="w-4 h-4 mr-2"/> Implementation Steps
+                                                    </h5>
+                                                    <ol className="space-y-2">
+                                                        {pathway.steps?.map((step, i) => (
+                                                            <li key={i} className="text-sm text-[var(--text-main)] flex items-start">
+                                                                <span className="font-bold text-blue-500 mr-2 min-w-[1.25rem]">{i + 1}.</span>
+                                                                <span>{step}</span>
+                                                            </li>
+                                                        ))}
+                                                    </ol>
+                                                </div>
+
+                                                <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 p-4 rounded-lg border border-purple-100 dark:border-purple-800/30">
+                                                    <h5 className="font-semibold text-purple-800 dark:text-purple-400 mb-1 flex items-center text-sm">
+                                                        <Lightbulb className="w-4 h-4 mr-2"/> Real-World Example
+                                                    </h5>
+                                                    <p className="text-sm text-[var(--text-main)] italic leading-relaxed">
+                                                        "{pathway.realWorldExample || pathway.example}"
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        );
+                                    })()}
 
                                     {/* Pathway Specific Form */}
                                     <div className="space-y-4">
