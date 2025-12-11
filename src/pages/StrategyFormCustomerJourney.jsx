@@ -95,6 +95,7 @@ const STAGES = [
         emotions: 'Frustration, Curiosity, Confusion, Hope, Relief (that someone understands)',
         connectionTip: 'Speak to their pain points with empathy. Use language like "We know how overwhelming it feels when..." or "You\'re not alone in struggling with..." Show you understand their frustration before offering solutions. The key is to be helpful first, salesy never. Position yourself as a guide, not a vendor.',
         howStagesConnect: 'Awareness leads naturally into Consideration. Once your customer knows you exist and sees that you understand their problem, they\'ll want to learn more. The content you create in the Awareness stage (blog posts, social media, ads) should seamlessly guide them to educational resources in the Consideration stage (webinars, case studies, free trials).',
+        recommendedTools: ['Social Media Scheduler', 'SEO Keyword Tool', 'Google Ads/Facebook Ads Manager', 'Content Calendar', 'Blog/CMS', 'Video Creation Tools', 'Canva/Design Software'],
         hqFeatures: [
             {
                 name: 'Social Media Manager',
@@ -125,6 +126,7 @@ const STAGES = [
         emotions: 'Skepticism, Analysis, Overwhelm, Cautious Optimism, Hope',
         connectionTip: 'Provide value without pressure. Offer educational content, transparent comparisons, and social proof (testimonials, case studies). Use language like "See how it works for yourself" or "Here\'s what others in your situation discovered..." Build trust through education. Never hide your pricing or make false promises. The more transparent and helpful you are, the more they\'ll trust you when it\'s time to buy.',
         howStagesConnect: 'Consideration naturally flows into Decision. As your customer becomes educated about their options and confident in your solution, they move closer to purchase. The educational content and trust you build in Consideration removes objections and friction in the Decision stage. By the time they\'re ready to buy, it should feel like an easy, natural next step.',
+        recommendedTools: ['Website/Landing Page Builder', 'Email Marketing Software', 'Webinar Platform', 'CRM', 'Lead Magnet Creation Tool', 'Analytics Tools', 'Retargeting Pixel'],
         hqFeatures: [
             {
                 name: 'Drag-and-Drop Website Builder',
@@ -160,6 +162,7 @@ const STAGES = [
         emotions: 'Excitement, Anxiety, Decisiveness, Fear of Making Wrong Choice, Anticipation',
         connectionTip: 'Remove all friction and risk. Use language like "Start your free trial - no credit card required," "Cancel anytime," or "30-day money-back guarantee." Celebrate their decision: "You\'re about to transform your business." Make them feel smart and confident. Follow up immediately (automated email within minutes) to reinforce they made the right choice and outline clear next steps. The faster they see value, the less buyer\'s remorse they\'ll feel.',
         howStagesConnect: 'Decision leads directly into Service. The moment your customer completes the purchase, the Service stage begins. The welcome email they receive, the onboarding process you deliver, and the support you provide in the first 30 days will determine whether they stay a customer or churn. Make the transition from "buyer" to "happy customer" seamless and celebratory.',
+        recommendedTools: ['Payment Processor (Stripe/PayPal)', 'Digital Signature Software', 'Invoicing Software', 'Checkout Page/Cart', 'Calendar/Booking Tool', 'Live Chat', 'Sales Pipeline/CRM'],
         hqFeatures: [
             {
                 name: 'Unlimited Estimates & Invoices',
@@ -195,6 +198,7 @@ const STAGES = [
         emotions: 'Relief, Validation, Eagerness, Slight Overwhelm, Gratitude',
         connectionTip: 'Make them feel like a VIP. Use language like "Welcome to the family!" or "We\'re here to ensure your success." Check in proactively: "How\'s your first week going?" Celebrate small wins: "You\'ve completed your setup - great job!" Show you care about their success, not just their money. The better your onboarding and service experience, the less likely they are to churn and the more likely they are to refer others.',
         howStagesConnect: 'Service leads into Loyalty. The quality of service you provide in the first 30-90 days determines whether customers stay, leave, or become raving fans. Happy, well-served customers naturally become advocates. They leave reviews, refer friends, and buy more. Poor service experiences lead to churn and negative reviews. The Service stage is where you earn the right to ask for loyalty.',
+        recommendedTools: ['Client Portal/Membership Area', 'Helpdesk/Support Ticket System', 'Knowledge Base', 'Project Management Tool', 'Automated Email Onboarding', 'Survey Tool', 'Video Hosting'],
         hqFeatures: [
             {
                 name: 'Client Portal',
@@ -225,6 +229,7 @@ const STAGES = [
         emotions: 'Satisfaction, Pride, Loyalty, Enthusiasm, Belonging, Empowerment',
         connectionTip: 'Celebrate their success and make them part of your story. Use language like "Look how far you\'ve come!" or "You\'re a rockstar!" Invite them to exclusive events (VIP webinars, early access to new features). Feature their testimonials and case studies (with permission). Give them opportunities to contribute and lead (affiliate program, community moderators, guest blog posts). Make them feel valued and special. The more you celebrate them, the more they\'ll celebrate you.',
         howStagesConnect: 'Loyalty completes the customer journey, but it also feeds back into Awareness. Loyal customers become your most effective marketing channel. Their reviews boost your credibility in the Awareness stage. Their referrals bring pre-sold prospects who trust you before they even meet you. Their testimonials remove objections in the Consideration and Decision stages. A strong Loyalty program turns customers into a self-sustaining growth engine.',
+        recommendedTools: ['Review Management/Generation Tool', 'Affiliate Management Software', 'Community Platform', 'Loyalty Program Software', 'NPS/Feedback Tool', 'Referral Tracking', 'Email Automation (Re-engagement)'],
         hqFeatures: [
             {
                 name: 'Review Management',
