@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { User, StrategyDocument } from '@/entities/all';
 import { useNavigate } from 'react-router-dom';
@@ -260,18 +259,21 @@ const STAGES = [
 const MultiValueInput = ({ values = [], onChange, suggestions = [], placeholder = "Type and press Enter" }) => {
     const [inputValue, setInputValue] = useState('');
     const [showSuggestions, setShowSuggestions] = useState(false);
+    
+    // Safety check for values to ensure it's always an array
+    const safeValues = Array.isArray(values) ? values : [];
 
     const addValue = (value) => {
         const trimmedValue = value.trim();
-        if (trimmedValue && !values.includes(trimmedValue)) {
-            onChange([...values, trimmedValue]);
+        if (trimmedValue && !safeValues.includes(trimmedValue)) {
+            onChange([...safeValues, trimmedValue]);
             setInputValue('');
             setShowSuggestions(false);
         }
     };
 
     const removeValue = (index) => {
-        onChange(values.filter((_, i) => i !== index));
+        onChange(safeValues.filter((_, i) => i !== index));
     };
 
     const handleKeyDown = (e) => {
@@ -285,7 +287,7 @@ const MultiValueInput = ({ values = [], onChange, suggestions = [], placeholder 
     };
 
     const filteredSuggestions = suggestions.filter(s =>
-        s.toLowerCase().includes(inputValue.toLowerCase()) && !values.includes(s)
+        s.toLowerCase().includes(inputValue.toLowerCase()) && !safeValues.includes(s)
     );
 
     return (
@@ -329,9 +331,9 @@ const MultiValueInput = ({ values = [], onChange, suggestions = [], placeholder 
                 )}
             </div>
 
-            {values.length > 0 && (
+            {safeValues.length > 0 && (
                 <div className="flex flex-wrap gap-2">
-                    {values.map((value, index) => (
+                    {safeValues.map((value, index) => (
                         <span
                             key={index}
                             className="inline-flex items-center gap-1 px-3 py-1 bg-[var(--primary-gold)] text-white rounded-full text-sm"
