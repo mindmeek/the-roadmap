@@ -1709,86 +1709,93 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                         </div>
                     </div>
 
-                    {/* Progress Indicator */}
-                    <div className="card p-4">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-sm font-medium text-[var(--text-soft)]">
-                                Stage {currentStage + 1} of {STAGES.length}
-                            </span>
-                            <span className="text-sm font-medium text-[var(--primary-gold)]">
-                                {Math.round(((currentStage + 1) / STAGES.length) * 100)}% Complete
-                            </span>
-                        </div>
-                        <div className="flex space-x-2">
-                            {STAGES.map((stage, index) => (
-                                <div
-                                    key={stage.id}
-                                    className={`flex-1 h-2 rounded-full transition-all ${
-                                        index <= currentStage ? 'bg-[var(--primary-gold)]' : 'bg-gray-200 dark:bg-gray-700'
-                                    }`}
+                    {viewMode === 'input' ? (
+                        <>
+                            {/* Progress Indicator */}
+                            <div className="card p-4">
+                                <div className="flex items-center justify-between mb-2">
+                                    <span className="text-sm font-medium text-[var(--text-soft)]">
+                                        Stage {currentStage + 1} of {STAGES.length}
+                                    </span>
+                                    <span className="text-sm font-medium text-[var(--primary-gold)]">
+                                        {Math.round(((currentStage + 1) / STAGES.length) * 100)}% Complete
+                                    </span>
+                                </div>
+                                <div className="flex space-x-2">
+                                    {STAGES.map((stage, index) => (
+                                        <div
+                                            key={stage.id}
+                                            className={`flex-1 h-2 rounded-full transition-all ${
+                                                index <= currentStage ? 'bg-[var(--primary-gold)]' : 'bg-gray-200 dark:bg-gray-700'
+                                            }`}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Stage Content */}
+                            <div className="card p-6">
+                                <StageContent 
+                                    stage={STAGES[currentStage]} 
+                                    openAIHelp={openAIHelp} 
+                                    formData={formData}
+                                    handleInputChange={handleInputChange}
+                                    handleSelectChange={handleSelectChange}
+                                    handleArrayChange={handleArrayChange}
+                                    handleImportFromIdealClient={handleImportFromIdealClient}
+                                    isImporting={isImporting}
+                                    handleToolsChecklistChange={handleToolsChecklistChange}
+                                    handlePathwaySelect={handlePathwaySelect}
+                                    handlePathwayInputChange={handlePathwayInputChange}
+                                    handleGenerateStrategy={handleGenerateStrategy}
+                                    isGenerating={isSaving}
                                 />
-                            ))}
-                        </div>
-                    </div>
+                            </div>
 
-                    {/* Stage Content */}
-                    <div className="card p-6">
-                        <StageContent 
-                            stage={STAGES[currentStage]} 
-                            openAIHelp={openAIHelp} 
-                            formData={formData}
-                            handleInputChange={handleInputChange}
-                            handleSelectChange={handleSelectChange}
-                            handleArrayChange={handleArrayChange}
-                            handleImportFromIdealClient={handleImportFromIdealClient}
-                            isImporting={isImporting}
-                            handleToolsChecklistChange={handleToolsChecklistChange}
-                            handlePathwaySelect={handlePathwaySelect}
-                            handlePathwayInputChange={handlePathwayInputChange}
-                            handleGenerateStrategy={handleGenerateStrategy}
-                            isGenerating={isSaving}
-                        />
-                    </div>
-
-                    {/* Navigation Buttons */}
-                    <div className="flex justify-between items-center">
-                        <button
-                            onClick={() => setCurrentStage(Math.max(0, currentStage - 1))}
-                            disabled={currentStage === 0}
-                            className="btn btn-ghost"
-                        >
-                            ← Previous
-                        </button>
-
-                        <div className="flex space-x-3">
-                            <button
-                                onClick={handleSave}
-                                disabled={isSaving}
-                                className="btn btn-secondary"
-                            >
-                                {isSaving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
-                                Save Progress
-                            </button>
-
-                            {currentStage < STAGES.length - 1 ? (
+                            {/* Navigation Buttons */}
+                            <div className="flex justify-between items-center">
                                 <button
-                                    onClick={() => setCurrentStage(Math.min(STAGES.length - 1, currentStage + 1))}
-                                    className="btn btn-primary"
+                                    onClick={() => setCurrentStage(Math.max(0, currentStage - 1))}
+                                    disabled={currentStage === 0}
+                                    className="btn btn-ghost"
                                 >
-                                    Next Stage →
+                                    ← Previous
                                 </button>
-                            ) : (
-                                <button
-                                    onClick={handleSave}
-                                    disabled={isSaving}
-                                    className="btn btn-primary"
-                                >
-                                    {isSaving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <CheckCircle className="w-4 h-4 mr-2" />}
-                                    Complete & Save
-                                </button>
-                            )}
-                        </div>
-                    </div>
+
+                                <div className="flex space-x-3">
+                                    <button
+                                        onClick={handleSave}
+                                        disabled={isSaving}
+                                        className="btn btn-secondary"
+                                    >
+                                        {isSaving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
+                                        Save Progress
+                                    </button>
+
+                                    {currentStage < STAGES.length - 1 ? (
+                                        <button
+                                            onClick={() => setCurrentStage(Math.min(STAGES.length - 1, currentStage + 1))}
+                                            className="btn btn-primary"
+                                        >
+                                            Next Stage →
+                                        </button>
+                                    ) : (
+                                        <button
+                                            onClick={handleSave}
+                                            disabled={isSaving}
+                                            className="btn btn-primary"
+                                        >
+                                            {isSaving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <CheckCircle className="w-4 h-4 mr-2" />}
+                                            Complete & Save
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        /* Overview Mode */
+                        <CustomerJourneyMap formData={formData} stages={STAGES} />
+                    )}
                 </div>
             </div>
 
