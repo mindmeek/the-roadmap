@@ -576,6 +576,7 @@ export default function StrategyFormCustomerJourneyPage() {
     const [isImporting, setIsImporting] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
     const [aiContext, setAiContext] = useState({});
+    const [viewMode, setViewMode] = useState('input'); // 'input' or 'overview'
 
     const [formData, setFormData] = useState({
         persona: {
