@@ -388,11 +388,11 @@ export default function StrategyFormCustomerJourneyPage() {
             price_sensitivity: '',
             preferred_contact: ''
         },
-        awareness: { discovery_channels: '', pain_points: '', messaging: '' },
-        consideration: { evaluation_criteria: '', common_questions: '', information_needs: '' },
-        decision: { purchase_factors: '', obstacles: '', preferred_methods: '' },
-        service: { onboarding_process: '', support_needs: '', communication_preferences: '' },
-        loyalty: { retention_strategies: '', advocacy_opportunities: '', feedback_mechanisms: '' }
+        awareness: { discovery_channels: '', pain_points: '', messaging: '', tools_checklist: [] },
+        consideration: { evaluation_criteria: '', common_questions: '', information_needs: '', tools_checklist: [] },
+        decision: { purchase_factors: '', obstacles: '', preferred_methods: '', tools_checklist: [] },
+        service: { onboarding_process: '', support_needs: '', communication_preferences: '', tools_checklist: [] },
+        loyalty: { retention_strategies: '', advocacy_opportunities: '', feedback_mechanisms: '', tools_checklist: [] }
     });
 
     useEffect(() => {
