@@ -806,12 +806,14 @@ export default function StrategyFormCustomerJourneyPage() {
         }));
     };
 
-    const handleGenerateStrategy = async (stageId, pathwayId) => {
+    const handleGenerateStrategy = async (stageId, pathwayId, userContext) => {
         const stage = STAGES.find(s => s.id === stageId);
         const pathway = stage.pathways.find(p => p.id === pathwayId);
-        const userContext = prompt(`Please describe your specific context for ${pathway.title} (e.g., "I sell organic dog treats to busy moms"):`);
         
-        if (!userContext) return;
+        if (!userContext) {
+            alert("Please describe your business context first.");
+            return;
+        }
 
         setIsSaving(true); // Reusing saving state for loading indicator
         try {
