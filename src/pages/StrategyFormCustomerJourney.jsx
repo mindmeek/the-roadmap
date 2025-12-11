@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { User, StrategyDocument } from '@/entities/all';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Loader2, Save, ChevronRight, CheckCircle, UserCircle, Eye, Search, ShoppingCart, HeartHandshake, Trophy, Share2, MessageSquare, Palette, Globe, DollarSign, Smartphone, FolderKanban, Star, Users, Zap, Lightbulb, Sparkles, Plus, X } from 'lucide-react';
+import { Loader2, Save, ChevronRight, CheckCircle, UserCircle, Eye, Search, ShoppingCart, HeartHandshake, Trophy, Share2, MessageSquare, Palette, Globe, DollarSign, Smartphone, FolderKanban, Star, Users, Zap, Lightbulb, Sparkles, Plus, X, Wrench } from 'lucide-react';
 import SubscriptionGate from '../components/subscription/SubscriptionGate';
 import AITeamModal from '@/components/ai/AITeamModal';
 
@@ -477,7 +477,6 @@ export default function StrategyFormCustomerJourneyPage() {
                     persona: {
                         ...prev.persona,
                         ...safeObj(loadedContent.persona),
-                        // Ensure array fields exist and are arrays
                         psychographics: Array.isArray(loadedContent.persona?.psychographics) ? loadedContent.persona.psychographics : [],
                         pain_points: Array.isArray(loadedContent.persona?.pain_points) ? loadedContent.persona.pain_points : [],
                         goals: Array.isArray(loadedContent.persona?.goals) ? loadedContent.persona.goals : [],
@@ -538,21 +537,18 @@ export default function StrategyFormCustomerJourneyPage() {
             if (idealClientDocs.length > 0) {
                 const idealClient = idealClientDocs[0].content;
 
-                // Helper to safely get a single value from idealClient and wrap in array
                 const getArrayValue = (field) => {
                     const value = Array.isArray(idealClient[field]) ? idealClient[field][0] : idealClient[field];
                     return value ? [value] : [];
                 };
 
-                // Helper to get array of values from idealClient and flatten/filter
                 const getMultiArrayValue = (...fields) => {
                     const values = fields.flatMap(field => {
                         const val = Array.isArray(idealClient[field]) ? idealClient[field] : (idealClient[field] ? [idealClient[field]] : []);
-                        return val.filter(v => v); // Filter out any empty strings or nulls
+                        return val.filter(v => v);
                     });
-                    return [...new Set(values)]; // Ensure uniqueness
+                    return [...new Set(values)];
                 };
-
 
                 setFormData(prev => ({
                     ...prev,
@@ -565,15 +561,10 @@ export default function StrategyFormCustomerJourneyPage() {
                         income_level: Array.isArray(idealClient.income_level) ? idealClient.income_level[0] || '' : idealClient.income_level || '',
                         education: Array.isArray(idealClient.education) ? idealClient.education[0] || '' : idealClient.education || '',
                         occupation: Array.isArray(idealClient.occupation) ? idealClient.occupation[0] || '' : idealClient.occupation || '',
-
-                        // Map old single values to new array types, combining psychographics
-                        psychographics: getMultiArrayValue(
-                            'values', 'interests', 'lifestyle', 'personality'
-                        ),
+                        psychographics: getMultiArrayValue('values', 'interests', 'lifestyle', 'personality'),
                         pain_points: getArrayValue('pain_points'),
                         goals: getArrayValue('goals'),
                         core_values: getArrayValue('core_values'),
-
                         research_method: Array.isArray(idealClient.research_method) ? idealClient.research_method[0] || '' : idealClient.research_method || '',
                         decision_speed: Array.isArray(idealClient.decision_speed) ? idealClient.decision_speed[0] || '' : idealClient.decision_speed || '',
                         price_sensitivity: Array.isArray(idealClient.price_sensitivity) ? idealClient.price_sensitivity[0] || '' : idealClient.price_sensitivity || '',
@@ -637,30 +628,6 @@ export default function StrategyFormCustomerJourneyPage() {
                 }
             };
         });
-    };
-
-    const handlePathwaySelect = (stage, pathwayId) => {
-        setFormData(prev => ({
-            ...prev,
-            [stage]: {
-                ...prev[stage],
-                selected_pathway: pathwayId,
-                // Reset pathway data if switching? No, keep it in case they switch back.
-            }
-        }));
-    };
-
-    const handlePathwayInputChange = (stage, fieldId, value) => {
-        setFormData(prev => ({
-            ...prev,
-            [stage]: {
-                ...prev[stage],
-                pathway_data: {
-                    ...prev[stage].pathway_data,
-                    [fieldId]: value
-                }
-            }
-        }));
     };
 
     const handlePathwaySelect = (stage, pathwayId) => {
@@ -751,7 +718,6 @@ export default function StrategyFormCustomerJourneyPage() {
 
         if (stageId === 'persona') {
             notes.push({ content: `Current Persona Name: ${currentStageData.name || 'Not yet defined'}` });
-
             notes.push({ content: "Demographics:" });
             if (currentStageData.age_range) notes.push({ content: `- Age Range: ${currentStageData.age_range}` });
             if (currentStageData.gender) notes.push({ content: `- Gender: ${currentStageData.gender}` });
@@ -809,10 +775,10 @@ export default function StrategyFormCustomerJourneyPage() {
             userNotes: notes.filter(note => note.content.trim() !== '')
         });
         setShowAIAssistant(true);
-    }, [formData, STAGES]);
+    }, [formData]);
 
 // Memoized Stage Content to prevent re-renders and focus loss
-const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChange, handleSelectChange, handleArrayChange, handleImportFromIdealClient, isImporting, handleToolsChecklistChange }) => {
+const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChange, handleSelectChange, handleArrayChange, handleImportFromIdealClient, isImporting, handleToolsChecklistChange, handlePathwaySelect, handlePathwayInputChange }) => {
     const Icon = stage.icon;
     const isPersona = stage.id === 'persona';
 
@@ -1155,16 +1121,82 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                 </div>
             ) : (
                 <>
-                    {/* Tools Checklist Section - NEW */}
+                    {/* Pathway Selection - NEW */}
+                    {stage.pathways && (
+                        <div className="mb-8">
+                            {!formData[stage.id]?.selected_pathway ? (
+                                <div>
+                                    <h3 className="text-lg font-bold mb-4 text-[var(--text-main)] flex items-center">
+                                        <Users className="w-5 h-5 mr-2 text-[var(--primary-gold)]" />
+                                        Choose Your Strategy
+                                    </h3>
+                                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                        {stage.pathways.map(pathway => (
+                                            <div 
+                                                key={pathway.id}
+                                                onClick={() => handlePathwaySelect(stage.id, pathway.id)}
+                                                className="cursor-pointer border-2 border-gray-200 dark:border-gray-700 hover:border-[var(--primary-gold)] rounded-lg p-4 transition-all hover:shadow-lg bg-white dark:bg-gray-800"
+                                            >
+                                                <h4 className="font-bold text-[var(--text-main)] mb-2">{pathway.title}</h4>
+                                                <p className="text-sm text-[var(--text-soft)] mb-3 min-h-[40px]">{pathway.description}</p>
+                                                <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded text-xs text-[var(--text-soft)] italic">
+                                                    Example: {pathway.example}
+                                                </div>
+                                                <button className="mt-4 w-full btn btn-secondary text-xs">
+                                                    Select Strategy
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="bg-white dark:bg-gray-800 border-2 border-[var(--primary-gold)]/30 rounded-lg p-6 mb-6">
+                                    <div className="flex justify-between items-start mb-6 border-b border-gray-100 dark:border-gray-700 pb-4">
+                                        <div>
+                                            <span className="text-xs uppercase tracking-wider font-semibold text-[var(--primary-gold)]">Selected Strategy</span>
+                                            <h3 className="text-xl font-bold text-[var(--text-main)] mt-1">
+                                                {stage.pathways.find(p => p.id === formData[stage.id].selected_pathway)?.title}
+                                            </h3>
+                                            <p className="text-sm text-[var(--text-soft)] mt-1">
+                                                {stage.pathways.find(p => p.id === formData[stage.id].selected_pathway)?.description}
+                                            </p>
+                                        </div>
+                                        <button 
+                                            onClick={() => handlePathwaySelect(stage.id, '')}
+                                            className="text-sm text-[var(--text-soft)] hover:text-red-500 underline"
+                                        >
+                                            Change Strategy
+                                        </button>
+                                    </div>
+
+                                    {/* Pathway Specific Form */}
+                                    <div className="space-y-4">
+                                        {stage.pathways.find(p => p.id === formData[stage.id].selected_pathway)?.formFields.map(field => (
+                                            <div key={field.id}>
+                                                <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                                    {field.label}
+                                                </label>
+                                                <textarea
+                                                    value={formData[stage.id]?.pathway_data?.[field.id] || ''}
+                                                    onChange={(e) => handlePathwayInputChange(stage.id, field.id, e.target.value)}
+                                                    placeholder={field.placeholder}
+                                                    className="form-input h-24"
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    {/* Tools Checklist Section */}
                     {stage.recommendedTools && (
                         <div className="card p-6 bg-white dark:bg-gray-800 border-2 border-dashed border-gray-200 dark:border-gray-700">
                             <h3 className="font-bold text-lg mb-4 flex items-center text-[var(--text-main)]">
                                 <Wrench className="w-5 h-5 mr-2 text-[var(--primary-gold)]" />
                                 Recommended Tools Checklist
                             </h3>
-                            <p className="text-sm text-[var(--text-soft)] mb-4">
-                                Select the tools you plan to use or already use for this stage.
-                            </p>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                 {stage.recommendedTools.map((tool, index) => (
                                     <label key={index} className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
@@ -1207,42 +1239,22 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                         </div>
                     )}
 
-                    {/* Stage-Specific Questions */}
-                    <div className="space-y-4">
+                    {/* Additional Strategy Details */}
+                    <div className="space-y-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                        <h3 className="font-bold text-lg text-[var(--text-main)]">Additional Strategy Details</h3>
                         {stage.id === 'awareness' && (
                             <>
                                 <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                        Discovery Channels
-                                    </label>
-                                    <textarea
-                                        value={formData.awareness.discovery_channels}
-                                        onChange={(e) => handleInputChange('awareness', 'discovery_channels', e.target.value)}
-                                        placeholder="How do potential customers currently find out about your business? (e.g., social media, Google search, referrals)"
-                                        className="form-input h-24"
-                                    />
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Discovery Channels</label>
+                                    <textarea value={formData.awareness.discovery_channels} onChange={(e) => handleInputChange('awareness', 'discovery_channels', e.target.value)} className="form-input h-24" />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                        Initial Pain Points
-                                    </label>
-                                    <textarea
-                                        value={formData.awareness.pain_points}
-                                        onChange={(e) => handleInputChange('awareness', 'pain_points', e.target.value)}
-                                        placeholder="What problems are they aware of at this stage?"
-                                        className="form-input h-24"
-                                    />
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Initial Pain Points</label>
+                                    <textarea value={formData.awareness.pain_points} onChange={(e) => handleInputChange('awareness', 'pain_points', e.target.value)} className="form-input h-24" />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                        Key Messaging
-                                    </label>
-                                    <textarea
-                                        value={formData.awareness.messaging}
-                                        onChange={(e) => handleInputChange('awareness', 'messaging', e.target.value)}
-                                        placeholder="What message will grab their attention? How will you speak to their frustration and curiosity?"
-                                        className="form-input h-24"
-                                    />
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Key Messaging</label>
+                                    <textarea value={formData.awareness.messaging} onChange={(e) => handleInputChange('awareness', 'messaging', e.target.value)} className="form-input h-24" />
                                 </div>
                             </>
                         )}
@@ -1250,37 +1262,16 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                         {stage.id === 'consideration' && (
                             <>
                                 <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                        Evaluation Criteria
-                                    </label>
-                                    <textarea
-                                        value={formData.consideration.evaluation_criteria}
-                                        onChange={(e) => handleInputChange('consideration', 'evaluation_criteria', e.target.value)}
-                                        placeholder="What factors do customers use to compare you to competitors?"
-                                        className="form-input h-24"
-                                    />
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Evaluation Criteria</label>
+                                    <textarea value={formData.consideration.evaluation_criteria} onChange={(e) => handleInputChange('consideration', 'evaluation_criteria', e.target.value)} className="form-input h-24" />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                        Common Questions
-                                    </label>
-                                    <textarea
-                                        value={formData.consideration.common_questions}
-                                        onChange={(e) => handleInputChange('consideration', 'common_questions', e.target.value)}
-                                        placeholder="What questions do they typically ask during this stage?"
-                                        className="form-input h-24"
-                                    />
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Common Questions</label>
+                                    <textarea value={formData.consideration.common_questions} onChange={(e) => handleInputChange('consideration', 'common_questions', e.target.value)} className="form-input h-24" />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                        Information Needs
-                                    </label>
-                                    <textarea
-                                        value={formData.consideration.information_needs}
-                                        onChange={(e) => handleInputChange('consideration', 'information_needs', e.target.value)}
-                                        placeholder="What information or resources do they need to move forward? How can you build trust through education?"
-                                        className="form-input h-24"
-                                    />
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Information Needs</label>
+                                    <textarea value={formData.consideration.information_needs} onChange={(e) => handleInputChange('consideration', 'information_needs', e.target.value)} className="form-input h-24" />
                                 </div>
                             </>
                         )}
@@ -1288,37 +1279,16 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                         {stage.id === 'decision' && (
                             <>
                                 <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                        Purchase Decision Factors
-                                    </label>
-                                    <textarea
-                                        value={formData.decision.purchase_factors}
-                                        onChange={(e) => handleInputChange('decision', 'purchase_factors', e.target.value)}
-                                        placeholder="What factors influence their final purchase decision? (e.g., price, trust, urgency, guarantees)"
-                                        className="form-input h-24"
-                                    />
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Purchase Decision Factors</label>
+                                    <textarea value={formData.decision.purchase_factors} onChange={(e) => handleInputChange('decision', 'purchase_factors', e.target.value)} className="form-input h-24" />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                        Potential Obstacles
-                                    </label>
-                                    <textarea
-                                        value={formData.decision.obstacles}
-                                        onChange={(e) => handleInputChange('decision', 'obstacles', e.target.value)}
-                                        placeholder="What might prevent them from buying? How can you address these obstacles and reduce friction?"
-                                        className="form-input h-24"
-                                    />
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Potential Obstacles</label>
+                                    <textarea value={formData.decision.obstacles} onChange={(e) => handleInputChange('decision', 'obstacles', e.target.value)} className="form-input h-24" />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                        Preferred Payment Methods
-                                    </label>
-                                    <textarea
-                                        value={formData.decision.preferred_methods}
-                                        onChange={(e) => handleInputChange('decision', 'preferred_methods', e.target.value)}
-                                        placeholder="How do they prefer to pay or engage with your offer?"
-                                        className="form-input h-24"
-                                    />
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Preferred Payment Methods</label>
+                                    <textarea value={formData.decision.preferred_methods} onChange={(e) => handleInputChange('decision', 'preferred_methods', e.target.value)} className="form-input h-24" />
                                 </div>
                             </>
                         )}
@@ -1326,37 +1296,16 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                         {stage.id === 'service' && (
                             <>
                                 <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                        Onboarding Process
-                                    </label>
-                                    <textarea
-                                        value={formData.service.onboarding_process}
-                                        onChange={(e) => handleInputChange('service', 'onboarding_process', e.target.value)}
-                                        placeholder="What happens immediately after purchase? How do you onboard new clients and help them feel welcomed?"
-                                        className="form-input h-24"
-                                    />
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Onboarding Process</label>
+                                    <textarea value={formData.service.onboarding_process} onChange={(e) => handleInputChange('service', 'onboarding_process', e.target.value)} className="form-input h-24" />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                        Support Needs
-                                    </label>
-                                    <textarea
-                                        value={formData.service.support_needs}
-                                        onChange={(e) => handleInputChange('service', 'support_needs', e.target.value)}
-                                        placeholder="What support or assistance do clients need during service delivery? How can you proactively address their concerns?"
-                                        className="form-input h-24"
-                                    />
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Support Needs</label>
+                                    <textarea value={formData.service.support_needs} onChange={(e) => handleInputChange('service', 'support_needs', e.target.value)} className="form-input h-24" />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                        Communication Preferences
-                                    </label>
-                                    <textarea
-                                        value={formData.service.communication_preferences}
-                                        onChange={(e) => handleInputChange('service', 'communication_preferences', e.target.value)}
-                                        placeholder="How do clients prefer to communicate and receive updates?"
-                                        className="form-input h-24"
-                                    />
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Communication Preferences</label>
+                                    <textarea value={formData.service.communication_preferences} onChange={(e) => handleInputChange('service', 'communication_preferences', e.target.value)} className="form-input h-24" />
                                 </div>
                             </>
                         )}
@@ -1364,37 +1313,16 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                         {stage.id === 'loyalty' && (
                             <>
                                 <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                        Retention Strategies
-                                    </label>
-                                    <textarea
-                                        value={formData.loyalty.retention_strategies}
-                                        onChange={(e) => handleInputChange('loyalty', 'retention_strategies', e.target.value)}
-                                        placeholder="How do you encourage repeat business and long-term relationships? How will you celebrate their success?"
-                                        className="form-input h-24"
-                                    />
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Retention Strategies</label>
+                                    <textarea value={formData.loyalty.retention_strategies} onChange={(e) => handleInputChange('loyalty', 'retention_strategies', e.target.value)} className="form-input h-24" />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                        Advocacy Opportunities
-                                    </label>
-                                    <textarea
-                                        value={formData.loyalty.advocacy_opportunities}
-                                        onChange={(e) => handleInputChange('loyalty', 'advocacy_opportunities', e.target.value)}
-                                        placeholder="How can satisfied customers become advocates (referrals, testimonials, affiliates)? How will you make them feel special?"
-                                        className="form-input h-24"
-                                    />
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Advocacy Opportunities</label>
+                                    <textarea value={formData.loyalty.advocacy_opportunities} onChange={(e) => handleInputChange('loyalty', 'advocacy_opportunities', e.target.value)} className="form-input h-24" />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                        Feedback Mechanisms
-                                    </label>
-                                    <textarea
-                                        value={formData.loyalty.feedback_mechanisms}
-                                        onChange={(e) => handleInputChange('loyalty', 'feedback_mechanisms', e.target.value)}
-                                        placeholder="How do you gather and act on customer feedback to continuously improve?"
-                                        className="form-input h-24"
-                                    />
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Feedback Mechanisms</label>
+                                    <textarea value={formData.loyalty.feedback_mechanisms} onChange={(e) => handleInputChange('loyalty', 'feedback_mechanisms', e.target.value)} className="form-input h-24" />
                                 </div>
                             </>
                         )}
@@ -1403,6 +1331,14 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
             )}
         </div>
     );
+}, (prevProps, nextProps) => {
+    const stageId = prevProps.stage.id;
+    const prevData = prevProps.formData[stageId];
+    const nextData = nextProps.formData[stageId];
+    
+    const dataChanged = JSON.stringify(prevData) !== JSON.stringify(nextData);
+    
+    return !dataChanged && prevProps.stage === nextProps.stage && prevProps.isImporting === nextProps.isImporting;
 });
 
     if (loading) {
@@ -1479,6 +1415,8 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                             handleImportFromIdealClient={handleImportFromIdealClient}
                             isImporting={isImporting}
                             handleToolsChecklistChange={handleToolsChecklistChange}
+                            handlePathwaySelect={handlePathwaySelect}
+                            handlePathwayInputChange={handlePathwayInputChange}
                         />
                     </div>
 
