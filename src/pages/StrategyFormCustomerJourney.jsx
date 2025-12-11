@@ -1219,6 +1219,12 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                     {/* Pain Points - INTERACTIVE */}
                     <div className="card p-6">
                         <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Pain Points</h3>
+                        
+                        <div className="mb-6 bg-red-50 dark:bg-red-900/10 p-4 rounded-lg border border-red-100 dark:border-red-800/30 text-sm">
+                            <p className="mb-2"><strong className="text-red-700 dark:text-red-400">Why it matters:</strong> People don't buy products; they buy solutions to problems. Identifying deep pain points allows you to position your offer as the cure.</p>
+                            <p className="italic text-[var(--text-soft)]"><strong className="not-italic text-[var(--text-main)]">Example:</strong> A busy mom doesn't just want a "meal kit." Her pain point is "guilt over feeding her kids fast food." The solution is "peace of mind."</p>
+                        </div>
+
                         <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
                             What problems or frustrations do they face?
                         </label>
