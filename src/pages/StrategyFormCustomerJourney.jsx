@@ -1661,10 +1661,37 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
 
                     {/* Header */}
                     <div className="card p-6">
-                        <h1 className="text-3xl font-bold mb-2">Map Your Customer Journey</h1>
-                        <p className="text-[var(--text-soft)]">
-                            Understand your customer's experience at every stage and discover how The Business Minds HQ streamlines each touchpoint.
-                        </p>
+                        <div className="flex justify-between items-center mb-4">
+                            <div>
+                                <h1 className="text-3xl font-bold mb-2">Map Your Customer Journey</h1>
+                                <p className="text-[var(--text-soft)]">
+                                    Understand your customer's experience at every stage and discover how The Business Minds HQ streamlines each touchpoint.
+                                </p>
+                            </div>
+                            <div className="flex bg-gray-100 dark:bg-gray-700 p-1 rounded-lg">
+                                <button
+                                    onClick={() => setViewMode('input')}
+                                    className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
+                                        viewMode === 'input'
+                                            ? 'bg-white dark:bg-gray-600 shadow text-[var(--text-main)]'
+                                            : 'text-[var(--text-soft)] hover:text-[var(--text-main)]'
+                                    }`}
+                                >
+                                    Build Journey
+                                </button>
+                                <button
+                                    onClick={() => setViewMode('overview')}
+                                    className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
+                                        viewMode === 'overview'
+                                            ? 'bg-white dark:bg-gray-600 shadow text-[var(--text-main)]'
+                                            : 'text-[var(--text-soft)] hover:text-[var(--text-main)]'
+                                    }`}
+                                >
+                                    <Map className="w-4 h-4 inline mr-2" />
+                                    View Map
+                                </button>
+                            </div>
+                        </div>
 
                         {/* AI Help Banner */}
                         <div className="mt-4 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-l-4 border-yellow-500 rounded">
