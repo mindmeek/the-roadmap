@@ -1198,6 +1198,12 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                     {/* Psychographics Section - INTERACTIVE */}
                     <div className="card p-6">
                         <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Psychographics</h3>
+                        
+                        <div className="mb-6 bg-purple-50 dark:bg-purple-900/10 p-4 rounded-lg border border-purple-100 dark:border-purple-800/30 text-sm">
+                            <p className="mb-2"><strong className="text-purple-700 dark:text-purple-400">Why it matters:</strong> Psychographics are the "soul" of your customer. They explain <em>why</em> they buy. Two people with the same demographics can make totally different choices based on their values.</p>
+                            <p className="italic text-[var(--text-soft)]"><strong className="not-italic text-[var(--text-main)]">Example:</strong> Two moms, both 35 in NY. One values "Sustainability" and buys organic cotton (Brand A). The other values "Status" and buys designer labels (Brand B).</p>
+                        </div>
+
                         <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
                             Values, Interests, Lifestyle & Personality Traits
                         </label>
