@@ -1639,7 +1639,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
     
     const dataChanged = JSON.stringify(prevData) !== JSON.stringify(nextData);
     
-    return !dataChanged && prevProps.stage === nextProps.stage && prevProps.isImporting === nextProps.isImporting;
+    return !dataChanged && prevProps.stage === nextProps.stage && prevProps.isImporting === nextProps.isImporting && prevProps.isGenerating === nextProps.isGenerating;
 });
 
     if (loading) {
