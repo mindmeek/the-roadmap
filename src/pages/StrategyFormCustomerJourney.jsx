@@ -1102,6 +1102,11 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                     {/* Demographics Section */}
                     <div className="card p-6">
                         <h3 className="font-bold text-lg mb-4 text-[var(--text-main)]">Demographics</h3>
+                        
+                        <div className="mb-6 bg-blue-50 dark:bg-blue-900/10 p-4 rounded-lg border border-blue-100 dark:border-blue-800/30 text-sm">
+                            <p className="mb-2"><strong className="text-blue-700 dark:text-blue-400">Why it matters:</strong> Demographics define the "skeleton" of your customer—who they are on paper. This is essential for targeting ads (e.g., Facebook audiences) and pricing correctly.</p>
+                            <p className="italic text-[var(--text-soft)]"><strong className="not-italic text-[var(--text-main)]">Example:</strong> A luxury watch brand targets "Men, 40-60, Income $150k+" because they have the buying power. Targeting "Teenagers" would waste ad budget.</p>
+                        </div>
 
                         <div className="space-y-4">
                             <div>
