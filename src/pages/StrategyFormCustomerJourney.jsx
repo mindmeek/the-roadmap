@@ -974,6 +974,7 @@ export default function StrategyFormCustomerJourneyPage() {
 const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChange, handleSelectChange, handleArrayChange, handleImportFromIdealClient, isImporting, handleToolsChecklistChange, handlePathwaySelect, handlePathwayInputChange, handleGenerateStrategy, isGenerating }) => {
     const Icon = stage.icon;
     const isPersona = stage.id === 'persona';
+    const [generationContext, setGenerationContext] = useState('');
 
     return (
         <div className="space-y-6">
