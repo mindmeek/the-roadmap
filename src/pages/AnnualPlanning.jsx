@@ -8,6 +8,7 @@ import {
     ChevronDown, ChevronUp, CheckCircle2, Circle, Loader2, 
     ArrowLeft, BarChart2, PiggyBank, TrendingUp, DollarSign
 } from "lucide-react";
+import VisionBoard from "@/components/dashboard/VisionBoard";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function AnnualPlanningPage() {
@@ -205,41 +206,43 @@ export default function AnnualPlanningPage() {
                 {/* Top Section: Vision & Financials */}
                 <div className="grid lg:grid-cols-3 gap-6">
                     {/* Vision Board */}
-                    <div className="lg:col-span-2 card p-6 bg-white dark:bg-gray-800 border-l-4 border-[var(--primary-gold)] shadow-md">
-                        <div className="flex items-start gap-4">
-                            <div className="p-3 bg-indigo-50 dark:bg-indigo-900/30 rounded-xl">
-                                <Target className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
-                            </div>
-                            <div className="flex-1 space-y-4">
-                                <div>
-                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Annual Theme</label>
-                                    {isEditing ? (
-                                        <input 
-                                            type="text" 
-                                            value={currentPlan.title}
-                                            onChange={(e) => setCurrentPlan(prev => ({ ...prev, title: e.target.value }))}
-                                            className="form-input text-xl font-bold border-0 border-b border-gray-200 rounded-none px-0 focus:ring-0 focus:border-[var(--primary-gold)] bg-transparent"
-                                            placeholder="e.g., The Year of Expansion"
-                                        />
-                                    ) : (
-                                        <h2 className="text-2xl font-bold text-[var(--text-main)]">{currentPlan.title || "Untitled Plan"}</h2>
-                                    )}
-                                </div>
-                                <div>
-                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Strategic Vision</label>
-                                    {isEditing ? (
-                                        <textarea 
-                                            value={currentPlan.vision_description}
-                                            onChange={(e) => setCurrentPlan(prev => ({ ...prev, vision_description: e.target.value }))}
-                                            className="form-input h-24 w-full resize-none bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700"
-                                            placeholder="What does success look like by December 31st?"
-                                        />
-                                    ) : (
-                                        <p className="text-[var(--text-main)] leading-relaxed whitespace-pre-wrap">{currentPlan.vision_description || "No vision defined yet."}</p>
-                                    )}
+                    <div className="lg:col-span-2">
+                        {isEditing ? (
+                             <div className="card p-6 bg-white dark:bg-gray-800 border-l-4 border-[var(--primary-gold)] shadow-md h-full">
+                                <div className="flex items-start gap-4">
+                                    <div className="p-3 bg-indigo-50 dark:bg-indigo-900/30 rounded-xl">
+                                        <Target className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+                                    </div>
+                                    <div className="flex-1 space-y-4">
+                                        <div>
+                                            <label className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Annual Theme</label>
+                                            <input 
+                                                type="text" 
+                                                value={currentPlan.title}
+                                                onChange={(e) => setCurrentPlan(prev => ({ ...prev, title: e.target.value }))}
+                                                className="form-input text-xl font-bold border-0 border-b border-gray-200 rounded-none px-0 focus:ring-0 focus:border-[var(--primary-gold)] bg-transparent"
+                                                placeholder="e.g., The Year of Expansion"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Strategic Vision</label>
+                                            <textarea 
+                                                value={currentPlan.vision_description}
+                                                onChange={(e) => setCurrentPlan(prev => ({ ...prev, vision_description: e.target.value }))}
+                                                className="form-input h-24 w-full resize-none bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700"
+                                                placeholder="What does success look like by December 31st?"
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        ) : (
+                            <VisionBoard 
+                                user={user} 
+                                annualPlan={currentPlan} 
+                                onUpdateUser={(updatedUser) => setUser(updatedUser)} 
+                            />
+                        )}
                     </div>
 
                     {/* Financial Goal Snapshot */}
