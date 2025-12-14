@@ -81,7 +81,7 @@ const vision = {
               actionSteps: [
                 {
                   title: "Create Your Avatar",
-                  description: "Develop a comprehensive persona for your ideal client, giving them a name, age, and backstory.",
+                  description: "Develop a comprehensive persona for your ideal client, giving them a name, age, and backstory. This isn't just data; it's a character study of the human being you are destined to serve.",
                   timeEstimate: "1.5 Hours",
                   deliverable: "Completed Ideal Client Profile document.",
                   linkTo: "StrategyFormIdealClient",
@@ -109,7 +109,7 @@ const vision = {
               actionSteps: [
                 {
                   title: "Conduct SWOT Analysis",
-                  description: "Perform a Strengths, Weaknesses, Opportunities, and Threats analysis for your business relative to competitors.",
+                  description: "Perform a Strengths, Weaknesses, Opportunities, and Threats analysis for your business relative to competitors. This matrix will reveal exactly where your strategic advantage lies.",
                   timeEstimate: "2 Hours",
                   deliverable: "Completed SWOT Analysis Matrix.",
                   linkTo: "StrategyFormSWOTAnalysis",
@@ -137,7 +137,7 @@ const vision = {
               actionSteps: [
                 {
                   title: "Draft Your UVP",
-                  description: "Create a clear statement that explains your offer, your target market, and your unique benefit.",
+                  description: "Create a clear statement that explains your offer, your target market, and your unique benefit. This statement will become the headline of your website and the core of your elevator pitch.",
                   timeEstimate: "1 Hour",
                   deliverable: "A polished Unique Value Proposition statement.",
                   linkTo: "StrategyFormValueProposition",
@@ -171,7 +171,7 @@ const vision = {
               actionSteps: [
                 {
                   title: "Set Up Business Banking",
-                  description: "Open a dedicated business checking account and credit card to separate finances.",
+                  description: "Open a dedicated business checking account and credit card to separate finances. This is the single most important step for protecting your personal assets and simplifying your taxes.",
                   timeEstimate: "2 Hours",
                   deliverable: "Active business bank account.",
                   linkTo: "FreedomCalculator",
@@ -199,7 +199,7 @@ const vision = {
               actionSteps: [
                 {
                   title: "Create Brand Style Guide",
-                  description: "Assemble your logo, color palette, and typography rules.",
+                  description: "Assemble your logo, color palette, and typography rules into a single document. This 'Brand Kit' will serve as the rulebook for all your visual communications going forward.",
                   timeEstimate: "3 Hours",
                   deliverable: "Brand Kit PDF.",
                   linkTo: "StrategyFormBrandIdentity",
@@ -227,7 +227,7 @@ const vision = {
               actionSteps: [
                 {
                   title: "Configure Digital Workspace",
-                  description: "Set up your G-Suite/Office 365 and Project Management tool.",
+                  description: "Set up your G-Suite/Office 365 and Project Management tool. Establish the folder structures and communication channels that will keep your business organized as it grows.",
                   timeEstimate: "2 Hours",
                   deliverable: "Organized Digital HQ.",
                   linkTo: "StrategyFormAutomation",
@@ -255,7 +255,7 @@ const vision = {
               actionSteps: [
                 {
                   title: "Structure Your Core Offer",
-                  description: "Define the features, benefits, and price of your flagship product.",
+                  description: "Define the features, benefits, and price of your flagship product. This document will become the foundation for your sales pages and contracts.",
                   timeEstimate: "2 Hours",
                   deliverable: "Offer Sheet.",
                   linkTo: "StrategyFormValueLadder",
@@ -289,7 +289,7 @@ const vision = {
               actionSteps: [
                 {
                   title: "Launch Minimum Viable Website",
-                  description: "Publish a simple, high-converting one-page site.",
+                  description: "Publish a simple, high-converting one-page site. Focus on clarity and speed over complex design to get your message out to the world quickly.",
                   timeEstimate: "4 Hours",
                   deliverable: "Live Website.",
                   linkTo: "StrategyFormWebsiteLaunch",
@@ -317,7 +317,7 @@ const vision = {
               actionSteps: [
                 {
                   title: "Build a Waitlist Landing Page",
-                  description: "Create a simple page capturing emails of interested prospects.",
+                  description: "Create a simple page capturing emails of interested prospects. This allows you to gather a list of warm leads before your product is even finished.",
                   timeEstimate: "3 Hours",
                   deliverable: "Live landing page with email signup.",
                   linkTo: "StrategyFormWebsiteLaunch",
@@ -345,7 +345,7 @@ const vision = {
               actionSteps: [
                 {
                   title: "Run Launch Campaign",
-                  description: "Send your sales emails and social posts.",
+                  description: "Send your sales emails and social posts. Execute the plan you created to maximize visibility and drive conversions during the launch window.",
                   timeEstimate: "Daily Effort",
                   deliverable: "New Customers.",
                   linkTo: "StrategyFormContentStrategy",
@@ -373,7 +373,7 @@ const vision = {
               actionSteps: [
                 {
                   title: "Conduct Quarterly Review",
-                  description: "Analyze your metrics and qualitative wins.",
+                  description: "Analyze your metrics and qualitative wins. Use this data to set smarter goals for the next 90 days so you stop repeating the same mistakes.",
                   timeEstimate: "2 Hours",
                   deliverable: "90-Day Plan for Next Quarter.",
                   linkTo: "AnnualPlanning",
@@ -420,7 +420,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Analyze Industry Trends",
-                  description: "Research the macro trends affecting your sector.",
+                  description: "Research the macro trends affecting your sector. Use verifiable data to confirm that the market is growing and identify where the opportunities lie.",
                   timeEstimate: "2 Hours",
                   deliverable: "Market Trends Report.",
                   linkTo: "StrategyFormBusinessModelCanvas",
@@ -448,7 +448,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Build Competitor Matrix",
-                  description: "Document features, pricing, and reviews of top 3 competitors.",
+                  description: "Document features, pricing, and reviews of top 3 competitors. Create a clear comparison that highlights exactly where you can win.",
                   timeEstimate: "2 Hours",
                   deliverable: "Competitor Matrix.",
                   linkTo: "StrategyFormSWOTAnalysis",
@@ -476,7 +476,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Complete Business Model Canvas",
-                  description: "Fill out the one-page business plan framework.",
+                  description: "Fill out the one-page business plan framework. This single sheet will force you to validate every assumption about how your business operates.",
                   timeEstimate: "2 Hours",
                   deliverable: "Business Model Canvas.",
                   linkTo: "StrategyFormBusinessModelCanvas",
@@ -504,7 +504,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Draft Positioning Statement",
-                  description: "Write the internal statement that guides your brand.",
+                  description: "Write the internal statement that guides your brand. This ensures that every piece of marketing you create is aligned with your core identity.",
                   timeEstimate: "1 Hour",
                   deliverable: "Positioning Statement.",
                   linkTo: "StrategyFormValueProposition",
@@ -538,7 +538,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Map Your Core Process",
-                  description: "Create a flowchart of your primary service or product delivery.",
+                  description: "Create a flowchart of your primary service or product delivery. Visualizing the process allows you to spot inefficiencies before they cost you money.",
                   timeEstimate: "1.5 Hours",
                   deliverable: "Process Flowchart.",
                   linkTo: "StrategyFormAutomation",
@@ -566,7 +566,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Create 12-Month Budget",
-                  description: "Forecast income and expenses for the next year.",
+                  description: "Forecast income and expenses for the next year. Knowing your cash flow needs allows you to make smarter spending decisions.",
                   timeEstimate: "2 Hours",
                   deliverable: "Financial Spreadsheet.",
                   linkTo: "FreedomCalculator",
@@ -594,7 +594,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Draft Org Chart",
-                  description: "Map out the roles needed now and in the future.",
+                  description: "Map out the roles needed now and in the future. This helps you identify which hats you need to take off first as you grow.",
                   timeEstimate: "1 Hour",
                   deliverable: "Org Chart.",
                   linkTo: "SOPs",
@@ -622,7 +622,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Select Core Software",
-                  description: "Choose your CRM, Email, and Accounting tools.",
+                  description: "Choose your CRM, Email, and Accounting tools. Selecting the right platform now saves you the pain of migrating data later.",
                   timeEstimate: "2 Hours",
                   deliverable: "Tech Stack Diagram.",
                   linkTo: "StrategyFormAutomation",
@@ -656,7 +656,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Create Launch Gantt Chart",
-                  description: "Build a visual timeline of all launch activities.",
+                  description: "Build a visual timeline of all launch activities. Seeing the sequence of events helps you identify dependencies and avoid last-minute panic.",
                   timeEstimate: "2 Hours",
                   deliverable: "Launch Calendar.",
                   linkTo: "StrategyFormContentStrategy",
@@ -684,7 +684,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Run Full System Test",
-                  description: "Simulate a customer purchase from start to finish.",
+                  description: "Simulate a customer purchase from start to finish. Walking in the customer's shoes reveals friction points you would otherwise miss.",
                   timeEstimate: "2 Hours",
                   deliverable: "Bug Report/Fix List.",
                   linkTo: "StrategyFormWebsiteLaunch",
@@ -712,7 +712,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Execute Launch Day Checklist",
-                  description: "Perform the final steps to go public.",
+                  description: "Perform the final steps to go public. Follow your plan step-by-step to ensure a smooth and successful launch day.",
                   timeEstimate: "All Day",
                   deliverable: "Live Business.",
                   linkTo: "StrategyFormSocialMedia",
@@ -740,7 +740,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Analyze Launch Metrics",
-                  description: "Review traffic, conversion, and feedback data.",
+                  description: "Review traffic, conversion, and feedback data. Honest analysis of what happened gives you the roadmap for what to do next.",
                   timeEstimate: "2 Hours",
                   deliverable: "Launch Retro Report.",
                   linkTo: "AnnualPlanning",
@@ -780,7 +780,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Draft Key Brand Messages",
-                  description: "Write your elevator pitch, tagline, and 3 key value pillars.",
+                  description: "Write your elevator pitch, tagline, and 3 key value pillars. These assets will be used repeatedly on your website, social media, and in person.",
                   timeEstimate: "2 Hours",
                   deliverable: "Messaging Guide.",
                   linkTo: "StrategyFormBrandIdentity",
@@ -808,7 +808,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Create Audience Segments",
-                  description: "Define 2-3 distinct customer groups.",
+                  description: "Define 2-3 distinct customer groups. Understanding their unique needs allows you to tailor your messaging for maximum impact.",
                   timeEstimate: "1 Hour",
                   deliverable: "Segmentation Map.",
                   linkTo: "StrategyFormIdealClient",
@@ -836,7 +836,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Select Primary Channels",
-                  description: "Choose 1 primary and 1 secondary marketing channel.",
+                  description: "Choose 1 primary and 1 secondary marketing channel. Mastering one platform is far more effective than being average on five.",
                   timeEstimate: "1 Hour",
                   deliverable: "Channel Plan.",
                   linkTo: "StrategyFormContentStrategy",
@@ -864,7 +864,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Keyword Research",
-                  description: "Build a list of 20 target keywords.",
+                  description: "Build a list of 20 target keywords. These are the terms your ideal customer is typing into Google right now.",
                   timeEstimate: "2 Hours",
                   deliverable: "Keyword Strategy.",
                   linkTo: "StrategyFormWebsiteLaunch",
@@ -898,7 +898,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Define Content Pillars",
-                  description: "Select 3-5 core topics you will consistently cover.",
+                  description: "Select 3-5 core topics you will consistently cover. These themes will keep your content focused and relevant to your audience's needs.",
                   timeEstimate: "1 Hour",
                   deliverable: "Content Pillar List.",
                   linkTo: "StrategyFormContentStrategy",
@@ -926,7 +926,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Build Your Lead Magnet",
-                  description: "Create a PDF, Checklist, or Mini-Course.",
+                  description: "Create a PDF, Checklist, or Mini-Course. This free gift should provide a 'quick win' and demonstrate your expertise immediately.",
                   timeEstimate: "3 Hours",
                   deliverable: "Ready-to-download Asset.",
                   linkTo: "StrategyFormEmailMarketing",
@@ -954,7 +954,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Write Welcome Sequence",
-                  description: "Draft a 3-5 email series.",
+                  description: "Draft a 3-5 email series. This automated conversation introduces you, delivers value, and eventually makes an offer.",
                   timeEstimate: "2 Hours",
                   deliverable: "Welcome Sequence.",
                   linkTo: "StrategyFormEmailMarketing",
@@ -982,7 +982,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Fill Content Calendar",
-                  description: "Schedule posts for the next 30 days.",
+                  description: "Schedule posts for the next 30 days. Knowing exactly what to post eliminates writer's block and ensures you cover all your content pillars.",
                   timeEstimate: "2 Hours",
                   deliverable: "30-Day Social Plan.",
                   linkTo: "StrategyFormSocialMedia",
@@ -1016,7 +1016,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Activate Distribution Channels",
-                  description: "Post content, send emails, and turn on ads according to your schedule.",
+                  description: "Post content, send emails, and turn on ads according to your schedule. Consistent action across all channels creates a 'surround sound' effect for your audience.",
                   timeEstimate: "Ongoing",
                   deliverable: "Live Campaigns.",
                   linkTo: "StrategyFormSocialMedia",
@@ -1044,7 +1044,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Audit Analytics",
-                  description: "Check Google Analytics and Platform Insights.",
+                  description: "Check Google Analytics and Platform Insights. Understanding your data tells you the truth about your marketing performance, regardless of how you 'feel' it went.",
                   timeEstimate: "1 Hour",
                   deliverable: "Data Dashboard.",
                   linkTo: "StrategyFormWebsiteLaunch",
@@ -1072,7 +1072,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Run A/B Tests",
-                  description: "Test one variable to improve performance.",
+                  description: "Test one variable to improve performance. Scientific testing removes the guesswork and helps you incrementally improve your conversion rates.",
                   timeEstimate: "1 Hour",
                   deliverable: "Test Results.",
                   linkTo: "StrategyFormValueProposition",
@@ -1100,7 +1100,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Setup Retargeting/Drip",
-                  description: "Create ads or emails for non-buyers.",
+                  description: "Create ads or emails for non-buyers. This safety net catches the people who were interested but got distracted, giving you a second chance to close the sale.",
                   timeEstimate: "2 Hours",
                   deliverable: "Active Retargeting Campaign.",
                   linkTo: "StrategyFormEmailMarketing",
@@ -1140,7 +1140,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Audit Your Touchpoints",
-                  description: "List every interaction a customer has with your brand.",
+                  description: "List every interaction a customer has with your brand. Seeing the entire journey laid out allows you to spot gaps and inconsistencies in your customer experience.",
                   timeEstimate: "2 Hours",
                   deliverable: "Touchpoint Audit List.",
                   linkTo: "StrategyFormCustomerJourney",
@@ -1168,7 +1168,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Funnel Leak Analysis",
-                  description: "Identify top 3 exit pages.",
+                  description: "Identify top 3 exit pages. Pinpointing exactly where you lose people allows you to focus your optimization efforts for maximum return.",
                   timeEstimate: "1 Hour",
                   deliverable: "Optimization Priority List.",
                   linkTo: "StrategyFormCustomerJourney",
@@ -1196,7 +1196,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Blueprint the Dream Journey",
-                  description: "Draw the ideal flow from stranger to advocate.",
+                  description: "Draw the ideal flow from stranger to advocate. Designing the 'perfect' experience gives you a target to aim for and inspires your team to raise their standards.",
                   timeEstimate: "1.5 Hours",
                   deliverable: "Ideal Journey Map.",
                   linkTo: "StrategyFormCustomerJourney",
@@ -1224,7 +1224,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Create CX Roadmap",
-                  description: "Prioritize fixes and upgrades.",
+                  description: "Prioritize fixes and upgrades. A clear implementation plan prevents overwhelm and ensures the most critical improvements get done first.",
                   timeEstimate: "1 Hour",
                   deliverable: "Action Plan.",
                   linkTo: "StrategyFormAutomation",
@@ -1258,7 +1258,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Create an Unboxing Experience",
-                  description: "Enhance the moment they receive your product or service.",
+                  description: "Enhance the moment they receive your product or service. This first impression sets the tone for the entire relationship and can turn buyer's remorse into excitement.",
                   timeEstimate: "2 Hours",
                   deliverable: "Enhanced Onboarding/Delivery Plan.",
                   linkTo: "StrategyFormValueProposition",
@@ -1286,7 +1286,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Create Support SOPs",
-                  description: "Write templates for common questions.",
+                  description: "Write templates for common questions. Having standard answers for recurring issues saves time and ensures every customer gets a high-quality response.",
                   timeEstimate: "2 Hours",
                   deliverable: "Support Library.",
                   linkTo: "SOPs",
@@ -1314,7 +1314,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Implement Personalization Tags",
-                  description: "Add dynamic fields to emails/site.",
+                  description: "Add dynamic fields to emails/site. Using technology to treat people like individuals at scale increases engagement and conversion rates.",
                   timeEstimate: "1 Hour",
                   deliverable: "Personalized touchpoints.",
                   linkTo: "StrategyFormEmailMarketing",
@@ -1342,7 +1342,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Setup Auto-Survey",
-                  description: "Create a post-purchase/NPS survey.",
+                  description: "Create a post-purchase/NPS survey. Automated feedback collection provides a constant stream of insights without you having to ask manually every time.",
                   timeEstimate: "1 Hour",
                   deliverable: "Live Survey.",
                   linkTo: "StrategyFormAutomation",
@@ -1376,7 +1376,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Design Referral Program",
-                  description: "Create the offer and mechanism for referrals.",
+                  description: "Create the offer and mechanism for referrals. A formal program encourages your best customers to share your business by making it worth their while.",
                   timeEstimate: "1.5 Hours",
                   deliverable: "Referral Program Outline.",
                   linkTo: "StrategyFormAffiliateProgram",
@@ -1404,7 +1404,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Design VIP Tier",
-                  description: "Create a special status for top spenders.",
+                  description: "Create a special status for top spenders. Giving your best customers exclusive perks makes them feel valued and less likely to leave for a competitor.",
                   timeEstimate: "1 Hour",
                   deliverable: "VIP Offer.",
                   linkTo: "StrategyFormCommunityBuilding",
@@ -1432,7 +1432,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Gather Case Studies",
-                  description: "Interview a happy client and document their win.",
+                  description: "Interview a happy client and document their win. A detailed case study is a versatile asset that can be used in ads, emails, and sales calls to prove your results.",
                   timeEstimate: "2 Hours",
                   deliverable: "Published Case Study.",
                   linkTo: "StrategyFormContentStrategy",
@@ -1460,7 +1460,7 @@ const startup = {
               actionSteps: [
                 {
                   title: "Facilitate Connections",
-                  description: "Introduce customers to each other.",
+                  description: "Introduce customers to each other. Building a network among your users increases the value of your product and creates a barrier to exit.",
                   timeEstimate: "1 Hour",
                   deliverable: "Connected Community.",
                   linkTo: "StrategyFormCommunityBuilding",
@@ -1507,7 +1507,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Conduct Time Study",
-                  description: "Track where every hour goes for one week.",
+                  description: "Track where every hour goes for one week. This reveals the brutal truth about where your attention is actually going versus where it should be going.",
                   timeEstimate: "Ongoing",
                   deliverable: "Time Usage Report.",
                   linkTo: "StrategyFormAutomation",
@@ -1535,7 +1535,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Review P&L",
-                  description: "Analyze bank statements for the last 3 months.",
+                  description: "Analyze bank statements for the last 3 months. Cutting unnecessary costs is the fastest way to increase profitability without selling more.",
                   timeEstimate: "2 Hours",
                   deliverable: "Expense Reduction Plan.",
                   linkTo: "FreedomCalculator",
@@ -1563,7 +1563,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Constraint Analysis",
-                  description: "Find the choke point in your delivery.",
+                  description: "Find the choke point in your delivery. Identifying where work piles up allows you to deploy resources exactly where they are needed most.",
                   timeEstimate: "1 Hour",
                   deliverable: "Bottleneck Report.",
                   linkTo: "StrategyFormAutomation",
@@ -1591,7 +1591,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Standardize Core Deliverable",
-                  description: "Create a checklist for your main product/service.",
+                  description: "Create a checklist for your main product/service. Standardizing your delivery ensures every customer gets the same high-quality result, regardless of who does the work.",
                   timeEstimate: "2 Hours",
                   deliverable: "Master Checklist.",
                   linkTo: "SOPs",
@@ -1625,7 +1625,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Implement One Zap/Automation",
-                  description: "Automate a single workflow using a tool like Zapier.",
+                  description: "Automate a single workflow using a tool like Zapier. Even saving 5 minutes a day adds up to 30 hours a year of found time.",
                   timeEstimate: "1 Hour",
                   deliverable: "Live Automation.",
                   linkTo: "StrategyFormAutomation",
@@ -1653,7 +1653,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Write 3 Critical SOPs",
-                  description: "Document the most important daily tasks.",
+                  description: "Document the most important daily tasks. Getting these processes out of your head and onto paper is the first step toward true delegation.",
                   timeEstimate: "3 Hours",
                   deliverable: "SOP Docs.",
                   linkTo: "SOPs",
@@ -1681,7 +1681,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "CRM Cleanup",
-                  description: "Consolidate contacts and deals.",
+                  description: "Consolidate contacts and deals. Having a single, clean database allows you to market effectively and manage relationships without things falling through the cracks.",
                   timeEstimate: "2 Hours",
                   deliverable: "Clean CRM.",
                   linkTo: "StrategyFormAutomation",
@@ -1709,7 +1709,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Build Integrations",
-                  description: "Connect your core platforms.",
+                  description: "Connect your core platforms. Integrating your software stack eliminates manual data transfer and ensures your business runs on real-time information.",
                   timeEstimate: "2 Hours",
                   deliverable: "Integrated Stack.",
                   linkTo: "StrategyFormAutomation",
@@ -1743,7 +1743,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Create Delegation SOP",
-                  description: "Write the Standard Operating Procedure for the task you are handing off.",
+                  description: "Write the Standard Operating Procedure for the task you are handing off. Clear instructions are the best insurance against poor performance when you delegate.",
                   timeEstimate: "1 Hour",
                   deliverable: "Completed SOP.",
                   linkTo: "SOPs", // Assuming SOP page exists
@@ -1771,7 +1771,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Post Job/Gig",
-                  description: "Attract the right talent.",
+                  description: "Attract the right talent. A well-crafted job post attracts high-performers who can take your business to the next level, rather than just filling a seat.",
                   timeEstimate: "1 Hour",
                   deliverable: "Job Post & Candidates.",
                   linkTo: "StrategyFormBusinessModelCanvas",
@@ -1799,7 +1799,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Conduct Onboarding",
-                  description: "Walk them through the systems and SOPs.",
+                  description: "Walk them through the systems and SOPs. A structured onboarding process ensures your new hire feels confident and competent from day one.",
                   timeEstimate: "Ongoing",
                   deliverable: "Trained Team Member.",
                   linkTo: "SOPs",
@@ -1827,7 +1827,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Launch Growth Campaign",
-                  description: "Drive traffic to your optimized machine.",
+                  description: "Drive traffic to your optimized machine. With your backend ready, you can confidently turn up the marketing spend without fear of breaking your fulfillment process.",
                   timeEstimate: "Ongoing",
                   deliverable: "Increased Revenue.",
                   linkTo: "StrategyFormContentStrategy",
@@ -1867,7 +1867,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Create Partner Avatar",
-                  description: "List the traits of your perfect strategic partner.",
+                  description: "List the traits of your perfect strategic partner. Creating a profile helps you recognize the right partners immediately and avoid wasting time on bad fits.",
                   timeEstimate: "1 Hour",
                   deliverable: "Partner Profile.",
                   linkTo: "StrategyFormStrategicPartnerships",
@@ -1895,7 +1895,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Research Potential Partners",
-                  description: "Build a spreadsheet of 20 targets.",
+                  description: "Build a spreadsheet of 20 targets. A curated list of high-quality prospects is more valuable than a generic list of thousands of unrelated businesses.",
                   timeEstimate: "2 Hours",
                   deliverable: "Target List.",
                   linkTo: "StrategyFormStrategicPartnerships",
@@ -1923,7 +1923,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Create Partnership One-Pager",
-                  description: "A summary of your audience stats and offer.",
+                  description: "A summary of your audience stats and offer. This 'media kit' instantly communicates your value and makes you look like a serious professional.",
                   timeEstimate: "1 Hour",
                   deliverable: "Media Kit/One-Pager.",
                   linkTo: "StrategyFormStrategicPartnerships",
@@ -1947,11 +1947,11 @@ const growth = {
               description: "This week you plan the attack. You decide how you will contact them (Email, DM, Phone) and what you will say. A systematic approach ensures you follow up and don't drop the ball.",
               whyItMatters: "The money is in the follow-up. A system ensures you are persistent without being annoying.",
               howItStreamlines: "You track status. You know who replied and who needs a nudge.",
-              howItBuildsRelationships: "You build rapport over time. You don't just pitch and run.",
+              howItBuilds relationships: "You build rapport over time. You don't just pitch and run.",
               actionSteps: [
                 {
                   title: "Setup Outreach Tracker",
-                  description: "Create a system to manage the pipeline.",
+                  description: "Create a system to manage the pipeline. Whether it's a spreadsheet or a CRM, tracking your interactions ensures you never forget to follow up on a potential deal.",
                   timeEstimate: "1 Hour",
                   deliverable: "CRM/Sheet Tracker.",
                   linkTo: "StrategyFormStrategicPartnerships",
@@ -1985,7 +1985,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Draft Partnership Proposal",
-                  description: "Write a template email/pitch deck for potential partners.",
+                  description: "Write a template email/pitch deck for potential partners. A well-structured proposal shows you've done your homework and respect their time.",
                   timeEstimate: "1.5 Hours",
                   deliverable: "Outreach Template.",
                   linkTo: "StrategyFormStrategicPartnerships",
@@ -2013,7 +2013,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Send 10 Pitches",
-                  description: "Contact your top tier prospects.",
+                  description: "Contact your top tier prospects. Taking action is the only way to get results; personalized outreach beats mass emailing every time.",
                   timeEstimate: "2 Hours",
                   deliverable: "Sent Emails/DMs.",
                   linkTo: "StrategyFormStrategicPartnerships",
@@ -2041,7 +2041,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Finalize Agreement",
-                  description: "Agree on terms and sign.",
+                  description: "Agree on terms and sign. Solidifying the details in writing ensures both parties are accountable and clears the way for a successful partnership.",
                   timeEstimate: "1 Hour",
                   deliverable: "Signed Partnership Agreement.",
                   linkTo: "StrategyFormStrategicPartnerships",
@@ -2069,7 +2069,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Create Swipe File",
-                  description: "Build a folder of assets for your partner.",
+                  description: "Build a folder of assets for your partner. Providing ready-to-use materials removes the friction of creation and ensures your brand is represented correctly.",
                   timeEstimate: "2 Hours",
                   deliverable: "Partner Asset Pack.",
                   linkTo: "StrategyFormContentStrategy",
@@ -2103,7 +2103,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Run the Co-Marketing Campaign",
-                  description: "Host the webinar, send the emails, or publish the guest post.",
+                  description: "Host the webinar, send the emails, or publish the guest post. Execute the launch plan flawlessly to maximize the impact of your combined reach.",
                   timeEstimate: "Ongoing",
                   deliverable: "Completed Event/Campaign.",
                   linkTo: "StrategyFormContentStrategy",
@@ -2131,7 +2131,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Conduct Partner Debrief",
-                  description: "Review metrics and share feedback.",
+                  description: "Review metrics and share feedback. Honest analysis strengthens the relationship and sets the stage for future, even more successful collaborations.",
                   timeEstimate: "1 Hour",
                   deliverable: "Partnership Report.",
                   linkTo: "StrategyFormStrategicPartnerships",
@@ -2159,7 +2159,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Welcome Sequence Review",
-                  description: "Ensure new leads are being onboarded.",
+                  description: "Ensure new leads are being onboarded. A tailored welcome series for partner leads validates their decision to follow you and deepens the new relationship.",
                   timeEstimate: "1 Hour",
                   deliverable: "Engaged New Audience.",
                   linkTo: "StrategyFormEmailMarketing",
@@ -2187,7 +2187,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Update Partnership SOP",
-                  description: "Refine your process based on the pilot.",
+                  description: "Refine your process based on the pilot. Turning your experience into a documented system allows you to run multiple partnerships without burning out.",
                   timeEstimate: "1 Hour",
                   deliverable: "Partnership System.",
                   linkTo: "SOPs",
@@ -2227,7 +2227,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Draft Community Manifesto",
-                  description: "Write the 'rules of engagement' and mission for the group.",
+                  description: "Write the 'rules of engagement' and mission for the group. A manifesto acts as a magnet for the right people and a filter for the wrong ones, ensuring your community culture starts strong.",
                   timeEstimate: "1 Hour",
                   deliverable: "Community Guidelines.",
                   linkTo: "StrategyFormCommunityBuilding",
@@ -2247,28 +2247,28 @@ const growth = {
               resources: []
             },
             {
-              title: "Choose & Setup Platform",
-              description: "This week you build the house. You select the technology that will host your tribe. You set up the channels, permissions, and branding to welcome your first guests.",
-              whyItMatters: "The container shapes the culture. The right tool reduces friction for members.",
-              howItStreamlines: "Good tech automates onboarding. It organizes conversations.",
-              howItBuildsRelationships: "A user-friendly space encourages posting. Members feel comfortable.",
+              title: "Configure Your HQ Community",
+              description: "This week you leverage The HQ's built-in community features to build your tribe. Instead of relying on distracted platforms like Facebook, you will set up a dedicated, professional space right here in your Business Minds HQ account.",
+              whyItMatters: "Ownership matters. Building on rented land puts you at risk of algorithm changes. The HQ gives you a dedicated, ad-free space to foster deep connections.",
+              howItStreamlines: "It keeps everything in one place. Your content, courses, and community live together.",
+              howItBuildsRelationships: "It feels premium. Members appreciate a focused environment away from social media noise.",
               actionSteps: [
                 {
-                  title: "Configure Community Space",
-                  description: "Set up the technical infrastructure.",
+                  title: "Setup HQ Community Profile",
+                  description: "Initialize your community space within The HQ. Configuring your dedicated space ensures your members have a seamless, branded experience from day one.",
                   timeEstimate: "2 Hours",
-                  deliverable: "Live Community URL.",
-                  linkTo: "StrategyFormCommunityBuilding",
+                  deliverable: "Live HQ Community Space.",
+                  linkTo: "TheCommunity", // Linking to the community page
                   foundationStepId: "community_building",
                   detailedSteps: [
-                    "Choose a platform that fits your audience (Skool, Circle, Facebook, Slack). Go where they already are.",
-                    "Create specific topic channels or categories. Don't make too many; start with 'General', 'Wins', and 'Help'.",
-                    "Add your branding (Logo, Banner, Description). Make it feel like 'home'.",
-                    "Test the signup flow yourself. Ensure the invite links work and the welcome message appears."
+                    "Navigate to the 'Community' tab in your HQ dashboard and click 'Create Space'.",
+                    "Upload your community logo and cover image to match your brand identity.",
+                    "Set up your initial 'Channels' or 'Topics' (e.g., Introductions, General Chat, Wins). Keep it simple to start.",
+                    "Customize your welcome message that members see immediately upon joining."
                   ],
-                  tips: ["Start with fewer channels.", "Ensure mobile access is good."],
-                  commonChallenges: ["Over-engineering the structure.", "Choosing a 'dead' platform."],
-                  successCriteria: ["You can invite someone and they can join.", "It looks professional."]
+                  tips: ["Use high-quality images.", "Write a warm welcome message."],
+                  commonChallenges: ["Creating too many empty channels.", "Forgetting to test the mobile view."],
+                  successCriteria: ["Your community is live and branded.", "You can post your first welcome message."]
                 }
               ],
               tools: [tools.brand],
@@ -2283,7 +2283,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Post First 5 Threads",
-                  description: "Create value posts to welcome members.",
+                  description: "Create value posts to welcome members. Pre-loading the feed ensures that early adopters have something to engage with, preventing the awkward silence of a new group.",
                   timeEstimate: "1 Hour",
                   deliverable: "Active Feed.",
                   linkTo: "StrategyFormContentStrategy",
@@ -2311,7 +2311,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Invite First 20 Members",
-                  description: "Personally reach out to seed the group.",
+                  description: "Personally reach out to seed the group. These initial members are your culture carriers; selecting them personally ensures the tone is set correctly.",
                   timeEstimate: "2 Hours",
                   deliverable: "20 Active Members.",
                   linkTo: "StrategyFormCommunityBuilding",
@@ -2345,7 +2345,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Create Weekly Rituals",
-                  description: "Design recurring posts to drive engagement.",
+                  description: "Design recurring posts to drive engagement. Establishing consistent touchpoints gives members a reason to return and a predictable way to participate.",
                   timeEstimate: "1 Hour",
                   deliverable: "Engagement Calendar.",
                   linkTo: "StrategyFormCommunityBuilding",
@@ -2373,7 +2373,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Host Community Call",
-                  description: "Run a live Zoom/Stream for members.",
+                  description: "Run a live Zoom/Stream for members. A live event serves as a heartbeat for the community, synchronizing everyone's attention and creating real-time value.",
                   timeEstimate: "2 Hours",
                   deliverable: "Recorded Event.",
                   linkTo: "StrategyFormContentStrategy",
@@ -2401,7 +2401,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Launch Public Invite",
-                  description: "Promote the community to your email list/social.",
+                  description: "Promote the community to your email list/social. Now that the fire is burning, invite the world to warm their hands. Position the community as the 'place to be'.",
                   timeEstimate: "1 Hour",
                   deliverable: "New Member Influx.",
                   linkTo: "StrategyFormEmailMarketing",
@@ -2429,7 +2429,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Refine Moderation",
-                  description: "Review and enforce guidelines.",
+                  description: "Review and enforce guidelines. Great communities are defined as much by what they disallow as what they allow. Enforcing standards protects the value for everyone.",
                   timeEstimate: "1 Hour",
                   deliverable: "Safe Space.",
                   linkTo: "StrategyFormCommunityBuilding",
@@ -2463,7 +2463,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Launch Ambassador Program",
-                  description: "Invite top members to a special role.",
+                  description: "Invite top members to a special role. Formalizing the status of your best members gives them permission to lead and creates a powerful inner circle.",
                   timeEstimate: "2 Hours",
                   deliverable: "Ambassador Group.",
                   linkTo: "StrategyFormCommunityBuilding",
@@ -2491,7 +2491,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Make an Offer",
-                  description: "Present a product/service to the group.",
+                  description: "Present a product/service to the group. When you solve problems for free, people will happily pay you to solve bigger problems. Make an offer that feels like a natural next step.",
                   timeEstimate: "1 Hour",
                   deliverable: "Sales.",
                   linkTo: "StrategyFormValueProposition",
@@ -2519,7 +2519,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Run Member Survey",
-                  description: "Collect qualitative feedback.",
+                  description: "Collect qualitative feedback. Understanding what your members truly value allows you to double down on what works and cut what doesn't.",
                   timeEstimate: "1 Hour",
                   deliverable: "Community Health Report.",
                   linkTo: "StrategyFormContentStrategy",
@@ -2547,7 +2547,7 @@ const growth = {
               actionSteps: [
                 {
                   title: "Operations Review",
-                  description: "Ensure SOPs and Ambassadors are working.",
+                  description: "Ensure SOPs and Ambassadors are working. A truly scalable community is one that can run itself for short periods. Test your systems to ensure freedom.",
                   timeEstimate: "2 Hours",
                   deliverable: "Automated Community.",
                   linkTo: "SOPs",
