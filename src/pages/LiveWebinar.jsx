@@ -93,7 +93,7 @@ export default function LiveWebinarPage() {
                         
                         <p className="text-sm text-[var(--text-soft)]">
                             📅 <strong>Every Tuesday & Thursday</strong> at <strong>12:00 PM - 1:00 PM</strong><br/>
-                            Link opens 5 minutes before start time
+                            Join us live within the Community! Link opens 5 minutes before start time.
                         </p>
                     </div>
                 </div>
@@ -207,9 +207,16 @@ export default function LiveWebinarPage() {
                             <p className="text-xs text-[var(--text-soft)]">Live Community Session</p>
                         </div>
                     </div>
-                    <p className="text-center text-sm text-[var(--text-soft)] mt-6">
-                        💡 <strong>Note:</strong> Sessions are held every week barring major holidays.
-                    </p>
+                    <div className="mt-6 text-center space-y-3">
+                        <p className="text-sm text-[var(--text-soft)]">
+                            💡 <strong>Note:</strong> Sessions are held every week within the Community (barring major holidays).
+                        </p>
+                        <div className="inline-block bg-blue-50 dark:bg-blue-900/20 px-4 py-2 rounded-lg border border-blue-100 dark:border-blue-800">
+                            <p className="text-sm text-blue-800 dark:text-blue-200 font-medium">
+                                ⚡ <strong>Session Etiquette:</strong> Please have your questions ready and keep them under 5 minutes so we can ensure everyone gets supported!
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 {/* CTA Section */}
