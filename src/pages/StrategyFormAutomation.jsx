@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User, StrategyDocument } from '@/entities/all';
 import { Link } from 'react-router-dom';
@@ -145,9 +144,9 @@ export default function StrategyFormAutomation() {
                             Streamlines Your Business
                         </h4>
                         <p className="text-sm text-[var(--text-soft)]">
-                            Automation handles repetitive tasks 24/7 without breaks. Lead capture, email follow-ups, invoice generation, 
-                            and customer onboarding happen automatically. This frees 20+ hours per week for strategic work. Systems document 
-                            processes so anyone can follow them—eliminating bottlenecks and enabling scale.
+                            <strong>The HQ</strong>'s Workflows handle repetitive tasks 24/7. Lead capture, email follow-ups, invoice generation, 
+                            appointment booking, and customer onboarding happen automatically in one system. This frees 20+ hours per week for strategic work 
+                            and eliminates the need for "digital duct tape" like Zapier.
                         </p>
                     </div>
 
@@ -319,7 +318,7 @@ export default function StrategyFormAutomation() {
                                 onChange={(e) => setFormData({ ...formData, automation_tools: e.target.value })}
                                 className="form-input"
                                 rows="5"
-                                placeholder="List tools you'll use for automation (Zapier, Make, Asana, ClickUp, HubSpot, GoHighLevel, etc.)"
+                                placeholder="List tools you'll use for automation (The HQ (Recommended), Zapier, Make, Asana, etc.)"
                             />
                         </div>
 

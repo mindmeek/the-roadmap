@@ -1,4 +1,3 @@
-
 import { Users, Heart, Calendar, MessageSquare, Target, Sparkles, TrendingUp, Award, Zap, Rocket } from 'lucide-react';
 
 export const communityBuilderRoadmap = {
@@ -36,7 +35,7 @@ export const communityBuilderRoadmap = {
                 {
                     title: "Choose Your Community Platform",
                     description: "Select the right platform based on your audience and goals.",
-                    action: "Evaluate platforms (Facebook Groups, Discord, Circle, Mighty Networks, Slack, etc.) based on: where your audience already hangs out, features needed, mobile experience, monetization options, and your budget.",
+                    action: "We strongly recommend using **The HQ** to host your community. It keeps your members, courses, and communication in one place without algorithm distractions. Alternatively, evaluate Facebook Groups, Discord, or Circle.",
                     deliverable: "Platform decision with justification and account created"
                 }
             ]

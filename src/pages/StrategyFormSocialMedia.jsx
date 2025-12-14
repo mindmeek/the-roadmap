@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User, StrategyDocument } from '@/entities/all';
 import { Link } from 'react-router-dom';
@@ -151,9 +150,9 @@ export default function StrategyFormSocialMedia() {
                             Streamlines Your Business
                         </h4>
                         <p className="text-sm text-[var(--text-soft)]">
-                            A content calendar and batching strategy means you create 30 days of content in one sitting. Scheduling tools 
-                            post automatically while you focus on revenue-generating activities. Content pillars eliminate "what should I post?" 
-                            paralysis. Repurposing content across platforms maximizes every piece you create.
+                            Using <strong>The HQ</strong>'s Social Planner, you can schedule 30 days of content in one sitting. It posts automatically 
+                            to all your accounts (Facebook, Instagram, LinkedIn, etc.) while you focus on revenue. Content pillars eliminate "what should I post?" 
+                            paralysis, and the centralized inbox lets you reply to all comments in one place.
                         </p>
                     </div>
 

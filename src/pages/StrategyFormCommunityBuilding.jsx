@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User, StrategyDocument } from '@/entities/all';
 import { Link } from 'react-router-dom';
@@ -146,9 +145,9 @@ export default function StrategyFormCommunityBuilding() {
                             Streamlines Your Business
                         </h4>
                         <p className="text-sm text-[var(--text-soft)]">
-                            Communities provide customer support at scale—members help each other instead of always contacting you. 
-                            Product feedback happens organically in discussions. Launch announcements reach your most engaged audience instantly. 
-                            Your community becomes your focus group, support team, and marketing department all in one.
+                            <strong>The HQ</strong> allows you to build a private, branded community directly integrated with your courses and CRM. 
+                            Members help each other, reducing support tickets. Launch announcements reach your most engaged audience instantly 
+                            without fighting social media algorithms. Your community becomes your focus group, support team, and marketing department all in one.
                         </p>
                     </div>
 
@@ -225,7 +224,7 @@ export default function StrategyFormCommunityBuilding() {
                                 value={formData.community_platform}
                                 onChange={(e) => setFormData({ ...formData, community_platform: e.target.value })}
                                 className="form-input"
-                                placeholder="e.g., Facebook Groups, Discord, Circle, Mighty Networks, Custom Website"
+                                placeholder="e.g., The HQ (Recommended), Facebook Groups, Discord, Circle"
                             />
                         </div>
                     </div>

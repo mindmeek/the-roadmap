@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User, StrategyDocument } from '@/entities/all';
 import { Link } from 'react-router-dom';
@@ -152,9 +151,9 @@ export default function StrategyFormWebsiteLaunch() {
                             Streamlines Your Business
                         </h4>
                         <p className="text-sm text-[var(--text-soft)]">
-                            A well-designed website with clear CTAs automates your sales process. Instead of repeating the same information
-                            on discovery calls, prospects arrive already educated about your services, pricing, and process.
-                            Your website pre-qualifies leads and frees up your time for high-value conversations.
+                            <strong>The HQ</strong>'s drag-and-drop builder creates websites and funnels that automate your sales process. 
+                            Integrated directly with your CRM and calendar, your site pre-qualifies leads and frees up your time for high-value conversations
+                            without needing technical skills or expensive hosting.
                         </p>
                     </div>
 
@@ -217,7 +216,7 @@ export default function StrategyFormWebsiteLaunch() {
                                 value={formData.hosting_platform}
                                 onChange={(e) => setFormData({ ...formData, hosting_platform: e.target.value })}
                                 className="form-input"
-                                placeholder="e.g., WordPress, Squarespace, Wix, Webflow, Custom"
+                                placeholder="e.g., The HQ (Recommended), WordPress, Squarespace"
                             />
                         </div>
                     </div>

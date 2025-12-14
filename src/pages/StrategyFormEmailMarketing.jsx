@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User, StrategyDocument } from '@/entities/all';
 import { Link } from 'react-router-dom';
@@ -150,9 +149,9 @@ export default function StrategyFormEmailMarketing() {
                             Streamlines Your Business
                         </h4>
                         <p className="text-sm text-[var(--text-soft)]">
-                            Email automation sequences do the nurturing for you. A new subscriber gets your welcome series, abandoned cart 
-                            emails trigger automatically, and educational sequences build trust on autopilot. You write once, profit forever. 
-                            This eliminates the need for constant manual follow-up.
+                            <strong>The HQ</strong>'s built-in email marketing and automation handle the nurturing for you. A new subscriber gets your welcome series, 
+                            abandoned cart emails trigger automatically, and educational sequences build trust on autopilot. You write once, profit forever, 
+                            eliminating the need for expensive external email tools.
                         </p>
                     </div>
 
@@ -218,7 +217,7 @@ export default function StrategyFormEmailMarketing() {
                                 value={formData.email_platform}
                                 onChange={(e) => setFormData({ ...formData, email_platform: e.target.value })}
                                 className="form-input"
-                                placeholder="e.g., Mailchimp, ConvertKit, ActiveCampaign, Klaviyo"
+                                placeholder="e.g., The HQ (Recommended), Mailchimp, ActiveCampaign"
                             />
                         </div>
                     </div>
