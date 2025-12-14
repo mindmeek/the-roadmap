@@ -20,47 +20,23 @@ export default function LiveWebinarPage() {
         fetchUser();
     }, []);
 
-    // Calculate next webinar dates (1st and 3rd Thursday)
-    const getNextWebinarDates = () => {
-        const today = new Date();
-        const currentMonth = today.getMonth();
-        const currentYear = today.getFullYear();
-        
-        const dates = [];
-        
-        // Check this month's dates
-        const firstThursday = getFirstThursdayOfMonth(currentYear, currentMonth);
-        const thirdThursday = getThirdThursdayOfMonth(currentYear, currentMonth);
-        
-        if (firstThursday >= today) dates.push(firstThursday);
-        if (thirdThursday >= today) dates.push(thirdThursday);
-        
-        // If no upcoming dates this month, get next month's first Thursday
-        if (dates.length === 0) {
-            const nextMonth = currentMonth === 11 ? 0 : currentMonth + 1;
-            const nextYear = currentMonth === 11 ? currentYear + 1 : currentYear;
-            dates.push(getFirstThursdayOfMonth(nextYear, nextMonth));
+    // Calculate next live session (Tuesday or Thursday)
+    const getNextSessionDate = () => {
+        const date = new Date();
+        // If today is Tuesday (2) or Thursday (4) and it's before 12 PM, show today
+        if ((date.getDay() === 2 || date.getDay() === 4) && date.getHours() < 12) {
+            return date;
         }
         
-        return dates[0];
-    };
-
-    const getFirstThursdayOfMonth = (year, month) => {
-        const date = new Date(year, month, 1);
-        while (date.getDay() !== 4) { // 4 = Thursday
+        // Otherwise find the next Tuesday or Thursday
+        date.setDate(date.getDate() + 1);
+        while (date.getDay() !== 2 && date.getDay() !== 4) {
             date.setDate(date.getDate() + 1);
         }
         return date;
     };
 
-    const getThirdThursdayOfMonth = (year, month) => {
-        const firstThursday = getFirstThursdayOfMonth(year, month);
-        const thirdThursday = new Date(firstThursday);
-        thirdThursday.setDate(firstThursday.getDate() + 14);
-        return thirdThursday;
-    };
-
-    const nextWebinar = getNextWebinarDates();
+    const nextWebinar = getNextSessionDate();
     const formattedDate = nextWebinar.toLocaleDateString('en-US', { 
         weekday: 'long', 
         year: 'numeric', 
@@ -87,10 +63,10 @@ export default function LiveWebinarPage() {
                         </div>
                     </div>
                     <h1 className="text-3xl md:text-4xl font-bold text-[var(--text-main)] mb-3">
-                        Join Our Bi-Weekly Live Webinars!
+                        Join Our Live Community Sessions!
                     </h1>
                     <p className="text-lg text-[var(--text-soft)] max-w-2xl mx-auto mb-6">
-                        Discover how The Roadmap, The HQ, and Business Minds help you streamline and automate your vision for a successful business.
+                        Every session is designed to help you get at least 1% closer to building your vision of a successful business.
                     </p>
                     
                     {/* Next Session Info */}
@@ -102,7 +78,7 @@ export default function LiveWebinarPage() {
                         <p className="text-2xl font-bold text-[var(--text-main)] mb-2">{formattedDate}</p>
                         <div className="flex items-center justify-center gap-2 mb-4">
                             <Clock className="w-5 h-5 text-[var(--text-soft)]" />
-                            <p className="text-xl font-semibold text-[var(--text-main)]">7:00 PM - 8:00 PM</p>
+                            <p className="text-xl font-semibold text-[var(--text-main)]">12:00 PM - 1:00 PM</p>
                         </div>
                         
                         <a 
@@ -112,11 +88,11 @@ export default function LiveWebinarPage() {
                             className="btn btn-primary inline-flex items-center text-lg px-8 py-4 mb-3"
                         >
                             <Video className="w-5 h-5 mr-2" />
-                            Join the Live Webinar
+                            Join Live Session
                         </a>
                         
                         <p className="text-sm text-[var(--text-soft)]">
-                            📅 <strong>Every 1st & 3rd Thursday</strong> of the month at <strong>7:00 PM</strong><br/>
+                            📅 <strong>Every Tuesday & Thursday</strong> at <strong>12:00 PM - 1:00 PM</strong><br/>
                             Link opens 5 minutes before start time
                         </p>
                     </div>
@@ -124,9 +100,9 @@ export default function LiveWebinarPage() {
 
                 {/* What We'll Cover Section */}
                 <div className="card p-6 md:p-8 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-2 border-purple-200 dark:border-purple-700" style={{ borderRadius: '2px' }}>
-                    <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4 text-center">What We'll Cover in This Webinar</h2>
+                    <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4 text-center">What We'll Cover</h2>
                     <p className="text-center text-[var(--text-soft)] mb-6 max-w-2xl mx-auto">
-                        Learn how our complete ecosystem works together to help you build, grow, and scale your business efficiently.
+                        We cover essential aspects of entrepreneurship, The HQ platform, and The Roadmap strategies to keep you moving forward.
                     </p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -134,9 +110,9 @@ export default function LiveWebinarPage() {
                             <div className="bg-purple-100 dark:bg-purple-900 p-3 rounded-full w-fit mx-auto mb-4">
                                 <Target className="w-8 h-8 text-purple-600" />
                             </div>
-                            <h3 className="font-bold text-lg text-[var(--text-main)] mb-2 text-center">The Roadmap</h3>
+                            <h3 className="font-bold text-lg text-[var(--text-main)] mb-2 text-center">Entrepreneurship</h3>
                             <p className="text-sm text-[var(--text-soft)] text-center">
-                                Your personalized 90-day journey to achieve your business goals with daily action steps and weekly milestones.
+                                Deep dives into the mindset, strategies, and skills needed to build and sustain a successful business.
                             </p>
                         </div>
 
@@ -146,7 +122,7 @@ export default function LiveWebinarPage() {
                             </div>
                             <h3 className="font-bold text-lg text-[var(--text-main)] mb-2 text-center">The HQ</h3>
                             <p className="text-sm text-[var(--text-soft)] text-center">
-                                Advanced tools, automation, and premium resources to streamline your operations and accelerate growth.
+                                Master our all-in-one platform with tutorials on automation, marketing, and system building.
                             </p>
                         </div>
 
@@ -154,16 +130,16 @@ export default function LiveWebinarPage() {
                             <div className="bg-pink-100 dark:bg-pink-900 p-3 rounded-full w-fit mx-auto mb-4">
                                 <Users className="w-8 h-8 text-pink-600" />
                             </div>
-                            <h3 className="font-bold text-lg text-[var(--text-main)] mb-2 text-center">Business Minds</h3>
+                            <h3 className="font-bold text-lg text-[var(--text-main)] mb-2 text-center">The Roadmap</h3>
                             <p className="text-sm text-[var(--text-soft)] text-center">
-                                A thriving community of entrepreneurs, exclusive networking, and collaborative opportunities.
+                                Guidance on navigating your 90-day journey, staying accountable, and hitting your milestones.
                             </p>
                         </div>
                     </div>
 
                     <div className="mt-6 p-4 bg-white dark:bg-gray-800 rounded-lg border-2 border-[var(--primary-gold)]">
                         <p className="text-center text-[var(--text-main)] font-semibold">
-                            🎯 <strong>Perfect For:</strong> Entrepreneurs who want to stop feeling overwhelmed and start seeing real, consistent progress in their business.
+                            🎯 <strong>Our Goal:</strong> To help you get at least 1% closer to building your vision of a successful business in every single session.
                         </p>
                     </div>
                 </div>
@@ -220,19 +196,19 @@ export default function LiveWebinarPage() {
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6 text-center">
                         <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md flex-1 w-full max-w-xs">
                             <CalendarDays className="w-8 h-8 text-[var(--primary-gold)] mx-auto mb-2" />
-                            <h3 className="font-bold text-lg text-[var(--text-main)] mb-1">1st Thursday</h3>
-                            <p className="text-sm text-[var(--text-soft)] mb-2">7:00 PM - 8:00 PM</p>
-                            <p className="text-xs text-[var(--text-soft)]">Monthly Deep Dive Session</p>
+                            <h3 className="font-bold text-lg text-[var(--text-main)] mb-1">Every Tuesday</h3>
+                            <p className="text-sm text-[var(--text-soft)] mb-2">12:00 PM - 1:00 PM</p>
+                            <p className="text-xs text-[var(--text-soft)]">Live Community Session</p>
                         </div>
                         <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md flex-1 w-full max-w-xs">
                             <CalendarDays className="w-8 h-8 text-[var(--primary-gold)] mx-auto mb-2" />
-                            <h3 className="font-bold text-lg text-[var(--text-main)] mb-1">3rd Thursday</h3>
-                            <p className="text-sm text-[var(--text-soft)] mb-2">7:00 PM - 8:00 PM</p>
-                            <p className="text-xs text-[var(--text-soft)]">Q&A & Hot Topics Session</p>
+                            <h3 className="font-bold text-lg text-[var(--text-main)] mb-1">Every Thursday</h3>
+                            <p className="text-sm text-[var(--text-soft)] mb-2">12:00 PM - 1:00 PM</p>
+                            <p className="text-xs text-[var(--text-soft)]">Live Community Session</p>
                         </div>
                     </div>
                     <p className="text-center text-sm text-[var(--text-soft)] mt-6">
-                        💡 <strong>Pro Tip:</strong> Add these recurring dates to your calendar to never miss a session!
+                        💡 <strong>Note:</strong> Sessions are held every week barring major holidays.
                     </p>
                 </div>
 
@@ -240,7 +216,7 @@ export default function LiveWebinarPage() {
                 <div className="card p-6 md:p-8 text-center" style={{ borderRadius: '2px' }}>
                     <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4">Ready to Join?</h2>
                     <p className="text-[var(--text-soft)] mb-6">
-                        Mark your calendar and be part of our next live session at <strong>7:00 PM</strong>!
+                        Mark your calendar and be part of our next live session at <strong>12:00 PM</strong>!
                     </p>
                     <a 
                         href="https://meet.google.com/fbs-gzea-wji" 
