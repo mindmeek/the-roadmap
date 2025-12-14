@@ -102,7 +102,7 @@ export default function LiveWebinarPage() {
                 <div className="card p-6 md:p-8 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-2 border-purple-200 dark:border-purple-700" style={{ borderRadius: '2px' }}>
                     <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4 text-center">What We'll Cover</h2>
                     <p className="text-center text-[var(--text-soft)] mb-6 max-w-2xl mx-auto">
-                        We cover essential aspects of entrepreneurship, The HQ platform, and The Roadmap strategies to keep you moving forward.
+                        We cover essential aspects of entrepreneurship, The HQ platform, and The Roadmap strategies. After the main talking points, the floor is open for <strong>any entrepreneurship-related questions</strong> you may have!
                     </p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -221,7 +221,7 @@ export default function LiveWebinarPage() {
                         </p>
                         <div className="inline-block bg-blue-50 dark:bg-blue-900/20 px-4 py-2 rounded-lg border border-blue-100 dark:border-blue-800">
                             <p className="text-sm text-blue-800 dark:text-blue-200 font-medium">
-                                ⚡ <strong>Session Etiquette:</strong> Please have your questions ready and keep them under 5 minutes so we can ensure everyone gets supported!
+                                ⚡ <strong>Open Q&A:</strong> After the main topic, you are free to ask about ANY entrepreneurial challenge. Please keep questions under 5 minutes so everyone gets supported!
                             </p>
                         </div>
                     </div>
