@@ -48,6 +48,9 @@ export default function WeekPage() {
     const [completedSteps, setCompletedSteps] = useState({});
     const [expandedSteps, setExpandedSteps] = useState({});
     const [foundationProgress, setFoundationProgress] = useState(null);
+    const [strategyDocs, setStrategyDocs] = useState({});
+    const [stepAnswers, setStepAnswers] = useState({});
+    const [isSavingAnswers, setIsSavingAnswers] = useState({});
 
     const [copilotModal, setCopilotModal] = useState({
         isOpen: false,
@@ -65,18 +68,35 @@ export default function WeekPage() {
             }
             setUser(userData);
 
+            // Load Strategy Documents for pre-population
+            try {
+                const docs = await base44.entities.StrategyDocument.filter({ created_by: userData.email });
+                const docsMap = {};
+                docs.forEach(doc => {
+                    docsMap[doc.document_type] = doc;
+                });
+                setStrategyDocs(docsMap);
+            } catch (error) {
+                console.error("Error loading strategy documents:", error);
+            }
+
             try {
                 const progressRecords = await base44.entities.FoundationProgress.filter({ created_by: userData.email });
                 if (progressRecords.length > 0) {
                     setFoundationProgress(progressRecords[0]);
+                    // Initialize local answers state from DB
+                    const answers = progressRecords[0].weekly_step_answers || {};
+                    setStepAnswers(answers);
                 } else {
                     const newProgress = await base44.entities.FoundationProgress.create({
                         created_by: userData.email,
                         completed_steps: [],
                         step_completion_dates: {},
-                        notes: {}
+                        notes: {},
+                        weekly_step_answers: {}
                     });
                     setFoundationProgress(newProgress);
+                    setStepAnswers({});
                 }
             } catch (progressError) {
                 console.error("Error loading foundation progress:", progressError);
@@ -162,6 +182,62 @@ export default function WeekPage() {
             ...prev,
             [stepIndex]: !prev[stepIndex]
         }));
+    };
+
+    const handleAnswerChange = (weekNum, stepIndex, value) => {
+        setStepAnswers(prev => ({
+            ...prev,
+            [weekNum]: {
+                ...(prev[weekNum] || {}),
+                [stepIndex]: {
+                    ...(prev[weekNum]?.[stepIndex] || {}),
+                    answer: value,
+                    last_updated: new Date().toISOString()
+                }
+            }
+        }));
+    };
+
+    const handleSaveAnswer = async (weekNum, stepIndex) => {
+        if (!foundationProgress) return;
+        
+        const savingKey = `${weekNum}-${stepIndex}`;
+        setIsSavingAnswers(prev => ({ ...prev, [savingKey]: true }));
+
+        try {
+            const updatedAnswers = { ...stepAnswers };
+            // Ensure we have the latest state in case of race conditions, 
+            // though strictly we should use functional update in setFoundationProgress, 
+            // but for DB update we use the state 'stepAnswers'.
+            
+            await base44.entities.FoundationProgress.update(foundationProgress.id, {
+                weekly_step_answers: updatedAnswers
+            });
+            
+            // Show success briefly
+            setTimeout(() => {
+                setIsSavingAnswers(prev => ({ ...prev, [savingKey]: false }));
+            }, 500);
+        } catch (error) {
+            console.error("Error saving answer:", error);
+            setIsSavingAnswers(prev => ({ ...prev, [savingKey]: false }));
+        }
+    };
+
+    // Helper to infer strategy document type from link_to
+    const getStrategyTypeFromLink = (linkTo) => {
+        if (!linkTo) return null;
+        if (linkTo.includes('StrategyFormIdealClient')) return 'ideal_client';
+        if (linkTo.includes('StrategyFormValueProposition')) return 'value_proposition_canvas'; // Check entity enum
+        if (linkTo.includes('StrategyFormValueLadder')) return 'value_ladder';
+        if (linkTo.includes('StrategyFormBusinessModel')) return 'business_model_canvas';
+        if (linkTo.includes('StrategyFormSWOT')) return 'swot_analysis';
+        if (linkTo.includes('StrategyFormCustomerJourney')) return 'customer_journey';
+        if (linkTo.includes('StrategyFormBrand')) return 'brand_identity'; // Assuming mapping
+        if (linkTo.includes('StrategyFormContent')) return 'content_strategy'; // Assuming mapping
+        if (linkTo.includes('StrategyFormPricing')) return 'pricing_strategies';
+        // Add more mappings as needed
+        return null;
     };
 
     const handleCopilotClick = (step, stepIndex) => {
@@ -381,6 +457,115 @@ export default function WeekPage() {
                                                     {isFoundationComplete ? `Review ${step.title}` : `Go to ${step.title}`}
                                                     <ArrowRight className="w-4 h-4 ml-2" />
                                                 </button>
+                                            )}
+
+                                            {/* Work Area / Answer Section */}
+                                            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                                <div className="flex justify-between items-center mb-2">
+                                                    <label className="text-xs font-bold text-[var(--text-main)] uppercase tracking-wider flex items-center gap-2">
+                                                        <FileText className="w-3 h-3 text-[var(--primary-gold)]" />
+                                                        Your Answer / Notes
+                                                    </label>
+                                                    {isSavingAnswers[`${weekNumber}-${index}`] && (
+                                                        <span className="text-xs text-green-500 flex items-center gap-1">
+                                                            <CheckCircle className="w-3 h-3" /> Saved
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                
+                                                {(() => {
+                                                    const strategyType = getStrategyTypeFromLink(step.link_to);
+                                                    const linkedDoc = strategyType ? strategyDocs[strategyType] : null;
+                                                    const currentAnswer = stepAnswers[weekNumber]?.[index]?.answer || "";
+                                                    
+                                                    if (linkedDoc && !currentAnswer) {
+                                                        // Pre-population logic or prompt
+                                                        return (
+                                                            <div className="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-700 rounded-md p-4">
+                                                                <div className="flex items-start gap-3">
+                                                                    <div className="p-2 bg-indigo-100 dark:bg-indigo-800 rounded-md">
+                                                                        <Database className="w-4 h-4 text-indigo-600 dark:text-indigo-300" />
+                                                                    </div>
+                                                                    <div className="flex-1">
+                                                                        <h5 className="text-sm font-semibold text-indigo-900 dark:text-indigo-100">
+                                                                            Use data from your {linkedDoc.title || strategyType.replace('_', ' ')}?
+                                                                        </h5>
+                                                                        <p className="text-xs text-indigo-700 dark:text-indigo-300 mt-1 mb-3">
+                                                                            You have a completed strategy document that matches this step.
+                                                                        </p>
+                                                                        <div className="flex gap-2">
+                                                                            <button
+                                                                                onClick={() => {
+                                                                                    // Simple dump of content for now, ideally we'd pick specific fields
+                                                                                    const content = JSON.stringify(linkedDoc.content, null, 2); 
+                                                                                    handleAnswerChange(weekNumber, index, content);
+                                                                                }}
+                                                                                className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium rounded transition-colors"
+                                                                            >
+                                                                                Import Data
+                                                                            </button>
+                                                                            <button
+                                                                                onClick={() => navigate(createPageUrl(step.link_to))}
+                                                                                className="px-3 py-1.5 bg-white dark:bg-gray-800 border border-indigo-200 dark:border-indigo-700 text-indigo-600 dark:text-indigo-300 text-xs font-medium rounded hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                                                                            >
+                                                                                View Document
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    } else {
+                                                        return (
+                                                            <div>
+                                                                <textarea 
+                                                                    value={currentAnswer}
+                                                                    onChange={(e) => handleAnswerChange(weekNumber, index, e.target.value)}
+                                                                    placeholder="Write your response, plan, or notes for this step here..."
+                                                                    className="w-full min-h-[100px] p-3 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-[var(--primary-gold)] focus:border-[var(--primary-gold)]"
+                                                                />
+                                                                <div className="flex justify-end mt-2">
+                                                                    <button
+                                                                        onClick={() => handleSaveAnswer(weekNumber, index)}
+                                                                        className="text-xs text-[var(--primary-gold)] hover:text-[var(--text-main)] font-medium flex items-center gap-1 transition-colors"
+                                                                    >
+                                                                        <Save className="w-3 h-3" /> Save Answer
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    }
+                                                })()}
+                                            </div>
+
+                                            {/* Related Resources - Static Injection for now as proof of concept */}
+                                            {index === 0 && weekNumber === 1 && ( // Just an example condition, you can expand this logic
+                                                <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                                    <h5 className="text-xs font-bold text-[var(--text-main)] uppercase tracking-wider mb-3 flex items-center gap-2">
+                                                        <BookOpen className="w-3 h-3 text-[var(--primary-gold)]" />
+                                                        Recommended Resources
+                                                    </h5>
+                                                    <div className="grid gap-2">
+                                                        <button onClick={() => navigate(createPageUrl('QuickLessons'))} className="flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors text-left group">
+                                                            <div className="bg-white dark:bg-gray-700 p-1.5 rounded border border-gray-200 dark:border-gray-600 group-hover:border-[var(--primary-gold)] transition-colors">
+                                                                <Lightbulb className="w-4 h-4 text-[var(--primary-gold)]" />
+                                                            </div>
+                                                            <div>
+                                                                <p className="text-sm font-medium text-[var(--text-main)] group-hover:text-[var(--primary-gold)]">Quick Lesson: Foundation Basics</p>
+                                                                <p className="text-xs text-[var(--text-soft)]">5 min read • Strategy</p>
+                                                            </div>
+                                                        </button>
+                                                        <button onClick={() => navigate(createPageUrl('MindsetHacks'))} className="flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors text-left group">
+                                                            <div className="bg-white dark:bg-gray-700 p-1.5 rounded border border-gray-200 dark:border-gray-600 group-hover:border-[var(--primary-gold)] transition-colors">
+                                                                <Brain className="w-4 h-4 text-purple-500" />
+                                                            </div>
+                                                            <div>
+                                                                <p className="text-sm font-medium text-[var(--text-main)] group-hover:text-purple-500">Mindset: The Entrepreneur's Shift</p>
+                                                                <p className="text-xs text-[var(--text-soft)]">Audio • Mental Performance</p>
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             )}
                                         </div>
 
