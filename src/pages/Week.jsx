@@ -14,7 +14,7 @@ import {
   LayoutGrid, Plug, Kanban, Eye, FileSpreadsheet, PhoneCall, Handshake, PackagePlus,
   Layers, ShoppingBag, Heart, Radio, Crosshair, Filter, Gift, GitMerge, GraduationCap, TrendingUp,
   Info, Save, ChevronRight, Package, UserCircle, Building, RefreshCw, Search, Settings,
-  BarChart
+  BarChart, Plus, Trash2 // Added Plus and Trash2
 } from 'lucide-react';
 import AICopilotModal from '../components/ai/AICopilotModal';
 
@@ -42,7 +42,7 @@ export default function WeekPage() {
     const location = useLocation();
     const [user, setUser] = useState(null);
     const [weekData, setWeekData] = useState(null);
-    const [notes, setNotes] = useState('');
+    const [notes, setNotes] = useState([]); // Changed to array for multiple sections
     const [loading, setLoading] = useState(true);
     const [weekNumber, setWeekNumber] = useState(1);
     const [completedSteps, setCompletedSteps] = useState({});
@@ -51,6 +51,7 @@ export default function WeekPage() {
     const [strategyDocs, setStrategyDocs] = useState({});
     const [stepAnswers, setStepAnswers] = useState({});
     const [isSavingAnswers, setIsSavingAnswers] = useState({});
+    const [activeNoteSection, setActiveNoteSection] = useState(null); // For editing note section titles
 
     const [copilotModal, setCopilotModal] = useState({
         isOpen: false,
@@ -125,8 +126,21 @@ export default function WeekPage() {
             const foundWeek = weekContent[0];
             setWeekData(foundWeek);
 
-            const savedNotes = localStorage.getItem(`week_${currentWeek}_notes`);
-            setNotes(savedNotes || '');
+            // Migrate old string notes to new array format if necessary
+            const savedNotesRaw = localStorage.getItem(`week_${currentWeek}_notes`);
+            let parsedNotes = [];
+            try {
+                parsedNotes = JSON.parse(savedNotesRaw);
+                if (!Array.isArray(parsedNotes)) throw new Error("Not an array");
+            } catch (e) {
+                // Handle legacy string format or empty
+                if (savedNotesRaw && typeof savedNotesRaw === 'string' && !savedNotesRaw.startsWith('[')) {
+                    parsedNotes = [{ id: Date.now(), title: 'General Notes', content: savedNotesRaw }];
+                } else {
+                    parsedNotes = [{ id: Date.now(), title: 'General Notes', content: '' }];
+                }
+            }
+            setNotes(parsedNotes);
 
             const savedSteps = localStorage.getItem(`week_${currentWeek}_steps`);
             setCompletedSteps(savedSteps ? JSON.parse(savedSteps) : {});
@@ -206,10 +220,6 @@ export default function WeekPage() {
 
         try {
             const updatedAnswers = { ...stepAnswers };
-            // Ensure we have the latest state in case of race conditions, 
-            // though strictly we should use functional update in setFoundationProgress, 
-            // but for DB update we use the state 'stepAnswers'.
-            
             await base44.entities.FoundationProgress.update(foundationProgress.id, {
                 weekly_step_answers: updatedAnswers
             });
@@ -221,6 +231,33 @@ export default function WeekPage() {
         } catch (error) {
             console.error("Error saving answer:", error);
             setIsSavingAnswers(prev => ({ ...prev, [savingKey]: false }));
+        }
+    };
+
+    // Note Section Handlers
+    const addNoteSection = () => {
+        setNotes(prev => [...prev, { id: Date.now(), title: 'New Section', content: '' }]);
+    };
+
+    const updateNoteSection = (id, field, value) => {
+        setNotes(prev => prev.map(note => note.id === id ? { ...note, [field]: value } : note));
+    };
+
+    const deleteNoteSection = (id) => {
+        if (confirm('Delete this note section?')) {
+            setNotes(prev => prev.filter(note => note.id !== id));
+        }
+    };
+
+    const saveAllNotes = () => {
+        localStorage.setItem(`week_${weekNumber}_notes`, JSON.stringify(notes));
+        const button = document.getElementById('save-notes-btn');
+        if (button) {
+            const originalText = button.innerHTML;
+            button.innerHTML = '<span class="flex items-center gap-2"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Saved!</span>';
+            setTimeout(() => {
+                button.innerHTML = originalText;
+            }, 2000);
         }
     };
 
@@ -360,28 +397,43 @@ export default function WeekPage() {
                 </div>
 
                 {/* Week Overview */}
-                <div className="card p-4 sm:p-6">
-                    <h2 className="text-lg sm:text-xl font-bold text-[var(--text-main)] mb-4">Week Overview</h2>
-                    <p className="text-[var(--text-main)] text-sm sm:text-base leading-relaxed mb-6">
+                <div className="card p-6 sm:p-8">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="bg-[var(--primary-gold)]/10 p-2 rounded-lg">
+                            <BookOpen className="w-6 h-6 text-[var(--primary-gold)]" />
+                        </div>
+                        <h2 className="text-2xl font-bold text-[var(--text-main)]">Week Overview</h2>
+                    </div>
+                    
+                    <p className="text-[var(--text-main)] text-base sm:text-lg leading-relaxed mb-8 border-l-4 border-[var(--primary-gold)] pl-4 italic">
                         {weekData.week_description}
                     </p>
 
-                    <div className="grid grid-cols-1 gap-4">
-                        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 p-4 rounded-md">
-                            <h3 className="font-bold text-[var(--text-main)] mb-2 text-sm sm:text-base">Why This Week Matters</h3>
-                            <p className="text-[var(--text-main)] leading-relaxed text-xs sm:text-sm">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-200 dark:border-yellow-800 p-5 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                            <div className="flex items-center gap-2 mb-3">
+                                <Star className="w-5 h-5 text-yellow-600" />
+                                <h3 className="font-bold text-[var(--text-main)] text-sm uppercase tracking-wide">Why This Matters</h3>
+                            </div>
+                            <p className="text-[var(--text-main)] leading-relaxed text-sm">
                                 {weekData.why_it_matters}
                             </p>
                         </div>
-                        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 p-4 rounded-md">
-                            <h3 className="font-bold text-[var(--text-main)] mb-2 text-sm sm:text-base">How This Streamlines Your Business</h3>
-                            <p className="text-[var(--text-main)] leading-relaxed text-xs sm:text-sm">
+                        <div className="bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800 p-5 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                            <div className="flex items-center gap-2 mb-3">
+                                <Zap className="w-5 h-5 text-blue-600" />
+                                <h3 className="font-bold text-[var(--text-main)] text-sm uppercase tracking-wide">Streamlining Impact</h3>
+                            </div>
+                            <p className="text-[var(--text-main)] leading-relaxed text-sm">
                                 {weekData.how_it_streamlines}
                             </p>
                         </div>
-                        <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 p-4 rounded-md">
-                            <h3 className="font-bold text-[var(--text-main)] mb-2 text-sm sm:text-base">How This Builds Client Relationships</h3>
-                            <p className="text-[var(--text-main)] leading-relaxed text-xs sm:text-sm">
+                        <div className="bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800 p-5 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                            <div className="flex items-center gap-2 mb-3">
+                                <Heart className="w-5 h-5 text-green-600" />
+                                <h3 className="font-bold text-[var(--text-main)] text-sm uppercase tracking-wide">Client Relationships</h3>
+                            </div>
+                            <p className="text-[var(--text-main)] leading-relaxed text-sm">
                                 {weekData.how_it_builds_relationships}
                             </p>
                         </div>
@@ -460,14 +512,23 @@ export default function WeekPage() {
                                             )}
 
                                             {/* Work Area / Answer Section */}
-                                            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                                                <div className="flex justify-between items-center mb-2">
-                                                    <label className="text-xs font-bold text-[var(--text-main)] uppercase tracking-wider flex items-center gap-2">
-                                                        <FileText className="w-3 h-3 text-[var(--primary-gold)]" />
-                                                        Your Answer / Notes
-                                                    </label>
+                                            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                                                <div className="flex justify-between items-center mb-3">
+                                                    <div className="flex items-center gap-2">
+                                                        <div className="bg-[var(--primary-gold)]/10 p-1.5 rounded-md">
+                                                            <FileText className="w-4 h-4 text-[var(--primary-gold)]" />
+                                                        </div>
+                                                        <div>
+                                                            <label className="text-sm font-bold text-[var(--text-main)] block">
+                                                                ✍️ This Week's Work: Your Answer & Notes
+                                                            </label>
+                                                            <span className="text-xs text-[var(--text-soft)]">
+                                                                Do the work here. Your progress is saved automatically.
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                     {isSavingAnswers[`${weekNumber}-${index}`] && (
-                                                        <span className="text-xs text-green-500 flex items-center gap-1">
+                                                        <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded-full flex items-center gap-1 animate-pulse">
                                                             <CheckCircle className="w-3 h-3" /> Saved
                                                         </span>
                                                     )}
@@ -481,34 +542,35 @@ export default function WeekPage() {
                                                     if (linkedDoc && !currentAnswer) {
                                                         // Pre-population logic or prompt
                                                         return (
-                                                            <div className="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-700 rounded-md p-4">
-                                                                <div className="flex items-start gap-3">
-                                                                    <div className="p-2 bg-indigo-100 dark:bg-indigo-800 rounded-md">
-                                                                        <Database className="w-4 h-4 text-indigo-600 dark:text-indigo-300" />
+                                                            <div className="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-700 rounded-lg p-5">
+                                                                <div className="flex items-start gap-4">
+                                                                    <div className="p-3 bg-indigo-100 dark:bg-indigo-800 rounded-full">
+                                                                        <Database className="w-5 h-5 text-indigo-600 dark:text-indigo-300" />
                                                                     </div>
                                                                     <div className="flex-1">
-                                                                        <h5 className="text-sm font-semibold text-indigo-900 dark:text-indigo-100">
-                                                                            Use data from your {linkedDoc.title || strategyType.replace('_', ' ')}?
+                                                                        <h5 className="text-base font-bold text-indigo-900 dark:text-indigo-100 mb-1">
+                                                                            Foundational Data Available
                                                                         </h5>
-                                                                        <p className="text-xs text-indigo-700 dark:text-indigo-300 mt-1 mb-3">
-                                                                            You have a completed strategy document that matches this step.
+                                                                        <p className="text-sm text-indigo-700 dark:text-indigo-300 mb-4">
+                                                                            You've already completed the <strong>{linkedDoc.title || strategyType.replace('_', ' ')}</strong> strategy. 
+                                                                            Would you like to import that data to use as a starting point for this step?
                                                                         </p>
-                                                                        <div className="flex gap-2">
+                                                                        <div className="flex flex-wrap gap-3">
                                                                             <button
                                                                                 onClick={() => {
-                                                                                    // Simple dump of content for now, ideally we'd pick specific fields
+                                                                                    // Simple dump of content for now
                                                                                     const content = JSON.stringify(linkedDoc.content, null, 2); 
                                                                                     handleAnswerChange(weekNumber, index, content);
                                                                                 }}
-                                                                                className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium rounded transition-colors"
+                                                                                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-md transition-colors shadow-sm"
                                                                             >
-                                                                                Import Data
+                                                                                Yes, Import My Data
                                                                             </button>
                                                                             <button
                                                                                 onClick={() => navigate(createPageUrl(step.link_to))}
-                                                                                className="px-3 py-1.5 bg-white dark:bg-gray-800 border border-indigo-200 dark:border-indigo-700 text-indigo-600 dark:text-indigo-300 text-xs font-medium rounded hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                                                                                className="px-4 py-2 bg-white dark:bg-gray-800 border border-indigo-200 dark:border-indigo-700 text-indigo-700 dark:text-indigo-300 text-sm font-medium rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                                                                             >
-                                                                                View Document
+                                                                                Review Original Document
                                                                             </button>
                                                                         </div>
                                                                     </div>
@@ -517,19 +579,22 @@ export default function WeekPage() {
                                                         );
                                                     } else {
                                                         return (
-                                                            <div>
+                                                            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3 border border-gray-200 dark:border-gray-700">
                                                                 <textarea 
                                                                     value={currentAnswer}
                                                                     onChange={(e) => handleAnswerChange(weekNumber, index, e.target.value)}
-                                                                    placeholder="Write your response, plan, or notes for this step here..."
-                                                                    className="w-full min-h-[100px] p-3 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-[var(--primary-gold)] focus:border-[var(--primary-gold)]"
+                                                                    placeholder="Type your work, answers, and ideas for this step here..."
+                                                                    className="w-full min-h-[150px] p-4 text-sm sm:text-base bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed"
                                                                 />
-                                                                <div className="flex justify-end mt-2">
+                                                                <div className="flex justify-between items-center mt-3 px-1">
+                                                                    <p className="text-xs text-[var(--text-soft)] italic">
+                                                                        * Changes save automatically to your private journal
+                                                                    </p>
                                                                     <button
                                                                         onClick={() => handleSaveAnswer(weekNumber, index)}
-                                                                        className="text-xs text-[var(--primary-gold)] hover:text-[var(--text-main)] font-medium flex items-center gap-1 transition-colors"
+                                                                        className="btn btn-secondary btn-sm"
                                                                     >
-                                                                        <Save className="w-3 h-3" /> Save Answer
+                                                                        <Save className="w-3 h-3 mr-1" /> Force Save
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -699,53 +764,77 @@ export default function WeekPage() {
                 )}
 
                 {/* Notes Section */}
-                <div className="card p-4 sm:p-6">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 space-y-4 sm:space-y-0">
+                <div className="card p-6 sm:p-8">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
                         <div>
-                            <h2 className="text-lg sm:text-xl font-bold text-[var(--text-main)]">Your Notes & Reflections</h2>
-                            <p className="text-[var(--text-soft)] text-sm sm:text-base">Save your insights and personal notes for this week.</p>
+                            <h2 className="text-2xl font-bold text-[var(--text-main)] flex items-center gap-2">
+                                <FileText className="w-6 h-6 text-[var(--primary-gold)]" />
+                                Week Journal & Additional Notes
+                            </h2>
+                            <p className="text-[var(--text-soft)] text-sm mt-1">Capture extra thoughts, brainstorming, or specific details for this week.</p>
                         </div>
-                        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
+                        <div className="flex gap-2">
+                            <button onClick={addNoteSection} className="btn btn-secondary text-sm">
+                                <Plus className="w-4 h-4 mr-1" /> Add Section
+                            </button>
                             <button
                                 id="save-notes-btn"
-                                onClick={() => {
-                                    localStorage.setItem(`week_${weekNumber}_notes`, notes);
-                                    const button = document.getElementById('save-notes-btn');
-                                    const originalText = button.innerHTML;
-                                    button.innerHTML = '<span class="flex items-center gap-2"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Saved!</span>';
-                                    setTimeout(() => {
-                                        button.innerHTML = originalText;
-                                    }, 2000);
-                                }}
-                                className="btn btn-primary w-full sm:w-auto"
+                                onClick={saveAllNotes}
+                                className="btn btn-primary text-sm"
                             >
-                                <Save className="w-4 h-4" />
-                                <span>Save Notes</span>
+                                <Save className="w-4 h-4 mr-1" /> Save All
                             </button>
                         </div>
                     </div>
 
-                    <div className="space-y-4">
-                        <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                Personal Notes & Reflections
-                            </label>
-                            <textarea
-                                value={notes}
-                                onChange={(e) => setNotes(e.target.value)}
-                                placeholder="Add your personal thoughts, insights, and reflections for this week..."
-                                className="form-input h-32 sm:h-48 resize-none text-sm sm:text-base"
-                            />
-                        </div>
+                    <div className="space-y-6">
+                        {notes.map((note) => (
+                            <div key={note.id} className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-800/50">
+                                <div className="p-3 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                                    {activeNoteSection === note.id ? (
+                                        <input
+                                            type="text"
+                                            value={note.title}
+                                            onChange={(e) => updateNoteSection(note.id, 'title', e.target.value)}
+                                            onBlur={() => setActiveNoteSection(null)}
+                                            onKeyDown={(e) => e.key === 'Enter' && setActiveNoteSection(null)}
+                                            className="bg-white dark:bg-gray-700 border border-[var(--primary-gold)] rounded px-2 py-1 text-sm font-bold w-full max-w-xs focus:outline-none"
+                                            autoFocus
+                                        />
+                                    ) : (
+                                        <h3 
+                                            onClick={() => setActiveNoteSection(note.id)}
+                                            className="font-bold text-[var(--text-main)] cursor-pointer hover:text-[var(--primary-gold)] flex items-center gap-2"
+                                            title="Click to rename"
+                                        >
+                                            {note.title}
+                                            <span className="text-xs text-[var(--text-soft)] font-normal opacity-0 hover:opacity-100 transition-opacity">(Edit Title)</span>
+                                        </h3>
+                                    )}
+                                    <button 
+                                        onClick={() => deleteNoteSection(note.id)}
+                                        className="text-gray-400 hover:text-red-500 p-1"
+                                        title="Delete Section"
+                                    >
+                                        <Trash2 className="w-4 h-4" />
+                                    </button>
+                                </div>
+                                <div className="p-0">
+                                    <textarea
+                                        value={note.content}
+                                        onChange={(e) => updateNoteSection(note.id, 'content', e.target.value)}
+                                        placeholder={`Add your ${note.title.toLowerCase()} here...`}
+                                        className="w-full h-40 p-4 bg-transparent border-0 resize-y focus:ring-0 text-[var(--text-main)] text-sm leading-relaxed"
+                                    />
+                                </div>
+                            </div>
+                        ))}
                     </div>
 
-                    <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-md">
-                        <h4 className="font-semibold text-blue-900 dark:text-blue-200 mb-2 text-sm sm:text-base">💡 Pro Tips for Your Notes</h4>
-                        <ul className="text-xs sm:text-sm text-blue-800 dark:text-blue-300 space-y-1">
-                            <li>• Use this space to document your progress and key takeaways.</li>
-                            <li>• Save important action items and deadlines from this week's work.</li>
-                            <li>• Your notes are automatically saved locally and persist between sessions.</li>
-                        </ul>
+                    <div className="mt-6 flex justify-center">
+                        <button onClick={addNoteSection} className="text-sm text-[var(--primary-gold)] hover:underline flex items-center gap-1 font-medium">
+                            <Plus className="w-4 h-4" /> Add another note section
+                        </button>
                     </div>
                 </div>
 
