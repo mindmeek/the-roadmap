@@ -1,4 +1,3 @@
-
 import { createPageUrl } from "@/utils";
 
 // Base roadmap structure - detailed content loaded from database
@@ -13,7 +12,75 @@ const vision = {
         {
           title: "Month 1: Vision & Validation",
           focus: "Define purpose, validate idea, complete strategic foundation",
-          weeks: [] // Populated from database
+          weeks: [
+            {
+              title: "Define Your Core Vision & Purpose",
+              description: "This week is about digging deep to uncover the 'Why' behind your business. A strong vision acts as your north star, guiding every decision you make. You will define your mission, vision, and core values to set a solid foundation.",
+              whyItMatters: "Without a clear vision, you're just busy, not productive. Your vision aligns your actions with your long-term goals.",
+              howItStreamlines: "Knowing your 'Why' makes decision-making faster and easier. You'll know exactly what to say 'yes' to and what to ignore.",
+              howItBuildsRelationships: "Customers buy 'why' you do it, not just 'what' you do. A clear purpose attracts your ideal audience.",
+              actionSteps: [
+                {
+                  title: "Draft Your Mission Statement",
+                  description: "Create a concise statement defining what you do, who you do it for, and the benefit.",
+                  timeEstimate: "1 Hour",
+                  deliverable: "A clear, 1-2 sentence mission statement.",
+                  linkTo: "StrategyFormMissionVision",
+                  foundationStepId: "mission_vision",
+                  detailedSteps: [
+                    "Reflect on the problem you solve for your customers.",
+                    "Identify your primary target audience.",
+                    "Articulate the specific value or transformation you provide.",
+                    "Combine these elements into a single, powerful sentence."
+                  ],
+                  tips: [
+                    "Keep it simple and jargon-free.",
+                    "Focus on the benefit to the customer, not just your features."
+                  ],
+                  commonChallenges: [
+                    "Trying to include too much detail.",
+                    "Being too vague or generic."
+                  ],
+                  successCriteria: [
+                    "You can recite it from memory.",
+                    "It clearly explains your business to a stranger."
+                  ]
+                },
+                {
+                  title: "Define Your Core Values",
+                  description: "Identify 3-5 guiding principles that will shape your company culture and decisions.",
+                  timeEstimate: "45 Minutes",
+                  deliverable: "List of 3-5 core values with brief descriptions.",
+                  linkTo: "StrategyFormBrandIdentity",
+                  foundationStepId: "brand_identity",
+                  detailedSteps: [
+                    "Brainstorm a list of values that are important to you.",
+                    "Group similar values together.",
+                    "Select the top 3-5 that resonate most.",
+                    "Write a brief definition for each value."
+                  ],
+                  tips: [
+                    "Choose values that are authentic to you.",
+                    "Consider how these values will impact your daily operations."
+                  ],
+                  commonChallenges: [
+                    "Choosing values that sound good but aren't real.",
+                    "Ignoring values when making tough decisions."
+                  ],
+                  successCriteria: [
+                    "You can explain why each value matters.",
+                    "They help you make difficult choices."
+                  ]
+                }
+              ],
+              tools: [
+                { name: "Mission & Vision Template", icon: "FileText" },
+                { name: "Core Values Worksheet", icon: "ListChecks" }
+              ],
+              resources: ["Quick Lesson: The Power of Why", "Guide: Crafting a Compelling Vision"]
+            }
+            // Add more detailed weeks here for Month 1 if desired
+          ]
         },
         {
           title: "Month 2: Business Structure & Brand", 
