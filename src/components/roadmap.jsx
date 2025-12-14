@@ -15,61 +15,61 @@ const vision = {
           weeks: [
             {
               title: "Define Your Core Vision & Purpose",
-              description: "This week is about digging deep to uncover the 'Why' behind your business. A strong vision acts as your north star, guiding every decision you make. You will define your mission, vision, and core values to set a solid foundation.",
-              whyItMatters: "Without a clear vision, you're just busy, not productive. Your vision aligns your actions with your long-term goals.",
-              howItStreamlines: "Knowing your 'Why' makes decision-making faster and easier. You'll know exactly what to say 'yes' to and what to ignore.",
-              howItBuildsRelationships: "Customers buy 'why' you do it, not just 'what' you do. A clear purpose attracts your ideal audience.",
+              description: "This week is fundamentally about digging deep to uncover the profound 'Why' that drives your business forward. A strong, articulated vision acts as your unwavering north star, guiding every single strategic decision you will make in the future. By defining your mission, vision, and core values now, you are setting a solid, unshakeable foundation for all your future growth. This process prevents you from drifting off course when challenges arise and ensures that your brand communicates a consistent message to the world. Ultimately, gaining this clarity will energize you and attract the right customers who believe in what you believe.",
+              whyItMatters: "Without a clear vision, you're often just busy, not truly productive or effective. Your vision aligns your daily actions with your long-term goals, ensuring that every step you take moves you in the right direction.",
+              howItStreamlines: "Knowing your 'Why' dramatically speeds up decision-making by providing a clear filter for your choices. You'll know exactly what opportunities to say 'yes' to and, more importantly, which distractions to ignore.",
+              howItBuildsRelationships: "Customers don't just buy what you do; they buy 'why' you do it. A clear, authentic purpose resonates emotionally with people, attracting your ideal audience and building lasting loyalty.",
               actionSteps: [
                 {
                   title: "Draft Your Mission Statement",
-                  description: "Create a concise statement defining what you do, who you do it for, and the benefit.",
+                  description: "Create a concise, powerful statement that clearly defines exactly what you do, who you do it for, and the primary benefit they receive. This statement will serve as your daily operational guide, keeping you focused on your core deliverables. It is not just a slogan but a functional tool that clarifies your business's immediate purpose to yourself and your team. By the end of this task, you will have a sentence that instantly communicates your value proposition to anyone who asks.",
                   timeEstimate: "1 Hour",
                   deliverable: "A clear, 1-2 sentence mission statement.",
                   linkTo: "StrategyFormMissionVision",
                   foundationStepId: "mission_vision",
                   detailedSteps: [
-                    "Reflect on the problem you solve for your customers.",
-                    "Identify your primary target audience.",
-                    "Articulate the specific value or transformation you provide.",
-                    "Combine these elements into a single, powerful sentence."
+                    "Start by deeply reflecting on the specific problem or pain point you solve for your customers. Write down all the ways your product or service alleviates this issue and improves their lives. Be specific about the tangible outcomes they experience after working with you.",
+                    "Next, clearly identify and describe your primary target audience. Who are the specific people or businesses that benefit most from what you offer? Understanding exactly who you serve allows you to tailor your language to resonate deeply with them.",
+                    "Now, articulate the specific value or transformation you provide to this audience. What is the 'before and after' state of your customer? Focus on the unique mechanism or approach you use that makes your solution different and better than alternatives.",
+                    "Finally, combine these elements—the problem, the audience, and the transformation—into a single, powerful, and grammatical sentence. Edit this sentence ruthlessly to remove jargon and fluff until it is sharp and memorable. Read it aloud to ensure it flows well and sounds confident."
                   ],
                   tips: [
-                    "Keep it simple and jargon-free.",
-                    "Focus on the benefit to the customer, not just your features."
+                    "Keep it simple and jargon-free; a 5th grader should understand it.",
+                    "Focus strictly on the benefit to the customer, not just your features."
                   ],
                   commonChallenges: [
-                    "Trying to include too much detail.",
-                    "Being too vague or generic."
+                    "Trying to include too much detail or cover every edge case.",
+                    "Being too vague, generic, or using corporate buzzwords."
                   ],
                   successCriteria: [
-                    "You can recite it from memory.",
-                    "It clearly explains your business to a stranger."
+                    "You can recite it easily from memory without stumbling.",
+                    "It clearly and instantly explains your business to a stranger."
                   ]
                 },
                 {
                   title: "Define Your Core Values",
-                  description: "Identify 3-5 guiding principles that will shape your company culture and decisions.",
+                  description: "Identify 3-5 guiding principles that will fundamentally shape your company culture, hiring decisions, and customer interactions. These values are the non-negotiable rules of the road for how you conduct business and treat people. They act as a behavioral compass, helping you navigate difficult ethical dilemmas and trade-offs. When your values are clear, you attract employees and customers who share those beliefs, creating a stronger community.",
                   timeEstimate: "45 Minutes",
                   deliverable: "List of 3-5 core values with brief descriptions.",
                   linkTo: "StrategyFormBrandIdentity",
                   foundationStepId: "brand_identity",
                   detailedSteps: [
-                    "Brainstorm a list of values that are important to you.",
-                    "Group similar values together.",
-                    "Select the top 3-5 that resonate most.",
-                    "Write a brief definition for each value."
+                    "Begin by brainstorming a long list of values and attributes that are personally important to you. Think about times when you felt proud of a decision, or conversely, times when you felt a decision was 'wrong'. Write down every word that comes to mind without filtering.",
+                    "Look for patterns in your list and group similar values together under a common theme. For example, 'honesty', 'transparency', and 'candor' might all fit under 'Integrity'. This helps you narrow down your list from twenty concepts to a manageable few.",
+                    "Select the top 3-5 themes that resonate most deeply and feel essential to your mission. These should be values you would be willing to lose money to uphold, not just nice-to-haves. If everything is a priority, nothing is, so be selective.",
+                    "Write a brief, action-oriented definition for each value that explains what it looks like in practice. Instead of just saying 'Integrity', define it as 'We do the right thing, even when no one is watching.' This makes the value actionable and measurable for your team."
                   ],
                   tips: [
-                    "Choose values that are authentic to you.",
-                    "Consider how these values will impact your daily operations."
+                    "Choose values that are authentic to you, not just what sounds 'corporate'.",
+                    "Consider how these values will impact your daily operations and difficult choices."
                   ],
                   commonChallenges: [
-                    "Choosing values that sound good but aren't real.",
-                    "Ignoring values when making tough decisions."
+                    "Choosing aspirational values that sound good but aren't actually practiced.",
+                    "Ignoring values when making tough financial or personnel decisions."
                   ],
                   successCriteria: [
-                    "You can explain why each value matters.",
-                    "They help you make difficult choices."
+                    "You can explain exactly why each value matters to the business success.",
+                    "They help you make difficult choices by providing a clear framework."
                   ]
                 }
               ],
