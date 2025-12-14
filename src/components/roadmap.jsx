@@ -42,10 +42,10 @@ const vision = {
                   linkTo: "StrategyFormMissionVision",
                   foundationStepId: "mission_vision",
                   detailedSteps: [
-                    "Start by deeply reflecting on the specific problem or pain point you solve for your customers.",
-                    "Next, clearly identify and describe your primary target audience and who benefits most.",
-                    "Articulate the specific value or transformation you provide to this audience.",
-                    "Combine these elements into a single, powerful, and grammatical sentence."
+                    "Start by deeply reflecting on the specific problem or pain point you solve for your customers. Don't just identify the functional issue; dig down to the emotional root of their struggle and write down exactly how it makes them feel.",
+                    "Next, clearly identify and describe your primary target audience and who benefits most from your work. Be specific about their demographics and situation so you know exactly who you are speaking to.",
+                    "Articulate the specific value or transformation you provide to this audience. Focus on the 'after' state—how is their life better, easier, or different after they have used your product or service?",
+                    "Combine these elements into a single, powerful, and grammatical sentence that is easy to memorize. Read it aloud to ensure it flows well and doesn't sound like corporate jargon."
                   ],
                   tips: ["Keep it simple and jargon-free.", "Focus strictly on the benefit to the customer."],
                   commonChallenges: ["Trying to include too much detail.", "Being too vague or generic."],
@@ -59,10 +59,10 @@ const vision = {
                   linkTo: "StrategyFormBrandIdentity",
                   foundationStepId: "brand_identity",
                   detailedSteps: [
-                    "Brainstorm a long list of values and attributes that are personally important to you.",
-                    "Look for patterns in your list and group similar values together under a common theme.",
-                    "Select the top 3-5 themes that resonate most deeply and feel essential.",
-                    "Write a brief, action-oriented definition for each value."
+                    "Brainstorm a long list of values and attributes that are personally important to you. Think about times when you felt proud of your work or times when you felt compromised, and what values were at play.",
+                    "Look for patterns in your list and group similar values together under a common theme. Try to distill these groups into single, powerful words that capture the essence of the cluster.",
+                    "Select the top 3-5 themes that resonate most deeply and feel essential to your vision. These should be values you would be willing to lose money to uphold, not just nice-to-haves.",
+                    "Write a brief, action-oriented definition for each value. Instead of just 'Integrity', write 'We always tell the truth, even when it costs us', to make it actionable and clear for everyone."
                   ],
                   tips: ["Choose values that are authentic to you.", "Consider how these values impact daily operations."],
                   commonChallenges: ["Choosing aspirational values that aren't practiced.", "Ignoring values in tough decisions."],
@@ -87,10 +87,10 @@ const vision = {
                   linkTo: "StrategyFormIdealClient",
                   foundationStepId: "ideal_client",
                   detailedSteps: [
-                    "Research your market to understand common traits of potential buyers.",
-                    "Fill out the demographic details: Age, location, job title, income.",
-                    "Dive into psychographics: What keeps them up at night? What are their dreams?",
-                    "Identify the specific trigger events that would cause them to seek your solution."
+                    "Research your market to understand common traits of potential buyers. Look at forums, social media groups, and reviews to see who is already asking for solutions like yours.",
+                    "Fill out the demographic details: Age, location, job title, income. Give this person a name and a photo so they feel like a real human being you can relate to.",
+                    "Dive into psychographics: What keeps them up at night? What are their secret dreams they don't tell anyone? Capture the emotional landscape of their daily life.",
+                    "Identify the specific trigger events that would cause them to seek your solution right now. Is it a life change, a crisis, or a specific frustration that reached a boiling point?"
                   ],
                   tips: ["Be as specific as possible; visualize a real person.", "Focus on their problems, not just your solution."],
                   commonChallenges: ["Making the audience too broad.", "Guessing instead of researching."],
@@ -115,10 +115,10 @@ const vision = {
                   linkTo: "StrategyFormSWOTAnalysis",
                   foundationStepId: "swot",
                   detailedSteps: [
-                    "Identify your top 3-5 direct competitors.",
-                    "Analyze their websites, reviews, and offers to find their strengths and weaknesses.",
-                    "List your own internal strengths and weaknesses objectively.",
-                    "Identify external opportunities in the market and potential threats."
+                    "Identify your top 3-5 direct competitors who are targeting the same audience with a similar solution. Don't ignore indirect competitors who solve the same problem in a different way.",
+                    "Analyze their websites, reviews, and offers to find their strengths and weaknesses. Look specifically for what customers complain about in 1-star reviews.",
+                    "List your own internal strengths and weaknesses objectively. Be honest about what you do better than anyone else and where you currently lack resources or skills.",
+                    "Identify external opportunities in the market, such as new trends or underserved niches, and potential threats like changing regulations or economic shifts."
                   ],
                   tips: ["Be honest about your weaknesses.", "Look for patterns in negative competitor reviews."],
                   commonChallenges: ["Underestimating competitors.", "Being too biased about your own strengths."],
@@ -143,10 +143,10 @@ const vision = {
                   linkTo: "StrategyFormValueProposition",
                   foundationStepId: "value_proposition",
                   detailedSteps: [
-                    "Review your Mission, Ideal Client, and Competitor analysis.",
-                    "Identify the #1 biggest benefit you provide.",
-                    "Combine 'Who it's for', 'What it does', and 'Why it's different'.",
-                    "Refine into a punchy headline and sub-headline."
+                    "Review your Mission, Ideal Client, and Competitor analysis to find the 'white space'. Look for the specific benefit that your competitors are failing to provide.",
+                    "Identify the #1 biggest benefit you provide to your client. This isn't a feature; it's the ultimate result or feeling they get after using your product.",
+                    "Combine 'Who it's for', 'What it does', and 'Why it's different' into a rough draft. Don't worry about making it catchy yet; just focus on making it accurate.",
+                    "Refine into a punchy headline and sub-headline that grabs attention immediately. Test it by seeing if a stranger can understand exactly what you sell within 5 seconds."
                   ],
                   tips: ["Focus on the result, not the process.", "Use customer language, not industry jargon."],
                   commonChallenges: ["Being too clever instead of clear.", "Listing features instead of benefits."],
@@ -177,10 +177,10 @@ const vision = {
                   linkTo: "FreedomCalculator",
                   foundationStepId: "financial_goal",
                   detailedSteps: [
-                    "Gather your registration documents (LLC/DBA) and EIN.",
-                    "Research banks with low fees and good digital tools.",
-                    "Apply for a business checking account.",
-                    "Move initial startup capital into the account."
+                    "Gather your registration documents (LLC/DBA) and EIN (Employer Identification Number). You will need these official documents to prove your business exists to the bank.",
+                    "Research banks with low fees and good digital tools. Look for banks that integrate seamlessly with accounting software like Xero or QuickBooks to save you time later.",
+                    "Apply for a business checking account, either online or in-person. Ensure you have your personal ID and all business documents ready to expedite the process.",
+                    "Move initial startup capital into the account immediately. From this moment on, treat this account as the sole source of funds for all business expenses."
                   ],
                   tips: ["Don't mix personal expenses.", "Look for banks that integrate with accounting software."],
                   commonChallenges: ["Procrastinating due to paperwork.", "Using a personal account 'just for now'."],
@@ -205,10 +205,10 @@ const vision = {
                   linkTo: "StrategyFormBrandIdentity",
                   foundationStepId: "brand_identity",
                   detailedSteps: [
-                    "Choose 3 primary brand colors.",
-                    "Select a header font and a body font.",
-                    "Design or commission a simple logo.",
-                    "Define your brand voice adjectives (e.g., 'Friendly', 'Authoritative')."
+                    "Choose 3 primary brand colors that reflect the emotion of your brand. Use color psychology to pick shades that evoke the right feelings (e.g., Blue for trust, Red for energy).",
+                    "Select a header font and a body font that are easy to read and work well together. Stick to standard web fonts or Google Fonts to ensure consistency across all devices.",
+                    "Design or commission a simple logo that works in both large and small sizes. Avoid overly complex designs that become unreadable when shrunk down for social media avatars.",
+                    "Define your brand voice adjectives (e.g., 'Friendly', 'Authoritative', 'Quirky'). Write a few example sentences to demonstrate how your brand sounds in emails versus social media."
                   ],
                   tips: ["Keep it simple.", "Ensure colors have high contrast."],
                   commonChallenges: ["Overthinking the logo.", "Changing colors every week."],
@@ -233,10 +233,10 @@ const vision = {
                   linkTo: "StrategyFormAutomation",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Create a standardized folder structure.",
-                    "Set up a dedicated business email address.",
-                    "Choose a task manager (Trello, Asana, etc.).",
-                    "Create templates for recurring tasks."
+                    "Create a standardized folder structure in your cloud storage (e.g., Marketing, Admin, Client Work). This ensures that you and future team members can always find documents instantly.",
+                    "Set up a dedicated business email address (yourname@yourdomain.com). This looks far more professional than a generic gmail address and builds immediate credibility.",
+                    "Choose a task manager (Trello, Asana, ClickUp, etc.) that fits your working style. Create a 'Master Task List' project to dump all your to-dos out of your brain.",
+                    "Create templates for recurring tasks that you do often. This saves mental energy and ensures you never miss a step in your standard processes."
                   ],
                   tips: ["Name files consistently.", "Keep the structure shallow."],
                   commonChallenges: ["Creating too many folders.", "Not using the system daily."],
@@ -261,10 +261,10 @@ const vision = {
                   linkTo: "StrategyFormValueLadder",
                   foundationStepId: "value_ladder",
                   detailedSteps: [
-                    "List all deliverables included.",
-                    "Determine the pricing model (flat fee vs. retainer).",
-                    "Write the sales description.",
-                    "Create a simple contract or agreement."
+                    "List all deliverables included in your service. Be extremely specific about what the client gets (e.g., '4 one-hour calls', '1 comprehensive report', 'email access').",
+                    "Determine the pricing model (flat fee vs. retainer) based on your value and market rates. Calculate your desired profit margin to ensure the price is sustainable.",
+                    "Write the sales description that highlights the outcome, not just the features. Explain how their life or business will improve after buying this specific offer.",
+                    "Create a simple contract or agreement template for this offer. Having this ready means you can close a deal immediately when a client says yes."
                   ],
                   tips: ["Focus on the outcome, not the hours.", "Offer a guarantee if possible."],
                   commonChallenges: ["Underpricing.", "Adding too many custom options."],
@@ -295,10 +295,10 @@ const vision = {
                   linkTo: "StrategyFormWebsiteLaunch",
                   foundationStepId: "website_launch",
                   detailedSteps: [
-                    "Write copy using your UVP and Mission.",
-                    "Choose a clean, mobile-responsive template.",
-                    "Add professional photos of yourself/product.",
-                    "Ensure the contact form works."
+                    "Write copy using your UVP and Mission statement. Focus on speaking directly to your avatar's pain points and offering your clear solution.",
+                    "Choose a clean, mobile-responsive template on a platform like Squarespace, Wix, or WordPress. Avoid custom coding for now; speed is more important.",
+                    "Add professional photos of yourself or your product. People buy from people, so seeing a human face builds trust much faster than stock photos.",
+                    "Ensure the contact form or 'Buy Now' button works perfectly. Test it yourself to make sure you receive the notification email."
                   ],
                   tips: ["Done is better than perfect.", "Check it on your phone."],
                   commonChallenges: ["Writing too much text.", "Broken links."],
@@ -323,10 +323,10 @@ const vision = {
                   linkTo: "StrategyFormWebsiteLaunch",
                   foundationStepId: "website_launch",
                   detailedSteps: [
-                    "Write a compelling headline promising your main benefit.",
-                    "Add a brief description of what is coming.",
-                    "Embed an email signup form.",
-                    "Share the link on your social channels."
+                    "Write a compelling headline promising your main benefit. It should be mysterious enough to build curiosity but specific enough to attract the right people.",
+                    "Add a brief description of what is coming and why it matters. Use bullet points to highlight the key problems you will be solving.",
+                    "Embed an email signup form that connects to your email marketing tool. Keep the form simple—just ask for a first name and email address.",
+                    "Share the link on your social channels with a 'Coming Soon' message. encourage your friends and network to sign up for early access."
                   ],
                   tips: ["Keep it extremely simple.", "Offer a small incentive for signing up."],
                   commonChallenges: ["Over-designing the page.", "Forgetting to test the signup form."],
@@ -351,10 +351,10 @@ const vision = {
                   linkTo: "StrategyFormContentStrategy",
                   foundationStepId: "content_strategy",
                   detailedSteps: [
-                    "Send 'Doors Open' email.",
-                    "Post daily social proof/testimonials.",
-                    "Send 'Doors Closing' urgency email.",
-                    "Personally reach out to warm leads."
+                    "Send the 'Doors Open' email to your waitlist immediately. Make the subject line exciting and the call to action very clear.",
+                    "Post daily social proof and testimonials throughout the week. Show real people getting real results to overcome skepticism.",
+                    "Send a 'Doors Closing' urgency email 24 hours before the offer expires or changes. Scarcity drives action for people who are on the fence.",
+                    "Personally reach out to warm leads who replied or clicked but didn't buy. Ask them if they have any final questions before the launch ends."
                   ],
                   tips: ["Follow up more than you think is polite.", "Celebrate every sale publicly."],
                   commonChallenges: ["Giving up if day 1 is slow.", "Taking rejection personally."],
@@ -379,10 +379,10 @@ const vision = {
                   linkTo: "AnnualPlanning",
                   foundationStepId: "financial_goal",
                   detailedSteps: [
-                    "Review revenue vs. goals.",
-                    "Review lessons learned.",
-                    "Identify top 3 priorities for next quarter.",
-                    "Schedule your next 90-day sprint."
+                    "Review revenue vs. goals. Look at the hard numbers—did you hit your target? If not, dig into the data to understand exactly why.",
+                    "Review lessons learned. What surprised you? What was harder than expected? Write down the top 3 insights you gained this quarter.",
+                    "Identify top 3 priorities for the next quarter based on this data. Don't pick 10 things; pick the 3 that will move the needle most.",
+                    "Schedule your next 90-day sprint in your calendar. Block out time for the deep work needed to achieve your new goals."
                   ],
                   tips: ["Be kind to yourself.", "Focus on progress, not perfection."],
                   commonChallenges: ["Ignoring the data.", "Setting unrealistic goals again."],
@@ -426,10 +426,10 @@ const startup = {
                   linkTo: "StrategyFormBusinessModelCanvas",
                   foundationStepId: "business_model",
                   detailedSteps: [
-                    "Use Google Trends and industry reports.",
-                    "Identify growing and shrinking segments.",
-                    "Look for regulatory or technological shifts.",
-                    "Summarize top 3 opportunities and threats."
+                    "Use Google Trends, industry reports, and news sites to find data. Look for growth patterns over the last 5 years to verify market stability.",
+                    "Identify growing and shrinking segments within the market. Find out which specific niches are hot right now and which are fading away.",
+                    "Look for regulatory or technological shifts that could impact your business. Ask yourself if AI or new laws will help or hurt your idea.",
+                    "Summarize top 3 opportunities and threats into a simple report. This will help you make strategic decisions about where to enter the market."
                   ],
                   tips: ["Look for data less than 2 years old.", "Check competitor annual reports."],
                   commonChallenges: ["Getting lost in data paralysis.", "Ignoring negative trends."],
@@ -454,10 +454,10 @@ const startup = {
                   linkTo: "StrategyFormSWOTAnalysis",
                   foundationStepId: "swot",
                   detailedSteps: [
-                    "List top 3 competitors.",
-                    "Record their pricing and key features.",
-                    "Read their 1-star reviews to find pain points.",
-                    "Identify your unique advantage over each."
+                    "List your top 3 direct competitors. Include both the big market leaders and the smaller, niche players who are doing interesting things.",
+                    "Record their pricing, key features, and marketing promises. Look for gaps in their offerings or places where their pricing seems too high or too low.",
+                    "Read their 1-star reviews to find pain points. These angry comments are gold mines for you because they tell you exactly what customers hate about the current options.",
+                    "Identify your unique advantage over each competitor. Write down one reason why a customer would choose you instead of them."
                   ],
                   tips: ["Be objective.", "Don't ignore indirect competitors."],
                   commonChallenges: ["Underestimating them.", "Copying them too closely."],
@@ -482,10 +482,10 @@ const startup = {
                   linkTo: "StrategyFormBusinessModelCanvas",
                   foundationStepId: "business_model",
                   detailedSteps: [
-                    "Identify Key Partners and Activities.",
-                    "Define Value Propositions and Customer Relationships.",
-                    "List Customer Segments and Channels.",
-                    "Map Cost Structure and Revenue Streams."
+                    "Identify Key Partners and Activities. Who do you need to help you, and what are the most critical things you must do every day?",
+                    "Define Value Propositions and Customer Relationships. What value do you deliver, and how do you interact with clients (e.g., personal support vs. automated)?",
+                    "List Customer Segments and Channels. Who are you selling to, and how will you reach them (e.g., social media, SEO, sales team)?",
+                    "Map Cost Structure and Revenue Streams. What are your major expenses, and exactly how do you charge money (e.g., subscription, one-time fee)?"
                   ],
                   tips: ["Keep it concise.", "Focus on the relationships between boxes."],
                   commonChallenges: ["Leaving boxes blank.", "Being unrealistic about costs."],
@@ -510,10 +510,10 @@ const startup = {
                   linkTo: "StrategyFormValueProposition",
                   foundationStepId: "value_proposition",
                   detailedSteps: [
-                    "Define the target segment.",
-                    "Define the brand name.",
-                    "Define the product category.",
-                    "Define the key point of difference."
+                    "Define the specific target segment you serve. Be as narrow as possible (e.g., 'Busy working moms' is better than just 'women').",
+                    "Define the brand name and the product category you play in. Are you a consultant, a software tool, or a community?",
+                    "Define the key point of difference that separates you from the rest. This is your 'secret sauce' or unique mechanism.",
+                    "Combine these into a statement: 'For [Target], [Brand] is the [Category] that [Benefit] because [Reason].' Use this to check all future marketing copy."
                   ],
                   tips: ["Use the template: For [Target], [Brand] is the [Category] that [Benefit].", "Be specific."],
                   commonChallenges: ["Being too generic.", "Claiming to be the 'best' without proof."],
@@ -544,10 +544,10 @@ const startup = {
                   linkTo: "StrategyFormAutomation",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Start with the customer order.",
-                    "List every step required to fulfill it.",
-                    "Identify who does each step.",
-                    "Mark decision points and potential failure points."
+                    "Start with the customer order. What is the very first thing that happens when someone clicks 'buy' or signs a contract?",
+                    "List every single step required to fulfill the order. Include administrative tasks, communication, and the actual work itself.",
+                    "Identify who does each step. Is it you, a tool, or a team member? Mark this clearly on the chart.",
+                    "Mark decision points ('if this, then that') and potential failure points where things often go wrong. Plan safeguards for these risks."
                   ],
                   tips: ["Keep it high-level first.", "Use sticky notes for flexibility."],
                   commonChallenges: ["Making it too complex.", "Forgetting administrative steps."],
@@ -572,10 +572,10 @@ const startup = {
                   linkTo: "FreedomCalculator",
                   foundationStepId: "financial_goal",
                   detailedSteps: [
-                    "List all fixed costs (rent, software).",
-                    "Estimate variable costs (COGS, marketing).",
-                    "Project conservative revenue.",
-                    "Calculate monthly cash flow."
+                    "List all fixed costs (rent, software, insurance). These are bills you must pay regardless of how much you sell.",
+                    "Estimate variable costs (COGS, transaction fees, marketing spend). These go up as your sales go up.",
+                    "Project conservative revenue based on realistic sales targets. Don't assume viral growth; assume slow, steady progress.",
+                    "Calculate monthly cash flow to see if you run out of money in any month. Adjust your spending or sales goals until the numbers work."
                   ],
                   tips: ["Overestimate expenses by 10%.", "Underestimate revenue by 20%."],
                   commonChallenges: ["Being too optimistic.", "Forgetting taxes."],
@@ -600,10 +600,10 @@ const startup = {
                   linkTo: "SOPs",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "List all functions (Sales, Ops, Marketing).",
-                    "Put your name in the boxes you currently fill.",
-                    "Identify the first role to hire.",
-                    "Write a job description for that role."
+                    "List all business functions (Sales, Ops, Marketing, Finance). Don't leave anything out, even small tasks.",
+                    "Put your name in every box you currently fill. This visualizes your workload and highlights why you might be feeling overwhelmed.",
+                    "Identify the first role you need to hire to get the most time back. Usually, this is an administrative or delivery role.",
+                    "Write a rough job description for that future role so you know exactly what to look for when you have the budget."
                   ],
                   tips: ["Hire for your weaknesses.", "Consider contractors first."],
                   commonChallenges: ["Thinking you have to hire employees immediately.", "Ignoring admin work."],
@@ -628,10 +628,10 @@ const startup = {
                   linkTo: "StrategyFormAutomation",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "List your requirements for each tool.",
-                    "Compare top 3 options for pricing and features.",
-                    "Check for integrations (Zapier etc.).",
-                    "Sign up for trials."
+                    "List your requirements for each tool (e.g., 'must send automated invoices', 'must integrate with Gmail'). Be specific about your needs.",
+                    "Compare top 3 options for each category based on pricing and features. Read recent reviews to avoid buggy software.",
+                    "Check for integrations (Zapier, native connections). Ensure your tools can talk to each other so data flows automatically.",
+                    "Sign up for trials and test the user interface. If it feels clunky or confusing during the trial, don't buy it."
                   ],
                   tips: ["Simple is better than complex.", "Avoid 'all-in-one' tools that do nothing well."],
                   commonChallenges: ["Signing up for too many subscriptions.", "Not testing integrations."],
@@ -662,10 +662,10 @@ const startup = {
                   linkTo: "StrategyFormContentStrategy",
                   foundationStepId: "content_strategy",
                   detailedSteps: [
-                    "Set your Go-Live date.",
-                    "Work backward to identify dependencies.",
-                    "Schedule marketing blasts.",
-                    "Schedule final QA tests."
+                    "Set your Go-Live date. Pick a specific day on the calendar and treat it as a hard deadline.",
+                    "Work backward from that date to identify all dependencies. What must be finished 1 week before? 2 weeks before?",
+                    "Schedule marketing blasts, emails, and social posts on specific days. Create a content calendar for the launch window.",
+                    "Schedule final QA tests and dry runs to ensure everything works before the public sees it."
                   ],
                   tips: ["Add buffer time for delays.", "Share it with your team/partners."],
                   commonChallenges: ["Being overly optimistic about time.", "Ignoring dependencies."],
@@ -690,10 +690,10 @@ const startup = {
                   linkTo: "StrategyFormWebsiteLaunch",
                   foundationStepId: "website_launch",
                   detailedSteps: [
-                    "Make a real purchase (refund yourself later).",
-                    "Check receipt emails.",
-                    "Verify access to the product.",
-                    "Test on mobile and desktop."
+                    "Make a real purchase using your own credit card (you can refund yourself later). This tests the gateway and the bank connection.",
+                    "Check that all receipt emails and welcome messages arrive in your inbox. Verify the formatting and links inside them.",
+                    "Verify access to the product or course area. Make sure the login works and the permissions are correct.",
+                    "Test on mobile and desktop browsers. What looks good on a laptop might be broken on an iPhone."
                   ],
                   tips: ["Ask a friend to do it too.", "Test different browsers."],
                   commonChallenges: ["Assuming it works because it worked yesterday.", "Ignoring mobile layout."],
@@ -718,10 +718,10 @@ const startup = {
                   linkTo: "StrategyFormSocialMedia",
                   foundationStepId: "social_media_strategy",
                   detailedSteps: [
-                    "Publish website.",
-                    "Announce on all social channels.",
-                    "Email your personal network.",
-                    "Monitor for immediate feedback."
+                    "Publish your website and make sure it is visible to search engines. Remove any 'under construction' pages.",
+                    "Announce the launch on all your social channels. Use high-energy graphics and a clear call to action.",
+                    "Email your personal network and waitlist. Ask them to share the news with their friends.",
+                    "Monitor your inbox and social feeds for immediate feedback. Be ready to answer questions or fix small bugs quickly."
                   ],
                   tips: ["Have support ready.", "Celebrate the milestone!"],
                   commonChallenges: ["Fear of pushing the button.", "Getting distracted."],
@@ -746,10 +746,10 @@ const startup = {
                   linkTo: "AnnualPlanning",
                   foundationStepId: "financial_goal",
                   detailedSteps: [
-                    "Check Google Analytics/Sales Dashboard.",
-                    "Read all customer emails/comments.",
-                    "Identify top 3 fixes needed.",
-                    "Plan the next marketing push."
+                    "Check Google Analytics and your sales dashboard. Compare your actual traffic and sales numbers against your goals.",
+                    "Read all customer emails, comments, and DMs. Look for common questions or confusion points that need addressing.",
+                    "Identify the top 3 critical fixes needed immediately. Prioritize bugs or friction points that are costing you sales.",
+                    "Plan the next marketing push based on what you learned. If one channel worked best, focus your energy there next week."
                   ],
                   tips: ["Look for patterns.", "Don't panic over small sample sizes."],
                   commonChallenges: ["Ignoring negative feedback.", "Focusing only on vanity metrics."],
@@ -786,10 +786,10 @@ const startup = {
                   linkTo: "StrategyFormBrandIdentity",
                   foundationStepId: "brand_identity",
                   detailedSteps: [
-                    "Write a 1-sentence elevator pitch.",
-                    "Create a catchy tagline.",
-                    "Define your 3 main selling points.",
-                    "Write a paragraph description of your company."
+                    "Write a 1-sentence elevator pitch that explains who you help and what problem you solve. Test it on a friend to see if they understand it immediately.",
+                    "Create a catchy tagline or slogan that captures the essence of your brand promise. Keep it short, memorable, and aligned with your values.",
+                    "Define your 3 main selling points or 'value pillars'. These are the core arguments you will use repeatedly to persuade people to buy.",
+                    "Write a one-paragraph description of your company that can be used on your 'About' page and social media profiles."
                   ],
                   tips: ["Read them aloud.", "Test them on friends."],
                   commonChallenges: ["Being too wordy.", "Using passive voice."],
@@ -814,10 +814,10 @@ const startup = {
                   linkTo: "StrategyFormIdealClient",
                   foundationStepId: "ideal_client",
                   detailedSteps: [
-                    "Group by demographics (age, location).",
-                    "Group by behavior (new vs. returning).",
-                    "Group by problem (price vs. quality conscious).",
-                    "Name each segment."
+                    "Group your audience by demographics (age, location, job). Are there distinct groups like 'Students' vs 'Professionals'?",
+                    "Group by behavior (new vs. returning customers). A stranger needs a different message than a loyal fan.",
+                    "Group by problem or pain point (price conscious vs. quality conscious). Tailor your offers to what matters most to each group.",
+                    "Name each segment so you can refer to them easily (e.g., 'The Bargain Hunter', 'The Power User')."
                   ],
                   tips: ["Keep it simple initially.", "Focus on the biggest differences."],
                   commonChallenges: ["Creating too many segments.", "Segments with no clear difference."],
@@ -842,10 +842,10 @@ const startup = {
                   linkTo: "StrategyFormContentStrategy",
                   foundationStepId: "content_strategy",
                   detailedSteps: [
-                    "Research where your avatar spends time.",
-                    "Assess your own strengths (writing vs. video).",
-                    "Look at competitor presence.",
-                    "Commit to a posting frequency."
+                    "Research where your avatar actually spends time. Don't assume they are on TikTok just because it's popular; they might be on LinkedIn.",
+                    "Assess your own strengths. If you hate video, don't pick YouTube. Choose a channel that plays to your writing or speaking skills.",
+                    "Look at competitor presence. Where are they getting engagement? Is there an underserved channel they are ignoring?",
+                    "Commit to a specific posting frequency for your chosen channel. Consistency is more important than volume."
                   ],
                   tips: ["Go deep, not wide.", "Don't pick a channel you hate."],
                   commonChallenges: ["FOMO on other platforms.", "Quitting too early."],
@@ -870,10 +870,10 @@ const startup = {
                   linkTo: "StrategyFormWebsiteLaunch",
                   foundationStepId: "website_launch",
                   detailedSteps: [
-                    "Use a keyword tool (Google Planner/Ubersuggest).",
-                    "Find high volume, low competition terms.",
-                    "Look for questions (Who, What, How).",
-                    "Map keywords to page topics."
+                    "Use a keyword tool like Google Planner, Ubersuggest, or AnswerThePublic to find data. Look for terms with decent volume but lower competition.",
+                    "Find high volume, low competition terms that are relevant to your offer. These are your 'low hanging fruit' opportunities.",
+                    "Look for question-based keywords (Who, What, How). These are great for blog posts and FAQ pages.",
+                    "Map specific keywords to pages on your website. Ensure each page has a primary keyword target."
                   ],
                   tips: ["Focus on 'long-tail' keywords.", "Check search intent."],
                   commonChallenges: ["Targeting impossible keywords.", "Ignoring search volume."],
@@ -904,10 +904,10 @@ const startup = {
                   linkTo: "StrategyFormContentStrategy",
                   foundationStepId: "content_strategy",
                   detailedSteps: [
-                    "Review your customer's pain points.",
-                    "Choose topics that solve those pains.",
-                    "Ensure you have expertise in these areas.",
-                    "Brainstorm 5 ideas for each pillar."
+                    "Review your customer's pain points and your own expertise. Where do they overlap? That is your content sweet spot.",
+                    "Choose 3-5 broad topics that solve those pains. These will be your recurring themes or 'pillars' for all content.",
+                    "Ensure you have deep expertise and interest in these areas. You will be talking about them a lot, so you need to enjoy them.",
+                    "Brainstorm 5 specific content ideas for each pillar. This gives you your first month of content immediately."
                   ],
                   tips: ["Choose topics you enjoy discussing.", "Make sure they relate to your offer."],
                   commonChallenges: ["Choosing too many topics.", "Picking trending topics that aren't relevant."],
@@ -932,10 +932,10 @@ const startup = {
                   linkTo: "StrategyFormEmailMarketing",
                   foundationStepId: "email_marketing",
                   detailedSteps: [
-                    "Identify a specific, small problem.",
-                    "Create a quick-win solution.",
-                    "Design it simply (Canva).",
-                    "Set up the delivery mechanism."
+                    "Identify a specific, small problem your avatar has that you can solve quickly. It should be a 'migraine' problem they want gone now.",
+                    "Create a quick-win solution like a checklist, template, or short video. Don't write a whole book; keep it actionable.",
+                    "Design it simply using tools like Canva. It needs to look professional and trustworthy, but it doesn't need to be a masterpiece.",
+                    "Set up the delivery mechanism. Upload the file to your website or email provider so it sends automatically upon signup."
                   ],
                   tips: ["Focus on 'quick win'.", "Make it consumable in 5 minutes."],
                   commonChallenges: ["Writing a whole book.", "Making it too complex."],
@@ -960,10 +960,10 @@ const startup = {
                   linkTo: "StrategyFormEmailMarketing",
                   foundationStepId: "email_marketing",
                   detailedSteps: [
-                    "Email 1: Deliver the asset + Welcome.",
-                    "Email 2: Provide extra value/tips.",
-                    "Email 3: Share your backstory/why.",
-                    "Email 4: Soft offer/invitation."
+                    "Email 1: Deliver the asset immediately and welcome them to your world. Set expectations for what you will send in the future.",
+                    "Email 2: Provide extra value or a 'pro tip' related to the lead magnet. Show them you have more expertise to share.",
+                    "Email 3: Share your backstory or 'Why'. Connect on a human level and explain why you do what you do.",
+                    "Email 4: Make a soft offer or invitation. Invite them to take the next step, like booking a call or buying a small product."
                   ],
                   tips: ["Write like you talk to a friend.", "Focus on value, not just selling."],
                   commonChallenges: ["Being too formal.", "Selling too hard too soon."],
@@ -988,10 +988,10 @@ const startup = {
                   linkTo: "StrategyFormSocialMedia",
                   foundationStepId: "social_media_strategy",
                   detailedSteps: [
-                    "Map out key dates/promotions.",
-                    "Slot in your content pillars.",
-                    "Draft the captions.",
-                    "Create/find the visuals."
+                    "Map out key dates, holidays, and your own promotional periods on a calendar. Ensure you aren't missing big opportunities.",
+                    "Slot in your content pillars into the calendar. Rotate through them to keep the content varied and interesting.",
+                    "Draft the captions for your posts. Batching this writing task helps you stay in the creative flow.",
+                    "Create or find the visuals to match the captions. Having everything ready to go means you won't skip posting when you get busy."
                   ],
                   tips: ["Repurpose content.", "Leave room for trending topics."],
                   commonChallenges: ["Running out of ideas.", "Not scheduling it."],
@@ -1022,10 +1022,10 @@ const startup = {
                   linkTo: "StrategyFormSocialMedia",
                   foundationStepId: "social_media_strategy",
                   detailedSteps: [
-                    "Schedule all social posts.",
-                    "Send the launch email blast.",
-                    "Engage with comments immediately.",
-                    "Monitor ad spend daily."
+                    "Schedule all social posts in your management tool. Double check the times and dates to ensure they go out when your audience is awake.",
+                    "Send the launch email blast to your list. Monitor the delivery rates to ensure it didn't land in spam.",
+                    "Engage with comments immediately. The first hour after posting is critical for algorithm boosting, so be present.",
+                    "Monitor ad spend daily if you are running paid traffic. Turn off losing ads quickly to save budget."
                   ],
                   tips: ["Be present to answer questions.", "Check for broken links."],
                   commonChallenges: ["Getting discouraged by slow starts.", "Forgetting to engage."],
@@ -1050,10 +1050,10 @@ const startup = {
                   linkTo: "StrategyFormWebsiteLaunch",
                   foundationStepId: "website_launch",
                   detailedSteps: [
-                    "Verify traffic sources.",
-                    "Check bounce rates on landing pages.",
-                    "See which social posts got engagement.",
-                    "Track email open rates."
+                    "Verify traffic sources in Google Analytics. Are people coming from where you expected (e.g., Instagram vs. Email)?",
+                    "Check bounce rates on your landing pages. If everyone is leaving immediately, your page might be broken or confusing.",
+                    "See which social posts got the most engagement. Look for patterns in topic or format (e.g., video vs. text).",
+                    "Track email open and click-through rates. Identify which subject lines worked best."
                   ],
                   tips: ["Focus on trends, not daily blips.", "Compare against industry benchmarks."],
                   commonChallenges: ["Ignoring data.", "Misinterpreting correlation as causation."],
@@ -1078,10 +1078,10 @@ const startup = {
                   linkTo: "StrategyFormValueProposition",
                   foundationStepId: "value_proposition",
                   detailedSteps: [
-                    "Pick one element (Headline, Image, Button Color).",
-                    "Create a variation.",
-                    "Split traffic/audience.",
-                    "Measure the winner."
+                    "Pick one single element to test (e.g., Headline, Hero Image, Button Color). Testing multiple things at once confuses the data.",
+                    "Create a variation of that element. Try to make it significantly different from the original to see a real impact.",
+                    "Split your traffic or audience so half see version A and half see version B. Use software or manual splitting for emails.",
+                    "Measure the winner after a few days or significant traffic. Implement the winning version permanently."
                   ],
                   tips: ["Test big changes first.", "Wait for statistical significance."],
                   commonChallenges: ["Testing too many things at once.", "Ending tests too early."],
@@ -1106,10 +1106,10 @@ const startup = {
                   linkTo: "StrategyFormEmailMarketing",
                   foundationStepId: "email_marketing",
                   detailedSteps: [
-                    "Install tracking pixels.",
-                    "Create an 'Abandon Cart' email.",
-                    "Create a 'Did you forget?' ad.",
-                    "Offer a limited-time bonus."
+                    "Install tracking pixels (Facebook Pixel, Google Tag) on your site if you haven't already. This allows you to 'find' your visitors again.",
+                    "Create an 'Abandon Cart' email sequence. Remind them of what they left behind and offer to answer any questions.",
+                    "Create a 'Did you forget?' ad for social media. Show them the product again and perhaps offer a small incentive.",
+                    "Offer a limited-time bonus to nudge them off the fence. Sometimes people just need a reason to act *now*."
                   ],
                   tips: ["Don't be annoying.", "Cap the frequency."],
                   commonChallenges: ["Creepy ads.", "Not segmenting buyers out."],
@@ -1146,10 +1146,10 @@ const startup = {
                   linkTo: "StrategyFormCustomerJourney",
                   foundationStepId: "customer_journey",
                   detailedSteps: [
-                    "Visit your own website as a stranger.",
-                    "Sign up for your own newsletter.",
-                    "Try to buy your product.",
-                    "Note every frustration or confusion."
+                    "Visit your own website as a stranger in a new browser window. Try to look at it with fresh eyes—is it clear what you should do next?",
+                    "Sign up for your own newsletter using a testing email address. See what the welcome experience feels like and if the emails arrive on time.",
+                    "Try to buy your product or book a call. Note any forms that are too long, buttons that don't work, or confusing instructions.",
+                    "Note every single frustration or moment of confusion you experienced. These are the exact points where you are losing real customers."
                   ],
                   tips: ["Use a fresh browser/incognito mode.", "Ask a friend to do it while you watch."],
                   commonChallenges: ["Being blind to your own flaws.", "Skipping mobile testing."],
@@ -1174,10 +1174,10 @@ const startup = {
                   linkTo: "StrategyFormCustomerJourney",
                   foundationStepId: "customer_journey",
                   detailedSteps: [
-                    "Check analytics for high exit rates.",
-                    "Look for 'rage clicks' or rapid exits.",
-                    "Hypothesize why they are leaving.",
-                    "Plan a fix (better copy, faster load, clearer button)."
+                    "Check your analytics software to find pages with high exit rates. Identify where the majority of your traffic is dropping off.",
+                    "Look for 'rage clicks' or rapid exits on specific pages. This usually indicates broken elements or confusing design.",
+                    "Hypothesize *why* they are leaving. Is the price too high? Is the copy unclear? Is the form broken?",
+                    "Plan a specific fix for the top leak (e.g., rewrite the headline, speed up the load time, clarify the button text). Prioritize the fix that will save the most sales."
                   ],
                   tips: ["Look for technical errors first.", " Simplify the page."],
                   commonChallenges: ["Blaming the customer.", "Ignoring mobile users."],
@@ -1202,10 +1202,10 @@ const startup = {
                   linkTo: "StrategyFormCustomerJourney",
                   foundationStepId: "customer_journey",
                   detailedSteps: [
-                    "Imagine the perfect emotional state at each step.",
-                    "Design the perfect transition between steps.",
-                    "Add 'delight' moments that don't exist yet.",
-                    "Ensure value is delivered early and often."
+                    "Imagine the perfect emotional state of the customer at each step. How do you want them to feel? Excited? relieved? Confident?",
+                    "Design the perfect transition between steps. How can you make moving from 'lead' to 'customer' feel seamless and effortless?",
+                    "Add 'delight' moments that don't exist yet. Where can you add a surprise bonus or a personal touch that they aren't expecting?",
+                    "Ensure value is delivered early and often. Don't make them wait until the very end to get a win; give them small wins along the way."
                   ],
                   tips: ["Think like Disney (magical experience).", "Ignore current tech limitations for now."],
                   commonChallenges: ["Thinking 'we can't do that'.", "Being too practical."],
@@ -1230,10 +1230,10 @@ const startup = {
                   linkTo: "StrategyFormAutomation",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Score potential fixes by Impact vs. Effort.",
-                    "Pick top 3 Quick Wins.",
-                    "Schedule major projects.",
-                    "Assign owners to each task."
+                    "Score your potential fixes by Impact vs. Effort. Which changes will give the biggest result for the least work?",
+                    "Pick top 3 Quick Wins to implement immediately. Momentum is key, so start with the easy stuff.",
+                    "Schedule major projects for later in the quarter. Don't try to rebuild your entire website overnight.",
+                    "Assign owners to each task if you have a team. If it's just you, block out time in your calendar to do the work."
                   ],
                   tips: ["Fix broken things before adding new things.", "Start near the purchase point."],
                   commonChallenges: ["Trying to fix everything at once.", "Analysis paralysis."],
@@ -1264,10 +1264,10 @@ const startup = {
                   linkTo: "StrategyFormValueProposition",
                   foundationStepId: "value_proposition",
                   detailedSteps: [
-                    "Add a personal thank you note.",
-                    "Improve the packaging or digital welcome.",
-                    "Include a surprise bonus or guide.",
-                    "Make the first step incredibly easy."
+                    "Add a personal thank you note or video. Even a pre-recorded video feels more personal than a text receipt.",
+                    "Improve the packaging or digital welcome page. The first thing they see after buying should validate their decision.",
+                    "Include a surprise bonus or guide that they weren't expecting. This 'over-delivery' creates instant goodwill.",
+                    "Make the first step incredibly easy to do. Give them a quick win immediately so they feel successful right away."
                   ],
                   tips: ["Personalization wins.", "It doesn't have to be expensive."],
                   commonChallenges: ["Overcomplicating it.", "Forgetting digital products need 'unboxing' too."],
@@ -1292,10 +1292,10 @@ const startup = {
                   linkTo: "SOPs",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Identify top 5 recurring questions.",
-                    "Write clear, friendly answers.",
-                    "Create a policy for refunds/issues.",
-                    "Set response time goals."
+                    "Identify top 5 recurring questions or issues your customers have. Look at past emails to find these.",
+                    "Write clear, friendly answers for each one. Save these as templates or snippets to reuse later.",
+                    "Create a clear policy for refunds and issues. Decide ahead of time what you will do so you don't have to stress in the moment.",
+                    "Set response time goals for yourself. For example, 'We answer all emails within 24 hours'."
                   ],
                   tips: ["Use 'Yes, and...' language.", "Apologize without being defensive."],
                   commonChallenges: ["Being robotic.", "Making the customer jump through hoops."],
@@ -1320,10 +1320,10 @@ const startup = {
                   linkTo: "StrategyFormEmailMarketing",
                   foundationStepId: "email_marketing",
                   detailedSteps: [
-                    "Add 'First Name' to email headers.",
-                    "Segment offers based on past purchases.",
-                    "Send birthday/anniversary messages.",
-                    "Recommend relevant products."
+                    "Add 'First Name' tags to your email headers and subject lines. A person's name is the sweetest sound to them.",
+                    "Segment your offers based on past purchases. Don't sell them something they already bought.",
+                    "Send automated birthday or anniversary messages. These small gestures show you care about the relationship.",
+                    "Recommend relevant products based on their history. 'If you liked X, you'll love Y' is helpful, not salesy."
                   ],
                   tips: ["Test fallback text (e.g., 'Friend').", "Don't get creepy."],
                   commonChallenges: ["Bad data (e.g., name is 'EMAIL').", "Over-personalizing."],
@@ -1348,10 +1348,10 @@ const startup = {
                   linkTo: "StrategyFormAutomation",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Create a 3-question survey.",
-                    "Trigger it after delivery.",
-                    "Ask 'What almost stopped you?'.",
-                    "Ask 'What is one thing we could improve?'."
+                    "Create a simple 3-question survey using a tool like Typeform or Google Forms.",
+                    "Trigger it automatically a few days after delivery. Catch them while the experience is fresh.",
+                    "Ask 'What almost stopped you from buying?'. This reveals your biggest friction points.",
+                    "Ask 'What is one thing we could improve?'. This gives you your product roadmap."
                   ],
                   tips: ["Keep it short.", "Read every response."],
                   commonChallenges: ["Asking too many questions.", "Never looking at the data."],
@@ -1382,10 +1382,10 @@ const startup = {
                   linkTo: "StrategyFormAffiliateProgram",
                   foundationStepId: "affiliate_program",
                   detailedSteps: [
-                    "Decide on the reward (cash, credit, gift).",
-                    "Create a simple way to track it.",
-                    "Write the email asking for the referral.",
-                    "Make it double-sided (reward for them and the friend)."
+                    "Decide on the reward (cash, credit, gift). It must be something they actually want.",
+                    "Create a simple way to track referrals, whether it's a software link or a manual spreadsheet.",
+                    "Write the email asking for the referral. Make it easy for them by providing copy they can just forward to a friend.",
+                    "Make it double-sided (reward for them AND the friend). This makes them feel like they are giving a gift, not just getting paid."
                   ],
                   tips: ["Make the reward desirable.", "Ask at the moment of highest happiness."],
                   commonChallenges: ["Making the process too hard.", "Offering a reward they don't want."],
@@ -1410,10 +1410,10 @@ const startup = {
                   linkTo: "StrategyFormCommunityBuilding",
                   foundationStepId: "community_building",
                   detailedSteps: [
-                    "Define criteria (spend amount or tenure).",
-                    "Define perks (exclusive access, discounts, service).",
-                    "Name the tier.",
-                    "Notify qualifying members."
+                    "Define criteria for VIP status (e.g., spent $500, or member for 1 year). Make it an aspirational goal.",
+                    "Define perks (exclusive access, discounts, priority service). It should feel like a genuine upgrade.",
+                    "Name the tier something special that aligns with your brand (e.g., 'Inner Circle').",
+                    "Notify qualifying members and welcome them to the new status. Make them feel celebrated."
                   ],
                   tips: ["Make the perks exclusive, not just expensive.", "Recognize them publicly if appropriate."],
                   commonChallenges: ["Making it too complicated.", "Offering perks that cost too much margin."],
@@ -1438,10 +1438,10 @@ const startup = {
                   linkTo: "StrategyFormContentStrategy",
                   foundationStepId: "content_strategy",
                   detailedSteps: [
-                    "Reach out to a successful client.",
-                    "Ask about their 'Before' and 'After'.",
-                    "Get specific numbers/results.",
-                    "Write it up or record a video."
+                    "Reach out to a successful client and ask for a 15-minute chat. Frame it as wanting to hear their story.",
+                    "Ask specific questions about their 'Before' and 'After' state. Dig for specific metrics or emotional changes.",
+                    "Get specific numbers if possible (e.g., 'saved 10 hours', 'made $5k'). Specificity builds credibility.",
+                    "Write it up as a story or record a video snippet. Send it to them for approval before publishing."
                   ],
                   tips: ["Focus on the transformation.", "Use their exact words."],
                   commonChallenges: ["Forgetting to ask.", "Making it sound like a generic ad."],
@@ -1466,10 +1466,10 @@ const startup = {
                   linkTo: "StrategyFormCommunityBuilding",
                   foundationStepId: "community_building",
                   detailedSteps: [
-                    "Create a space (Group, Slack, Event).",
-                    "Introduce people with similar goals.",
-                    "Highlight member wins.",
-                    "Encourage peer support."
+                    "Create a space for them to connect, whether it's a Facebook Group, Slack channel, or a live event.",
+                    "Introduce people with similar goals or challenges. Be the super-connector who adds value by knowing people.",
+                    "Highlight member wins publicly. Give them a stage to shine and be recognized by their peers.",
+                    "Encourage peer support. When someone asks a question, wait a bit to see if another member answers first."
                   ],
                   tips: ["Be the host, not the hero.", "Set clear guidelines."],
                   commonChallenges: ["Empty room syndrome.", "Toxic behavior (moderate fast)."],
@@ -1513,10 +1513,10 @@ const growth = {
                   linkTo: "StrategyFormAutomation",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Use a timer or app.",
-                    "Categorize tasks as High Value vs. Low Value.",
-                    "Identify interruptions.",
-                    "Highlight tasks that can be delegated."
+                    "Use a timer or app (like Toggl or Harvest) to log every task for 5 days. Don't guess; get real data.",
+                    "Categorize tasks as High Value ($$$) vs. Low Value ($). Be honest about which tasks actually move the needle.",
+                    "Identify interruptions and context switching. How often do you lose focus? These are productivity killers.",
+                    "Highlight tasks that can be delegated or automated. If a machine or a cheaper resource can do it, you shouldn't be doing it."
                   ],
                   tips: ["Be honest, don't edit your log.", "Track breaks too."],
                   commonChallenges: ["Forgetting to log.", "Justifying wasted time."],
@@ -1541,10 +1541,10 @@ const growth = {
                   linkTo: "FreedomCalculator",
                   foundationStepId: "financial_goal",
                   detailedSteps: [
-                    "List all recurring charges.",
-                    "Cancel unused software.",
-                    "Negotiate vendor contracts.",
-                    "Identify high-cost low-return areas."
+                    "List all recurring charges from your bank and credit card statements. Look for subscriptions you forgot about.",
+                    "Cancel unused software immediately. If you haven't used it in 30 days, pause or cancel it.",
+                    "Negotiate vendor contracts for larger expenses. Ask for a loyalty discount or annual payment break.",
+                    "Identify high-cost areas that bring low returns. Cut specific marketing channels or perks that aren't working."
                   ],
                   tips: ["Be ruthless.", "Ask 'does this directly help the customer?'."],
                   commonChallenges: ["Holding onto 'might need it someday' tools.", "Ignoring small charges."],
@@ -1569,10 +1569,10 @@ const growth = {
                   linkTo: "StrategyFormAutomation",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Map the flow of work.",
-                    "Look for piles of work waiting.",
-                    "Look for stressed team members.",
-                    "Identify the limiting factor (Sales? Delivery? Admin?)."
+                    "Map the flow of work from lead to delivery. Visualize it like a factory line.",
+                    "Look for piles of work waiting to be done. Where does the work stack up? That is your bottleneck.",
+                    "Look for stressed team members (or yourself). Who is always working late? They are likely the constraint.",
+                    "Identify the limiting factor. Is it Sales volume? Delivery capacity? Administrative delay? Focus all energy there."
                   ],
                   tips: ["It's usually a person or a policy.", "Ask 'what prevents us from doubling?'."],
                   commonChallenges: ["Blaming the market.", "Ignoring internal issues."],
@@ -1597,10 +1597,10 @@ const growth = {
                   linkTo: "SOPs",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Walk through the process.",
-                    "Write down every required step.",
-                    "Create a template/form.",
-                    "Test it on the next order."
+                    "Walk through the process yourself and write down every action. Don't skip the 'obvious' steps.",
+                    "Write down every required step in order. Use checkboxes so nothing can be missed.",
+                    "Create a template or form that can be duplicated for every new client. This ensures uniformity.",
+                    "Test it on the next order. Did following the checklist produce the perfect result? If not, update it."
                   ],
                   tips: ["Include screenshots.", "Keep it simple enough to skim."],
                   commonChallenges: ["Making it too rigid.", "Not updating it."],
@@ -1631,10 +1631,10 @@ const growth = {
                   linkTo: "StrategyFormAutomation",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Pick a simple task (e.g., save email attachment to Drive).",
-                    "Map the trigger and action.",
-                    "Build it in your automation tool.",
-                    "Test it to ensure reliability."
+                    "Pick a simple task to start with (e.g., save email attachment to Google Drive automatically).",
+                    "Map the trigger (what starts it) and the action (what happens). Draw it out if needed.",
+                    "Build it in your automation tool (Zapier, Make). Follow the prompts to connect your accounts.",
+                    "Test it thoroughly to ensure reliability. Trigger it manually and watch it work."
                   ],
                   tips: ["Start simple.", "Document what the automation does."],
                   commonChallenges: ["Over-engineering.", "Breaking existing processes."],
@@ -1659,10 +1659,10 @@ const growth = {
                   linkTo: "SOPs",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Choose high-risk/high-frequency tasks.",
-                    "Record a Loom video doing it.",
-                    "Bullet point the steps.",
-                    "Add 'Why this matters' context."
+                    "Choose high-risk/high-frequency tasks. What happens every day, or what would be a disaster if messed up?",
+                    "Record a Loom video doing the task. Talk through your thought process as you do it.",
+                    "Bullet point the steps below the video. Make it easy to scan for someone who has done it before.",
+                    "Add 'Why this matters' context. People follow rules better when they understand the purpose."
                   ],
                   tips: ["Use video, it's faster.", "Update them regularly."],
                   commonChallenges: ["Writing novels nobody reads.", "Being perfectionist."],
@@ -1687,10 +1687,10 @@ const growth = {
                   linkTo: "StrategyFormAutomation",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Import contacts from email/phone.",
-                    "Merge duplicates.",
-                    "Tag active clients vs leads.",
-                    "Set up a pipeline view."
+                    "Import contacts from email, phone, and spreadsheets. Get everyone into one database.",
+                    "Merge duplicate records so you don't annoy clients with double communications.",
+                    "Tag contacts as 'active clients', 'leads', or 'past clients'. Segmentation allows for better marketing.",
+                    "Set up a pipeline view to visualize your sales process. Know exactly where every deal stands."
                   ],
                   tips: ["Garbage in, garbage out.", "Make it a weekly habit."],
                   commonChallenges: ["Keeping data updated.", "Not using the tool."],
@@ -1715,10 +1715,10 @@ const growth = {
                   linkTo: "StrategyFormAutomation",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Map the data flow.",
-                    "Use native integrations or Zapier.",
-                    "Test the data transfer.",
-                    "Document the connection."
+                    "Map the data flow. Where does data start, and where does it need to end up?",
+                    "Use native integrations or Zapier to bridge the gaps. Connect your CRM to your email tool, etc.",
+                    "Test the data transfer. Create a fake record and watch it move through the system.",
+                    "Document the connection so you know how to fix it if it breaks later."
                   ],
                   tips: ["Check for sync errors.", "Keep a log."],
                   commonChallenges: ["Data conflicts.", "Infinite loops."],
@@ -1749,10 +1749,10 @@ const growth = {
                   linkTo: "SOPs", // Assuming SOP page exists
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Record yourself doing the task.",
-                    "Write step-by-step instructions.",
-                    "Define what 'done' looks like.",
-                    "Set a review schedule."
+                    "Record yourself doing the task one last time. Explain the 'why' and the nuances.",
+                    "Write step-by-step instructions that are foolproof. Assume the person has zero prior knowledge.",
+                    "Define what 'done' looks like. Show examples of good vs. bad work.",
+                    "Set a review schedule. When will you check their work to ensure quality?"
                   ],
                   tips: ["Use video and text.", "Assume zero prior knowledge."],
                   commonChallenges: ["Micromanaging.", "Being vague about expectations."],
@@ -1777,10 +1777,10 @@ const growth = {
                   linkTo: "StrategyFormBusinessModelCanvas",
                   foundationStepId: "business_model",
                   detailedSteps: [
-                    "Write a clear job description.",
-                    "Define success metrics.",
-                    "Post on relevant boards (Upwork, LinkedIn).",
-                    "Screen applicants."
+                    "Write a clear job description based on your SOPs. Be honest about the requirements.",
+                    "Define success metrics. How will you know if they are doing a good job?",
+                    "Post on relevant boards (Upwork, LinkedIn, specialized sites). Go where the talent is.",
+                    "Screen applicants by giving them a small test project. Don't just rely on interviews."
                   ],
                   tips: ["Hire for attitude, train for skill.", "Give a small test project."],
                   commonChallenges: ["Hiring in a panic.", "Hiring yourself (clones)."],
@@ -1805,10 +1805,10 @@ const growth = {
                   linkTo: "SOPs",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Share the vision and values.",
-                    "Walk through the tools.",
-                    "Assign the first SOP.",
-                    "Review their output and give feedback."
+                    "Share the vision and values of the company. Help them understand the bigger picture.",
+                    "Walk through the tools and systems. Give them access and show them around.",
+                    "Assign the first SOP and watch them do it. Correct gently as needed.",
+                    "Review their output and give feedback immediately. Establish a high standard early."
                   ],
                   tips: ["Be patient.", "Encourage questions."],
                   commonChallenges: ["Expecting perfection immediately.", "Being unavailable."],
@@ -1833,10 +1833,10 @@ const growth = {
                   linkTo: "StrategyFormContentStrategy",
                   foundationStepId: "content_strategy",
                   detailedSteps: [
-                    "Increase ad spend.",
-                    "Send more emails.",
-                    "Ask for more referrals.",
-                    "Partner with larger affiliates."
+                    "Increase ad spend on your winning campaigns. Scale what works.",
+                    "Send more emails to your list. Offer them new reasons to buy.",
+                    "Ask for more referrals from happy clients. Leverage your recent success stories.",
+                    "Partner with larger affiliates now that you can handle the volume."
                   ],
                   tips: ["Monitor quality control.", "Don't break the new team."],
                   commonChallenges: ["Scaling too fast.", "Breaking systems."],
@@ -1873,10 +1873,10 @@ const growth = {
                   linkTo: "StrategyFormStrategicPartnerships",
                   foundationStepId: "strategic_partnerships",
                   detailedSteps: [
-                    "Identify complementary industries.",
-                    "Check for audience overlap.",
-                    "Verify value alignment.",
-                    "Look for similar business maturity."
+                    "Identify complementary industries. Who serves your customer before or after you do?",
+                    "Check for audience overlap. Do they talk to the same people you want to reach?",
+                    "Verify value alignment. Do they treat their customers well? Do they share your ethics?",
+                    "Look for similar business maturity. Partnerships work best between peers of similar size."
                   ],
                   tips: ["Think 'upstream' and 'downstream' of your service.", "Look for non-competitors."],
                   commonChallenges: ["Chasing big names with no alignment.", "Ignoring smaller, high-quality partners."],
@@ -1901,10 +1901,10 @@ const growth = {
                   linkTo: "StrategyFormStrategicPartnerships",
                   foundationStepId: "strategic_partnerships",
                   detailedSteps: [
-                    "Search LinkedIn/Social Media.",
-                    "Ask your network for intros.",
-                    "Find specific contact names (not info@).",
-                    "Note a specific reason to connect."
+                    "Search LinkedIn, Instagram, and Google. Look for businesses that fit your profile.",
+                    "Ask your network for intros. Warm introductions are always better than cold outreach.",
+                    "Find specific contact names. Do not send to 'info@'; find the owner or marketing lead.",
+                    "Note a specific reason to connect. 'I love your article on X' is a better opener than 'Hi'."
                   ],
                   tips: ["Quality over quantity.", "Look for people already doing partnerships."],
                   commonChallenges: ["Not finding direct emails.", "Adding bad fits just to fill the list."],
@@ -1929,10 +1929,10 @@ const growth = {
                   linkTo: "StrategyFormStrategicPartnerships",
                   foundationStepId: "strategic_partnerships",
                   detailedSteps: [
-                    "List your audience size/demographics.",
-                    "Highlight engagement rates.",
-                    " propose specific collaboration ideas.",
-                    "Include testimonials."
+                    "List your audience size, email list count, and demographics. Show them you have reach.",
+                    "Highlight engagement rates. Even a small engaged audience is valuable.",
+                    "Propose specific collaboration ideas (e.g., Guest Post, Webinar, Bundle). Don't make them guess.",
+                    "Include testimonials or logos of past partners to build social proof."
                   ],
                   tips: ["Make it visually professional.", "Focus on WIIFM (What's in it for them)."],
                   commonChallenges: ["Being shy about your numbers.", "Overselling."],
@@ -1957,10 +1957,10 @@ const growth = {
                   linkTo: "StrategyFormStrategicPartnerships",
                   foundationStepId: "strategic_partnerships",
                   detailedSteps: [
-                    "Create columns for Status, Last Contact, Next Step.",
-                    "Draft your initial outreach scripts.",
-                    "Draft follow-up scripts.",
-                    "Schedule time for daily outreach."
+                    "Create columns for Status, Last Contact, Next Step, and Notes. Keep it organized.",
+                    "Draft your initial outreach scripts. Create a template but leave room for personalization.",
+                    "Draft follow-up scripts. 'Just bumping this up' is a valid follow-up.",
+                    "Schedule time for daily outreach. Consistency wins here."
                   ],
                   tips: ["Use a tool like Hunter.io for emails.", "Personalize every script."],
                   commonChallenges: ["Using generic templates.", "Not scheduling follow-up."],
@@ -1991,10 +1991,10 @@ const growth = {
                   linkTo: "StrategyFormStrategicPartnerships",
                   foundationStepId: "strategic_partnerships",
                   detailedSteps: [
-                    "Research the partner deeply.",
-                    "Identify a gap you can fill for them.",
-                    "Propose a specific, low-risk first step.",
-                    "Highlight the benefit to *their* audience."
+                    "Research the partner deeply. Read their latest blog posts or listen to their podcast.",
+                    "Identify a gap you can fill for them. What problem can you solve for their audience?",
+                    "Propose a specific, low-risk first step. Don't ask for marriage on the first date.",
+                    "Highlight the benefit to *their* audience. Why will their people thank them for introducing you?"
                   ],
                   tips: ["Keep it short.", "Focus on 'giving' first."],
                   commonChallenges: ["Making the proposal all about you.", "Being vague about the next step."],
@@ -2019,10 +2019,10 @@ const growth = {
                   linkTo: "StrategyFormStrategicPartnerships",
                   foundationStepId: "strategic_partnerships",
                   detailedSteps: [
-                    "Customize your template for each person.",
-                    "Comment on their recent work to show you pay attention.",
-                    "Send the message.",
-                    "Log it in your tracker."
+                    "Customize your template for each person. Mention something specific about them.",
+                    "Comment on their recent work to show you pay attention. Flattery (if sincere) works.",
+                    "Send the message via their preferred channel. Email is best for business, DMs for initial contact.",
+                    "Log it in your tracker. Set a reminder to follow up in 3 days."
                   ],
                   tips: ["Send early in the week.", "Follow up on a different channel if needed."],
                   commonChallenges: ["Fear of rejection.", "Typos in names."],
@@ -2047,10 +2047,10 @@ const growth = {
                   linkTo: "StrategyFormStrategicPartnerships",
                   foundationStepId: "strategic_partnerships",
                   detailedSteps: [
-                    "Discuss revenue share/fees.",
-                    "Set deadlines for deliverables.",
-                    "Agree on promotion methods.",
-                    "Put it in writing (email or contract)."
+                    "Discuss revenue share or referral fees. Be transparent about money.",
+                    "Set deadlines for deliverables. Who does what by when?",
+                    "Agree on promotion methods. How will they share your link? Email? Social?",
+                    "Put it in writing. A simple email confirmation or a basic contract prevents amnesia."
                   ],
                   tips: ["Use a simple MOU (Memorandum of Understanding).", "Be fair."],
                   commonChallenges: ["Being afraid to talk money.", "Assuming they know what you mean."],
@@ -2075,10 +2075,10 @@ const growth = {
                   linkTo: "StrategyFormContentStrategy",
                   foundationStepId: "content_strategy",
                   detailedSteps: [
-                    "Write email copy for them to send.",
-                    "Design social graphics with their logo.",
-                    "Create a custom landing page.",
-                    "Send the package with instructions."
+                    "Write email copy for them to send to their list. Make it sound like it comes from them.",
+                    "Design social graphics with their logo and yours. Make them look professional.",
+                    "Create a custom landing page for their audience. 'Welcome [Partner] Fans!' increases conversion.",
+                    "Send the package with clear instructions. Make it 'copy-paste' easy."
                   ],
                   tips: ["Make it 'copy-paste' ready.", "Provide multiple options."],
                   commonChallenges: ["Sending incomplete files.", "Not testing links."],
@@ -2109,10 +2109,10 @@ const growth = {
                   linkTo: "StrategyFormContentStrategy",
                   foundationStepId: "content_strategy",
                   detailedSteps: [
-                    "Coordinate launch times.",
-                    "Cross-promote on social.",
-                    "Ensure tracking links work.",
-                    "Thank the partner publicly."
+                    "Coordinate launch times. Ensure you both hit send at the agreed moment.",
+                    "Cross-promote on social media. Tag each other and share stories.",
+                    "Ensure tracking links work. You need to know exactly who sent which lead.",
+                    "Thank the partner publicly. Show appreciation for their collaboration."
                   ],
                   tips: ["Over-communicate with your partner.", "Have a backup plan for tech issues."],
                   commonChallenges: ["Misaligned timing.", "One side not promoting."],
@@ -2137,10 +2137,10 @@ const growth = {
                   linkTo: "StrategyFormStrategicPartnerships",
                   foundationStepId: "strategic_partnerships",
                   detailedSteps: [
-                    "Share your data (leads/sales).",
-                    "Ask for their data.",
-                    "Discuss audience feedback.",
-                    "Pay any commissions due immediately."
+                    "Share your data (leads/sales generated). Transparency builds trust.",
+                    "Ask for their data. Did they get what they wanted out of it?",
+                    "Discuss audience feedback. Did people love it or hate it?",
+                    "Pay any commissions due immediately. Speed of payment is a huge trust signal."
                   ],
                   tips: ["Pay fast to build trust.", "Send a thank you gift."],
                   commonChallenges: ["Ghosting after the promo.", "Hiding bad results."],
@@ -2165,10 +2165,10 @@ const growth = {
                   linkTo: "StrategyFormEmailMarketing",
                   foundationStepId: "email_marketing",
                   detailedSteps: [
-                    "Check email open rates for the partner segment.",
-                    "Send a special welcome acknowledging the partner.",
-                    "Offer additional value.",
-                    "Monitor unsubscribe rates."
+                    "Check email open rates for the specific partner segment. Are they engaging?",
+                    "Send a special welcome email acknowledging the partner. 'Friends of [Partner]' deserve a warm hello.",
+                    "Offer additional value related to what they just consumed. Keep the momentum going.",
+                    "Monitor unsubscribe rates. If they are leaving, your message might be off."
                   ],
                   tips: ["Reference the partner in the first email.", "Over-deliver."],
                   commonChallenges: ["Treating them like cold leads.", "Spamming them."],
@@ -2193,10 +2193,10 @@ const growth = {
                   linkTo: "SOPs",
                   foundationStepId: "strategic_partnerships",
                   detailedSteps: [
-                    "Update templates with better copy.",
-                    "Fix broken process steps.",
-                    "Reach out to the next 5 partners.",
-                    "Automate the reporting."
+                    "Update your email templates with better copy based on what worked.",
+                    "Fix any broken process steps you discovered during the launch.",
+                    "Reach out to the next 5 partners on your list with confidence.",
+                    "Automate the reporting or payout process to save time."
                   ],
                   tips: ["Always be improving.", "Ask for referrals from partners."],
                   commonChallenges: ["Stopping after one win.", "Getting complacent."],
@@ -2233,10 +2233,10 @@ const growth = {
                   linkTo: "StrategyFormCommunityBuilding",
                   foundationStepId: "community_building",
                   detailedSteps: [
-                    "Define who it is for.",
-                    "Define who it is NOT for.",
-                    "Set the tone (supportive, critical, professional?).",
-                    "Create 3 golden rules."
+                    "Define who this space is for. Is it for beginners, experts, or a specific niche?",
+                    "Define who it is NOT for. Be clear about behaviors or types of people who won't fit in.",
+                    "Set the tone of the culture. Is it supportive, critical, professional, or casual?",
+                    "Create 3 golden rules that summarize expectations (e.g., 'Be Kind', 'No Self-Promo', 'Give First')."
                   ],
                   tips: ["Make it aspirational.", "Focus on culture, not just policing."],
                   commonChallenges: ["Being too strict.", "Being too vague."],
@@ -2261,10 +2261,10 @@ const growth = {
                   linkTo: "StrategyFormCommunityBuilding",
                   foundationStepId: "community_building",
                   detailedSteps: [
-                    "Choose platform (Skool, Circle, Facebook, Slack).",
-                    "Create topic channels/categories.",
-                    "Add branding (Logo, Banner).",
-                    "Test the signup flow."
+                    "Choose a platform that fits your audience (Skool, Circle, Facebook, Slack). Go where they already are.",
+                    "Create specific topic channels or categories. Don't make too many; start with 'General', 'Wins', and 'Help'.",
+                    "Add your branding (Logo, Banner, Description). Make it feel like 'home'.",
+                    "Test the signup flow yourself. Ensure the invite links work and the welcome message appears."
                   ],
                   tips: ["Start with fewer channels.", "Ensure mobile access is good."],
                   commonChallenges: ["Over-engineering the structure.", "Choosing a 'dead' platform."],
@@ -2289,10 +2289,10 @@ const growth = {
                   linkTo: "StrategyFormContentStrategy",
                   foundationStepId: "content_strategy",
                   detailedSteps: [
-                    "Write a 'Welcome & Start Here' post.",
-                    "Write an 'Introduce Yourself' thread.",
-                    "Post a valuable resource/guide.",
-                    "Ask a provocative question."
+                    "Write a 'Welcome & Start Here' post. Tell them exactly what to do first.",
+                    "Write an 'Introduce Yourself' thread. Ask specific questions to make it easy to answer.",
+                    "Post a valuable resource or guide that is exclusive to the group. Give them a quick win.",
+                    "Ask a provocative question related to your niche. Spark a debate or discussion."
                   ],
                   tips: ["Tag people if you have early testers.", "Reply to your own posts if needed to add info."],
                   commonChallenges: ["Waiting for others to post.", "Posting boring updates."],
@@ -2317,10 +2317,10 @@ const growth = {
                   linkTo: "StrategyFormCommunityBuilding",
                   foundationStepId: "community_building",
                   detailedSteps: [
-                    "Identify your biggest fans/clients.",
-                    "Send a personal invite explaining the vision.",
-                    "Give them 'Founding Member' status.",
-                    "Ask them to introduce themselves."
+                    "Identify your biggest fans, best clients, or friends in the industry.",
+                    "Send a personal invite explaining the vision. Tell them you want them to shape the culture.",
+                    "Give them 'Founding Member' status or a special badge. Recognize their early support.",
+                    "Ask them to introduce themselves immediately. Get the ball rolling."
                   ],
                   tips: ["Make it exclusive.", "Ask for their help to build it."],
                   commonChallenges: ["Mass emailing invites.", "Ignoring them once they join."],
@@ -2351,10 +2351,10 @@ const growth = {
                   linkTo: "StrategyFormCommunityBuilding",
                   foundationStepId: "community_building",
                   detailedSteps: [
-                    "Pick a theme for each day (e.g., Motivation Monday).",
-                    "Schedule the posts in advance.",
-                    "Tag specific members to start the conversation.",
-                    "Reply to every single comment."
+                    "Pick a theme for each day (e.g., Motivation Monday, Win Wednesday). Consistency creates habit.",
+                    "Schedule the posts in advance using your community tool. Don't rely on remembering to post.",
+                    "Tag specific members to start the conversation. 'Hey @Name, I know you did this recently...'",
+                    "Reply to every single comment. Reward behavior you want to see repeated."
                   ],
                   tips: ["Ask open-ended questions.", "Use polls for easy engagement."],
                   commonChallenges: ["Giving up too soon.", "Posting and ghosting."],
@@ -2379,10 +2379,10 @@ const growth = {
                   linkTo: "StrategyFormContentStrategy",
                   foundationStepId: "content_strategy",
                   detailedSteps: [
-                    "Pick a topic or format (Q&A is easiest).",
-                    "Schedule it and send reminders.",
-                    "Host the session.",
-                    "Post the replay."
+                    "Pick a topic or format (Q&A is easiest). You don't need a huge presentation.",
+                    "Schedule it and send reminders. People forget, so remind them 1 hour before.",
+                    "Host the session with energy. Facilitate connection between members, don't just lecture.",
+                    "Post the replay for those who missed it. Keep the value living in the feed."
                   ],
                   tips: ["Keep it under an hour.", "Call people by name."],
                   commonChallenges: ["Fear of no one showing up.", "Tech failures."],
@@ -2407,10 +2407,10 @@ const growth = {
                   linkTo: "StrategyFormEmailMarketing",
                   foundationStepId: "email_marketing",
                   detailedSteps: [
-                    "Write an email selling the benefits of joining.",
-                    "Create a social post showcasing the discussions.",
-                    "Create a simple join link.",
-                    "Welcome the new wave."
+                    "Write an email selling the benefits of joining. Focus on the community, not just the content.",
+                    "Create a social post showcasing the discussions happening inside. FOMO (Fear Of Missing Out) works.",
+                    "Create a simple join link. Make it frictionless to get in.",
+                    "Welcome the new wave warmly. Ensure the culture stays strong as new people enter."
                   ],
                   tips: ["Show, don't just tell.", "Highlight member wins."],
                   commonChallenges: ["Diluting the culture.", "Overwhelming the feed."],
@@ -2435,10 +2435,10 @@ const growth = {
                   linkTo: "StrategyFormCommunityBuilding",
                   foundationStepId: "community_building",
                   detailedSteps: [
-                    "Delete spam immediately.",
-                    "Reach out privately to rule-breakers.",
-                    "Praise good behavior publicly.",
-                    "Update guidelines if needed."
+                    "Delete spam immediately. It signals that the space is cared for.",
+                    "Reach out privately to rule-breakers. Assume positive intent first, but be firm.",
+                    "Praise good behavior publicly. Reinforce what you want to see more of.",
+                    "Update guidelines if new issues arise. Culture is a living thing."
                   ],
                   tips: ["Be firm but kind.", "Don't let things fester."],
                   commonChallenges: ["Being afraid to kick people out.", "Letting spam slide."],
@@ -2469,10 +2469,10 @@ const growth = {
                   linkTo: "StrategyFormCommunityBuilding",
                   foundationStepId: "community_building",
                   detailedSteps: [
-                    "Review engagement stats.",
-                    "Reach out personally to top 5 members.",
-                    "Offer them a special badge or access.",
-                    "Ask for their feedback on the community."
+                    "Review engagement stats to see who is posting and commenting most.",
+                    "Reach out personally to top 5 members. Thank them for their contributions.",
+                    "Offer them a special badge, title, or access. Recognition costs nothing but means everything.",
+                    "Ask for their feedback on the community. Treat them like insiders."
                   ],
                   tips: ["Make them feel special.", "Listen to their advice."],
                   commonChallenges: ["Picking the wrong people.", "Expecting them to work for free (give perks!)."],
@@ -2497,10 +2497,10 @@ const growth = {
                   linkTo: "StrategyFormValueProposition",
                   foundationStepId: "value_proposition",
                   detailedSteps: [
-                    "Identify a problem the community is discussing.",
-                    "Position your product as the solution.",
-                    "Offer a 'Member Exclusive' discount.",
-                    "Share success stories."
+                    "Identify a problem the community is discussing. Use their own words.",
+                    "Position your product as the solution to that exact problem. It's service, not sales.",
+                    "Offer a 'Member Exclusive' discount or bonus. Reward them for being in the group.",
+                    "Share success stories from other members who have used the product."
                   ],
                   tips: ["Don't be pushy.", "Focus on value."],
                   commonChallenges: ["Fear of 'ruining' the community.", "Selling irrelevant stuff."],
@@ -2525,10 +2525,10 @@ const growth = {
                   linkTo: "StrategyFormContentStrategy",
                   foundationStepId: "content_strategy",
                   detailedSteps: [
-                    "Create a simple form.",
-                    "Ask 'What is your favorite part?'.",
-                    "Ask 'What would you change?'.",
-                    "Share the results and your plan."
+                    "Create a simple form. Don't make it a homework assignment.",
+                    "Ask 'What is your favorite part of this group?'. Do more of that.",
+                    "Ask 'What would you change?'. Fix that.",
+                    "Share the results and your plan with the group. Close the feedback loop."
                   ],
                   tips: ["Act on the feedback.", "Be transparent."],
                   commonChallenges: ["Ignoring the results.", "Getting defensive."],
@@ -2553,10 +2553,10 @@ const growth = {
                   linkTo: "SOPs",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Check if moderation is happening automatically.",
-                    "Check if content is scheduled.",
-                    "Check if new members are welcomed.",
-                    "Take a day off and see what happens."
+                    "Check if moderation is happening automatically or by ambassadors.",
+                    "Check if content is scheduled or if members are generating enough on their own.",
+                    "Check if new members are welcomed without your direct intervention.",
+                    "Take a day off and see what happens. If it breaks, fix the system."
                   ],
                   tips: ["Trust your team.", "Celebrate independence."],
                   commonChallenges: ["Micromanaging.", "Fear of irrelevance."],
