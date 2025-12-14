@@ -17,6 +17,7 @@ import {
   BarChart, Plus, Trash2 // Added Plus and Trash2
 } from 'lucide-react';
 import AICopilotModal from '../components/ai/AICopilotModal';
+import roadmapData from '../components/roadmap';
 
 const iconComponents = {
     Sparkles, Book, Calendar, LayoutTemplate, Users, Share2, KanbanSquare, Lightbulb, Loader2,
@@ -109,22 +110,93 @@ export default function WeekPage() {
             const currentWeek = urlWeek ? parseInt(urlWeek) : userData.current_week || 1;
             setWeekNumber(currentWeek);
 
-            // Load week content from database
-            const weekContent = await base44.entities.RoadmapContent.filter({
-                stage: userData.entrepreneurship_stage,
-                goal_id: userData.selected_goal,
-                week_number: currentWeek
-            });
+            // --- LOAD WEEK CONTENT STRATEGY ---
+            // 1. Try to find content in static roadmapData (Source of Truth for Dev changes)
+            // 2. Try to fetch from DB (CMS override)
+            // 3. Merge or fallback
 
-            if (!weekContent || weekContent.length === 0) {
-                console.error(`Week ${currentWeek} not found in database`);
+            let foundWeekData = null;
+
+            // 1. Static Data Lookup
+            const stageKey = userData.entrepreneurship_stage;
+            const goalKey = userData.selected_goal;
+            
+            // Handle both structure types if roadmapData has a default export or named export
+            const staticDataRoot = roadmapData.default || roadmapData;
+            
+            if (staticDataRoot && staticDataRoot[stageKey] && staticDataRoot[stageKey].goals && staticDataRoot[stageKey].goals[goalKey]) {
+                const goalData = staticDataRoot[stageKey].goals[goalKey];
+                let weekCount = 0;
+                
+                // Find the correct week across months
+                for (let m = 0; m < goalData.months.length; m++) {
+                    const month = goalData.months[m];
+                    if (currentWeek <= weekCount + month.weeks.length) {
+                        const weekIndex = currentWeek - weekCount - 1;
+                        const staticWeek = month.weeks[weekIndex];
+                        
+                        if (staticWeek) {
+                            // Map static structure to component expectation
+                            foundWeekData = {
+                                stage: staticDataRoot[stageKey].title,
+                                week_title: staticWeek.title,
+                                week_description: staticWeek.description,
+                                month_number: m + 1,
+                                why_it_matters: staticWeek.whyItMatters,
+                                how_it_streamlines: staticWeek.howItStreamlines,
+                                how_it_builds_relationships: staticWeek.howItBuildsRelationships,
+                                action_steps: staticWeek.actionSteps.map(step => ({
+                                    ...step,
+                                    link_to: step.linkTo,
+                                    foundation_step_id: step.foundationStepId,
+                                    time_estimate: step.timeEstimate,
+                                    detailed_steps: step.detailedSteps,
+                                    success_criteria: step.successCriteria,
+                                    common_challenges: step.commonChallenges
+                                })),
+                                tools: staticWeek.tools || [],
+                                resources: staticWeek.resources || []
+                            };
+                        }
+                        break;
+                    }
+                    weekCount += month.weeks.length;
+                }
+            }
+
+            // 2. DB Lookup (Optional: Could overwrite specific fields if needed, but we prioritize code updates for now)
+            try {
+                const dbContent = await base44.entities.RoadmapContent.filter({
+                    stage: stageKey,
+                    goal_id: goalKey,
+                    week_number: currentWeek
+                });
+                
+                if (dbContent && dbContent.length > 0) {
+                    const dbWeek = dbContent[0];
+                    // If we found static data, maybe just use DB for published status or dynamic overrides?
+                    // For now, if we have static data, use it to ensure "changes show up".
+                    // If NO static data found, fallback to DB.
+                    if (!foundWeekData) {
+                        foundWeekData = dbWeek;
+                    } else {
+                        // Optional: Merge DB props if they are strictly newer/better? 
+                        // Right now user wants "file changes" to show up, so we stick with foundWeekData from file.
+                        // console.log("Using static data over DB data for this week");
+                    }
+                }
+            } catch (err) {
+                console.warn("DB Content fetch failed, relying on static data", err);
+            }
+
+            if (!foundWeekData) {
+                console.error(`Week ${currentWeek} not found in static or DB`);
                 setWeekData(null);
                 setLoading(false);
                 return;
             }
 
-            const foundWeek = weekContent[0];
-            setWeekData(foundWeek);
+            setWeekData(foundWeekData);
 
             // Migrate old string notes to new array format if necessary
             const savedNotesRaw = localStorage.getItem(`week_${currentWeek}_notes`);
