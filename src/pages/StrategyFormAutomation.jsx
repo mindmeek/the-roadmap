@@ -146,7 +146,7 @@ export default function StrategyFormAutomation() {
                         <p className="text-sm text-[var(--text-soft)]">
                             <strong>The HQ</strong>'s Workflows handle repetitive tasks 24/7. Lead capture, email follow-ups, invoice generation, 
                             appointment booking, and customer onboarding happen automatically in one system. This frees 20+ hours per week for strategic work 
-                            and eliminates the need for "digital duct tape" like Zapier.
+                            and eliminates the need for "digital duct tape" like Zapier. Plus, for detailed installation instructions and implementation guidance, **The HQ's built-in AI chatbot** is always available to assist you step-by-step.
                         </p>
                     </div>
 
@@ -158,7 +158,7 @@ export default function StrategyFormAutomation() {
                         <p className="text-sm text-[var(--text-soft)]">
                             Automation ensures every prospect gets a perfect, timely experience. Welcome sequences deliver value immediately. 
                             Follow-ups never fall through cracks. Personalized touches happen at scale. Your ideal clients feel cared for because 
-                            systems handle the details while you focus on meaningful interactions.
+                            systems handle the details while you focus on meaningful interactions. Not sure what to automate first? Ask the experts in the **Business Minds Community**.
                         </p>
                     </div>
 

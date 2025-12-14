@@ -147,7 +147,7 @@ export default function StrategyFormCommunityBuilding() {
                         <p className="text-sm text-[var(--text-soft)]">
                             <strong>The HQ</strong> allows you to build a private, branded community directly integrated with your courses and CRM. 
                             Members help each other, reducing support tickets. Launch announcements reach your most engaged audience instantly 
-                            without fighting social media algorithms. Your community becomes your focus group, support team, and marketing department all in one.
+                            without fighting social media algorithms. Your community becomes your focus group, support team, and marketing department all in one. Plus, for detailed installation instructions and implementation guidance, **The HQ's built-in AI chatbot** is always available to assist you step-by-step.
                         </p>
                     </div>
 
@@ -159,7 +159,7 @@ export default function StrategyFormCommunityBuilding() {
                         <p className="text-sm text-[var(--text-soft)]">
                             In your community, prospects see real customers getting results and building friendships. This social proof 
                             is more powerful than any marketing copy. New members join because they want to be part of something bigger. 
-                            The community becomes the product itself—people stay for the connections.
+                            The community becomes the product itself—people stay for the connections. Remember, as you build yours, you can always ask questions and get support in the main **Business Minds Community**.
                         </p>
                     </div>
 

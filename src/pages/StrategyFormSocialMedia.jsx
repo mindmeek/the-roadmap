@@ -152,7 +152,7 @@ export default function StrategyFormSocialMedia() {
                         <p className="text-sm text-[var(--text-soft)]">
                             Using <strong>The HQ</strong>'s Social Planner, you can schedule 30 days of content in one sitting. It posts automatically 
                             to all your accounts (Facebook, Instagram, LinkedIn, etc.) while you focus on revenue. Content pillars eliminate "what should I post?" 
-                            paralysis, and the centralized inbox lets you reply to all comments in one place.
+                            paralysis, and the centralized inbox lets you reply to all comments in one place. Plus, for detailed installation instructions and implementation guidance, **The HQ's built-in AI chatbot** is always available to assist you step-by-step.
                         </p>
                     </div>
 
@@ -164,7 +164,7 @@ export default function StrategyFormSocialMedia() {
                         <p className="text-sm text-[var(--text-soft)]">
                             Social media humanizes your brand. Behind-the-scenes content, personal stories, and authentic interactions 
                             build trust faster than any ad. Your ideal clients discover you through hashtags, shares, and recommendations. 
-                            Consistent valuable content positions you as the go-to expert in your niche.
+                            Consistent valuable content positions you as the go-to expert in your niche. Share your wins and get content ideas in the **Business Minds Community**.
                         </p>
                     </div>
 

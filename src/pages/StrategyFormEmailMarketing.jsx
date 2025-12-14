@@ -151,7 +151,7 @@ export default function StrategyFormEmailMarketing() {
                         <p className="text-sm text-[var(--text-soft)]">
                             <strong>The HQ</strong>'s built-in email marketing and automation handle the nurturing for you. A new subscriber gets your welcome series, 
                             abandoned cart emails trigger automatically, and educational sequences build trust on autopilot. You write once, profit forever, 
-                            eliminating the need for expensive external email tools.
+                            eliminating the need for expensive external email tools. Plus, for detailed installation instructions and implementation guidance, **The HQ's built-in AI chatbot** is always available to assist you step-by-step.
                         </p>
                     </div>
 
@@ -163,7 +163,7 @@ export default function StrategyFormEmailMarketing() {
                         <p className="text-sm text-[var(--text-soft)]">
                             Email allows intimate, one-to-one communication at scale. You land directly in their inbox—their most personal 
                             digital space. Through storytelling, value-packed content, and addressing specific pain points, you build 
-                            relationships that convert strangers into buyers and buyers into advocates.
+                            relationships that convert strangers into buyers and buyers into advocates. Stuck on your copy? Get feedback and support from fellow entrepreneurs in the **Business Minds Community**.
                         </p>
                     </div>
 

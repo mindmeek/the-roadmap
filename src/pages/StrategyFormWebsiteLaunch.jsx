@@ -153,7 +153,7 @@ export default function StrategyFormWebsiteLaunch() {
                         <p className="text-sm text-[var(--text-soft)]">
                             <strong>The HQ</strong>'s drag-and-drop builder creates websites and funnels that automate your sales process. 
                             Integrated directly with your CRM and calendar, your site pre-qualifies leads and frees up your time for high-value conversations
-                            without needing technical skills or expensive hosting.
+                            without needing technical skills or expensive hosting. Plus, for detailed installation instructions and implementation guidance, **The HQ's built-in AI chatbot** is always available to assist you step-by-step.
                         </p>
                     </div>
 
@@ -165,7 +165,7 @@ export default function StrategyFormWebsiteLaunch() {
                         <p className="text-sm text-[var(--text-soft)]">
                             Your website speaks directly to your ideal client's pain points, desires, and questions. Through compelling copy
                             and strategic design, it builds trust and demonstrates you understand their world. Testimonials, case studies,
-                            and your story create emotional connection before the first conversation.
+                            and your story create emotional connection before the first conversation. Need design feedback? Share your site and get support in the **Business Minds Community**.
                         </p>
                     </div>
 
