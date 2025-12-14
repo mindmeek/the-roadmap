@@ -1947,7 +1947,7 @@ const growth = {
               description: "This week you plan the attack. You decide how you will contact them (Email, DM, Phone) and what you will say. A systematic approach ensures you follow up and don't drop the ball.",
               whyItMatters: "The money is in the follow-up. A system ensures you are persistent without being annoying.",
               howItStreamlines: "You track status. You know who replied and who needs a nudge.",
-              howItBuilds relationships: "You build rapport over time. You don't just pitch and run.",
+              howItBuildsRelationships: "You build rapport over time. You don't just pitch and run.",
               actionSteps: [
                 {
                   title: "Setup Outreach Tracker",
