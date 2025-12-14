@@ -82,7 +82,7 @@ export default function LiveWebinarPage() {
                         </div>
                         
                         <a 
-                            href="https://meet.google.com/fbs-gzea-wji" 
+                            href="https://Thebminds.com" 
                             target="_blank" 
                             rel="noopener noreferrer" 
                             className="btn btn-primary inline-flex items-center text-lg px-8 py-4 mb-3"
@@ -194,17 +194,25 @@ export default function LiveWebinarPage() {
                 <div className="card p-6 md:p-8 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20" style={{ borderRadius: '2px' }}>
                     <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4 text-center">Regular Schedule</h2>
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6 text-center">
-                        <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md flex-1 w-full max-w-xs">
-                            <CalendarDays className="w-8 h-8 text-[var(--primary-gold)] mx-auto mb-2" />
-                            <h3 className="font-bold text-lg text-[var(--text-main)] mb-1">Every Tuesday</h3>
-                            <p className="text-sm text-[var(--text-soft)] mb-2">12:00 PM - 1:00 PM</p>
-                            <p className="text-xs text-[var(--text-soft)]">Live Community Session</p>
+                        <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md flex-1 w-full max-w-xs transition-transform hover:-translate-y-1">
+                            <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-full w-fit mx-auto mb-3">
+                                <Target className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                            </div>
+                            <h3 className="font-bold text-lg text-[var(--text-main)] mb-1">Strategy & Vision Sync</h3>
+                            <p className="text-xs font-bold text-[var(--primary-gold)] uppercase tracking-wide mb-2">Every Tuesday • 12PM - 1PM</p>
+                            <p className="text-sm text-[var(--text-soft)]">
+                                Align your entrepreneurial mindset, refine your business strategy, and get clear on your weekly objectives.
+                            </p>
                         </div>
-                        <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md flex-1 w-full max-w-xs">
-                            <CalendarDays className="w-8 h-8 text-[var(--primary-gold)] mx-auto mb-2" />
-                            <h3 className="font-bold text-lg text-[var(--text-main)] mb-1">Every Thursday</h3>
-                            <p className="text-sm text-[var(--text-soft)] mb-2">12:00 PM - 1:00 PM</p>
-                            <p className="text-xs text-[var(--text-soft)]">Live Community Session</p>
+                        <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md flex-1 w-full max-w-xs transition-transform hover:-translate-y-1">
+                            <div className="bg-purple-100 dark:bg-purple-900/30 p-3 rounded-full w-fit mx-auto mb-3">
+                                <Zap className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                            </div>
+                            <h3 className="font-bold text-lg text-[var(--text-main)] mb-1">Execution & Growth Lab</h3>
+                            <p className="text-xs font-bold text-[var(--primary-gold)] uppercase tracking-wide mb-2">Every Thursday • 12PM - 1PM</p>
+                            <p className="text-sm text-[var(--text-soft)]">
+                                Deep dive into The HQ tools, troubleshoot roadmap roadblocks, and master the tactics for rapid growth.
+                            </p>
                         </div>
                     </div>
                     <div className="mt-6 text-center space-y-3">
@@ -226,13 +234,13 @@ export default function LiveWebinarPage() {
                         Mark your calendar and be part of our next live session at <strong>12:00 PM</strong>!
                     </p>
                     <a 
-                        href="https://meet.google.com/fbs-gzea-wji" 
+                        href="https://Thebminds.com" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="btn btn-primary inline-flex items-center text-lg px-8 py-4"
                     >
                         <Video className="w-5 h-5 mr-2" />
-                        Save the Webinar Link
+                        Join Community Session
                     </a>
                 </div>
             </div>
