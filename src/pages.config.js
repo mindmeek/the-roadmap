@@ -92,6 +92,7 @@ import EditSOP from './pages/EditSOP';
 import ViewSOP from './pages/ViewSOP';
 import TheHQ from './pages/TheHQ';
 import AnnualPlanning from './pages/AnnualPlanning';
+import SocialMediaPlanner from './pages/SocialMediaPlanner';
 import __Layout from './Layout.jsx';
 
 
@@ -190,6 +191,7 @@ export const PAGES = {
     "ViewSOP": ViewSOP,
     "TheHQ": TheHQ,
     "AnnualPlanning": AnnualPlanning,
+    "SocialMediaPlanner": SocialMediaPlanner,
 }
 
 export const pagesConfig = {

@@ -63,7 +63,8 @@ const connectBuildItems = [
     { href: "MyBusinesses", icon: Briefcase, label: "My Businesses", mobileLabel: "Businesses" },
     { href: "Partners", icon: Handshake, label: "Partners", mobileLabel: "Partners" },
     { href: "TheBeacon", icon: Podcast, label: "The Beacon Studio", mobileLabel: "Podcast" },
-];
+    { href: "SocialMediaPlanner", icon: Share2, label: "Social Media Planner", mobileLabel: "Social Plan" },
+    ];
 
 const myAccountItems = [
     { href: "Profile", icon: UserCircle, label: "My Profile", mobileLabel: "Profile" },
