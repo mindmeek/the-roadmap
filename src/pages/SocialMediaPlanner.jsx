@@ -335,7 +335,7 @@ export default function SocialMediaPlanner() {
 
                         {/* Month Tabs */}
                         <div className="flex space-x-2 overflow-x-auto pb-2">
-                            {currentPlan.plan_data.months.map((month, idx) => (
+                            {(currentPlan.plan_data?.months || []).map((month, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => { setActiveMonth(idx); setActiveWeek(0); }}
@@ -345,76 +345,86 @@ export default function SocialMediaPlanner() {
                                         : 'bg-white dark:bg-gray-800 text-[var(--text-soft)] hover:bg-gray-100 dark:hover:bg-gray-700'
                                     }`}
                                 >
-                                    Month {month.month}
-                                    <div className={`text-xs mt-1 ${activeMonth === idx ? 'text-white/80' : 'text-[var(--text-soft)]'}`}>{month.theme}</div>
+                                    Month {month?.month || idx + 1}
+                                    <div className={`text-xs mt-1 ${activeMonth === idx ? 'text-white/80' : 'text-[var(--text-soft)]'}`}>{month?.theme || 'Theme'}</div>
                                 </button>
                             ))}
                         </div>
 
                         {/* Weekly Content */}
                         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-                            <div className="p-6 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
-                                <h3 className="text-lg font-bold text-[var(--text-main)] flex items-center">
-                                    <Target className="w-5 h-5 text-[var(--primary-gold)] mr-2" />
-                                    Month {currentPlan.plan_data.months[activeMonth].month} Focus: {currentPlan.plan_data.months[activeMonth].focus}
-                                </h3>
-                            </div>
+                            {currentPlan.plan_data?.months?.[activeMonth] && (
+                                <>
+                                    <div className="p-6 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
+                                        <h3 className="text-lg font-bold text-[var(--text-main)] flex items-center">
+                                            <Target className="w-5 h-5 text-[var(--primary-gold)] mr-2" />
+                                            Month {currentPlan.plan_data.months[activeMonth].month} Focus: {currentPlan.plan_data.months[activeMonth].focus}
+                                        </h3>
+                                    </div>
 
-                            <div className="flex border-b border-gray-200 dark:border-gray-700">
-                                {currentPlan.plan_data.months[activeMonth].weeks.map((week, idx) => (
-                                    <button
-                                        key={idx}
-                                        onClick={() => setActiveWeek(idx)}
-                                        className={`flex-1 py-4 text-center text-sm font-medium border-b-2 transition-colors ${
-                                            activeWeek === idx 
-                                            ? 'border-[var(--primary-gold)] text-[var(--primary-gold)] bg-yellow-50 dark:bg-yellow-900/10' 
-                                            : 'border-transparent text-[var(--text-soft)] hover:bg-gray-50 dark:hover:bg-gray-700'
-                                        }`}
-                                    >
-                                        Week {week.week}
-                                    </button>
-                                ))}
-                            </div>
+                                    <div className="flex border-b border-gray-200 dark:border-gray-700">
+                                        {(currentPlan.plan_data.months[activeMonth].weeks || []).map((week, idx) => (
+                                            <button
+                                                key={idx}
+                                                onClick={() => setActiveWeek(idx)}
+                                                className={`flex-1 py-4 text-center text-sm font-medium border-b-2 transition-colors ${
+                                                    activeWeek === idx 
+                                                    ? 'border-[var(--primary-gold)] text-[var(--primary-gold)] bg-yellow-50 dark:bg-yellow-900/10' 
+                                                    : 'border-transparent text-[var(--text-soft)] hover:bg-gray-50 dark:hover:bg-gray-700'
+                                                }`}
+                                            >
+                                                Week {week?.week || idx + 1}
+                                            </button>
+                                        ))}
+                                    </div>
 
-                            <div className="p-6">
-                                <div className="mb-6 bg-blue-50 dark:bg-blue-900/10 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
-                                    <span className="font-bold text-blue-800 dark:text-blue-300 uppercase text-xs tracking-wide">Weekly Focus</span>
-                                    <p className="text-blue-900 dark:text-blue-100 font-medium mt-1">
-                                        {currentPlan.plan_data.months[activeMonth].weeks[activeWeek].focus}
-                                    </p>
-                                </div>
-
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                                    {currentPlan.plan_data.months[activeMonth].weeks[activeWeek].days.map((day, dIdx) => (
-                                        <div key={dIdx} className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow">
-                                            <div className="flex justify-between items-start mb-3">
-                                                <span className="bg-gray-200 dark:bg-gray-700 text-[var(--text-main)] text-xs font-bold px-2 py-1 rounded">Day {day.day}</span>
-                                                <span className="text-xs text-[var(--text-soft)] font-medium">{day.platform}</span>
-                                            </div>
-                                            
-                                            <h4 className="font-bold text-[var(--text-main)] text-sm mb-2 min-h-[40px]">{day.topic}</h4>
-                                            
-                                            <div className="space-y-2 mb-4">
-                                                <div className="flex items-center text-xs text-[var(--text-soft)]">
-                                                    {day.content_type.includes('Video') ? <Video className="w-3 h-3 mr-1.5" /> : <ImageIcon className="w-3 h-3 mr-1.5" />}
-                                                    {day.content_type}
+                                    <div className="p-6">
+                                        {currentPlan.plan_data.months[activeMonth].weeks?.[activeWeek] ? (
+                                            <>
+                                                <div className="mb-6 bg-blue-50 dark:bg-blue-900/10 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
+                                                    <span className="font-bold text-blue-800 dark:text-blue-300 uppercase text-xs tracking-wide">Weekly Focus</span>
+                                                    <p className="text-blue-900 dark:text-blue-100 font-medium mt-1">
+                                                        {currentPlan.plan_data.months[activeMonth].weeks[activeWeek].focus}
+                                                    </p>
                                                 </div>
-                                                <div className="flex items-center text-xs text-[var(--primary-gold)] font-medium">
-                                                    <Sparkles className="w-3 h-3 mr-1.5" />
-                                                    Use: {day.hq_feature}
-                                                </div>
-                                            </div>
 
-                                            <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
-                                                <p className="text-xs text-[var(--text-main)] mb-3 line-clamp-3">{day.action}</p>
-                                                <button className="w-full btn btn-secondary btn-sm text-xs">
-                                                    Open {day.hq_feature.split(' ')[1]}
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                                                    {(currentPlan.plan_data.months[activeMonth].weeks[activeWeek].days || []).map((day, dIdx) => (
+                                                        <div key={dIdx} className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                                            <div className="flex justify-between items-start mb-3">
+                                                                <span className="bg-gray-200 dark:bg-gray-700 text-[var(--text-main)] text-xs font-bold px-2 py-1 rounded">Day {day?.day || dIdx + 1}</span>
+                                                                <span className="text-xs text-[var(--text-soft)] font-medium">{day?.platform || 'Social'}</span>
+                                                            </div>
+                                                            
+                                                            <h4 className="font-bold text-[var(--text-main)] text-sm mb-2 min-h-[40px]">{day?.topic || 'Topic'}</h4>
+                                                            
+                                                            <div className="space-y-2 mb-4">
+                                                                <div className="flex items-center text-xs text-[var(--text-soft)]">
+                                                                    {day?.content_type?.includes('Video') ? <Video className="w-3 h-3 mr-1.5" /> : <ImageIcon className="w-3 h-3 mr-1.5" />}
+                                                                    {day?.content_type}
+                                                                </div>
+                                                                <div className="flex items-center text-xs text-[var(--primary-gold)] font-medium">
+                                                                    <Sparkles className="w-3 h-3 mr-1.5" />
+                                                                    Use: {day?.hq_feature}
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
+                                                                <p className="text-xs text-[var(--text-main)] mb-3 line-clamp-3">{day?.action}</p>
+                                                                <button className="w-full btn btn-secondary btn-sm text-xs">
+                                                                    Open {day?.hq_feature?.split(' ')[1] || 'Tool'}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <div className="text-center py-10 text-[var(--text-soft)]">No weekly data available.</div>
+                                        )}
+                                    </div>
+                                </>
+                            )}
                         </div>
                     </div>
                 )}
