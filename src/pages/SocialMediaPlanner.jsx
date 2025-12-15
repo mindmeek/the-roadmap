@@ -4,7 +4,6 @@ import { staticSocialMediaPlans, toolMapping } from '../components/social_media/
 import { Link } from 'react-router-dom';
 import { Sparkles, Calendar, Target, Layout, CheckCircle, ArrowRight, Loader2, Save, RefreshCw, ChevronDown, ChevronRight, Share2, BarChart2, MessageSquare, Video, Image as ImageIcon, Copy, Play, Palette } from 'lucide-react';
 import { createPageUrl } from '@/utils';
-import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 
 // Helper to get available niche roadmaps (simplified list based on NicheRoadmaps page)
