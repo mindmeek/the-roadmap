@@ -675,35 +675,7 @@ export default function WeekPage() {
                                                 })()}
                                             </div>
 
-                                            {/* Related Resources - Static Injection for now as proof of concept */}
-                                            {index === 0 && weekNumber === 1 && ( // Just an example condition, you can expand this logic
-                                                <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                                                    <h5 className="text-xs font-bold text-[var(--text-main)] uppercase tracking-wider mb-3 flex items-center gap-2">
-                                                        <BookOpen className="w-3 h-3 text-[var(--primary-gold)]" />
-                                                        Recommended Resources
-                                                    </h5>
-                                                    <div className="grid gap-2">
-                                                        <button onClick={() => navigate(createPageUrl('QuickLessons'))} className="flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors text-left group">
-                                                            <div className="bg-white dark:bg-gray-700 p-1.5 rounded border border-gray-200 dark:border-gray-600 group-hover:border-[var(--primary-gold)] transition-colors">
-                                                                <Lightbulb className="w-4 h-4 text-[var(--primary-gold)]" />
-                                                            </div>
-                                                            <div>
-                                                                <p className="text-sm font-medium text-[var(--text-main)] group-hover:text-[var(--primary-gold)]">Quick Lesson: Foundation Basics</p>
-                                                                <p className="text-xs text-[var(--text-soft)]">5 min read • Strategy</p>
-                                                            </div>
-                                                        </button>
-                                                        <button onClick={() => navigate(createPageUrl('MindsetHacks'))} className="flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors text-left group">
-                                                            <div className="bg-white dark:bg-gray-700 p-1.5 rounded border border-gray-200 dark:border-gray-600 group-hover:border-[var(--primary-gold)] transition-colors">
-                                                                <Brain className="w-4 h-4 text-purple-500" />
-                                                            </div>
-                                                            <div>
-                                                                <p className="text-sm font-medium text-[var(--text-main)] group-hover:text-purple-500">Mindset: The Entrepreneur's Shift</p>
-                                                                <p className="text-xs text-[var(--text-soft)]">Audio • Mental Performance</p>
-                                                            </div>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            )}
+
                                         </div>
 
                                         <label className="flex items-center space-x-2 cursor-pointer mt-4 border-t border-gray-200 dark:border-gray-700 pt-3">
@@ -815,22 +787,40 @@ export default function WeekPage() {
                     </div>
                 </div>
 
-                {/* Tools & Resources */}
-                {weekData.tools && weekData.tools.length > 0 && (
+                {/* Recommended Resources */}
+                {weekData.resources && weekData.resources.length > 0 && (
                     <div className="card p-4 sm:p-6">
                         <div className="flex items-center space-x-3 sm:space-x-4 mb-4 sm:mb-6">
                             <div className="bg-gray-100 dark:bg-gray-700 p-3 rounded-md">
-                                <Wrench className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--primary-gold)]" />
+                                <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--primary-gold)]" />
                             </div>
-                            <h2 className="text-lg sm:text-xl font-bold text-[var(--text-main)]">Tools & Resources</h2>
+                            <h2 className="text-lg sm:text-xl font-bold text-[var(--text-main)]">Recommended Resources</h2>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-                            {weekData.tools.map((tool, index) => (
-                                <div key={index} className="flex items-center space-x-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-3 sm:p-4 rounded-md">
-                                    <ToolIcon name={tool.icon} />
-                                    <span className="text-[var(--text-main)] font-medium text-sm sm:text-base">{tool.name}</span>
-                                </div>
-                            ))}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {weekData.resources.map((resource, index) => {
+                                const isString = typeof resource === 'string';
+                                const title = isString ? resource : resource.title;
+                                const type = isString ? 'Resource' : resource.type;
+                                const iconName = isString ? 'BookOpen' : (resource.icon || 'BookOpen');
+                                const link = isString ? null : resource.link;
+                                
+                                return (
+                                    <div 
+                                        key={index} 
+                                        onClick={() => link && navigate(createPageUrl(link))}
+                                        className={`flex items-start space-x-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 rounded-lg transition-colors ${link ? 'cursor-pointer hover:border-[var(--primary-gold)] group' : ''}`}
+                                    >
+                                        <div className="bg-white dark:bg-gray-700 p-2 rounded-md shadow-sm">
+                                            <ToolIcon name={iconName} />
+                                        </div>
+                                        <div>
+                                            <h4 className={`font-semibold text-[var(--text-main)] ${link ? 'group-hover:text-[var(--primary-gold)]' : ''}`}>{title}</h4>
+                                            <p className="text-xs text-[var(--text-soft)] mt-1">{type}</p>
+                                        </div>
+                                        {link && <ChevronRight className="w-4 h-4 text-gray-400 ml-auto self-center group-hover:text-[var(--primary-gold)]" />}
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 )}
