@@ -284,6 +284,64 @@ export default function WeekPage() {
         }));
     };
 
+    const handleAddStepNote = (weekNum, stepIndex) => {
+        setStepAnswers(prev => {
+            const currentStepData = prev[weekNum]?.[stepIndex] || {};
+            const currentNotes = currentStepData.additional_notes || [];
+            return {
+                ...prev,
+                [weekNum]: {
+                    ...(prev[weekNum] || {}),
+                    [stepIndex]: {
+                        ...currentStepData,
+                        additional_notes: [
+                            ...currentNotes,
+                            { id: Date.now().toString(), title: `Note Section ${currentNotes.length + 1}`, content: '' }
+                        ],
+                        last_updated: new Date().toISOString()
+                    }
+                }
+            };
+        });
+    };
+
+    const handleUpdateStepNote = (weekNum, stepIndex, noteId, field, value) => {
+        setStepAnswers(prev => {
+            const currentStepData = prev[weekNum]?.[stepIndex] || {};
+            const currentNotes = currentStepData.additional_notes || [];
+            return {
+                ...prev,
+                [weekNum]: {
+                    ...(prev[weekNum] || {}),
+                    [stepIndex]: {
+                        ...currentStepData,
+                        additional_notes: currentNotes.map(n => n.id === noteId ? { ...n, [field]: value } : n),
+                        last_updated: new Date().toISOString()
+                    }
+                }
+            };
+        });
+    };
+
+    const handleDeleteStepNote = (weekNum, stepIndex, noteId) => {
+        if (!confirm('Are you sure you want to delete this note section?')) return;
+        setStepAnswers(prev => {
+            const currentStepData = prev[weekNum]?.[stepIndex] || {};
+            const currentNotes = currentStepData.additional_notes || [];
+            return {
+                ...prev,
+                [weekNum]: {
+                    ...(prev[weekNum] || {}),
+                    [stepIndex]: {
+                        ...currentStepData,
+                        additional_notes: currentNotes.filter(n => n.id !== noteId),
+                        last_updated: new Date().toISOString()
+                    }
+                }
+            };
+        });
+    };
+
     const handleSaveAnswer = async (weekNum, stepIndex) => {
         if (!foundationProgress) return;
         
@@ -650,24 +708,69 @@ export default function WeekPage() {
                                                             </div>
                                                         );
                                                     } else {
+                                                        const additionalNotes = stepAnswers[weekNumber]?.[index]?.additional_notes || [];
+                                                        
                                                         return (
-                                                            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3 border border-gray-200 dark:border-gray-700">
-                                                                <textarea 
-                                                                    value={currentAnswer}
-                                                                    onChange={(e) => handleAnswerChange(weekNumber, index, e.target.value)}
-                                                                    placeholder="Type your work, answers, and ideas for this step here..."
-                                                                    className="w-full min-h-[150px] p-4 text-sm sm:text-base bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed"
-                                                                />
-                                                                <div className="flex justify-between items-center mt-3 px-1">
-                                                                    <p className="text-xs text-[var(--text-soft)] italic">
-                                                                        * Changes save automatically to your private journal
-                                                                    </p>
+                                                            <div className="space-y-4">
+                                                                {/* Main Answer Section */}
+                                                                <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3 border border-gray-200 dark:border-gray-700">
+                                                                    <h6 className="text-xs font-bold text-[var(--text-soft)] uppercase tracking-wide mb-2">Main Notes</h6>
+                                                                    <textarea 
+                                                                        value={currentAnswer}
+                                                                        onChange={(e) => handleAnswerChange(weekNumber, index, e.target.value)}
+                                                                        placeholder="Type your work, answers, and ideas for this step here..."
+                                                                        className="w-full min-h-[150px] p-4 text-sm sm:text-base bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed"
+                                                                    />
+                                                                </div>
+
+                                                                {/* Additional Note Sections */}
+                                                                {additionalNotes.map((note) => (
+                                                                    <div key={note.id} className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3 border border-gray-200 dark:border-gray-700 relative group">
+                                                                        <div className="flex justify-between items-center mb-2">
+                                                                            <input
+                                                                                type="text"
+                                                                                value={note.title}
+                                                                                onChange={(e) => handleUpdateStepNote(weekNumber, index, note.id, 'title', e.target.value)}
+                                                                                className="bg-transparent border-b border-transparent hover:border-gray-300 focus:border-[var(--primary-gold)] text-xs font-bold text-[var(--text-soft)] uppercase tracking-wide focus:outline-none w-full max-w-xs"
+                                                                                placeholder="SECTION TITLE"
+                                                                            />
+                                                                            <button 
+                                                                                onClick={() => handleDeleteStepNote(weekNumber, index, note.id)}
+                                                                                className="text-gray-400 hover:text-red-500 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                                                                                title="Delete this section"
+                                                                            >
+                                                                                <Trash2 className="w-3 h-3" />
+                                                                            </button>
+                                                                        </div>
+                                                                        <textarea 
+                                                                            value={note.content}
+                                                                            onChange={(e) => handleUpdateStepNote(weekNumber, index, note.id, 'content', e.target.value)}
+                                                                            placeholder="Add notes for this specific part..."
+                                                                            className="w-full min-h-[100px] p-4 text-sm sm:text-base bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed"
+                                                                        />
+                                                                    </div>
+                                                                ))}
+
+                                                                {/* Actions Footer */}
+                                                                <div className="flex justify-between items-center pt-2">
                                                                     <button
-                                                                        onClick={() => handleSaveAnswer(weekNumber, index)}
-                                                                        className="btn btn-secondary btn-sm"
+                                                                        onClick={() => handleAddStepNote(weekNumber, index)}
+                                                                        className="text-sm text-[var(--primary-gold)] hover:underline flex items-center gap-1 font-medium"
                                                                     >
-                                                                        <Save className="w-3 h-3 mr-1" /> Force Save
+                                                                        <Plus className="w-4 h-4" /> Add Note Section
                                                                     </button>
+                                                                    
+                                                                    <div className="flex items-center gap-3">
+                                                                        <p className="text-xs text-[var(--text-soft)] italic hidden sm:block">
+                                                                            * Changes save automatically
+                                                                        </p>
+                                                                        <button
+                                                                            onClick={() => handleSaveAnswer(weekNumber, index)}
+                                                                            className="btn btn-secondary btn-sm"
+                                                                        >
+                                                                            <Save className="w-3 h-3 mr-1" /> Force Save
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         );
