@@ -147,6 +147,30 @@ const nichePrograms = [
     ],
     contentKey: "podcast_growth",
     comingSoon: false
+  },
+  {
+    id: "musical-artist",
+    title: "Musical Artist Growth Plan",
+    subtitle: "90-Day Fanbase & Revenue System",
+    description: "Launch your music career, build a superfan community, and monetize your art using The Business Minds HQ. Transform listeners into a thriving army of supporters.",
+    icon: Mic,
+    color: "from-pink-600 to-rose-600",
+    imageUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&h=400&fit=crop",
+    metrics: [
+      { label: "Fanbase", value: "1,000+ Superfans" },
+      { label: "Revenue", value: "Recurring Support" },
+      { label: "Streams", value: "Monthly Growth" },
+      { label: "Merch", value: "Store Live" }
+    ],
+    highlights: [
+      "Build automated fan onboarding funnel",
+      "Launch exclusive fan community",
+      "Monetize with merch and memberships",
+      "Master social content for artists",
+      "Execute professional release strategy"
+    ],
+    contentKey: "musical_artist_growth",
+    comingSoon: false
   }
 ];
 
