@@ -56,9 +56,12 @@ const vision = {
               ],
               resources: [
                 { title: "Mission & Vision Template", type: "Tool", icon: "FileText", link: "StrategyFormMissionVision" },
-                { title: "Core Values Worksheet", type: "Tool", icon: "ListChecks", link: "StrategyFormBrandIdentity" },
-                { title: "Quick Lesson: The Power of Why", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
-                { title: "Guide: Crafting a Compelling Vision", type: "Guide", icon: "BookOpen", link: "Guides" }
+                { title: "Guide: Crafting a Compelling Vision", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: The Power of Why", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Overcoming Imposter Syndrome", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Personal Brand", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: 7-Day Business Launch", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Need Help? Ask the Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -88,7 +91,12 @@ const vision = {
               ],
               resources: [
                 { title: "Ideal Client Persona Builder", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" },
-                { title: "Guide: Finding Your Niche", type: "Guide", icon: "Target", link: "Guides" }
+                { title: "Guide: Finding Your Niche", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Customer Empathy", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Fear of Niching Down", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Service Business", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Audience Discovery Sprint", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get Feedback in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -118,7 +126,12 @@ const vision = {
               ],
               resources: [
                 { title: "Competitor Analysis Grid", type: "Tool", icon: "BarChart3", link: "StrategyFormSWOTAnalysis" },
-                { title: "Quick Lesson: Competitive Advantage", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" }
+                { title: "Guide: Competitive Intelligence", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Blue Ocean Strategy", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Scarcity vs Abundance", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: E-commerce", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Market Validation", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Discuss Competitors in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -147,9 +160,13 @@ const vision = {
                 }
               ],
               resources: [
-                { title: "Mission & Vision Template", type: "Tool", icon: "FileText", link: "StrategyFormMissionVision" },
-                { title: "Ideal Client Persona", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" },
-                { title: "Guide: Writing Killer Headlines", type: "Guide", icon: "PenTool", link: "Guides" }
+                { title: "Value Proposition Builder", type: "Tool", icon: "Filter", link: "StrategyFormValueProposition" },
+                { title: "Guide: Writing Killer Headlines", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: The Irresistible Offer", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Owning Your Value", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Coaching", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Offer Creation Masterclass", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Review Your Pitch in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -184,7 +201,13 @@ const vision = {
                 }
               ],
               resources: [
-                { title: "Financial Projections", type: "Tool", icon: "DollarSign", link: "FreedomCalculator" }
+                { title: "Financial Projections Tool", type: "Tool", icon: "DollarSign", link: "FreedomCalculator" },
+                { title: "Guide: Startup Legal Checklist", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Financial Literacy 101", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Money Blocks", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Freelancing", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Business Basics Bootcamp", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Ask Financial Questions in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -213,7 +236,13 @@ const vision = {
                 }
               ],
               resources: [
-                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" },
+                { title: "Guide: DIY Branding", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Color Psychology", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Showing Up Authentically", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Creative Arts", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Brand You", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get Logo Feedback in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -242,7 +271,13 @@ const vision = {
                 }
               ],
               resources: [
-                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" }
+                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" },
+                { title: "Guide: The Productivity Stack", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Time Management", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: From Busy to Productive", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Virtual Assistant", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Systems for Success", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Ask for Tool Recommendations", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -271,7 +306,13 @@ const vision = {
                 }
               ],
               resources: [
-                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+                { title: "Value Ladder Tool", type: "Tool", icon: "BarChart3", link: "StrategyFormValueLadder" },
+                { title: "Guide: Pricing Your Services", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Packaging Your Expertise", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Charging Your Worth", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Consulting", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: High Ticket Offer Design", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get Pricing Feedback in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -306,7 +347,13 @@ const vision = {
                 }
               ],
               resources: [
-                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+                { title: "Website Launch Planner", type: "Tool", icon: "LayoutTemplate", link: "StrategyFormWebsiteLaunch" },
+                { title: "Guide: Website Copywriting", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Landing Page Conversions", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Perfectionism Trap", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Tech Startup", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Weekend Website Sprint", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share Your Site for Review", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -335,7 +382,13 @@ const vision = {
                 }
               ],
               resources: [
-                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" },
+                { title: "Guide: The Launch Strategy", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Building Hype", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Fear of Visibility", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Digital Products", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: 30-Day Launchpad", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get Hype Ideas in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -364,7 +417,13 @@ const vision = {
                 }
               ],
               resources: [
-                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" },
+                { title: "Guide: Sales Psychology", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Closing the Sale", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Sales Confidence", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Agency", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: First 10 Customers", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Celebrate Wins in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -393,7 +452,13 @@ const vision = {
                 }
               ],
               resources: [
-                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+                { title: "Annual Planning Tool", type: "Tool", icon: "Calendar", link: "AnnualPlanning" },
+                { title: "Guide: Quarterly Reviews", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Strategic Planning", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: The Long Game", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Real Estate", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Scaling Up", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share Your Plan in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -441,7 +506,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Competitor Analysis Grid", type: "Tool", icon: "BarChart3", link: "StrategyFormSWOTAnalysis" }
+                { title: "Business Model Canvas", type: "Tool", icon: "LayoutTemplate", link: "StrategyFormBusinessModelCanvas" },
+                { title: "Guide: Market Research 101", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Spotting Trends", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Facing Reality", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: SaaS", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Idea to Launch", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Ask for Industry Insights", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -470,7 +541,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Competitor Analysis Grid", type: "Tool", icon: "BarChart3", link: "StrategyFormSWOTAnalysis" }
+                { title: "SWOT Analysis Tool", type: "Tool", icon: "BarChart3", link: "StrategyFormSWOTAnalysis" },
+                { title: "Guide: Competitive Strategy", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Niche Down", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Healthy Competition", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Restaurant", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Differentiation Masterclass", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Compare Competitors in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -499,7 +576,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Mission & Vision Template", type: "Tool", icon: "FileText", link: "StrategyFormMissionVision" }
+                { title: "Business Model Canvas", type: "Tool", icon: "LayoutTemplate", link: "StrategyFormBusinessModelCanvas" },
+                { title: "Guide: Startup Finance", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Revenue Streams", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Profit First", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Fashion", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Startup Sprint", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Validate Business Model in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -528,7 +611,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+                { title: "Value Proposition Tool", type: "Tool", icon: "Filter", link: "StrategyFormValueProposition" },
+                { title: "Guide: Brand Positioning", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: The Elevator Pitch", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Confidence in Value", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Health & Wellness", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Positioning Power", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Pitch Your Position in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -563,7 +652,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" }
+                { title: "Automation Strategy Tool", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" },
+                { title: "Guide: Systems & Processes", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Mapping Workflows", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Systems Thinking", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Manufacturing", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Operations Optimization", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Ask About Tools in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -592,7 +687,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Financial Projections", type: "Tool", icon: "DollarSign", link: "FreedomCalculator" }
+                { title: "Freedom Calculator", type: "Tool", icon: "DollarSign", link: "FreedomCalculator" },
+                { title: "Guide: Managing Cash Flow", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Reading a P&L", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Financial Abundance", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Service Agency", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Profit First Implementation", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Discuss Pricing in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -621,7 +722,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Ideal Client Persona", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" }
+                { title: "Automation & SOPs", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" },
+                { title: "Guide: Hiring Your First VA", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Delegation 101", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Letting Go of Control", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Solopreneur", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Team Building", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Ask About Hiring in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -650,7 +757,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" }
+                { title: "Automation & Systems Tool", type: "Tool", icon: "Settings", link: "StrategyFormAutomation" },
+                { title: "Guide: The Perfect Tech Stack", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Software Selection", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Investing in Tools", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Digital Agency", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Digital HQ Setup", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get Tech Recs in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -685,7 +798,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+                { title: "Content Calendar Tool", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" },
+                { title: "Guide: The Ultimate Launch Checklist", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Project Management 101", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Handling Launch Stress", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Events", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: 30-Day Sprint", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Find Accountability in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -714,7 +833,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+                { title: "Website Launch Tool", type: "Tool", icon: "LayoutTemplate", link: "StrategyFormWebsiteLaunch" },
+                { title: "Guide: Quality Assurance Basics", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: User Experience Testing", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Detail Oriented", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Software", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Product Polish", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get Testers in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -743,7 +868,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+                { title: "Social Media Strategy Tool", type: "Tool", icon: "Share2", link: "StrategyFormSocialMedia" },
+                { title: "Guide: Go-Live Day Protocol", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Managing Launch Day", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Launch Anxiety", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Ecommerce", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Launch Success", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Announce Your Launch in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -772,7 +903,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+                { title: "Annual Planning Tool", type: "Tool", icon: "Calendar", link: "AnnualPlanning" },
+                { title: "Guide: Data Analysis for Beginners", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Key Performance Indicators", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Feedback is Fuel", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Online Courses", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Growth Hacking", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share Results in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -813,7 +950,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" },
+                { title: "Guide: Copywriting 101", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Brand Voice", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Clarity over Cleverness", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Personal Branding", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Message Mastery", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get Copy Feedback in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -842,7 +985,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Ideal Client Persona", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" }
+                { title: "Ideal Client Persona", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" },
+                { title: "Guide: Advanced Segmentation", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Email Segmentation", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Serving the Few", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Email Marketing", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Audience Growth", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Discuss Segments in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -871,7 +1020,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+                { title: "Content Strategy Tool", type: "Tool", icon: "Share2", link: "StrategyFormContentStrategy" },
+                { title: "Guide: Social Media Channels", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Platform Selection", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Focus vs Distraction", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Influencer", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Social Media Mastery", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Ask Where to Post in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -900,7 +1055,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+                { title: "Website Launch Tool", type: "Tool", icon: "LayoutTemplate", link: "StrategyFormWebsiteLaunch" },
+                { title: "Guide: SEO for Beginners", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Keyword Research", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Long Term Growth", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Content Marketing", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Traffic Generator", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get SEO Help in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -935,7 +1096,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+                { title: "Content Strategy Tool", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" },
+                { title: "Guide: Content Marketing Plan", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Content Pillars", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Creator vs Consumer", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Blogger", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: 30 Days of Content", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share Pillars in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -964,7 +1131,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+                { title: "Email Marketing Tool", type: "Tool", icon: "Mail", link: "StrategyFormEmailMarketing" },
+                { title: "Guide: High Converting Lead Magnets", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: List Building", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Generosity", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Coaching", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Lead Gen Engine", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get Lead Magnet Ideas in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -993,7 +1166,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+                { title: "Email Marketing Tool", type: "Tool", icon: "Mail", link: "StrategyFormEmailMarketing" },
+                { title: "Guide: Writing Email Sequences", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Email Automation", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Selling via Email", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Service Business", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Email Mastery", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share Subject Lines in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1022,7 +1201,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+                { title: "Social Media Strategy Tool", type: "Tool", icon: "Share2", link: "StrategyFormSocialMedia" },
+                { title: "Guide: Social Media Planning", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Batching Content", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Discipline & Consistency", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Personal Brand", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Social Media Bootcamp", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Find Accountability Partner in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -1057,7 +1242,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" },
+                { title: "Guide: Launch Execution", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Traffic Sources", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Action Taking", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Ecommerce", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Traffic Mastery", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Report Progress in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1086,7 +1277,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" },
+                { title: "Guide: Marketing Analytics", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Measuring ROI", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Data Driven Decisions", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: SaaS", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Analytics for Growth", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get Analytics Help in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1115,7 +1312,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" },
+                { title: "Guide: Conversion Optimization", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: A/B Testing", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Failing Forward", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Digital Marketing", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Optimization Sprint", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share Test Results in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1144,7 +1347,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+                { title: "Email Marketing Tool", type: "Tool", icon: "Mail", link: "StrategyFormEmailMarketing" },
+                { title: "Guide: Retargeting Strategy", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: The Power of Follow Up", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Persistence", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Advertising", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Ads Mastery", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Ask for Ad Reviews in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -1185,7 +1394,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+                { title: "Customer Journey Map Tool", type: "Tool", icon: "Map", link: "StrategyFormCustomerJourney" },
+                { title: "Guide: User Experience Audit", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Customer Touchpoints", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Customer Centricity", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Service Design", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: CX Mastery", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share Audit Findings in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1214,7 +1429,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" },
+                { title: "Guide: Funnel Optimization", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Reducing Friction", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Problem Solving", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Sales Funnels", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Funnel Fixer", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get Help with Leaks in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1243,7 +1464,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+                { title: "Customer Journey Tool", type: "Tool", icon: "Map", link: "StrategyFormCustomerJourney" },
+                { title: "Guide: Service Design Principles", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Creating Delight", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Dreaming Big", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Hospitality", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: 5-Star Service", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Brainstorm Ideas in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1272,7 +1499,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" }
+                { title: "Automation Strategy Tool", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" },
+                { title: "Guide: Agile Implementation", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Prioritization", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Iterative Improvement", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Project Management", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Execution Sprint", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Find Accountability in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -1307,7 +1540,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" },
+                { title: "Guide: Customer Experience Design", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: The Power of Surprise", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Generosity", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Luxury Brand", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Raving Fans", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share Wow Ideas in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1336,7 +1575,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "SOP Template", type: "Tool", icon: "FileText", link: "SOPs" }
+                { title: "SOP Template", type: "Tool", icon: "FileText", link: "SOPs" },
+                { title: "Guide: Customer Support Playbook", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Handling Complaints", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Service is Sales", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: SaaS Support", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Support Systems", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Ask for Template Help in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1365,7 +1610,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+                { title: "Email Marketing Tool", type: "Tool", icon: "Mail", link: "StrategyFormEmailMarketing" },
+                { title: "Guide: Personalization Strategy", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Data Driven Marketing", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Relationship Building", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: E-commerce", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: CRM Mastery", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get Tech Help in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1394,7 +1645,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+                { title: "Automation Tool", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" },
+                { title: "Guide: Survey Design", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Net Promoter Score", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Receiving Feedback", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Product Management", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Feedback Loop Setup", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Discuss Results in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -1429,7 +1686,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Ideal Client Persona", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" }
+                { title: "Referral Strategy Tool", type: "Tool", icon: "Users", link: "StrategyFormAffiliateProgram" },
+                { title: "Guide: Viral Growth", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Word of Mouth Marketing", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Asking for Help", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Subscription Box", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Referral Engine", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get Referral Ideas in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1458,7 +1721,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+                { title: "Community Building Tool", type: "Tool", icon: "Users", link: "StrategyFormCommunityBuilding" },
+                { title: "Guide: Customer Loyalty", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Increasing LTV", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Abundance Mindset", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Membership Site", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Loyalty Loop", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share VIP Ideas in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1487,7 +1756,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+                { title: "Content Strategy Tool", type: "Tool", icon: "FileText", link: "StrategyFormContentStrategy" },
+                { title: "Guide: How to Interview Clients", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Social Proof", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Confidence", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Consulting", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Storytelling for Sales", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share Case Studies in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1516,7 +1791,13 @@ const startup = {
                 }
               ],
               resources: [
-                { title: "Mission & Vision Template", type: "Tool", icon: "FileText", link: "StrategyFormMissionVision" }
+                { title: "Community Building Tool", type: "Tool", icon: "Users", link: "StrategyFormCommunityBuilding" },
+                { title: "Guide: Community Management", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Building a Tribe", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Leadership", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Influencer", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Community Mastery", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Engage in The HQ Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -1564,7 +1845,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" },
+                { title: "Guide: Operational Excellence", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: The 80/20 Rule", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Essentialism", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Operations Manager", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Productivity Masterclass", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share Time Hacks in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1593,7 +1880,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Financial Projections", type: "Tool", icon: "DollarSign", link: "FreedomCalculator" }
+                { title: "Financial Projections Tool", type: "Tool", icon: "DollarSign", link: "FreedomCalculator" },
+                { title: "Guide: Lean Business Model", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Improving Margins", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Frugality vs Cheapness", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Bootstrapping", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Financial Freedom", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Ask About Costs in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1622,7 +1915,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" }
+                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" },
+                { title: "Guide: Theory of Constraints", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Bottleneck Analysis", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Focus", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Logistics", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Scale Up", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Discuss Bottlenecks in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1651,7 +1950,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "SOP Template", type: "Tool", icon: "FileText", link: "SOPs" }
+                { title: "SOP Template", type: "Tool", icon: "FileText", link: "SOPs" },
+                { title: "Guide: Creating SOPs", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: The Checklist Manifesto", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Discipline", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Franchise", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Systems Building", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share SOPs in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -1686,7 +1991,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+                { title: "Automation Tool", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" },
+                { title: "Guide: Automation for Beginners", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Zapier 101", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Work Smart", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Tech Stack", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Automate Everything", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get Automation Help in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1715,7 +2026,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "SOP Template", type: "Tool", icon: "FileText", link: "SOPs" }
+                { title: "SOP Template", type: "Tool", icon: "FileText", link: "SOPs" },
+                { title: "Guide: Writing Effective SOPs", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Knowledge Management", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Teacher Mindset", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Operations", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Systemization", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share SOPs in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1744,7 +2061,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" },
+                { title: "Guide: CRM Best Practices", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Data Hygiene", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Organization", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Sales Ops", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Sales Pipeline", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Ask CRM Questions in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1773,7 +2096,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" }
+                { title: "Automation Tool", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" },
+                { title: "Guide: Integration Patterns", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: API Basics", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Efficiency", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Tech Stack", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Tech Stack Audit", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get Tech Support in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -1808,7 +2137,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Mission & Vision Template", type: "Tool", icon: "FileText", link: "StrategyFormMissionVision" }
+                { title: "SOP Template", type: "Tool", icon: "FileText", link: "SOPs" },
+                { title: "Guide: The Art of Delegation", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Effective Management", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Trusting Others", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: HR", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Leadership Lab", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Discuss Delegation in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1837,7 +2172,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Ideal Client Persona", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" }
+                { title: "Ideal Client Persona", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" },
+                { title: "Guide: Hiring Best Practices", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Interview Skills", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Investing in People", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Recruitment", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Hiring Mastery", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Find Talent in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1866,7 +2207,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" }
+                { title: "SOP Template", type: "Tool", icon: "FileText", link: "SOPs" },
+                { title: "Guide: Employee Onboarding", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Training Techniques", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Patience", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: HR", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Team Culture", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share Onboarding Tips in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1895,7 +2242,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+                { title: "Content Strategy Tool", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" },
+                { title: "Guide: Scaling Strategies", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Growth Levers", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Thinking Big", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Scaleup", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: 10x Growth", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Celebrate Growth in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -1936,7 +2289,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Ideal Client Persona", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" }
+                { title: "Partnership Strategy Tool", type: "Tool", icon: "Users", link: "StrategyFormStrategicPartnerships" },
+                { title: "Guide: Partnership Basics", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Finding Partners", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Win-Win Thinking", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Networking", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Strategic Alliances", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Find Partners in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1965,7 +2324,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+                { title: "Partnership Strategy Tool", type: "Tool", icon: "Users", link: "StrategyFormStrategicPartnerships" },
+                { title: "Guide: LinkedIn Networking", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Cold Outreach", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Networking Confidence", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: B2B Sales", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Prospecting Pro", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Ask for Intros in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -1994,7 +2359,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" },
+                { title: "Guide: Creating a Media Kit", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Value Propositions", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Self Worth", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Public Relations", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: PR Mastery", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Review Media Kit in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -2023,7 +2394,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" },
+                { title: "Guide: Follow-Up Strategy", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: CRM Management", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Rejection Proof", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Sales", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Pipeline Builder", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get Outreach Tips in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -2058,7 +2435,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+                { title: "Partnership Strategy Tool", type: "Tool", icon: "Users", link: "StrategyFormStrategicPartnerships" },
+                { title: "Guide: Writing Pitches", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Persuasion", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Empathy", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Deal Making", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Pitch Perfect", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Review Pitch in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -2087,7 +2470,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" },
+                { title: "Guide: Outreach Scripts", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Following Up", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Courage", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: B2B Marketing", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Outreach Academy", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share Outreach Wins in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -2116,7 +2505,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Financial Projections", type: "Tool", icon: "DollarSign", link: "FreedomCalculator" }
+                { title: "Partnership Strategy Tool", type: "Tool", icon: "Users", link: "StrategyFormStrategicPartnerships" },
+                { title: "Guide: Contract Basics", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Negotiation 101", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Fairness", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Legal", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Deal Structuring", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Ask Legal Questions in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -2145,7 +2540,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" },
+                { title: "Guide: Creating Marketing Assets", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Graphic Design Basics", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Service Orientation", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Design", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Asset Creation", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get Design Feedback in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -2180,7 +2581,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" },
+                { title: "Guide: Webinar Hosting", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Joint Ventures", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Partnership", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Events", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Launch Day Live", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Announce Event in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -2209,7 +2616,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" },
+                { title: "Guide: Post-Mortem Analysis", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Analytics for Partnerships", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Continuous Improvement", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Analytics", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Data Mastery", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Discuss ROI in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -2238,7 +2651,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+                { title: "Email Marketing Tool", type: "Tool", icon: "Mail", link: "StrategyFormEmailMarketing" },
+                { title: "Guide: Lead Nurturing", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Welcome Series", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Hospitality", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Email", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Nurture Architect", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share Email Tips in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -2267,7 +2686,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" }
+                { title: "SOP Template", type: "Tool", icon: "FileText", link: "SOPs" },
+                { title: "Guide: Scaling Partnerships", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Systematization", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Scaling Up", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Business Development", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Growth Systems", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Discuss Scaling in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -2308,7 +2733,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Mission & Vision Template", type: "Tool", icon: "FileText", link: "StrategyFormMissionVision" }
+                { title: "Mission & Vision Template", type: "Tool", icon: "FileText", link: "StrategyFormMissionVision" },
+                { title: "Guide: Community Guidelines", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Community Strategy", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Leadership", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Membership", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Community Architect", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share Manifesto in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -2337,7 +2768,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" },
+                { title: "Guide: Community Setup", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Community Platforms", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Hosting", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Online Communities", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Community Launch", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Get Setup Help in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -2366,7 +2803,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+                { title: "Content Strategy Tool", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" },
+                { title: "Guide: Community Content", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Engagement Starters", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Contribution", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Social Media", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Content Engine", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Test Posts in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -2395,7 +2838,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" },
+                { title: "Guide: Launching a Community", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Beta Launching", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Rejection", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Coaching", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Founding Members", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Celebrate New Members in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -2430,7 +2879,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" },
+                { title: "Guide: Community Engagement", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Creating Rituals", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Consistency", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Community Manager", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Engagement Boost", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Share Rituals in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -2459,7 +2914,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" },
+                { title: "Guide: Hosting Live Events", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Facilitation Skills", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Presence", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Events", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Live Event Mastery", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Announce Event in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -2488,7 +2949,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" },
+                { title: "Guide: Community Growth", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Viral Loops", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Scarcity vs Abundance", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Marketing", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Growth Hacking", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Ask for Referrals in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -2517,7 +2984,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" },
+                { title: "Guide: Community Moderation", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Conflict Resolution", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Boundaries", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: HR", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Leadership", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Discuss Rules in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
@@ -2552,7 +3025,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Ideal Client Persona", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" }
+                { title: "Ideal Client Persona", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" },
+                { title: "Guide: Ambassador Programs", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Influencer Marketing", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Empowerment", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Influencer", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Champion Building", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Recognize Leaders in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -2581,7 +3060,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" },
+                { title: "Guide: Community Monetization", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Social Selling", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Selling is Serving", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: E-commerce", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Launch Mastery", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Make Offer in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -2610,7 +3095,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" },
+                { title: "Guide: Analyzing Feedback", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Customer Listening", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Growth Mindset", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Product Manager", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Feedback Systems", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Post Survey in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             },
             {
@@ -2639,7 +3130,13 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "SOP Template", type: "Tool", icon: "FileText", link: "SOPs" }
+                { title: "SOP Template", type: "Tool", icon: "FileText", link: "SOPs" },
+                { title: "Guide: Scaling Communities", type: "Guide", icon: "BookOpen", link: "Guides" },
+                { title: "Lesson: Automation", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Mindset: Letting Go", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
+                { title: "Niche Roadmap: Operations", type: "Niche", icon: "Map", link: "NicheRoadmaps" },
+                { title: "Program: Freedom Founder", type: "Program", icon: "Target", link: "FocusedPrograms" },
+                { title: "Celebrate Freedom in Community", type: "Community", icon: "Users", link: "TheCommunity" }
               ]
             }
           ]
