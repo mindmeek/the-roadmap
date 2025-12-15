@@ -98,7 +98,8 @@ const searchablePages = [
     { name: 'Journey', url: 'Journey', category: 'Pages', description: 'View your 90-day roadmap' },
     { name: 'Profile', url: 'Profile', category: 'Pages', description: 'Manage your profile and settings' },
     { name: 'The Beacon Studio', url: 'TheBeacon', category: 'Pages', description: 'Listen to exclusive entrepreneur podcasts' },
-];
+    { name: 'Social Media Planner', url: 'SocialMediaPlanner', category: 'Pages', description: 'Generate AI-powered 90-day social media plans' },
+    ];
 
 const ElyzetChatBox = ({ isOpen, onClose }) => {
     if (!isOpen) return null;

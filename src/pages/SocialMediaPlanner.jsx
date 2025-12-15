@@ -82,11 +82,11 @@ export default function SocialMediaPlanner() {
                 Create a comprehensive 90-Day Social Media Marketing Plan based on: ${context}
                 
                 CRITICAL: The plan must utilize "The HQ" platform features, specifically:
-                - HQ Social Scheduler for scheduling
-                - HQ AI Content Writer for drafting
-                - HQ Analytics for tracking
-                - HQ Community for engagement
-                - HQ Graphic Design Tools for visuals
+                - **The HQ Social Media Manager** (for scheduling and management)
+                - HQ AI Content Writer (for drafting posts)
+                - HQ Analytics (for tracking performance)
+                - HQ Community (for engagement)
+                - HQ Graphic Design Tools (for visuals)
                 
                 Structure the output as a valid JSON object with this exact schema:
                 {
