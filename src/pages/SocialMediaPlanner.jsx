@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { staticSocialMediaPlans, toolMapping } from '../components/social_media/staticPlans';
 import { Link } from 'react-router-dom';
-import { Sparkles, Calendar, Target, Layout, CheckCircle, ArrowRight, Loader2, Save, RefreshCw, ChevronDown, ChevronRight, Share2, BarChart2, MessageSquare, Video, Image as ImageIcon, Copy, Play } from 'lucide-react';
+import { Sparkles, Calendar, Target, Layout, CheckCircle, ArrowRight, Loader2, Save, RefreshCw, ChevronDown, ChevronRight, Share2, BarChart2, MessageSquare, Video, Image as ImageIcon, Copy, Play, Palette } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -64,96 +64,132 @@ export default function SocialMediaPlanner() {
 
         setGenerating(true);
         try {
-            let context = "";
+            let planData = null;
             let sourceName = "";
 
+            // Determine Source Name
             if (selectedSource === 'goal') {
-                context = `User's current 90-day goal: ${user.selected_goal || "General Business Growth"}. Entrepreneurship Stage: ${user.entrepreneurship_stage || "Startup"}. Industry: ${user.business_industry || "General"}.`;
                 sourceName = "My Current 90-Day Goal";
             } else if (selectedSource === 'niche') {
                 const roadmap = NICHE_ROADMAPS.find(r => r.id === selectedSpecific);
-                context = `Niche Roadmap: ${roadmap.title}. Focus on specific growth strategies for this industry.`;
-                sourceName = roadmap.title;
+                sourceName = roadmap?.title || "Niche Roadmap";
             } else if (selectedSource === 'program') {
                 const program = FOCUSED_PROGRAMS.find(p => p.id === selectedSpecific);
-                context = `Focused Program: ${program.title}.`;
-                sourceName = program.title;
+                sourceName = program?.title || "Focused Program";
             }
 
-            const prompt = `
-                Create a comprehensive 90-Day Social Media Marketing Plan based on: ${context}
-                
-                CRITICAL: The plan must utilize "The HQ" platform features, specifically:
-                - **The HQ Social Media Manager** (for scheduling and management)
-                - HQ AI Content Writer (for drafting posts)
-                - HQ Analytics (for tracking performance)
-                - HQ Community (for engagement)
-                - HQ Graphic Design Tools (for visuals)
-                
-                Structure the output as a valid JSON object with this exact schema:
-                {
-                    "overview": "Brief 2-3 sentence strategy summary",
-                    "months": [
-                        {
-                            "month": 1,
-                            "theme": "Theme for the month",
-                            "focus": "Main objective",
-                            "weeks": [
-                                {
-                                    "week": 1,
-                                    "focus": "Weekly focus",
-                                    "days": [
-                                        {
-                                            "day": 1,
-                                            "platform": "Primary platform (IG, LinkedIn, TikTok, etc.)",
-                                            "content_type": "Video/Image/Text/Carousel",
-                                            "topic": "Content topic/hook",
-                                            "hq_feature": "Which HQ feature to use (e.g., HQ Social Scheduler)",
-                                            "action": "Specific action to take"
-                                        },
-                                        ... (7 days)
-                                    ]
-                                },
-                                ... (4 weeks)
-                            ]
-                        },
-                        ... (3 months)
-                    ]
-                }
-            `;
+            // 1. Check for Static Plan (Credit Saving)
+            // Logic: Check staticSocialMediaPlans[source_type][specific_selection_id]
+            // For 'goal', we might need to match the specific goal string if possible, or just use a generic 'goal' template if specific match fails
+            // simplified for now to check direct match
+            const staticKey = selectedSource === 'goal' ? 'General Business Growth' : selectedSpecific; 
+            // Note: In staticPlans.js we used 'Brand Awareness' etc. 
+            // Let's check against what we have or default to a generic one if available.
+            
+            let staticMatch = null;
+            if (staticSocialMediaPlans[selectedSource]) {
+                 // Try to find a match or use first available key for that source type as fallback/demo
+                 const keys = Object.keys(staticSocialMediaPlans[selectedSource]);
+                 if (keys.includes(selectedSpecific)) {
+                     staticMatch = staticSocialMediaPlans[selectedSource][selectedSpecific];
+                 } else if (selectedSource === 'goal') {
+                     // For goals, users might have custom strings, so maybe pick a default like 'Brand Awareness' for now
+                     staticMatch = staticSocialMediaPlans[selectedSource]['Brand Awareness']; 
+                 }
+            }
 
-            const response = await base44.integrations.Core.InvokeLLM({
-                prompt: prompt,
-                response_json_schema: {
-                    type: "object",
-                    properties: {
-                        overview: { type: "string" },
-                        months: { 
-                            type: "array",
-                            items: {
-                                type: "object",
-                                properties: {
-                                    month: { type: "number" },
-                                    theme: { type: "string" },
-                                    focus: { type: "string" },
-                                    weeks: {
-                                        type: "array",
-                                        items: {
-                                            type: "object",
-                                            properties: {
-                                                week: { type: "number" },
-                                                focus: { type: "string" },
-                                                days: {
-                                                    type: "array",
-                                                    items: {
-                                                        type: "object",
-                                                        properties: {
-                                                            day: { type: "number" },
-                                                            platform: { type: "string" },
-                                                            content_type: { type: "string" },
-                                                            topic: { type: "string" },
-                                                            hq_feature: { type: "string" },
-                                                            action: { type: "string" }
+            if (staticMatch) {
+                console.log("Using static plan template to save credits");
+                planData = {
+                    overview: "A 90-day strategic plan optimized for your goals using proven frameworks.",
+                    ...staticMatch
+                };
+            } else {
+                // 2. Fallback to AI Generation
+                let context = "";
+                if (selectedSource === 'goal') {
+                    context = `User's current 90-day goal: ${user.selected_goal || "General Business Growth"}. Entrepreneurship Stage: ${user.entrepreneurship_stage || "Startup"}. Industry: ${user.business_industry || "General"}.`;
+                } else if (selectedSource === 'niche') {
+                    context = `Niche Roadmap: ${sourceName}. Focus on specific growth strategies for this industry.`;
+                } else if (selectedSource === 'program') {
+                    context = `Focused Program: ${sourceName}.`;
+                }
+
+                const prompt = `
+                    Create a comprehensive 90-Day Social Media Marketing Plan based on: ${context}
+                    
+                    CRITICAL: The plan must utilize "The HQ" platform features, specifically:
+                    - **The HQ Social Media Manager** (for scheduling and management)
+                    - HQ AI Content Writer (for drafting posts)
+                    - HQ Analytics (for tracking performance)
+                    - HQ Community (for engagement)
+                    - HQ Graphic Design Tools (for visuals)
+                    
+                    Structure the output as a valid JSON object with this exact schema:
+                    {
+                        "overview": "Brief 2-3 sentence strategy summary",
+                        "months": [
+                            {
+                                "month": 1,
+                                "theme": "Theme for the month",
+                                "focus": "Main objective",
+                                "weeks": [
+                                    {
+                                        "week": 1,
+                                        "focus": "Weekly focus",
+                                        "days": [
+                                            {
+                                                "day": 1,
+                                                "platform": "Primary platform (IG, LinkedIn, TikTok, etc.)",
+                                                "content_type": "Video/Image/Text/Carousel",
+                                                "topic": "Content topic/hook",
+                                                "hq_feature": "Which HQ feature to use (e.g., HQ Social Scheduler)",
+                                                "action": "Specific action to take"
+                                            },
+                                            ... (7 days)
+                                        ]
+                                    },
+                                    ... (4 weeks)
+                                ]
+                            },
+                            ... (3 months)
+                        ]
+                    }
+                `;
+
+                const response = await base44.integrations.Core.InvokeLLM({
+                    prompt: prompt,
+                    response_json_schema: {
+                        type: "object",
+                        properties: {
+                            overview: { type: "string" },
+                            months: { 
+                                type: "array",
+                                items: {
+                                    type: "object",
+                                    properties: {
+                                        month: { type: "number" },
+                                        theme: { type: "string" },
+                                        focus: { type: "string" },
+                                        weeks: {
+                                            type: "array",
+                                            items: {
+                                                type: "object",
+                                                properties: {
+                                                    week: { type: "number" },
+                                                    focus: { type: "string" },
+                                                    days: {
+                                                        type: "array",
+                                                        items: {
+                                                            type: "object",
+                                                            properties: {
+                                                                day: { type: "number" },
+                                                                platform: { type: "string" },
+                                                                content_type: { type: "string" },
+                                                                topic: { type: "string" },
+                                                                hq_feature: { type: "string" },
+                                                                action: { type: "string" }
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -164,10 +200,9 @@ export default function SocialMediaPlanner() {
                             }
                         }
                     }
-                }
-            });
-
-            const planData = response;
+                });
+                planData = response;
+            }
             
             // Save to DB
             const newPlan = await base44.entities.SocialMediaPlan.create({
