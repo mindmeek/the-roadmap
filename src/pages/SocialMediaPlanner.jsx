@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
+import { staticSocialMediaPlans, toolMapping } from '../components/social_media/staticPlans';
+import { Link } from 'react-router-dom';
 import { Sparkles, Calendar, Target, Layout, CheckCircle, ArrowRight, Loader2, Save, RefreshCw, ChevronDown, ChevronRight, Share2, BarChart2, MessageSquare, Video, Image as ImageIcon, Copy, Play } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 import { Link } from 'react-router-dom';
@@ -351,6 +353,24 @@ export default function SocialMediaPlanner() {
                             ))}
                         </div>
 
+                        {/* Canva Promo Banner */}
+                        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl p-6 text-white mb-6 flex flex-col md:flex-row items-center justify-between shadow-lg">
+                            <div className="mb-4 md:mb-0">
+                                <h3 className="text-xl font-bold mb-1 flex items-center gap-2">
+                                    <Palette className="w-6 h-6" /> Need Visuals for Your Posts?
+                                </h3>
+                                <p className="text-purple-100 text-sm opacity-90">
+                                    Learn how to design stunning graphics for free. Access our exclusive Canva Masterclass in the Community.
+                                </p>
+                            </div>
+                            <Link 
+                                to={createPageUrl('TheCommunity')} 
+                                className="bg-white text-purple-600 hover:bg-purple-50 px-6 py-2 rounded-lg font-bold text-sm transition-colors whitespace-nowrap"
+                            >
+                                Take Free Canva Course
+                            </Link>
+                        </div>
+
                         {/* Weekly Content */}
                         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
                             {currentPlan.plan_data?.months?.[activeMonth] && (
@@ -390,15 +410,15 @@ export default function SocialMediaPlanner() {
 
                                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                                                     {(currentPlan.plan_data.months[activeMonth].weeks[activeWeek].days || []).map((day, dIdx) => (
-                                                        <div key={dIdx} className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                                        <div key={dIdx} className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow flex flex-col h-full">
                                                             <div className="flex justify-between items-start mb-3">
                                                                 <span className="bg-gray-200 dark:bg-gray-700 text-[var(--text-main)] text-xs font-bold px-2 py-1 rounded">Day {day?.day || dIdx + 1}</span>
                                                                 <span className="text-xs text-[var(--text-soft)] font-medium">{day?.platform || 'Social'}</span>
                                                             </div>
                                                             
-                                                            <h4 className="font-bold text-[var(--text-main)] text-sm mb-2 min-h-[40px]">{day?.topic || 'Topic'}</h4>
+                                                            <h4 className="font-bold text-[var(--text-main)] text-sm mb-2">{day?.topic || 'Topic'}</h4>
                                                             
-                                                            <div className="space-y-2 mb-4">
+                                                            <div className="space-y-2 mb-4 flex-1">
                                                                 <div className="flex items-center text-xs text-[var(--text-soft)]">
                                                                     {day?.content_type?.includes('Video') ? <Video className="w-3 h-3 mr-1.5" /> : <ImageIcon className="w-3 h-3 mr-1.5" />}
                                                                     {day?.content_type}
@@ -409,11 +429,26 @@ export default function SocialMediaPlanner() {
                                                                 </div>
                                                             </div>
 
-                                                            <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
-                                                                <p className="text-xs text-[var(--text-main)] mb-3 line-clamp-3">{day?.action}</p>
-                                                                <button className="w-full btn btn-secondary btn-sm text-xs">
-                                                                    Open {day?.hq_feature?.split(' ')[1] || 'Tool'}
-                                                                </button>
+                                                            <div className="pt-3 border-t border-gray-200 dark:border-gray-700 space-y-3">
+                                                                <p className="text-xs text-[var(--text-main)] line-clamp-3">{day?.action}</p>
+                                                                
+                                                                {/* Tool Button */}
+                                                                {day?.hq_feature && (
+                                                                    <Link 
+                                                                        to={createPageUrl(toolMapping[day.hq_feature] || 'Dashboard')}
+                                                                        className="w-full btn btn-secondary btn-sm text-xs justify-center flex items-center"
+                                                                    >
+                                                                        Open {day.hq_feature}
+                                                                    </Link>
+                                                                )}
+
+                                                                {/* AI Helper Suggestion */}
+                                                                <div className="bg-indigo-50 dark:bg-indigo-900/20 p-2 rounded text-center">
+                                                                    <p className="text-[10px] text-indigo-800 dark:text-indigo-200 mb-1">Writer's Block?</p>
+                                                                    <Link to={createPageUrl('ElyzetAIAssistants')} className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center justify-center gap-1">
+                                                                        <Sparkles className="w-3 h-3" /> Use HQ AI to Write This
+                                                                    </Link>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     ))}
