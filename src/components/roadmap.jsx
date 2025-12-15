@@ -1,20 +1,5 @@
 import { createPageUrl } from "@/utils";
 
-// Helper for consistency
-const tools = {
-  mission: { name: "Mission & Vision Template", icon: "FileText" },
-  values: { name: "Core Values Worksheet", icon: "ListChecks" },
-  persona: { name: "Ideal Client Persona", icon: "Users" },
-  competitor: { name: "Competitor Analysis Grid", icon: "BarChart3" },
-  financial: { name: "Financial Projections", icon: "DollarSign" },
-  brand: { name: "Brand Identity Kit", icon: "Palette" },
-  content: { name: "Content Calendar", icon: "Calendar" },
-  funnel: { name: "Sales Funnel Builder", icon: "Filter" },
-  process: { name: "Process Map Template", icon: "GitBranch" },
-  sop: { name: "SOP Template", icon: "FileText" },
-  audit: { name: "Audit Checklist", icon: "ClipboardCheck" }
-};
-
 const vision = {
   title: "Vision Stage", 
   description: "Clarify business vision and build foundation through strategic planning, validation, and essential setup.",
@@ -29,7 +14,7 @@ const vision = {
           weeks: [
             {
               title: "Define Your Core Vision & Purpose",
-              description: "This week is fundamentally about digging deep to uncover the profound 'Why' that drives your business forward. A strong, articulated vision acts as your unwavering north star, guiding every single strategic decision you will make in the future. By defining your mission, vision, and core values now, you are setting a solid, unshakeable foundation for all your future growth. This process prevents you from drifting off course when challenges arise and ensures that your brand communicates a consistent message to the world.",
+              description: "This week is fundamentally about digging deep to uncover the profound 'Why' that drives your business forward. A strong, articulated vision acts as your unwavering north star, guiding every single strategic decision you will make in the future. By defining your mission, vision, and core values now, you are setting a solid, unshakeable foundation for all your future growth. This process prevents you from drifting off course when challenges arise and ensures that your brand communicates a consistent message to the world. You are not just starting a business; you are planting the seed of a legacy.",
               whyItMatters: "Without a clear vision, you're often just busy, not truly productive or effective. Your vision aligns your daily actions with your long-term goals, ensuring that every step you take moves you in the right direction.",
               howItStreamlines: "Knowing your 'Why' dramatically speeds up decision-making by providing a clear filter for your choices. You'll know exactly what opportunities to say 'yes' to and, more importantly, which distractions to ignore.",
               howItBuildsRelationships: "Customers don't just buy what you do; they buy 'why' you do it. A clear, authentic purpose resonates emotionally with people, attracting your ideal audience and building lasting loyalty.",
@@ -42,10 +27,10 @@ const vision = {
                   linkTo: "StrategyFormMissionVision",
                   foundationStepId: "mission_vision",
                   detailedSteps: [
-                    "Start by deeply reflecting on the specific problem or pain point you solve for your customers. Don't just identify the functional issue; dig down to the emotional root of their struggle and write down exactly how it makes them feel.",
-                    "Next, clearly identify and describe your primary target audience and who benefits most from your work. Be specific about their demographics and situation so you know exactly who you are speaking to.",
-                    "Articulate the specific value or transformation you provide to this audience. Focus on the 'after' state—how is their life better, easier, or different after they have used your product or service?",
-                    "Combine these elements into a single, powerful, and grammatical sentence that is easy to memorize. Read it aloud to ensure it flows well and doesn't sound like corporate jargon."
+                    "Start by deeply reflecting on the specific problem or pain point you solve for your customers. Don't just identify the functional issue; dig down to the emotional root of their struggle and write down exactly how it makes them feel (e.g., frustrated, overwhelmed, fearful).",
+                    "Next, clearly identify and describe your primary target audience and who benefits most from your work. Be specific about their demographics and situation so you know exactly who you are speaking to—generalities like 'everyone' kill marketing.",
+                    "Articulate the specific value or transformation you provide to this audience. Focus on the 'after' state—how is their life better, easier, or different after they have used your product or service? This is the promise you are making.",
+                    "Combine these elements into a single, powerful, and grammatical sentence that is easy to memorize. Read it aloud to ensure it flows well and doesn't sound like corporate jargon; it should sound like something you'd say to a friend."
                   ],
                   tips: ["Keep it simple and jargon-free.", "Focus strictly on the benefit to the customer."],
                   commonChallenges: ["Trying to include too much detail.", "Being too vague or generic."],
@@ -59,22 +44,26 @@ const vision = {
                   linkTo: "StrategyFormBrandIdentity",
                   foundationStepId: "brand_identity",
                   detailedSteps: [
-                    "Brainstorm a long list of values and attributes that are personally important to you. Think about times when you felt proud of your work or times when you felt compromised, and what values were at play.",
-                    "Look for patterns in your list and group similar values together under a common theme. Try to distill these groups into single, powerful words that capture the essence of the cluster.",
-                    "Select the top 3-5 themes that resonate most deeply and feel essential to your vision. These should be values you would be willing to lose money to uphold, not just nice-to-haves.",
-                    "Write a brief, action-oriented definition for each value. Instead of just 'Integrity', write 'We always tell the truth, even when it costs us', to make it actionable and clear for everyone."
+                    "Brainstorm a long list of values and attributes that are personally important to you. Think about times when you felt proud of your work or times when you felt compromised, and what values were at play in those moments.",
+                    "Look for patterns in your list and group similar values together under a common theme. Try to distill these groups into single, powerful words that capture the essence of the cluster (e.g., 'Transparency' instead of just 'Honesty').",
+                    "Select the top 3-5 themes that resonate most deeply and feel essential to your vision. These should be values you would be willing to lose money to uphold, not just nice-to-haves that sound good on a poster.",
+                    "Write a brief, action-oriented definition for each value. Instead of just 'Integrity', write 'We always tell the truth, even when it costs us', to make it actionable and clear for everyone in the organization."
                   ],
                   tips: ["Choose values that are authentic to you.", "Consider how these values impact daily operations."],
                   commonChallenges: ["Choosing aspirational values that aren't practiced.", "Ignoring values in tough decisions."],
                   successCriteria: ["You can explain why each value matters.", "They help you make difficult choices."]
                 }
               ],
-              tools: [tools.mission, tools.values],
-              resources: ["Quick Lesson: The Power of Why", "Guide: Crafting a Compelling Vision"]
+              resources: [
+                { title: "Mission & Vision Template", type: "Tool", icon: "FileText", link: "StrategyFormMissionVision" },
+                { title: "Core Values Worksheet", type: "Tool", icon: "ListChecks", link: "StrategyFormBrandIdentity" },
+                { title: "Quick Lesson: The Power of Why", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
+                { title: "Guide: Crafting a Compelling Vision", type: "Guide", icon: "BookOpen", link: "Guides" }
+              ]
             },
             {
               title: "Identify Your Ideal Client",
-              description: "This week you will create a detailed profile of the perfect customer for your business. Understanding exactly who you are serving allows you to tailor your marketing messages so they land with impact. You will dig into their demographics, psychographics, pain points, and deepest desires.",
+              description: "This week you will create a detailed profile of the perfect customer for your business. Understanding exactly who you are serving allows you to tailor your marketing messages so they land with impact. You will dig into their demographics, psychographics, pain points, and deepest desires. The better you know them, the easier it is to serve them.",
               whyItMatters: "If you try to market to everyone, you end up appealing to no one. Specificity is the key to conversion and building a loyal tribe.",
               howItStreamlines: "Marketing becomes efficient because you know exactly where your clients hang out and what language they use. You stop wasting money on broad, ineffective advertising.",
               howItBuildsRelationships: "When clients feel understood, they trust you. Speaking directly to their specific pains creates an immediate emotional bond.",
@@ -87,22 +76,24 @@ const vision = {
                   linkTo: "StrategyFormIdealClient",
                   foundationStepId: "ideal_client",
                   detailedSteps: [
-                    "Research your market to understand common traits of potential buyers. Look at forums, social media groups, and reviews to see who is already asking for solutions like yours.",
-                    "Fill out the demographic details: Age, location, job title, income. Give this person a name and a photo so they feel like a real human being you can relate to.",
-                    "Dive into psychographics: What keeps them up at night? What are their secret dreams they don't tell anyone? Capture the emotional landscape of their daily life.",
-                    "Identify the specific trigger events that would cause them to seek your solution right now. Is it a life change, a crisis, or a specific frustration that reached a boiling point?"
+                    "Research your market to understand common traits of potential buyers. Look at forums, social media groups, and reviews to see who is already asking for solutions like yours and what language they use.",
+                    "Fill out the demographic details: Age, location, job title, income. Give this person a name and a photo so they feel like a real human being you can relate to, rather than a statistic.",
+                    "Dive into psychographics: What keeps them up at night? What are their secret dreams they don't tell anyone? Capture the emotional landscape of their daily life and the pressures they face.",
+                    "Identify the specific trigger events that would cause them to seek your solution right now. Is it a life change, a crisis, or a specific frustration that reached a boiling point? Knowing this helps you time your marketing."
                   ],
                   tips: ["Be as specific as possible; visualize a real person.", "Focus on their problems, not just your solution."],
                   commonChallenges: ["Making the audience too broad.", "Guessing instead of researching."],
                   successCriteria: ["You can describe a 'day in the life' of your avatar.", "You know their top 3 burning pains."]
                 }
               ],
-              tools: [tools.persona],
-              resources: ["Guide: Finding Your Niche"]
+              resources: [
+                { title: "Ideal Client Persona Builder", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" },
+                { title: "Guide: Finding Your Niche", type: "Guide", icon: "Target", link: "Guides" }
+              ]
             },
             {
               title: "Analyze Your Competition",
-              description: "This week involves a strategic review of the market landscape to understand who else is serving your audience. You aren't copying them; you are learning from their strengths and weaknesses to carve out your unique position. This insight is crucial for differentiation.",
+              description: "This week involves a strategic review of the market landscape to understand who else is serving your audience. You aren't copying them; you are learning from their strengths and weaknesses to carve out your unique position. This insight is crucial for differentiation and ensuring you offer something truly valuable.",
               whyItMatters: "You cannot differentiate if you don't know what you are different from. Market awareness prevents you from launching a 'me-too' product.",
               howItStreamlines: "It prevents you from reinventing the wheel. You can see what pricing models and offers are already working in the market.",
               howItBuildsRelationships: "By filling gaps competitors miss, you become the hero for underserved customers. You solve problems others ignore.",
@@ -115,22 +106,24 @@ const vision = {
                   linkTo: "StrategyFormSWOTAnalysis",
                   foundationStepId: "swot",
                   detailedSteps: [
-                    "Identify your top 3-5 direct competitors who are targeting the same audience with a similar solution. Don't ignore indirect competitors who solve the same problem in a different way.",
-                    "Analyze their websites, reviews, and offers to find their strengths and weaknesses. Look specifically for what customers complain about in 1-star reviews.",
-                    "List your own internal strengths and weaknesses objectively. Be honest about what you do better than anyone else and where you currently lack resources or skills.",
-                    "Identify external opportunities in the market, such as new trends or underserved niches, and potential threats like changing regulations or economic shifts."
+                    "Identify your top 3-5 direct competitors who are targeting the same audience with a similar solution. Don't ignore indirect competitors who solve the same problem in a different way (e.g., DIY vs. Done-for-you).",
+                    "Analyze their websites, reviews, and offers to find their strengths and weaknesses. Look specifically for what customers complain about in 1-star reviews—these are your opportunities.",
+                    "List your own internal strengths and weaknesses objectively. Be honest about what you do better than anyone else and where you currently lack resources or skills compared to the market leaders.",
+                    "Identify external opportunities in the market, such as new trends or underserved niches, and potential threats like changing regulations or economic shifts that could impact your viability."
                   ],
                   tips: ["Be honest about your weaknesses.", "Look for patterns in negative competitor reviews."],
                   commonChallenges: ["Underestimating competitors.", "Being too biased about your own strengths."],
                   successCriteria: ["You have identified at least 3 opportunities to differentiate.", "You know your unique advantage."]
                 }
               ],
-              tools: [tools.competitor],
-              resources: ["Quick Lesson: Competitive Advantage"]
+              resources: [
+                { title: "Competitor Analysis Grid", type: "Tool", icon: "BarChart3", link: "StrategyFormSWOTAnalysis" },
+                { title: "Quick Lesson: Competitive Advantage", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" }
+              ]
             },
             {
               title: "Define Your Value Proposition",
-              description: "This week brings everything together to articulate exactly why someone should buy from you. You will craft a unique value proposition (UVP) that highlights your specific solution to your avatar's specific problem. This is the core of all your future marketing.",
+              description: "This week brings everything together to articulate exactly why someone should buy from you. You will craft a unique value proposition (UVP) that highlights your specific solution to your avatar's specific problem. This is the core of all your future marketing and sales conversations.",
               whyItMatters: "Your UVP is the hook that grabs attention. Without it, you are just another commodity in a crowded marketplace.",
               howItStreamlines: "It clarifies your messaging across all channels. You won't struggle with what to write on your website or ads.",
               howItBuildsRelationships: "Clear promises build trust. When customers understand exactly what value they get, they feel confident buying.",
@@ -143,18 +136,21 @@ const vision = {
                   linkTo: "StrategyFormValueProposition",
                   foundationStepId: "value_proposition",
                   detailedSteps: [
-                    "Review your Mission, Ideal Client, and Competitor analysis to find the 'white space'. Look for the specific benefit that your competitors are failing to provide.",
-                    "Identify the #1 biggest benefit you provide to your client. This isn't a feature; it's the ultimate result or feeling they get after using your product.",
-                    "Combine 'Who it's for', 'What it does', and 'Why it's different' into a rough draft. Don't worry about making it catchy yet; just focus on making it accurate.",
-                    "Refine into a punchy headline and sub-headline that grabs attention immediately. Test it by seeing if a stranger can understand exactly what you sell within 5 seconds."
+                    "Review your Mission, Ideal Client, and Competitor analysis to find the 'white space'. Look for the specific benefit that your competitors are failing to provide effectively.",
+                    "Identify the #1 biggest benefit you provide to your client. This isn't a feature; it's the ultimate result or feeling they get after using your product (e.g., 'Peace of mind', not '24/7 monitoring').",
+                    "Combine 'Who it's for', 'What it does', and 'Why it's different' into a rough draft. Don't worry about making it catchy yet; just focus on making it accurate and comprehensive.",
+                    "Refine into a punchy headline and sub-headline that grabs attention immediately. Test it by seeing if a stranger can understand exactly what you sell within 5 seconds of reading it."
                   ],
                   tips: ["Focus on the result, not the process.", "Use customer language, not industry jargon."],
                   commonChallenges: ["Being too clever instead of clear.", "Listing features instead of benefits."],
                   successCriteria: ["A 10-year-old can understand what you sell.", "It instantly differentiates you."]
                 }
               ],
-              tools: [tools.mission, tools.persona],
-              resources: ["Guide: Writing Killer Headlines"]
+              resources: [
+                { title: "Mission & Vision Template", type: "Tool", icon: "FileText", link: "StrategyFormMissionVision" },
+                { title: "Ideal Client Persona", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" },
+                { title: "Guide: Writing Killer Headlines", type: "Guide", icon: "PenTool", link: "Guides" }
+              ]
             }
           ]
         },
@@ -164,7 +160,7 @@ const vision = {
           weeks: [
             {
               title: "Legal & Financial Setup",
-              description: "This week is about legitimizing your business. You will choose a business structure, register your name, and set up separate business banking. This separation is critical for liability protection and clean financial tracking.",
+              description: "This week is about legitimizing your business. You will choose a business structure, register your name, and set up separate business banking. This separation is critical for liability protection and clean financial tracking. It's the difference between a hobby and a business.",
               whyItMatters: "Building on shaky legal ground is dangerous. Proper setup protects your personal assets and prepares you for taxes.",
               howItStreamlines: "Separate finances make bookkeeping and tax season infinitely easier. It automates the separation of personal and business funds.",
               howItBuildsRelationships: "Clients trust legitimate businesses. Professional invoicing and contracts signal that you are serious and reliable.",
@@ -177,25 +173,26 @@ const vision = {
                   linkTo: "FreedomCalculator",
                   foundationStepId: "financial_goal",
                   detailedSteps: [
-                    "Gather your registration documents (LLC/DBA) and EIN (Employer Identification Number). You will need these official documents to prove your business exists to the bank.",
-                    "Research banks with low fees and good digital tools. Look for banks that integrate seamlessly with accounting software like Xero or QuickBooks to save you time later.",
-                    "Apply for a business checking account, either online or in-person. Ensure you have your personal ID and all business documents ready to expedite the process.",
-                    "Move initial startup capital into the account immediately. From this moment on, treat this account as the sole source of funds for all business expenses."
+                    "Gather your registration documents (LLC/DBA) and EIN (Employer Identification Number). You will need these official documents to prove your business exists to the bank, so have them ready in PDF form.",
+                    "Research banks with low fees and good digital tools. Look for banks that integrate seamlessly with accounting software like Xero or QuickBooks to save you massive amounts of data entry time later.",
+                    "Apply for a business checking account, either online or in-person. Ensure you have your personal ID and all business documents ready to expedite the process and avoid multiple trips.",
+                    "Move initial startup capital into the account immediately. From this moment on, treat this account as the sole source of funds for all business expenses, never mixing it with your personal cash."
                   ],
                   tips: ["Don't mix personal expenses.", "Look for banks that integrate with accounting software."],
                   commonChallenges: ["Procrastinating due to paperwork.", "Using a personal account 'just for now'."],
                   successCriteria: ["You have a debit card for the business.", "All business expenses now come from this account."]
                 }
               ],
-              tools: [tools.financial],
-              resources: []
+              resources: [
+                { title: "Financial Projections", type: "Tool", icon: "DollarSign", link: "FreedomCalculator" }
+              ]
             },
             {
               title: "Establish Your Brand Identity",
-              description: "This week you define the visual and verbal soul of your business. You will choose your colors, fonts, logo, and brand voice. A cohesive brand makes you look professional and memorable.",
-              whyItMatters: "First impressions happen in milliseconds. A messy brand signals a messy business.",
-              howItStreamlines: "Decisions on graphics become automatic. You have a style guide to follow for everything.",
-              howItBuildsRelationships: "Consistent branding builds familiarity. Familiarity builds trust.",
+              description: "This week you define the visual and verbal soul of your business. You will choose your colors, fonts, logo, and brand voice. A cohesive brand makes you look professional and memorable, instilling confidence in your potential buyers before they even speak to you.",
+              whyItMatters: "First impressions happen in milliseconds. A messy brand signals a messy business, while a polished brand commands higher prices.",
+              howItStreamlines: "Decisions on graphics become automatic. You have a style guide to follow for everything, saving hours of design time.",
+              howItBuildsRelationships: "Consistent branding builds familiarity. Familiarity builds trust, which is the currency of sales.",
               actionSteps: [
                 {
                   title: "Create Brand Style Guide",
@@ -205,25 +202,26 @@ const vision = {
                   linkTo: "StrategyFormBrandIdentity",
                   foundationStepId: "brand_identity",
                   detailedSteps: [
-                    "Choose 3 primary brand colors that reflect the emotion of your brand. Use color psychology to pick shades that evoke the right feelings (e.g., Blue for trust, Red for energy).",
-                    "Select a header font and a body font that are easy to read and work well together. Stick to standard web fonts or Google Fonts to ensure consistency across all devices.",
-                    "Design or commission a simple logo that works in both large and small sizes. Avoid overly complex designs that become unreadable when shrunk down for social media avatars.",
-                    "Define your brand voice adjectives (e.g., 'Friendly', 'Authoritative', 'Quirky'). Write a few example sentences to demonstrate how your brand sounds in emails versus social media."
+                    "Choose 3 primary brand colors that reflect the emotion of your brand. Use color psychology to pick shades that evoke the right feelings (e.g., Blue for trust, Red for energy) and ensure they look good together.",
+                    "Select a header font and a body font that are easy to read and work well together. Stick to standard web fonts or Google Fonts to ensure consistency across all devices and browsers.",
+                    "Design or commission a simple logo that works in both large and small sizes. Avoid overly complex designs that become unreadable when shrunk down for social media avatars or mobile screens.",
+                    "Define your brand voice adjectives (e.g., 'Friendly', 'Authoritative', 'Quirky'). Write a few example sentences to demonstrate how your brand sounds in emails versus social media to keep your tone consistent."
                   ],
                   tips: ["Keep it simple.", "Ensure colors have high contrast."],
                   commonChallenges: ["Overthinking the logo.", "Changing colors every week."],
                   successCriteria: ["You have a one-page reference sheet.", "Your social profiles all match."]
                 }
               ],
-              tools: [tools.brand],
-              resources: []
+              resources: [
+                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+              ]
             },
             {
               title: "Set Up Operational Systems",
-              description: "This week you build the engine room. You will select your project management tool, file storage, and communication channels. Setting these 'rules of the road' prevents digital clutter and lost files.",
-              whyItMatters: "Disorganization costs time and money. Systems scale; chaos does not.",
-              howItStreamlines: "You stop looking for lost files. Everyone knows exactly where to work.",
-              howItBuildsRelationships: "Fast retrieval of info impresses clients. You never lose their data.",
+              description: "This week you build the engine room. You will select your project management tool, file storage, and communication channels. Setting these 'rules of the road' prevents digital clutter and lost files, which are the hidden killers of productivity.",
+              whyItMatters: "Disorganization costs time and money. Systems scale; chaos does not. You need a foundation that can handle growth.",
+              howItStreamlines: "You stop looking for lost files. Everyone knows exactly where to work, reducing admin time by up to 30%.",
+              howItBuildsRelationships: "Fast retrieval of info impresses clients. You never lose their data or forget a detail.",
               actionSteps: [
                 {
                   title: "Configure Digital Workspace",
@@ -233,25 +231,26 @@ const vision = {
                   linkTo: "StrategyFormAutomation",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Create a standardized folder structure in your cloud storage (e.g., Marketing, Admin, Client Work). This ensures that you and future team members can always find documents instantly.",
-                    "Set up a dedicated business email address (yourname@yourdomain.com). This looks far more professional than a generic gmail address and builds immediate credibility.",
-                    "Choose a task manager (Trello, Asana, ClickUp, etc.) that fits your working style. Create a 'Master Task List' project to dump all your to-dos out of your brain.",
-                    "Create templates for recurring tasks that you do often. This saves mental energy and ensures you never miss a step in your standard processes."
+                    "Create a standardized folder structure in your cloud storage (e.g., Marketing, Admin, Client Work). This ensures that you and future team members can always find documents instantly without searching.",
+                    "Set up a dedicated business email address (yourname@yourdomain.com). This looks far more professional than a generic gmail address and builds immediate credibility with prospects.",
+                    "Choose a task manager (Trello, Asana, ClickUp, etc.) that fits your working style. Create a 'Master Task List' project to dump all your to-dos out of your brain and into a trusted system.",
+                    "Create templates for recurring tasks that you do often. This saves mental energy and ensures you never miss a step in your standard processes, no matter how tired you are."
                   ],
                   tips: ["Name files consistently.", "Keep the structure shallow."],
                   commonChallenges: ["Creating too many folders.", "Not using the system daily."],
                   successCriteria: ["You can find any file in 30 seconds.", "Your inbox is organized."]
                 }
               ],
-              tools: [tools.process],
-              resources: []
+              resources: [
+                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" }
+              ]
             },
             {
               title: "Define Your Offer Suite",
-              description: "This week you clarify exactly what you sell. You will package your expertise into a clear offer with a specific price and deliverable. This moves you from 'hourly work' to 'productized services'.",
-              whyItMatters: "Clients need to know what to buy. Packages are easier to sell than vague hourly consulting.",
-              howItStreamlines: "Proposal writing vanishes. You sell the same defined scope repeatedly.",
-              howItBuildsRelationships: "Clear boundaries prevent scope creep. Clients know exactly what they get.",
+              description: "This week you clarify exactly what you sell. You will package your expertise into a clear offer with a specific price and deliverable. This moves you from 'hourly work' to 'productized services', which are easier to sell and scale.",
+              whyItMatters: "Clients need to know what to buy. Packages are easier to sell than vague hourly consulting because the outcome is defined.",
+              howItStreamlines: "Proposal writing vanishes. You sell the same defined scope repeatedly, allowing you to optimize delivery.",
+              howItBuildsRelationships: "Clear boundaries prevent scope creep. Clients know exactly what they get, preventing disappointment.",
               actionSteps: [
                 {
                   title: "Structure Your Core Offer",
@@ -261,18 +260,19 @@ const vision = {
                   linkTo: "StrategyFormValueLadder",
                   foundationStepId: "value_ladder",
                   detailedSteps: [
-                    "List all deliverables included in your service. Be extremely specific about what the client gets (e.g., '4 one-hour calls', '1 comprehensive report', 'email access').",
-                    "Determine the pricing model (flat fee vs. retainer) based on your value and market rates. Calculate your desired profit margin to ensure the price is sustainable.",
-                    "Write the sales description that highlights the outcome, not just the features. Explain how their life or business will improve after buying this specific offer.",
-                    "Create a simple contract or agreement template for this offer. Having this ready means you can close a deal immediately when a client says yes."
+                    "List all deliverables included in your service. Be extremely specific about what the client gets (e.g., '4 one-hour calls', '1 comprehensive report', 'email access') to avoid ambiguity.",
+                    "Determine the pricing model (flat fee vs. retainer) based on your value and market rates. Calculate your desired profit margin to ensure the price is sustainable for your business.",
+                    "Write the sales description that highlights the outcome, not just the features. Explain how their life or business will improve after buying this specific offer—sell the destination, not the plane.",
+                    "Create a simple contract or agreement template for this offer. Having this ready means you can close a deal immediately when a client says yes, striking while the iron is hot."
                   ],
                   tips: ["Focus on the outcome, not the hours.", "Offer a guarantee if possible."],
                   commonChallenges: ["Underpricing.", "Adding too many custom options."],
                   successCriteria: ["You can state the price confidently.", "The scope is crystal clear."]
                 }
               ],
-              tools: [tools.content],
-              resources: []
+              resources: [
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+              ]
             }
           ]
         },
@@ -282,10 +282,10 @@ const vision = {
           weeks: [
             {
               title: "Build Your Digital Home",
-              description: "This week you build your landing page or website. This is your 24/7 salesperson. It needs to clearly communicate your UVP and collect leads.",
-              whyItMatters: "You need a place to send traffic. Social media is rented land; a website is yours.",
-              howItStreamlines: "It answers FAQs automatically. It filters out unqualified leads.",
-              howItBuildsRelationships: "It establishes credibility. A professional site signals you are open for business.",
+              description: "This week you build your landing page or website. This is your 24/7 salesperson. It needs to clearly communicate your UVP and collect leads. Don't aim for perfection; aim for a functional, high-converting asset.",
+              whyItMatters: "You need a place to send traffic. Social media is rented land; a website is your owned real estate where you control the message.",
+              howItStreamlines: "It answers FAQs automatically. It filters out unqualified leads so you only talk to serious prospects.",
+              howItBuildsRelationships: "It establishes credibility. A professional site signals you are open for business and trustworthy.",
               actionSteps: [
                 {
                   title: "Launch Minimum Viable Website",
@@ -295,25 +295,26 @@ const vision = {
                   linkTo: "StrategyFormWebsiteLaunch",
                   foundationStepId: "website_launch",
                   detailedSteps: [
-                    "Write copy using your UVP and Mission statement. Focus on speaking directly to your avatar's pain points and offering your clear solution.",
-                    "Choose a clean, mobile-responsive template on a platform like Squarespace, Wix, or WordPress. Avoid custom coding for now; speed is more important.",
-                    "Add professional photos of yourself or your product. People buy from people, so seeing a human face builds trust much faster than stock photos.",
-                    "Ensure the contact form or 'Buy Now' button works perfectly. Test it yourself to make sure you receive the notification email."
+                    "Write copy using your UVP and Mission statement. Focus on speaking directly to your avatar's pain points and offering your clear solution, avoiding generic 'Welcome to my site' text.",
+                    "Choose a clean, mobile-responsive template on a platform like Squarespace, Wix, or WordPress. Avoid custom coding for now; speed is more important than unique design tricks.",
+                    "Add professional photos of yourself or your product. People buy from people, so seeing a human face builds trust much faster than generic stock photos.",
+                    "Ensure the contact form or 'Buy Now' button works perfectly. Test it yourself to make sure you receive the notification email, as a broken form is a lost sale."
                   ],
                   tips: ["Done is better than perfect.", "Check it on your phone."],
                   commonChallenges: ["Writing too much text.", "Broken links."],
                   successCriteria: ["The site is live.", "A stranger can understand what you do in 5 seconds."]
                 }
               ],
-              tools: [tools.brand],
-              resources: []
+              resources: [
+                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+              ]
             },
             {
               title: "Pre-Launch Marketing",
-              description: "This week you start building anticipation. You aren't selling yet; you are teasing the solution and building a waitlist. This ensures that when you open the doors, there are people ready to buy.",
-              whyItMatters: "Launching to crickets is demoralizing and expensive. Building hype validates demand before you fully commit.",
-              howItStreamlines: "It focuses your marketing efforts on a single event. You create a burst of momentum rather than a slow trickle.",
-              howItBuildsRelationships: "It makes early followers feel like insiders. They get to be part of the 'founding' group.",
+              description: "This week you start building anticipation. You aren't selling yet; you are teasing the solution and building a waitlist. This ensures that when you open the doors, there are people ready to buy, creating momentum.",
+              whyItMatters: "Launching to crickets is demoralizing and expensive. Building hype validates demand before you fully commit to the build.",
+              howItStreamlines: "It focuses your marketing efforts on a single event. You create a burst of momentum rather than a slow trickle of interest.",
+              howItBuildsRelationships: "It makes early followers feel like insiders. They get to be part of the 'founding' group, deepening their loyalty.",
               actionSteps: [
                 {
                   title: "Build a Waitlist Landing Page",
@@ -323,25 +324,26 @@ const vision = {
                   linkTo: "StrategyFormWebsiteLaunch",
                   foundationStepId: "website_launch",
                   detailedSteps: [
-                    "Write a compelling headline promising your main benefit. It should be mysterious enough to build curiosity but specific enough to attract the right people.",
-                    "Add a brief description of what is coming and why it matters. Use bullet points to highlight the key problems you will be solving.",
-                    "Embed an email signup form that connects to your email marketing tool. Keep the form simple—just ask for a first name and email address.",
-                    "Share the link on your social channels with a 'Coming Soon' message. encourage your friends and network to sign up for early access."
+                    "Write a compelling headline promising your main benefit. It should be mysterious enough to build curiosity but specific enough to attract the right people who have the problem.",
+                    "Add a brief description of what is coming and why it matters. Use bullet points to highlight the key problems you will be solving and the transformation they can expect.",
+                    "Embed an email signup form that connects to your email marketing tool. Keep the form simple—just ask for a first name and email address to maximize conversions.",
+                    "Share the link on your social channels with a 'Coming Soon' message. Encourage your friends and network to sign up for early access to build your initial seed list."
                   ],
                   tips: ["Keep it extremely simple.", "Offer a small incentive for signing up."],
                   commonChallenges: ["Over-designing the page.", "Forgetting to test the signup form."],
                   successCriteria: ["The form collects emails correctly.", "You have your first 10 signups."]
                 }
               ],
-              tools: [tools.funnel],
-              resources: []
+              resources: [
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+              ]
             },
             {
               title: "Execute Your Launch",
-              description: "This is it. The week you open the doors and ask for the sale. You will execute your communication plan to drive traffic and convert leads into paying customers.",
-              whyItMatters: "Revenue is the lifeblood of business. A launch focuses energy to generate that initial cash flow.",
-              howItStreamlines: "It creates a focused sales period. You aren't always 'kind of' selling.",
-              howItBuildsRelationships: "It delivers the solution they've been waiting for. You are fulfilling your promise.",
+              description: "This is it. The week you open the doors and ask for the sale. You will execute your communication plan to drive traffic and convert leads into paying customers. Be bold, be loud, and be helpful.",
+              whyItMatters: "Revenue is the lifeblood of business. A launch focuses energy to generate that initial cash flow and validate your business model.",
+              howItStreamlines: "It creates a focused sales period. You aren't always 'kind of' selling; you are in a dedicated sprint.",
+              howItBuildsRelationships: "It delivers the solution they've been waiting for. You are fulfilling your promise and starting the customer journey.",
               actionSteps: [
                 {
                   title: "Run Launch Campaign",
@@ -351,25 +353,26 @@ const vision = {
                   linkTo: "StrategyFormContentStrategy",
                   foundationStepId: "content_strategy",
                   detailedSteps: [
-                    "Send the 'Doors Open' email to your waitlist immediately. Make the subject line exciting and the call to action very clear.",
-                    "Post daily social proof and testimonials throughout the week. Show real people getting real results to overcome skepticism.",
-                    "Send a 'Doors Closing' urgency email 24 hours before the offer expires or changes. Scarcity drives action for people who are on the fence.",
-                    "Personally reach out to warm leads who replied or clicked but didn't buy. Ask them if they have any final questions before the launch ends."
+                    "Send the 'Doors Open' email to your waitlist immediately. Make the subject line exciting and the call to action very clear so they know exactly how to buy.",
+                    "Post daily social proof and testimonials throughout the week. Show real people getting real results to overcome skepticism and build trust with fence-sitters.",
+                    "Send a 'Doors Closing' urgency email 24 hours before the offer expires or changes. Scarcity drives action for people who are procrastinating.",
+                    "Personally reach out to warm leads who replied or clicked but didn't buy. Ask them if they have any final questions before the launch ends—this personal touch closes deals."
                   ],
                   tips: ["Follow up more than you think is polite.", "Celebrate every sale publicly."],
                   commonChallenges: ["Giving up if day 1 is slow.", "Taking rejection personally."],
                   successCriteria: ["You get your first paying customer.", "You learn what messaging works."]
                 }
               ],
-              tools: [tools.funnel],
-              resources: []
+              resources: [
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+              ]
             },
             {
               title: "Review & Plan Next Quarter",
-              description: "This week you pause to reflect. You look at what worked, what didn't, and plan the next 90 days. This cycle of execution and reflection is the secret to long-term growth.",
-              whyItMatters: "Experience without reflection is wasted. You must learn from your actions to improve.",
-              howItStreamlines: "It sets the roadmap for the future. You stop guessing what to do next.",
-              howItBuildsRelationships: "You can ask customers for feedback. It shows you value their experience.",
+              description: "This week you pause to reflect. You look at what worked, what didn't, and plan the next 90 days. This cycle of execution and reflection is the secret to long-term growth and preventing burnout.",
+              whyItMatters: "Experience without reflection is wasted. You must learn from your actions to improve and stop making the same mistakes.",
+              howItStreamlines: "It sets the roadmap for the future. You stop guessing what to do next and start executing a plan based on data.",
+              howItBuildsRelationships: "You can ask customers for feedback. It shows you value their experience and are committed to improvement.",
               actionSteps: [
                 {
                   title: "Conduct Quarterly Review",
@@ -379,18 +382,19 @@ const vision = {
                   linkTo: "AnnualPlanning",
                   foundationStepId: "financial_goal",
                   detailedSteps: [
-                    "Review revenue vs. goals. Look at the hard numbers—did you hit your target? If not, dig into the data to understand exactly why.",
-                    "Review lessons learned. What surprised you? What was harder than expected? Write down the top 3 insights you gained this quarter.",
-                    "Identify top 3 priorities for the next quarter based on this data. Don't pick 10 things; pick the 3 that will move the needle most.",
-                    "Schedule your next 90-day sprint in your calendar. Block out time for the deep work needed to achieve your new goals."
+                    "Review revenue vs. goals. Look at the hard numbers—did you hit your target? If not, dig into the data to understand exactly why without judging yourself.",
+                    "Review lessons learned. What surprised you? What was harder than expected? Write down the top 3 insights you gained this quarter to carry forward.",
+                    "Identify top 3 priorities for the next quarter based on this data. Don't pick 10 things; pick the 3 that will move the needle most for your specific stage.",
+                    "Schedule your next 90-day sprint in your calendar. Block out time for the deep work needed to achieve your new goals so you don't get lost in busy work."
                   ],
                   tips: ["Be kind to yourself.", "Focus on progress, not perfection."],
                   commonChallenges: ["Ignoring the data.", "Setting unrealistic goals again."],
                   successCriteria: ["You have a clear plan for the next 3 months.", "You feel re-energized."]
                 }
               ],
-              tools: [tools.audit],
-              resources: []
+              resources: [
+                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+              ]
             }
           ]
         }
@@ -413,10 +417,10 @@ const startup = {
           weeks: [
             {
               title: "Deep Dive Market Research",
-              description: "This week is about moving beyond assumptions. You will gather hard data on your industry, trends, and customer behaviors. This validation minimizes risk and highlights gaps in the market you can exploit.",
-              whyItMatters: "Data beats opinion. Understanding the real market landscape prevents costly mistakes and reveals hidden opportunities.",
-              howItStreamlines: "It narrows your focus to viable markets only. You stop wasting time on ideas that have no demand.",
-              howItBuildsRelationships: "You can speak to current market frustrations. Customers appreciate a solution that fits the current reality.",
+              description: "This week is about moving beyond assumptions. You will gather hard data on your industry, trends, and customer behaviors. This validation minimizes risk and highlights gaps in the market you can exploit. Don't guess; know.",
+              whyItMatters: "Data beats opinion. Understanding the real market landscape prevents costly mistakes and reveals hidden opportunities that others miss.",
+              howItStreamlines: "It narrows your focus to viable markets only. You stop wasting time on ideas that have no demand or are already saturated.",
+              howItBuildsRelationships: "You can speak to current market frustrations. Customers appreciate a solution that fits the current reality and solves real problems.",
               actionSteps: [
                 {
                   title: "Analyze Industry Trends",
@@ -426,25 +430,26 @@ const startup = {
                   linkTo: "StrategyFormBusinessModelCanvas",
                   foundationStepId: "business_model",
                   detailedSteps: [
-                    "Use Google Trends, industry reports, and news sites to find data. Look for growth patterns over the last 5 years to verify market stability.",
-                    "Identify growing and shrinking segments within the market. Find out which specific niches are hot right now and which are fading away.",
-                    "Look for regulatory or technological shifts that could impact your business. Ask yourself if AI or new laws will help or hurt your idea.",
-                    "Summarize top 3 opportunities and threats into a simple report. This will help you make strategic decisions about where to enter the market."
+                    "Use Google Trends, industry reports, and news sites to find data. Look for growth patterns over the last 5 years to verify market stability and future potential.",
+                    "Identify growing and shrinking segments within the market. Find out which specific niches are hot right now and which are fading away so you position yourself correctly.",
+                    "Look for regulatory or technological shifts that could impact your business. Ask yourself if AI or new laws will help or hurt your idea in the next 3 years.",
+                    "Summarize top 3 opportunities and threats into a simple report. This will help you make strategic decisions about where to enter the market and how to protect yourself."
                   ],
                   tips: ["Look for data less than 2 years old.", "Check competitor annual reports."],
                   commonChallenges: ["Getting lost in data paralysis.", "Ignoring negative trends."],
                   successCriteria: ["You can identify the direction of the market.", "You know where the money is flowing."]
                 }
               ],
-              tools: [tools.competitor],
-              resources: []
+              resources: [
+                { title: "Competitor Analysis Grid", type: "Tool", icon: "BarChart3", link: "StrategyFormSWOTAnalysis" }
+              ]
             },
             {
               title: "Competitive Analysis",
-              description: "This week you study your rivals. You identify who the key players are, what they offer, and where they are failing. This allows you to position yourself uniquely.",
-              whyItMatters: "You need to know who you're fighting against. Differentiation is impossible without comparison.",
-              howItStreamlines: "You can adopt best practices they've already proven. You avoid their obvious mistakes.",
-              howItBuildsRelationships: "You can serve the customers they ignore. You become the alternative they've been waiting for.",
+              description: "This week you study your rivals. You identify who the key players are, what they offer, and where they are failing. This allows you to position yourself uniquely and offer something better.",
+              whyItMatters: "You need to know who you're fighting against. Differentiation is impossible without comparison; you need to know the baseline to beat it.",
+              howItStreamlines: "You can adopt best practices they've already proven. You avoid their obvious mistakes, saving you time and money.",
+              howItBuildsRelationships: "You can serve the customers they ignore. You become the alternative they've been waiting for, building instant loyalty.",
               actionSteps: [
                 {
                   title: "Build Competitor Matrix",
@@ -454,25 +459,26 @@ const startup = {
                   linkTo: "StrategyFormSWOTAnalysis",
                   foundationStepId: "swot",
                   detailedSteps: [
-                    "List your top 3 direct competitors. Include both the big market leaders and the smaller, niche players who are doing interesting things.",
-                    "Record their pricing, key features, and marketing promises. Look for gaps in their offerings or places where their pricing seems too high or too low.",
+                    "List your top 3 direct competitors. Include both the big market leaders and the smaller, niche players who are doing interesting things in your space.",
+                    "Record their pricing, key features, and marketing promises. Look for gaps in their offerings or places where their pricing seems too high or too low for the value.",
                     "Read their 1-star reviews to find pain points. These angry comments are gold mines for you because they tell you exactly what customers hate about the current options.",
-                    "Identify your unique advantage over each competitor. Write down one reason why a customer would choose you instead of them."
+                    "Identify your unique advantage over each competitor. Write down one reason why a customer would choose you instead of them (e.g., better service, faster speed)."
                   ],
                   tips: ["Be objective.", "Don't ignore indirect competitors."],
                   commonChallenges: ["Underestimating them.", "Copying them too closely."],
                   successCriteria: ["You know exactly why a customer would choose you over them.", "You have found a gap in the market."]
                 }
               ],
-              tools: [tools.competitor],
-              resources: []
+              resources: [
+                { title: "Competitor Analysis Grid", type: "Tool", icon: "BarChart3", link: "StrategyFormSWOTAnalysis" }
+              ]
             },
             {
               title: "Define Business Model",
-              description: "This week you decide how you make money. You map out your value proposition, revenue streams, and cost structure. This ensures your idea is actually a viable business.",
-              whyItMatters: "A great product without a business model is a hobby. You need a clear path to profitability.",
-              howItStreamlines: "It clarifies your priorities. You focus on activities that drive revenue.",
-              howItBuildsRelationships: "It clarifies the value exchange. Customers know what to pay for.",
+              description: "This week you decide how you make money. You map out your value proposition, revenue streams, and cost structure. This ensures your idea is actually a viable business, not just a good idea.",
+              whyItMatters: "A great product without a business model is a hobby. You need a clear path to profitability to sustain the business.",
+              howItStreamlines: "It clarifies your priorities. You focus on activities that drive revenue and cut activities that are just busy work.",
+              howItBuildsRelationships: "It clarifies the value exchange. Customers know what to pay for and understand the relationship.",
               actionSteps: [
                 {
                   title: "Complete Business Model Canvas",
@@ -482,7 +488,7 @@ const startup = {
                   linkTo: "StrategyFormBusinessModelCanvas",
                   foundationStepId: "business_model",
                   detailedSteps: [
-                    "Identify Key Partners and Activities. Who do you need to help you, and what are the most critical things you must do every day?",
+                    "Identify Key Partners and Activities. Who do you need to help you, and what are the most critical things you must do every day to keep the lights on?",
                     "Define Value Propositions and Customer Relationships. What value do you deliver, and how do you interact with clients (e.g., personal support vs. automated)?",
                     "List Customer Segments and Channels. Who are you selling to, and how will you reach them (e.g., social media, SEO, sales team)?",
                     "Map Cost Structure and Revenue Streams. What are your major expenses, and exactly how do you charge money (e.g., subscription, one-time fee)?"
@@ -492,15 +498,16 @@ const startup = {
                   successCriteria: ["You can explain your entire business logic on one page.", "It makes financial sense."]
                 }
               ],
-              tools: [tools.mission],
-              resources: []
+              resources: [
+                { title: "Mission & Vision Template", type: "Tool", icon: "FileText", link: "StrategyFormMissionVision" }
+              ]
             },
             {
               title: "Strategic Positioning",
-              description: "This week you define where you sit in the customer's mind. Are you the premium option? The fast option? The friendly option? Positioning determines your pricing and marketing.",
-              whyItMatters: "You can't be everything to everyone. Clear positioning attracts your specific ideal client.",
-              howItStreamlines: "Marketing decisions become obvious. You know your voice and style.",
-              howItBuildsRelationships: "It creates tribe mentality. Customers identify with your brand values.",
+              description: "This week you define where you sit in the customer's mind. Are you the premium option? The fast option? The friendly option? Positioning determines your pricing, marketing, and competitive advantage.",
+              whyItMatters: "You can't be everything to everyone. Clear positioning attracts your specific ideal client and allows you to charge what you are worth.",
+              howItStreamlines: "Marketing decisions become obvious. You know your voice and style, making content creation faster.",
+              howItBuildsRelationships: "It creates tribe mentality. Customers identify with your brand values and feel like they belong.",
               actionSteps: [
                 {
                   title: "Draft Positioning Statement",
@@ -511,8 +518,8 @@ const startup = {
                   foundationStepId: "value_proposition",
                   detailedSteps: [
                     "Define the specific target segment you serve. Be as narrow as possible (e.g., 'Busy working moms' is better than just 'women').",
-                    "Define the brand name and the product category you play in. Are you a consultant, a software tool, or a community?",
-                    "Define the key point of difference that separates you from the rest. This is your 'secret sauce' or unique mechanism.",
+                    "Define the brand name and the product category you play in. Are you a consultant, a software tool, or a community? Be clear.",
+                    "Define the key point of difference that separates you from the rest. This is your 'secret sauce' or unique mechanism that justifies your price.",
                     "Combine these into a statement: 'For [Target], [Brand] is the [Category] that [Benefit] because [Reason].' Use this to check all future marketing copy."
                   ],
                   tips: ["Use the template: For [Target], [Brand] is the [Category] that [Benefit].", "Be specific."],
@@ -520,8 +527,9 @@ const startup = {
                   successCriteria: ["It clearly separates you from competitors.", "It guides your marketing copy."]
                 }
               ],
-              tools: [tools.brand],
-              resources: []
+              resources: [
+                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+              ]
             }
           ]
         },
@@ -531,10 +539,10 @@ const startup = {
           weeks: [
              {
               title: "Operational Workflow Design",
-              description: "This week you design the engine of your business. You will map out exactly how value is delivered, from the first customer touchpoint to the final delivery. Efficient operations are the key to profitability.",
-              whyItMatters: "Chaos kills scale. Defined workflows ensure consistency and allow you to delegate effectively.",
-              howItStreamlines: "It removes bottlenecks. You identify steps that can be automated or eliminated.",
-              howItBuildsRelationships: "Consistent delivery builds trust. Customers know they will get the same great experience every time.",
+              description: "This week you design the engine of your business. You will map out exactly how value is delivered, from the first customer touchpoint to the final delivery. Efficient operations are the key to profitability and sanity.",
+              whyItMatters: "Chaos kills scale. Defined workflows ensure consistency and allow you to delegate effectively without quality dropping.",
+              howItStreamlines: "It removes bottlenecks. You identify steps that can be automated or eliminated, speeding up the entire system.",
+              howItBuildsRelationships: "Consistent delivery builds trust. Customers know they will get the same great experience every time they buy.",
               actionSteps: [
                 {
                   title: "Map Your Core Process",
@@ -545,24 +553,25 @@ const startup = {
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
                     "Start with the customer order. What is the very first thing that happens when someone clicks 'buy' or signs a contract?",
-                    "List every single step required to fulfill the order. Include administrative tasks, communication, and the actual work itself.",
-                    "Identify who does each step. Is it you, a tool, or a team member? Mark this clearly on the chart.",
-                    "Mark decision points ('if this, then that') and potential failure points where things often go wrong. Plan safeguards for these risks."
+                    "List every single step required to fulfill the order. Include administrative tasks, communication, and the actual work itself. Don't skip the small stuff.",
+                    "Identify who does each step. Is it you, a tool, or a team member? Mark this clearly on the chart to see workload distribution.",
+                    "Mark decision points ('if this, then that') and potential failure points where things often go wrong. Plan safeguards for these risks now."
                   ],
                   tips: ["Keep it high-level first.", "Use sticky notes for flexibility."],
                   commonChallenges: ["Making it too complex.", "Forgetting administrative steps."],
                   successCriteria: ["A stranger could understand how you deliver value.", "You see obvious areas to improve."]
                 }
               ],
-              tools: [tools.process],
-              resources: []
+              resources: [
+                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" }
+              ]
             },
             {
               title: "Financial Projections",
-              description: "This week you crunch the numbers. You estimate your startup costs, monthly burn rate, and revenue targets. This reality check ensures you have enough runway to succeed.",
-              whyItMatters: "Running out of cash kills businesses. You need to know your numbers to survive.",
-              howItStreamlines: "It sets clear targets. You know exactly how many sales you need to break even.",
-              howItBuildsRelationships: "It allows for sustainable pricing. You don't have to desperate-sell to survive.",
+              description: "This week you crunch the numbers. You estimate your startup costs, monthly burn rate, and revenue targets. This reality check ensures you have enough runway to succeed and aren't flying blind.",
+              whyItMatters: "Running out of cash kills businesses. You need to know your numbers to survive and make informed decisions.",
+              howItStreamlines: "It sets clear targets. You know exactly how many sales you need to break even, focusing your sales efforts.",
+              howItBuildsRelationships: "It allows for sustainable pricing. You don't have to desperate-sell to survive, which builds trust.",
               actionSteps: [
                 {
                   title: "Create 12-Month Budget",
@@ -572,9 +581,9 @@ const startup = {
                   linkTo: "FreedomCalculator",
                   foundationStepId: "financial_goal",
                   detailedSteps: [
-                    "List all fixed costs (rent, software, insurance). These are bills you must pay regardless of how much you sell.",
-                    "Estimate variable costs (COGS, transaction fees, marketing spend). These go up as your sales go up.",
-                    "Project conservative revenue based on realistic sales targets. Don't assume viral growth; assume slow, steady progress.",
+                    "List all fixed costs (rent, software, insurance). These are bills you must pay regardless of how much you sell, so get them accurate.",
+                    "Estimate variable costs (COGS, transaction fees, marketing spend). These go up as your sales go up, so use percentages where possible.",
+                    "Project conservative revenue based on realistic sales targets. Don't assume viral growth; assume slow, steady progress to be safe.",
                     "Calculate monthly cash flow to see if you run out of money in any month. Adjust your spending or sales goals until the numbers work."
                   ],
                   tips: ["Overestimate expenses by 10%.", "Underestimate revenue by 20%."],
@@ -582,15 +591,16 @@ const startup = {
                   successCriteria: ["You know your break-even point.", "You know how much cash you need to launch."]
                 }
               ],
-              tools: [tools.financial],
-              resources: []
+              resources: [
+                { title: "Financial Projections", type: "Tool", icon: "DollarSign", link: "FreedomCalculator" }
+              ]
             },
             {
               title: "Team & Resource Planning",
-              description: "This week you decide who does what. Even if you are a solo founder, you need to identify the hats you wear and when you will need to hire help.",
-              whyItMatters: "You can't do everything forever. Planning for help prevents burnout.",
-              howItStreamlines: "It clarifies roles. You know what skills you need to hire for.",
-              howItBuildsRelationships: "Better service. Specialists do better work than tired generalists.",
+              description: "This week you decide who does what. Even if you are a solo founder, you need to identify the hats you wear and when you will need to hire help. Planning for growth prevents burnout.",
+              whyItMatters: "You can't do everything forever. Planning for help prevents burnout and allows you to focus on high-value tasks.",
+              howItStreamlines: "It clarifies roles. You know what skills you need to hire for, making recruitment faster and more accurate.",
+              howItBuildsRelationships: "Better service. Specialists do better work than tired generalists, leading to happier clients.",
               actionSteps: [
                 {
                   title: "Draft Org Chart",
@@ -600,7 +610,7 @@ const startup = {
                   linkTo: "SOPs",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "List all business functions (Sales, Ops, Marketing, Finance). Don't leave anything out, even small tasks.",
+                    "List all business functions (Sales, Ops, Marketing, Finance). Don't leave anything out, even small tasks like email management.",
                     "Put your name in every box you currently fill. This visualizes your workload and highlights why you might be feeling overwhelmed.",
                     "Identify the first role you need to hire to get the most time back. Usually, this is an administrative or delivery role.",
                     "Write a rough job description for that future role so you know exactly what to look for when you have the budget."
@@ -610,15 +620,16 @@ const startup = {
                   successCriteria: ["You have a hiring roadmap.", "You know what tasks to delegate first."]
                 }
               ],
-              tools: [tools.persona],
-              resources: []
+              resources: [
+                { title: "Ideal Client Persona", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" }
+              ]
             },
             {
               title: "Tech Stack Selection",
-              description: "This week you choose your tools. You select the software that runs your business, from CRM to Accounting. The right stack saves hours of manual work.",
-              whyItMatters: "Bad tools cause friction. Good tools automate work and provide data.",
-              howItStreamlines: "Data flows automatically between systems. You avoid double-entry.",
-              howItBuildsRelationships: "Better data management means you remember customer details. It feels personal.",
+              description: "This week you choose your tools. You select the software that runs your business, from CRM to Accounting. The right stack saves hours of manual work and scales with you.",
+              whyItMatters: "Bad tools cause friction and data loss. Good tools automate work and provide data you can trust.",
+              howItStreamlines: "Data flows automatically between systems. You avoid double-entry and reduce administrative overhead.",
+              howItBuildsRelationships: "Better data management means you remember customer details. It feels personal and organized.",
               actionSteps: [
                 {
                   title: "Select Core Software",
@@ -629,17 +640,18 @@ const startup = {
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
                     "List your requirements for each tool (e.g., 'must send automated invoices', 'must integrate with Gmail'). Be specific about your needs.",
-                    "Compare top 3 options for each category based on pricing and features. Read recent reviews to avoid buggy software.",
+                    "Compare top 3 options for each category based on pricing and features. Read recent reviews to avoid buggy software that will waste your time.",
                     "Check for integrations (Zapier, native connections). Ensure your tools can talk to each other so data flows automatically.",
-                    "Sign up for trials and test the user interface. If it feels clunky or confusing during the trial, don't buy it."
+                    "Sign up for trials and test the user interface. If it feels clunky or confusing during the trial, don't buy it—it won't get better."
                   ],
                   tips: ["Simple is better than complex.", "Avoid 'all-in-one' tools that do nothing well."],
                   commonChallenges: ["Signing up for too many subscriptions.", "Not testing integrations."],
                   successCriteria: ["You have a list of tools that talk to each other.", "You know the monthly cost."]
                 }
               ],
-              tools: [tools.process],
-              resources: []
+              resources: [
+                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" }
+              ]
             }
           ]
         },
@@ -650,8 +662,8 @@ const startup = {
              {
               title: "Finalize Launch Timeline",
               description: "This week you turn strategy into a schedule. You will map out every task needed to go live, assigning dates and owners. This accountability ensures you actually launch instead of planning forever.",
-              whyItMatters: "A goal without a date is just a dream. A timeline creates urgency and coordinates all moving parts.",
-              howItStreamlines: "It prioritizes tasks. You know exactly what must be done today to hit the launch date.",
+              whyItMatters: "A goal without a date is just a dream. A timeline creates urgency and coordinates all moving parts effectively.",
+              howItStreamlines: "It prioritizes tasks. You know exactly what must be done today to hit the launch date, reducing daily decision fatigue.",
               howItBuildsRelationships: "It allows you to coordinate marketing with operations. You won't sell something you can't deliver.",
               actionSteps: [
                 {
@@ -662,25 +674,26 @@ const startup = {
                   linkTo: "StrategyFormContentStrategy",
                   foundationStepId: "content_strategy",
                   detailedSteps: [
-                    "Set your Go-Live date. Pick a specific day on the calendar and treat it as a hard deadline.",
-                    "Work backward from that date to identify all dependencies. What must be finished 1 week before? 2 weeks before?",
+                    "Set your Go-Live date. Pick a specific day on the calendar and treat it as a hard deadline that cannot be moved.",
+                    "Work backward from that date to identify all dependencies. What must be finished 1 week before? 2 weeks before? Mark these milestones.",
                     "Schedule marketing blasts, emails, and social posts on specific days. Create a content calendar for the launch window.",
-                    "Schedule final QA tests and dry runs to ensure everything works before the public sees it."
+                    "Schedule final QA tests and dry runs to ensure everything works before the public sees it. Don't leave testing for the last day."
                   ],
                   tips: ["Add buffer time for delays.", "Share it with your team/partners."],
                   commonChallenges: ["Being overly optimistic about time.", "Ignoring dependencies."],
                   successCriteria: ["Every task has a due date.", "You feel confident in the schedule."]
                 }
               ],
-              tools: [tools.content],
-              resources: []
+              resources: [
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+              ]
             },
             {
               title: "QA & Testing",
               description: "This week you break your own business. You test every link, every payment form, and every process to ensure it works. You want to find the bugs before your customers do.",
-              whyItMatters: "Broken tech kills conversions. First impressions are hard to fix.",
-              howItStreamlines: "It prevents support tickets. You fix issues at the source.",
-              howItBuildsRelationships: "A flawless experience builds confidence. It shows you are professional.",
+              whyItMatters: "Broken tech kills conversions. First impressions are hard to fix, and a broken cart means lost trust.",
+              howItStreamlines: "It prevents support tickets. You fix issues at the source rather than handling complaints later.",
+              howItBuildsRelationships: "A flawless experience builds confidence. It shows you are professional and respect their time.",
               actionSteps: [
                 {
                   title: "Run Full System Test",
@@ -690,25 +703,26 @@ const startup = {
                   linkTo: "StrategyFormWebsiteLaunch",
                   foundationStepId: "website_launch",
                   detailedSteps: [
-                    "Make a real purchase using your own credit card (you can refund yourself later). This tests the gateway and the bank connection.",
-                    "Check that all receipt emails and welcome messages arrive in your inbox. Verify the formatting and links inside them.",
-                    "Verify access to the product or course area. Make sure the login works and the permissions are correct.",
-                    "Test on mobile and desktop browsers. What looks good on a laptop might be broken on an iPhone."
+                    "Make a real purchase using your own credit card (you can refund yourself later). This tests the gateway and the bank connection for real.",
+                    "Check that all receipt emails and welcome messages arrive in your inbox. Verify the formatting and links inside them work.",
+                    "Verify access to the product or course area. Make sure the login works and the permissions are correct for a new user.",
+                    "Test on mobile and desktop browsers. What looks good on a laptop might be broken on an iPhone, losing you mobile sales."
                   ],
                   tips: ["Ask a friend to do it too.", "Test different browsers."],
                   commonChallenges: ["Assuming it works because it worked yesterday.", "Ignoring mobile layout."],
                   successCriteria: ["The purchase flow is smooth.", "All automated emails arrive correctly."]
                 }
               ],
-              tools: [tools.audit],
-              resources: []
+              resources: [
+                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+              ]
             },
             {
               title: "Go Live!",
-              description: "This is the moment. You flip the switch and announce your business to the world. It is time to celebrate and start serving.",
-              whyItMatters: "You are finally in business. Real feedback starts now.",
-              howItStreamlines: "You shift from 'building' mode to 'operating' mode.",
-              howItBuildsRelationships: "You can finally solve real problems for real people.",
+              description: "This is the moment. You flip the switch and announce your business to the world. It is time to celebrate and start serving. Don't be shy; launch with confidence.",
+              whyItMatters: "You are finally in business. Real feedback starts now, and you can begin to generate revenue.",
+              howItStreamlines: "You shift from 'building' mode to 'operating' mode. The planning phase is over; execution begins.",
+              howItBuildsRelationships: "You can finally solve real problems for real people. This is the fulfillment of your mission.",
               actionSteps: [
                 {
                   title: "Execute Launch Day Checklist",
@@ -718,25 +732,26 @@ const startup = {
                   linkTo: "StrategyFormSocialMedia",
                   foundationStepId: "social_media_strategy",
                   detailedSteps: [
-                    "Publish your website and make sure it is visible to search engines. Remove any 'under construction' pages.",
-                    "Announce the launch on all your social channels. Use high-energy graphics and a clear call to action.",
-                    "Email your personal network and waitlist. Ask them to share the news with their friends.",
-                    "Monitor your inbox and social feeds for immediate feedback. Be ready to answer questions or fix small bugs quickly."
+                    "Publish your website and make sure it is visible to search engines. Remove any 'under construction' pages or password locks.",
+                    "Announce the launch on all your social channels. Use high-energy graphics and a clear call to action to drive immediate traffic.",
+                    "Email your personal network and waitlist. Ask them to share the news with their friends to amplify your reach.",
+                    "Monitor your inbox and social feeds for immediate feedback. Be ready to answer questions or fix small bugs quickly to keep momentum."
                   ],
                   tips: ["Have support ready.", "Celebrate the milestone!"],
                   commonChallenges: ["Fear of pushing the button.", "Getting distracted."],
                   successCriteria: ["You are live.", "You have told the world."]
                 }
               ],
-              tools: [tools.funnel],
-              resources: []
+              resources: [
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+              ]
             },
             {
               title: "Post-Launch Review",
               description: "This week you breathe and analyze. You look at the initial data from your launch. What went well? What broke? This feedback loop informs your strategy for the next month.",
-              whyItMatters: "Launch is just the starting line. Continuous improvement wins the race.",
-              howItStreamlines: "You quickly fix what isn't working. You double down on what is.",
-              howItBuildsRelationships: "You thank your early supporters. You ask for their feedback to improve.",
+              whyItMatters: "Launch is just the starting line. Continuous improvement wins the race, and data is your guide.",
+              howItStreamlines: "You quickly fix what isn't working. You double down on what is, optimizing your efforts.",
+              howItBuildsRelationships: "You thank your early supporters. You ask for their feedback to improve, showing you value them.",
               actionSteps: [
                 {
                   title: "Analyze Launch Metrics",
@@ -747,7 +762,7 @@ const startup = {
                   foundationStepId: "financial_goal",
                   detailedSteps: [
                     "Check Google Analytics and your sales dashboard. Compare your actual traffic and sales numbers against your goals.",
-                    "Read all customer emails, comments, and DMs. Look for common questions or confusion points that need addressing.",
+                    "Read all customer emails, comments, and DMs. Look for common questions or confusion points that need addressing immediately.",
                     "Identify the top 3 critical fixes needed immediately. Prioritize bugs or friction points that are costing you sales.",
                     "Plan the next marketing push based on what you learned. If one channel worked best, focus your energy there next week."
                   ],
@@ -756,8 +771,9 @@ const startup = {
                   successCriteria: ["You know what to improve next week.", "You have thanked your team/supporters."]
                 }
               ],
-              tools: [tools.audit],
-              resources: []
+              resources: [
+                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+              ]
             }
           ]
         }
@@ -775,7 +791,7 @@ const startup = {
               title: "Core Messaging Framework",
               description: "This week you define the language of your brand. You will create the key messages, taglines, and elevator pitches that will be used across all your marketing. Consistency in messaging is key to being remembered.",
               whyItMatters: "Confused customers don't buy. Clear, consistent messaging cuts through the noise and drives conversions.",
-              howItStreamlines: "You write copy faster. You have a bank of approved phrases and angles to pull from.",
+              howItStreamlines: "You write copy faster. You have a bank of approved phrases and angles to pull from, reducing writer's block.",
               howItBuildsRelationships: "It resonates with the right people. Your message acts as a beacon for your ideal tribe.",
               actionSteps: [
                 {
@@ -788,22 +804,23 @@ const startup = {
                   detailedSteps: [
                     "Write a 1-sentence elevator pitch that explains who you help and what problem you solve. Test it on a friend to see if they understand it immediately.",
                     "Create a catchy tagline or slogan that captures the essence of your brand promise. Keep it short, memorable, and aligned with your values.",
-                    "Define your 3 main selling points or 'value pillars'. These are the core arguments you will use repeatedly to persuade people to buy.",
-                    "Write a one-paragraph description of your company that can be used on your 'About' page and social media profiles."
+                    "Define your 3 main selling points or 'value pillars'. These are the core arguments you will be using repeatedly to persuade people to buy.",
+                    "Write a one-paragraph description of your company that can be used on your 'About' page and social media profiles, ensuring consistency."
                   ],
                   tips: ["Read them aloud.", "Test them on friends."],
                   commonChallenges: ["Being too wordy.", "Using passive voice."],
                   successCriteria: ["You can explain what you do in 10 seconds.", "It sounds exciting."]
                 }
               ],
-              tools: [tools.brand],
-              resources: []
+              resources: [
+                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+              ]
             },
             {
               title: "Audience Segmentation",
-              description: "This week you slice your market. You identify different subgroups within your audience who have specific needs. This allows for hyper-targeted marketing.",
-              whyItMatters: "Personalization converts. Treating everyone the same ignores their unique context.",
-              howItStreamlines: "It clarifies campaign targets. You know exactly who each email is for.",
+              description: "This week you slice your market. You identify different subgroups within your audience who have specific needs. This allows for hyper-targeted marketing that feels personal.",
+              whyItMatters: "Personalization converts. Treating everyone the same ignores their unique context and lowers engagement.",
+              howItStreamlines: "It clarifies campaign targets. You know exactly who each email is for, making writing easier.",
               howItBuildsRelationships: "Customers feel seen. You speak to their specific situation, not a generic crowd.",
               actionSteps: [
                 {
@@ -814,24 +831,25 @@ const startup = {
                   linkTo: "StrategyFormIdealClient",
                   foundationStepId: "ideal_client",
                   detailedSteps: [
-                    "Group your audience by demographics (age, location, job). Are there distinct groups like 'Students' vs 'Professionals'?",
-                    "Group by behavior (new vs. returning customers). A stranger needs a different message than a loyal fan.",
+                    "Group your audience by demographics (age, location, job). Are there distinct groups like 'Students' vs 'Professionals' that need different offers?",
+                    "Group by behavior (new vs. returning customers). A stranger needs a different message than a loyal fan who trusts you.",
                     "Group by problem or pain point (price conscious vs. quality conscious). Tailor your offers to what matters most to each group.",
-                    "Name each segment so you can refer to them easily (e.g., 'The Bargain Hunter', 'The Power User')."
+                    "Name each segment so you can refer to them easily (e.g., 'The Bargain Hunter', 'The Power User') in your planning."
                   ],
                   tips: ["Keep it simple initially.", "Focus on the biggest differences."],
                   commonChallenges: ["Creating too many segments.", "Segments with no clear difference."],
                   successCriteria: ["You have unique messages for each group.", "You can tag them in your CRM."]
                 }
               ],
-              tools: [tools.persona],
-              resources: []
+              resources: [
+                { title: "Ideal Client Persona", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" }
+              ]
             },
             {
               title: "Channel Selection",
-              description: "This week you decide where to play. You identify the 1-2 marketing channels where your audience hangs out and where you can win. Focus is better than being everywhere.",
-              whyItMatters: "Spreading yourself thin leads to mediocrity. dominating one channel builds momentum.",
-              howItStreamlines: "It reduces content fatigue. You only create for the platforms that matter.",
+              description: "This week you decide where to play. You identify the 1-2 marketing channels where your audience hangs out and where you can win. Focus is better than being everywhere poorly.",
+              whyItMatters: "Spreading yourself thin leads to mediocrity. Dominating one channel builds momentum and brand authority.",
+              howItStreamlines: "It reduces content fatigue. You only create for the platforms that matter, saving massive amounts of time.",
               howItBuildsRelationships: "You meet them where they are. You become a familiar face in their favorite space.",
               actionSteps: [
                 {
@@ -852,15 +870,16 @@ const startup = {
                   successCriteria: ["You have a clear focus.", "You have created accounts/profiles."]
                 }
               ],
-              tools: [tools.content],
-              resources: []
+              resources: [
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+              ]
             },
             {
               title: "SEO Foundation",
               description: "This week you plant seeds for the future. You identify the keywords your customers are searching for. This ensures your content gets found organically over time.",
-              whyItMatters: "Organic traffic is free and high-intent. People searching have a problem to solve.",
-              howItStreamlines: "It guides content creation. You write what people are already looking for.",
-              howItBuildsRelationships: "You answer their questions. You become the helpful expert they find.",
+              whyItMatters: "Organic traffic is free and high-intent. People searching have a problem to solve and are ready to buy.",
+              howItStreamlines: "It guides content creation. You write what people are already looking for, so you don't have to guess topics.",
+              howItBuildsRelationships: "You answer their questions. You become the helpful expert they find when they are stuck.",
               actionSteps: [
                 {
                   title: "Keyword Research",
@@ -872,7 +891,7 @@ const startup = {
                   detailedSteps: [
                     "Use a keyword tool like Google Planner, Ubersuggest, or AnswerThePublic to find data. Look for terms with decent volume but lower competition.",
                     "Find high volume, low competition terms that are relevant to your offer. These are your 'low hanging fruit' opportunities.",
-                    "Look for question-based keywords (Who, What, How). These are great for blog posts and FAQ pages.",
+                    "Look for question-based keywords (Who, What, How). These are great for blog posts and FAQ pages that build trust.",
                     "Map specific keywords to pages on your website. Ensure each page has a primary keyword target."
                   ],
                   tips: ["Focus on 'long-tail' keywords.", "Check search intent."],
@@ -880,8 +899,9 @@ const startup = {
                   successCriteria: ["You have a list of topics to write about.", "You know what your audience asks."]
                 }
               ],
-              tools: [tools.content],
-              resources: []
+              resources: [
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+              ]
             }
           ]
         },
@@ -892,8 +912,8 @@ const startup = {
             {
               title: "Content Strategy Design",
               description: "This week you plan how you will educate and entertain your audience. You will decide on content pillars, formats (video, text, audio), and channels. This ensures you aren't just posting noise, but value.",
-              whyItMatters: "Content builds trust and authority. A strategy ensures your content actually leads to sales.",
-              howItStreamlines: "Batching becomes possible. You stop waking up wondering 'what should I post today?'.",
+              whyItMatters: "Content builds trust and authority. A strategy ensures your content actually leads to sales rather than just likes.",
+              howItStreamlines: "Batching becomes possible. You stop waking up wondering 'what should I post today?', removing daily stress.",
               howItBuildsRelationships: "Valuable content gives before it asks. It positions you as a helpful expert, not just a salesperson.",
               actionSteps: [
                 {
@@ -914,15 +934,16 @@ const startup = {
                   successCriteria: ["You have 20+ content ideas generated.", "They all align with your brand."]
                 }
               ],
-              tools: [tools.content],
-              resources: []
+              resources: [
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+              ]
             },
             {
               title: "Lead Magnet Creation",
               description: "This week you create a value exchange. You build a free resource to give away in exchange for email addresses. This moves people from 'rented' social media to your 'owned' email list.",
-              whyItMatters: "Email is the highest ROI channel. You need a reason for people to subscribe.",
-              howItStreamlines: "It automates lead gen. The asset works for you 24/7.",
-              howItBuildsRelationships: "It delivers immediate value. You solve a small problem for free, earning trust.",
+              whyItMatters: "Email is the highest ROI channel. You need a reason for people to subscribe beyond just 'newsletter updates'.",
+              howItStreamlines: "It automates lead gen. The asset works for you 24/7, collecting leads while you sleep.",
+              howItBuildsRelationships: "It delivers immediate value. You solve a small problem for free, earning trust and gratitude.",
               actionSteps: [
                 {
                   title: "Build Your Lead Magnet",
@@ -942,15 +963,16 @@ const startup = {
                   successCriteria: ["You have a file ready to share.", "It solves a real problem."]
                 }
               ],
-              tools: [tools.funnel],
-              resources: []
+              resources: [
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+              ]
             },
             {
               title: "Email Sequence Design",
-              description: "This week you automate the relationship. You write the emails that send automatically when someone downloads your lead magnet. This nurtures them from stranger to customer.",
-              whyItMatters: "You can't manually email every lead. Automation ensures consistent follow-up.",
+              description: "This week you automate the relationship. You write the emails that send automatically when someone downloads your lead magnet. This nurtures them from stranger to customer without you typing.",
+              whyItMatters: "You can't manually email every lead. Automation ensures consistent follow-up and maximizes conversion.",
               howItStreamlines: "It saves massive time. You write it once, it sells forever.",
-              howItBuildsRelationships: "It tells your story over time. You build familiarity and trust drip by drip.",
+              howItBuildsRelationships: "It tells your story over time. You build familiarity and trust drip by drip, respecting their time.",
               actionSteps: [
                 {
                   title: "Write Welcome Sequence",
@@ -970,15 +992,16 @@ const startup = {
                   successCriteria: ["You have 3-5 emails written.", "They flow logically."]
                 }
               ],
-              tools: [tools.content],
-              resources: []
+              resources: [
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+              ]
             },
             {
               title: "Social Media Calendar",
-              description: "This week you get organized. You plan a month of social content in advance. This ensures consistency and reduces daily stress.",
-              whyItMatters: "Consistency is the secret to social growth. Random posting gets random results.",
-              howItStreamlines: "You can batch create content. You spend less time on social media overall.",
-              howItBuildsRelationships: "Regular presence keeps you top of mind. You become part of their daily feed.",
+              description: "This week you get organized. You plan a month of social content in advance. This ensures consistency and reduces daily stress of finding something to post.",
+              whyItMatters: "Consistency is the secret to social growth. Random posting gets random results; a plan gets momentum.",
+              howItStreamlines: "You can batch create content. You spend less time on social media overall by doing it in chunks.",
+              howItBuildsRelationships: "Regular presence keeps you top of mind. You become part of their daily feed and life.",
               actionSteps: [
                 {
                   title: "Fill Content Calendar",
@@ -998,8 +1021,9 @@ const startup = {
                   successCriteria: ["You know exactly what is posting next Tuesday.", "You feel organized."]
                 }
               ],
-              tools: [tools.content],
-              resources: []
+              resources: [
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+              ]
             }
           ]
         },
@@ -1032,8 +1056,9 @@ const startup = {
                   successCriteria: ["Traffic is flowing to your site.", "You are getting inquiries."]
                 }
               ],
-              tools: [tools.funnel],
-              resources: []
+              resources: [
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+              ]
             },
             {
               title: "Data Analysis & Tracking",
@@ -1060,8 +1085,9 @@ const startup = {
                   successCriteria: ["You know your best traffic source.", "You know your conversion rate."]
                 }
               ],
-              tools: [tools.audit],
-              resources: []
+              resources: [
+                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+              ]
             },
             {
               title: "Optimization & Iteration",
@@ -1088,8 +1114,9 @@ const startup = {
                   successCriteria: ["You found a winner.", "You improved conversion rate."]
                 }
               ],
-              tools: [tools.funnel],
-              resources: []
+              resources: [
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+              ]
             },
             {
               title: "Retargeting & Follow-up",
@@ -1116,8 +1143,9 @@ const startup = {
                   successCriteria: ["You recover lost sales.", "Your ROI increases."]
                 }
               ],
-              tools: [tools.funnel],
-              resources: []
+              resources: [
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+              ]
             }
           ]
         }
@@ -1156,8 +1184,9 @@ const startup = {
                   successCriteria: ["You have a list of 5+ things to fix.", "You understand the user flow."]
                 }
               ],
-              tools: [tools.funnel],
-              resources: []
+              resources: [
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+              ]
             },
             {
               title: "Analyze Drop-off Points",
@@ -1184,8 +1213,9 @@ const startup = {
                   successCriteria: ["You know your biggest bottleneck.", "You have a plan to fix it."]
                 }
               ],
-              tools: [tools.audit],
-              resources: []
+              resources: [
+                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+              ]
             },
             {
               title: "Define Ideal Future State",
@@ -1212,8 +1242,9 @@ const startup = {
                   successCriteria: ["You have an inspiring vision.", "The team is excited to build it."]
                 }
               ],
-              tools: [tools.brand],
-              resources: []
+              resources: [
+                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+              ]
             },
             {
               title: "Implementation Plan",
@@ -1240,8 +1271,9 @@ const startup = {
                   successCriteria: ["You have a prioritized to-do list.", "Work has started."]
                 }
               ],
-              tools: [tools.process],
-              resources: []
+              resources: [
+                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" }
+              ]
             }
           ]
         },
@@ -1274,8 +1306,9 @@ const startup = {
                   successCriteria: ["The delivery feels like a gift.", "Customers are compelled to share it."]
                 }
               ],
-              tools: [tools.brand],
-              resources: []
+              resources: [
+                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+              ]
             },
             {
               title: "Optimize Support & Service",
@@ -1302,8 +1335,9 @@ const startup = {
                   successCriteria: ["You can answer emails in half the time.", "Customers thank you for the help."]
                 }
               ],
-              tools: [tools.sop],
-              resources: []
+              resources: [
+                { title: "SOP Template", type: "Tool", icon: "FileText", link: "SOPs" }
+              ]
             },
             {
               title: "Personalization at Scale",
@@ -1330,8 +1364,9 @@ const startup = {
                   successCriteria: ["Emails feel 1:1.", "Engagement rates go up."]
                 }
               ],
-              tools: [tools.content],
-              resources: []
+              resources: [
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+              ]
             },
             {
               title: "Feedback Loops",
@@ -1358,8 +1393,9 @@ const startup = {
                   successCriteria: ["You get a steady stream of insights.", "You catch unhappy customers early."]
                 }
               ],
-              tools: [tools.audit],
-              resources: []
+              resources: [
+                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+              ]
             }
           ]
         },
@@ -1392,8 +1428,9 @@ const startup = {
                   successCriteria: ["You have a live referral link/process.", "You have asked your top 5 clients."]
                 }
               ],
-              tools: [tools.persona],
-              resources: []
+              resources: [
+                { title: "Ideal Client Persona", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" }
+              ]
             },
             {
               title: "Loyalty & VIP Programs",
@@ -1420,8 +1457,9 @@ const startup = {
                   successCriteria: ["Top clients feel special.", "They buy more often to keep status."]
                 }
               ],
-              tools: [tools.brand],
-              resources: []
+              resources: [
+                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+              ]
             },
             {
               title: "Case Studies & Testimonials",
@@ -1448,8 +1486,9 @@ const startup = {
                   successCriteria: ["You have a compelling story asset.", "The client shares it too."]
                 }
               ],
-              tools: [tools.content],
-              resources: []
+              resources: [
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+              ]
             },
             {
               title: "Community Integration",
@@ -1476,8 +1515,9 @@ const startup = {
                   successCriteria: ["Members are talking to each other.", "The group feels alive."]
                 }
               ],
-              tools: [tools.mission],
-              resources: []
+              resources: [
+                { title: "Mission & Vision Template", type: "Tool", icon: "FileText", link: "StrategyFormMissionVision" }
+              ]
             }
           ]
         }
@@ -1500,9 +1540,9 @@ const growth = {
           weeks: [
              {
               title: "Operational Audit",
-              description: "This week is about finding the leaks. You will analyze your time and your team's time to see where effort is being wasted. This diagnostic is crucial before you try to scale.",
-              whyItMatters: "Scaling chaos just creates more chaos. You must streamline before you amplify.",
-              howItStreamlines: "It identifies waste immediately. You stop doing low-value tasks.",
+              description: "This week is about finding the leaks. You will analyze your time and your team's time to see where effort is being wasted. This diagnostic is crucial before you try to scale. You cannot scale chaos.",
+              whyItMatters: "Scaling chaos just creates more chaos. You must streamline before you amplify to avoid breaking the business.",
+              howItStreamlines: "It identifies waste immediately. You stop doing low-value tasks and focus on growth.",
               howItBuildsRelationships: "It frees up time for clients. You spend less time fighting fires and more time serving.",
               actionSteps: [
                 {
@@ -1513,7 +1553,7 @@ const growth = {
                   linkTo: "StrategyFormAutomation",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Use a timer or app (like Toggl or Harvest) to log every task for 5 days. Don't guess; get real data.",
+                    "Use a timer or app (like Toggl or Harvest) to log every task for 5 days. Don't guess; get real data about your habits.",
                     "Categorize tasks as High Value ($$$) vs. Low Value ($). Be honest about which tasks actually move the needle.",
                     "Identify interruptions and context switching. How often do you lose focus? These are productivity killers.",
                     "Highlight tasks that can be delegated or automated. If a machine or a cheaper resource can do it, you shouldn't be doing it."
@@ -1523,15 +1563,16 @@ const growth = {
                   successCriteria: ["You know your hourly rate.", "You have a list of tasks to kill."]
                 }
               ],
-              tools: [tools.audit],
-              resources: []
+              resources: [
+                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+              ]
             },
             {
               title: "Cost & Expense Audit",
-              description: "This week you clean up the finances. You review every subscription, vendor, and expense to cut fat. Lean operations are more profitable and resilient.",
-              whyItMatters: "Profit margin matters more than top-line revenue. Wasted cash drags you down.",
-              howItStreamlines: "It simplifies bookkeeping. Fewer transactions to manage.",
-              howItBuildsRelationships: "You can reinvest savings into better customer experience.",
+              description: "This week you clean up the finances. You review every subscription, vendor, and expense to cut fat. Lean operations are more profitable and resilient, giving you more cash to invest in growth.",
+              whyItMatters: "Profit margin matters more than top-line revenue. Wasted cash drags you down and limits your options.",
+              howItStreamlines: "It simplifies bookkeeping. Fewer transactions to manage means less admin time.",
+              howItBuildsRelationships: "You can reinvest savings into better customer experience, directly benefiting your clients.",
               actionSteps: [
                 {
                   title: "Review P&L",
@@ -1551,15 +1592,16 @@ const growth = {
                   successCriteria: ["You saved 10-20% on monthly burn.", "You feel financially lighter."]
                 }
               ],
-              tools: [tools.financial],
-              resources: []
+              resources: [
+                { title: "Financial Projections", type: "Tool", icon: "DollarSign", link: "FreedomCalculator" }
+              ]
             },
             {
               title: "Identify Bottlenecks",
-              description: "This week you find the constraint. You identify the one part of your business that slows everything else down. Fixing this one thing yields the biggest result.",
-              whyItMatters: "A chain is only as strong as its weakest link. Improving non-bottlenecks is a waste of time.",
-              howItStreamlines: "It unblocks flow. Work moves faster through the system.",
-              howItBuildsRelationships: "It speeds up delivery. Customers get their result faster.",
+              description: "This week you find the constraint. You identify the one part of your business that slows everything else down. Fixing this one thing yields the biggest result for the least effort.",
+              whyItMatters: "A chain is only as strong as its weakest link. Improving non-bottlenecks is a waste of time and resources.",
+              howItStreamlines: "It unblocks flow. Work moves faster through the system, increasing capacity.",
+              howItBuildsRelationships: "It speeds up delivery. Customers get their result faster, which makes them happier.",
               actionSteps: [
                 {
                   title: "Constraint Analysis",
@@ -1579,15 +1621,16 @@ const growth = {
                   successCriteria: ["You know exactly what to fix first.", "You have a plan to widen the pipe."]
                 }
               ],
-              tools: [tools.process],
-              resources: []
+              resources: [
+                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" }
+              ]
             },
             {
               title: "Standardization",
-              description: "This week you create the 'One Best Way'. You ensure that tasks are done the same way every time, regardless of who does them. This is the prerequisite for automation.",
-              whyItMatters: "Consistency is quality. You can't improve a process that changes every time.",
-              howItStreamlines: "It reduces decision fatigue. You just follow the recipe.",
-              howItBuildsRelationships: "Reliability builds trust. Customers know what to expect.",
+              description: "This week you create the 'One Best Way'. You ensure that tasks are done the same way every time, regardless of who does them. This is the prerequisite for automation and delegation.",
+              whyItMatters: "Consistency is quality. You can't improve a process that changes every time, and you can't scale a mess.",
+              howItStreamlines: "It reduces decision fatigue. You just follow the recipe, making work faster and easier.",
+              howItBuildsRelationships: "Reliability builds trust. Customers know what to expect and feel secure.",
               actionSteps: [
                 {
                   title: "Standardize Core Deliverable",
@@ -1597,7 +1640,7 @@ const growth = {
                   linkTo: "SOPs",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
-                    "Walk through the process yourself and write down every action. Don't skip the 'obvious' steps.",
+                    "Walk through the process yourself and write down every action. Don't skip the 'obvious' steps that are only obvious to you.",
                     "Write down every required step in order. Use checkboxes so nothing can be missed.",
                     "Create a template or form that can be duplicated for every new client. This ensures uniformity.",
                     "Test it on the next order. Did following the checklist produce the perfect result? If not, update it."
@@ -1607,8 +1650,9 @@ const growth = {
                   successCriteria: ["Errors decrease.", "Speed increases."]
                 }
               ],
-              tools: [tools.sop],
-              resources: []
+              resources: [
+                { title: "SOP Template", type: "Tool", icon: "FileText", link: "SOPs" }
+              ]
             }
           ]
         },
@@ -1641,8 +1685,9 @@ const growth = {
                   successCriteria: ["The task happens without you touching it.", "You feel a sense of relief."]
                 }
               ],
-              tools: [tools.content],
-              resources: []
+              resources: [
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+              ]
             },
             {
               title: "Document Core SOPs",
@@ -1669,8 +1714,9 @@ const growth = {
                   successCriteria: ["Someone else can do the task using only the doc.", "You have started your operations manual."]
                 }
               ],
-              tools: [tools.sop],
-              resources: []
+              resources: [
+                { title: "SOP Template", type: "Tool", icon: "FileText", link: "SOPs" }
+              ]
             },
             {
               title: "Centralize Data",
@@ -1697,8 +1743,9 @@ const growth = {
                   successCriteria: ["You trust your dashboard.", "You can find any client info instantly."]
                 }
               ],
-              tools: [tools.funnel],
-              resources: []
+              resources: [
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+              ]
             },
             {
               title: "Optimize Tech Stack",
@@ -1725,8 +1772,9 @@ const growth = {
                   successCriteria: ["You enter data once, and it updates everywhere.", "Systems work in harmony."]
                 }
               ],
-              tools: [tools.process],
-              resources: []
+              resources: [
+                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" }
+              ]
             }
           ]
         },
@@ -1746,7 +1794,7 @@ const growth = {
                   description: "Write the Standard Operating Procedure for the task you are handing off. Clear instructions are the best insurance against poor performance when you delegate.",
                   timeEstimate: "1 Hour",
                   deliverable: "Completed SOP.",
-                  linkTo: "SOPs", // Assuming SOP page exists
+                  linkTo: "SOPs",
                   foundationStepId: "automation_systematization",
                   detailedSteps: [
                     "Record yourself doing the task one last time. Explain the 'why' and the nuances.",
@@ -1759,8 +1807,9 @@ const growth = {
                   successCriteria: ["Someone else does the task correctly.", "You don't have to fix it."]
                 }
               ],
-              tools: [tools.mission],
-              resources: []
+              resources: [
+                { title: "Mission & Vision Template", type: "Tool", icon: "FileText", link: "StrategyFormMissionVision" }
+              ]
             },
             {
               title: "Hire/Outsource",
@@ -1787,8 +1836,9 @@ const growth = {
                   successCriteria: ["You have 3 qualified candidates.", "You are excited to hand off work."]
                 }
               ],
-              tools: [tools.persona],
-              resources: []
+              resources: [
+                { title: "Ideal Client Persona", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" }
+              ]
             },
             {
               title: "Onboarding & Training",
@@ -1815,8 +1865,9 @@ const growth = {
                   successCriteria: ["They execute the task independently.", "You trust them."]
                 }
               ],
-              tools: [tools.process],
-              resources: []
+              resources: [
+                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" }
+              ]
             },
             {
               title: "Scale Revenue",
@@ -1843,8 +1894,9 @@ const growth = {
                   successCriteria: ["Revenue hits a new high.", "Delivery remains smooth."]
                 }
               ],
-              tools: [tools.funnel],
-              resources: []
+              resources: [
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+              ]
             }
           ]
         }
@@ -1883,8 +1935,9 @@ const growth = {
                   successCriteria: ["You have a list of 10 potential partners.", "You know exactly why they fit."]
                 }
               ],
-              tools: [tools.persona],
-              resources: []
+              resources: [
+                { title: "Ideal Client Persona", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" }
+              ]
             },
             {
               title: "Build Prospect List",
@@ -1911,8 +1964,9 @@ const growth = {
                   successCriteria: ["You have 20 verified leads.", "You have a 'hook' for each."]
                 }
               ],
-              tools: [tools.content],
-              resources: []
+              resources: [
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+              ]
             },
             {
               title: "Define Partnership Value",
@@ -1939,8 +1993,9 @@ const growth = {
                   successCriteria: ["You look professional.", "The value proposition is obvious."]
                 }
               ],
-              tools: [tools.brand],
-              resources: []
+              resources: [
+                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+              ]
             },
             {
               title: "Outreach Strategy",
@@ -1967,8 +2022,9 @@ const growth = {
                   successCriteria: ["You are ready to hit send.", "You have a plan for 'no'."]
                 }
               ],
-              tools: [tools.funnel],
-              resources: []
+              resources: [
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+              ]
             }
           ]
         },
@@ -2001,8 +2057,9 @@ const growth = {
                   successCriteria: ["The email is personalized.", "It has a clear Call to Action."]
                 }
               ],
-              tools: [tools.content],
-              resources: []
+              resources: [
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+              ]
             },
             {
               title: "Execute Outreach",
@@ -2029,8 +2086,9 @@ const growth = {
                   successCriteria: ["You have started conversations.", "You have overcome the fear of asking."]
                 }
               ],
-              tools: [tools.funnel],
-              resources: []
+              resources: [
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+              ]
             },
             {
               title: "Negotiate & Structure",
@@ -2057,8 +2115,9 @@ const growth = {
                   successCriteria: ["You have a launch date.", "Money terms are clear."]
                 }
               ],
-              tools: [tools.financial],
-              resources: []
+              resources: [
+                { title: "Financial Projections", type: "Tool", icon: "DollarSign", link: "FreedomCalculator" }
+              ]
             },
             {
               title: "Asset Co-Creation",
@@ -2085,8 +2144,9 @@ const growth = {
                   successCriteria: ["The partner has everything they need.", "They are impressed by your organization."]
                 }
               ],
-              tools: [tools.brand],
-              resources: []
+              resources: [
+                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+              ]
             }
           ]
         },
@@ -2119,8 +2179,9 @@ const growth = {
                   successCriteria: ["You gained new leads.", "The partner is happy and wants to do it again."]
                 }
               ],
-              tools: [tools.funnel],
-              resources: []
+              resources: [
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+              ]
             },
             {
               title: "Track & Debrief",
@@ -2147,8 +2208,9 @@ const growth = {
                   successCriteria: ["Commission is paid.", "You have agreed to a next step."]
                 }
               ],
-              tools: [tools.audit],
-              resources: []
+              resources: [
+                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+              ]
             },
             {
               title: "Nurture New Leads",
@@ -2175,8 +2237,9 @@ const growth = {
                   successCriteria: ["They are engaging with your content.", "They are converting to customers."]
                 }
               ],
-              tools: [tools.content],
-              resources: []
+              resources: [
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+              ]
             },
             {
               title: "Scale Partnership Program",
@@ -2203,8 +2266,9 @@ const growth = {
                   successCriteria: ["You have a pipeline of partners.", "It takes less effort to launch."]
                 }
               ],
-              tools: [tools.process],
-              resources: []
+              resources: [
+                { title: "Process Map Template", type: "Tool", icon: "GitBranch", link: "StrategyFormAutomation" }
+              ]
             }
           ]
         }
@@ -2243,8 +2307,9 @@ const growth = {
                   successCriteria: ["Members feel safe.", "The purpose is pinned to the top."]
                 }
               ],
-              tools: [tools.mission],
-              resources: []
+              resources: [
+                { title: "Mission & Vision Template", type: "Tool", icon: "FileText", link: "StrategyFormMissionVision" }
+              ]
             },
             {
               title: "Configure Your HQ Community",
@@ -2271,8 +2336,9 @@ const growth = {
                   successCriteria: ["Your community is live and branded.", "You can post your first welcome message."]
                 }
               ],
-              tools: [tools.brand],
-              resources: []
+              resources: [
+                { title: "Brand Identity Kit", type: "Tool", icon: "Palette", link: "StrategyFormBrandIdentity" }
+              ]
             },
             {
               title: "Seed Content Strategy",
@@ -2299,8 +2365,9 @@ const growth = {
                   successCriteria: ["The feed looks alive.", "There are places to comment."]
                 }
               ],
-              tools: [tools.content],
-              resources: []
+              resources: [
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+              ]
             },
             {
               title: "Founding Member Launch",
@@ -2327,8 +2394,9 @@ const growth = {
                   successCriteria: ["You have 20 people in the group.", "Introductions are flowing."]
                 }
               ],
-              tools: [tools.funnel],
-              resources: []
+              resources: [
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+              ]
             }
           ]
         },
@@ -2361,8 +2429,9 @@ const growth = {
                   successCriteria: ["Members start posting without you.", "Discussions are happening."]
                 }
               ],
-              tools: [tools.content],
-              resources: []
+              resources: [
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+              ]
             },
             {
               title: "Event Strategy",
@@ -2389,8 +2458,9 @@ const growth = {
                   successCriteria: ["People attended.", "They asked questions."]
                 }
               ],
-              tools: [tools.content],
-              resources: []
+              resources: [
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" }
+              ]
             },
             {
               title: "Growth Loops",
@@ -2417,8 +2487,9 @@ const growth = {
                   successCriteria: ["Membership grows by 20%.", "Culture remains strong."]
                 }
               ],
-              tools: [tools.funnel],
-              resources: []
+              resources: [
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+              ]
             },
             {
               title: "Moderation & Culture",
@@ -2445,8 +2516,9 @@ const growth = {
                   successCriteria: ["The feed is high quality.", "Members report spam for you."]
                 }
               ],
-              tools: [tools.audit],
-              resources: []
+              resources: [
+                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+              ]
             }
           ]
         },
@@ -2479,8 +2551,9 @@ const growth = {
                   successCriteria: ["You have a trusted inner circle.", "They defend the culture."]
                 }
               ],
-              tools: [tools.persona],
-              resources: []
+              resources: [
+                { title: "Ideal Client Persona", type: "Tool", icon: "Users", link: "StrategyFormIdealClient" }
+              ]
             },
             {
               title: "Monetization Strategy",
@@ -2507,8 +2580,9 @@ const growth = {
                   successCriteria: ["Members buy.", "They thank you for the offer."]
                 }
               ],
-              tools: [tools.funnel],
-              resources: []
+              resources: [
+                { title: "Sales Funnel Builder", type: "Tool", icon: "Filter", link: "StrategyFormWebsiteLaunch" }
+              ]
             },
             {
               title: "Community Feedback Loop",
@@ -2535,8 +2609,9 @@ const growth = {
                   successCriteria: ["You know what to build next.", "Members feel heard."]
                 }
               ],
-              tools: [tools.audit],
-              resources: []
+              resources: [
+                { title: "Audit Checklist", type: "Tool", icon: "ClipboardCheck", link: "AnnualPlanning" }
+              ]
             },
             {
               title: "The Self-Sustaining Flywheel",
@@ -2563,8 +2638,9 @@ const growth = {
                   successCriteria: ["The community thrives while you rest.", "It is a true asset."]
                 }
               ],
-              tools: [tools.process],
-              resources: []
+              resources: [
+                { title: "SOP Template", type: "Tool", icon: "FileText", link: "SOPs" }
+              ]
             }
           ]
         }
