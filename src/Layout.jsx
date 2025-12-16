@@ -25,7 +25,7 @@ import {
     Calendar,
     Sparkles,
     Award,
-    Brain, Lightbulb, UserCircle, Newspaper, Handshake, Loader2, Sun, Moon, CalendarDays, Clock, Globe, Podcast, ShieldCheck, Building, KeyRound, Palette, Video, ListChecks, TrendingUp, PiggyBank, Zap, Search, MessageSquare, ChevronRight, GripVertical, Layers, Share2
+    Brain, Lightbulb, UserCircle, Newspaper, Handshake, Loader2, Sun, Moon, CalendarDays, Clock, Globe, Podcast, ShieldCheck, Building, KeyRound, Palette, Video, ListChecks, TrendingUp, PiggyBank, Zap, Search, MessageSquare, ChevronRight, GripVertical, Layers, Share2, Mic
 } from "lucide-react";
 import WelcomePopup from "@/components/common/WelcomePopup";
 import PWAInstallPrompt from "@/components/common/PWAInstallPrompt";
@@ -63,6 +63,7 @@ const connectBuildItems = [
     { href: "MyBusinesses", icon: Briefcase, label: "My Businesses", mobileLabel: "Businesses" },
     { href: "Partners", icon: Handshake, label: "Partners", mobileLabel: "Partners" },
     { href: "TheBeacon", icon: Podcast, label: "The Beacon Studio", mobileLabel: "Podcast" },
+    { href: "BusinessMindsPodcastBooking", icon: Mic, label: "Be a Podcast Guest", mobileLabel: "Guest" },
     { href: "SocialMediaPlanner", icon: Share2, label: "Social Media Planner", mobileLabel: "Social Plan" },
     ];
 
@@ -98,6 +99,7 @@ const searchablePages = [
     { name: 'Journey', url: 'Journey', category: 'Pages', description: 'View your 90-day roadmap' },
     { name: 'Profile', url: 'Profile', category: 'Pages', description: 'Manage your profile and settings' },
     { name: 'The Beacon Studio', url: 'TheBeacon', category: 'Pages', description: 'Listen to exclusive entrepreneur podcasts' },
+    { name: 'Be a Podcast Guest', url: 'BusinessMindsPodcastBooking', category: 'Pages', description: 'Apply to be a guest on The Business Minds Podcast' },
     { name: 'Social Media Planner', url: 'SocialMediaPlanner', category: 'Pages', description: 'Generate AI-powered 90-day social media plans' },
     ];
 
