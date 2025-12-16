@@ -93,6 +93,7 @@ import ViewSOP from './pages/ViewSOP';
 import TheHQ from './pages/TheHQ';
 import AnnualPlanning from './pages/AnnualPlanning';
 import SocialMediaPlanner from './pages/SocialMediaPlanner';
+import BusinessMindsPodcastBooking from './pages/BusinessMindsPodcastBooking';
 import __Layout from './Layout.jsx';
 
 
@@ -192,6 +193,7 @@ export const PAGES = {
     "TheHQ": TheHQ,
     "AnnualPlanning": AnnualPlanning,
     "SocialMediaPlanner": SocialMediaPlanner,
+    "BusinessMindsPodcastBooking": BusinessMindsPodcastBooking,
 }
 
 export const pagesConfig = {

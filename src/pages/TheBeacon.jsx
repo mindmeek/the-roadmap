@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { User, StrategyDocument } from '@/entities/all';
 import { Link } from 'react-router-dom';
@@ -390,7 +389,30 @@ export default function TheBeaconPage() {
                     Whether you want to record a podcast in our studio or host an online radio show, we've got you covered. Select the option that fits your vision.
                 </p>
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {/* Podcast Guest Application */}
+                    <Link
+                        to={createPageUrl('BusinessMindsPodcastBooking')}
+                        className="card p-6 hover:shadow-xl transition-all border-2 border-indigo-200 dark:border-indigo-700 hover:border-indigo-500 group"
+                        style={{ borderRadius: '2px' }}
+                    >
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="bg-indigo-100 dark:bg-indigo-900 p-3" style={{ borderRadius: '2px' }}>
+                                <Mic className="w-6 h-6 text-indigo-600" />
+                            </div>
+                            <div>
+                                <h3 className="text-lg font-bold">Be a Podcast Guest</h3>
+                                <p className="text-xs text-[var(--text-soft)]">Feature on Business Minds</p>
+                            </div>
+                        </div>
+                        <p className="text-sm text-[var(--text-soft)] mb-4">
+                            Apply to be interviewed on The Business Minds Podcast. Share your story and expertise.
+                        </p>
+                        <div className="flex items-center text-indigo-600 font-semibold text-sm group-hover:underline">
+                            Apply to be Guest <ArrowRight className="w-4 h-4 ml-2" />
+                        </div>
+                    </Link>
+
                     {/* Free Intro Session */}
                     <Link
                         to={createPageUrl('BeaconIntro')}
