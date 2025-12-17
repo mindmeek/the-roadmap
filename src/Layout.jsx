@@ -54,7 +54,6 @@ const learningGrowthItems = [
     { href: "FocusedPrograms", icon: Award, label: "90-Day Focused Programs", mobileLabel: "Programs" },
     { href: "NicheRoadmaps", icon: Target, label: "Niche Growth Roadmaps", mobileLabel: "Niche Plans" },
     { href: "Magazine", icon: Newspaper, label: "Magazine", mobileLabel: "Magazine" },
-    { href: "HqTraining", icon: Video, label: "The HQ Training", mobileLabel: "HQ Training", requiredLevel: 'business_hq' }
 ];
 
 const connectBuildItems = [

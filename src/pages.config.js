@@ -38,7 +38,6 @@ import Upgrade from './pages/Upgrade';
 import PaymentSuccess from './pages/PaymentSuccess';
 import PaymentFailed from './pages/PaymentFailed';
 import Admin from './pages/Admin';
-import HqTraining from './pages/HqTraining';
 import StrategyFormBrandKit from './pages/StrategyFormBrandKit';
 import AdminPostScheduler from './pages/AdminPostScheduler';
 import UserManagement from './pages/UserManagement';
@@ -138,7 +137,6 @@ export const PAGES = {
     "PaymentSuccess": PaymentSuccess,
     "PaymentFailed": PaymentFailed,
     "Admin": Admin,
-    "HqTraining": HqTraining,
     "StrategyFormBrandKit": StrategyFormBrandKit,
     "AdminPostScheduler": AdminPostScheduler,
     "UserManagement": UserManagement,
