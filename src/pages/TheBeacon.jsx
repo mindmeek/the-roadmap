@@ -303,7 +303,6 @@ export default function TheBeaconPage() {
         rental: [
             { name: "DIY Studio (you run the show) + Video", price: "$50/hr" },
             { name: "With professional engineer + Video", price: "$75/hr" },
-            { name: "Ultimate Creator Package (2 Hrs Studio + Engineer + Video + Equalizer Radio)", price: "$199/mo" },
         ],
         addOns: [
             { name: "Editing/Post-Production", price: "$100–$200" },
@@ -488,27 +487,22 @@ export default function TheBeaconPage() {
                     </div>
                 </div>
 
-                {/* Equalizer Radio Pricing */}
+                {/* Online Packages Grid */}
                 <div>
                     <h3 className="text-2xl font-bold mb-4 flex items-center justify-center">
                         <Radio className="w-6 h-6 mr-2 text-red-600" />
-                        Equalizer Radio (Online)
+                        Online & Creator Packages
                     </h3>
-                    <div className="max-w-2xl mx-auto">
-                        <div className="card p-8 bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 border-2 border-red-200 dark:border-red-700" style={{ borderRadius: '2px' }}>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                        
+                        {/* Equalizer Radio Card */}
+                        <div className="card p-8 bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 border-2 border-red-200 dark:border-red-700 flex flex-col" style={{ borderRadius: '2px' }}>
                             <div className="text-center mb-6">
+                                <div className="text-xl font-bold text-red-700 dark:text-red-400 mb-2 uppercase tracking-wide">Equalizer Radio</div>
                                 <div className="text-5xl font-bold text-red-600 mb-2">$99<span className="text-2xl">/month</span></div>
-                                <a 
-                                    href="https://equalizerradio.com" 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    className="text-sm text-red-600 hover:text-red-700 hover:underline font-medium inline-flex items-center gap-1"
-                                >
-                                    Visit Equalizer Radio <ArrowRight className="w-3 h-3" />
-                                </a>
-                                <p className="text-sm text-[var(--text-soft)] mt-2">Everything you need to host your online radio show</p>
+                                <p className="text-sm text-[var(--text-soft)]">Host your own online radio show</p>
                             </div>
-                            <ul className="space-y-3">
+                            <ul className="space-y-3 flex-1">
                                 {equalizerPricing.map((item, index) => (
                                     <li key={index} className="flex items-start gap-3">
                                         <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
@@ -519,27 +513,76 @@ export default function TheBeaconPage() {
                                     </li>
                                 ))}
                             </ul>
-                            <div className="mt-6 p-4 bg-yellow-100 dark:bg-yellow-900/30" style={{ borderRadius: '2px' }}>
+                            <div className="mt-6 p-4 bg-white/50 dark:bg-black/20 rounded-lg">
                                 <div className="flex items-start gap-2">
-                                    <DollarSign className="w-5 h-5 text-yellow-700 flex-shrink-0 mt-0.5" />
-                                    <p className="text-sm text-yellow-800 dark:text-yellow-200">
-                                        <strong>Keep 100% of Your Ad Revenue!</strong> Sell ads at your cost with zero profit sharing from us. Your show, your income.
+                                    <DollarSign className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                                    <p className="text-xs text-[var(--text-soft)]">
+                                        <strong>100% Ad Revenue:</strong> Keep all profit from your ads.
                                     </p>
                                 </div>
                             </div>
-                            
-                            {/* Get Started Button */}
                             <div className="mt-6">
                                 <Link
                                     to={createPageUrl('BeaconRadioSetup')}
-                                    className="btn bg-red-600 hover:bg-red-700 text-white w-full py-3 text-lg font-semibold flex items-center justify-center gap-2"
+                                    className="btn bg-red-600 hover:bg-red-700 text-white w-full py-3 font-semibold flex items-center justify-center gap-2"
                                     style={{ borderRadius: '2px' }}
                                 >
                                     <Radio className="w-5 h-5" />
-                                    Get Started with Equalizer Radio
+                                    Start Radio Show
                                 </Link>
                             </div>
                         </div>
+
+                        {/* Ultimate Creator Package Card */}
+                        <div className="card p-8 bg-gradient-to-br from-[var(--primary-gold)]/10 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 border-2 border-[var(--primary-gold)] flex flex-col relative overflow-hidden" style={{ borderRadius: '2px' }}>
+                            <div className="absolute top-0 right-0 bg-[var(--primary-gold)] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">BEST VALUE</div>
+                            <div className="text-center mb-6">
+                                <div className="text-xl font-bold text-[var(--primary-gold)] mb-2 uppercase tracking-wide">Ultimate Creator</div>
+                                <div className="text-5xl font-bold text-[var(--text-main)] mb-2">$199<span className="text-2xl">/month</span></div>
+                                <p className="text-sm text-[var(--text-soft)]">Studio + Engineer + Radio Show</p>
+                            </div>
+                            <ul className="space-y-3 flex-1">
+                                <li className="flex items-start gap-3">
+                                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                                    <span className="font-semibold text-[var(--text-main)]">2 Hours Studio Time /mo</span>
+                                </li>
+                                <li className="flex items-start gap-3">
+                                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                                    <span className="font-semibold text-[var(--text-main)]">Professional Engineer Included</span>
+                                </li>
+                                <li className="flex items-start gap-3">
+                                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                                    <span className="font-semibold text-[var(--text-main)]">4K Video Recording Included</span>
+                                </li>
+                                <li className="flex items-start gap-3">
+                                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                                    <span className="font-semibold text-[var(--text-main)]">Equalizer Radio Subscription ($99 value)</span>
+                                </li>
+                                <li className="flex items-start gap-3">
+                                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                                    <span className="font-semibold text-[var(--text-main)]">Priority Booking Status</span>
+                                </li>
+                            </ul>
+                            <div className="mt-6 p-4 bg-white/50 dark:bg-black/20 rounded-lg">
+                                <div className="flex items-start gap-2">
+                                    <Star className="w-5 h-5 text-[var(--primary-gold)] flex-shrink-0 mt-0.5" />
+                                    <p className="text-xs text-[var(--text-soft)]">
+                                        <strong>Complete Package:</strong> The perfect solution for serious creators who want professional quality and distribution.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="mt-6">
+                                <Link
+                                    to={createPageUrl('BeaconStudioBooking')}
+                                    className="btn btn-primary w-full py-3 font-semibold flex items-center justify-center gap-2"
+                                    style={{ borderRadius: '2px' }}
+                                >
+                                    <Podcast className="w-5 h-5" />
+                                    Get Ultimate Package
+                                </Link>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
