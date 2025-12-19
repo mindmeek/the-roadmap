@@ -230,12 +230,21 @@ export default function DfyServiceDetailPage() {
                                             <div className="flex flex-wrap gap-3">
                                                 {/* Tool Link */}
                                                 {step.tool_link && (
-                                                    <Link to={createPageUrl(step.tool_link)}>
-                                                        <Button variant="outline" size="sm" className="gap-2">
-                                                            <ExternalLink className="w-3 h-3" />
-                                                            Open {step.tool_link}
-                                                        </Button>
-                                                    </Link>
+                                                    step.tool_link.startsWith('http') ? (
+                                                        <a href={step.tool_link} target="_blank" rel="noopener noreferrer">
+                                                            <Button variant="outline" size="sm" className="gap-2">
+                                                                <ExternalLink className="w-3 h-3" />
+                                                                {step.tool_link.includes('thebminds') ? 'Open The HQ' : 'Open Link'}
+                                                            </Button>
+                                                        </a>
+                                                    ) : (
+                                                        <Link to={createPageUrl(step.tool_link)}>
+                                                            <Button variant="outline" size="sm" className="gap-2">
+                                                                <ExternalLink className="w-3 h-3" />
+                                                                Open {step.tool_link}
+                                                            </Button>
+                                                        </Link>
+                                                    )
                                                 )}
 
                                                 {/* Status Actions */}

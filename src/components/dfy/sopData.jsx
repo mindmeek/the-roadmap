@@ -46,10 +46,10 @@ export const DFY_PACKAGES = [
             {
                 id: "found_1",
                 title: "Submit Brand Assets",
-                description: "Upload logo, colors, fonts, and images. Provide written content.",
+                description: "Upload logo, colors, fonts, and images to your Media Library in The HQ.",
                 responsible_party: "Client",
                 status: "pending",
-                tool_link: "BrandKit"
+                tool_link: "https://app.thebminds.com"
             },
             {
                 id: "found_2",
@@ -62,16 +62,18 @@ export const DFY_PACKAGES = [
             {
                 id: "found_3",
                 title: "Build 5 Pages",
-                description: "Create Home, About, Services, Contact, and CTA pages in The HQ.",
+                description: "Create Home, About, Services, Contact, and CTA pages in The HQ Sites builder.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                tool_link: "https://app.thebminds.com"
             },
             {
                 id: "found_4",
                 title: "Integrate Forms & CRM",
-                description: "Connect lead capture forms to The HQ CRM.",
+                description: "Connect lead capture forms to The HQ CRM and Automation.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                tool_link: "https://app.thebminds.com"
             },
             {
                 id: "found_5",
@@ -107,23 +109,26 @@ export const DFY_PACKAGES = [
             {
                 id: "growth_2",
                 title: "Build Funnel Pages",
-                description: "Create Landing, Opt-in, Thank You, Offer, and Booking pages.",
+                description: "Create Landing, Opt-in, Thank You, Offer, and Booking pages in The HQ Funnels.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                tool_link: "https://app.thebminds.com"
             },
             {
                 id: "growth_3",
                 title: "Setup Email Automation",
-                description: "Configure 5-email follow-up sequence in The HQ.",
+                description: "Configure 5-email follow-up sequence in The HQ Automation.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                tool_link: "https://app.thebminds.com"
             },
             {
                 id: "growth_4",
                 title: "CRM & Tagging Setup",
-                description: "Configure pipeline stages and automation triggers.",
+                description: "Configure pipeline stages and automation triggers in The HQ CRM.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                tool_link: "https://app.thebminds.com"
             },
             {
                 id: "growth_5",
@@ -152,16 +157,18 @@ export const DFY_PACKAGES = [
             {
                 id: "auth_1",
                 title: "Brand & Content Strategy",
-                description: "Submit brand guide and plan site architecture (up to 10 pages).",
+                description: "Submit brand guide and plan site architecture (up to 10 pages). Upload assets to The HQ.",
                 responsible_party: "Both",
-                status: "pending"
+                status: "pending",
+                tool_link: "https://app.thebminds.com"
             },
             {
                 id: "auth_2",
                 title: "WordPress Environment Setup",
                 description: "Initialize managed WordPress hosting inside The HQ.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                tool_link: "https://app.thebminds.com"
             },
             {
                 id: "auth_3",
@@ -182,7 +189,8 @@ export const DFY_PACKAGES = [
                 title: "CRM Integration",
                 description: "Connect WordPress forms to The HQ CRM.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                tool_link: "https://app.thebminds.com"
             },
             {
                 id: "auth_6",
@@ -218,23 +226,26 @@ export const DFY_PACKAGES = [
             {
                 id: "ops_2",
                 title: "CRM Pipeline Setup",
-                description: "Configure sales pipelines, stages, and deal tracks.",
+                description: "Configure sales pipelines, stages, and deal tracks in The HQ.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                tool_link: "https://app.thebminds.com"
             },
             {
                 id: "ops_3",
                 title: "Automation Workflows",
-                description: "Build email/SMS automations, appointment reminders, and reputation management.",
+                description: "Build email/SMS automations, appointment reminders, and reputation management in The HQ.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                tool_link: "https://app.thebminds.com"
             },
             {
                 id: "ops_4",
                 title: "Tool Configuration",
-                description: "Setup calendars, forms, surveys, and affiliate systems if needed.",
+                description: "Setup calendars, forms, surveys, and affiliate systems in The HQ.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                tool_link: "https://app.thebminds.com"
             },
             {
                 id: "ops_5",
@@ -277,23 +288,26 @@ export const DFY_PACKAGES = [
             {
                 id: "build_2",
                 title: "Weeks 1-2: Systems",
-                description: "Setup automation, CRM, and core operational tools.",
+                description: "Setup automation, CRM, and core operational tools in The HQ.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                tool_link: "https://app.thebminds.com"
             },
             {
                 id: "build_3",
                 title: "Weeks 3-4: Web/Funnel",
-                description: "Design and build main website or sales funnel.",
+                description: "Design and build main website or sales funnel in The HQ.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                tool_link: "https://app.thebminds.com"
             },
             {
                 id: "build_4",
                 title: "Weeks 5-8: Content & Social",
-                description: "Implement content strategy, email sequences, and social planning.",
+                description: "Implement content strategy, email sequences, and social planning in The HQ.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                tool_link: "https://app.thebminds.com"
             },
             {
                 id: "build_5",
