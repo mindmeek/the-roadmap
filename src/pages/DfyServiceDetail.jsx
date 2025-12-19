@@ -325,14 +325,38 @@ export default function DfyServiceDetailPage() {
                                                 </div>
                                             )}
 
-                                            {/* Notes / Chat Placeholder */}
-                                            <div className="bg-gray-50 dark:bg-gray-900 p-3 rounded text-sm text-[var(--text-soft)]">
-                                                <div className="flex items-center gap-2 mb-2 font-medium">
-                                                    <MessageSquare className="w-3 h-3" /> Notes & Updates
+                                            {/* Notes / Updates */}
+                                            <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded text-sm text-[var(--text-soft)]">
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <div className="flex items-center gap-2 font-medium">
+                                                        <MessageSquare className="w-4 h-4" /> Notes & Updates
+                                                    </div>
+                                                    <a href="mailto:team@thebminds.com" className="text-xs text-[var(--primary-gold)] hover:underline flex items-center gap-1">
+                                                        Email team@thebminds.com <ExternalLink className="w-3 h-3" />
+                                                    </a>
                                                 </div>
-                                                <p className="italic text-xs">
-                                                    Use the project chat to communicate about this step. (Coming soon)
-                                                </p>
+                                                <textarea
+                                                    className="w-full p-2 border rounded bg-white dark:bg-black border-gray-200 dark:border-gray-700 text-[var(--text-main)] text-sm focus:outline-none focus:ring-1 focus:ring-[var(--primary-gold)]"
+                                                    placeholder="Add notes about this step..."
+                                                    rows={3}
+                                                    value={step.notes || ''}
+                                                    onChange={async (e) => {
+                                                        const newNotes = e.target.value;
+                                                        
+                                                        // Optimistic update
+                                                        const updatedSteps = service.steps.map(s => 
+                                                            s.id === step.id ? { ...s, notes: newNotes } : s
+                                                        );
+                                                        setService(prev => ({ ...prev, steps: updatedSteps }));
+
+                                                        // Debounced DB update (simplified here)
+                                                        try {
+                                                            await base44.entities.DfyService.update(service.id, { steps: updatedSteps });
+                                                        } catch (err) {
+                                                            console.error("Failed to update notes", err);
+                                                        }
+                                                    }}
+                                                />
                                             </div>
                                         </div>
                                     )}
