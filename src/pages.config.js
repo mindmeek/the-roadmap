@@ -93,6 +93,8 @@ import TheHQ from './pages/TheHQ';
 import AnnualPlanning from './pages/AnnualPlanning';
 import SocialMediaPlanner from './pages/SocialMediaPlanner';
 import BusinessMindsPodcastBooking from './pages/BusinessMindsPodcastBooking';
+import DfyServices from './pages/DfyServices';
+import DfyServiceDetail from './pages/DfyServiceDetail';
 import __Layout from './Layout.jsx';
 
 
@@ -192,6 +194,8 @@ export const PAGES = {
     "AnnualPlanning": AnnualPlanning,
     "SocialMediaPlanner": SocialMediaPlanner,
     "BusinessMindsPodcastBooking": BusinessMindsPodcastBooking,
+    "DfyServices": DfyServices,
+    "DfyServiceDetail": DfyServiceDetail,
 }
 
 export const pagesConfig = {
