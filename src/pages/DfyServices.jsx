@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { 
     Briefcase, Calendar, CheckCircle, Clock, 
-    ArrowRight, Loader2, Plus, Filter, User 
+    ArrowRight, Loader2, Plus, Filter, User, Trash2 
 } from 'lucide-react';
 import { DFY_PACKAGES } from '@/components/dfy/sopData';
 import { Button } from "@/components/ui/button";
@@ -47,6 +47,18 @@ export default function DfyServicesPage() {
             case 'onboarding': return 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300';
             case 'review': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300';
             default: return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300';
+        }
+    };
+
+    const deleteService = async (e, id) => {
+        e.preventDefault(); // Prevent navigation
+        if (!window.confirm("Are you sure you want to delete this service? This cannot be undone.")) return;
+        try {
+            await base44.entities.DfyService.delete(id);
+            setServices(services.filter(s => s.id !== id));
+        } catch (error) {
+            console.error("Error deleting service:", error);
+            alert("Failed to delete service");
         }
     };
 
@@ -167,8 +179,17 @@ export default function DfyServicesPage() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="flex items-center justify-center pl-4 border-l border-gray-100 dark:border-gray-800">
+                                        <div className="flex flex-col items-center justify-center pl-4 border-l border-gray-100 dark:border-gray-800 gap-4">
                                             <ArrowRight className="w-6 h-6 text-gray-300 group-hover:text-[var(--primary-gold)]" />
+                                            {isAdmin && (
+                                                <button 
+                                                    onClick={(e) => deleteService(e, service.id)}
+                                                    className="p-2 text-gray-400 hover:text-red-500 transition-colors z-10"
+                                                    title="Delete Service"
+                                                >
+                                                    <Trash2 className="w-4 h-4" />
+                                                </button>
+                                            )}
                                         </div>
                                     </div>
                                 </Link>
