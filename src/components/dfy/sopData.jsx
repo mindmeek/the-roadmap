@@ -413,88 +413,157 @@ export const DFY_PACKAGES = [
         stage: "Startup → Growth",
         price: "$12,500",
         icon: BarChart,
-        description: "Hands-on execution of strategy, systems, and structure over 90 days.",
+        description: "Hands-on execution of strategy, systems, and structure over 90 days. Includes Voice AI & Chat Bots.",
         steps: [
             {
                 id: "build_1",
                 title: "Kickoff & Strategy",
-                description: "Joint Action: Kickoff call to assign milestones and set 12-week plan.",
+                description: "Joint Action: Kickoff call to assign milestones, gather assets, and set 12-week plan.",
                 responsible_party: "Both",
                 status: "pending",
                 checklist: [
-                    { id: "b1", text: "Client: Attend kickoff & provide assets", is_checked: false },
-                    { id: "b2", text: "Approve roadmap & milestone plan", is_checked: false }
+                    { id: "b1", text: "Schedule and attend 90-minute Kickoff Deep Dive", is_checked: false },
+                    { id: "b2", text: "Client: Complete onboarding questionnaire", is_checked: false },
+                    { id: "b3", text: "Client: Provide access to existing domains, hosting, and social accounts", is_checked: false },
+                    { id: "b4", text: "Client: Upload brand assets (Logo, Fonts, Colors, Headshots)", is_checked: false },
+                    { id: "b5", text: "Team: Create project timeline and shared folder", is_checked: false },
+                    { id: "b6", text: "Approve 90-Day Roadmap & Key Milestones", is_checked: false }
                 ]
             },
             {
                 id: "build_2",
-                title: "Weeks 1-2: Systems",
-                description: "Team Action: Setup CRM, Calendars, Automation, and Phone Systems.",
+                title: "Weeks 1-2: Systems Foundation",
+                description: "Team Action: Setup CRM, Calendars, Automation, Phone Systems, and Reputation Management.",
                 responsible_party: "Service Provider",
                 status: "pending",
                 tool_link: "https://app.thebminds.com",
                 checklist: [
-                    { id: "b3", text: "Setup CRM & Calendars", is_checked: false },
-                    { id: "b4", text: "Setup Automation & Phone", is_checked: false },
-                    { id: "b5", text: "Client: Provide domain/payment access", is_checked: false }
+                    { id: "b7", text: "Configure CRM Pipeline stages (Leads, Appointments, Sales)", is_checked: false },
+                    { id: "b8", text: "Integrate Google/Outlook Calendars for booking", is_checked: false },
+                    { id: "b9", text: "Procure and configure Business Phone Number (A2P registration)", is_checked: false },
+                    { id: "b10", text: "Setup 'Missed Call Text Back' automation", is_checked: false },
+                    { id: "b11", text: "Integrate Stripe/Payment Gateways", is_checked: false },
+                    { id: "b12", text: "Client: Verify phone number registration info", is_checked: false }
                 ]
             },
             {
                 id: "build_3",
-                title: "Weeks 3-4: Web/Funnel",
-                description: "Team Action: Design and build core Website or Sales Funnel.",
+                title: "Weeks 3-4: Web & Funnel Build",
+                description: "Team Action: Design, write, and build the core high-converting Website or Sales Funnel.",
                 responsible_party: "Service Provider",
                 status: "pending",
                 tool_link: "https://app.thebminds.com",
                 checklist: [
-                    { id: "b6", text: "Design & Build Website/Funnel", is_checked: false },
-                    { id: "b7", text: "Client: Review designs", is_checked: false }
+                    { id: "b13", text: "Create wireframe and site map", is_checked: false },
+                    { id: "b14", text: "Write conversion-focused copy for Home, About, Services, Contact", is_checked: false },
+                    { id: "b15", text: "Design and build pages in The HQ Builder", is_checked: false },
+                    { id: "b16", text: "Optimize for Mobile Responsiveness", is_checked: false },
+                    { id: "b17", text: "Client: Review First Draft", is_checked: false },
+                    { id: "b18", text: "Implement revisions and finalize design", is_checked: false },
+                    { id: "b19", text: "Setup SEO metadata (Titles, Descriptions, Alt Text)", is_checked: false }
+                ]
+            },
+            {
+                id: "build_ai_voice",
+                title: "Voice AI Agent Setup",
+                description: "Team Action: Configure an AI Voice Agent to handle after-hours calls, answer FAQs, and book appointments.",
+                responsible_party: "Service Provider",
+                status: "pending",
+                checklist: [
+                    { id: "v1", text: "Define Voice Agent persona and tone", is_checked: false },
+                    { id: "v2", text: "Draft call scripts for FAQs and appointment booking", is_checked: false },
+                    { id: "v3", text: "Configure knowledge base for the Voice Agent", is_checked: false },
+                    { id: "v4", text: "Train and test Voice Agent responses", is_checked: false },
+                    { id: "v5", text: "Set up call forwarding for after-hours handling", is_checked: false },
+                    { id: "v6", text: "Client: Test call the agent and provide feedback", is_checked: false }
+                ]
+            },
+            {
+                id: "build_ai_chat",
+                title: "AI Chat Bot Implementation",
+                description: "Team Action: Deploy a smart AI Chat Bot on the website to capture leads and answer questions 24/7.",
+                responsible_party: "Service Provider",
+                status: "pending",
+                checklist: [
+                    { id: "c1", text: "Design Chat Widget appearance (colors, avatar)", is_checked: false },
+                    { id: "c2", text: "Upload business knowledge base (services, pricing, policies)", is_checked: false },
+                    { id: "c3", text: "Configure lead capture behavior (Name, Email, Phone)", is_checked: false },
+                    { id: "c4", text: "Test chat conversations for accuracy", is_checked: false },
+                    { id: "c5", text: "Embed Chat Widget on Website/Funnel", is_checked: false }
+                ]
+            },
+            {
+                id: "build_workflows",
+                title: "Marketing Automation Workflows",
+                description: "Team Action: Build and activate 3 core automation workflows to nurture leads and save time.",
+                responsible_party: "Service Provider",
+                status: "pending",
+                tool_link: "https://app.thebminds.com",
+                checklist: [
+                    { id: "w1", text: "Workflow 1: Lead Nurture Sequence (5-email drip)", is_checked: false },
+                    { id: "w2", text: "Workflow 2: Appointment Confirmation & Reminders (Email/SMS)", is_checked: false },
+                    { id: "w3", text: "Workflow 3: Post-Service Review Request", is_checked: false },
+                    { id: "w4", text: "Test all workflows end-to-end", is_checked: false },
+                    { id: "w5", text: "Client: Review email/SMS copy", is_checked: false }
                 ]
             },
             {
                 id: "build_4",
                 title: "Weeks 5-8: Content & Social",
-                description: "Team Action: Setup Social Planner, Email templates, load content.",
+                description: "Team Action: Setup Social Planner, design templates, and load the first month of content.",
                 responsible_party: "Service Provider",
                 status: "pending",
                 tool_link: "https://app.thebminds.com",
                 checklist: [
-                    { id: "b8", text: "Setup Social Planner", is_checked: false },
-                    { id: "b9", text: "Setup Email Marketing templates", is_checked: false },
-                    { id: "b10", text: "Load first month of content", is_checked: false }
+                    { id: "b20", text: "Connect Social Media Accounts (FB, IG, LinkedIn, etc.)", is_checked: false },
+                    { id: "b21", text: "Design branded social media templates (Canva/HQ)", is_checked: false },
+                    { id: "b22", text: "Create content calendar for Month 1", is_checked: false },
+                    { id: "b23", text: "Draft posts (Copy + Creative)", is_checked: false },
+                    { id: "b24", text: "Client: Approve content calendar", is_checked: false },
+                    { id: "b25", text: "Schedule all posts in Social Planner", is_checked: false },
+                    { id: "b26", text: "Setup Email Marketing Newsletter template", is_checked: false }
                 ]
             },
             {
                 id: "build_5",
-                title: "Weeks 9-12: Optimization",
-                description: "Team Action: Launch campaigns, monitor KPIs, tweak systems.",
+                title: "Weeks 9-12: Launch & Optimization",
+                description: "Team Action: Go live, monitor traffic, and tweak systems based on real data.",
                 responsible_party: "Service Provider",
                 status: "pending",
                 checklist: [
-                    { id: "b11", text: "Launch campaigns", is_checked: false },
-                    { id: "b12", text: "Monitor KPIs & tweak", is_checked: false }
+                    { id: "b27", text: "Go Live: Publish Website/Funnel to custom domain", is_checked: false },
+                    { id: "b28", text: "Launch email announcement campaign", is_checked: false },
+                    { id: "b29", text: "Monitor traffic and form submissions", is_checked: false },
+                    { id: "b30", text: "Review Voice Agent and Chat Bot logs", is_checked: false },
+                    { id: "b31", text: "Optimize A/B tests (headlines, buttons)", is_checked: false },
+                    { id: "b32", text: "Review initial KPI report with Client", is_checked: false }
                 ]
             },
             {
                 id: "build_6",
                 title: "Weekly Progress Calls",
-                description: "Joint Action: Weekly sync to review progress and blockers.",
+                description: "Joint Action: Consistent weekly syncs to review progress, approve assets, and clear blockers.",
                 responsible_party: "Both",
                 status: "pending",
                 checklist: [
-                    { id: "b13", text: "Conduct weekly syncs", is_checked: false },
-                    { id: "b14", text: "Client: Participate in calls", is_checked: false }
+                    { id: "b33", text: "Schedule recurring weekly 30-min sync", is_checked: false },
+                    { id: "b34", text: "Week 1-4: Foundation & Systems review", is_checked: false },
+                    { id: "b35", text: "Week 5-8: Content & Design review", is_checked: false },
+                    { id: "b36", text: "Week 9-12: Performance & Launch review", is_checked: false }
                 ]
             },
             {
                 id: "build_7",
-                title: "Final Handoff",
-                description: "Joint Action: Graduation! Hand over assets and discuss next steps.",
+                title: "Final Handoff & Graduation",
+                description: "Joint Action: Complete asset transfer, final training, and discuss maintenance plan.",
                 responsible_party: "Both",
                 status: "pending",
                 checklist: [
-                    { id: "b15", text: "Hand over all assets & access", is_checked: false },
-                    { id: "b16", text: "Confirm completion of goals", is_checked: false }
+                    { id: "b37", text: "Provide 'Owner's Manual' with all logins and SOPs", is_checked: false },
+                    { id: "b38", text: "Conduct Final Training Session (Recorded)", is_checked: false },
+                    { id: "b39", text: "Verify client full ownership of all assets", is_checked: false },
+                    { id: "b40", text: "Client: Sign off on project completion", is_checked: false },
+                    { id: "b41", text: "Discuss ongoing maintenance or support options", is_checked: false }
                 ]
             }
         ]
