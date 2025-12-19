@@ -275,6 +275,56 @@ export default function DfyServiceDetailPage() {
                                                 )}
                                             </div>
 
+                                            {/* Checklist */}
+                                            {step.checklist && step.checklist.length > 0 && (
+                                                <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg space-y-3">
+                                                    <div className="font-medium text-sm flex items-center gap-2">
+                                                        <FileText className="w-4 h-4" /> Step Checklist
+                                                    </div>
+                                                    <div className="space-y-2">
+                                                        {step.checklist.map((item) => (
+                                                            <div 
+                                                                key={item.id} 
+                                                                className="flex items-start gap-3 cursor-pointer group"
+                                                                onClick={async () => {
+                                                                    // Toggle checklist item
+                                                                    const updatedChecklist = step.checklist.map(i => 
+                                                                        i.id === item.id ? { ...i, is_checked: !i.is_checked } : i
+                                                                    );
+                                                                    
+                                                                    const updatedSteps = service.steps.map(s => 
+                                                                        s.id === step.id ? { ...s, checklist: updatedChecklist } : s
+                                                                    );
+
+                                                                    // Optimistic update
+                                                                    setService(prev => ({ ...prev, steps: updatedSteps }));
+
+                                                                    // DB update
+                                                                    try {
+                                                                        await base44.entities.DfyService.update(service.id, { steps: updatedSteps });
+                                                                    } catch (err) {
+                                                                        console.error("Failed to update checklist", err);
+                                                                        toast.error("Failed to save checklist");
+                                                                        // Revert on error would go here
+                                                                    }
+                                                                }}
+                                                            >
+                                                                <div className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center transition-colors ${
+                                                                    item.is_checked 
+                                                                        ? 'bg-[var(--primary-gold)] border-[var(--primary-gold)] text-white' 
+                                                                        : 'border-gray-400 group-hover:border-[var(--primary-gold)]'
+                                                                }`}>
+                                                                    {item.is_checked && <CheckCircle className="w-3 h-3" />}
+                                                                </div>
+                                                                <span className={`text-sm ${item.is_checked ? 'text-gray-400 line-through' : 'text-[var(--text-main)]'}`}>
+                                                                    {item.text}
+                                                                </span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+
                                             {/* Notes / Chat Placeholder */}
                                             <div className="bg-gray-50 dark:bg-gray-900 p-3 rounded text-sm text-[var(--text-soft)]">
                                                 <div className="flex items-center gap-2 mb-2 font-medium">

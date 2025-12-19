@@ -14,24 +14,38 @@ export const DFY_PACKAGES = [
             {
                 id: "comm_1",
                 title: "Join Community Platform",
-                description: "Client Action: Create your account and access the Business Minds Community platform. If you have any login issues, email team@thebminds.com.",
+                description: "Client Action: Create your account and access the Business Minds Community platform (Slack/Discord/Portal). This is where you'll connect with other entrepreneurs.",
                 responsible_party: "Client",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "c1", text: "Join Business Minds Community", is_checked: false },
+                    { id: "c2", text: "Complete basic profile and business info", is_checked: false },
+                    { id: "c3", text: "Engage with at least one community post", is_checked: false }
+                ]
             },
             {
                 id: "comm_2",
                 title: "Access 90-Day Roadmap",
-                description: "Client Action: Log in to The HQ and navigate to 'My 90-Day Journey' to view your interactive roadmap. This roadmap guides your vision and strategy.",
+                description: "Client Action: Log in to The HQ and navigate to 'My 90-Day Journey'. This interactive roadmap guides your vision and strategy.",
                 responsible_party: "Client",
                 status: "pending",
-                tool_link: "Journey"
+                tool_link: "Journey",
+                checklist: [
+                    { id: "c4", text: "Access 90-Day Roadmap in The HQ", is_checked: false },
+                    { id: "c5", text: "Identify first 1–3 roadmap actions", is_checked: false }
+                ]
             },
             {
                 id: "comm_3",
                 title: "Welcome Email & Intro",
                 description: "Team Action: We will send you a welcome packet with suggested first actions and community guidelines. Check your email inbox.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "c6", text: "Verify client signup", is_checked: false },
+                    { id: "c7", text: "Send welcome email with links", is_checked: false },
+                    { id: "c8", text: "QA: Confirm client joined community", is_checked: false }
+                ]
             }
         ]
     },
@@ -46,48 +60,82 @@ export const DFY_PACKAGES = [
             {
                 id: "found_1",
                 title: "Submit Brand Assets",
-                description: "Client Action: Log in to The HQ (app.thebminds.com) and navigate to your Media Library. Upload your high-resolution Logo (PNG/SVG), Brand Colors (Hex codes), Fonts, and Images. Then, upload your written content for the Home, About, and Services pages. Email team@thebminds.com once all assets are uploaded so we can verify them.",
+                description: "Client Action: Log in to The HQ (app.thebminds.com) and navigate to your Media Library. Upload your high-resolution Logo, Brand Colors, Fonts, and Images. Provide written content for pages.",
                 responsible_party: "Client",
                 status: "pending",
-                tool_link: "https://app.thebminds.com"
+                tool_link: "https://app.thebminds.com",
+                checklist: [
+                    { id: "f1", text: "Upload high-res Logo (PNG/SVG)", is_checked: false },
+                    { id: "f2", text: "Provide Brand Colors (Hex codes)", is_checked: false },
+                    { id: "f3", text: "Provide Fonts (or selection)", is_checked: false },
+                    { id: "f4", text: "Upload Images for website", is_checked: false },
+                    { id: "f5", text: "Provide written content for Home, About, Services", is_checked: false },
+                    { id: "f6", text: "Email team@thebminds.com when assets are ready", is_checked: false }
+                ]
             },
             {
                 id: "found_2",
                 title: "Review 90-Day Roadmap",
-                description: "Joint Action: We will review your 'My 90-Day Journey' roadmap together to align your website's Unique Value Proposition (UVP) and messaging with your long-term vision.",
+                description: "Joint Action: Review your 'My 90-Day Journey' roadmap to align your website's Unique Value Proposition (UVP) and messaging.",
                 responsible_party: "Both",
                 status: "pending",
-                tool_link: "Journey"
+                tool_link: "Journey",
+                checklist: [
+                    { id: "f7", text: "Review UVP and Value Ladder", is_checked: false },
+                    { id: "f8", text: "Confirm messaging alignment", is_checked: false }
+                ]
             },
             {
                 id: "found_3",
                 title: "Build 5 Pages",
-                description: "Team Action: We will design and build your Home, About, Services, Contact, and CTA pages using The HQ Sites builder. We will ensure mobile responsiveness and SEO basics.",
+                description: "Team Action: Design and build Home, About, Services, Contact, and CTA pages using The HQ Sites builder.",
                 responsible_party: "Service Provider",
                 status: "pending",
-                tool_link: "https://app.thebminds.com"
+                tool_link: "https://app.thebminds.com",
+                checklist: [
+                    { id: "f9", text: "Create project in The HQ", is_checked: false },
+                    { id: "f10", text: "Build Home, About, Services, Contact, CTA pages", is_checked: false },
+                    { id: "f11", text: "Add SEO basics (titles, meta, alt tags)", is_checked: false },
+                    { id: "f12", text: "Test on mobile, desktop, tablet", is_checked: false }
+                ]
             },
             {
                 id: "found_4",
                 title: "Integrate Forms & CRM",
-                description: "Team Action: We will create lead capture forms (e.g., Contact Us, Newsletter) and connect them to The HQ CRM and Automation workflows to ensure no lead is lost.",
+                description: "Team Action: Create lead capture forms and connect them to The HQ CRM and Automation.",
                 responsible_party: "Service Provider",
                 status: "pending",
-                tool_link: "https://app.thebminds.com"
+                tool_link: "https://app.thebminds.com",
+                checklist: [
+                    { id: "f13", text: "Create lead capture forms", is_checked: false },
+                    { id: "f14", text: "Connect forms to CRM pipelines", is_checked: false },
+                    { id: "f15", text: "QA: Forms submit correctly", is_checked: false }
+                ]
             },
             {
                 id: "found_5",
                 title: "Review Staging Site",
-                description: "Client Action: Review the draft website link we provide. Check for design accuracy, spelling, and functionality. Send a consolidated list of edits to team@thebminds.com.",
+                description: "Client Action: Review the draft website link. Check design, spelling, and functionality.",
                 responsible_party: "Client",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "f16", text: "Review site design and copy", is_checked: false },
+                    { id: "f17", text: "Test all links and forms", is_checked: false },
+                    { id: "f18", text: "Submit feedback to team@thebminds.com", is_checked: false }
+                ]
             },
             {
                 id: "found_6",
                 title: "Launch Live Site",
-                description: "Team Action: Upon approval, we will connect your domain, configure SSL, and publish the website live. We will provide you with a final handoff email.",
+                description: "Team Action: Connect domain, configure SSL, and publish the website live.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "f19", text: "Implement client feedback", is_checked: false },
+                    { id: "f20", text: "Connect domain and SSL", is_checked: false },
+                    { id: "f21", text: "Publish live site", is_checked: false },
+                    { id: "f22", text: "Send handoff email with login info", is_checked: false }
+                ]
             }
         ]
     },
@@ -102,47 +150,76 @@ export const DFY_PACKAGES = [
             {
                 id: "growth_1",
                 title: "Define Lead Magnet",
-                description: "Joint Action: Finalize the strategy for your lead magnet (e.g., ebook, webinar, discount). Client must provide the core content/file. Team will advise on the 'hook' and title. Email final content to team@thebminds.com.",
+                description: "Joint Action: Finalize strategy for lead magnet. Client provides content/file.",
                 responsible_party: "Both",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "g1", text: "Finalize offer details and strategy", is_checked: false },
+                    { id: "g2", text: "Client: Provide lead magnet content/file", is_checked: false },
+                    { id: "g3", text: "Approve 'hook' and title", is_checked: false }
+                ]
             },
             {
                 id: "growth_2",
                 title: "Build Funnel Pages",
-                description: "Team Action: We will build your high-converting Landing Page, Opt-in Form, Thank You Page, and Booking/Sales Page inside The HQ Funnels builder.",
+                description: "Team Action: Build Landing, Opt-in, Thank You, and Booking/Sales pages in The HQ Funnels.",
                 responsible_party: "Service Provider",
                 status: "pending",
-                tool_link: "https://app.thebminds.com"
+                tool_link: "https://app.thebminds.com",
+                checklist: [
+                    { id: "g4", text: "Build Landing Page", is_checked: false },
+                    { id: "g5", text: "Build Opt-in Page", is_checked: false },
+                    { id: "g6", text: "Build Thank You Page", is_checked: false },
+                    { id: "g7", text: "Build Booking/Offer Page", is_checked: false }
+                ]
             },
             {
                 id: "growth_3",
                 title: "Setup Email Automation",
-                description: "Team Action: We will write and configure a 5-email nurture sequence in The HQ Automation to welcome new leads and drive them to the next step (e.g., booking a call).",
+                description: "Team Action: Configure 5-email nurture sequence in The HQ Automation.",
                 responsible_party: "Service Provider",
                 status: "pending",
-                tool_link: "https://app.thebminds.com"
+                tool_link: "https://app.thebminds.com",
+                checklist: [
+                    { id: "g8", text: "Write/Configure 5 follow-up emails", is_checked: false },
+                    { id: "g9", text: "Set up automation triggers", is_checked: false }
+                ]
             },
             {
                 id: "growth_4",
                 title: "CRM & Tagging Setup",
-                description: "Team Action: We will configure your HQ CRM pipeline stages and set up automation triggers (tags, alerts) so you are notified instantly when a lead enters the funnel.",
+                description: "Team Action: Configure CRM pipeline stages and automation triggers (tags, alerts).",
                 responsible_party: "Service Provider",
                 status: "pending",
-                tool_link: "https://app.thebminds.com"
+                tool_link: "https://app.thebminds.com",
+                checklist: [
+                    { id: "g10", text: "Configure CRM pipeline stages", is_checked: false },
+                    { id: "g11", text: "Set up lead tagging and alerts", is_checked: false }
+                ]
             },
             {
                 id: "growth_5",
                 title: "Test & Review",
-                description: "Joint Action: We will run test leads through the entire funnel. Client Action: Verify you received the emails and the notification. Approve the funnel for launch via email to team@thebminds.com.",
+                description: "Joint Action: Run test leads through funnel. Client verifies emails and notifications.",
                 responsible_party: "Both",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "g12", text: "Team: Submit test leads & verify flows", is_checked: false },
+                    { id: "g13", text: "Client: Review page design & copy", is_checked: false },
+                    { id: "g14", text: "Client: Review email sequence", is_checked: false },
+                    { id: "g15", text: "Approve funnel for launch", is_checked: false }
+                ]
             },
             {
                 id: "growth_6",
                 title: "Go Live & Training",
-                description: "Team Action: We will publish the funnel and provide a training video on how to manage your new leads in The HQ. We'll also link this to your social media scheduler if applicable.",
+                description: "Team Action: Publish funnel and provide training on lead management.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "g16", text: "Implement feedback & publish live", is_checked: false },
+                    { id: "g17", text: "Provide client training/documentation", is_checked: false }
+                ]
             }
         ]
     },
@@ -157,54 +234,84 @@ export const DFY_PACKAGES = [
             {
                 id: "auth_1",
                 title: "Brand & Content Strategy",
-                description: "Joint Action: Define the site map (up to 10 pages) and content strategy. Client Action: Upload Brand Guide and all page copy to The HQ Media Library. Email team@thebminds.com when ready.",
+                description: "Joint Action: Define site map and content strategy. Client uploads assets.",
                 responsible_party: "Both",
                 status: "pending",
-                tool_link: "https://app.thebminds.com"
+                tool_link: "https://app.thebminds.com",
+                checklist: [
+                    { id: "a1", text: "Plan site architecture (up to 10 pages)", is_checked: false },
+                    { id: "a2", text: "Client: Submit Brand Guide and copy", is_checked: false }
+                ]
             },
             {
                 id: "auth_2",
                 title: "WordPress Environment Setup",
-                description: "Team Action: Initialize managed WordPress hosting inside The HQ. We will configure security plugins, SSL, and core settings.",
+                description: "Team Action: Initialize managed WordPress hosting in The HQ. Configure security.",
                 responsible_party: "Service Provider",
                 status: "pending",
-                tool_link: "https://app.thebminds.com"
+                tool_link: "https://app.thebminds.com",
+                checklist: [
+                    { id: "a3", text: "Initialize WordPress hosting", is_checked: false },
+                    { id: "a4", text: "Configure security & SSL", is_checked: false }
+                ]
             },
             {
                 id: "auth_3",
                 title: "Build Custom Pages",
-                description: "Team Action: Develop custom Home, About, Services, Blog, and Landing pages. This includes integrating your Brand Kit assets and ensuring a premium design.",
+                description: "Team Action: Develop custom pages with premium design.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "a5", text: "Build Home, About, Services pages", is_checked: false },
+                    { id: "a6", text: "Build Blog & Landing pages", is_checked: false },
+                    { id: "a7", text: "Integrate Brand Kit assets", is_checked: false }
+                ]
             },
             {
                 id: "auth_4",
                 title: "Blog & Content Framework",
-                description: "Team Action: Set up the blog structure (categories, tags, layout) to support your content marketing. We'll publish your first 3 posts (provided by you).",
+                description: "Team Action: Set up blog structure and publish first 3 posts.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "a8", text: "Setup blog categories & layout", is_checked: false },
+                    { id: "a9", text: "Publish first 3 posts", is_checked: false }
+                ]
             },
             {
                 id: "auth_5",
                 title: "CRM Integration",
-                description: "Team Action: Connect all WordPress forms (Contact, Newsletter, Lead Magnets) directly to The HQ CRM to centralize your leads.",
+                description: "Team Action: Connect WordPress forms to The HQ CRM.",
                 responsible_party: "Service Provider",
                 status: "pending",
-                tool_link: "https://app.thebminds.com"
+                tool_link: "https://app.thebminds.com",
+                checklist: [
+                    { id: "a10", text: "Connect forms to CRM", is_checked: false }
+                ]
             },
             {
                 id: "auth_6",
                 title: "Staging Review",
-                description: "Client Action: Thoroughly review the staging site. Test all links and forms. Send a detailed feedback document to team@thebminds.com.",
+                description: "Client Action: Review staging site design, copy, and functionality.",
                 responsible_party: "Client",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "a11", text: "Review layout & copy", is_checked: false },
+                    { id: "a12", text: "Test forms & links", is_checked: false },
+                    { id: "a13", text: "Approve site", is_checked: false }
+                ]
             },
             {
                 id: "auth_7",
                 title: "Launch & Handoff",
-                description: "Team Action: Go live! We'll handle the DNS changes and final QA. You will receive a guide on how to update your WordPress content.",
+                description: "Team Action: Go live, handle DNS, final QA, and training.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "a14", text: "Implement revisions & go live", is_checked: false },
+                    { id: "a15", text: "Configure backups", is_checked: false },
+                    { id: "a16", text: "Provide update training", is_checked: false }
+                ]
             }
         ]
     },
@@ -219,54 +326,84 @@ export const DFY_PACKAGES = [
             {
                 id: "ops_1",
                 title: "Process & KPI Review",
-                description: "Joint Action: We will audit your current sales and operational processes. We'll define the KPIs you need to track in The HQ Dashboard.",
+                description: "Joint Action: Audit current processes and define KPIs.",
                 responsible_party: "Both",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "o1", text: "Audit sales & ops processes", is_checked: false },
+                    { id: "o2", text: "Define KPIs for HQ Dashboard", is_checked: false }
+                ]
             },
             {
                 id: "ops_2",
                 title: "CRM Pipeline Setup",
-                description: "Team Action: Configure custom CRM pipelines (e.g., 'New Leads', 'Discovery Calls', 'Closed Won'). We'll set up deal stages and probabilities.",
+                description: "Team Action: Configure custom CRM pipelines, stages, and deal tracks.",
                 responsible_party: "Service Provider",
                 status: "pending",
-                tool_link: "https://app.thebminds.com"
+                tool_link: "https://app.thebminds.com",
+                checklist: [
+                    { id: "o3", text: "Configure pipelines & stages", is_checked: false },
+                    { id: "o4", text: "Set up deal probabilities", is_checked: false }
+                ]
             },
             {
                 id: "ops_3",
                 title: "Automation Workflows",
-                description: "Team Action: Build comprehensive automations: Appointment Reminders (Email/SMS), Missed Call Text Back, and Review Requests in The HQ.",
+                description: "Team Action: Build Email/SMS automations, reminders, and reputation management.",
                 responsible_party: "Service Provider",
                 status: "pending",
-                tool_link: "https://app.thebminds.com"
+                tool_link: "https://app.thebminds.com",
+                checklist: [
+                    { id: "o5", text: "Build email/SMS automations", is_checked: false },
+                    { id: "o6", text: "Build appointment reminders", is_checked: false },
+                    { id: "o7", text: "Build reputation management", is_checked: false }
+                ]
             },
             {
                 id: "ops_4",
                 title: "Tool Configuration",
-                description: "Team Action: Set up your Calendars, Surveys, Affiliate Manager, and Phone Numbers (SMS/Voice) within The HQ. We'll also integrate your Payment Gateways.",
+                description: "Team Action: Setup Calendars, Surveys, Affiliate Manager, Phone, and Payments.",
                 responsible_party: "Service Provider",
                 status: "pending",
-                tool_link: "https://app.thebminds.com"
+                tool_link: "https://app.thebminds.com",
+                checklist: [
+                    { id: "o8", text: "Setup Calendars & Surveys", is_checked: false },
+                    { id: "o9", text: "Setup Affiliate & Phone systems", is_checked: false },
+                    { id: "o10", text: "Integrate Payment Gateways", is_checked: false }
+                ]
             },
             {
                 id: "ops_5",
                 title: "System Testing",
-                description: "Team Action: We will simulate customer journeys to verify that data flows correctly from Forms -> CRM -> Automation -> Reporting.",
+                description: "Team Action: Verify data flow from Forms -> CRM -> Automation -> Reporting.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "o11", text: "Verify all workflow triggers", is_checked: false },
+                    { id: "o12", text: "Verify CRM data capture", is_checked: false }
+                ]
             },
             {
                 id: "ops_6",
                 title: "Team Training",
-                description: "Team Action: We will conduct a live training session (recorded) for your team on how to use 'The Operating System' daily. Email questions to team@thebminds.com.",
+                description: "Team Action: Conduct live training session and provide SOP guides.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "o13", text: "Conduct training session", is_checked: false },
+                    { id: "o14", text: "Provide SOP guides", is_checked: false }
+                ]
             },
             {
                 id: "ops_7",
                 title: "30-Day Optimization",
-                description: "Team Action: 30 days after launch, we will review your analytics and tweak workflows to improve conversion rates and efficiency.",
+                description: "Team Action: Review analytics and tweak workflows after 30 days.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "o15", text: "Review performance analytics", is_checked: false },
+                    { id: "o16", text: "Tweak workflows for efficiency", is_checked: false }
+                ]
             }
         ]
     },
@@ -281,54 +418,84 @@ export const DFY_PACKAGES = [
             {
                 id: "build_1",
                 title: "Kickoff & Strategy",
-                description: "Joint Action: We will have a kickoff call to review your 90-Day Roadmap, assign specific milestones, and set the 12-week execution calendar. Email team@thebminds.com to schedule.",
+                description: "Joint Action: Kickoff call to assign milestones and set 12-week plan.",
                 responsible_party: "Both",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "b1", text: "Client: Attend kickoff & provide assets", is_checked: false },
+                    { id: "b2", text: "Approve roadmap & milestone plan", is_checked: false }
+                ]
             },
             {
                 id: "build_2",
                 title: "Weeks 1-2: Systems",
-                description: "Team Action: We will set up your 'Operating System'—CRM, Calendars, Automation, and Phone Systems in The HQ. Client: Provide access to domain and payments.",
+                description: "Team Action: Setup CRM, Calendars, Automation, and Phone Systems.",
                 responsible_party: "Service Provider",
                 status: "pending",
-                tool_link: "https://app.thebminds.com"
+                tool_link: "https://app.thebminds.com",
+                checklist: [
+                    { id: "b3", text: "Setup CRM & Calendars", is_checked: false },
+                    { id: "b4", text: "Setup Automation & Phone", is_checked: false },
+                    { id: "b5", text: "Client: Provide domain/payment access", is_checked: false }
+                ]
             },
             {
                 id: "build_3",
                 title: "Weeks 3-4: Web/Funnel",
-                description: "Team Action: We will design and build your core Website or Sales Funnel in The HQ. Client: Review designs and provide feedback via email.",
+                description: "Team Action: Design and build core Website or Sales Funnel.",
                 responsible_party: "Service Provider",
                 status: "pending",
-                tool_link: "https://app.thebminds.com"
+                tool_link: "https://app.thebminds.com",
+                checklist: [
+                    { id: "b6", text: "Design & Build Website/Funnel", is_checked: false },
+                    { id: "b7", text: "Client: Review designs", is_checked: false }
+                ]
             },
             {
                 id: "build_4",
                 title: "Weeks 5-8: Content & Social",
-                description: "Team Action: We will set up your Social Planner and Email Marketing templates. We'll help you load your first month of content into The HQ Scheduler.",
+                description: "Team Action: Setup Social Planner, Email templates, load content.",
                 responsible_party: "Service Provider",
                 status: "pending",
-                tool_link: "https://app.thebminds.com"
+                tool_link: "https://app.thebminds.com",
+                checklist: [
+                    { id: "b8", text: "Setup Social Planner", is_checked: false },
+                    { id: "b9", text: "Setup Email Marketing templates", is_checked: false },
+                    { id: "b10", text: "Load first month of content", is_checked: false }
+                ]
             },
             {
                 id: "build_5",
                 title: "Weeks 9-12: Optimization",
-                description: "Team Action: We launch your campaigns and monitor KPIs. We'll tweak the funnels and automations based on real-time data.",
+                description: "Team Action: Launch campaigns, monitor KPIs, tweak systems.",
                 responsible_party: "Service Provider",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "b11", text: "Launch campaigns", is_checked: false },
+                    { id: "b12", text: "Monitor KPIs & tweak", is_checked: false }
+                ]
             },
             {
                 id: "build_6",
                 title: "Weekly Progress Calls",
-                description: "Joint Action: We will have a weekly sync to review progress, remove blockers, and keep the project on track. (Recurring meeting).",
+                description: "Joint Action: Weekly sync to review progress and blockers.",
                 responsible_party: "Both",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "b13", text: "Conduct weekly syncs", is_checked: false },
+                    { id: "b14", text: "Client: Participate in calls", is_checked: false }
+                ]
             },
             {
                 id: "build_7",
                 title: "Final Handoff",
-                description: "Joint Action: Graduation! We'll hand over all assets, ensure you are comfortable running the systems, and discuss your next growth phase.",
+                description: "Joint Action: Graduation! Hand over assets and discuss next steps.",
                 responsible_party: "Both",
-                status: "pending"
+                status: "pending",
+                checklist: [
+                    { id: "b15", text: "Hand over all assets & access", is_checked: false },
+                    { id: "b16", text: "Confirm completion of goals", is_checked: false }
+                ]
             }
         ]
     }
