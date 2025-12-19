@@ -291,6 +291,26 @@ export default function DfyServiceDetailPage() {
                         })}
                     </div>
                 </div>
+
+                {/* Support / Help Section */}
+                <div className="card p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                        <div className="bg-blue-100 dark:bg-blue-800 p-2 rounded-full">
+                            <MessageSquare className="w-5 h-5 text-blue-600 dark:text-blue-300" />
+                        </div>
+                        <div>
+                            <h3 className="font-semibold text-blue-900 dark:text-blue-100">Questions about your project?</h3>
+                            <p className="text-sm text-blue-700 dark:text-blue-300">
+                                Contact our support team directly at <a href="mailto:team@thebminds.com" className="underline hover:text-blue-800 font-medium">team@thebminds.com</a>
+                            </p>
+                        </div>
+                    </div>
+                    <a href="mailto:team@thebminds.com">
+                        <Button variant="outline" className="border-blue-200 text-blue-700 hover:bg-blue-100 dark:border-blue-700 dark:text-blue-300 dark:hover:bg-blue-800">
+                            Email Support
+                        </Button>
+                    </a>
+                </div>
             </div>
         </div>
     );

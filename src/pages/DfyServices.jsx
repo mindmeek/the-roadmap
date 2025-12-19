@@ -196,6 +196,12 @@ export default function DfyServicesPage() {
                         </div>
                     )}
                 </div>
+
+                <div className="text-center pt-8 border-t border-gray-200 dark:border-gray-800">
+                    <p className="text-[var(--text-soft)]">
+                        Need help with your services? Contact us at <a href="mailto:team@thebminds.com" className="text-[var(--primary-gold)] hover:underline font-medium">team@thebminds.com</a>
+                    </p>
+                </div>
             </div>
         </div>
     );
