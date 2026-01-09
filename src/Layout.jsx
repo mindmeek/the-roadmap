@@ -674,10 +674,10 @@ const SidebarContent = ({ user, isExpanded, onCloseMobileMenu, setIsListenDropdo
     const location = useLocation();
     const [openSections, setOpenSections] = useState({
         myJourney: true,
-        learning: true,
-        connect: true,
-        account: true,
-        admin: true,
+        learning: false,
+        connect: false,
+        account: false,
+        admin: false,
     });
 
     const toggleSection = (section) => {
