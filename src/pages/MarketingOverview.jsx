@@ -158,8 +158,13 @@ export default function MarketingOverviewPage() {
                                     {financialGoals.products.filter(p => p.name && p.price).map((product, idx) => {
                                         const price = parseFloat(product.price) || 0;
                                         const cost = parseFloat(product.cost) || 0;
-                                        const profitPerUnit = price - (product.costType === 'per_unit' ? cost : 0);
-                                        const unitsNeeded = product.unitsNeeded || 0;
+                                        const costPerUnit = product.costType === 'per_unit' ? cost : 0;
+                                        const fixedMonthlyCost = product.costType === 'monthly_subscription' ? cost : 0;
+                                        const profitPerUnit = price - costPerUnit;
+                                        
+                                        // Calculate units needed to reach freedom number
+                                        const targetProfit = financialGoals.freedomNumber + fixedMonthlyCost;
+                                        const unitsNeeded = profitPerUnit > 0 ? Math.ceil(targetProfit / profitPerUnit) : 0;
                                         const monthlyRevenue = unitsNeeded * price;
                                         
                                         return (
