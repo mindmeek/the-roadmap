@@ -361,12 +361,193 @@ export default function MarketingOverviewPage() {
                     </div>
                 </div>
 
-                {/* Website Content Strategy */}
+                {/* Understanding Your Online Presence Options */}
+                <div className="card p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border-2 border-indigo-200 dark:border-indigo-800 mb-8">
+                    <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
+                        <Globe className="w-6 h-6 text-indigo-600" />
+                        Understanding Your Online Presence Options
+                    </h2>
+                    <p className="text-sm text-[var(--text-soft)] mb-6">
+                        Before building, understand what type of online presence fits your business goals:
+                    </p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-l-4 border-blue-500">
+                            <h4 className="font-bold text-[var(--text-main)] mb-2 flex items-center gap-2">
+                                <Globe className="w-4 h-4 text-blue-600" />
+                                Full Business Website
+                            </h4>
+                            <p className="text-sm text-[var(--text-soft)] mb-2">
+                                <strong>Purpose:</strong> Comprehensive online home base showcasing everything about your business
+                            </p>
+                            <p className="text-xs text-[var(--text-soft)] mb-2">
+                                <strong>Best For:</strong> Established businesses, service providers, agencies, consultants
+                            </p>
+                            <div className="text-xs text-[var(--text-soft)] space-y-1">
+                                <p>✓ Multiple pages (Home, About, Services, Portfolio, Blog, Contact)</p>
+                                <p>✓ SEO optimization for organic traffic</p>
+                                <p>✓ Credibility and professional image</p>
+                                <p>✓ Educational content and resources</p>
+                            </div>
+                        </div>
+
+                        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-l-4 border-green-500">
+                            <h4 className="font-bold text-[var(--text-main)] mb-2 flex items-center gap-2">
+                                <Target className="w-4 h-4 text-green-600" />
+                                Landing Page
+                            </h4>
+                            <p className="text-sm text-[var(--text-soft)] mb-2">
+                                <strong>Purpose:</strong> Single-focus page designed to convert visitors into leads or customers
+                            </p>
+                            <p className="text-xs text-[var(--text-soft)] mb-2">
+                                <strong>Best For:</strong> Product launches, lead magnets, event registrations, specific offers
+                            </p>
+                            <div className="text-xs text-[var(--text-soft)] space-y-1">
+                                <p>✓ One clear call-to-action (CTA)</p>
+                                <p>✓ Minimal distractions (no navigation menu)</p>
+                                <p>✓ High conversion optimization</p>
+                                <p>✓ Perfect for paid advertising campaigns</p>
+                            </div>
+                        </div>
+
+                        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-l-4 border-purple-500">
+                            <h4 className="font-bold text-[var(--text-main)] mb-2 flex items-center gap-2">
+                                <Users className="w-4 h-4 text-purple-600" />
+                                Online Community Platform
+                            </h4>
+                            <p className="text-sm text-[var(--text-soft)] mb-2">
+                                <strong>Purpose:</strong> Interactive space where customers connect, share, and engage
+                            </p>
+                            <p className="text-xs text-[var(--text-soft)] mb-2">
+                                <strong>Best For:</strong> Membership sites, coaching programs, courses, support groups
+                            </p>
+                            <div className="text-xs text-[var(--text-soft)] space-y-1">
+                                <p>✓ Member discussions and networking</p>
+                                <p>✓ Exclusive content and resources</p>
+                                <p>✓ Builds loyalty and recurring revenue</p>
+                                <p>✓ Creates brand advocates</p>
+                            </div>
+                        </div>
+
+                        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-l-4 border-orange-500">
+                            <h4 className="font-bold text-[var(--text-main)] mb-2 flex items-center gap-2">
+                                <ShoppingCart className="w-4 h-4 text-orange-600" />
+                                E-Commerce Store
+                            </h4>
+                            <p className="text-sm text-[var(--text-soft)] mb-2">
+                                <strong>Purpose:</strong> Online storefront for selling physical or digital products
+                            </p>
+                            <p className="text-xs text-[var(--text-soft)] mb-2">
+                                <strong>Best For:</strong> Product-based businesses, digital products, subscription boxes
+                            </p>
+                            <div className="text-xs text-[var(--text-soft)] space-y-1">
+                                <p>✓ Product catalog with search/filtering</p>
+                                <p>✓ Shopping cart and secure checkout</p>
+                                <p>✓ Inventory and order management</p>
+                                <p>✓ Customer accounts and order tracking</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-4 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 p-4 rounded-lg border-l-4 border-[var(--primary-gold)]">
+                        <p className="text-sm text-[var(--text-main)]">
+                            <strong>💡 Smart Strategy:</strong> Most successful businesses use a combination:
+                        </p>
+                        <ul className="text-sm text-[var(--text-soft)] mt-2 space-y-1 ml-4">
+                            <li>• <strong>Website</strong> as your home base for credibility and SEO</li>
+                            <li>• <strong>Landing pages</strong> for specific campaigns and lead generation</li>
+                            <li>• <strong>Social media</strong> for community building and engagement</li>
+                            <li>• <strong>Email list</strong> to own your audience communication</li>
+                        </ul>
+                    </div>
+                </div>
+
+                {/* Social Media Strategy & Purpose */}
+                <div className="card p-6 bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20 border-2 border-pink-200 dark:border-pink-800 mb-8">
+                    <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
+                        <Share2 className="w-6 h-6 text-pink-600" />
+                        Your Social Media Strategy & Purpose
+                    </h2>
+
+                    <div className="bg-white dark:bg-gray-800 p-5 rounded-lg border-2 border-pink-300 dark:border-pink-700 mb-4">
+                        <h3 className="font-bold text-lg text-[var(--text-main)] mb-3">
+                            🎯 The #1 Goal: Build Relationships, Not Just Followers
+                        </h3>
+                        <p className="text-sm text-[var(--text-soft)] leading-relaxed mb-4">
+                            For small business owners, social media is NOT about going viral or chasing follower counts. 
+                            It's about creating genuine connections with your ideal customers and building a community 
+                            that knows, likes, and trusts you enough to buy from you.
+                        </p>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
+                                <h4 className="font-semibold text-green-700 dark:text-green-400 mb-2 flex items-center gap-2">
+                                    <CheckCircle className="w-4 h-4" />
+                                    What TO Focus On
+                                </h4>
+                                <ul className="text-xs text-[var(--text-soft)] space-y-1">
+                                    <li>✓ Engaging with comments and DMs personally</li>
+                                    <li>✓ Sharing valuable tips and insights</li>
+                                    <li>✓ Showcasing behind-the-scenes of your business</li>
+                                    <li>✓ Building trust through consistency</li>
+                                    <li>✓ Directing followers to your email list or website</li>
+                                </ul>
+                            </div>
+
+                            <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
+                                <h4 className="font-semibold text-red-700 dark:text-red-400 mb-2 flex items-center gap-2">
+                                    <X className="w-4 h-4" />
+                                    What NOT To Focus On
+                                </h4>
+                                <ul className="text-xs text-[var(--text-soft)] space-y-1">
+                                    <li>✗ Obsessing over likes and follower count</li>
+                                    <li>✗ Posting without a purpose or strategy</li>
+                                    <li>✗ Being on every single platform</li>
+                                    <li>✗ Copying competitors without authenticity</li>
+                                    <li>✗ Only promoting/selling (no value)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="space-y-4">
+                        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                            <h4 className="font-semibold text-[var(--text-main)] mb-2">🎪 Social Media's True Role in Your Business</h4>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+                                <div>
+                                    <div className="font-medium text-blue-600 mb-1">Top of Funnel</div>
+                                    <p className="text-xs text-[var(--text-soft)]">Attract attention and introduce people to your brand through valuable content</p>
+                                </div>
+                                <div>
+                                    <div className="font-medium text-purple-600 mb-1">Middle of Funnel</div>
+                                    <p className="text-xs text-[var(--text-soft)]">Build trust by engaging, educating, and showing your expertise consistently</p>
+                                </div>
+                                <div>
+                                    <div className="font-medium text-green-600 mb-1">Bottom of Funnel</div>
+                                    <p className="text-xs text-[var(--text-soft)]">Drive traffic to your website, landing pages, or email list where sales happen</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 p-4 rounded-lg border-l-4 border-[var(--primary-gold)]">
+                            <p className="text-sm text-[var(--text-main)] font-semibold mb-2">
+                                💰 Remember: Social Media Builds the Relationship, But Sales Happen on YOUR Platforms
+                            </p>
+                            <p className="text-xs text-[var(--text-soft)]">
+                                Use social media to warm up your audience, then guide them to your email list, website, or booking page 
+                                where you control the conversation and can close the sale. You don't own your social media followers—
+                                algorithms can change overnight. Always be building your email list in parallel.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Website Content Strategy - Enhanced with User Data */}
                 <div className="card p-6 bg-white dark:bg-gray-900 border-2 border-[var(--primary-gold)]">
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-2xl font-bold text-[var(--text-main)] flex items-center gap-2">
                             <Globe className="w-6 h-6 text-[var(--primary-gold)]" />
-                            Website Content & Messaging
+                            Your Website Content & Messaging
                         </h2>
                         <Link to={createPageUrl('MyFoundationRoadmap')}>
                             <Button variant="outline" size="sm">
@@ -376,71 +557,202 @@ export default function MarketingOverviewPage() {
                         </Link>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-                            <h4 className="font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
-                                <FileText className="w-4 h-4 text-blue-600" />
-                                Homepage Hero Section
+                    {/* User's Messaging Summary */}
+                    {(idealClient.demographics || valueProposition.value_proposition || brandKit.brand_voice) && (
+                        <div className="bg-gradient-to-r from-[var(--primary-gold)]/10 to-yellow-50 dark:to-yellow-900/20 p-5 rounded-lg border-2 border-[var(--primary-gold)]/30 mb-6">
+                            <h3 className="font-bold text-lg text-[var(--text-main)] mb-4 flex items-center gap-2">
+                                <Sparkles className="w-5 h-5 text-[var(--primary-gold)]" />
+                                Your Core Messaging (Use This Everywhere!)
+                            </h3>
+
+                            {idealClient.demographics && (
+                                <div className="mb-4 bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                    <h4 className="font-semibold text-[var(--text-main)] mb-2 flex items-center gap-2">
+                                        <Users className="w-4 h-4 text-blue-600" />
+                                        Who You're Talking To
+                                    </h4>
+                                    <p className="text-sm text-[var(--text-soft)] mb-2"><strong>Demographics:</strong> {idealClient.demographics}</p>
+                                    {idealClient.pain_points && (
+                                        <p className="text-sm text-[var(--text-soft)] mb-2"><strong>Their Struggles:</strong> {idealClient.pain_points}</p>
+                                    )}
+                                    {idealClient.goals && (
+                                        <p className="text-sm text-[var(--text-soft)]"><strong>What They Want:</strong> {idealClient.goals}</p>
+                                    )}
+                                </div>
+                            )}
+
+                            {valueProposition.value_proposition && (
+                                <div className="mb-4 bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                    <h4 className="font-semibold text-[var(--text-main)] mb-2 flex items-center gap-2">
+                                        <Zap className="w-4 h-4 text-[var(--primary-gold)]" />
+                                        What Makes You Different
+                                    </h4>
+                                    <p className="text-sm text-[var(--text-soft)]">{valueProposition.value_proposition}</p>
+                                    {valueProposition.benefits && (
+                                        <p className="text-sm text-[var(--text-soft)] mt-2"><strong>Key Benefits:</strong> {valueProposition.benefits}</p>
+                                    )}
+                                </div>
+                            )}
+
+                            {brandKit.brand_voice && (
+                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                    <h4 className="font-semibold text-[var(--text-main)] mb-2 flex items-center gap-2">
+                                        <MessageSquare className="w-4 h-4 text-purple-600" />
+                                        How You Sound
+                                    </h4>
+                                    <p className="text-sm text-[var(--text-soft)]">{brandKit.brand_voice}</p>
+                                </div>
+                            )}
+
+                            <div className="mt-4 pt-4 border-t border-[var(--primary-gold)]/20">
+                                <p className="text-xs text-[var(--text-soft)] italic">
+                                    💡 Use this messaging foundation consistently across your homepage, about page, social media, and all marketing materials.
+                                </p>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="space-y-4">
+                        {/* Homepage Hero Section */}
+                        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-5 rounded-lg border border-blue-200 dark:border-blue-800">
+                            <h4 className="font-semibold text-[var(--text-main)] mb-4 flex items-center gap-2 text-lg">
+                                <FileText className="w-5 h-5 text-blue-600" />
+                                Homepage Hero Section (First Thing Visitors See)
                             </h4>
-                            <div className="space-y-2 text-sm">
-                                <div>
-                                    <span className="font-medium text-blue-600">Headline:</span>
-                                    <p className="text-[var(--text-main)] italic">Clear promise of transformation or result</p>
+                            <div className="space-y-4">
+                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                    <span className="font-medium text-blue-600 mb-2 block">📢 Headline Formula:</span>
+                                    <p className="text-sm text-[var(--text-soft)] mb-3">
+                                        {valueProposition.value_proposition 
+                                            ? `"${valueProposition.value_proposition}"`
+                                            : '"[Desired Result] for [Target Audience] Without [Pain Point]"'
+                                        }
+                                    </p>
+                                    <p className="text-xs text-[var(--text-soft)] italic">
+                                        Example: "Get More Clients in 90 Days Without Spending a Fortune on Ads"
+                                    </p>
                                 </div>
-                                <div>
-                                    <span className="font-medium text-blue-600">Subheadline:</span>
-                                    <p className="text-[var(--text-main)] italic">Elaborate on the benefit in 1-2 sentences</p>
+
+                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                    <span className="font-medium text-blue-600 mb-2 block">💬 Subheadline (Elaborate):</span>
+                                    <p className="text-sm text-[var(--text-soft)]">
+                                        Expand on your headline with specific benefits or how you achieve the result in 1-2 sentences.
+                                    </p>
+                                    <p className="text-xs text-[var(--text-soft)] italic mt-2">
+                                        Example: "Our proven 90-day marketing system helps service-based entrepreneurs attract ideal clients through strategic content and relationship building—no expensive ads required."
+                                    </p>
                                 </div>
-                                <div>
-                                    <span className="font-medium text-blue-600">CTA Button:</span>
-                                    <p className="text-[var(--text-main)] italic">"Get Started", "Book a Call", "Learn More"</p>
+
+                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                    <span className="font-medium text-blue-600 mb-2 block">🎯 Call-to-Action Button:</span>
+                                    <div className="flex flex-wrap gap-2">
+                                        <span className="px-3 py-1 bg-blue-600 text-white rounded text-sm">"Get Started Free"</span>
+                                        <span className="px-3 py-1 bg-blue-600 text-white rounded text-sm">"Book Your Free Call"</span>
+                                        <span className="px-3 py-1 bg-blue-600 text-white rounded text-sm">"See How It Works"</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
-                            <h4 className="font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
-                                <Target className="w-4 h-4 text-purple-600" />
-                                About Page Focus
+                        {/* About Page Strategy */}
+                        <div className="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 p-5 rounded-lg border border-purple-200 dark:border-purple-800">
+                            <h4 className="font-semibold text-[var(--text-main)] mb-4 flex items-center gap-2 text-lg">
+                                <Target className="w-5 h-5 text-purple-600" />
+                                About Page (Build Trust & Connection)
                             </h4>
-                            <div className="space-y-2 text-sm">
-                                <p className="text-[var(--text-main)]">• Your story and why you started</p>
-                                <p className="text-[var(--text-main)]">• Your mission and values</p>
-                                <p className="text-[var(--text-main)]">• How you help clients transform</p>
-                                <p className="text-[var(--text-main)]">• Social proof (testimonials, results)</p>
+                            <div className="space-y-3 text-sm">
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                    <p className="font-medium text-purple-600 mb-1">1. Your Origin Story</p>
+                                    <p className="text-xs text-[var(--text-soft)]">Why did you start this business? What problem were you trying to solve for yourself or others?</p>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                    <p className="font-medium text-purple-600 mb-1">2. Mission & Values</p>
+                                    <p className="text-xs text-[var(--text-soft)]">What do you stand for? What drives your business decisions and how you serve clients?</p>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                    <p className="font-medium text-purple-600 mb-1">3. How You Help</p>
+                                    <p className="text-xs text-[var(--text-soft)]">Explain your process, methodology, or approach. What makes working with you different?</p>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                    <p className="font-medium text-purple-600 mb-1">4. Social Proof</p>
+                                    <p className="text-xs text-[var(--text-soft)]">Include testimonials, case studies, client results, or credentials to build credibility</p>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
-                            <h4 className="font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
-                                <ShoppingCart className="w-4 h-4 text-green-600" />
-                                Services/Products Page
+                        {/* Services/Products Page */}
+                        <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-5 rounded-lg border border-green-200 dark:border-green-800">
+                            <h4 className="font-semibold text-[var(--text-main)] mb-4 flex items-center gap-2 text-lg">
+                                <ShoppingCart className="w-5 h-5 text-green-600" />
+                                Services/Products Page (Make Buying Easy)
                             </h4>
-                            <div className="space-y-2 text-sm">
-                                <p className="text-[var(--text-main)]">• Feature benefits, not just features</p>
-                                <p className="text-[var(--text-main)]">• Include pricing or "starting at" info</p>
-                                <p className="text-[var(--text-main)]">• Clear next steps for each offering</p>
-                                <p className="text-[var(--text-main)]">• Use bullet points for easy scanning</p>
+
+                            {financialGoals.products && financialGoals.products.length > 0 && (
+                                <div className="mb-4 bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                    <p className="text-sm font-medium text-[var(--text-main)] mb-3">✨ Your Current Offerings:</p>
+                                    <div className="space-y-2">
+                                        {financialGoals.products.filter(p => p.name && p.price).map((product, idx) => (
+                                            <div key={idx} className="text-sm bg-green-50 dark:bg-green-900/20 p-3 rounded">
+                                                <div className="font-semibold text-[var(--text-main)]">{product.name}</div>
+                                                <div className="text-xs text-[var(--text-soft)]">
+                                                    Pricing: ${parseFloat(product.price).toLocaleString()}{product.pricingType === 'monthly_subscription' ? '/month' : ''}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            <div className="space-y-3 text-sm">
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                    <p className="font-medium text-green-600 mb-1">✓ Lead with Benefits, Not Features</p>
+                                    <p className="text-xs text-[var(--text-soft)]">Instead of "10 hours of coaching," say "Transform your business in 10 weeks with weekly 1-on-1 strategy sessions"</p>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                    <p className="font-medium text-green-600 mb-1">✓ Clear Pricing or "Starting At"</p>
+                                    <p className="text-xs text-[var(--text-soft)]">Be transparent. If custom pricing, show starting price or range to qualify leads</p>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                    <p className="font-medium text-green-600 mb-1">✓ Specific Next Steps</p>
+                                    <p className="text-xs text-[var(--text-soft)]">Each service should have a button: "Book Discovery Call," "Enroll Now," "Get Quote"</p>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                    <p className="font-medium text-green-600 mb-1">✓ Bullet Points for Scanning</p>
+                                    <p className="text-xs text-[var(--text-soft)]">People skim. Use bullets for what's included, process, and deliverables</p>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 p-4 rounded-lg border border-yellow-200 dark:border-yellow-800">
-                            <h4 className="font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
-                                <Mail className="w-4 h-4 text-yellow-600" />
-                                Contact Page Essentials
+                        {/* Contact Page */}
+                        <div className="bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 p-5 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                            <h4 className="font-semibold text-[var(--text-main)] mb-4 flex items-center gap-2 text-lg">
+                                <Mail className="w-5 h-5 text-yellow-600" />
+                                Contact Page (Remove Friction)
                             </h4>
-                            <div className="space-y-2 text-sm">
-                                <p className="text-[var(--text-main)]">• Multiple ways to reach you (form, email, phone)</p>
-                                <p className="text-[var(--text-main)]">• Response time expectations</p>
-                                <p className="text-[var(--text-main)]">• Location/service area (if applicable)</p>
-                                <p className="text-[var(--text-main)]">• Social media links</p>
+                            <div className="space-y-3 text-sm">
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                    <p className="font-medium text-yellow-600 mb-1">• Multiple Contact Options</p>
+                                    <p className="text-xs text-[var(--text-soft)]">Form, email, phone, and social media. People have preferences—accommodate them all</p>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                    <p className="font-medium text-yellow-600 mb-1">• Response Time Expectations</p>
+                                    <p className="text-xs text-[var(--text-soft)]">"We respond within 24 business hours" sets clear expectations and builds trust</p>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                    <p className="font-medium text-yellow-600 mb-1">• Location/Service Area</p>
+                                    <p className="text-xs text-[var(--text-soft)]">If local or regional, specify where you serve to qualify leads properly</p>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                    <p className="font-medium text-yellow-600 mb-1">• Link to Social Profiles</p>
+                                    <p className="text-xs text-[var(--text-soft)]">Let people follow you and see more of your content before reaching out</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="mt-4 bg-[var(--primary-gold)]/10 p-4 rounded-lg border border-[var(--primary-gold)]/20">
+                    <div className="mt-6 bg-[var(--primary-gold)]/10 p-4 rounded-lg border border-[var(--primary-gold)]/20">
                         <p className="text-sm text-[var(--text-soft)]">
-                            💡 <span className="font-medium text-[var(--text-main)]">Pro Tip:</span> Use your AI assistants to generate custom website copy based on your value proposition and target audience.
+                            💡 <span className="font-medium text-[var(--text-main)]">Pro Tip:</span> Use your AI assistants to generate custom website copy based on your value proposition and target audience defined above.
                         </p>
                     </div>
                 </div>
