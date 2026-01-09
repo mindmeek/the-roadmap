@@ -124,27 +124,27 @@ export default function MarketingOverviewPage() {
                             <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
                                 <div className="text-sm text-[var(--text-soft)] mb-1">Freedom Number</div>
                                 <div className="text-2xl font-bold text-green-600">
-                                    ${financialGoals.freedomNumber?.toLocaleString() || '0'}/mo
+                                    ${Math.round(financialGoals.freedomNumber || 0).toLocaleString()}/mo
                                 </div>
                                 <div className="text-xs text-[var(--text-soft)] mt-1">
-                                    ${((financialGoals.freedomNumber || 0) * 12).toLocaleString()}/year
+                                    ${Math.round((financialGoals.freedomNumber || 0) * 12).toLocaleString()}/year
                                 </div>
                             </div>
 
                             <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
-                                <div className="text-sm text-[var(--text-soft)] mb-1">Total Clients Needed</div>
+                                <div className="text-sm text-[var(--text-soft)] mb-1">Monthly Expenses</div>
                                 <div className="text-2xl font-bold text-[var(--primary-gold)]">
-                                    {Math.ceil((financialGoals.freedomNumber || 0) / (financialGoals.averageOrderValue || 1))}
+                                    ${(financialGoals.monthlyExpenses || 0).toLocaleString()}
                                 </div>
-                                <div className="text-xs text-[var(--text-soft)] mt-1">per month</div>
+                                <div className="text-xs text-[var(--text-soft)] mt-1">personal + business</div>
                             </div>
 
                             <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
-                                <div className="text-sm text-[var(--text-soft)] mb-1">Annual Target</div>
+                                <div className="text-sm text-[var(--text-soft)] mb-1">Desired Salary</div>
                                 <div className="text-2xl font-bold text-blue-600">
-                                    {Math.ceil(((financialGoals.freedomNumber || 0) * 12) / (financialGoals.averageOrderValue || 1))}
+                                    ${(financialGoals.desiredSalary || 0).toLocaleString()}
                                 </div>
-                                <div className="text-xs text-[var(--text-soft)] mt-1">clients/sales per year</div>
+                                <div className="text-xs text-[var(--text-soft)] mt-1">monthly take-home</div>
                             </div>
                         </div>
 
@@ -155,18 +155,29 @@ export default function MarketingOverviewPage() {
                                     Product/Service Sales Targets
                                 </h4>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    {financialGoals.products.map((product, idx) => (
-                                        <div key={idx} className="bg-white dark:bg-gray-800 p-3 rounded-lg">
-                                            <div className="font-medium text-[var(--text-main)] mb-1">{product.name}</div>
-                                            <div className="flex justify-between text-sm">
-                                                <span className="text-[var(--text-soft)]">Monthly:</span>
-                                                <span className="font-semibold text-green-600">{product.salesNeeded || 0} sales</span>
+                                    {financialGoals.products.filter(p => p.name && p.price).map((product, idx) => (
+                                        <div key={idx} className="bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+                                            <div className="font-medium text-[var(--text-main)] mb-2">{product.name}</div>
+                                            <div className="flex justify-between text-sm mb-1">
+                                                <span className="text-[var(--text-soft)]">
+                                                    {product.pricingType === 'monthly_subscription' ? 'Subscribers:' : 'Monthly Sales:'}
+                                                </span>
+                                                <span className="font-semibold text-green-600">
+                                                    {product.unitsNeeded?.toLocaleString() || 0}
+                                                </span>
                                             </div>
-                                            <div className="flex justify-between text-sm">
-                                                <span className="text-[var(--text-soft)]">Annual:</span>
-                                                <span className="font-semibold text-blue-600">{(product.salesNeeded || 0) * 12} sales</span>
+                                            <div className="flex justify-between text-sm mb-1">
+                                                <span className="text-[var(--text-soft)]">Annual Sales:</span>
+                                                <span className="font-semibold text-blue-600">
+                                                    {((product.unitsNeeded || 0) * 12).toLocaleString()}
+                                                </span>
                                             </div>
-                                            <div className="text-xs text-[var(--text-soft)] mt-1">@ ${product.price}/each</div>
+                                            <div className="text-xs text-[var(--text-soft)] mt-2 pt-2 border-t border-gray-200 dark:border-gray-700">
+                                                Price: ${parseFloat(product.price).toLocaleString()} {product.pricingType === 'monthly_subscription' ? '/month' : '/unit'}
+                                            </div>
+                                            <div className="text-xs text-[var(--text-soft)]">
+                                                Monthly Revenue: ${Math.round((product.unitsNeeded || 0) * parseFloat(product.price || 0)).toLocaleString()}
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
