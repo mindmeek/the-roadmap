@@ -64,6 +64,7 @@ export default function DashboardPage() {
     const [aiAssistantType, setAiAssistantType] = useState('elyzet');
     const [aiSuggestion, setAiSuggestion] = useState(null);
     const [hasJourney, setHasJourney] = useState(false);
+    const [isFoundationOpen, setIsFoundationOpen] = useState(false);
     
 
     useEffect(() => {
