@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Users, Download, Zap, Calendar, MessageSquare, Brain, ArrowRight } from 'lucide-react';
+import { Users, Download, Zap, Calendar, MessageSquare, Brain, ArrowRight, BookOpen, Newspaper, Sparkles, TrendingUp } from 'lucide-react';
 import { User } from '@/entities/User';
 import RestartTourButton from '@/components/common/RestartTourButton';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 
 const AppleLogo = () => (
     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
@@ -17,43 +19,137 @@ const GooglePlayLogo = () => (
 
 const CommunityIntro = () => (
     <div id="community-intro" className="card p-6 md:p-8 mb-6">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-8">
-            <div className="flex-shrink-0 mb-6 lg:mb-0 text-center">
-                <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-full inline-block">
-                    <Users className="w-16 h-16 text-[var(--primary-gold)]" />
-                </div>
+        <div className="flex flex-col items-center text-center mb-8">
+            <div className="bg-gradient-to-br from-[var(--primary-gold)]/20 to-yellow-100 dark:to-yellow-900/20 p-8 rounded-full inline-block mb-6">
+                <Users className="w-20 h-20 text-[var(--primary-gold)]" />
             </div>
-            <div className="flex-1">
-                <div className="flex justify-between items-start">
-                    <h1 className="text-3xl font-bold text-[var(--text-main)] mb-3">Welcome to The Business Minds Community!</h1>
-                    <RestartTourButton tourKey="community" />
-                </div>
-                <p className="text-lg text-[var(--text-soft)] mb-6">
-                    This is your private space to connect with fellow entrepreneurs, share your journey, and grow together. While the Launch Pad provides your roadmap, the community provides the support and network to fuel your success. The same login you used for the Launch Pad gives you access here.
-                </p>
+            <div className="flex justify-center items-start mb-4">
+                <h1 className="text-4xl font-bold text-[var(--text-main)]">Welcome to The Business Minds Community!</h1>
+                <RestartTourButton tourKey="community" />
+            </div>
+            <p className="text-xl text-[var(--text-soft)] max-w-3xl mb-8">
+                Your private space to connect with fellow entrepreneurs, share your journey, and accelerate your growth together.
+            </p>
+        </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Benefits Section */}
-                    <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-                        <h3 className="font-semibold text-lg mb-4 text-[var(--text-main)]">Your Community Benefits:</h3>
-                        <ul className="space-y-3 text-[var(--text-soft)]">
-                            <li className="flex items-start"><Zap className="w-5 h-5 text-[var(--primary-gold)] mr-3 mt-1 flex-shrink-0" /><span>Connect with peers, find collaborators, and seek accountability partners.</span></li>
-                            <li className="flex items-start"><MessageSquare className="w-5 h-5 text-[var(--primary-gold)] mr-3 mt-1 flex-shrink-0" /><span>Ask questions, get feedback, and share your wins in a supportive environment.</span></li>
-                            <li className="flex items-start"><Brain className="w-5 h-5 text-[var(--primary-gold)] mr-3 mt-1 flex-shrink-0" /><span>Participate in strategy discussions and learn from the experiences of others.</span></li>
-                        </ul>
-                    </div>
-                    {/* Live Events Section */}
-                    <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg border border-blue-200 dark:border-blue-800">
-                        <h3 className="font-semibold text-lg mb-4 text-blue-800 dark:text-blue-200 flex items-center"><Calendar className="w-5 h-5 mr-2" /> Weekly Live Group Events</h3>
-                        <p className="text-blue-700 dark:text-blue-300 mb-2">Hosted by founder Christopher Shaw, these sessions are your chance to dive deep and get answers.</p>
-                        <ul className="space-y-1 font-medium text-blue-800 dark:text-blue-200">
-                            <li><strong>When:</strong> Tuesdays & Thursdays</li>
-                            <li><strong>Time:</strong> 1:15 PM - 2:00 PM (PST)</li>
-                            <li><strong>Topic:</strong> Launch Pad features, The HQ strategy, and live Q&A.</li>
-                        </ul>
-                    </div>
+        {/* Core Philosophy */}
+        <div className="bg-gradient-to-r from-[var(--primary-gold)]/10 to-yellow-50 dark:to-yellow-900/20 p-6 rounded-lg border-2 border-[var(--primary-gold)]/30 mb-8">
+            <h3 className="text-2xl font-bold text-[var(--text-main)] mb-3 flex items-center gap-2">
+                <TrendingUp className="w-6 h-6 text-[var(--primary-gold)]" />
+                The More You Give, The More You Get
+            </h3>
+            <p className="text-base text-[var(--text-soft)] leading-relaxed">
+                The Business Minds Community thrives on reciprocity. The entrepreneurs who contribute the most—
+                sharing insights, asking thoughtful questions, offering feedback, and celebrating others' wins—
+                are the ones who receive the most value in return. Your engagement creates connections, 
+                opportunities, and support that money can't buy.
+            </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {/* What You'll Get */}
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border-2 border-green-200 dark:border-green-800">
+                <h3 className="font-bold text-lg mb-4 text-green-700 dark:text-green-400 flex items-center gap-2">
+                    <Sparkles className="w-5 h-5" />
+                    What You'll Get
+                </h3>
+                <ul className="space-y-3 text-sm text-[var(--text-soft)]">
+                    <li className="flex items-start"><Zap className="w-4 h-4 text-[var(--primary-gold)] mr-2 mt-1 flex-shrink-0" /><span>Real-time support and accountability from fellow entrepreneurs</span></li>
+                    <li className="flex items-start"><MessageSquare className="w-4 h-4 text-[var(--primary-gold)] mr-2 mt-1 flex-shrink-0" /><span>Weekly live strategy sessions with Christopher Shaw</span></li>
+                    <li className="flex items-start"><Brain className="w-4 h-4 text-[var(--primary-gold)] mr-2 mt-1 flex-shrink-0" /><span>Access to exclusive courses, magazine, and resources</span></li>
+                    <li className="flex items-start"><Users className="w-4 h-4 text-[var(--primary-gold)] mr-2 mt-1 flex-shrink-0" /><span>Collaboration and partnership opportunities</span></li>
+                </ul>
+            </div>
+
+            {/* How to Contribute */}
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border-2 border-blue-200 dark:border-blue-800">
+                <h3 className="font-bold text-lg mb-4 text-blue-700 dark:text-blue-400 flex items-center gap-2">
+                    <TrendingUp className="w-5 h-5" />
+                    How to Contribute
+                </h3>
+                <ul className="space-y-3 text-sm text-[var(--text-soft)]">
+                    <li className="flex items-start"><span className="font-bold text-[var(--primary-gold)] mr-2">✓</span><span>Share your wins and challenges authentically</span></li>
+                    <li className="flex items-start"><span className="font-bold text-[var(--primary-gold)] mr-2">✓</span><span>Answer questions where you have expertise</span></li>
+                    <li className="flex items-start"><span className="font-bold text-[var(--primary-gold)] mr-2">✓</span><span>Celebrate others' progress and milestones</span></li>
+                    <li className="flex items-start"><span className="font-bold text-[var(--primary-gold)] mr-2">✓</span><span>Provide thoughtful feedback on ideas</span></li>
+                    <li className="flex items-start"><span className="font-bold text-[var(--primary-gold)] mr-2">✓</span><span>Attend live events and engage actively</span></li>
+                </ul>
+            </div>
+
+            {/* Free Resources */}
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border-2 border-purple-200 dark:border-purple-800">
+                <h3 className="font-bold text-lg mb-4 text-purple-700 dark:text-purple-400 flex items-center gap-2">
+                    <BookOpen className="w-5 h-5" />
+                    Exclusive Resources
+                </h3>
+                <div className="space-y-3">
+                    <Link to={createPageUrl('Magazine')} className="block">
+                        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-colors">
+                            <div className="flex items-center gap-2 mb-1">
+                                <Newspaper className="w-4 h-4 text-purple-600" />
+                                <span className="font-semibold text-[var(--text-main)] text-sm">The Magazine</span>
+                            </div>
+                            <p className="text-xs text-[var(--text-soft)]">Monthly digital magazine with insights and strategies</p>
+                        </div>
+                    </Link>
+                    <Link to={createPageUrl('Courses')} className="block">
+                        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-colors">
+                            <div className="flex items-center gap-2 mb-1">
+                                <BookOpen className="w-4 h-4 text-purple-600" />
+                                <span className="font-semibold text-[var(--text-main)] text-sm">Free Courses</span>
+                            </div>
+                            <p className="text-xs text-[var(--text-soft)]">Access exclusive learning content and programs</p>
+                        </div>
+                    </Link>
                 </div>
             </div>
+        </div>
+
+        {/* Live Events */}
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-lg border-2 border-blue-200 dark:border-blue-800 mb-8">
+            <h3 className="font-bold text-xl mb-3 text-blue-800 dark:text-blue-200 flex items-center gap-2">
+                <Calendar className="w-6 h-6" />
+                Weekly Live Group Events
+            </h3>
+            <p className="text-blue-700 dark:text-blue-300 mb-3">
+                Hosted by founder Christopher Shaw, these sessions are your chance to dive deep and get personalized guidance.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                <div className="bg-white dark:bg-gray-800 p-3 rounded-lg">
+                    <div className="font-bold text-blue-800 dark:text-blue-200">When</div>
+                    <div className="text-[var(--text-soft)]">Tuesdays & Thursdays</div>
+                </div>
+                <div className="bg-white dark:bg-gray-800 p-3 rounded-lg">
+                    <div className="font-bold text-blue-800 dark:text-blue-200">Time</div>
+                    <div className="text-[var(--text-soft)]">1:15 PM - 2:00 PM PST</div>
+                </div>
+                <div className="bg-white dark:bg-gray-800 p-3 rounded-lg">
+                    <div className="font-bold text-blue-800 dark:text-blue-200">Topics</div>
+                    <div className="text-[var(--text-soft)]">Strategy, Q&A, and Coaching</div>
+                </div>
+            </div>
+        </div>
+
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+                href="https://thebminds.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="btn btn-primary text-lg py-4 px-8"
+            >
+                <Users className="w-5 h-5 mr-2" />
+                Access Community Now
+            </a>
+            <a 
+                href="https://thebminds.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="btn btn-secondary text-lg py-4 px-8"
+            >
+                <ArrowRight className="w-5 h-5 mr-2" />
+                Join Live Events
+            </a>
         </div>
     </div>
 );
@@ -176,20 +272,6 @@ export default function TheCommunityPage() {
         <div className="px-4 pb-8">
             <div className="max-w-7xl mx-auto space-y-6">
                 <CommunityIntro />
-                
-                {/* Embedded Community */}
-                <div id="community-embed" className="card p-4" style={{ borderRadius: '2px' }}>
-                    <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4">Access The Community</h2>
-                    <div style={{ height: '800px', width: '100%' }} className="rounded-md border border-gray-200 dark:border-gray-700 overflow-hidden">
-                        <iframe
-                            src="https://thebminds.com"
-                            style={{ width: '100%', height: '100%', border: 'none' }}
-                            title="The Business Minds Community"
-                            allow="fullscreen"
-                        ></iframe>
-                    </div>
-                </div>
-
                 <AppDownloadSection />
             </div>
         </div>
