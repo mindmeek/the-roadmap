@@ -279,17 +279,6 @@ export default function DashboardPage() {
                 {/* Foundation Progress - Shows for all free users based on their stage */}
                 <FoundationProgress user={user} />
 
-                {/* Journey Timeline & Financial Snapshot & Daily Insights */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-                    <div className="lg:col-span-2 h-full">
-                        <JourneyTimeline user={user} />
-                    </div>
-                    <div className="space-y-4 sm:space-y-6 h-full flex flex-col">
-                        <FinancialSnapshot user={user} />
-                        <DailyInsightTabs />
-                    </div>
-                </div>
-
                 {/* Today's Progress & Upcoming Tasks - SIDE BY SIDE */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                     {/* Today's Progress */}
@@ -335,6 +324,66 @@ export default function DashboardPage() {
                     </div>
 
                     <UpcomingTasksPreview />
+                </div>
+
+                {/* Journey Timeline & Financial Snapshot & Daily Insights */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+                    <div className="lg:col-span-2 h-full">
+                        <JourneyTimeline user={user} />
+                    </div>
+                    <div className="space-y-4 sm:space-y-6 h-full flex flex-col">
+                        <FinancialSnapshot user={user} />
+                        <DailyInsightTabs />
+                    </div>
+                </div>
+
+                {/* Foundation Roadmap Accordion */}
+                <div className="card p-6" style={{ borderRadius: '2px' }}>
+                    <button 
+                        onClick={() => setIsFoundationOpen(!isFoundationOpen)}
+                        className="w-full flex items-center justify-between"
+                    >
+                        <div className="flex items-center gap-3">
+                            <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg">
+                                <Map className="w-6 h-6 text-blue-600" />
+                            </div>
+                            <div className="text-left">
+                                <h2 className="text-2xl font-bold text-[var(--text-main)]">My Foundation Roadmap</h2>
+                                <p className="text-sm text-[var(--text-soft)]">Essential strategy tools for building a strong business foundation</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Link to={createPageUrl('MyFoundationRoadmap')} onClick={(e) => e.stopPropagation()}>
+                                <button className="btn btn-secondary btn-sm">
+                                    View All
+                                </button>
+                            </Link>
+                            <ChevronDown className={`w-5 h-5 text-[var(--text-soft)] transition-transform ${isFoundationOpen ? 'rotate-180' : ''}`} />
+                        </div>
+                    </button>
+                    {isFoundationOpen && (
+                        <div className="mt-6">
+                            <FoundationRoadmapVisual user={user} />
+                        </div>
+                    )}
+                </div>
+
+                {/* Quick Actions Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                    <ActionCard
+                        title="Annual Strategy"
+                        description="Plan your year and quarterly goals"
+                        icon={Calendar}
+                        link="AnnualPlanning"
+                        color="from-indigo-500 to-purple-600"
+                    />
+                    <ActionCard
+                        title="Marketing Hub"
+                        description="Your complete marketing strategy and social plan"
+                        icon={TrendingUp}
+                        link="MarketingOverview"
+                        color="from-yellow-500 to-orange-600"
+                    />
                 </div>
 
                 {/* Meet Your AI Team */}
@@ -424,50 +473,6 @@ export default function DashboardPage() {
                                         </div>
                                     </button>
                                 ))}
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {/* Customer Journey Completion Incentive */}
-                {user.subscription_level === 'free' && !user.customer_journey_completed_date && (
-                    <div className="card p-4 sm:p-6 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-2 border-purple-300 dark:border-purple-700" style={{ borderRadius: '2px' }}>
-                        <div className="flex flex-col sm:flex-row items-start space-y-3 sm:space-y-0 sm:space-x-4">
-                            <div className="bg-purple-100 dark:bg-purple-800 p-2 sm:p-3 mx-auto sm:mx-0 flex-shrink-0" style={{ borderRadius: '2px' }}>
-                                <Gift className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-purple-600 dark:text-purple-400" />
-                            </div>
-                            <div className="flex-1 min-w-0 text-center sm:text-left w-full">
-                                <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-[var(--text-main)] mb-2 flex items-center flex-wrap gap-2 justify-center sm:justify-start">
-                                    <span>🎁 Unlock Your Exclusive Discount!</span>
-                                    <Tooltip content="Complete your Customer Journey Map to unlock a special 3-month discount on The Business Minds HQ subscription ($49.99/month instead of $99/month).">
-                                        <HelpCircle className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 dark:text-gray-500" />
-                                    </Tooltip>
-                                </h3>
-                                <p className="text-xs sm:text-sm text-[var(--text-soft)] mb-3 sm:mb-4">
-                                    Complete your <strong>Customer Journey Map</strong> and unlock <span className="text-purple-600 dark:text-purple-400 font-bold">$49.99/month for 3 months</span> (regular $99/month)!
-                                </p>
-                                
-                                <div className="mb-3 sm:mb-4">
-                                    <div className="flex items-center justify-between mb-2">
-                                        <span className="text-xs sm:text-sm font-medium text-[var(--text-soft)]">
-                                            {customerJourneyProgress.completed} of {customerJourneyProgress.total} stages complete
-                                        </span>
-                                        <span className="text-xs sm:text-sm font-bold text-purple-600 dark:text-purple-400">
-                                            {journeyProgressPercentage}%
-                                        </span>
-                                    </div>
-                                    <div className="w-full bg-gray-200 dark:bg-gray-700 h-2 sm:h-3" style={{ borderRadius: '2px' }}>
-                                        <div 
-                                            className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 sm:h-3 transition-all duration-500"
-                                            style={{ width: `${journeyProgressPercentage}%`, borderRadius: '2px' }}
-                                        ></div>
-                                    </div>
-                                </div>
-
-                                <Link to={createPageUrl('StrategyFormCustomerJourney')} className="btn btn-primary w-full justify-center text-xs sm:text-sm">
-                                    <Target className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-                                    Continue My Customer Journey
-                                </Link>
                             </div>
                         </div>
                     </div>
@@ -598,56 +603,49 @@ export default function DashboardPage() {
                     )}
                 </div>
 
-                {/* Foundation Roadmap Accordion */}
-                <div className="card p-6" style={{ borderRadius: '2px' }}>
-                    <button 
-                        onClick={() => setIsFoundationOpen(!isFoundationOpen)}
-                        className="w-full flex items-center justify-between"
-                    >
-                        <div className="flex items-center gap-3">
-                            <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg">
-                                <Map className="w-6 h-6 text-blue-600" />
+                {/* Customer Journey Completion Incentive */}
+                {user.subscription_level === 'free' && !user.customer_journey_completed_date && (
+                    <div className="card p-4 sm:p-6 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-2 border-purple-300 dark:border-purple-700" style={{ borderRadius: '2px' }}>
+                        <div className="flex flex-col sm:flex-row items-start space-y-3 sm:space-y-0 sm:space-x-4">
+                            <div className="bg-purple-100 dark:bg-purple-800 p-2 sm:p-3 mx-auto sm:mx-0 flex-shrink-0" style={{ borderRadius: '2px' }}>
+                                <Gift className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-purple-600 dark:text-purple-400" />
                             </div>
-                            <div className="text-left">
-                                <h2 className="text-2xl font-bold text-[var(--text-main)]">My Foundation Roadmap</h2>
-                                <p className="text-sm text-[var(--text-soft)]">Essential strategy tools for building a strong business foundation</p>
+                            <div className="flex-1 min-w-0 text-center sm:text-left w-full">
+                                <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-[var(--text-main)] mb-2 flex items-center flex-wrap gap-2 justify-center sm:justify-start">
+                                    <span>🎁 Unlock Your Exclusive Discount!</span>
+                                    <Tooltip content="Complete your Customer Journey Map to unlock a special 3-month discount on The Business Minds HQ subscription ($49.99/month instead of $99/month).">
+                                        <HelpCircle className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 dark:text-gray-500" />
+                                    </Tooltip>
+                                </h3>
+                                <p className="text-xs sm:text-sm text-[var(--text-soft)] mb-3 sm:mb-4">
+                                    Complete your <strong>Customer Journey Map</strong> and unlock <span className="text-purple-600 dark:text-purple-400 font-bold">$49.99/month for 3 months</span> (regular $99/month)!
+                                </p>
+                                
+                                <div className="mb-3 sm:mb-4">
+                                    <div className="flex items-center justify-between mb-2">
+                                        <span className="text-xs sm:text-sm font-medium text-[var(--text-soft)]">
+                                            {customerJourneyProgress.completed} of {customerJourneyProgress.total} stages complete
+                                        </span>
+                                        <span className="text-xs sm:text-sm font-bold text-purple-600 dark:text-purple-400">
+                                            {journeyProgressPercentage}%
+                                        </span>
+                                    </div>
+                                    <div className="w-full bg-gray-200 dark:bg-gray-700 h-2 sm:h-3" style={{ borderRadius: '2px' }}>
+                                        <div 
+                                            className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 sm:h-3 transition-all duration-500"
+                                            style={{ width: `${journeyProgressPercentage}%`, borderRadius: '2px' }}
+                                        ></div>
+                                    </div>
+                                </div>
+
+                                <Link to={createPageUrl('StrategyFormCustomerJourney')} className="btn btn-primary w-full justify-center text-xs sm:text-sm">
+                                    <Target className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
+                                    Continue My Customer Journey
+                                </Link>
                             </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <Link to={createPageUrl('MyFoundationRoadmap')} onClick={(e) => e.stopPropagation()}>
-                                <button className="btn btn-secondary btn-sm">
-                                    View All
-                                </button>
-                            </Link>
-                            <ChevronDown className={`w-5 h-5 text-[var(--text-soft)] transition-transform ${isFoundationOpen ? 'rotate-180' : ''}`} />
-                        </div>
-                    </button>
-                    {isFoundationOpen && (
-                        <div className="mt-6">
-                            <FoundationRoadmapVisual user={user} />
-                        </div>
-                    )}
-                </div>
-
-
-
-                {/* Quick Actions Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                    <ActionCard
-                        title="Annual Strategy"
-                        description="Plan your year and quarterly goals"
-                        icon={Calendar}
-                        link="AnnualPlanning"
-                        color="from-indigo-500 to-purple-600"
-                    />
-                    <ActionCard
-                        title="Marketing Hub"
-                        description="Your complete marketing strategy and social plan"
-                        icon={TrendingUp}
-                        link="MarketingOverview"
-                        color="from-yellow-500 to-orange-600"
-                    />
-                </div>
+                    </div>
+                )}
 
                 {/* Community Highlights */}
                 {communityHighlights.length > 0 && (
