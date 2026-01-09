@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User, Magazine } from '@/entities/all';
 import { UploadFile } from '@/integrations/Core';
@@ -234,14 +233,14 @@ export default function MagazinePage() {
                             )}
                         </div>
                     </div>
-                     <div className="mt-6 bg-yellow-50 dark:bg-yellow-900/30 border-l-4 border-[var(--primary-gold)] p-4">
-                        <h3 className="font-bold text-[var(--text-main)]">Why Read Our Magazine?</h3>
-                        <ul className="list-disc list-inside mt-2 text-[var(--text-main)] space-y-1">
-                            <li><strong>Expert Interviews:</strong> Learn from industry leaders who have built successful businesses.</li>
-                            <li><strong>Actionable Strategies:</strong> Get practical, step-by-step guides you can implement immediately.</li>
-                            <li><strong>Success Stories:</strong> Be inspired by fellow members and their journeys to success.</li>
-                            <li><strong>Market Trends:</strong> Stay ahead of the curve with insights into the latest business trends.</li>
-                        </ul>
+                     <div className="mt-6 bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 p-4">
+                        <h3 className="font-bold text-[var(--text-main)] flex items-center gap-2">
+                            <Newspaper className="w-5 h-5 text-blue-600" />
+                            Magazine Now Available in the Community!
+                        </h3>
+                        <p className="mt-2 text-[var(--text-main)]">
+                            All magazine issues can now be accessed directly through <strong>The Business Minds Community</strong>. Head over to the community for the latest issues, discussions, and exclusive content.
+                        </p>
                     </div>
                 </div>
 
