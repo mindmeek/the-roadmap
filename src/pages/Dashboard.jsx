@@ -463,13 +463,13 @@ export default function DashboardPage() {
                                     <button
                                         key={member.id}
                                         onClick={() => openAIAssistant(member.id)}
-                                        className="p-3 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all text-left flex items-start gap-3 border border-gray-100 dark:border-gray-600 group h-full"
+                                        className="p-4 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all text-center flex flex-col items-center gap-2 border border-gray-100 dark:border-gray-600 group h-full"
                                     >
-                                        <span className="text-2xl group-hover:scale-110 transition-transform duration-300">{member.avatar}</span>
-                                        <div className="min-w-0">
-                                            <div className="font-bold text-sm text-[var(--text-main)] truncate">{member.name}</div>
-                                            <div className="text-[10px] uppercase tracking-wider text-[var(--primary-gold)] font-bold mb-1">{member.role}</div>
-                                            <p className="text-xs text-[var(--text-soft)] line-clamp-2 leading-relaxed">{member.description}</p>
+                                        <span className="text-4xl sm:text-5xl group-hover:scale-110 transition-transform duration-300">{member.avatar}</span>
+                                        <div className="w-full">
+                                            <div className="font-bold text-base sm:text-lg text-[var(--text-main)] mb-1">{member.name}</div>
+                                            <div className="text-xs uppercase tracking-wider text-[var(--primary-gold)] font-bold mb-2">{member.role}</div>
+                                            <p className="text-sm text-[var(--text-soft)] line-clamp-3 leading-relaxed">{member.description}</p>
                                         </div>
                                     </button>
                                 ))}
