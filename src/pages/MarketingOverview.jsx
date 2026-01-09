@@ -152,34 +152,56 @@ export default function MarketingOverviewPage() {
                             <div>
                                 <h4 className="font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
                                     <ShoppingCart className="w-4 h-4 text-green-600" />
-                                    Product/Service Sales Targets
+                                    Your Products/Services ({financialGoals.products.filter(p => p.name && p.price).length})
                                 </h4>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    {financialGoals.products.filter(p => p.name && p.price).map((product, idx) => (
-                                        <div key={idx} className="bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
-                                            <div className="font-medium text-[var(--text-main)] mb-2">{product.name}</div>
-                                            <div className="flex justify-between text-sm mb-1">
-                                                <span className="text-[var(--text-soft)]">
-                                                    {product.pricingType === 'monthly_subscription' ? 'Subscribers:' : 'Monthly Sales:'}
-                                                </span>
-                                                <span className="font-semibold text-green-600">
-                                                    {product.unitsNeeded?.toLocaleString() || 0}
-                                                </span>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {financialGoals.products.filter(p => p.name && p.price).map((product, idx) => {
+                                        const price = parseFloat(product.price) || 0;
+                                        const cost = parseFloat(product.cost) || 0;
+                                        const profitPerUnit = price - (product.costType === 'per_unit' ? cost : 0);
+                                        const unitsNeeded = product.unitsNeeded || 0;
+                                        const monthlyRevenue = unitsNeeded * price;
+                                        
+                                        return (
+                                            <div key={idx} className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-gray-200 dark:border-gray-700 hover:border-[var(--primary-gold)] transition-all">
+                                                <div className="font-bold text-lg text-[var(--text-main)] mb-3">{product.name}</div>
+                                                
+                                                {/* Pricing Info */}
+                                                <div className="space-y-2 mb-3 pb-3 border-b border-gray-200 dark:border-gray-700">
+                                                    <div className="flex justify-between text-sm">
+                                                        <span className="text-[var(--text-soft)]">Price per {product.pricingType === 'monthly_subscription' ? 'month' : 'unit'}:</span>
+                                                        <span className="font-semibold text-[var(--text-main)]">${price.toLocaleString()}</span>
+                                                    </div>
+                                                    <div className="flex justify-between text-sm">
+                                                        <span className="text-[var(--text-soft)]">Cost per {product.costType === 'monthly_subscription' ? 'month' : 'unit'}:</span>
+                                                        <span className="font-semibold text-red-600">${cost.toLocaleString()}</span>
+                                                    </div>
+                                                    <div className="flex justify-between text-sm">
+                                                        <span className="text-[var(--text-soft)]">Profit per unit:</span>
+                                                        <span className="font-semibold text-green-600">${profitPerUnit.toLocaleString()}</span>
+                                                    </div>
+                                                </div>
+
+                                                {/* Sales Targets */}
+                                                <div className="space-y-2">
+                                                    <div className="flex justify-between text-sm">
+                                                        <span className="text-[var(--text-soft)]">
+                                                            {product.pricingType === 'monthly_subscription' ? 'Subscribers needed:' : 'Units to sell:'}
+                                                        </span>
+                                                        <span className="font-bold text-green-600">{unitsNeeded.toLocaleString()}/mo</span>
+                                                    </div>
+                                                    <div className="flex justify-between text-sm">
+                                                        <span className="text-[var(--text-soft)]">Annual target:</span>
+                                                        <span className="font-bold text-blue-600">{(unitsNeeded * 12).toLocaleString()}/yr</span>
+                                                    </div>
+                                                    <div className="flex justify-between text-sm pt-2 border-t border-gray-200 dark:border-gray-700">
+                                                        <span className="text-[var(--text-soft)]">Monthly Revenue:</span>
+                                                        <span className="font-bold text-[var(--primary-gold)]">${Math.round(monthlyRevenue).toLocaleString()}</span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className="flex justify-between text-sm mb-1">
-                                                <span className="text-[var(--text-soft)]">Annual Sales:</span>
-                                                <span className="font-semibold text-blue-600">
-                                                    {((product.unitsNeeded || 0) * 12).toLocaleString()}
-                                                </span>
-                                            </div>
-                                            <div className="text-xs text-[var(--text-soft)] mt-2 pt-2 border-t border-gray-200 dark:border-gray-700">
-                                                Price: ${parseFloat(product.price).toLocaleString()} {product.pricingType === 'monthly_subscription' ? '/month' : '/unit'}
-                                            </div>
-                                            <div className="text-xs text-[var(--text-soft)]">
-                                                Monthly Revenue: ${Math.round((product.unitsNeeded || 0) * parseFloat(product.price || 0)).toLocaleString()}
-                                            </div>
-                                        </div>
-                                    ))}
+                                        );
+                                    })}
                                 </div>
                             </div>
                         )}
