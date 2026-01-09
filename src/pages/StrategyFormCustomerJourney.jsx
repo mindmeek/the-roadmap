@@ -1844,11 +1844,13 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                                 </div>
                             </div>
                         </>
-                    ) : (
-                        /* Overview Mode */
-                        <CustomerJourneyMap formData={formData} stages={STAGES} />
-                    )}
+                    ) : null}
                 </div>
+
+                {/* Overview Mode - Full Width */}
+                {viewMode === 'overview' && (
+                    <CustomerJourneyMap formData={formData} stages={STAGES} />
+                )}
             </div>
 
             {/* AI Team Modal */}
