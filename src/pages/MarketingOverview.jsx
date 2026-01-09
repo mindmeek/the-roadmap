@@ -884,142 +884,149 @@ export default function MarketingOverviewPage() {
                 </div>
 
                 {/* 90-Day Step-by-Step Social Media Plan */}
-                <div className="card p-6 bg-white dark:bg-gray-900 border-2 border-[var(--primary-gold)]">
-                    <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-2xl font-bold text-[var(--text-main)] flex items-center gap-2">
-                            <Calendar className="w-6 h-6 text-[var(--primary-gold)]" />
-                            90-Day Social Media Action Plan
-                        </h2>
-                        {socialMediaPlan ? (
-                            <Link to={createPageUrl('SocialMediaPlanner')}>
-                                <Button variant="outline" size="sm">
-                                    <Edit className="w-4 h-4 mr-2" />
-                                    Manage Plans
-                                </Button>
-                            </Link>
-                        ) : (
-                            <Link to={createPageUrl('SocialMediaPlanner')}>
-                                <Button>
-                                    <Plus className="w-4 h-4 mr-2" />
-                                    Generate Plan
-                                </Button>
-                            </Link>
-                        )}
-                    </div>
-
-                    {socialMediaPlan ? (
-                        <div className="space-y-4">
-                            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-                                <div className="flex items-center gap-3">
-                                    <BarChart className="w-5 h-5 text-blue-600" />
-                                    <div>
-                                        <h4 className="font-semibold text-[var(--text-main)]">Active Plan: {socialMediaPlan.source_name}</h4>
-                                        <p className="text-sm text-[var(--text-soft)]">
-                                            Source: {socialMediaPlan.source_type === 'goal' ? 'Your Goal' : socialMediaPlan.source_type === 'niche' ? 'Niche Roadmap' : 'Focused Program'}
-                                        </p>
-                                        {socialMediaPlan.plan_data?.overview && (
-                                            <p className="text-xs text-[var(--text-soft)] mt-2">{socialMediaPlan.plan_data.overview}</p>
-                                        )}
-                                    </div>
+                <Accordion type="single" collapsible className="card overflow-hidden bg-white dark:bg-gray-900 border-2 border-[var(--primary-gold)]">
+                    <AccordionItem value="social-media-plan" className="border-0">
+                        <AccordionTrigger className="px-6 py-4 hover:no-underline">
+                            <div className="flex items-center justify-between w-full pr-4">
+                                <div className="flex items-center gap-2">
+                                    <Calendar className="w-6 h-6 text-[var(--primary-gold)]" />
+                                    <h2 className="text-2xl font-bold text-[var(--text-main)]">90-Day Social Media Action Plan</h2>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    {socialMediaPlan ? (
+                                        <Link to={createPageUrl('SocialMediaPlanner')} onClick={(e) => e.stopPropagation()}>
+                                            <Button variant="outline" size="sm">
+                                                <Edit className="w-4 h-4 mr-2" />
+                                                Manage Plans
+                                            </Button>
+                                        </Link>
+                                    ) : (
+                                        <Link to={createPageUrl('SocialMediaPlanner')} onClick={(e) => e.stopPropagation()}>
+                                            <Button size="sm">
+                                                <Plus className="w-4 h-4 mr-2" />
+                                                Generate Plan
+                                            </Button>
+                                        </Link>
+                                    )}
                                 </div>
                             </div>
-
-                            {/* Month Navigation */}
-                            {socialMediaPlan.plan_data?.months && socialMediaPlan.plan_data.months.length > 0 && (
-                                <>
-                                    <div className="flex gap-2 mb-4">
-                                        {socialMediaPlan.plan_data.months.map((month, idx) => (
-                                            <button
-                                                key={idx}
-                                                onClick={() => setExpandedMonth(idx)}
-                                                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                                                    expandedMonth === idx
-                                                        ? 'bg-[var(--primary-gold)] text-white'
-                                                        : 'bg-gray-100 dark:bg-gray-800 text-[var(--text-soft)] hover:bg-gray-200 dark:hover:bg-gray-700'
-                                                }`}
-                                            >
-                                                Month {month.month || (idx + 1)}
-                                            </button>
-                                        ))}
+                        </AccordionTrigger>
+                        <AccordionContent className="px-6 pb-6">
+                            {socialMediaPlan ? (
+                                <div className="space-y-4">
+                                    <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                                        <div className="flex items-center gap-3">
+                                            <BarChart className="w-5 h-5 text-blue-600" />
+                                            <div>
+                                                <h4 className="font-semibold text-[var(--text-main)]">Active Plan: {socialMediaPlan.source_name}</h4>
+                                                <p className="text-sm text-[var(--text-soft)]">
+                                                    Source: {socialMediaPlan.source_type === 'goal' ? 'Your Goal' : socialMediaPlan.source_type === 'niche' ? 'Niche Roadmap' : 'Focused Program'}
+                                                </p>
+                                                {socialMediaPlan.plan_data?.overview && (
+                                                    <p className="text-xs text-[var(--text-soft)] mt-2">{socialMediaPlan.plan_data.overview}</p>
+                                                )}
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    {/* Display Selected Month */}
-                                    {socialMediaPlan.plan_data.months[expandedMonth] && (
-                                        <div className="space-y-4">
-                                            <div className="bg-gradient-to-r from-[var(--primary-gold)]/10 to-yellow-50 dark:to-yellow-900/20 p-4 rounded-lg border border-[var(--primary-gold)]/20">
-                                                <h4 className="font-bold text-lg text-[var(--text-main)] mb-2">
-                                                    {socialMediaPlan.plan_data.months[expandedMonth].theme}
-                                                </h4>
-                                                <p className="text-sm text-[var(--text-soft)]">
-                                                    {socialMediaPlan.plan_data.months[expandedMonth].focus}
-                                                </p>
+                                    {/* Month Navigation */}
+                                    {socialMediaPlan.plan_data?.months && socialMediaPlan.plan_data.months.length > 0 && (
+                                        <>
+                                            <div className="flex gap-2 mb-4">
+                                                {socialMediaPlan.plan_data.months.map((month, idx) => (
+                                                    <button
+                                                        key={idx}
+                                                        onClick={() => setExpandedMonth(idx)}
+                                                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                                                            expandedMonth === idx
+                                                                ? 'bg-[var(--primary-gold)] text-white'
+                                                                : 'bg-gray-100 dark:bg-gray-800 text-[var(--text-soft)] hover:bg-gray-200 dark:hover:bg-gray-700'
+                                                        }`}
+                                                    >
+                                                        Month {month.month || (idx + 1)}
+                                                    </button>
+                                                ))}
                                             </div>
 
-                                            {/* Weeks */}
-                                            {socialMediaPlan.plan_data.months[expandedMonth].weeks && socialMediaPlan.plan_data.months[expandedMonth].weeks.length > 0 && (
-                                                <div className="space-y-3">
-                                                    {socialMediaPlan.plan_data.months[expandedMonth].weeks.map((week, weekIdx) => (
-                                                        <div key={weekIdx} className="card p-4 bg-white dark:bg-gray-800">
-                                                            <div className="flex items-start gap-3">
-                                                                <div className="bg-[var(--primary-gold)]/20 p-2 rounded-lg">
-                                                                    <Calendar className="w-4 h-4 text-[var(--primary-gold)]" />
-                                                                </div>
-                                                                <div className="flex-1">
-                                                                    <h5 className="font-semibold text-[var(--text-main)] mb-2">
-                                                                        Week {week.week || (weekIdx + 1)}: {week.focus}
-                                                                    </h5>
-                                                                    
-                                                                    {/* Daily Actions */}
-                                                                    {week.days && week.days.length > 0 && (
-                                                                        <div className="space-y-2">
-                                                                            {week.days.map((day, dayIdx) => (
-                                                                                <div key={dayIdx} className="bg-gray-50 dark:bg-gray-900 p-3 rounded-lg">
-                                                                                    <div className="flex items-start gap-2 mb-2">
-                                                                                        <span className="font-medium text-[var(--primary-gold)] text-sm">
-                                                                                            Day {day.day || (dayIdx + 1)}:
-                                                                                        </span>
-                                                                                        <span className="text-xs text-[var(--text-soft)]">{day.platform}</span>
-                                                                                        <span className="ml-auto text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded">
-                                                                                            {day.content_type}
-                                                                                        </span>
-                                                                                    </div>
-                                                                                    <p className="text-sm text-[var(--text-main)] font-medium mb-1">{day.topic}</p>
-                                                                                    <p className="text-xs text-[var(--text-soft)] mb-2">{day.action}</p>
-                                                                                    {day.hq_feature && (
-                                                                                        <div className="flex items-center gap-1 text-xs text-[var(--primary-gold)]">
-                                                                                            <Sparkles className="w-3 h-3" />
-                                                                                            Use: {day.hq_feature}
-                                                                                        </div>
-                                                                                    )}
-                                                                                </div>
-                                                                            ))}
+                                            {/* Display Selected Month */}
+                                            {socialMediaPlan.plan_data.months[expandedMonth] && (
+                                                <div className="space-y-4">
+                                                    <div className="bg-gradient-to-r from-[var(--primary-gold)]/10 to-yellow-50 dark:to-yellow-900/20 p-4 rounded-lg border border-[var(--primary-gold)]/20">
+                                                        <h4 className="font-bold text-lg text-[var(--text-main)] mb-2">
+                                                            {socialMediaPlan.plan_data.months[expandedMonth].theme}
+                                                        </h4>
+                                                        <p className="text-sm text-[var(--text-soft)]">
+                                                            {socialMediaPlan.plan_data.months[expandedMonth].focus}
+                                                        </p>
+                                                    </div>
+
+                                                    {/* Weeks */}
+                                                    {socialMediaPlan.plan_data.months[expandedMonth].weeks && socialMediaPlan.plan_data.months[expandedMonth].weeks.length > 0 && (
+                                                        <div className="space-y-3">
+                                                            {socialMediaPlan.plan_data.months[expandedMonth].weeks.map((week, weekIdx) => (
+                                                                <div key={weekIdx} className="card p-4 bg-white dark:bg-gray-800">
+                                                                    <div className="flex items-start gap-3">
+                                                                        <div className="bg-[var(--primary-gold)]/20 p-2 rounded-lg">
+                                                                            <Calendar className="w-4 h-4 text-[var(--primary-gold)]" />
                                                                         </div>
-                                                                    )}
+                                                                        <div className="flex-1">
+                                                                            <h5 className="font-semibold text-[var(--text-main)] mb-2">
+                                                                                Week {week.week || (weekIdx + 1)}: {week.focus}
+                                                                            </h5>
+                                                                            
+                                                                            {/* Daily Actions */}
+                                                                            {week.days && week.days.length > 0 && (
+                                                                                <div className="space-y-2">
+                                                                                    {week.days.map((day, dayIdx) => (
+                                                                                        <div key={dayIdx} className="bg-gray-50 dark:bg-gray-900 p-3 rounded-lg">
+                                                                                            <div className="flex items-start gap-2 mb-2">
+                                                                                                <span className="font-medium text-[var(--primary-gold)] text-sm">
+                                                                                                    Day {day.day || (dayIdx + 1)}:
+                                                                                                </span>
+                                                                                                <span className="text-xs text-[var(--text-soft)]">{day.platform}</span>
+                                                                                                <span className="ml-auto text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded">
+                                                                                                    {day.content_type}
+                                                                                                </span>
+                                                                                            </div>
+                                                                                            <p className="text-sm text-[var(--text-main)] font-medium mb-1">{day.topic}</p>
+                                                                                            <p className="text-xs text-[var(--text-soft)] mb-2">{day.action}</p>
+                                                                                            {day.hq_feature && (
+                                                                                                <div className="flex items-center gap-1 text-xs text-[var(--primary-gold)]">
+                                                                                                    <Sparkles className="w-3 h-3" />
+                                                                                                    Use: {day.hq_feature}
+                                                                                                </div>
+                                                                                            )}
+                                                                                        </div>
+                                                                                    ))}
+                                                                                </div>
+                                                                            )}
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
+                                                            ))}
                                                         </div>
-                                                    ))}
+                                                    )}
                                                 </div>
                                             )}
-                                        </div>
+                                        </>
                                     )}
-                                </>
+                                </div>
+                            ) : (
+                                <div className="text-center py-12 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                    <Calendar className="w-12 h-12 mx-auto text-gray-300 mb-4" />
+                                    <h4 className="text-lg font-medium text-[var(--text-main)] mb-2">No Social Media Plan Yet</h4>
+                                    <p className="text-[var(--text-soft)] mb-6">Generate a customized 90-day social media plan with AI assistance</p>
+                                    <Link to={createPageUrl('SocialMediaPlanner')}>
+                                        <Button className="bg-[var(--primary-gold)] hover:bg-[var(--primary-gold)]/90">
+                                            <Sparkles className="w-4 h-4 mr-2" />
+                                            Generate Social Media Plan
+                                        </Button>
+                                    </Link>
+                                </div>
                             )}
-                        </div>
-                    ) : (
-                        <div className="text-center py-12 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                            <Calendar className="w-12 h-12 mx-auto text-gray-300 mb-4" />
-                            <h4 className="text-lg font-medium text-[var(--text-main)] mb-2">No Social Media Plan Yet</h4>
-                            <p className="text-[var(--text-soft)] mb-6">Generate a customized 90-day social media plan with AI assistance</p>
-                            <Link to={createPageUrl('SocialMediaPlanner')}>
-                                <Button className="bg-[var(--primary-gold)] hover:bg-[var(--primary-gold)]/90">
-                                    <Sparkles className="w-4 h-4 mr-2" />
-                                    Generate Social Media Plan
-                                </Button>
-                            </Link>
-                        </div>
-                    )}
-                </div>
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
 
                 {/* Craft Marketing Messages Section */}
                 <div className="card p-6 bg-white dark:bg-gray-900 border-2 border-[var(--primary-gold)]">
