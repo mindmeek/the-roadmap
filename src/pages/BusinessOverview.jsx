@@ -482,6 +482,195 @@ export default function BusinessOverviewPage() {
                     </div>
                 </div>
 
+                {/* Craft Marketing Messages Section */}
+                <div className="card p-6 bg-white dark:bg-gray-900 border-2 border-[var(--primary-gold)]">
+                    <div className="flex justify-between items-start mb-6">
+                        <div className="flex items-center gap-3">
+                            <div className="bg-[var(--primary-gold)]/20 p-3 rounded-lg">
+                                <MessageSquare className="w-6 h-6 text-[var(--primary-gold)]" />
+                            </div>
+                            <div>
+                                <h2 className="text-2xl font-bold text-[var(--text-main)]">Marketing Messages</h2>
+                                <p className="text-sm text-[var(--text-soft)]">Craft compelling messages for every marketing channel</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        {/* Email Subject Lines */}
+                        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                            <div className="flex items-center justify-between mb-3">
+                                <h4 className="font-semibold text-[var(--text-main)] flex items-center gap-2">
+                                    <Mail className="w-4 h-4 text-blue-600" />
+                                    Email Subject Lines
+                                </h4>
+                                <Link to={createPageUrl('ElyzetAIAssistants')}>
+                                    <Button variant="ghost" size="sm">
+                                        <Sparkles className="w-3 h-3 mr-1" />
+                                        AI Generate
+                                    </Button>
+                                </Link>
+                            </div>
+                            <p className="text-xs text-[var(--text-soft)] mb-3">
+                                High-converting subject lines for email campaigns
+                            </p>
+                            <div className="space-y-2">
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded text-sm text-[var(--text-main)]">
+                                    <div className="flex items-start gap-2">
+                                        <span className="text-blue-600">1.</span>
+                                        <span>Unlock Your [Benefit] in Just 5 Minutes</span>
+                                    </div>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded text-sm text-[var(--text-main)]">
+                                    <div className="flex items-start gap-2">
+                                        <span className="text-blue-600">2.</span>
+                                        <span>You're Invited: [Exclusive Offer]</span>
+                                    </div>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded text-sm text-[var(--text-main)]">
+                                    <div className="flex items-start gap-2">
+                                        <span className="text-blue-600">3.</span>
+                                        <span>Last Chance: [Time-Sensitive Offer]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Social Media Posts */}
+                        <div className="bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20 p-4 rounded-lg border border-pink-200 dark:border-pink-800">
+                            <div className="flex items-center justify-between mb-3">
+                                <h4 className="font-semibold text-[var(--text-main)] flex items-center gap-2">
+                                    <Globe className="w-4 h-4 text-pink-600" />
+                                    Social Media Hooks
+                                </h4>
+                                <Link to={createPageUrl('ElyzetAIAssistants')}>
+                                    <Button variant="ghost" size="sm">
+                                        <Sparkles className="w-3 h-3 mr-1" />
+                                        AI Generate
+                                    </Button>
+                                </Link>
+                            </div>
+                            <p className="text-xs text-[var(--text-soft)] mb-3">
+                                Attention-grabbing opening lines for social posts
+                            </p>
+                            <div className="space-y-2">
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded text-sm text-[var(--text-main)]">
+                                    <div className="flex items-start gap-2">
+                                        <span className="text-pink-600">1.</span>
+                                        <span>Here's what nobody tells you about [topic]...</span>
+                                    </div>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded text-sm text-[var(--text-main)]">
+                                    <div className="flex items-start gap-2">
+                                        <span className="text-pink-600">2.</span>
+                                        <span>Stop [common mistake]. Do this instead:</span>
+                                    </div>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded text-sm text-[var(--text-main)]">
+                                    <div className="flex items-start gap-2">
+                                        <span className="text-pink-600">3.</span>
+                                        <span>The [#] secrets to [desired outcome]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Sales Call Scripts */}
+                        <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
+                            <div className="flex items-center justify-between mb-3">
+                                <h4 className="font-semibold text-[var(--text-main)] flex items-center gap-2">
+                                    <Phone className="w-4 h-4 text-green-600" />
+                                    Sales Scripts
+                                </h4>
+                                <Link to={createPageUrl('ElyzetAIAssistants')}>
+                                    <Button variant="ghost" size="sm">
+                                        <Sparkles className="w-3 h-3 mr-1" />
+                                        AI Generate
+                                    </Button>
+                                </Link>
+                            </div>
+                            <p className="text-xs text-[var(--text-soft)] mb-3">
+                                Proven conversation starters and objection handlers
+                            </p>
+                            <div className="space-y-2">
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded text-sm">
+                                    <div className="font-medium text-[var(--text-main)] mb-1">Opening:</div>
+                                    <p className="text-[var(--text-soft)]">"Hi [Name], I noticed you're interested in [pain point]. Can I share how we've helped others achieve [result]?"</p>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded text-sm">
+                                    <div className="font-medium text-[var(--text-main)] mb-1">Objection Handler:</div>
+                                    <p className="text-[var(--text-soft)]">"I understand. Many of our best clients said the same thing before they discovered [value]..."</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Ad Copy */}
+                        <div className="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
+                            <div className="flex items-center justify-between mb-3">
+                                <h4 className="font-semibold text-[var(--text-main)] flex items-center gap-2">
+                                    <Zap className="w-4 h-4 text-purple-600" />
+                                    Ad Copy
+                                </h4>
+                                <Link to={createPageUrl('ElyzetAIAssistants')}>
+                                    <Button variant="ghost" size="sm">
+                                        <Sparkles className="w-3 h-3 mr-1" />
+                                        AI Generate
+                                    </Button>
+                                </Link>
+                            </div>
+                            <p className="text-xs text-[var(--text-soft)] mb-3">
+                                High-converting ad copy for paid campaigns
+                            </p>
+                            <div className="space-y-2">
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded text-sm">
+                                    <div className="font-medium text-[var(--text-main)] mb-1">Headline:</div>
+                                    <p className="text-[var(--text-soft)]">[Number] Ways to [Achieve Desire] Without [Pain Point]</p>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded text-sm">
+                                    <div className="font-medium text-[var(--text-main)] mb-1">Body:</div>
+                                    <p className="text-[var(--text-soft)]">Discover how [ideal client] can [benefit] in [timeframe]. Join [number] others who've already transformed their [area].</p>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 p-3 rounded text-sm">
+                                    <div className="font-medium text-[var(--text-main)] mb-1">CTA:</div>
+                                    <p className="text-[var(--text-soft)]">"Get Started Free" or "Claim Your Spot"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* AI Message Generator CTA */}
+                    <div className="bg-gradient-to-r from-[var(--primary-gold)]/10 to-yellow-50 dark:to-yellow-900/20 p-6 rounded-lg border-2 border-[var(--primary-gold)]/30">
+                        <div className="flex items-start gap-4">
+                            <div className="bg-[var(--primary-gold)]/20 p-3 rounded-lg">
+                                <Sparkles className="w-6 h-6 text-[var(--primary-gold)]" />
+                            </div>
+                            <div className="flex-1">
+                                <h4 className="font-bold text-lg text-[var(--text-main)] mb-2">
+                                    Need Custom Marketing Messages?
+                                </h4>
+                                <p className="text-sm text-[var(--text-soft)] mb-4">
+                                    Our AI assistants can generate personalized marketing messages based on your business profile, 
+                                    target audience, and value proposition. Get custom content for emails, social media, ads, and more.
+                                </p>
+                                <div className="flex gap-3">
+                                    <Link to={createPageUrl('ElyzetAIAssistants')}>
+                                        <Button className="bg-[var(--primary-gold)] hover:bg-[var(--primary-gold)]/90">
+                                            <Sparkles className="w-4 h-4 mr-2" />
+                                            Generate Custom Messages
+                                        </Button>
+                                    </Link>
+                                    <Link to={createPageUrl('SocialMediaPlanner')}>
+                                        <Button variant="outline">
+                                            <Calendar className="w-4 h-4 mr-2" />
+                                            View Content Calendar
+                                        </Button>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Quick Actions */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <Link to={createPageUrl('MyFoundationRoadmap')} className="card p-4 hover:shadow-lg transition-shadow border border-gray-200 dark:border-gray-800 hover:border-[var(--primary-gold)] group">
