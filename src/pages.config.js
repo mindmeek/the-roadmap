@@ -96,6 +96,7 @@ import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
 import Week from './pages/Week';
 import layout from './pages/layout';
 import BusinessOverview from './pages/BusinessOverview';
+import MarketingOverview from './pages/MarketingOverview';
 import __Layout from './Layout.jsx';
 
 
@@ -198,6 +199,7 @@ export const PAGES = {
     "Week": Week,
     "layout": layout,
     "BusinessOverview": BusinessOverview,
+    "MarketingOverview": MarketingOverview,
 }
 
 export const pagesConfig = {

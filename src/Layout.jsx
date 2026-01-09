@@ -60,6 +60,7 @@ const connectBuildItems = [
     { href: "TheHQ", icon: Building, label: "The Business Minds HQ", mobileLabel: "The HQ", requiredLevel: 'business_hq' },
     { href: "TheCommunity", icon: Users, label: "Community", mobileLabel: "Community" },
     { href: "BusinessOverview", icon: Briefcase, label: "Business Overview", mobileLabel: "Business" },
+    { href: "MarketingOverview", icon: TrendingUp, label: "Marketing Hub", mobileLabel: "Marketing" },
     { href: "DfyServices", icon: Briefcase, label: "My Services", mobileLabel: "Services" },
     { href: "Partners", icon: Handshake, label: "Partners", mobileLabel: "Partners" },
     { href: "TheBeacon", icon: Podcast, label: "The Beacon Studio", mobileLabel: "Podcast" },
