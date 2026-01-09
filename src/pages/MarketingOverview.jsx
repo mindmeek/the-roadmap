@@ -629,16 +629,16 @@ export default function MarketingOverviewPage() {
                                 </div>
                             )}
 
-                            {socialMediaPlan && socialMediaPlan.plan_data && (
+                            {socialMediaPlan && socialMediaPlan.plan_data?.months?.[0] && (
                                 <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
                                     <h4 className="font-semibold text-[var(--text-main)] mb-2 flex items-center gap-2">
                                         <Calendar className="w-4 h-4 text-pink-600" />
                                         Current Social Media Focus
                                     </h4>
                                     <p className="text-sm text-[var(--text-soft)]">
-                                        <strong>Month 1:</strong> {socialMediaPlan.plan_data.month_1?.theme || 'Building Foundation'}
+                                        <strong>Month 1:</strong> {socialMediaPlan.plan_data.months[0].theme || 'Building Foundation'}
                                     </p>
-                                    <p className="text-xs text-[var(--text-soft)] mt-1">{socialMediaPlan.plan_data.month_1?.focus}</p>
+                                    <p className="text-xs text-[var(--text-soft)] mt-1">{socialMediaPlan.plan_data.months[0].focus}</p>
                                 </div>
                             )}
 
@@ -915,75 +915,95 @@ export default function MarketingOverviewPage() {
                                     <div>
                                         <h4 className="font-semibold text-[var(--text-main)]">Active Plan: {socialMediaPlan.source_name}</h4>
                                         <p className="text-sm text-[var(--text-soft)]">
-                                            Source: {socialMediaPlan.source_type === 'goal' ? 'Your Goal' : socialMediaPlan.source_type === 'niche_roadmap' ? 'Niche Roadmap' : 'Focused Program'}
+                                            Source: {socialMediaPlan.source_type === 'goal' ? 'Your Goal' : socialMediaPlan.source_type === 'niche' ? 'Niche Roadmap' : 'Focused Program'}
                                         </p>
+                                        {socialMediaPlan.plan_data?.overview && (
+                                            <p className="text-xs text-[var(--text-soft)] mt-2">{socialMediaPlan.plan_data.overview}</p>
+                                        )}
                                     </div>
                                 </div>
                             </div>
 
                             {/* Month Navigation */}
-                            <div className="flex gap-2 mb-4">
-                                {[1, 2, 3].map(monthNum => (
-                                    <button
-                                        key={monthNum}
-                                        onClick={() => setExpandedMonth(monthNum)}
-                                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                                            expandedMonth === monthNum
-                                                ? 'bg-[var(--primary-gold)] text-white'
-                                                : 'bg-gray-100 dark:bg-gray-800 text-[var(--text-soft)] hover:bg-gray-200 dark:hover:bg-gray-700'
-                                        }`}
-                                    >
-                                        Month {monthNum}
-                                    </button>
-                                ))}
-                            </div>
-
-                            {/* Display Selected Month */}
-                            {socialMediaPlan.plan_data && socialMediaPlan.plan_data[`month_${expandedMonth}`] && (
-                                <div className="space-y-4">
-                                    <div className="bg-gradient-to-r from-[var(--primary-gold)]/10 to-yellow-50 dark:to-yellow-900/20 p-4 rounded-lg border border-[var(--primary-gold)]/20">
-                                        <h4 className="font-bold text-lg text-[var(--text-main)] mb-2">
-                                            {socialMediaPlan.plan_data[`month_${expandedMonth}`].theme}
-                                        </h4>
-                                        <p className="text-sm text-[var(--text-soft)]">
-                                            {socialMediaPlan.plan_data[`month_${expandedMonth}`].focus}
-                                        </p>
+                            {socialMediaPlan.plan_data?.months && socialMediaPlan.plan_data.months.length > 0 && (
+                                <>
+                                    <div className="flex gap-2 mb-4">
+                                        {socialMediaPlan.plan_data.months.map((month, idx) => (
+                                            <button
+                                                key={idx}
+                                                onClick={() => setExpandedMonth(idx)}
+                                                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                                                    expandedMonth === idx
+                                                        ? 'bg-[var(--primary-gold)] text-white'
+                                                        : 'bg-gray-100 dark:bg-gray-800 text-[var(--text-soft)] hover:bg-gray-200 dark:hover:bg-gray-700'
+                                                }`}
+                                            >
+                                                Month {month.month || (idx + 1)}
+                                            </button>
+                                        ))}
                                     </div>
 
-                                    {/* Weeks */}
-                                    <div className="space-y-3">
-                                        {Object.entries(socialMediaPlan.plan_data[`month_${expandedMonth}`])
-                                            .filter(([key]) => key.startsWith('week_'))
-                                            .map(([weekKey, weekData], idx) => (
-                                                <div key={weekKey} className="card p-4 bg-white dark:bg-gray-800">
-                                                    <div className="flex items-start gap-3">
-                                                        <div className="bg-[var(--primary-gold)]/20 p-2 rounded-lg">
-                                                            <Calendar className="w-4 h-4 text-[var(--primary-gold)]" />
-                                                        </div>
-                                                        <div className="flex-1">
-                                                            <h5 className="font-semibold text-[var(--text-main)] mb-2">
-                                                                Week {idx + 1}: {weekData.focus}
-                                                            </h5>
-                                                            
-                                                            {/* Daily Actions */}
-                                                            <div className="space-y-2">
-                                                                {Object.entries(weekData)
-                                                                    .filter(([key]) => key.startsWith('day_'))
-                                                                    .map(([dayKey, dayContent], dayIdx) => (
-                                                                        <div key={dayKey} className="flex items-start gap-2 text-sm">
-                                                                            <span className="font-medium text-[var(--primary-gold)] min-w-[50px]">
-                                                                                Day {dayIdx + 1}:
-                                                                            </span>
-                                                                            <span className="text-[var(--text-main)]">{dayContent}</span>
+                                    {/* Display Selected Month */}
+                                    {socialMediaPlan.plan_data.months[expandedMonth] && (
+                                        <div className="space-y-4">
+                                            <div className="bg-gradient-to-r from-[var(--primary-gold)]/10 to-yellow-50 dark:to-yellow-900/20 p-4 rounded-lg border border-[var(--primary-gold)]/20">
+                                                <h4 className="font-bold text-lg text-[var(--text-main)] mb-2">
+                                                    {socialMediaPlan.plan_data.months[expandedMonth].theme}
+                                                </h4>
+                                                <p className="text-sm text-[var(--text-soft)]">
+                                                    {socialMediaPlan.plan_data.months[expandedMonth].focus}
+                                                </p>
+                                            </div>
+
+                                            {/* Weeks */}
+                                            {socialMediaPlan.plan_data.months[expandedMonth].weeks && socialMediaPlan.plan_data.months[expandedMonth].weeks.length > 0 && (
+                                                <div className="space-y-3">
+                                                    {socialMediaPlan.plan_data.months[expandedMonth].weeks.map((week, weekIdx) => (
+                                                        <div key={weekIdx} className="card p-4 bg-white dark:bg-gray-800">
+                                                            <div className="flex items-start gap-3">
+                                                                <div className="bg-[var(--primary-gold)]/20 p-2 rounded-lg">
+                                                                    <Calendar className="w-4 h-4 text-[var(--primary-gold)]" />
+                                                                </div>
+                                                                <div className="flex-1">
+                                                                    <h5 className="font-semibold text-[var(--text-main)] mb-2">
+                                                                        Week {week.week || (weekIdx + 1)}: {week.focus}
+                                                                    </h5>
+                                                                    
+                                                                    {/* Daily Actions */}
+                                                                    {week.days && week.days.length > 0 && (
+                                                                        <div className="space-y-2">
+                                                                            {week.days.map((day, dayIdx) => (
+                                                                                <div key={dayIdx} className="bg-gray-50 dark:bg-gray-900 p-3 rounded-lg">
+                                                                                    <div className="flex items-start gap-2 mb-2">
+                                                                                        <span className="font-medium text-[var(--primary-gold)] text-sm">
+                                                                                            Day {day.day || (dayIdx + 1)}:
+                                                                                        </span>
+                                                                                        <span className="text-xs text-[var(--text-soft)]">{day.platform}</span>
+                                                                                        <span className="ml-auto text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded">
+                                                                                            {day.content_type}
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <p className="text-sm text-[var(--text-main)] font-medium mb-1">{day.topic}</p>
+                                                                                    <p className="text-xs text-[var(--text-soft)] mb-2">{day.action}</p>
+                                                                                    {day.hq_feature && (
+                                                                                        <div className="flex items-center gap-1 text-xs text-[var(--primary-gold)]">
+                                                                                            <Sparkles className="w-3 h-3" />
+                                                                                            Use: {day.hq_feature}
+                                                                                        </div>
+                                                                                    )}
+                                                                                </div>
+                                                                            ))}
                                                                         </div>
-                                                                    ))}
+                                                                    )}
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    ))}
                                                 </div>
-                                            ))}
-                                    </div>
-                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                </>
                             )}
                         </div>
                     ) : (
