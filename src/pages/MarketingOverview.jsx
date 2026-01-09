@@ -784,6 +784,51 @@ export default function MarketingOverviewPage() {
                         </div>
                     </div>
                 </div>
+
+                {/* Community Engagement CTA */}
+                <div className="card p-6 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border-2 border-indigo-200 dark:border-indigo-800">
+                    <div className="flex items-start gap-4">
+                        <div className="bg-indigo-100 dark:bg-indigo-900 p-3 rounded-lg">
+                            <Users className="w-6 h-6 text-indigo-600" />
+                        </div>
+                        <div className="flex-1">
+                            <h3 className="text-xl font-bold text-[var(--text-main)] mb-2">
+                                Need Marketing Help? The Community Has Your Back
+                            </h3>
+                            <p className="text-sm text-[var(--text-soft)] mb-4">
+                                Don't tackle marketing alone! Connect with fellow entrepreneurs, ask questions, share your wins, 
+                                and get feedback on your marketing strategies in The Business Minds Community. The collective wisdom 
+                                and support will accelerate your growth.
+                            </p>
+                            <div className="flex flex-wrap gap-3">
+                                <Link to={createPageUrl('TheCommunity')}>
+                                    <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                                        <UserPlus className="w-4 h-4 mr-2" />
+                                        Join the Conversation
+                                    </Button>
+                                </Link>
+                                <Link to={createPageUrl('SocialMediaPlanner')}>
+                                    <Button variant="outline" className="border-indigo-300 text-indigo-700 hover:bg-indigo-50">
+                                        <Share2 className="w-4 h-4 mr-2" />
+                                        View Content Calendar
+                                    </Button>
+                                </Link>
+                                <Link to={createPageUrl('ElyzetAIAssistants')}>
+                                    <Button variant="outline" className="border-indigo-300 text-indigo-700 hover:bg-indigo-50">
+                                        <Sparkles className="w-4 h-4 mr-2" />
+                                        AI Assistants
+                                    </Button>
+                                </Link>
+                            </div>
+                            <div className="mt-4 pt-4 border-t border-indigo-200 dark:border-indigo-800">
+                                <p className="text-xs text-[var(--text-soft)] italic">
+                                    💬 Pro tip: Share your marketing challenges in the community and tag specific members for advice. 
+                                    The more you engage, the more value you'll receive!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );
