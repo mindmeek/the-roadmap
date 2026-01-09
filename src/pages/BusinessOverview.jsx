@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import {
     Building, Target, Sparkles, ArrowRight, Loader2, Plus, Edit,
-    Lightbulb, TrendingUp, Calendar, FileText, DollarSign
+    Lightbulb, TrendingUp, Calendar, FileText, DollarSign, CheckCircle
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
