@@ -1,201 +1,203 @@
-import Dashboard from './pages/Dashboard';
-import Onboarding from './pages/Onboarding';
-import DailyTrack from './pages/DailyTrack';
-import Community from './pages/Community';
-import Journey from './pages/Journey';
-import Progress from './pages/Progress';
-import Week from './pages/Week';
-import MindsetHack from './pages/MindsetHack';
-import Guides from './pages/Guides';
-import MindsetHacks from './pages/MindsetHacks';
-import QuickLessons from './pages/QuickLessons';
-import QuickLesson from './pages/QuickLesson';
-import Magazine from './pages/Magazine';
-import Courses from './pages/Courses';
-import Partners from './pages/Partners';
-import MemberDirectory from './pages/MemberDirectory';
-import MemberProfile from './pages/MemberProfile';
-import StrategySession from './pages/StrategySession';
-import CourseDetails from './pages/CourseDetails';
-import ElyzetAI from './pages/ElyzetAI';
-import Schedule from './pages/Schedule';
-import GoHighLevelUpgrade from './pages/GoHighLevelUpgrade';
-import StrategyFormBusinessModelCanvas from './pages/StrategyFormBusinessModelCanvas';
-import StrategyFormSWOTAnalysis from './pages/StrategyFormSWOTAnalysis';
-import VisionStrategySession from './pages/VisionStrategySession';
-import StartupStrategySession from './pages/StartupStrategySession';
-import GrowthStrategySession from './pages/GrowthStrategySession';
-import TestEmail from './pages/TestEmail';
-import BusinessProfile from './pages/BusinessProfile';
-import MyBusinesses from './pages/MyBusinesses';
-import EditBusiness from './pages/EditBusiness';
-import Profile from './pages/Profile';
-import PartnershipDetail from './pages/PartnershipDetail';
-import StrategyFormIdealClient from './pages/StrategyFormIdealClient';
-import StrategyFormValueProposition from './pages/StrategyFormValueProposition';
-import StrategyFormValueLadder from './pages/StrategyFormValueLadder';
-import Upgrade from './pages/Upgrade';
-import PaymentSuccess from './pages/PaymentSuccess';
-import PaymentFailed from './pages/PaymentFailed';
+import AIConversationHistory from './pages/AIConversationHistory';
 import Admin from './pages/Admin';
-import StrategyFormBrandKit from './pages/StrategyFormBrandKit';
-import AdminPostScheduler from './pages/AdminPostScheduler';
-import UserManagement from './pages/UserManagement';
-import AdminNotifications from './pages/AdminNotifications';
 import AdminAnalytics from './pages/AdminAnalytics';
 import AdminContentManagement from './pages/AdminContentManagement';
-import TheCommunity from './pages/TheCommunity';
-import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
-import AdminTestSystems from './pages/AdminTestSystems';
-import layout from './pages/layout';
-import ElyzetAIAssistants from './pages/ElyzetAIAssistants';
-import AssistantGuide from './pages/AssistantGuide';
-import FocusedPrograms from './pages/FocusedPrograms';
-import CompetitorAnalysis from './pages/CompetitorAnalysis';
-import FinancialProjections from './pages/FinancialProjections';
-import FreedomCalculator from './pages/FreedomCalculator';
-import MyFoundation from './pages/MyFoundation';
-import TheBeacon from './pages/TheBeacon';
-import SOPPoliciesAI from './pages/SOPPoliciesAI';
-import MyFoundationRoadmap from './pages/MyFoundationRoadmap';
-import StrategyFormCustomerJourney from './pages/StrategyFormCustomerJourney';
-import BeaconIntro from './pages/BeaconIntro';
-import BeaconStudioBooking from './pages/BeaconStudioBooking';
-import BeaconRadioSetup from './pages/BeaconRadioSetup';
-import StrategyFormPricingStrategies from './pages/StrategyFormPricingStrategies';
-import HQCustomerJourneyGuide from './pages/HQCustomerJourneyGuide';
 import AdminCourseManagement from './pages/AdminCourseManagement';
-import QuickStartFoundation from './pages/QuickStartFoundation';
-import AIConversationHistory from './pages/AIConversationHistory';
-import LiveWebinar from './pages/LiveWebinar';
+import AdminNotifications from './pages/AdminNotifications';
+import AdminPostScheduler from './pages/AdminPostScheduler';
 import AdminRoadmapContent from './pages/AdminRoadmapContent';
-import StrategyFormBrandIdentity from './pages/StrategyFormBrandIdentity';
-import StrategyFormContentStrategy from './pages/StrategyFormContentStrategy';
-import StrategyFormDefineYourWhy from './pages/StrategyFormDefineYourWhy';
-import StrategyFormMissionVision from './pages/StrategyFormMissionVision';
-import StrategyFormWebsiteLaunch from './pages/StrategyFormWebsiteLaunch';
-import StrategyFormEmailMarketing from './pages/StrategyFormEmailMarketing';
-import StrategyFormSocialMedia from './pages/StrategyFormSocialMedia';
-import StrategyFormCommunityBuilding from './pages/StrategyFormCommunityBuilding';
-import StrategyFormAffiliateProgram from './pages/StrategyFormAffiliateProgram';
-import StrategyFormStrategicPartnerships from './pages/StrategyFormStrategicPartnerships';
-import StrategyFormAutomation from './pages/StrategyFormAutomation';
-import MorningRoutineBuilder from './pages/MorningRoutineBuilder';
-import Guide from './pages/Guide';
-import FocusedProgram from './pages/FocusedProgram';
-import NicheRoadmaps from './pages/NicheRoadmaps';
-import NicheRoadmap from './pages/NicheRoadmap';
-import SOPs from './pages/SOPs';
-import CreateSOP from './pages/CreateSOP';
-import EditSOP from './pages/EditSOP';
-import ViewSOP from './pages/ViewSOP';
-import TheHQ from './pages/TheHQ';
+import AdminTestSystems from './pages/AdminTestSystems';
 import AnnualPlanning from './pages/AnnualPlanning';
-import SocialMediaPlanner from './pages/SocialMediaPlanner';
+import AssistantGuide from './pages/AssistantGuide';
+import BeaconIntro from './pages/BeaconIntro';
+import BeaconRadioSetup from './pages/BeaconRadioSetup';
+import BeaconStudioBooking from './pages/BeaconStudioBooking';
 import BusinessMindsPodcastBooking from './pages/BusinessMindsPodcastBooking';
-import DfyServices from './pages/DfyServices';
+import BusinessProfile from './pages/BusinessProfile';
+import Community from './pages/Community';
+import CompetitorAnalysis from './pages/CompetitorAnalysis';
+import CourseDetails from './pages/CourseDetails';
+import Courses from './pages/Courses';
+import CreateSOP from './pages/CreateSOP';
+import DailyTrack from './pages/DailyTrack';
+import Dashboard from './pages/Dashboard';
 import DfyServiceDetail from './pages/DfyServiceDetail';
+import DfyServices from './pages/DfyServices';
+import EditBusiness from './pages/EditBusiness';
+import EditSOP from './pages/EditSOP';
+import ElyzetAI from './pages/ElyzetAI';
+import ElyzetAIAssistants from './pages/ElyzetAIAssistants';
+import FinancialProjections from './pages/FinancialProjections';
+import FocusedProgram from './pages/FocusedProgram';
+import FocusedPrograms from './pages/FocusedPrograms';
+import FreedomCalculator from './pages/FreedomCalculator';
+import GoHighLevelUpgrade from './pages/GoHighLevelUpgrade';
+import GrowthStrategySession from './pages/GrowthStrategySession';
+import Guide from './pages/Guide';
+import Guides from './pages/Guides';
+import HQCustomerJourneyGuide from './pages/HQCustomerJourneyGuide';
+import Home from './pages/Home';
+import Journey from './pages/Journey';
+import LiveWebinar from './pages/LiveWebinar';
+import Magazine from './pages/Magazine';
+import MemberDirectory from './pages/MemberDirectory';
+import MemberProfile from './pages/MemberProfile';
+import MindsetHack from './pages/MindsetHack';
+import MindsetHacks from './pages/MindsetHacks';
+import MorningRoutineBuilder from './pages/MorningRoutineBuilder';
+import MyFoundation from './pages/MyFoundation';
+import MyFoundationRoadmap from './pages/MyFoundationRoadmap';
+import NicheRoadmap from './pages/NicheRoadmap';
+import NicheRoadmaps from './pages/NicheRoadmaps';
+import Onboarding from './pages/Onboarding';
+import Partners from './pages/Partners';
+import PartnershipDetail from './pages/PartnershipDetail';
+import PaymentFailed from './pages/PaymentFailed';
+import PaymentSuccess from './pages/PaymentSuccess';
+import Profile from './pages/Profile';
+import Progress from './pages/Progress';
+import QuickLesson from './pages/QuickLesson';
+import QuickLessons from './pages/QuickLessons';
+import QuickStartFoundation from './pages/QuickStartFoundation';
+import SOPPoliciesAI from './pages/SOPPoliciesAI';
+import SOPs from './pages/SOPs';
+import Schedule from './pages/Schedule';
+import SocialMediaPlanner from './pages/SocialMediaPlanner';
+import StartupStrategySession from './pages/StartupStrategySession';
+import StrategyFormAffiliateProgram from './pages/StrategyFormAffiliateProgram';
+import StrategyFormAutomation from './pages/StrategyFormAutomation';
+import StrategyFormBrandIdentity from './pages/StrategyFormBrandIdentity';
+import StrategyFormBrandKit from './pages/StrategyFormBrandKit';
+import StrategyFormBusinessModelCanvas from './pages/StrategyFormBusinessModelCanvas';
+import StrategyFormCommunityBuilding from './pages/StrategyFormCommunityBuilding';
+import StrategyFormContentStrategy from './pages/StrategyFormContentStrategy';
+import StrategyFormCustomerJourney from './pages/StrategyFormCustomerJourney';
+import StrategyFormDefineYourWhy from './pages/StrategyFormDefineYourWhy';
+import StrategyFormEmailMarketing from './pages/StrategyFormEmailMarketing';
+import StrategyFormIdealClient from './pages/StrategyFormIdealClient';
+import StrategyFormMissionVision from './pages/StrategyFormMissionVision';
+import StrategyFormPricingStrategies from './pages/StrategyFormPricingStrategies';
+import StrategyFormSWOTAnalysis from './pages/StrategyFormSWOTAnalysis';
+import StrategyFormSocialMedia from './pages/StrategyFormSocialMedia';
+import StrategyFormStrategicPartnerships from './pages/StrategyFormStrategicPartnerships';
+import StrategyFormValueLadder from './pages/StrategyFormValueLadder';
+import StrategyFormValueProposition from './pages/StrategyFormValueProposition';
+import StrategyFormWebsiteLaunch from './pages/StrategyFormWebsiteLaunch';
+import StrategySession from './pages/StrategySession';
+import TestEmail from './pages/TestEmail';
+import TheBeacon from './pages/TheBeacon';
+import TheCommunity from './pages/TheCommunity';
+import TheHQ from './pages/TheHQ';
+import Upgrade from './pages/Upgrade';
+import UserManagement from './pages/UserManagement';
+import ViewSOP from './pages/ViewSOP';
+import VisionStrategySession from './pages/VisionStrategySession';
+import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
+import Week from './pages/Week';
+import layout from './pages/layout';
+import BusinessOverview from './pages/BusinessOverview';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "Dashboard": Dashboard,
-    "Onboarding": Onboarding,
-    "DailyTrack": DailyTrack,
-    "Community": Community,
-    "Journey": Journey,
-    "Progress": Progress,
-    "Week": Week,
-    "MindsetHack": MindsetHack,
-    "Guides": Guides,
-    "MindsetHacks": MindsetHacks,
-    "QuickLessons": QuickLessons,
-    "QuickLesson": QuickLesson,
-    "Magazine": Magazine,
-    "Courses": Courses,
-    "Partners": Partners,
-    "MemberDirectory": MemberDirectory,
-    "MemberProfile": MemberProfile,
-    "StrategySession": StrategySession,
-    "CourseDetails": CourseDetails,
-    "ElyzetAI": ElyzetAI,
-    "Schedule": Schedule,
-    "GoHighLevelUpgrade": GoHighLevelUpgrade,
-    "StrategyFormBusinessModelCanvas": StrategyFormBusinessModelCanvas,
-    "StrategyFormSWOTAnalysis": StrategyFormSWOTAnalysis,
-    "VisionStrategySession": VisionStrategySession,
-    "StartupStrategySession": StartupStrategySession,
-    "GrowthStrategySession": GrowthStrategySession,
-    "TestEmail": TestEmail,
-    "BusinessProfile": BusinessProfile,
-    "MyBusinesses": MyBusinesses,
-    "EditBusiness": EditBusiness,
-    "Profile": Profile,
-    "PartnershipDetail": PartnershipDetail,
-    "StrategyFormIdealClient": StrategyFormIdealClient,
-    "StrategyFormValueProposition": StrategyFormValueProposition,
-    "StrategyFormValueLadder": StrategyFormValueLadder,
-    "Upgrade": Upgrade,
-    "PaymentSuccess": PaymentSuccess,
-    "PaymentFailed": PaymentFailed,
+    "AIConversationHistory": AIConversationHistory,
     "Admin": Admin,
-    "StrategyFormBrandKit": StrategyFormBrandKit,
-    "AdminPostScheduler": AdminPostScheduler,
-    "UserManagement": UserManagement,
-    "AdminNotifications": AdminNotifications,
     "AdminAnalytics": AdminAnalytics,
     "AdminContentManagement": AdminContentManagement,
-    "TheCommunity": TheCommunity,
-    "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
-    "AdminTestSystems": AdminTestSystems,
-    "layout": layout,
-    "ElyzetAIAssistants": ElyzetAIAssistants,
-    "AssistantGuide": AssistantGuide,
-    "FocusedPrograms": FocusedPrograms,
-    "CompetitorAnalysis": CompetitorAnalysis,
-    "FinancialProjections": FinancialProjections,
-    "FreedomCalculator": FreedomCalculator,
-    "MyFoundation": MyFoundation,
-    "TheBeacon": TheBeacon,
-    "SOPPoliciesAI": SOPPoliciesAI,
-    "MyFoundationRoadmap": MyFoundationRoadmap,
-    "StrategyFormCustomerJourney": StrategyFormCustomerJourney,
-    "BeaconIntro": BeaconIntro,
-    "BeaconStudioBooking": BeaconStudioBooking,
-    "BeaconRadioSetup": BeaconRadioSetup,
-    "StrategyFormPricingStrategies": StrategyFormPricingStrategies,
-    "HQCustomerJourneyGuide": HQCustomerJourneyGuide,
     "AdminCourseManagement": AdminCourseManagement,
-    "QuickStartFoundation": QuickStartFoundation,
-    "AIConversationHistory": AIConversationHistory,
-    "LiveWebinar": LiveWebinar,
+    "AdminNotifications": AdminNotifications,
+    "AdminPostScheduler": AdminPostScheduler,
     "AdminRoadmapContent": AdminRoadmapContent,
-    "StrategyFormBrandIdentity": StrategyFormBrandIdentity,
-    "StrategyFormContentStrategy": StrategyFormContentStrategy,
-    "StrategyFormDefineYourWhy": StrategyFormDefineYourWhy,
-    "StrategyFormMissionVision": StrategyFormMissionVision,
-    "StrategyFormWebsiteLaunch": StrategyFormWebsiteLaunch,
-    "StrategyFormEmailMarketing": StrategyFormEmailMarketing,
-    "StrategyFormSocialMedia": StrategyFormSocialMedia,
-    "StrategyFormCommunityBuilding": StrategyFormCommunityBuilding,
-    "StrategyFormAffiliateProgram": StrategyFormAffiliateProgram,
-    "StrategyFormStrategicPartnerships": StrategyFormStrategicPartnerships,
-    "StrategyFormAutomation": StrategyFormAutomation,
-    "MorningRoutineBuilder": MorningRoutineBuilder,
-    "Guide": Guide,
-    "FocusedProgram": FocusedProgram,
-    "NicheRoadmaps": NicheRoadmaps,
-    "NicheRoadmap": NicheRoadmap,
-    "SOPs": SOPs,
-    "CreateSOP": CreateSOP,
-    "EditSOP": EditSOP,
-    "ViewSOP": ViewSOP,
-    "TheHQ": TheHQ,
+    "AdminTestSystems": AdminTestSystems,
     "AnnualPlanning": AnnualPlanning,
-    "SocialMediaPlanner": SocialMediaPlanner,
+    "AssistantGuide": AssistantGuide,
+    "BeaconIntro": BeaconIntro,
+    "BeaconRadioSetup": BeaconRadioSetup,
+    "BeaconStudioBooking": BeaconStudioBooking,
     "BusinessMindsPodcastBooking": BusinessMindsPodcastBooking,
-    "DfyServices": DfyServices,
+    "BusinessProfile": BusinessProfile,
+    "Community": Community,
+    "CompetitorAnalysis": CompetitorAnalysis,
+    "CourseDetails": CourseDetails,
+    "Courses": Courses,
+    "CreateSOP": CreateSOP,
+    "DailyTrack": DailyTrack,
+    "Dashboard": Dashboard,
     "DfyServiceDetail": DfyServiceDetail,
+    "DfyServices": DfyServices,
+    "EditBusiness": EditBusiness,
+    "EditSOP": EditSOP,
+    "ElyzetAI": ElyzetAI,
+    "ElyzetAIAssistants": ElyzetAIAssistants,
+    "FinancialProjections": FinancialProjections,
+    "FocusedProgram": FocusedProgram,
+    "FocusedPrograms": FocusedPrograms,
+    "FreedomCalculator": FreedomCalculator,
+    "GoHighLevelUpgrade": GoHighLevelUpgrade,
+    "GrowthStrategySession": GrowthStrategySession,
+    "Guide": Guide,
+    "Guides": Guides,
+    "HQCustomerJourneyGuide": HQCustomerJourneyGuide,
+    "Home": Home,
+    "Journey": Journey,
+    "LiveWebinar": LiveWebinar,
+    "Magazine": Magazine,
+    "MemberDirectory": MemberDirectory,
+    "MemberProfile": MemberProfile,
+    "MindsetHack": MindsetHack,
+    "MindsetHacks": MindsetHacks,
+    "MorningRoutineBuilder": MorningRoutineBuilder,
+    "MyFoundation": MyFoundation,
+    "MyFoundationRoadmap": MyFoundationRoadmap,
+    "NicheRoadmap": NicheRoadmap,
+    "NicheRoadmaps": NicheRoadmaps,
+    "Onboarding": Onboarding,
+    "Partners": Partners,
+    "PartnershipDetail": PartnershipDetail,
+    "PaymentFailed": PaymentFailed,
+    "PaymentSuccess": PaymentSuccess,
+    "Profile": Profile,
+    "Progress": Progress,
+    "QuickLesson": QuickLesson,
+    "QuickLessons": QuickLessons,
+    "QuickStartFoundation": QuickStartFoundation,
+    "SOPPoliciesAI": SOPPoliciesAI,
+    "SOPs": SOPs,
+    "Schedule": Schedule,
+    "SocialMediaPlanner": SocialMediaPlanner,
+    "StartupStrategySession": StartupStrategySession,
+    "StrategyFormAffiliateProgram": StrategyFormAffiliateProgram,
+    "StrategyFormAutomation": StrategyFormAutomation,
+    "StrategyFormBrandIdentity": StrategyFormBrandIdentity,
+    "StrategyFormBrandKit": StrategyFormBrandKit,
+    "StrategyFormBusinessModelCanvas": StrategyFormBusinessModelCanvas,
+    "StrategyFormCommunityBuilding": StrategyFormCommunityBuilding,
+    "StrategyFormContentStrategy": StrategyFormContentStrategy,
+    "StrategyFormCustomerJourney": StrategyFormCustomerJourney,
+    "StrategyFormDefineYourWhy": StrategyFormDefineYourWhy,
+    "StrategyFormEmailMarketing": StrategyFormEmailMarketing,
+    "StrategyFormIdealClient": StrategyFormIdealClient,
+    "StrategyFormMissionVision": StrategyFormMissionVision,
+    "StrategyFormPricingStrategies": StrategyFormPricingStrategies,
+    "StrategyFormSWOTAnalysis": StrategyFormSWOTAnalysis,
+    "StrategyFormSocialMedia": StrategyFormSocialMedia,
+    "StrategyFormStrategicPartnerships": StrategyFormStrategicPartnerships,
+    "StrategyFormValueLadder": StrategyFormValueLadder,
+    "StrategyFormValueProposition": StrategyFormValueProposition,
+    "StrategyFormWebsiteLaunch": StrategyFormWebsiteLaunch,
+    "StrategySession": StrategySession,
+    "TestEmail": TestEmail,
+    "TheBeacon": TheBeacon,
+    "TheCommunity": TheCommunity,
+    "TheHQ": TheHQ,
+    "Upgrade": Upgrade,
+    "UserManagement": UserManagement,
+    "ViewSOP": ViewSOP,
+    "VisionStrategySession": VisionStrategySession,
+    "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
+    "Week": Week,
+    "layout": layout,
+    "BusinessOverview": BusinessOverview,
 }
 
 export const pagesConfig = {
