@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { User } from '@/entities/User';
@@ -21,7 +20,9 @@ import {
     Trash2,
     Edit2,
     Save,
-    X
+    X,
+    Handshake,
+    MapPin
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -282,6 +283,8 @@ Document your WHY in Brand Kit → Reference in Value Proposition → Use in mes
             { id: 'configure_signature', text: 'Configure a professional email signature with your logo, website, and contact info' }
         ],
         progressField: 'email_completed',
+        hasPartnerLink: true,
+        partnerLinkText: '🤝 Need help setting up a professional email? Our partners can assist with email setup and configuration.',
         hasNotes: true,
         notesPlaceholder: 'Enter email address ideas or setup notes...',
         notesLabel: 'Professional Email Notes'
@@ -556,6 +559,8 @@ Document in Brand Kit → Reference in Value Proposition → Guide Strategy Tool
             { id: 'register_structure', text: 'Register your chosen legal structure with your state (LLC filing, DBA, etc.)' }
         ],
         progressField: 'legal_completed',
+        hasPartnerLink: true,
+        partnerLinkText: '🤝 Need help incorporating? Check out our trusted partners who can assist with legal structure and registration.',
         expandedContent: {
             title: 'Legal Structure Options Explained',
             structures: [
@@ -589,6 +594,24 @@ Document in Brand Kit → Reference in Value Proposition → Guide Strategy Tool
                 }
             ]
         }
+    },
+    {
+        id: 'professional_mailing_address',
+        title: 'Getting a Professional Mailing Address',
+        icon: MapPin,
+        intro: `A professional mailing address (virtual mailbox or business address) separates your home address from your business, protects your privacy, and enhances credibility. It's essential for LLC filings, official correspondence, and presenting a professional image to clients and partners.`,
+        realWorldExample: `When Rachel filed her LLC, she didn't want to use her home address for public records. She set up a virtual mailbox through a professional service, giving her a business address in a prestigious area. This address appeared on her website, business cards, and all official filings—instantly boosting credibility. Clients perceived her as more established, and she never worried about privacy or security issues from publicly listing her home address.`,
+        actionSteps: [
+            { id: 'research_address_services', text: 'Research virtual mailbox services or coworking spaces that offer professional business addresses' },
+            { id: 'setup_mailing_address', text: 'Set up your professional mailing address and ensure it can receive legal and official mail' },
+            { id: 'update_business_docs', text: 'Update your business documents, LLC filings, and marketing materials with your new professional address' }
+        ],
+        progressField: 'mailing_address_completed',
+        hasNotes: true,
+        notesPlaceholder: 'Enter notes about your professional mailing address setup...',
+        notesLabel: 'Professional Mailing Address Notes',
+        hasPartnerLink: true,
+        partnerLinkText: '🤝 Need help getting a professional mailing address? Our partners can assist with virtual mailbox services and business address solutions.'
     }
 ];
 
@@ -1183,6 +1206,24 @@ export default function QuickStartFoundation() {
                                                 </div>
                                             ))}
                                         </div>
+                                    )}
+
+                                    {/* Partner Link */}
+                                    {section.hasPartnerLink && (
+                                        <Link
+                                            to={createPageUrl('Partners')}
+                                            className="block p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-2 border-green-200 dark:border-green-800 hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors"
+                                        >
+                                            <div className="flex items-start gap-3">
+                                                <Handshake className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+                                                <div>
+                                                    <p className="text-sm text-[var(--text-main)] font-medium mb-1">{section.partnerLinkText}</p>
+                                                    <p className="text-xs text-green-700 dark:text-green-300 font-semibold flex items-center gap-1">
+                                                        View Our Partners <ArrowRight className="w-3 h-3" />
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </Link>
                                     )}
                                 </div>
                             )}
