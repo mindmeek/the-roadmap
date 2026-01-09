@@ -5,9 +5,10 @@ import { createPageUrl } from '@/utils';
 import {
     Target, Users, Zap, TrendingUp, Calendar, Sparkles, Loader2,
     MessageSquare, BarChart, Globe, Mail, Phone, Edit, Plus, CheckCircle, ArrowLeft,
-    DollarSign, ShoppingCart, FileText, Send, UserPlus, Share2, X
+    DollarSign, ShoppingCart, FileText, Send, UserPlus, Share2, X, ChevronDown, RefreshCw
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { toast } from "sonner";
 
 export default function MarketingOverviewPage() {
@@ -18,6 +19,7 @@ export default function MarketingOverviewPage() {
     const [socialMediaPlan, setSocialMediaPlan] = useState(null);
     const [expandedMonth, setExpandedMonth] = useState(1);
     const [financialGoals, setFinancialGoals] = useState(null);
+    const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
         loadData();
@@ -71,6 +73,18 @@ export default function MarketingOverviewPage() {
     const idealClient = strategyDocs.ideal_client?.content || {};
     const valueProposition = strategyDocs.value_proposition_canvas?.content || {};
     const brandKit = strategyDocs.brand_kit?.content || {};
+
+    const handleRefreshContent = async () => {
+        setRefreshing(true);
+        try {
+            await loadData();
+            toast.success("Marketing content refreshed successfully!");
+        } catch (error) {
+            toast.error("Failed to refresh content");
+        } finally {
+            setRefreshing(false);
+        }
+    };
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-black pb-20 p-6">
@@ -215,10 +229,21 @@ export default function MarketingOverviewPage() {
 
                 {/* Core Marketing Strategy */}
                 <div className="card p-6 bg-white dark:bg-gray-900 border-2 border-[var(--primary-gold)]">
-                    <h2 className="text-2xl font-bold text-[var(--text-main)] mb-6 flex items-center gap-2">
-                        <Target className="w-6 h-6 text-[var(--primary-gold)]" />
-                        Core Marketing Strategy
-                    </h2>
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-2xl font-bold text-[var(--text-main)] flex items-center gap-2">
+                            <Target className="w-6 h-6 text-[var(--primary-gold)]" />
+                            Core Marketing Strategy
+                        </h2>
+                        <Button 
+                            onClick={handleRefreshContent} 
+                            variant="outline" 
+                            size="sm"
+                            disabled={refreshing}
+                        >
+                            <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
+                            Refresh Content
+                        </Button>
+                    </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Ideal Client */}
@@ -558,7 +583,7 @@ export default function MarketingOverviewPage() {
                     </div>
 
                     {/* User's Messaging Summary */}
-                    {(idealClient.demographics || valueProposition.value_proposition || brandKit.brand_voice) && (
+                    {(idealClient.demographics || valueProposition.value_proposition || brandKit.brand_voice || socialMediaPlan) && (
                         <div className="bg-gradient-to-r from-[var(--primary-gold)]/10 to-yellow-50 dark:to-yellow-900/20 p-5 rounded-lg border-2 border-[var(--primary-gold)]/30 mb-6">
                             <h3 className="font-bold text-lg text-[var(--text-main)] mb-4 flex items-center gap-2">
                                 <Sparkles className="w-5 h-5 text-[var(--primary-gold)]" />
@@ -595,12 +620,25 @@ export default function MarketingOverviewPage() {
                             )}
 
                             {brandKit.brand_voice && (
-                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                <div className="mb-4 bg-white dark:bg-gray-800 p-4 rounded-lg">
                                     <h4 className="font-semibold text-[var(--text-main)] mb-2 flex items-center gap-2">
                                         <MessageSquare className="w-4 h-4 text-purple-600" />
                                         How You Sound
                                     </h4>
                                     <p className="text-sm text-[var(--text-soft)]">{brandKit.brand_voice}</p>
+                                </div>
+                            )}
+
+                            {socialMediaPlan && socialMediaPlan.plan_data && (
+                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                    <h4 className="font-semibold text-[var(--text-main)] mb-2 flex items-center gap-2">
+                                        <Calendar className="w-4 h-4 text-pink-600" />
+                                        Current Social Media Focus
+                                    </h4>
+                                    <p className="text-sm text-[var(--text-soft)]">
+                                        <strong>Month 1:</strong> {socialMediaPlan.plan_data.month_1?.theme || 'Building Foundation'}
+                                    </p>
+                                    <p className="text-xs text-[var(--text-soft)] mt-1">{socialMediaPlan.plan_data.month_1?.focus}</p>
                                 </div>
                             )}
 
@@ -612,143 +650,158 @@ export default function MarketingOverviewPage() {
                         </div>
                     )}
 
-                    <div className="space-y-4">
+                    <Accordion type="multiple" className="space-y-4">
                         {/* Homepage Hero Section */}
-                        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-5 rounded-lg border border-blue-200 dark:border-blue-800">
-                            <h4 className="font-semibold text-[var(--text-main)] mb-4 flex items-center gap-2 text-lg">
-                                <FileText className="w-5 h-5 text-blue-600" />
-                                Homepage Hero Section (First Thing Visitors See)
-                            </h4>
-                            <div className="space-y-4">
-                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
-                                    <span className="font-medium text-blue-600 mb-2 block">📢 Headline Formula:</span>
-                                    <p className="text-sm text-[var(--text-soft)] mb-3">
-                                        {valueProposition.value_proposition 
-                                            ? `"${valueProposition.value_proposition}"`
-                                            : '"[Desired Result] for [Target Audience] Without [Pain Point]"'
-                                        }
-                                    </p>
-                                    <p className="text-xs text-[var(--text-soft)] italic">
-                                        Example: "Get More Clients in 90 Days Without Spending a Fortune on Ads"
-                                    </p>
+                        <AccordionItem value="homepage" className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg border border-blue-200 dark:border-blue-800 overflow-hidden">
+                            <AccordionTrigger className="px-5 py-4 hover:no-underline">
+                                <div className="flex items-center gap-2">
+                                    <FileText className="w-5 h-5 text-blue-600" />
+                                    <span className="font-semibold text-[var(--text-main)] text-lg">Homepage Hero Section</span>
                                 </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="px-5 pb-4">
+                                <div className="space-y-4">
+                                    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                        <span className="font-medium text-blue-600 mb-2 block">📢 Headline Formula:</span>
+                                        <p className="text-sm text-[var(--text-soft)] mb-3">
+                                            {valueProposition.value_proposition 
+                                                ? `"${valueProposition.value_proposition}"`
+                                                : '"[Desired Result] for [Target Audience] Without [Pain Point]"'
+                                            }
+                                        </p>
+                                        <p className="text-xs text-[var(--text-soft)] italic">
+                                            Example: "Get More Clients in 90 Days Without Spending a Fortune on Ads"
+                                        </p>
+                                    </div>
 
-                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
-                                    <span className="font-medium text-blue-600 mb-2 block">💬 Subheadline (Elaborate):</span>
-                                    <p className="text-sm text-[var(--text-soft)]">
-                                        Expand on your headline with specific benefits or how you achieve the result in 1-2 sentences.
-                                    </p>
-                                    <p className="text-xs text-[var(--text-soft)] italic mt-2">
-                                        Example: "Our proven 90-day marketing system helps service-based entrepreneurs attract ideal clients through strategic content and relationship building—no expensive ads required."
-                                    </p>
-                                </div>
+                                    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                        <span className="font-medium text-blue-600 mb-2 block">💬 Subheadline (Elaborate):</span>
+                                        <p className="text-sm text-[var(--text-soft)]">
+                                            Expand on your headline with specific benefits or how you achieve the result in 1-2 sentences.
+                                        </p>
+                                        <p className="text-xs text-[var(--text-soft)] italic mt-2">
+                                            Example: "Our proven 90-day marketing system helps service-based entrepreneurs attract ideal clients through strategic content and relationship building—no expensive ads required."
+                                        </p>
+                                    </div>
 
-                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
-                                    <span className="font-medium text-blue-600 mb-2 block">🎯 Call-to-Action Button:</span>
-                                    <div className="flex flex-wrap gap-2">
-                                        <span className="px-3 py-1 bg-blue-600 text-white rounded text-sm">"Get Started Free"</span>
-                                        <span className="px-3 py-1 bg-blue-600 text-white rounded text-sm">"Book Your Free Call"</span>
-                                        <span className="px-3 py-1 bg-blue-600 text-white rounded text-sm">"See How It Works"</span>
+                                    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                        <span className="font-medium text-blue-600 mb-2 block">🎯 Call-to-Action Button:</span>
+                                        <div className="flex flex-wrap gap-2">
+                                            <span className="px-3 py-1 bg-blue-600 text-white rounded text-sm">"Get Started Free"</span>
+                                            <span className="px-3 py-1 bg-blue-600 text-white rounded text-sm">"Book Your Free Call"</span>
+                                            <span className="px-3 py-1 bg-blue-600 text-white rounded text-sm">"See How It Works"</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </AccordionContent>
+                        </AccordionItem>
 
                         {/* About Page Strategy */}
-                        <div className="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 p-5 rounded-lg border border-purple-200 dark:border-purple-800">
-                            <h4 className="font-semibold text-[var(--text-main)] mb-4 flex items-center gap-2 text-lg">
-                                <Target className="w-5 h-5 text-purple-600" />
-                                About Page (Build Trust & Connection)
-                            </h4>
-                            <div className="space-y-3 text-sm">
-                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
-                                    <p className="font-medium text-purple-600 mb-1">1. Your Origin Story</p>
-                                    <p className="text-xs text-[var(--text-soft)]">Why did you start this business? What problem were you trying to solve for yourself or others?</p>
+                        <AccordionItem value="about" className="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 rounded-lg border border-purple-200 dark:border-purple-800 overflow-hidden">
+                            <AccordionTrigger className="px-5 py-4 hover:no-underline">
+                                <div className="flex items-center gap-2">
+                                    <Target className="w-5 h-5 text-purple-600" />
+                                    <span className="font-semibold text-[var(--text-main)] text-lg">About Page</span>
                                 </div>
-                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
-                                    <p className="font-medium text-purple-600 mb-1">2. Mission & Values</p>
-                                    <p className="text-xs text-[var(--text-soft)]">What do you stand for? What drives your business decisions and how you serve clients?</p>
-                                </div>
-                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
-                                    <p className="font-medium text-purple-600 mb-1">3. How You Help</p>
-                                    <p className="text-xs text-[var(--text-soft)]">Explain your process, methodology, or approach. What makes working with you different?</p>
-                                </div>
-                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
-                                    <p className="font-medium text-purple-600 mb-1">4. Social Proof</p>
-                                    <p className="text-xs text-[var(--text-soft)]">Include testimonials, case studies, client results, or credentials to build credibility</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Services/Products Page */}
-                        <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-5 rounded-lg border border-green-200 dark:border-green-800">
-                            <h4 className="font-semibold text-[var(--text-main)] mb-4 flex items-center gap-2 text-lg">
-                                <ShoppingCart className="w-5 h-5 text-green-600" />
-                                Services/Products Page (Make Buying Easy)
-                            </h4>
-
-                            {financialGoals.products && financialGoals.products.length > 0 && (
-                                <div className="mb-4 bg-white dark:bg-gray-800 p-4 rounded-lg">
-                                    <p className="text-sm font-medium text-[var(--text-main)] mb-3">✨ Your Current Offerings:</p>
-                                    <div className="space-y-2">
-                                        {financialGoals.products.filter(p => p.name && p.price).map((product, idx) => (
-                                            <div key={idx} className="text-sm bg-green-50 dark:bg-green-900/20 p-3 rounded">
-                                                <div className="font-semibold text-[var(--text-main)]">{product.name}</div>
-                                                <div className="text-xs text-[var(--text-soft)]">
-                                                    Pricing: ${parseFloat(product.price).toLocaleString()}{product.pricingType === 'monthly_subscription' ? '/month' : ''}
-                                                </div>
-                                            </div>
-                                        ))}
+                            </AccordionTrigger>
+                            <AccordionContent className="px-5 pb-4">
+                                <div className="space-y-3 text-sm">
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                        <p className="font-medium text-purple-600 mb-1">1. Your Origin Story</p>
+                                        <p className="text-xs text-[var(--text-soft)]">Why did you start this business? What problem were you trying to solve for yourself or others?</p>
+                                    </div>
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                        <p className="font-medium text-purple-600 mb-1">2. Mission & Values</p>
+                                        <p className="text-xs text-[var(--text-soft)]">What do you stand for? What drives your business decisions and how you serve clients?</p>
+                                    </div>
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                        <p className="font-medium text-purple-600 mb-1">3. How You Help</p>
+                                        <p className="text-xs text-[var(--text-soft)]">Explain your process, methodology, or approach. What makes working with you different?</p>
+                                    </div>
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                        <p className="font-medium text-purple-600 mb-1">4. Social Proof</p>
+                                        <p className="text-xs text-[var(--text-soft)]">Include testimonials, case studies, client results, or credentials to build credibility</p>
                                     </div>
                                 </div>
-                            )}
+                            </AccordionContent>
+                        </AccordionItem>
 
-                            <div className="space-y-3 text-sm">
-                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
-                                    <p className="font-medium text-green-600 mb-1">✓ Lead with Benefits, Not Features</p>
-                                    <p className="text-xs text-[var(--text-soft)]">Instead of "10 hours of coaching," say "Transform your business in 10 weeks with weekly 1-on-1 strategy sessions"</p>
+                        {/* Services/Products Page */}
+                        <AccordionItem value="services" className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg border border-green-200 dark:border-green-800 overflow-hidden">
+                            <AccordionTrigger className="px-5 py-4 hover:no-underline">
+                                <div className="flex items-center gap-2">
+                                    <ShoppingCart className="w-5 h-5 text-green-600" />
+                                    <span className="font-semibold text-[var(--text-main)] text-lg">Services/Products Page</span>
                                 </div>
-                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
-                                    <p className="font-medium text-green-600 mb-1">✓ Clear Pricing or "Starting At"</p>
-                                    <p className="text-xs text-[var(--text-soft)]">Be transparent. If custom pricing, show starting price or range to qualify leads</p>
+                            </AccordionTrigger>
+                            <AccordionContent className="px-5 pb-4">
+                                {financialGoals?.products && financialGoals.products.length > 0 && (
+                                    <div className="mb-4 bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                        <p className="text-sm font-medium text-[var(--text-main)] mb-3">✨ Your Current Offerings:</p>
+                                        <div className="space-y-2">
+                                            {financialGoals.products.filter(p => p.name && p.price).map((product, idx) => (
+                                                <div key={idx} className="text-sm bg-green-50 dark:bg-green-900/20 p-3 rounded">
+                                                    <div className="font-semibold text-[var(--text-main)]">{product.name}</div>
+                                                    <div className="text-xs text-[var(--text-soft)]">
+                                                        Pricing: ${parseFloat(product.price).toLocaleString()}{product.pricingType === 'monthly_subscription' ? '/month' : ''}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                <div className="space-y-3 text-sm">
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                        <p className="font-medium text-green-600 mb-1">✓ Lead with Benefits, Not Features</p>
+                                        <p className="text-xs text-[var(--text-soft)]">Instead of "10 hours of coaching," say "Transform your business in 10 weeks with weekly 1-on-1 strategy sessions"</p>
+                                    </div>
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                        <p className="font-medium text-green-600 mb-1">✓ Clear Pricing or "Starting At"</p>
+                                        <p className="text-xs text-[var(--text-soft)]">Be transparent. If custom pricing, show starting price or range to qualify leads</p>
+                                    </div>
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                        <p className="font-medium text-green-600 mb-1">✓ Specific Next Steps</p>
+                                        <p className="text-xs text-[var(--text-soft)]">Each service should have a button: "Book Discovery Call," "Enroll Now," "Get Quote"</p>
+                                    </div>
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                        <p className="font-medium text-green-600 mb-1">✓ Bullet Points for Scanning</p>
+                                        <p className="text-xs text-[var(--text-soft)]">People skim. Use bullets for what's included, process, and deliverables</p>
+                                    </div>
                                 </div>
-                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
-                                    <p className="font-medium text-green-600 mb-1">✓ Specific Next Steps</p>
-                                    <p className="text-xs text-[var(--text-soft)]">Each service should have a button: "Book Discovery Call," "Enroll Now," "Get Quote"</p>
-                                </div>
-                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
-                                    <p className="font-medium text-green-600 mb-1">✓ Bullet Points for Scanning</p>
-                                    <p className="text-xs text-[var(--text-soft)]">People skim. Use bullets for what's included, process, and deliverables</p>
-                                </div>
-                            </div>
-                        </div>
+                            </AccordionContent>
+                        </AccordionItem>
 
                         {/* Contact Page */}
-                        <div className="bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 p-5 rounded-lg border border-yellow-200 dark:border-yellow-800">
-                            <h4 className="font-semibold text-[var(--text-main)] mb-4 flex items-center gap-2 text-lg">
-                                <Mail className="w-5 h-5 text-yellow-600" />
-                                Contact Page (Remove Friction)
-                            </h4>
-                            <div className="space-y-3 text-sm">
-                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
-                                    <p className="font-medium text-yellow-600 mb-1">• Multiple Contact Options</p>
-                                    <p className="text-xs text-[var(--text-soft)]">Form, email, phone, and social media. People have preferences—accommodate them all</p>
+                        <AccordionItem value="contact" className="bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800 overflow-hidden">
+                            <AccordionTrigger className="px-5 py-4 hover:no-underline">
+                                <div className="flex items-center gap-2">
+                                    <Mail className="w-5 h-5 text-yellow-600" />
+                                    <span className="font-semibold text-[var(--text-main)] text-lg">Contact Page</span>
                                 </div>
-                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
-                                    <p className="font-medium text-yellow-600 mb-1">• Response Time Expectations</p>
-                                    <p className="text-xs text-[var(--text-soft)]">"We respond within 24 business hours" sets clear expectations and builds trust</p>
+                            </AccordionTrigger>
+                            <AccordionContent className="px-5 pb-4">
+                                <div className="space-y-3 text-sm">
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                        <p className="font-medium text-yellow-600 mb-1">• Multiple Contact Options</p>
+                                        <p className="text-xs text-[var(--text-soft)]">Form, email, phone, and social media. People have preferences—accommodate them all</p>
+                                    </div>
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                        <p className="font-medium text-yellow-600 mb-1">• Response Time Expectations</p>
+                                        <p className="text-xs text-[var(--text-soft)]">"We respond within 24 business hours" sets clear expectations and builds trust</p>
+                                    </div>
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                        <p className="font-medium text-yellow-600 mb-1">• Location/Service Area</p>
+                                        <p className="text-xs text-[var(--text-soft)]">If local or regional, specify where you serve to qualify leads properly</p>
+                                    </div>
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                                        <p className="font-medium text-yellow-600 mb-1">• Link to Social Profiles</p>
+                                        <p className="text-xs text-[var(--text-soft)]">Let people follow you and see more of your content before reaching out</p>
+                                    </div>
                                 </div>
-                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
-                                    <p className="font-medium text-yellow-600 mb-1">• Location/Service Area</p>
-                                    <p className="text-xs text-[var(--text-soft)]">If local or regional, specify where you serve to qualify leads properly</p>
-                                </div>
-                                <div className="bg-white dark:bg-gray-800 p-3 rounded">
-                                    <p className="font-medium text-yellow-600 mb-1">• Link to Social Profiles</p>
-                                    <p className="text-xs text-[var(--text-soft)]">Let people follow you and see more of your content before reaching out</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
 
                     <div className="mt-6 bg-[var(--primary-gold)]/10 p-4 rounded-lg border border-[var(--primary-gold)]/20">
                         <p className="text-sm text-[var(--text-soft)]">

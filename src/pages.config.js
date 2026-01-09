@@ -13,6 +13,7 @@ import BeaconIntro from './pages/BeaconIntro';
 import BeaconRadioSetup from './pages/BeaconRadioSetup';
 import BeaconStudioBooking from './pages/BeaconStudioBooking';
 import BusinessMindsPodcastBooking from './pages/BusinessMindsPodcastBooking';
+import BusinessOverview from './pages/BusinessOverview';
 import BusinessProfile from './pages/BusinessProfile';
 import Community from './pages/Community';
 import CompetitorAnalysis from './pages/CompetitorAnalysis';
@@ -40,6 +41,7 @@ import Home from './pages/Home';
 import Journey from './pages/Journey';
 import LiveWebinar from './pages/LiveWebinar';
 import Magazine from './pages/Magazine';
+import MarketingOverview from './pages/MarketingOverview';
 import MemberDirectory from './pages/MemberDirectory';
 import MemberProfile from './pages/MemberProfile';
 import MindsetHack from './pages/MindsetHack';
@@ -95,8 +97,6 @@ import VisionStrategySession from './pages/VisionStrategySession';
 import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
 import Week from './pages/Week';
 import layout from './pages/layout';
-import BusinessOverview from './pages/BusinessOverview';
-import MarketingOverview from './pages/MarketingOverview';
 import __Layout from './Layout.jsx';
 
 
@@ -116,6 +116,7 @@ export const PAGES = {
     "BeaconRadioSetup": BeaconRadioSetup,
     "BeaconStudioBooking": BeaconStudioBooking,
     "BusinessMindsPodcastBooking": BusinessMindsPodcastBooking,
+    "BusinessOverview": BusinessOverview,
     "BusinessProfile": BusinessProfile,
     "Community": Community,
     "CompetitorAnalysis": CompetitorAnalysis,
@@ -143,6 +144,7 @@ export const PAGES = {
     "Journey": Journey,
     "LiveWebinar": LiveWebinar,
     "Magazine": Magazine,
+    "MarketingOverview": MarketingOverview,
     "MemberDirectory": MemberDirectory,
     "MemberProfile": MemberProfile,
     "MindsetHack": MindsetHack,
@@ -198,8 +200,6 @@ export const PAGES = {
     "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
     "Week": Week,
     "layout": layout,
-    "BusinessOverview": BusinessOverview,
-    "MarketingOverview": MarketingOverview,
 }
 
 export const pagesConfig = {
