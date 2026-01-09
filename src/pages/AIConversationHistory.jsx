@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { AIConversation } from '@/entities/all';
 import { User } from '@/entities/User';
@@ -206,7 +205,7 @@ export default function AIConversationHistory() {
                                                     📍 {conversation.context.section_title}
                                                 </p>
                                             )}
-                                            {lastMessage && (
+                                            {lastMessage && lastMessage.content && (
                                                 <p className="text-sm text-[var(--text-soft)] truncate mb-2">
                                                     {lastMessage.role === 'user' ? 'You: ' : `${assistant.name}: `}
                                                     {lastMessage.content}
