@@ -155,88 +155,41 @@ const CommunityIntro = () => (
 );
 
 const AppDownloadSection = () => (
-    <div id="community-app-download" className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Mobile App Download */}
-        <div 
-            className="card p-6 md:p-8 relative overflow-hidden text-white"
-            style={{ 
-                backgroundImage: `url(https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/87939415f_lycs-architecture-U2BI3GMnSSE-unsplash.jpg)`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center'
-            }}
-        >
-            <div className="absolute inset-0 bg-black bg-opacity-60 z-0"></div>
-            <div className="relative z-10">
-                <div className="flex items-center space-x-4 mb-4">
-                    <Download className="w-8 h-8 text-[var(--primary-gold)]" />
-                    <h2 className="text-2xl font-bold text-white">Get the Mobile Experience</h2>
-                </div>
-                <p className="text-gray-200 text-lg mb-6">
-                   Stay connected on the go. Download the official community app to join discussions and live events from anywhere.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                    <a 
-                        href="https://apps.apple.com/us/app/the-business-minds/id6742644847" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="btn bg-gray-800 hover:bg-gray-700 text-white flex-1 justify-center py-3 text-base"
-                    >
-                        <AppleLogo />
-                        <span>Download on the App Store</span>
-                    </a>
-                    <a 
-                        href="https://play.google.com/store/apps/details?id=com.thebusinessminds.wl&hl=en_US" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="btn bg-gray-800 hover:bg-gray-700 text-white flex-1 justify-center py-3 text-base"
-                    >
-                        <GooglePlayLogo />
-                        <span>Get it on Google Play</span>
-                    </a>
-                </div>
+    <div id="community-app-download" className="card p-6 md:p-8 relative overflow-hidden text-white"
+        style={{ 
+            backgroundImage: `url(https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/87939415f_lycs-architecture-U2BI3GMnSSE-unsplash.jpg)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+        }}
+    >
+        <div className="absolute inset-0 bg-black bg-opacity-60 z-0"></div>
+        <div className="relative z-10">
+            <div className="flex items-center space-x-4 mb-4">
+                <Download className="w-8 h-8 text-[var(--primary-gold)]" />
+                <h2 className="text-2xl font-bold text-white">Get the Mobile Experience</h2>
             </div>
-        </div>
-
-        {/* Community Features */}
-        <div className="card p-6 md:p-8">
-            <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4">Why Join the Community?</h2>
-            <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                    <div className="bg-[var(--primary-gold)] p-2 rounded-full">
-                        <Users className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                        <h4 className="font-semibold text-[var(--text-main)]">Network with Like-Minded Entrepreneurs</h4>
-                        <p className="text-[var(--text-soft)] text-sm">Connect with peers at every stage of business growth.</p>
-                    </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                    <div className="bg-[var(--primary-gold)] p-2 rounded-full">
-                        <Calendar className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                        <h4 className="font-semibold text-[var(--text-main)]">Live Weekly Events</h4>
-                        <p className="text-[var(--text-soft)] text-sm">Join Christopher Shaw for strategy sessions and Q&A.</p>
-                    </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                    <div className="bg-[var(--primary-gold)] p-2 rounded-full">
-                        <MessageSquare className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                        <h4 className="font-semibold text-[var(--text-main)]">Get Real-Time Support</h4>
-                        <p className="text-[var(--text-soft)] text-sm">Ask questions, share wins, and get feedback from the community.</p>
-                    </div>
-                </div>
-            </div>
-            <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
-                <p className="text-center text-[var(--text-soft)] mb-4">Ready to connect? Use your Launch Pad login to access the community.</p>
-                <div className="flex justify-center">
-                    <button className="btn btn-primary">
-                        <ArrowRight className="w-4 h-4 mr-2" />
-                        Access Community Now
-                    </button>
-                </div>
+            <p className="text-gray-200 text-lg mb-6">
+               Stay connected on the go. Download the official community app to join discussions and live events from anywhere.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+                <a 
+                    href="https://apps.apple.com/us/app/the-business-minds/id6742644847" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="btn bg-gray-800 hover:bg-gray-700 text-white flex-1 justify-center py-3 text-base"
+                >
+                    <AppleLogo />
+                    <span>Download on the App Store</span>
+                </a>
+                <a 
+                    href="https://play.google.com/store/apps/details?id=com.thebusinessminds.wl&hl=en_US" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="btn bg-gray-800 hover:bg-gray-700 text-white flex-1 justify-center py-3 text-base"
+                >
+                    <GooglePlayLogo />
+                    <span>Get it on Google Play</span>
+                </a>
             </div>
         </div>
     </div>
