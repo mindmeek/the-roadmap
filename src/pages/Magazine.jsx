@@ -238,9 +238,18 @@ export default function MagazinePage() {
                             <Newspaper className="w-5 h-5 text-blue-600" />
                             Magazine Now Available in the Community!
                         </h3>
-                        <p className="mt-2 text-[var(--text-main)]">
+                        <p className="mt-2 text-[var(--text-main)] mb-4">
                             All magazine issues can now be accessed directly through <strong>The Business Minds Community</strong>. Head over to the community for the latest issues, discussions, and exclusive content.
                         </p>
+                        <a 
+                            href="https://thebminds.com" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="btn btn-primary inline-flex items-center"
+                        >
+                            <Users className="w-4 h-4 mr-2" />
+                            Go to Community
+                        </a>
                     </div>
                 </div>
 
