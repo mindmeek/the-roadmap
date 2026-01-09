@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import {
     Target, Users, Zap, TrendingUp, Calendar, Sparkles, Loader2,
-    MessageSquare, BarChart, Globe, Mail, Phone, Edit, Plus, CheckCircle, ArrowLeft
+    MessageSquare, BarChart, Globe, Mail, Phone, Edit, Plus, CheckCircle, ArrowLeft,
+    DollarSign, ShoppingCart, FileText, Send, UserPlus, Share2
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -16,6 +17,7 @@ export default function MarketingOverviewPage() {
     const [annualPlan, setAnnualPlan] = useState(null);
     const [socialMediaPlan, setSocialMediaPlan] = useState(null);
     const [expandedMonth, setExpandedMonth] = useState(1);
+    const [financialGoals, setFinancialGoals] = useState(null);
 
     useEffect(() => {
         loadData();
@@ -25,6 +27,11 @@ export default function MarketingOverviewPage() {
         try {
             const userData = await base44.auth.me();
             setUser(userData);
+
+            // Extract financial projections
+            if (userData.financial_projections) {
+                setFinancialGoals(userData.financial_projections);
+            }
 
             // Fetch strategy documents
             const docs = await base44.entities.StrategyDocument.filter({});
@@ -91,6 +98,82 @@ export default function MarketingOverviewPage() {
                         </Button>
                     </Link>
                 </div>
+
+                {/* Financial Goals & Targets */}
+                {financialGoals && (
+                    <div className="card p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200 dark:border-green-800">
+                        <div className="flex justify-between items-start mb-6">
+                            <div className="flex items-center gap-3">
+                                <div className="bg-green-100 dark:bg-green-900 p-3 rounded-lg">
+                                    <DollarSign className="w-6 h-6 text-green-600" />
+                                </div>
+                                <div>
+                                    <h2 className="text-2xl font-bold text-[var(--text-main)]">Marketing Revenue Targets</h2>
+                                    <p className="text-sm text-[var(--text-soft)]">Sales goals to achieve your freedom number</p>
+                                </div>
+                            </div>
+                            <Link to={createPageUrl('FreedomCalculator')}>
+                                <Button variant="outline" size="sm">
+                                    <Edit className="w-4 h-4 mr-2" />
+                                    Update Goals
+                                </Button>
+                            </Link>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                <div className="text-sm text-[var(--text-soft)] mb-1">Freedom Number</div>
+                                <div className="text-2xl font-bold text-green-600">
+                                    ${financialGoals.freedomNumber?.toLocaleString() || '0'}/mo
+                                </div>
+                                <div className="text-xs text-[var(--text-soft)] mt-1">
+                                    ${((financialGoals.freedomNumber || 0) * 12).toLocaleString()}/year
+                                </div>
+                            </div>
+
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                <div className="text-sm text-[var(--text-soft)] mb-1">Total Clients Needed</div>
+                                <div className="text-2xl font-bold text-[var(--primary-gold)]">
+                                    {Math.ceil((financialGoals.freedomNumber || 0) / (financialGoals.averageOrderValue || 1))}
+                                </div>
+                                <div className="text-xs text-[var(--text-soft)] mt-1">per month</div>
+                            </div>
+
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                <div className="text-sm text-[var(--text-soft)] mb-1">Annual Target</div>
+                                <div className="text-2xl font-bold text-blue-600">
+                                    {Math.ceil(((financialGoals.freedomNumber || 0) * 12) / (financialGoals.averageOrderValue || 1))}
+                                </div>
+                                <div className="text-xs text-[var(--text-soft)] mt-1">clients/sales per year</div>
+                            </div>
+                        </div>
+
+                        {financialGoals.products && financialGoals.products.length > 0 && (
+                            <div>
+                                <h4 className="font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
+                                    <ShoppingCart className="w-4 h-4 text-green-600" />
+                                    Product/Service Sales Targets
+                                </h4>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    {financialGoals.products.map((product, idx) => (
+                                        <div key={idx} className="bg-white dark:bg-gray-800 p-3 rounded-lg">
+                                            <div className="font-medium text-[var(--text-main)] mb-1">{product.name}</div>
+                                            <div className="flex justify-between text-sm">
+                                                <span className="text-[var(--text-soft)]">Monthly:</span>
+                                                <span className="font-semibold text-green-600">{product.salesNeeded || 0} sales</span>
+                                            </div>
+                                            <div className="flex justify-between text-sm">
+                                                <span className="text-[var(--text-soft)]">Annual:</span>
+                                                <span className="font-semibold text-blue-600">{(product.salesNeeded || 0) * 12} sales</span>
+                                            </div>
+                                            <div className="text-xs text-[var(--text-soft)] mt-1">@ ${product.price}/each</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
 
                 {/* Core Marketing Strategy */}
                 <div className="card p-6 bg-white dark:bg-gray-900 border-2 border-[var(--primary-gold)]">
@@ -237,6 +320,163 @@ export default function MarketingOverviewPage() {
                                 <p className="text-sm text-[var(--text-soft)]">Define your brand's voice to maintain consistency.</p>
                             )}
                         </div>
+                    </div>
+                </div>
+
+                {/* Website Content Strategy */}
+                <div className="card p-6 bg-white dark:bg-gray-900 border-2 border-[var(--primary-gold)]">
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-2xl font-bold text-[var(--text-main)] flex items-center gap-2">
+                            <Globe className="w-6 h-6 text-[var(--primary-gold)]" />
+                            Website Content & Messaging
+                        </h2>
+                        <Link to={createPageUrl('MyFoundationRoadmap')}>
+                            <Button variant="outline" size="sm">
+                                <FileText className="w-4 h-4 mr-2" />
+                                Strategy Tools
+                            </Button>
+                        </Link>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                            <h4 className="font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
+                                <FileText className="w-4 h-4 text-blue-600" />
+                                Homepage Hero Section
+                            </h4>
+                            <div className="space-y-2 text-sm">
+                                <div>
+                                    <span className="font-medium text-blue-600">Headline:</span>
+                                    <p className="text-[var(--text-main)] italic">Clear promise of transformation or result</p>
+                                </div>
+                                <div>
+                                    <span className="font-medium text-blue-600">Subheadline:</span>
+                                    <p className="text-[var(--text-main)] italic">Elaborate on the benefit in 1-2 sentences</p>
+                                </div>
+                                <div>
+                                    <span className="font-medium text-blue-600">CTA Button:</span>
+                                    <p className="text-[var(--text-main)] italic">"Get Started", "Book a Call", "Learn More"</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
+                            <h4 className="font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
+                                <Target className="w-4 h-4 text-purple-600" />
+                                About Page Focus
+                            </h4>
+                            <div className="space-y-2 text-sm">
+                                <p className="text-[var(--text-main)]">• Your story and why you started</p>
+                                <p className="text-[var(--text-main)]">• Your mission and values</p>
+                                <p className="text-[var(--text-main)]">• How you help clients transform</p>
+                                <p className="text-[var(--text-main)]">• Social proof (testimonials, results)</p>
+                            </div>
+                        </div>
+
+                        <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
+                            <h4 className="font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
+                                <ShoppingCart className="w-4 h-4 text-green-600" />
+                                Services/Products Page
+                            </h4>
+                            <div className="space-y-2 text-sm">
+                                <p className="text-[var(--text-main)]">• Feature benefits, not just features</p>
+                                <p className="text-[var(--text-main)]">• Include pricing or "starting at" info</p>
+                                <p className="text-[var(--text-main)]">• Clear next steps for each offering</p>
+                                <p className="text-[var(--text-main)]">• Use bullet points for easy scanning</p>
+                            </div>
+                        </div>
+
+                        <div className="bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 p-4 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                            <h4 className="font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
+                                <Mail className="w-4 h-4 text-yellow-600" />
+                                Contact Page Essentials
+                            </h4>
+                            <div className="space-y-2 text-sm">
+                                <p className="text-[var(--text-main)]">• Multiple ways to reach you (form, email, phone)</p>
+                                <p className="text-[var(--text-main)]">• Response time expectations</p>
+                                <p className="text-[var(--text-main)]">• Location/service area (if applicable)</p>
+                                <p className="text-[var(--text-main)]">• Social media links</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-4 bg-[var(--primary-gold)]/10 p-4 rounded-lg border border-[var(--primary-gold)]/20">
+                        <p className="text-sm text-[var(--text-soft)]">
+                            💡 <span className="font-medium text-[var(--text-main)]">Pro Tip:</span> Use your AI assistants to generate custom website copy based on your value proposition and target audience.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Welcome Email Templates */}
+                <div className="card p-6 bg-white dark:bg-gray-900 border-2 border-[var(--primary-gold)]">
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-2xl font-bold text-[var(--text-main)] flex items-center gap-2">
+                            <Send className="w-6 h-6 text-[var(--primary-gold)]" />
+                            Welcome Email Sequence
+                        </h2>
+                        <Link to={createPageUrl('ElyzetAIAssistants')}>
+                            <Button variant="outline" size="sm">
+                                <Sparkles className="w-4 h-4 mr-2" />
+                                Generate Custom
+                            </Button>
+                        </Link>
+                    </div>
+
+                    <p className="text-sm text-[var(--text-soft)] mb-6">
+                        A strong welcome sequence builds trust and sets expectations. Here's a proven 3-email framework:
+                    </p>
+
+                    <div className="space-y-4">
+                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-4 rounded-lg border-l-4 border-blue-500">
+                            <div className="flex items-center gap-2 mb-2">
+                                <div className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">1</div>
+                                <h4 className="font-semibold text-[var(--text-main)]">Welcome & Deliver (Day 1)</h4>
+                            </div>
+                            <div className="text-sm space-y-1 ml-8">
+                                <p className="text-[var(--text-main)]"><strong>Subject:</strong> Welcome! Here's Your [Freebie/Resource]</p>
+                                <p className="text-[var(--text-soft)]">• Warm welcome and thank you</p>
+                                <p className="text-[var(--text-soft)]">• Deliver promised resource immediately</p>
+                                <p className="text-[var(--text-soft)]">• Set expectations for future emails</p>
+                                <p className="text-[var(--text-soft)]">• Invite reply or social media connection</p>
+                            </div>
+                        </div>
+
+                        <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-4 rounded-lg border-l-4 border-purple-500">
+                            <div className="flex items-center gap-2 mb-2">
+                                <div className="bg-purple-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">2</div>
+                                <h4 className="font-semibold text-[var(--text-main)]">Your Story & Value (Day 3)</h4>
+                            </div>
+                            <div className="text-sm space-y-1 ml-8">
+                                <p className="text-[var(--text-main)]"><strong>Subject:</strong> Why I Started [Your Business]</p>
+                                <p className="text-[var(--text-soft)]">• Share your origin story</p>
+                                <p className="text-[var(--text-soft)]">• Explain your mission and values</p>
+                                <p className="text-[var(--text-soft)]">• Build emotional connection</p>
+                                <p className="text-[var(--text-soft)]">• Introduce your main offer or services</p>
+                            </div>
+                        </div>
+
+                        <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-4 rounded-lg border-l-4 border-green-500">
+                            <div className="flex items-center gap-2 mb-2">
+                                <div className="bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">3</div>
+                                <h4 className="font-semibold text-[var(--text-main)]">Next Steps & Offer (Day 5)</h4>
+                            </div>
+                            <div className="text-sm space-y-1 ml-8">
+                                <p className="text-[var(--text-main)]"><strong>Subject:</strong> Ready to [Achieve Desired Result]?</p>
+                                <p className="text-[var(--text-soft)]">• Present clear call-to-action</p>
+                                <p className="text-[var(--text-soft)]">• Offer special welcome discount or bonus</p>
+                                <p className="text-[var(--text-soft)]">• Share social proof (testimonials, results)</p>
+                                <p className="text-[var(--text-soft)]">• Create urgency (limited time or spots)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-4 flex gap-3">
+                        <Link to={createPageUrl('ElyzetAIAssistants')}>
+                            <Button className="bg-[var(--primary-gold)] hover:bg-[var(--primary-gold)]/90">
+                                <Sparkles className="w-4 h-4 mr-2" />
+                                Generate My Welcome Emails
+                            </Button>
+                        </Link>
                     </div>
                 </div>
 
