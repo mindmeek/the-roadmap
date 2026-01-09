@@ -379,44 +379,27 @@ export default function TheHQPage() {
         );
     }
 
-    // Show embedded HQ for HQ members
+    // Show simple redirect message for HQ members
     return (
         <div className="px-4 pb-20 md:pb-8">
-            <div className="max-w-7xl mx-auto space-y-6">
-                {/* Header */}
-                <div className="card p-6 md:p-8" style={{ borderRadius: '2px' }}>
-                    <div className="text-center md:text-left md:flex md:items-center md:space-x-4 w-full">
-                        <div className="bg-gradient-to-br from-[var(--primary-gold)] to-yellow-600 p-3 md:p-4 rounded-md mb-3 md:mb-0 mx-auto md:mx-0 w-fit">
-                            <Rocket className="w-6 h-6 md:w-8 md:h-8 text-white" />
-                        </div>
-                        <div>
-                            <h1 className="text-2xl md:text-3xl font-bold text-[var(--text-main)]">The Business Minds HQ</h1>
-                            <p className="text-[var(--text-soft)] text-base md:text-lg">Your all-in-one business growth platform</p>
-                        </div>
+            <div className="max-w-4xl mx-auto">
+                <div className="card p-12 text-center" style={{ borderRadius: '2px' }}>
+                    <div className="bg-gradient-to-br from-[var(--primary-gold)] to-yellow-600 p-6 rounded-lg inline-block mb-6">
+                        <Rocket className="w-16 h-16 text-white" />
                     </div>
-                </div>
-
-                {/* Embedded HQ */}
-                <div className="card p-4" style={{ borderRadius: '2px' }}>
-                    <div className="flex items-center justify-between mb-4">
-                        <h2 className="text-2xl font-bold text-[var(--text-main)]">Access The HQ Platform</h2>
-                        <a 
-                            href="https://app.thebminds.com" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="btn btn-secondary text-sm"
-                        >
-                            Open in New Tab
-                        </a>
-                    </div>
-                    <div style={{ height: '800px', width: '100%' }} className="rounded-md border border-gray-200 dark:border-gray-700 overflow-hidden">
-                        <iframe
-                            src="https://app.thebminds.com"
-                            style={{ width: '100%', height: '100%', border: 'none' }}
-                            title="The Business Minds HQ"
-                            allow="fullscreen"
-                        ></iframe>
-                    </div>
+                    <h1 className="text-4xl font-bold text-[var(--text-main)] mb-4">Welcome to The Business Minds HQ</h1>
+                    <p className="text-xl text-[var(--text-soft)] mb-8 max-w-2xl mx-auto">
+                        You have full access to The HQ platform. Click below to open it in a new tab.
+                    </p>
+                    <a 
+                        href="https://app.thebminds.com" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="btn bg-[var(--primary-gold)] hover:bg-[var(--primary-gold)]/90 text-white text-lg px-10 py-5 inline-flex items-center shadow-xl font-bold"
+                    >
+                        <Rocket className="w-6 h-6 mr-3" />
+                        Open The HQ Platform
+                    </a>
                 </div>
             </div>
         </div>
