@@ -1075,6 +1075,29 @@ export default function QuickStartFoundation() {
                                         </div>
                                     )}
 
+                                    {/* Interactive Form Link for Define Your Why */}
+                                    {section.id === 'define_your_why' && (
+                                        <Link
+                                            to={createPageUrl('StrategyFormDefineYourWhy')}
+                                            className="block p-4 bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20 rounded-lg border-2 border-pink-200 dark:border-pink-800 hover:shadow-lg transition-all"
+                                        >
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-start gap-3">
+                                                    <Heart className="w-6 h-6 text-pink-600 flex-shrink-0 mt-1" />
+                                                    <div>
+                                                        <h5 className="font-bold text-[var(--text-main)] mb-1">
+                                                            Complete the Interactive WHY Worksheet
+                                                        </h5>
+                                                        <p className="text-sm text-[var(--text-soft)]">
+                                                            Use our guided form to discover and articulate your deeper purpose
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <ArrowRight className="w-5 h-5 text-pink-600 flex-shrink-0" />
+                                            </div>
+                                        </Link>
+                                    )}
+
                                     {/* Notes Section */}
                                     {section.hasNotes && (
                                         <NotesSection
