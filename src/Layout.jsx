@@ -150,7 +150,7 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
     const navigate = useNavigate();
 
     const performSearch = useCallback(async (term) => {
-        if (!term.trim()) {
+        if (!term || !term.trim()) {
             setSearchResults([]);
             return;
         }
