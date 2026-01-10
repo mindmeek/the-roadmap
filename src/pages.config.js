@@ -12,6 +12,7 @@ import AssistantGuide from './pages/AssistantGuide';
 import BeaconIntro from './pages/BeaconIntro';
 import BeaconRadioSetup from './pages/BeaconRadioSetup';
 import BeaconStudioBooking from './pages/BeaconStudioBooking';
+import BrandKit from './pages/BrandKit';
 import BusinessMindsPodcastBooking from './pages/BusinessMindsPodcastBooking';
 import BusinessOverview from './pages/BusinessOverview';
 import BusinessProfile from './pages/BusinessProfile';
@@ -40,6 +41,7 @@ import HQCustomerJourneyGuide from './pages/HQCustomerJourneyGuide';
 import Home from './pages/Home';
 import Journey from './pages/Journey';
 import LiveWebinar from './pages/LiveWebinar';
+import Magazine from './pages/Magazine';
 import MarketingOverview from './pages/MarketingOverview';
 import MemberDirectory from './pages/MemberDirectory';
 import MemberProfile from './pages/MemberProfile';
@@ -96,8 +98,6 @@ import VisionStrategySession from './pages/VisionStrategySession';
 import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
 import Week from './pages/Week';
 import layout from './pages/layout';
-import BrandKit from './pages/BrandKit';
-import Magazine from './pages/Magazine';
 import __Layout from './Layout.jsx';
 
 
@@ -116,6 +116,7 @@ export const PAGES = {
     "BeaconIntro": BeaconIntro,
     "BeaconRadioSetup": BeaconRadioSetup,
     "BeaconStudioBooking": BeaconStudioBooking,
+    "BrandKit": BrandKit,
     "BusinessMindsPodcastBooking": BusinessMindsPodcastBooking,
     "BusinessOverview": BusinessOverview,
     "BusinessProfile": BusinessProfile,
@@ -144,6 +145,7 @@ export const PAGES = {
     "Home": Home,
     "Journey": Journey,
     "LiveWebinar": LiveWebinar,
+    "Magazine": Magazine,
     "MarketingOverview": MarketingOverview,
     "MemberDirectory": MemberDirectory,
     "MemberProfile": MemberProfile,
@@ -200,8 +202,6 @@ export const PAGES = {
     "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
     "Week": Week,
     "layout": layout,
-    "BrandKit": BrandKit,
-    "Magazine": Magazine,
 }
 
 export const pagesConfig = {
