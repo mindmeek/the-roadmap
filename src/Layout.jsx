@@ -309,38 +309,34 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
 };
 
 const ListenDropdown = ({ isOpen, onClose, onSelectRadio, onSelectPodcast }) => {
-    const dropdownRef = useRef(null);
-
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                onClose();
-            }
-        };
-
-        if (isOpen) {
-            document.addEventListener('mousedown', handleClickOutside);
-        }
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [isOpen, onClose]);
-
     if (!isOpen) return null;
 
     return (
-        <div ref={dropdownRef} className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-50">
-            <div className="p-2">
+        <div className="fixed bottom-24 right-4 lg:bottom-6 lg:right-6 z-[120] w-80 bg-white dark:bg-gray-900 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between p-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-t-lg">
+                <div className="flex items-center space-x-2">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.775L4.617 14H2a1 1 0 01-1-1V7a1 1 0 011-1h2.617l3.766-2.775zm2.658 4.163a3 3 0 010 5.522l-.707-.707a2 2 0 000-4.108l.707-.707zm3.292-1.292a6 6 0 010 10.106l-.707-.707a5 5 0 000-8.692l.707-.707z" clipRule="evenodd" />
+                    </svg>
+                    <h3 className="text-sm font-semibold text-white">Choose Audio Content</h3>
+                </div>
+                <button
+                    onClick={onClose}
+                    className="bg-white/20 hover:bg-white/30 text-white rounded-full p-1 transition-colors"
+                >
+                    <X className="w-4 h-4" />
+                </button>
+            </div>
+            <div className="p-4 space-y-3">
                 <button
                     onClick={() => {
                         onSelectRadio();
                         onClose();
                     }}
-                    className="w-full flex items-center p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                    className="w-full flex items-center p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors border border-gray-200 dark:border-gray-700"
                 >
                     <div className="bg-red-100 dark:bg-red-900 p-2 rounded-full mr-3">
-                        <svg className="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.775L4.617 14H2a1 1 0 01-1-1V7a1 1 0 011-1h2.617l3.766-2.775zm2.658 4.163a3 3 0 010 5.522l-.707-.707a2 2 0 000-4.108l.707-.707zm3.292-1.292a6 6 0 010 10.106l-.707-.707a5 5 0 000-8.692l.707-.707z" clipRule="evenodd" />
                         </svg>
                     </div>
@@ -355,13 +351,13 @@ const ListenDropdown = ({ isOpen, onClose, onSelectRadio, onSelectPodcast }) => 
                         onSelectPodcast();
                         onClose();
                     }}
-                    className="w-full flex items-center p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                    className="w-full flex items-center p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors border border-gray-200 dark:border-gray-700"
                 >
                     <div className="bg-green-100 dark:bg-green-900 p-2 rounded-full mr-3">
-                        <Podcast className="w-4 h-4 text-green-600" />
+                        <Podcast className="w-5 h-5 text-green-600" />
                     </div>
                     <div>
-                        <h4 className="font-medium text-[var(--text-main)]">The Business Minds Podcast</h4>
+                        <h4 className="font-medium text-[var(--text-main)]">The BM Podcast</h4>
                         <p className="text-xs text-[var(--text-soft)]">Exclusive entrepreneur episodes</p>
                     </div>
                 </button>
@@ -805,7 +801,7 @@ const SidebarContent = ({ user, isExpanded, onCloseMobileMenu, setIsListenDropdo
                         <svg className={`h-5 w-5 ${isExpanded ? 'mr-3' : ''} text-gray-300 group-hover:text-[var(--primary-gold)]`} fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.775L4.617 14H2a1 1 0 01-1-1V7a1 1 0 011-1h2.617l3.766-2.775zm2.658 4.163a3 3 0 010 5.522l-.707-.707a2 2 0 000-4.108l.707-.707zm3.292-1.292a6 6 0 010 10.106l-.707-.707a5 5 0 000-8.692l.707-.707z" clipRule="evenodd" />
                         </svg>
-                        {isExpanded && "The Podcast"}
+                        {isExpanded && "The BM Podcast"}
                     </button>
                 </div>
             </div>
@@ -949,7 +945,7 @@ const MobileMenu = ({ onClose, user, setIsListenDropdownOpen }) => {
                                     <svg className="mr-3 h-4 w-4 text-gray-300 group-hover:text-[var(--primary-gold)]" fill="currentColor" viewBox="0 0 20 20">
                                         <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.775L4.617 14H2a1 1 0 01-1-1V7a1 1 0 011-1h2.617l3.766-2.775zm2.658 4.163a3 3 0 010 5.522l-.707-.707a2 2 0 000-4.108l.707-.707zm3.292-1.292a6 6 0 010 10.106l-.707-.707a5 5 0 000-8.692l.707-.707z" clipRule="evenodd" />
                                     </svg>
-                                    The Podcast
+                                    The BM Podcast
                                 </button>
                                 {user && user.subscription_level === 'free' && (
                                     <Link
@@ -1245,12 +1241,12 @@ export default function Layout({ children, currentPageName }) {
                                             onClick={() => setIsListenDropdownOpen(!isListenDropdownOpen)}
                                             className="flex items-center text-sm text-white px-4 py-2 bg-gray-900 hover:bg-gray-800 transition-colors"
                                             style={{ borderRadius: '3px' }}
-                                            title="Listen to Audio Content"
+                                            title="Listen to The BM Podcast"
                                         >
                                             <svg className="h-4 w-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                                 <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.775L4.617 14H2a1 1 0 01-1-1V7a1 1 0 011-1h2.617l3.766-2.775zm2.658 4.163a3 3 0 010 5.522l-.707-.707a2 2 0 000-4.108l.707-.707zm3.292-1.292a6 6 0 010 10.106l-.707-.707a5 5 0 000-8.692l.707-.707z" clipRule="evenodd" />
                                             </svg>
-                                            Listen
+                                            The BM Podcast
                                         </button>
                                         <ListenDropdown
                                             isOpen={isListenDropdownOpen}
