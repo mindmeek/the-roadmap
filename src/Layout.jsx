@@ -338,11 +338,12 @@ const ListenDropdown = ({ isOpen, onClose, onSelectRadio, onSelectPodcast }) => 
                         </button>
                     </div>
                 </div>
-                <div className="h-32 overflow-hidden">
+                <div className="h-32 overflow-hidden rounded-b-lg">
                     <iframe
-                        src="https://equalizerradio.com/player/"
+                        src="//equalizer-radio6d5rde2fmrcwv.radiojar.com"
                         className="w-full h-full border-0"
                         allow="autoplay"
+                        scrolling="no"
                     ></iframe>
                 </div>
             </div>
