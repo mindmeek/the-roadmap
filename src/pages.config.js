@@ -40,7 +40,6 @@ import HQCustomerJourneyGuide from './pages/HQCustomerJourneyGuide';
 import Home from './pages/Home';
 import Journey from './pages/Journey';
 import LiveWebinar from './pages/LiveWebinar';
-import Magazine from './pages/Magazine';
 import MarketingOverview from './pages/MarketingOverview';
 import MemberDirectory from './pages/MemberDirectory';
 import MemberProfile from './pages/MemberProfile';
@@ -143,7 +142,6 @@ export const PAGES = {
     "Home": Home,
     "Journey": Journey,
     "LiveWebinar": LiveWebinar,
-    "Magazine": Magazine,
     "MarketingOverview": MarketingOverview,
     "MemberDirectory": MemberDirectory,
     "MemberProfile": MemberProfile,
