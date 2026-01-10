@@ -309,7 +309,80 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
 };
 
 const ListenDropdown = ({ isOpen, onClose, onSelectRadio, onSelectPodcast }) => {
+    const [activePlayer, setActivePlayer] = useState(null);
+
     if (!isOpen) return null;
+
+    if (activePlayer === 'radio') {
+        return (
+            <div className="fixed bottom-24 right-4 lg:bottom-6 lg:right-6 z-[120] w-96 bg-white dark:bg-gray-900 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center justify-between p-3 bg-gradient-to-r from-red-600 to-red-700 rounded-t-lg">
+                    <div className="flex items-center space-x-2">
+                        <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.775L4.617 14H2a1 1 0 01-1-1V7a1 1 0 011-1h2.617l3.766-2.775zm2.658 4.163a3 3 0 010 5.522l-.707-.707a2 2 0 000-4.108l.707-.707zm3.292-1.292a6 6 0 010 10.106l-.707-.707a5 5 0 000-8.692l.707-.707z" clipRule="evenodd" />
+                        </svg>
+                        <h3 className="text-sm font-semibold text-white">Equalizer Radio</h3>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={() => setActivePlayer(null)}
+                            className="bg-white/20 hover:bg-white/30 text-white rounded-full p-1 transition-colors"
+                        >
+                            <ChevronDown className="w-4 h-4" />
+                        </button>
+                        <button
+                            onClick={onClose}
+                            className="bg-white/20 hover:bg-white/30 text-white rounded-full p-1 transition-colors"
+                        >
+                            <X className="w-4 h-4" />
+                        </button>
+                    </div>
+                </div>
+                <div className="h-32 overflow-hidden">
+                    <iframe
+                        src="https://equalizerradio.com/player/"
+                        className="w-full h-full border-0"
+                        allow="autoplay"
+                    ></iframe>
+                </div>
+            </div>
+        );
+    }
+
+    if (activePlayer === 'podcast') {
+        return (
+            <div className="fixed bottom-24 right-4 lg:bottom-6 lg:right-6 z-[120] w-96 bg-white dark:bg-gray-900 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center justify-between p-3 bg-gradient-to-r from-green-600 to-emerald-700 rounded-t-lg">
+                    <div className="flex items-center space-x-2">
+                        <Podcast className="w-5 h-5 text-white" />
+                        <h3 className="text-sm font-semibold text-white">The BM Podcast</h3>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={() => setActivePlayer(null)}
+                            className="bg-white/20 hover:bg-white/30 text-white rounded-full p-1 transition-colors"
+                        >
+                            <ChevronDown className="w-4 h-4" />
+                        </button>
+                        <button
+                            onClick={onClose}
+                            className="bg-white/20 hover:bg-white/30 text-white rounded-full p-1 transition-colors"
+                        >
+                            <X className="w-4 h-4" />
+                        </button>
+                    </div>
+                </div>
+                <div className="h-[232px] overflow-hidden">
+                    <iframe
+                        src="https://open.spotify.com/embed/show/7JbugwNkCIO8vsTDhK1n1b?utm_source=generator"
+                        className="w-full h-full border-0"
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy"
+                    ></iframe>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="fixed bottom-24 right-4 lg:bottom-6 lg:right-6 z-[120] w-80 bg-white dark:bg-gray-900 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700">
@@ -329,10 +402,7 @@ const ListenDropdown = ({ isOpen, onClose, onSelectRadio, onSelectPodcast }) => 
             </div>
             <div className="p-4 space-y-3">
                 <button
-                    onClick={() => {
-                        onSelectRadio();
-                        onClose();
-                    }}
+                    onClick={() => setActivePlayer('radio')}
                     className="w-full flex items-center p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors border border-gray-200 dark:border-gray-700"
                 >
                     <div className="bg-red-100 dark:bg-red-900 p-2 rounded-full mr-3">
@@ -347,10 +417,7 @@ const ListenDropdown = ({ isOpen, onClose, onSelectRadio, onSelectPodcast }) => 
                 </button>
                 
                 <button
-                    onClick={() => {
-                        onSelectPodcast();
-                        onClose();
-                    }}
+                    onClick={() => setActivePlayer('podcast')}
                     className="w-full flex items-center p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors border border-gray-200 dark:border-gray-700"
                 >
                     <div className="bg-green-100 dark:bg-green-900 p-2 rounded-full mr-3">
@@ -1117,13 +1184,7 @@ export default function Layout({ children, currentPageName }) {
         setIsMobileMenuOpen(false);
     }, [location.pathname]);
 
-    const handleSelectRadio = () => {
-        window.open('https://equalizerradio.com', '_blank');
-    };
 
-    const handleSelectPodcast = () => {
-        window.open('https://open.spotify.com/show/7JbugwNkCIO8vsTDhK1n1b', '_blank');
-    };
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -1251,8 +1312,6 @@ export default function Layout({ children, currentPageName }) {
                                         <ListenDropdown
                                             isOpen={isListenDropdownOpen}
                                             onClose={() => setIsListenDropdownOpen(false)}
-                                            onSelectRadio={handleSelectRadio}
-                                            onSelectPodcast={handleSelectPodcast}
                                         />
                                     </div>
                                     <NotificationDropdown />
