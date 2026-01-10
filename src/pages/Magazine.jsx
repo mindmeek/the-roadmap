@@ -43,6 +43,35 @@ export default function MagazinePage() {
                             <p className="text-[var(--text-soft)]">Monthly insights and strategies for entrepreneurs</p>
                         </div>
                     </div>
+
+                    <div className="bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-200 dark:border-blue-700 rounded-lg p-6">
+                        <h2 className="text-xl font-bold text-[var(--text-main)] mb-3 flex items-center gap-2">
+                            <Users className="w-6 h-6 text-blue-600" />
+                            Access All Issues in The Community
+                        </h2>
+                        <p className="text-[var(--text-soft)] mb-4">
+                            Get exclusive access to all past and current magazine issues, bonus content, and member discussions in our community platform.
+                        </p>
+                        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-blue-200 dark:border-blue-700">
+                            <p className="text-sm text-[var(--text-main)] mb-2">
+                                <strong>How to Access:</strong>
+                            </p>
+                            <ol className="text-sm text-[var(--text-soft)] space-y-2 ml-4">
+                                <li>1. Login to The Business Minds Community</li>
+                                <li>2. Click on the <strong>"Magazine Channel"</strong> in the left-hand menu</li>
+                                <li>3. Browse all issues, download PDFs, and engage with other members</li>
+                            </ol>
+                        </div>
+                        <a 
+                            href="https://thebminds.com" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="btn btn-primary mt-4 inline-flex items-center"
+                        >
+                            <Users className="w-4 h-4 mr-2" />
+                            Access Magazine in Community
+                        </a>
+                    </div>
                 </div>
 
                 {magazines.length === 0 ? (
