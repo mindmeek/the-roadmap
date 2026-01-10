@@ -177,7 +177,7 @@ export default function AIConversationHistory() {
             ) : (
                 <div className="space-y-4">
                     {filteredConversations.map((conversation) => {
-                        const assistant = AI_TEAM_INFO[conversation.assistant_type];
+                        const assistant = AI_TEAM_INFO[conversation.assistant_type] || { name: 'AI Assistant', avatar: '🤖' };
                         const messageCount = conversation.messages?.length || 0;
                         const lastMessage = conversation.messages?.[conversation.messages.length - 1];
 
@@ -207,7 +207,7 @@ export default function AIConversationHistory() {
                                             )}
                                             {lastMessage && lastMessage.content && (
                                                 <p className="text-sm text-[var(--text-soft)] truncate mb-2">
-                                                    {lastMessage.role === 'user' ? 'You: ' : `${assistant.name}: `}
+                                                    {lastMessage.role === 'user' ? 'You: ' : `${assistant?.name || 'AI'}: `}
                                                     {lastMessage.content}
                                                 </p>
                                             )}
