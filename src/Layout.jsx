@@ -805,7 +805,7 @@ const SidebarContent = ({ user, isExpanded, onCloseMobileMenu, setIsListenDropdo
                         <svg className={`h-5 w-5 ${isExpanded ? 'mr-3' : ''} text-gray-300 group-hover:text-[var(--primary-gold)]`} fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.775L4.617 14H2a1 1 0 01-1-1V7a1 1 0 011-1h2.617l3.766-2.775zm2.658 4.163a3 3 0 010 5.522l-.707-.707a2 2 0 000-4.108l.707-.707zm3.292-1.292a6 6 0 010 10.106l-.707-.707a5 5 0 000-8.692l.707-.707z" clipRule="evenodd" />
                         </svg>
-                        {isExpanded && "Listen Now"}
+                        {isExpanded && "The Podcast"}
                     </button>
                 </div>
             </div>
@@ -949,7 +949,7 @@ const MobileMenu = ({ onClose, user, setIsListenDropdownOpen }) => {
                                     <svg className="mr-3 h-4 w-4 text-gray-300 group-hover:text-[var(--primary-gold)]" fill="currentColor" viewBox="0 0 20 20">
                                         <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.775L4.617 14H2a1 1 0 01-1-1V7a1 1 0 011-1h2.617l3.766-2.775zm2.658 4.163a3 3 0 010 5.522l-.707-.707a2 2 0 000-4.108l.707-.707zm3.292-1.292a6 6 0 010 10.106l-.707-.707a5 5 0 000-8.692l.707-.707z" clipRule="evenodd" />
                                     </svg>
-                                    Listen Now
+                                    The Podcast
                                 </button>
                                 {user && user.subscription_level === 'free' && (
                                     <Link
