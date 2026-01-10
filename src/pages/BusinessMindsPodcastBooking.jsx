@@ -58,6 +58,52 @@ export default function BusinessMindsPodcastBookingPage() {
                     </div>
                 </div>
 
+                {/* Introduction */}
+                <div className="card p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-800">
+                    <h2 className="text-xl font-bold text-[var(--text-main)] mb-4">Welcome Future Podcast Guest! 🎙️</h2>
+                    
+                    <div className="space-y-4 mb-6">
+                        <p className="text-[var(--text-soft)]">
+                            We're excited to have you share your story and expertise with our community! Being a guest on The Business Minds Podcast gives you the opportunity to:
+                        </p>
+                        
+                        <ul className="space-y-2 ml-4">
+                            <li className="flex items-start gap-2">
+                                <span className="text-blue-600 font-bold mt-1">✓</span>
+                                <span className="text-[var(--text-soft)]">Share your entrepreneurial journey and inspire other business owners</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <span className="text-blue-600 font-bold mt-1">✓</span>
+                                <span className="text-[var(--text-soft)]">Position yourself as an authority in your industry</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <span className="text-blue-600 font-bold mt-1">✓</span>
+                                <span className="text-[var(--text-soft)]">Connect with a community of like-minded entrepreneurs</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <span className="text-blue-600 font-bold mt-1">✓</span>
+                                <span className="text-[var(--text-soft)]">Gain exposure for your business and brand</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-blue-300 dark:border-blue-700">
+                        <h3 className="font-bold text-[var(--text-main)] mb-2">Community Introduction Template</h3>
+                        <p className="text-sm text-[var(--text-soft)] mb-3">
+                            When introducing yourself in the community (Step 1 below), click on the "What's on your mind, (your name)?" section and tell us:
+                        </p>
+                        <ul className="space-y-1 ml-4 mb-3 text-sm text-[var(--text-soft)]">
+                            <li>• Who you are</li>
+                            <li>• What your business or idea is</li>
+                            <li>• What you're hoping to accomplish in the next 90 days</li>
+                        </ul>
+                        <div className="bg-blue-50 dark:bg-blue-900/30 p-3 rounded text-sm text-[var(--text-soft)] italic border-l-4 border-blue-500">
+                            <strong className="text-[var(--text-main)]">Template:</strong><br />
+                            Hey everyone! I'm [Name], and I help [who you serve] by [what you do]. I just joined The Business Minds to grow in the [Vision / Startup / Growth] stage, and I'm currently focused on [your short-term goal].
+                        </div>
+                    </div>
+                </div>
+
                 {/* Requirements Checklist */}
                 <div className="card p-6 border-2 border-blue-100 dark:border-blue-900 shadow-lg">
                     <div className="mb-6">
