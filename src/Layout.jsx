@@ -210,7 +210,7 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
 
     useEffect(() => {
         const delayedSearch = setTimeout(() => {
-            performSearch(searchTerm);
+            performSearch(searchTerm || '');
         }, 300);
 
         return () => clearTimeout(delayedSearch);
