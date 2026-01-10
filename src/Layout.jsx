@@ -372,11 +372,12 @@ const ListenDropdown = ({ isOpen, onClose, onSelectRadio, onSelectPodcast }) => 
                         </button>
                     </div>
                 </div>
-                <div className="h-[232px] overflow-hidden">
+                <div className="h-[279px] overflow-hidden rounded-b-lg">
                     <iframe
-                        src="https://open.spotify.com/embed/show/7JbugwNkCIO8vsTDhK1n1b?utm_source=generator"
+                        src="https://open.spotify.com/embed/show/7JbugwNkCIO8vsTDhK1n1b/video?utm_source=generator"
                         className="w-full h-full border-0"
                         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        allowFullScreen
                         loading="lazy"
                     ></iframe>
                 </div>
