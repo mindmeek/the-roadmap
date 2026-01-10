@@ -96,6 +96,8 @@ import VisionStrategySession from './pages/VisionStrategySession';
 import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
 import Week from './pages/Week';
 import layout from './pages/layout';
+import BrandKit from './pages/BrandKit';
+import Magazine from './pages/Magazine';
 import __Layout from './Layout.jsx';
 
 
@@ -198,6 +200,8 @@ export const PAGES = {
     "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
     "Week": Week,
     "layout": layout,
+    "BrandKit": BrandKit,
+    "Magazine": Magazine,
 }
 
 export const pagesConfig = {
