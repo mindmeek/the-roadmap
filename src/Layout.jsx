@@ -161,8 +161,8 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
             const searchLower = term.toLowerCase();
 
             const pageResults = searchablePages.filter(page =>
-                (page.name && page.name.toLowerCase().includes(searchLower)) ||
-                (page.description && page.description.toLowerCase().includes(searchLower))
+                (page.name && typeof page.name === 'string' && page.name.toLowerCase().includes(searchLower)) ||
+                (page.description && typeof page.description === 'string' && page.description.toLowerCase().includes(searchLower))
             ).map(page => ({ ...page, type: 'page' }));
 
             results.push(...pageResults);
