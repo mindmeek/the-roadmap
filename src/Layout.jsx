@@ -167,7 +167,7 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
 
             results.push(...pageResults);
 
-            if (searchLower.includes('track') || searchLower.includes('progress') || searchLower.includes('daily')) {
+            if (term && (searchLower.includes('track') || searchLower.includes('progress') || searchLower.includes('daily'))) {
                 results.unshift({
                     name: 'Track Today\'s Progress',
                     url: 'DailyTrack',
@@ -178,7 +178,7 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
                 });
             }
 
-            if (searchLower.includes('schedule') || searchLower.includes('plan') || searchLower.includes('calendar')) {
+            if (term && (searchLower.includes('schedule') || searchLower.includes('plan') || searchLower.includes('calendar'))) {
                 results.unshift({
                     name: 'Plan Your Day',
                     url: 'Schedule',
@@ -189,7 +189,7 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
                 });
             }
 
-            if (searchLower.includes('community') || searchLower.includes('connect') || searchLower.includes('post')) {
+            if (term && (searchLower.includes('community') || searchLower.includes('connect') || searchLower.includes('post'))) {
                 results.unshift({
                     name: 'Visit Community',
                     url: 'TheCommunity',
