@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { User } from '@/entities/User';
@@ -421,6 +420,39 @@ export default function UserManagement() {
                                                         </div>
                                                         <p className="text-xs text-[var(--text-soft)] mt-2">
                                                             Current: <span className="font-medium">{user.subscription_level === 'business_hq' ? 'Business HQ' : 'Free'}</span>
+                                                        </p>
+                                                    </div>
+
+                                                    {/* Role Management */}
+                                                    <div className="border-t border-[var(--border-color)] pt-4">
+                                                        <h4 className="font-semibold text-[var(--text-main)] mb-3">User Role</h4>
+                                                        <div className="flex flex-wrap gap-2">
+                                                            <button
+                                                                onClick={() => handleRoleChange(user.id, user.role === 'admin' ? 'user' : 'admin')}
+                                                                disabled={processingUserId === user.id}
+                                                                className={`btn btn-sm disabled:opacity-50 ${
+                                                                    user.role === 'admin'
+                                                                        ? 'bg-gray-600 text-white hover:bg-gray-700'
+                                                                        : 'bg-red-600 text-white hover:bg-red-700'
+                                                                }`}
+                                                            >
+                                                                {processingUserId === user.id ? (
+                                                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                                                ) : user.role === 'admin' ? (
+                                                                    <>
+                                                                        <UserX className="w-4 h-4 mr-1" />
+                                                                        Remove Admin
+                                                                    </>
+                                                                ) : (
+                                                                    <>
+                                                                        <Shield className="w-4 h-4 mr-1" />
+                                                                        Make Admin
+                                                                    </>
+                                                                )}
+                                                            </button>
+                                                        </div>
+                                                        <p className="text-xs text-[var(--text-soft)] mt-2">
+                                                            Current Role: <span className="font-medium">{user.role === 'admin' ? 'Admin' : 'User'}</span>
                                                         </p>
                                                     </div>
 
