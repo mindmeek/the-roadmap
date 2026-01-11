@@ -117,6 +117,30 @@ export default function UserManagement() {
         }
     };
 
+    const handleRoleChange = async (userId, newRole) => {
+        const action = newRole === 'admin' ? 'grant admin privileges to' : 'remove admin privileges from';
+        const user = users.find(u => u.id === userId);
+        
+        if (!confirm(`Are you sure you want to ${action} ${user.full_name}?`)) {
+            return;
+        }
+
+        setProcessingUserId(userId);
+        try {
+            await base44.entities.User.update(userId, {
+                role: newRole
+            });
+            
+            alert(`User role successfully updated to ${newRole}!`);
+            await loadUsers();
+        } catch (error) {
+            console.error('Error updating user role:', error);
+            alert('An error occurred while updating the user role.');
+        } finally {
+            setProcessingUserId(null);
+        }
+    };
+
     const handleDeleteAccount = async (user) => {
         if (!confirm(`⚠️ WARNING: This will permanently delete ${user.full_name}'s account and ALL their data. This action cannot be undone. Are you absolutely sure?`)) {
             return;
