@@ -258,9 +258,9 @@ export default function BusinessMindsPodcastBookingPage() {
                             <div className="bg-white dark:bg-gray-900 rounded-lg overflow-hidden min-h-[500px] sm:min-h-[700px] shadow-inner">
                                 <iframe 
                                     src="https://link.thebusinessminds.com/widget/booking/ZEgueKsErjqJyixfORgN" 
-                                    style={{ width: '100%', border: 'none', overflow: 'hidden', minHeight: '500px' }} 
+                                    style={{ width: '100%', border: 'none', minHeight: '500px' }} 
                                     className="sm:min-h-[700px]"
-                                    scrolling="no" 
+                                    scrolling="yes" 
                                     id="ZEgueKsErjqJyixfORgN_1765914260325"
                                     title="Podcast Recording Booking"
                                 ></iframe>
