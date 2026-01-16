@@ -39,65 +39,65 @@ export default function BusinessMindsPodcastBookingPage() {
         <div className="px-4 pb-20 md:pb-8">
             <div className="max-w-4xl mx-auto space-y-6">
                 {/* Header */}
-                <div className="card p-6 border-l-4 border-[var(--primary-gold)]">
+                <div className="card p-4 sm:p-6 border-l-4 border-[var(--primary-gold)]">
                     <button 
                         onClick={() => navigate(createPageUrl('TheBeacon'))}
-                        className="btn btn-ghost p-2 mb-4"
+                        className="btn btn-ghost p-2 mb-4 text-sm"
                     >
-                        <ArrowLeft className="w-5 h-5 mr-2" />
+                        <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                         Back to The Beacon
                     </button>
-                    <div className="flex items-center gap-4">
-                        <div className="bg-[var(--primary-gold)]/20 p-4 rounded-full">
-                            <Mic className="w-8 h-8 text-[var(--primary-gold)]" />
+                    <div className="flex items-center gap-3 sm:gap-4">
+                        <div className="bg-[var(--primary-gold)]/20 p-3 sm:p-4 rounded-full flex-shrink-0">
+                            <Mic className="w-6 h-6 sm:w-8 sm:h-8 text-[var(--primary-gold)]" />
                         </div>
-                        <div>
-                            <h1 className="text-2xl md:text-3xl font-bold">The Business Minds Podcast</h1>
-                            <p className="text-base text-[var(--text-soft)] mt-1">Guest Booking Portal</p>
+                        <div className="min-w-0">
+                            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">The Business Minds Podcast</h1>
+                            <p className="text-sm sm:text-base text-[var(--text-soft)] mt-1">Guest Booking Portal</p>
                         </div>
                     </div>
                 </div>
 
                 {/* Introduction */}
-                <div className="card p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-800">
-                    <h2 className="text-xl font-bold text-[var(--text-main)] mb-4">Welcome Future Podcast Guest! 🎙️</h2>
+                <div className="card p-4 sm:p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-800">
+                    <h2 className="text-lg sm:text-xl font-bold text-[var(--text-main)] mb-4">Welcome Future Podcast Guest! 🎙️</h2>
                     
-                    <div className="space-y-4 mb-6">
-                        <p className="text-[var(--text-soft)]">
+                    <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+                        <p className="text-sm sm:text-base text-[var(--text-soft)]">
                             We're excited to have you share your story and expertise with our community! Being a guest on The Business Minds Podcast gives you the opportunity to:
                         </p>
                         
-                        <ul className="space-y-2 ml-4">
+                        <ul className="space-y-2 ml-2 sm:ml-4">
                             <li className="flex items-start gap-2">
-                                <span className="text-blue-600 font-bold mt-1">✓</span>
-                                <span className="text-[var(--text-soft)]">Share your entrepreneurial journey and inspire other business owners</span>
+                                <span className="text-blue-600 font-bold mt-0.5 flex-shrink-0">✓</span>
+                                <span className="text-sm sm:text-base text-[var(--text-soft)]">Share your entrepreneurial journey and inspire other business owners</span>
                             </li>
                             <li className="flex items-start gap-2">
-                                <span className="text-blue-600 font-bold mt-1">✓</span>
-                                <span className="text-[var(--text-soft)]">Position yourself as an authority in your industry</span>
+                                <span className="text-blue-600 font-bold mt-0.5 flex-shrink-0">✓</span>
+                                <span className="text-sm sm:text-base text-[var(--text-soft)]">Position yourself as an authority in your industry</span>
                             </li>
                             <li className="flex items-start gap-2">
-                                <span className="text-blue-600 font-bold mt-1">✓</span>
-                                <span className="text-[var(--text-soft)]">Connect with a community of like-minded entrepreneurs</span>
+                                <span className="text-blue-600 font-bold mt-0.5 flex-shrink-0">✓</span>
+                                <span className="text-sm sm:text-base text-[var(--text-soft)]">Connect with a community of like-minded entrepreneurs</span>
                             </li>
                             <li className="flex items-start gap-2">
-                                <span className="text-blue-600 font-bold mt-1">✓</span>
-                                <span className="text-[var(--text-soft)]">Gain exposure for your business and brand</span>
+                                <span className="text-blue-600 font-bold mt-0.5 flex-shrink-0">✓</span>
+                                <span className="text-sm sm:text-base text-[var(--text-soft)]">Gain exposure for your business and brand</span>
                             </li>
                         </ul>
                     </div>
 
-                    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-blue-300 dark:border-blue-700">
-                        <h3 className="font-bold text-[var(--text-main)] mb-2">Community Introduction Template</h3>
-                        <p className="text-sm text-[var(--text-soft)] mb-3">
+                    <div className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg border border-blue-300 dark:border-blue-700">
+                        <h3 className="text-sm sm:text-base font-bold text-[var(--text-main)] mb-2">Community Introduction Template</h3>
+                        <p className="text-xs sm:text-sm text-[var(--text-soft)] mb-3">
                             When introducing yourself in the community (Step 1 below), click on the "What's on your mind, (your name)?" section and tell us:
                         </p>
-                        <ul className="space-y-1 ml-4 mb-3 text-sm text-[var(--text-soft)]">
+                        <ul className="space-y-1 ml-3 sm:ml-4 mb-3 text-xs sm:text-sm text-[var(--text-soft)]">
                             <li>• Who you are</li>
                             <li>• What your business or idea is</li>
                             <li>• What you're hoping to accomplish in the next 90 days</li>
                         </ul>
-                        <div className="bg-blue-50 dark:bg-blue-900/30 p-3 rounded text-sm text-[var(--text-soft)] italic border-l-4 border-blue-500">
+                        <div className="bg-blue-50 dark:bg-blue-900/30 p-2.5 sm:p-3 rounded text-xs sm:text-sm text-[var(--text-soft)] italic border-l-4 border-blue-500 overflow-x-auto">
                             <strong className="text-[var(--text-main)]">Template:</strong><br />
                             Hey everyone! I'm [Name], and I help [who you serve] by [what you do]. I just joined The Business Minds to grow in the [Vision / Startup / Growth] stage, and I'm currently focused on [your short-term goal].
                         </div>
@@ -105,43 +105,43 @@ export default function BusinessMindsPodcastBookingPage() {
                 </div>
 
                 {/* Requirements Checklist */}
-                <div className="card p-6 border-2 border-blue-100 dark:border-blue-900 shadow-lg">
-                    <div className="mb-6">
-                        <h2 className="text-xl font-bold text-[var(--text-main)] mb-2">Before You Book Your Podcast Interview</h2>
-                        <p className="text-[var(--text-soft)]">Complete these three steps to qualify for your podcast recording session:</p>
+                <div className="card p-4 sm:p-6 border-2 border-blue-100 dark:border-blue-900 shadow-lg">
+                    <div className="mb-4 sm:mb-6">
+                        <h2 className="text-lg sm:text-xl font-bold text-[var(--text-main)] mb-2">Before You Book Your Podcast Interview</h2>
+                        <p className="text-sm sm:text-base text-[var(--text-soft)]">Complete these three steps to qualify for your podcast recording session:</p>
                     </div>
 
-                    <div className="space-y-4 mb-6">
+                    <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
                         {/* Step 1: Community Introduction */}
                         <div 
                             onClick={() => toggleChecklistItem('community_intro')}
-                            className={`p-4 rounded-lg border-2 transition-all cursor-pointer ${
+                            className={`p-3 sm:p-4 rounded-lg border-2 transition-all cursor-pointer ${
                                 checklist.community_intro 
                                     ? 'border-green-500 bg-green-50 dark:bg-green-900/20' 
                                     : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700'
                             }`}
                         >
-                            <div className="flex items-start gap-4">
-                                <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                            <div className="flex items-start gap-3 sm:gap-4">
+                                <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
                                     checklist.community_intro 
                                         ? 'bg-green-500 text-white' 
                                         : 'border-2 border-gray-300 dark:border-gray-600'
                                 }`}>
-                                    {checklist.community_intro && <CheckCircle className="w-4 h-4" />}
+                                    {checklist.community_intro && <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4" />}
                                 </div>
-                                <div className="flex-1">
+                                <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-2 mb-2">
-                                        <Users className="w-5 h-5 text-blue-600" />
-                                        <h3 className="font-bold text-[var(--text-main)]">Step 1: Introduce Yourself in The Community</h3>
+                                        <Users className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 flex-shrink-0" />
+                                        <h3 className="text-sm sm:text-base font-bold text-[var(--text-main)]">Step 1: Introduce Yourself in The Community</h3>
                                     </div>
-                                    <p className="text-sm text-[var(--text-soft)] mb-3">
+                                    <p className="text-xs sm:text-sm text-[var(--text-soft)] mb-3">
                                         Join our community and share who you are, what your business does, and why you want to be on the podcast. This helps us and our members get to know you!
                                     </p>
                                     <a 
                                         href={createPageUrl('TheCommunity')}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-sm text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                                        className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline font-medium"
                                         onClick={(e) => e.stopPropagation()}
                                     >
                                         Go to Community →
@@ -153,33 +153,33 @@ export default function BusinessMindsPodcastBookingPage() {
                         {/* Step 2: Get Roadmap */}
                         <div 
                             onClick={() => toggleChecklistItem('roadmap')}
-                            className={`p-4 rounded-lg border-2 transition-all cursor-pointer ${
+                            className={`p-3 sm:p-4 rounded-lg border-2 transition-all cursor-pointer ${
                                 checklist.roadmap 
                                     ? 'border-green-500 bg-green-50 dark:bg-green-900/20' 
                                     : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700'
                             }`}
                         >
-                            <div className="flex items-start gap-4">
-                                <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                            <div className="flex items-start gap-3 sm:gap-4">
+                                <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
                                     checklist.roadmap 
                                         ? 'bg-green-500 text-white' 
                                         : 'border-2 border-gray-300 dark:border-gray-600'
                                 }`}>
-                                    {checklist.roadmap && <CheckCircle className="w-4 h-4" />}
+                                    {checklist.roadmap && <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4" />}
                                 </div>
-                                <div className="flex-1">
+                                <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-2 mb-2">
-                                        <Target className="w-5 h-5 text-purple-600" />
-                                        <h3 className="font-bold text-[var(--text-main)]">Step 2: Get Your Free 90-Day Business Roadmap</h3>
+                                        <Target className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600 flex-shrink-0" />
+                                        <h3 className="text-sm sm:text-base font-bold text-[var(--text-main)]">Step 2: Get Your Free 90-Day Business Roadmap</h3>
                                     </div>
-                                    <p className="text-sm text-[var(--text-soft)] mb-3">
+                                    <p className="text-xs sm:text-sm text-[var(--text-soft)] mb-3">
                                         Set up your personalized 90-day journey. This gives us insight into your business goals and helps us prepare relevant podcast topics for your interview.
                                     </p>
                                     <a 
                                         href={createPageUrl('Journey')}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-sm text-purple-600 dark:text-purple-400 hover:underline font-medium"
+                                        className="text-xs sm:text-sm text-purple-600 dark:text-purple-400 hover:underline font-medium"
                                         onClick={(e) => e.stopPropagation()}
                                     >
                                         Start My Journey →
@@ -191,33 +191,33 @@ export default function BusinessMindsPodcastBookingPage() {
                         {/* Step 3: Strategy Session */}
                         <div 
                             onClick={() => toggleChecklistItem('strategy_session')}
-                            className={`p-4 rounded-lg border-2 transition-all cursor-pointer ${
+                            className={`p-3 sm:p-4 rounded-lg border-2 transition-all cursor-pointer ${
                                 checklist.strategy_session 
                                     ? 'border-green-500 bg-green-50 dark:bg-green-900/20' 
                                     : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700'
                             }`}
                         >
-                            <div className="flex items-start gap-4">
-                                <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                            <div className="flex items-start gap-3 sm:gap-4">
+                                <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
                                     checklist.strategy_session 
                                         ? 'bg-green-500 text-white' 
                                         : 'border-2 border-gray-300 dark:border-gray-600'
                                 }`}>
-                                    {checklist.strategy_session && <CheckCircle className="w-4 h-4" />}
+                                    {checklist.strategy_session && <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4" />}
                                 </div>
-                                <div className="flex-1">
+                                <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-2 mb-2">
-                                        <CalendarIcon className="w-5 h-5 text-orange-600" />
-                                        <h3 className="font-bold text-[var(--text-main)]">Step 3: Book Your Free Strategy Session</h3>
+                                        <CalendarIcon className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600 flex-shrink-0" />
+                                        <h3 className="text-sm sm:text-base font-bold text-[var(--text-main)]">Step 3: Book Your Free Strategy Session</h3>
                                     </div>
-                                    <p className="text-sm text-[var(--text-soft)] mb-3">
+                                    <p className="text-xs sm:text-sm text-[var(--text-soft)] mb-3">
                                         Schedule a free strategy call where we'll get to know you, your company, discuss your goals, and plan out your podcast interview topics.
                                     </p>
                                     <a 
                                         href={createPageUrl('StrategySession')}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-sm text-orange-600 dark:text-orange-400 hover:underline font-medium"
+                                        className="text-xs sm:text-sm text-orange-600 dark:text-orange-400 hover:underline font-medium"
                                         onClick={(e) => e.stopPropagation()}
                                     >
                                         Book Strategy Session →
@@ -247,18 +247,19 @@ export default function BusinessMindsPodcastBookingPage() {
 
                     {/* Book Interview Button */}
                     {allStepsComplete ? (
-                        <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-lg border-2 border-green-500">
-                            <div className="flex items-center gap-3 mb-4">
-                                <CheckCircle className="w-8 h-8 text-green-600" />
-                                <div>
-                                    <h3 className="font-bold text-lg text-[var(--text-main)]">You're Ready! 🎉</h3>
-                                    <p className="text-sm text-[var(--text-soft)]">All steps completed - now book your podcast recording session</p>
+                        <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-4 sm:p-6 rounded-lg border-2 border-green-500">
+                            <div className="flex items-start sm:items-center gap-3 mb-4">
+                                <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8 text-green-600 flex-shrink-0 mt-1 sm:mt-0" />
+                                <div className="min-w-0">
+                                    <h3 className="text-base sm:text-lg font-bold text-[var(--text-main)]">You're Ready! 🎉</h3>
+                                    <p className="text-xs sm:text-sm text-[var(--text-soft)]">All steps completed - now book your podcast recording session</p>
                                 </div>
                             </div>
-                            <div className="bg-white dark:bg-gray-900 rounded-lg overflow-hidden min-h-[700px] shadow-inner">
+                            <div className="bg-white dark:bg-gray-900 rounded-lg overflow-hidden min-h-[500px] sm:min-h-[700px] shadow-inner">
                                 <iframe 
                                     src="https://link.thebusinessminds.com/widget/booking/ZEgueKsErjqJyixfORgN" 
-                                    style={{ width: '100%', border: 'none', overflow: 'hidden', minHeight: '700px' }} 
+                                    style={{ width: '100%', border: 'none', overflow: 'hidden', minHeight: '500px' }} 
+                                    className="sm:min-h-[700px]"
                                     scrolling="no" 
                                     id="ZEgueKsErjqJyixfORgN_1765914260325"
                                     title="Podcast Recording Booking"
@@ -266,9 +267,9 @@ export default function BusinessMindsPodcastBookingPage() {
                             </div>
                         </div>
                     ) : (
-                        <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg text-center">
-                            <Video className="w-12 h-12 mx-auto mb-3 text-gray-400" />
-                            <p className="text-[var(--text-soft)] font-medium">
+                        <div className="bg-gray-50 dark:bg-gray-800 p-4 sm:p-6 rounded-lg text-center">
+                            <Video className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 text-gray-400" />
+                            <p className="text-sm sm:text-base text-[var(--text-soft)] font-medium">
                                 Complete all 3 steps above to unlock podcast interview booking
                             </p>
                         </div>
