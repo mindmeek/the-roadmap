@@ -158,16 +158,20 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
         setIsSearching(true);
         try {
             const results = [];
-            const searchLower = term.toLowerCase();
+            const searchLower = (term || '').toLowerCase();
 
-            const pageResults = searchablePages.filter(page =>
-                (page.name && typeof page.name === 'string' && page.name.toLowerCase().includes(searchLower)) ||
-                (page.description && typeof page.description === 'string' && page.description.toLowerCase().includes(searchLower))
-            ).map(page => ({ ...page, type: 'page' }));
+            const pageResults = searchablePages.filter(page => {
+                const pageName = page?.name || '';
+                const pageDesc = page?.description || '';
+                return (
+                    (typeof pageName === 'string' && pageName.toLowerCase().includes(searchLower)) ||
+                    (typeof pageDesc === 'string' && pageDesc.toLowerCase().includes(searchLower))
+                );
+            }).map(page => ({ ...page, type: 'page' }));
 
             results.push(...pageResults);
 
-            if (term && (searchLower.includes('track') || searchLower.includes('progress') || searchLower.includes('daily'))) {
+            if (term && typeof term === 'string' && (searchLower.includes('track') || searchLower.includes('progress') || searchLower.includes('daily'))) {
                 results.unshift({
                     name: 'Track Today\'s Progress',
                     url: 'DailyTrack',
