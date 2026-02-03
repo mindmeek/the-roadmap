@@ -59,6 +59,7 @@ const learningGrowthItems = [
 const connectBuildItems = [
     { href: "TheHQ", icon: Building, label: "The Business Minds HQ", mobileLabel: "The HQ", requiredLevel: 'business_hq' },
     { href: "TheCommunity", icon: Users, label: "Community", mobileLabel: "Community" },
+    { href: "MemberOfTheMonthSubmission", icon: Award, label: "Member of the Month", mobileLabel: "MOTM" },
     { href: "BusinessOverview", icon: Briefcase, label: "Business Overview", mobileLabel: "Business" },
     { href: "MarketingOverview", icon: TrendingUp, label: "Marketing Hub", mobileLabel: "Marketing" },
     { href: "DfyServices", icon: Briefcase, label: "My Services", mobileLabel: "Services" },
