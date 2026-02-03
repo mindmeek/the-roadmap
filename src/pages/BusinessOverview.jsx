@@ -563,12 +563,16 @@ export default function BusinessOverview() {
                                         <p className="text-xs text-[var(--text-soft)] mb-1">Theme</p>
                                         <p className="font-semibold text-sm">{annualPlan.title}</p>
                                     </div>
-                                    {annualPlan.financial_goal_snapshot && (
+                                    {user?.financial_projections?.freedomNumber && (
                                         <div className="bg-green-50 dark:bg-green-900/20 border-2 border-green-500 p-3" style={{ borderRadius: '1px' }}>
-                                            <p className="text-xs text-green-700 dark:text-green-400 mb-1 font-semibold">Annual Freedom Number</p>
-                                            <p className="font-bold text-lg text-green-600 dark:text-green-500">
-                                                {annualPlan.financial_goal_snapshot}
-                                            </p>
+                                            <p className="text-xs text-green-700 dark:text-green-400 mb-1 font-semibold">Financial Target</p>
+                                            <div className="flex items-baseline gap-1">
+                                                <span className="font-bold text-lg text-green-600 dark:text-green-500">
+                                                    ${(parseInt(user.financial_projections.freedomNumber) * 12).toLocaleString()}
+                                                </span>
+                                                <span className="text-xs text-green-600 dark:text-green-400">/ year</span>
+                                            </div>
+                                            <p className="text-xs text-green-600/80 mt-1">Based on your Freedom Number</p>
                                         </div>
                                     )}
                                     <Link to={createPageUrl('AnnualPlanning')}>
