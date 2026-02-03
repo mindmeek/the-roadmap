@@ -324,6 +324,31 @@ export default function DashboardPage() {
                     <UpcomingTasksPreview />
                 </div>
 
+                {/* Quick Actions Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+                    <ActionCard
+                        title="Annual Strategy"
+                        description="Plan your year and quarterly goals"
+                        icon={Calendar}
+                        link="AnnualPlanning"
+                        color="from-indigo-500 to-purple-600"
+                    />
+                    <ActionCard
+                        title="Marketing Hub"
+                        description="Your complete marketing strategy and social plan"
+                        icon={TrendingUp}
+                        link="MarketingOverview"
+                        color="from-yellow-500 to-orange-600"
+                    />
+                    <ActionCard
+                        title="Business Overview"
+                        description="Financial goals, products, and strategy"
+                        icon={Briefcase}
+                        link="BusinessOverview"
+                        color="from-gray-500 to-slate-600"
+                    />
+                </div>
+
                 {/* Journey Timeline & Financial Snapshot & Daily Insights */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
                     <div className="lg:col-span-2 h-full">
@@ -364,31 +389,6 @@ export default function DashboardPage() {
                             <FoundationRoadmapVisual user={user} />
                         </div>
                     )}
-                </div>
-
-                {/* Quick Actions Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
-                    <ActionCard
-                        title="Annual Strategy"
-                        description="Plan your year and quarterly goals"
-                        icon={Calendar}
-                        link="AnnualPlanning"
-                        color="from-indigo-500 to-purple-600"
-                    />
-                    <ActionCard
-                        title="Marketing Hub"
-                        description="Your complete marketing strategy and social plan"
-                        icon={TrendingUp}
-                        link="MarketingOverview"
-                        color="from-yellow-500 to-orange-600"
-                    />
-                    <ActionCard
-                        title="Business Overview"
-                        description="Financial goals, products, and strategy"
-                        icon={Briefcase}
-                        link="BusinessOverview"
-                        color="from-gray-500 to-slate-600"
-                    />
                 </div>
 
                 {/* Foundation Progress - Shows for all free users based on their stage */}
