@@ -256,6 +256,11 @@ export default function BusinessOverview() {
                             {user.financial_projections.products.map((product, idx) => (
                                 <div key={idx} className="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700" style={{ borderRadius: '1px' }}>
                                     <h3 className="font-semibold mb-2 text-sm">{product.name}</h3>
+                                    {product.description && (
+                                        <p className="text-xs text-[var(--text-soft)] mb-2">
+                                            {product.description}
+                                        </p>
+                                    )}
                                     <p className="text-lg font-bold text-[var(--primary-gold)] mb-2">${product.price}</p>
                                     <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold">
                                         Need to sell: {product.quantity}/month
