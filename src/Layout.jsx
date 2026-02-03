@@ -82,8 +82,8 @@ const adminNavItems = [
     { href: "AdminTestSystems", icon: Zap, label: "System Tests", mobileLabel: "Tests" }
 ];
 
-// Move searchablePages outside the component to avoid recreating on every render
-const searchablePages = [
+// Searchable pages - static constant
+const SEARCHABLE_PAGES = [
     { name: 'Dashboard', url: 'Dashboard', category: 'Pages', description: 'Your main dashboard and progress overview' },
     { name: 'Daily 1% Tracker', url: 'DailyTrack', category: 'Pages', description: 'Track your daily progress and tasks' },
     { name: 'Schedule', url: 'Schedule', category: 'Pages', description: 'Plan and manage your daily schedule' },
@@ -103,7 +103,7 @@ const searchablePages = [
     { name: 'The Beacon Studio', url: 'TheBeacon', category: 'Pages', description: 'Listen to exclusive entrepreneur podcasts' },
     { name: 'Be a Podcast Guest', url: 'BusinessMindsPodcastBooking', category: 'Pages', description: 'Apply to be a guest on The Business Minds Podcast' },
     { name: 'Social Media Planner', url: 'SocialMediaPlanner', category: 'Pages', description: 'Generate AI-powered 90-day social media plans' },
-    ];
+];
 
 const ElyzetChatBox = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
@@ -161,7 +161,7 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
             const results = [];
             const searchLower = (term || '').toLowerCase();
 
-            const pageResults = searchablePages.filter(page => {
+            const pageResults = SEARCHABLE_PAGES.filter(page => {
                 const pageName = page?.name || '';
                 const pageDesc = page?.description || '';
                 return (
@@ -1076,44 +1076,10 @@ export default function Layout({ children, currentPageName }) {
 
     // Enhanced PWA Setup
     useEffect(() => {
-        // Create and append manifest
+        // Link to external manifest file for better performance
         const manifestLink = document.createElement('link');
         manifestLink.rel = 'manifest';
-        manifestLink.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify({
-            "name": "The Business Minds - Your 90-Day Journey",
-            "short_name": "Business Minds",
-            "description": "Your complete entrepreneurship platform with Foundation Roadmap, 90-Day Journey, and AI-powered business guidance",
-            "start_url": "/",
-            "display": "standalone",
-            "background_color": "#000000",
-            "theme_color": "#8B6F4E",
-            "orientation": "portrait-primary",
-            "icons": [
-                {
-                    "src": "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/bb3a4dba9_SmallAppIcon.png",
-                    "sizes": "192x192",
-                    "type": "image/png",
-                    "purpose": "any maskable"
-                },
-                {
-                    "src": "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/bb3a4dba9_SmallAppIcon.png",
-                    "sizes": "512x512",
-                    "type": "image/png",
-                    "purpose": "any maskable"
-                }
-            ],
-            "categories": ["business", "productivity", "education"],
-            "lang": "en-US",
-            "scope": "/",
-            "prefer_related_applications": false,
-            "screenshots": [
-                {
-                    "src": "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/87939415f_lycs-architecture-U2BI3GMnSSE-unsplash.jpg",
-                    "sizes": "1280x720",
-                    "type": "image/jpeg"
-                }
-            ]
-        }));
+        manifestLink.href = '/manifest.json';
         document.head.appendChild(manifestLink);
 
         // Add PWA meta tags
@@ -1190,6 +1156,16 @@ export default function Layout({ children, currentPageName }) {
     useEffect(() => {
         setIsMobileMenuOpen(false);
     }, [location.pathname]);
+
+    // Optimize re-renders with memoized filter functions
+    const filterNavItems = useCallback((items) => {
+        return items.filter(item => {
+            if (item.requiredLevel) {
+                return user && user.subscription_level === item.requiredLevel;
+            }
+            return true;
+        });
+    }, [user]);
 
 
 
@@ -1500,6 +1476,17 @@ export default function Layout({ children, currentPageName }) {
 
                         img {
                           content-visibility: auto;
+                          loading: lazy;
+                        }
+
+                        /* Performance optimizations */
+                        .page-transition {
+                          will-change: transform;
+                        }
+
+                        /* Reduce paint areas */
+                        .card {
+                          contain: layout style paint;
                         }
 
                         @media (max-width: 768px) {
