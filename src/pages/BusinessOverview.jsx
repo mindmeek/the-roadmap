@@ -563,12 +563,14 @@ export default function BusinessOverview() {
                                         <p className="text-xs text-[var(--text-soft)] mb-1">Theme</p>
                                         <p className="font-semibold text-sm">{annualPlan.title}</p>
                                     </div>
-                                    <div className="bg-green-50 dark:bg-green-900/20 border-2 border-green-500 p-3" style={{ borderRadius: '1px' }}>
-                                        <p className="text-xs text-green-700 dark:text-green-400 mb-1 font-semibold">Annual Freedom Number</p>
-                                        <p className="font-bold text-lg text-green-600 dark:text-green-500">
-                                            {annualPlan.financial_goal_snapshot || 'Not Set'}
-                                        </p>
-                                    </div>
+                                    {annualPlan.financial_goal_snapshot && (
+                                        <div className="bg-green-50 dark:bg-green-900/20 border-2 border-green-500 p-3" style={{ borderRadius: '1px' }}>
+                                            <p className="text-xs text-green-700 dark:text-green-400 mb-1 font-semibold">Annual Freedom Number</p>
+                                            <p className="font-bold text-lg text-green-600 dark:text-green-500">
+                                                {annualPlan.financial_goal_snapshot}
+                                            </p>
+                                        </div>
+                                    )}
                                     <Link to={createPageUrl('AnnualPlanning')}>
                                         <Button variant="outline" size="sm" className="w-full" style={{ borderRadius: '1px' }}>
                                             <ArrowRight className="w-3 h-3 mr-2" />
