@@ -206,19 +206,39 @@ export default function BusinessOverview() {
                 {/* Services */}
                 {business?.services && business.services.length > 0 && (
                     <div className="mb-6">
-                        <h2 className="text-lg font-bold mb-3 text-[var(--primary-gold)]">Services & Products</h2>
-                        <div className="grid gap-3">
+                        <div className="flex items-center justify-between mb-3">
+                            <h2 className="text-lg font-bold text-[var(--primary-gold)]">Services & Products</h2>
+                            <Link to={createPageUrl('EditBusiness')}>
+                                <Button variant="outline" size="sm" style={{ borderRadius: '1px' }}>
+                                    <Edit className="w-3 h-3 mr-2" />
+                                    Edit
+                                </Button>
+                            </Link>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                             {business.services.map((service, idx) => (
-                                <div key={idx} className="p-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700" style={{ borderRadius: '1px' }}>
-                                    <h3 className="font-semibold mb-1">{service.name}</h3>
-                                    {service.description && (
-                                        <p className="text-sm text-[var(--text-soft)] mb-2">{service.description}</p>
-                                    )}
+                                <div key={idx} className="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-center" style={{ borderRadius: '1px' }}>
+                                    <h3 className="font-semibold mb-2 text-sm">{service.name}</h3>
                                     {service.price && (
-                                        <p className="text-sm font-bold text-[var(--primary-gold)]">{service.price}</p>
+                                        <p className="text-lg font-bold text-[var(--primary-gold)]">{service.price}</p>
                                     )}
                                 </div>
                             ))}
+                        </div>
+                    </div>
+                )}
+                
+                {(!business?.services || business.services.length === 0) && (
+                    <div className="mb-6">
+                        <h2 className="text-lg font-bold mb-3 text-[var(--primary-gold)]">Services & Products</h2>
+                        <div className="p-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-center" style={{ borderRadius: '1px' }}>
+                            <p className="text-sm text-[var(--text-soft)] mb-3">No services or products added yet</p>
+                            <Link to={createPageUrl('EditBusiness')}>
+                                <Button size="sm" className="btn-primary" style={{ borderRadius: '1px' }}>
+                                    <FileText className="w-3 h-3 mr-2" />
+                                    Add Services
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                 )}
@@ -248,26 +268,91 @@ export default function BusinessOverview() {
                     Core Business Identity
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <StrategyCard
-                        title="Your Why"
-                        icon={Lightbulb}
-                        document={strategyDocs['ideal_client']}
-                        formPage="StrategyFormDefineYourWhy"
-                        color="from-yellow-500 to-orange-600"
-                    />
+                    {/* Your Why */}
+                    <div className="border border-gray-200 dark:border-gray-700 p-4 hover:shadow-lg transition-all" style={{ borderRadius: '1px' }}>
+                        <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-2">
+                                <div className="bg-gradient-to-br from-yellow-500 to-orange-600 p-2" style={{ borderRadius: '1px' }}>
+                                    <Lightbulb className="w-4 h-4 text-white" />
+                                </div>
+                                <span className="font-bold text-sm">Your Why</span>
+                            </div>
+                            {strategyDocs['ideal_client']?.is_completed && <CheckCircle className="w-4 h-4 text-green-600" />}
+                        </div>
+                        {strategyDocs['ideal_client'] && strategyDocs['ideal_client'].content?.why ? (
+                            <div className="space-y-3">
+                                <div className="text-sm text-[var(--text-soft)] bg-gray-50 dark:bg-gray-800 p-3 leading-relaxed" style={{ borderRadius: '1px' }}>
+                                    {strategyDocs['ideal_client'].content.why}
+                                </div>
+                                <Link to={createPageUrl('StrategyFormDefineYourWhy')}>
+                                    <Button variant="outline" size="sm" className="w-full" style={{ borderRadius: '1px' }}>
+                                        <Edit className="w-3 h-3 mr-2" />
+                                        Edit
+                                    </Button>
+                                </Link>
+                            </div>
+                        ) : (
+                            <div className="text-center py-4">
+                                <p className="text-sm text-[var(--text-soft)] mb-3">Not completed yet</p>
+                                <Link to={createPageUrl('StrategyFormDefineYourWhy')}>
+                                    <Button size="sm" className="btn-primary w-full" style={{ borderRadius: '1px' }}>
+                                        <FileText className="w-3 h-3 mr-2" />
+                                        Complete Now
+                                    </Button>
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Ideal Client */}
+                    <div className="border border-gray-200 dark:border-gray-700 p-4 hover:shadow-lg transition-all" style={{ borderRadius: '1px' }}>
+                        <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-2">
+                                <div className="bg-gradient-to-br from-blue-500 to-indigo-600 p-2" style={{ borderRadius: '1px' }}>
+                                    <Users className="w-4 h-4 text-white" />
+                                </div>
+                                <span className="font-bold text-sm">Ideal Client</span>
+                            </div>
+                            {strategyDocs['ideal_client']?.is_completed && <CheckCircle className="w-4 h-4 text-green-600" />}
+                        </div>
+                        {strategyDocs['ideal_client'] && strategyDocs['ideal_client'].content?.name ? (
+                            <div className="space-y-3">
+                                <div className="text-sm bg-gray-50 dark:bg-gray-800 p-3" style={{ borderRadius: '1px' }}>
+                                    <p className="text-xs text-[var(--text-soft)] mb-1">Client Name</p>
+                                    <p className="font-bold text-lg text-[var(--primary-gold)] mb-3">{strategyDocs['ideal_client'].content.name}</p>
+                                    {strategyDocs['ideal_client'].content.age && (
+                                        <p className="text-sm text-[var(--text-soft)] mb-1"><strong>Age:</strong> {strategyDocs['ideal_client'].content.age}</p>
+                                    )}
+                                    {strategyDocs['ideal_client'].content.problem && (
+                                        <p className="text-sm text-[var(--text-soft)] leading-relaxed"><strong>Problem:</strong> {strategyDocs['ideal_client'].content.problem.slice(0, 100)}...</p>
+                                    )}
+                                </div>
+                                <Link to={createPageUrl('StrategyFormIdealClient')}>
+                                    <Button variant="outline" size="sm" className="w-full" style={{ borderRadius: '1px' }}>
+                                        <Edit className="w-3 h-3 mr-2" />
+                                        Edit
+                                    </Button>
+                                </Link>
+                            </div>
+                        ) : (
+                            <div className="text-center py-4">
+                                <p className="text-sm text-[var(--text-soft)] mb-3">Not completed yet</p>
+                                <Link to={createPageUrl('StrategyFormIdealClient')}>
+                                    <Button size="sm" className="btn-primary w-full" style={{ borderRadius: '1px' }}>
+                                        <FileText className="w-3 h-3 mr-2" />
+                                        Complete Now
+                                    </Button>
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+
                     <StrategyCard
                         title="Brand Identity"
                         icon={Palette}
                         document={strategyDocs['brand_kit']}
                         formPage="StrategyFormBrandKit"
                         color="from-purple-500 to-pink-600"
-                    />
-                    <StrategyCard
-                        title="Ideal Client"
-                        icon={Users}
-                        document={strategyDocs['ideal_client']}
-                        formPage="StrategyFormIdealClient"
-                        color="from-blue-500 to-indigo-600"
                     />
                 </div>
             </div>
@@ -292,14 +377,54 @@ export default function BusinessOverview() {
                         formPage="StrategyFormValueProposition"
                         color="from-indigo-500 to-purple-600"
                     />
-                    <StrategyCard
-                        title="Customer Journey"
-                        icon={ArrowRight}
-                        document={strategyDocs['customer_journey']}
-                        formPage="StrategyFormCustomerJourney"
-                        color="from-pink-500 to-rose-600"
-                    />
                 </div>
+            </div>
+
+            {/* Customer Journey Map */}
+            <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
+                <div className="flex items-center justify-between mb-4 pb-2 border-b-2 border-[var(--primary-gold)]">
+                    <h2 className="text-2xl font-bold">Customer Journey Map</h2>
+                    {strategyDocs['customer_journey']?.is_completed && <CheckCircle className="w-5 h-5 text-green-600" />}
+                </div>
+                {strategyDocs['customer_journey'] && strategyDocs['customer_journey'].content?.stages ? (
+                    <div className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+                            {strategyDocs['customer_journey'].content.stages.map((stage, idx) => (
+                                <div key={idx} className="border border-gray-200 dark:border-gray-700 p-3" style={{ borderRadius: '1px' }}>
+                                    <div className="bg-gradient-to-br from-pink-500 to-rose-600 text-white p-2 text-center mb-2" style={{ borderRadius: '1px' }}>
+                                        <p className="text-xs font-bold">{stage.name || `Stage ${idx + 1}`}</p>
+                                    </div>
+                                    {stage.touchpoints && stage.touchpoints.length > 0 && (
+                                        <div className="text-xs text-[var(--text-soft)]">
+                                            <p className="font-semibold mb-1">Touchpoints:</p>
+                                            <ul className="list-disc list-inside">
+                                                {stage.touchpoints.slice(0, 2).map((tp, i) => (
+                                                    <li key={i} className="truncate">{tp}</li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                        <Link to={createPageUrl('StrategyFormCustomerJourney')}>
+                            <Button variant="outline" size="sm" className="w-full" style={{ borderRadius: '1px' }}>
+                                <Edit className="w-3 h-3 mr-2" />
+                                Edit Customer Journey
+                            </Button>
+                        </Link>
+                    </div>
+                ) : (
+                    <div className="text-center py-8">
+                        <p className="text-sm text-[var(--text-soft)] mb-4">Map out your customer's journey from awareness to advocacy</p>
+                        <Link to={createPageUrl('StrategyFormCustomerJourney')}>
+                            <Button size="sm" className="btn-primary" style={{ borderRadius: '1px' }}>
+                                <FileText className="w-3 h-3 mr-2" />
+                                Create Customer Journey
+                            </Button>
+                        </Link>
+                    </div>
+                )}
             </div>
 
             {/* Active Journeys & Plans */}
