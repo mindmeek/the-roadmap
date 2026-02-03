@@ -149,7 +149,7 @@ export default function MemberOfTheMonthSubmission() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!isEligible) {
+        if (!isEligible && !existingSubmission) {
             alert('Please meet all eligibility criteria before submitting.');
             return;
         }
@@ -327,17 +327,32 @@ export default function MemberOfTheMonthSubmission() {
                 </CardContent>
             </Card>
 
-            {/* Existing Submission Notice */}
-            {existingSubmission && (
+            {/* Admin Invitation Notice - Shows when invited by admin but not eligible */}
+            {existingSubmission && !isEligible && (
+                <Card className="mb-6 border-purple-200 bg-purple-50 dark:bg-purple-900/20">
+                    <CardContent className="pt-4 sm:pt-6 px-4 sm:px-6">
+                        <div className="flex items-center gap-2 mb-2">
+                            <Award className="w-5 h-5 text-purple-600" />
+                            <h3 className="font-semibold text-purple-900 dark:text-purple-300">You've Been Selected by Our Team! 🎉</h3>
+                        </div>
+                        <p className="text-sm text-[var(--text-soft)] mb-2">
+                            Our admin team has selected you to be featured as Member of the Month. While you may not meet all the typical requirements yet, we believe your story will inspire our community!
+                        </p>
+                        <p className="text-sm text-purple-700 dark:text-purple-300 font-medium">
+                            Please fill out the form below to share your story.
+                        </p>
+                    </CardContent>
+                </Card>
+            )}
+
+            {/* Existing Submission Notice - Shows when already submitted and eligible */}
+            {existingSubmission && isEligible && (
                 <Card className="mb-6 border-blue-200 bg-blue-50 dark:bg-blue-900/20">
                     <CardContent className="pt-4 sm:pt-6 px-4 sm:px-6">
                         <div className="flex items-center gap-2 mb-2">
                             <CheckCircle2 className="w-5 h-5 text-blue-600" />
                             <h3 className="font-semibold">You've Already Submitted!</h3>
                         </div>
-                        <p className="text-sm text-[var(--text-soft)] mb-2">
-                            Status: <Badge>{existingSubmission.status}</Badge>
-                        </p>
                         <p className="text-sm text-[var(--text-soft)]">
                             You can edit your submission below anytime before it's approved.
                         </p>
@@ -345,8 +360,8 @@ export default function MemberOfTheMonthSubmission() {
                 </Card>
             )}
 
-            {/* Submission Form */}
-            {isEligible && (
+            {/* Submission Form - Show if eligible OR if admin invited them */}
+            {(isEligible || existingSubmission) && (
                 <form onSubmit={handleSubmit}>
                     <Card className="mb-6">
                         <CardHeader className="px-4 sm:px-6">
