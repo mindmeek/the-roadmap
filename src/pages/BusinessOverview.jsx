@@ -35,6 +35,22 @@ export default function BusinessOverview() {
         loadBusinessOverview();
     }, []);
 
+    const calculateUnitsNeeded = (product, freedomNumber) => {
+        const price = parseFloat(product.price) || 0;
+        const cost = parseFloat(product.cost) || 0;
+        
+        if (!price || price <= 0) return 0;
+        
+        const costPerUnit = product.costType === 'per_unit' ? cost : 0;
+        const fixedMonthlyCost = product.costType === 'monthly_subscription' ? cost : 0;
+        const profitPerUnit = price - costPerUnit;
+        
+        if (profitPerUnit <= 0) return 0;
+        
+        const targetProfit = freedomNumber + fixedMonthlyCost;
+        return Math.ceil(targetProfit / profitPerUnit);
+    };
+
     const loadBusinessOverview = async () => {
         try {
             const currentUser = await base44.auth.me();
@@ -196,7 +212,7 @@ export default function BusinessOverview() {
 
                     {/* Financial Overview */}
                     {user?.financial_projections && (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
                             {/* Monthly Freedom Number */}
                             <div className="bg-green-50 dark:bg-green-900/20 border-2 border-green-500 p-4" style={{ borderRadius: '1px' }}>
                                 <p className="text-xs text-green-700 dark:text-green-400 font-semibold mb-2">Monthly Freedom Number</p>
@@ -205,29 +221,42 @@ export default function BusinessOverview() {
                                 </p>
                             </div>
 
-                            {/* Monthly Expenses */}
-                            {user.financial_projections.expenses && (
-                                <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-300 dark:border-orange-700 p-4" style={{ borderRadius: '1px' }}>
-                                    <p className="text-xs text-orange-700 dark:text-orange-400 font-semibold mb-2">Monthly Expenses</p>
-                                    <div className="space-y-1">
-                                        {user.financial_projections.expenses.personal && (
-                                            <div className="text-xs text-[var(--text-soft)]">
-                                                Personal: ${parseInt(user.financial_projections.expenses.personal).toLocaleString()}
-                                            </div>
-                                        )}
-                                        {user.financial_projections.expenses.business && (
-                                            <div className="text-xs text-[var(--text-soft)]">
-                                                Business: ${parseInt(user.financial_projections.expenses.business).toLocaleString()}
-                                            </div>
-                                        )}
-                                        {user.financial_projections.expenses.total && (
-                                            <div className="text-xs font-semibold text-orange-600 dark:text-orange-500 pt-1 border-t border-orange-200 dark:border-orange-800">
-                                                Total: ${parseInt(user.financial_projections.expenses.total).toLocaleString()}
-                                            </div>
-                                        )}
+                            {/* Personal & Lifestyle */}
+                            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-300 dark:border-blue-700 p-4" style={{ borderRadius: '1px' }}>
+                                <p className="text-xs text-blue-700 dark:text-blue-400 font-semibold mb-2">Personal & Lifestyle</p>
+                                <div className="space-y-1">
+                                    {user.financial_projections.monthlyExpenses && (
+                                        <div className="text-xs text-[var(--text-soft)]">
+                                            Expenses: ${parseInt(user.financial_projections.monthlyExpenses).toLocaleString()}
+                                        </div>
+                                    )}
+                                    {user.financial_projections.desiredSalary && (
+                                        <div className="text-xs text-[var(--text-soft)]">
+                                            Desired Salary: ${parseInt(user.financial_projections.desiredSalary).toLocaleString()}
+                                        </div>
+                                    )}
+                                    <div className="text-xs font-semibold text-blue-600 dark:text-blue-500 pt-1 border-t border-blue-200 dark:border-blue-800">
+                                        Subtotal: ${parseInt((user.financial_projections.monthlyExpenses || 0) + (user.financial_projections.desiredSalary || 0)).toLocaleString()}
                                     </div>
                                 </div>
-                            )}
+                            </div>
+
+                            {/* Business Operations */}
+                            <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-300 dark:border-purple-700 p-4" style={{ borderRadius: '1px' }}>
+                                <p className="text-xs text-purple-700 dark:text-purple-400 font-semibold mb-2">Business Operations</p>
+                                <div className="space-y-1">
+                                    {user.financial_projections.businessExpenses && (
+                                        <div className="text-xs text-[var(--text-soft)]">
+                                            Monthly Expenses: ${parseInt(user.financial_projections.businessExpenses).toLocaleString()}
+                                        </div>
+                                    )}
+                                    {user.financial_projections.emergencyBuffer && (
+                                        <div className="text-xs text-[var(--text-soft)]">
+                                            Buffer: {user.financial_projections.emergencyBuffer}%
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     )}
                 </div>
@@ -253,20 +282,23 @@ export default function BusinessOverview() {
                             </Link>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                            {user.financial_projections.products.map((product, idx) => (
-                                <div key={idx} className="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700" style={{ borderRadius: '1px' }}>
-                                    <h3 className="font-semibold mb-2 text-sm">{product.name}</h3>
-                                    {product.description && (
-                                        <p className="text-xs text-[var(--text-soft)] mb-2">
-                                            {product.description}
+                            {user.financial_projections.products.map((product, idx) => {
+                                const unitsNeeded = calculateUnitsNeeded(product, user.financial_projections.freedomNumber || 0);
+                                return (
+                                    <div key={idx} className="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700" style={{ borderRadius: '1px' }}>
+                                        <h3 className="font-semibold mb-2 text-sm">{product.name}</h3>
+                                        {product.description && (
+                                            <p className="text-xs text-[var(--text-soft)] mb-2">
+                                                {product.description}
+                                            </p>
+                                        )}
+                                        <p className="text-lg font-bold text-[var(--primary-gold)] mb-2">${product.price}</p>
+                                        <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold">
+                                            Need to sell: {unitsNeeded.toLocaleString()}/month
                                         </p>
-                                    )}
-                                    <p className="text-lg font-bold text-[var(--primary-gold)] mb-2">${product.price}</p>
-                                    <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold">
-                                        Need to sell: {product.quantity}/month
-                                    </p>
-                                </div>
-                            ))}
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 )}
