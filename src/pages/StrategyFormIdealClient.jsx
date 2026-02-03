@@ -278,7 +278,11 @@ export default function StrategyFormIdealClient() {
                         <Users className="w-6 h-6 text-blue-600" />
                         Demographics
                     </h3>
-                    <p className="text-sm text-[var(--text-soft)] mb-4">Basic factual information about your ideal client</p>
+                    
+                    <div className="mb-6 bg-blue-50 dark:bg-blue-900/10 p-4 rounded-lg border border-blue-100 dark:border-blue-800/30 text-sm">
+                        <p className="mb-2"><strong className="text-blue-700 dark:text-blue-400">Why it matters:</strong> Demographics define the "skeleton" of your customer—who they are on paper. This is essential for targeting ads (e.g., Facebook audiences) and pricing correctly.</p>
+                        <p className="italic text-[var(--text-soft)]"><strong className="not-italic text-[var(--text-main)]">Example:</strong> A luxury watch brand targets "Men, 40-60, Income $150k+" because they have the buying power. Targeting "Teenagers" would waste ad budget.</p>
+                    </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
