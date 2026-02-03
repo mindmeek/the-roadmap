@@ -399,6 +399,13 @@ export default function MyFinancialGoal() {
                       onChange={(e) => updateProduct(product.id, 'name', e.target.value)}
                       className="form-input w-full text-sm sm:text-base"
                     />
+                    <input
+                      type="text"
+                      placeholder="Short description (optional)"
+                      value={product.description || ''}
+                      onChange={(e) => updateProduct(product.id, 'description', e.target.value)}
+                      className="form-input w-full text-sm sm:text-base"
+                    />
                     
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
