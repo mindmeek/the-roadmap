@@ -15,6 +15,10 @@ export default function OnboardingPage() {
         entrepreneurship_stage: '',
         selected_goal: '',
         business_name: '',
+        industry: '',
+        website: '',
+        company_size: '',
+        legal_structure: '',
         years_in_business: 0,
         interested_in_media_production: false
     });
@@ -36,6 +40,10 @@ export default function OnboardingPage() {
                 entrepreneurship_stage: currentUser.entrepreneurship_stage || '',
                 selected_goal: currentUser.selected_goal || '',
                 business_name: currentUser.business_name || '',
+                industry: currentUser.industry || '',
+                website: currentUser.website || '',
+                company_size: currentUser.company_size || '',
+                legal_structure: currentUser.legal_structure || '',
                 years_in_business: currentUser.years_in_business || 0,
                 interested_in_media_production: currentUser.interested_in_media_production || false
             }));
@@ -189,7 +197,7 @@ export default function OnboardingPage() {
                     
                     <div>
                         <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                            Business Name (Optional)
+                            Business Name *
                         </label>
                         <input
                             type="text"
@@ -197,7 +205,73 @@ export default function OnboardingPage() {
                             onChange={(e) => handleInputChange('business_name', e.target.value)}
                             className="form-input w-full"
                             placeholder="My Awesome Business"
+                            required
                         />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                            Industry
+                        </label>
+                        <input
+                            type="text"
+                            value={formData.industry}
+                            onChange={(e) => handleInputChange('industry', e.target.value)}
+                            className="form-input w-full"
+                            placeholder="e.g., Tech, Consulting, E-commerce"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                            Website (Optional)
+                        </label>
+                        <input
+                            type="url"
+                            value={formData.website}
+                            onChange={(e) => handleInputChange('website', e.target.value)}
+                            className="form-input w-full"
+                            placeholder="https://www.mybusiness.com"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                            Company Size *
+                        </label>
+                        <select
+                            value={formData.company_size}
+                            onChange={(e) => handleInputChange('company_size', e.target.value)}
+                            className="form-input w-full"
+                            required
+                        >
+                            <option value="">Select company size</option>
+                            <option value="1">1 (Solo)</option>
+                            <option value="2-10">2-10 employees</option>
+                            <option value="11-50">11-50 employees</option>
+                            <option value="51-200">51-200 employees</option>
+                            <option value="200+">200+ employees</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                            Legal Structure *
+                        </label>
+                        <select
+                            value={formData.legal_structure}
+                            onChange={(e) => handleInputChange('legal_structure', e.target.value)}
+                            className="form-input w-full"
+                            required
+                        >
+                            <option value="">Select legal structure</option>
+                            <option value="Sole Proprietorship">Sole Proprietorship</option>
+                            <option value="LLC">LLC (Limited Liability Company)</option>
+                            <option value="S-Corp">S-Corp</option>
+                            <option value="C-Corp">C-Corp</option>
+                            <option value="Partnership">Partnership</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
 
                     <div>
@@ -524,7 +598,7 @@ export default function OnboardingPage() {
     const isStepValid = () => {
         switch (currentStep) {
             case 0: return true;
-            case 1: return formData.first_name && formData.last_name;
+            case 1: return formData.first_name && formData.last_name && formData.business_name && formData.company_size && formData.legal_structure;
             case 2: return formData.entrepreneurship_stage !== '';
             case 3: return formData.selected_goal !== '';
             case 4: return true;

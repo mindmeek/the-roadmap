@@ -258,7 +258,7 @@ export default function DashboardPage() {
                             Welcome back, {user.first_name || user.full_name}! 👋
                         </h1>
                         <p className="text-white/90 text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mb-3 sm:mb-4 md:mb-6">
-                            Let's make today count - one step closer to your goals.
+                            {user.business_name ? `Let's keep building ${user.business_name} - one step closer to your goals.` : "Let's make today count - one step closer to your goals."}
                         </p>
                         <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3">
                             <Link to={createPageUrl('DailyTrack')} className="btn btn-primary text-xs sm:text-sm md:text-base w-full sm:w-auto justify-center">
