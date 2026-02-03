@@ -26,6 +26,18 @@ export default function ProfilePage() {
         loadProfile();
     }, []);
 
+    const handleResetPassword = async () => {
+        if (!confirm('Send a password reset email to your registered email address?')) return;
+        
+        try {
+            await base44.auth.resetPasswordRequest(user.email);
+            toast.success('Password reset email sent! Check your inbox.');
+        } catch (error) {
+            console.error('Error sending password reset:', error);
+            toast.error('Failed to send reset email. Please try again.');
+        }
+    };
+
     const loadProfile = async () => {
         try {
             setLoading(true);
@@ -173,6 +185,13 @@ export default function ProfilePage() {
                                     Edit Profile
                                 </Button>
                             </Link>
+                            <Button 
+                                variant="outline"
+                                onClick={handleResetPassword}
+                                className="w-full"
+                            >
+                                Reset Password
+                            </Button>
                             <Button 
                                 variant="outline"
                                 onClick={() => base44.auth.logout()}
