@@ -88,44 +88,40 @@ export default function BusinessOverview() {
         const hasContent = !!document;
 
         return (
-            <Card className="hover:shadow-lg transition-all">
-                <CardHeader>
-                    <CardTitle className="flex items-center justify-between text-lg">
-                        <div className="flex items-center gap-2">
-                            <div className={`bg-gradient-to-br ${color} p-2 rounded-lg`}>
-                                <Icon className="w-5 h-5 text-white" />
-                            </div>
-                            <span>{title}</span>
+            <div className="border border-gray-200 dark:border-gray-700 p-4 hover:shadow-lg transition-all" style={{ borderRadius: '1px' }}>
+                <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                        <div className={`bg-gradient-to-br ${color} p-2`} style={{ borderRadius: '1px' }}>
+                            <Icon className="w-4 h-4 text-white" />
                         </div>
-                        {isComplete && <CheckCircle className="w-5 h-5 text-green-600" />}
-                    </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    {hasContent ? (
-                        <div className="space-y-3">
-                            <div className="text-sm text-[var(--text-soft)] bg-gray-50 dark:bg-gray-800 p-3 rounded-lg max-h-32 overflow-y-auto">
-                                {renderStrategyContent(document)}
-                            </div>
-                            <Link to={createPageUrl(formPage)}>
-                                <Button variant="outline" size="sm" className="w-full">
-                                    <Edit className="w-4 h-4 mr-2" />
-                                    Edit
-                                </Button>
-                            </Link>
+                        <span className="font-bold text-sm">{title}</span>
+                    </div>
+                    {isComplete && <CheckCircle className="w-4 h-4 text-green-600" />}
+                </div>
+                {hasContent ? (
+                    <div className="space-y-3">
+                        <div className="text-sm text-[var(--text-soft)] bg-gray-50 dark:bg-gray-800 p-3 max-h-32 overflow-y-auto leading-relaxed" style={{ borderRadius: '1px' }}>
+                            {renderStrategyContent(document)}
                         </div>
-                    ) : (
-                        <div className="text-center py-4">
-                            <p className="text-sm text-[var(--text-soft)] mb-3">Not completed yet</p>
-                            <Link to={createPageUrl(formPage)}>
-                                <Button size="sm" className="btn-primary">
-                                    <FileText className="w-4 h-4 mr-2" />
-                                    Complete Now
-                                </Button>
-                            </Link>
-                        </div>
-                    )}
-                </CardContent>
-            </Card>
+                        <Link to={createPageUrl(formPage)}>
+                            <Button variant="outline" size="sm" className="w-full" style={{ borderRadius: '1px' }}>
+                                <Edit className="w-3 h-3 mr-2" />
+                                Edit
+                            </Button>
+                        </Link>
+                    </div>
+                ) : (
+                    <div className="text-center py-4">
+                        <p className="text-sm text-[var(--text-soft)] mb-3">Not completed yet</p>
+                        <Link to={createPageUrl(formPage)}>
+                            <Button size="sm" className="btn-primary w-full" style={{ borderRadius: '1px' }}>
+                                <FileText className="w-3 h-3 mr-2" />
+                                Complete Now
+                            </Button>
+                        </Link>
+                    </div>
+                )}
+            </div>
         );
     };
 
@@ -172,27 +168,86 @@ export default function BusinessOverview() {
     }
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-8 pb-24 md:pb-8">
-            {/* Header */}
-            <div className="mb-8 text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[var(--primary-gold)] to-yellow-600 rounded-full mb-4">
-                    <Briefcase className="w-8 h-8 text-white" />
+        <div className="max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-8">
+            {/* Header - Business Card Style */}
+            <div className="card p-8 mb-6 border-2 border-[var(--primary-gold)]" style={{ borderRadius: '1px' }}>
+                <div className="text-center mb-8">
+                    {business?.logo_url && (
+                        <img 
+                            src={business.logo_url} 
+                            alt="Business Logo" 
+                            className="w-24 h-24 mx-auto mb-4 object-contain"
+                            style={{ borderRadius: '1px' }}
+                        />
+                    )}
+                    <h1 className="text-4xl font-bold mb-3">
+                        {business?.name || user?.business_name || 'Your Business'}
+                    </h1>
+                    {business?.tagline && (
+                        <p className="text-xl text-[var(--primary-gold)] font-semibold mb-4">
+                            {business.tagline}
+                        </p>
+                    )}
+                    {business?.industry && (
+                        <p className="text-[var(--text-soft)] mb-4">
+                            <strong>Industry:</strong> {business.industry}
+                        </p>
+                    )}
                 </div>
-                <h1 className="text-4xl font-bold mb-2">
-                    {business?.name || user?.business_name || 'Your Business'} Overview
-                </h1>
-                <p className="text-[var(--text-soft)] text-lg">
-                    A complete snapshot of your strategic business foundation
-                </p>
+
+                {/* Business Description */}
+                {business?.description && (
+                    <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-800" style={{ borderRadius: '1px' }}>
+                        <h2 className="text-lg font-bold mb-2 text-[var(--primary-gold)]">About Our Business</h2>
+                        <p className="text-[var(--text-soft)] leading-relaxed">{business.description}</p>
+                    </div>
+                )}
+
+                {/* Services */}
+                {business?.services && business.services.length > 0 && (
+                    <div className="mb-6">
+                        <h2 className="text-lg font-bold mb-3 text-[var(--primary-gold)]">Services & Products</h2>
+                        <div className="grid gap-3">
+                            {business.services.map((service, idx) => (
+                                <div key={idx} className="p-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700" style={{ borderRadius: '1px' }}>
+                                    <h3 className="font-semibold mb-1">{service.name}</h3>
+                                    {service.description && (
+                                        <p className="text-sm text-[var(--text-soft)] mb-2">{service.description}</p>
+                                    )}
+                                    {service.price && (
+                                        <p className="text-sm font-bold text-[var(--primary-gold)]">{service.price}</p>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Contact Information */}
+                <div className="flex flex-wrap gap-4 justify-center text-sm text-[var(--text-soft)]">
+                    {business?.public_email && (
+                        <span><strong>Email:</strong> {business.public_email}</span>
+                    )}
+                    {business?.public_phone && (
+                        <span><strong>Phone:</strong> {business.public_phone}</span>
+                    )}
+                    {business?.city && (
+                        <span><strong>Location:</strong> {business.city}</span>
+                    )}
+                    {business?.website_url && (
+                        <a href={business.website_url} target="_blank" rel="noopener noreferrer" className="text-[var(--primary-gold)] hover:underline">
+                            <strong>Website</strong>
+                        </a>
+                    )}
+                </div>
             </div>
 
             {/* Core Business Identity */}
-            <div className="mb-8">
-                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                    <Heart className="w-6 h-6 text-red-500" />
+            <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
+                <h2 className="text-2xl font-bold mb-4 pb-2 border-b-2 border-[var(--primary-gold)]">
                     Core Business Identity
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <StrategyCard
                         title="Your Why"
                         icon={Lightbulb}
@@ -218,12 +273,11 @@ export default function BusinessOverview() {
             </div>
 
             {/* Strategic Framework */}
-            <div className="mb-8">
-                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                    <Target className="w-6 h-6 text-[var(--primary-gold)]" />
+            <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
+                <h2 className="text-2xl font-bold mb-4 pb-2 border-b-2 border-[var(--primary-gold)]">
                     Strategic Framework
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <StrategyCard
                         title="Business Model Canvas"
                         icon={Briefcase}
@@ -249,34 +303,31 @@ export default function BusinessOverview() {
             </div>
 
             {/* Active Journeys & Plans */}
-            <div className="mb-8">
-                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                    <Calendar className="w-6 h-6 text-blue-500" />
+            <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
+                <h2 className="text-2xl font-bold mb-4 pb-2 border-b-2 border-[var(--primary-gold)]">
                     Active Journeys & Plans
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Current 90-Day Journey */}
-                    <Card className="hover:shadow-lg transition-all">
-                        <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                                <Target className="w-5 h-5 text-[var(--primary-gold)]" />
-                                Current 90-Day Journey
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
+                    <div className="border border-gray-200 dark:border-gray-700 p-4" style={{ borderRadius: '1px' }}>
+                        <h3 className="font-bold mb-3 flex items-center gap-2">
+                            <Target className="w-4 h-4 text-[var(--primary-gold)]" />
+                            Current 90-Day Journey
+                        </h3>
+                        <div>
                             {currentJourney ? (
                                 <div className="space-y-3">
-                                    <div>
-                                        <p className="text-sm text-[var(--text-soft)]">Goal</p>
-                                        <p className="font-semibold">{currentJourney.source_name}</p>
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-3" style={{ borderRadius: '1px' }}>
+                                        <p className="text-xs text-[var(--text-soft)] mb-1">Goal</p>
+                                        <p className="font-semibold text-sm">{currentJourney.source_name}</p>
                                     </div>
-                                    <div>
-                                        <p className="text-sm text-[var(--text-soft)]">Type</p>
-                                        <p className="font-semibold capitalize">{currentJourney.source_type}</p>
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-3" style={{ borderRadius: '1px' }}>
+                                        <p className="text-xs text-[var(--text-soft)] mb-1">Type</p>
+                                        <p className="font-semibold text-sm capitalize">{currentJourney.source_type}</p>
                                     </div>
                                     <Link to={createPageUrl('Journey')}>
-                                        <Button variant="outline" size="sm" className="w-full">
-                                            <ArrowRight className="w-4 h-4 mr-2" />
+                                        <Button variant="outline" size="sm" className="w-full" style={{ borderRadius: '1px' }}>
+                                            <ArrowRight className="w-3 h-3 mr-2" />
                                             View Journey
                                         </Button>
                                     </Link>
@@ -285,38 +336,36 @@ export default function BusinessOverview() {
                                 <div className="text-center py-4">
                                     <p className="text-sm text-[var(--text-soft)] mb-3">No active journey</p>
                                     <Link to={createPageUrl('Journey')}>
-                                        <Button size="sm" className="btn-primary">
-                                            <Target className="w-4 h-4 mr-2" />
+                                        <Button size="sm" className="btn-primary w-full" style={{ borderRadius: '1px' }}>
+                                            <Target className="w-3 h-3 mr-2" />
                                             Start Journey
                                         </Button>
                                     </Link>
                                 </div>
                             )}
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
 
                     {/* Annual Plan */}
-                    <Card className="hover:shadow-lg transition-all">
-                        <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                                <Calendar className="w-5 h-5 text-blue-500" />
-                                Annual Strategy
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
+                    <div className="border border-gray-200 dark:border-gray-700 p-4" style={{ borderRadius: '1px' }}>
+                        <h3 className="font-bold mb-3 flex items-center gap-2">
+                            <Calendar className="w-4 h-4 text-[var(--primary-gold)]" />
+                            Annual Strategy
+                        </h3>
+                        <div>
                             {annualPlan ? (
                                 <div className="space-y-3">
-                                    <div>
-                                        <p className="text-sm text-[var(--text-soft)]">Year</p>
-                                        <p className="font-semibold">{annualPlan.year}</p>
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-3" style={{ borderRadius: '1px' }}>
+                                        <p className="text-xs text-[var(--text-soft)] mb-1">Year</p>
+                                        <p className="font-semibold text-sm">{annualPlan.year}</p>
                                     </div>
-                                    <div>
-                                        <p className="text-sm text-[var(--text-soft)]">Theme</p>
-                                        <p className="font-semibold">{annualPlan.title}</p>
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-3" style={{ borderRadius: '1px' }}>
+                                        <p className="text-xs text-[var(--text-soft)] mb-1">Theme</p>
+                                        <p className="font-semibold text-sm">{annualPlan.title}</p>
                                     </div>
                                     <Link to={createPageUrl('AnnualPlanning')}>
-                                        <Button variant="outline" size="sm" className="w-full">
-                                            <ArrowRight className="w-4 h-4 mr-2" />
+                                        <Button variant="outline" size="sm" className="w-full" style={{ borderRadius: '1px' }}>
+                                            <ArrowRight className="w-3 h-3 mr-2" />
                                             View Plan
                                         </Button>
                                     </Link>
@@ -325,122 +374,116 @@ export default function BusinessOverview() {
                                 <div className="text-center py-4">
                                     <p className="text-sm text-[var(--text-soft)] mb-3">No annual plan created</p>
                                     <Link to={createPageUrl('AnnualPlanning')}>
-                                        <Button size="sm" className="btn-primary">
-                                            <Calendar className="w-4 h-4 mr-2" />
+                                        <Button size="sm" className="btn-primary w-full" style={{ borderRadius: '1px' }}>
+                                            <Calendar className="w-3 h-3 mr-2" />
                                             Create Plan
                                         </Button>
                                     </Link>
                                 </div>
                             )}
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             {/* Growth Hubs */}
-            <div className="mb-8">
-                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                    <TrendingUp className="w-6 h-6 text-green-500" />
-                    Growth Hubs
+            <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
+                <h2 className="text-2xl font-bold mb-4 pb-2 border-b-2 border-[var(--primary-gold)]">
+                    Growth Hubs & Resources
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <Link to={createPageUrl('MyFoundationRoadmap')}>
-                        <Card className="hover:shadow-lg transition-all cursor-pointer h-full">
-                            <CardContent className="pt-6 text-center">
-                                <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-full inline-block mb-3">
-                                    <FileText className="w-6 h-6 text-blue-600" />
-                                </div>
-                                <h3 className="font-bold mb-2">Foundation Roadmap</h3>
-                                <p className="text-sm text-[var(--text-soft)] mb-3">
-                                    {foundationProgress?.completed_steps?.length || 0} tools completed
-                                </p>
-                                <Button variant="outline" size="sm" className="w-full">
-                                    View Roadmap
-                                </Button>
-                            </CardContent>
-                        </Card>
+                        <div className="border border-gray-200 dark:border-gray-700 p-4 hover:shadow-lg transition-all cursor-pointer h-full text-center" style={{ borderRadius: '1px' }}>
+                            <div className="bg-blue-100 dark:bg-blue-900 p-3 inline-block mb-3" style={{ borderRadius: '1px' }}>
+                                <FileText className="w-5 h-5 text-blue-600" />
+                            </div>
+                            <h3 className="font-bold mb-2 text-sm">Foundation Roadmap</h3>
+                            <p className="text-xs text-[var(--text-soft)] mb-3">
+                                {foundationProgress?.completed_steps?.length || 0} tools completed
+                            </p>
+                            <Button variant="outline" size="sm" className="w-full text-xs" style={{ borderRadius: '1px' }}>
+                                View Roadmap
+                            </Button>
+                        </div>
                     </Link>
 
                     <Link to={createPageUrl('MarketingOverview')}>
-                        <Card className="hover:shadow-lg transition-all cursor-pointer h-full">
-                            <CardContent className="pt-6 text-center">
-                                <div className="bg-orange-100 dark:bg-orange-900 p-3 rounded-full inline-block mb-3">
-                                    <TrendingUp className="w-6 h-6 text-orange-600" />
-                                </div>
-                                <h3 className="font-bold mb-2">Marketing Hub</h3>
-                                <p className="text-sm text-[var(--text-soft)] mb-3">
-                                    Your complete marketing strategy
-                                </p>
-                                <Button variant="outline" size="sm" className="w-full">
-                                    View Hub
-                                </Button>
-                            </CardContent>
-                        </Card>
+                        <div className="border border-gray-200 dark:border-gray-700 p-4 hover:shadow-lg transition-all cursor-pointer h-full text-center" style={{ borderRadius: '1px' }}>
+                            <div className="bg-orange-100 dark:bg-orange-900 p-3 inline-block mb-3" style={{ borderRadius: '1px' }}>
+                                <TrendingUp className="w-5 h-5 text-orange-600" />
+                            </div>
+                            <h3 className="font-bold mb-2 text-sm">Marketing Hub</h3>
+                            <p className="text-xs text-[var(--text-soft)] mb-3">
+                                Your complete marketing strategy
+                            </p>
+                            <Button variant="outline" size="sm" className="w-full text-xs" style={{ borderRadius: '1px' }}>
+                                View Hub
+                            </Button>
+                        </div>
                     </Link>
 
                     <Link to={createPageUrl('ElyzetAIAssistants')}>
-                        <Card className="hover:shadow-lg transition-all cursor-pointer h-full">
-                            <CardContent className="pt-6 text-center">
-                                <div className="bg-purple-100 dark:bg-purple-900 p-3 rounded-full inline-block mb-3">
-                                    <Briefcase className="w-6 h-6 text-purple-600" />
-                                </div>
-                                <h3 className="font-bold mb-2">AI Assistants</h3>
-                                <p className="text-sm text-[var(--text-soft)] mb-3">
-                                    Your business support team
-                                </p>
-                                <Button variant="outline" size="sm" className="w-full">
-                                    View Team
-                                </Button>
-                            </CardContent>
-                        </Card>
+                        <div className="border border-gray-200 dark:border-gray-700 p-4 hover:shadow-lg transition-all cursor-pointer h-full text-center" style={{ borderRadius: '1px' }}>
+                            <div className="bg-purple-100 dark:bg-purple-900 p-3 inline-block mb-3" style={{ borderRadius: '1px' }}>
+                                <Briefcase className="w-5 h-5 text-purple-600" />
+                            </div>
+                            <h3 className="font-bold mb-2 text-sm">AI Assistants</h3>
+                            <p className="text-xs text-[var(--text-soft)] mb-3">
+                                Your business support team
+                            </p>
+                            <Button variant="outline" size="sm" className="w-full text-xs" style={{ borderRadius: '1px' }}>
+                                View Team
+                            </Button>
+                        </div>
                     </Link>
                 </div>
             </div>
 
             {/* Community Integration */}
-            <Card className="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border-2 border-purple-200 dark:border-purple-700">
-                <CardContent className="pt-6">
-                    <div className="text-center">
-                        <div className="bg-purple-100 dark:bg-purple-900 p-3 rounded-full inline-block mb-4">
-                            <Users className="w-8 h-8 text-purple-600" />
-                        </div>
-                        <h3 className="text-2xl font-bold mb-2">You're Part of The Business Minds Community!</h3>
-                        <p className="text-[var(--text-soft)] mb-6 max-w-2xl mx-auto">
-                            Connect with fellow entrepreneurs, share your journey, get feedback, and grow together.
-                        </p>
-                        
-                        <div className="flex flex-wrap gap-4 justify-center">
-                            <a 
-                                href="https://thebminds.com" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="btn btn-primary"
-                            >
-                                <Users className="w-4 h-4 mr-2" />
-                                Desktop Community
-                            </a>
-                            <a 
-                                href="https://apps.apple.com/us/app/the-business-minds/id6742644847" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="btn btn-secondary"
-                            >
-                                <Apple className="w-4 h-4 mr-2" />
-                                iOS App
-                            </a>
-                            <a 
-                                href="https://play.google.com/store/apps/details?id=com.thebusinessminds.wl&hl=en_IN" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="btn btn-secondary"
-                            >
-                                <Smartphone className="w-4 h-4 mr-2" />
-                                Android App
-                            </a>
-                        </div>
+            <div className="card bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border-2 border-purple-200 dark:border-purple-700 p-6" style={{ borderRadius: '1px' }}>
+                <div className="text-center">
+                    <div className="bg-purple-100 dark:bg-purple-900 p-3 inline-block mb-4" style={{ borderRadius: '1px' }}>
+                        <Users className="w-8 h-8 text-purple-600" />
                     </div>
-                </CardContent>
-            </Card>
+                    <h3 className="text-2xl font-bold mb-2">You're Part of The Business Minds Community!</h3>
+                    <p className="text-[var(--text-soft)] mb-6 max-w-2xl mx-auto">
+                        Connect with fellow entrepreneurs, share your journey, get feedback, and grow together.
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-3 justify-center">
+                        <a 
+                            href="https://thebminds.com" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="btn btn-primary"
+                            style={{ borderRadius: '1px' }}
+                        >
+                            <Users className="w-4 h-4 mr-2" />
+                            Desktop Community
+                        </a>
+                        <a 
+                            href="https://apps.apple.com/us/app/the-business-minds/id6742644847" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="btn btn-secondary"
+                            style={{ borderRadius: '1px' }}
+                        >
+                            <Apple className="w-4 h-4 mr-2" />
+                            iOS App
+                        </a>
+                        <a 
+                            href="https://play.google.com/store/apps/details?id=com.thebusinessminds.wl&hl=en_IN" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="btn btn-secondary"
+                            style={{ borderRadius: '1px' }}
+                        >
+                            <Smartphone className="w-4 h-4 mr-2" />
+                            Android App
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
