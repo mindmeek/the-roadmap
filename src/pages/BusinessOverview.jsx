@@ -241,11 +241,11 @@ export default function BusinessOverview() {
                 )}
 
                 {/* Services */}
-                {business?.services && business.services.length > 0 && (
+                {user?.financial_projections?.products && user.financial_projections.products.length > 0 && (
                     <div className="mb-6">
                         <div className="flex items-center justify-between mb-3">
                             <h2 className="text-lg font-bold text-[var(--primary-gold)]">Services & Products</h2>
-                            <Link to={createPageUrl('EditBusiness')}>
+                            <Link to={createPageUrl('FreedomCalculator')}>
                                 <Button variant="outline" size="sm" style={{ borderRadius: '1px' }}>
                                     <Edit className="w-3 h-3 mr-2" />
                                     Edit
@@ -253,43 +253,28 @@ export default function BusinessOverview() {
                             </Link>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                            {business.services.map((service, idx) => {
-                                const matchingProduct = user?.financial_projections?.products?.find(
-                                    p => p.name?.toLowerCase() === service.name?.toLowerCase()
-                                );
-                                
-                                return (
-                                    <div key={idx} className="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700" style={{ borderRadius: '1px' }}>
-                                        <h3 className="font-semibold mb-2 text-sm">{service.name}</h3>
-                                        {service.description && (
-                                            <p className="text-xs text-[var(--text-soft)] mb-2">
-                                                {service.description.slice(0, 40)}{service.description.length > 40 ? '...' : ''}
-                                            </p>
-                                        )}
-                                        {service.price && (
-                                            <p className="text-lg font-bold text-[var(--primary-gold)]">{service.price}</p>
-                                        )}
-                                        {matchingProduct && (
-                                            <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold mt-2">
-                                                Need to sell: {matchingProduct.quantity}/month
-                                            </p>
-                                        )}
-                                    </div>
-                                );
-                            })}
+                            {user.financial_projections.products.map((product, idx) => (
+                                <div key={idx} className="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700" style={{ borderRadius: '1px' }}>
+                                    <h3 className="font-semibold mb-2 text-sm">{product.name}</h3>
+                                    <p className="text-lg font-bold text-[var(--primary-gold)] mb-2">${product.price}</p>
+                                    <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold">
+                                        Need to sell: {product.quantity}/month
+                                    </p>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 )}
                 
-                {(!business?.services || business.services.length === 0) && (
+                {(!user?.financial_projections?.products || user.financial_projections.products.length === 0) && (
                     <div className="mb-6">
                         <h2 className="text-lg font-bold mb-3 text-[var(--primary-gold)]">Services & Products</h2>
                         <div className="p-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-center" style={{ borderRadius: '1px' }}>
-                            <p className="text-sm text-[var(--text-soft)] mb-3">No services or products added yet</p>
-                            <Link to={createPageUrl('EditBusiness')}>
+                            <p className="text-sm text-[var(--text-soft)] mb-3">No products defined yet</p>
+                            <Link to={createPageUrl('FreedomCalculator')}>
                                 <Button size="sm" className="btn-primary" style={{ borderRadius: '1px' }}>
                                     <FileText className="w-3 h-3 mr-2" />
-                                    Add Services
+                                    Define Products
                                 </Button>
                             </Link>
                         </div>
