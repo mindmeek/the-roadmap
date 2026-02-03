@@ -193,7 +193,6 @@ export default function StrategyFormIdealClient() {
                                 <option value="All">All genders</option>
                                 <option value="Female">Female</option>
                                 <option value="Male">Male</option>
-                                <option value="Non-binary">Non-binary</option>
                             </select>
                         </div>
 
