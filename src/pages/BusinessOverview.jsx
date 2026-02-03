@@ -193,6 +193,57 @@ export default function BusinessOverview() {
                             <strong>Industry:</strong> {business.industry}
                         </p>
                     )}
+
+                    {/* Financial Overview */}
+                    {user?.financial_projections && (
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                            {/* Monthly Freedom Number */}
+                            <div className="bg-green-50 dark:bg-green-900/20 border-2 border-green-500 p-4" style={{ borderRadius: '1px' }}>
+                                <p className="text-xs text-green-700 dark:text-green-400 font-semibold mb-2">Monthly Freedom Number</p>
+                                <p className="text-2xl font-bold text-green-600 dark:text-green-500">
+                                    ${parseInt(user.financial_projections.freedomNumber || 0).toLocaleString()}
+                                </p>
+                            </div>
+
+                            {/* Products Needed */}
+                            {user.financial_projections.products && user.financial_projections.products.length > 0 && (
+                                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-300 dark:border-blue-700 p-4" style={{ borderRadius: '1px' }}>
+                                    <p className="text-xs text-blue-700 dark:text-blue-400 font-semibold mb-2">Products to Sell</p>
+                                    <div className="space-y-1">
+                                        {user.financial_projections.products.map((product, idx) => (
+                                            <div key={idx} className="text-xs text-[var(--text-soft)]">
+                                                <strong>{product.quantity}x</strong> {product.name} @ ${product.price}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Monthly Expenses */}
+                            {user.financial_projections.expenses && (
+                                <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-300 dark:border-orange-700 p-4" style={{ borderRadius: '1px' }}>
+                                    <p className="text-xs text-orange-700 dark:text-orange-400 font-semibold mb-2">Monthly Expenses</p>
+                                    <div className="space-y-1">
+                                        {user.financial_projections.expenses.personal && (
+                                            <div className="text-xs text-[var(--text-soft)]">
+                                                Personal: ${parseInt(user.financial_projections.expenses.personal).toLocaleString()}
+                                            </div>
+                                        )}
+                                        {user.financial_projections.expenses.business && (
+                                            <div className="text-xs text-[var(--text-soft)]">
+                                                Business: ${parseInt(user.financial_projections.expenses.business).toLocaleString()}
+                                            </div>
+                                        )}
+                                        {user.financial_projections.expenses.total && (
+                                            <div className="text-xs font-semibold text-orange-600 dark:text-orange-500 pt-1 border-t border-orange-200 dark:border-orange-800">
+                                                Total: ${parseInt(user.financial_projections.expenses.total).toLocaleString()}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
 
                 {/* Business Description */}
