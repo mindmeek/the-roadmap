@@ -167,35 +167,52 @@ export default function StrategyFormIdealClient() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Age Range</label>
-                            <input
-                                type="text"
+                            <select
                                 value={formData.age_range}
                                 onChange={(e) => setFormData({ ...formData, age_range: e.target.value })}
                                 className="form-input"
-                                placeholder="e.g., 30-45 years old"
-                            />
+                            >
+                                <option value="">Select age range</option>
+                                <option value="18-24">18-24 years old</option>
+                                <option value="25-34">25-34 years old</option>
+                                <option value="35-44">35-44 years old</option>
+                                <option value="45-54">45-54 years old</option>
+                                <option value="55-64">55-64 years old</option>
+                                <option value="65+">65+ years old</option>
+                            </select>
                         </div>
 
                         <div>
                             <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Gender</label>
-                            <input
-                                type="text"
+                            <select
                                 value={formData.gender}
                                 onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
                                 className="form-input"
-                                placeholder="e.g., All genders, Female, Male"
-                            />
+                            >
+                                <option value="">Select gender</option>
+                                <option value="All">All genders</option>
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Non-binary">Non-binary</option>
+                            </select>
                         </div>
 
                         <div>
                             <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Location</label>
-                            <input
-                                type="text"
+                            <select
                                 value={formData.location}
                                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                                 className="form-input"
-                                placeholder="e.g., Urban areas in North America"
-                            />
+                            >
+                                <option value="">Select location</option>
+                                <option value="Urban">Urban areas</option>
+                                <option value="Suburban">Suburban areas</option>
+                                <option value="Rural">Rural areas</option>
+                                <option value="North America">North America</option>
+                                <option value="Europe">Europe</option>
+                                <option value="Asia">Asia</option>
+                                <option value="Global">Global/Online</option>
+                            </select>
                         </div>
 
                         <div>
@@ -203,35 +220,58 @@ export default function StrategyFormIdealClient() {
                                 <DollarSign className="w-4 h-4 inline mr-1" />
                                 Income Level
                             </label>
-                            <input
-                                type="text"
+                            <select
                                 value={formData.income_level}
                                 onChange={(e) => setFormData({ ...formData, income_level: e.target.value })}
                                 className="form-input"
-                                placeholder="e.g., $75k-$150k per year"
-                            />
+                            >
+                                <option value="">Select income level</option>
+                                <option value="Under $30k">Under $30k</option>
+                                <option value="$30k-$50k">$30k-$50k</option>
+                                <option value="$50k-$75k">$50k-$75k</option>
+                                <option value="$75k-$100k">$75k-$100k</option>
+                                <option value="$100k-$150k">$100k-$150k</option>
+                                <option value="$150k-$250k">$150k-$250k</option>
+                                <option value="$250k+">$250k+</option>
+                            </select>
                         </div>
 
                         <div>
                             <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Education</label>
-                            <input
-                                type="text"
+                            <select
                                 value={formData.education}
                                 onChange={(e) => setFormData({ ...formData, education: e.target.value })}
                                 className="form-input"
-                                placeholder="e.g., College educated or self-taught"
-                            />
+                            >
+                                <option value="">Select education level</option>
+                                <option value="High School">High School</option>
+                                <option value="Some College">Some College</option>
+                                <option value="Bachelor's Degree">Bachelor's Degree</option>
+                                <option value="Master's Degree">Master's Degree</option>
+                                <option value="Doctorate">Doctorate</option>
+                                <option value="Self-Taught/Trade School">Self-Taught/Trade School</option>
+                            </select>
                         </div>
 
                         <div>
                             <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Occupation</label>
-                            <input
-                                type="text"
+                            <select
                                 value={formData.occupation}
                                 onChange={(e) => setFormData({ ...formData, occupation: e.target.value })}
                                 className="form-input"
-                                placeholder="e.g., Small business owner, Marketing professional"
-                            />
+                            >
+                                <option value="">Select occupation</option>
+                                <option value="Business Owner">Business Owner</option>
+                                <option value="Entrepreneur">Entrepreneur</option>
+                                <option value="Executive/Manager">Executive/Manager</option>
+                                <option value="Professional/Specialist">Professional/Specialist</option>
+                                <option value="Freelancer/Consultant">Freelancer/Consultant</option>
+                                <option value="Creative/Artist">Creative/Artist</option>
+                                <option value="Healthcare">Healthcare</option>
+                                <option value="Education">Education</option>
+                                <option value="Technology">Technology</option>
+                                <option value="Other">Other</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -246,47 +286,99 @@ export default function StrategyFormIdealClient() {
 
                     <div className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Core Values</label>
-                            <textarea
-                                value={formData.values}
-                                onChange={(e) => setFormData({ ...formData, values: e.target.value })}
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Core Values (Select all that apply)</label>
+                            <select
+                                multiple
+                                value={formData.values ? formData.values.split(', ') : []}
+                                onChange={(e) => {
+                                    const selected = Array.from(e.target.selectedOptions, option => option.value);
+                                    setFormData({ ...formData, values: selected.join(', ') });
+                                }}
                                 className="form-input"
-                                rows="3"
-                                placeholder="What do they value most? (e.g., Family, Freedom, Innovation, Quality)"
-                            />
+                                size="6"
+                            >
+                                <option value="Family">Family</option>
+                                <option value="Freedom">Freedom</option>
+                                <option value="Innovation">Innovation</option>
+                                <option value="Quality">Quality</option>
+                                <option value="Success">Success</option>
+                                <option value="Growth">Growth</option>
+                                <option value="Community">Community</option>
+                                <option value="Health">Health</option>
+                                <option value="Security">Security</option>
+                                <option value="Adventure">Adventure</option>
+                            </select>
+                            <p className="text-xs text-[var(--text-soft)] mt-1">Hold Ctrl/Cmd to select multiple</p>
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Interests & Hobbies</label>
-                            <textarea
-                                value={formData.interests}
-                                onChange={(e) => setFormData({ ...formData, interests: e.target.value })}
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Interests & Hobbies (Select all that apply)</label>
+                            <select
+                                multiple
+                                value={formData.interests ? formData.interests.split(', ') : []}
+                                onChange={(e) => {
+                                    const selected = Array.from(e.target.selectedOptions, option => option.value);
+                                    setFormData({ ...formData, interests: selected.join(', ') });
+                                }}
                                 className="form-input"
-                                rows="3"
-                                placeholder="What do they do in their free time?"
-                            />
+                                size="6"
+                            >
+                                <option value="Business & Entrepreneurship">Business & Entrepreneurship</option>
+                                <option value="Technology">Technology</option>
+                                <option value="Health & Fitness">Health & Fitness</option>
+                                <option value="Travel">Travel</option>
+                                <option value="Reading">Reading</option>
+                                <option value="Sports">Sports</option>
+                                <option value="Arts & Creativity">Arts & Creativity</option>
+                                <option value="Personal Development">Personal Development</option>
+                                <option value="Networking">Networking</option>
+                                <option value="Investing">Investing</option>
+                            </select>
+                            <p className="text-xs text-[var(--text-soft)] mt-1">Hold Ctrl/Cmd to select multiple</p>
                         </div>
 
                         <div>
                             <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Lifestyle</label>
-                            <textarea
+                            <select
                                 value={formData.lifestyle}
                                 onChange={(e) => setFormData({ ...formData, lifestyle: e.target.value })}
                                 className="form-input"
-                                rows="3"
-                                placeholder="Describe their typical day and lifestyle choices"
-                            />
+                            >
+                                <option value="">Select lifestyle</option>
+                                <option value="Fast-paced & Busy">Fast-paced & Busy</option>
+                                <option value="Balanced & Structured">Balanced & Structured</option>
+                                <option value="Flexible & Spontaneous">Flexible & Spontaneous</option>
+                                <option value="Work-focused">Work-focused</option>
+                                <option value="Family-focused">Family-focused</option>
+                                <option value="Health-conscious">Health-conscious</option>
+                                <option value="Social & Active">Social & Active</option>
+                            </select>
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Personality Traits</label>
-                            <textarea
-                                value={formData.personality_traits}
-                                onChange={(e) => setFormData({ ...formData, personality_traits: e.target.value })}
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Personality Traits (Select all that apply)</label>
+                            <select
+                                multiple
+                                value={formData.personality_traits ? formData.personality_traits.split(', ') : []}
+                                onChange={(e) => {
+                                    const selected = Array.from(e.target.selectedOptions, option => option.value);
+                                    setFormData({ ...formData, personality_traits: selected.join(', ') });
+                                }}
                                 className="form-input"
-                                rows="3"
-                                placeholder="Are they introverted or extroverted? Risk-takers or cautious?"
-                            />
+                                size="6"
+                            >
+                                <option value="Ambitious">Ambitious</option>
+                                <option value="Analytical">Analytical</option>
+                                <option value="Creative">Creative</option>
+                                <option value="Detail-oriented">Detail-oriented</option>
+                                <option value="Decisive">Decisive</option>
+                                <option value="Risk-taker">Risk-taker</option>
+                                <option value="Cautious">Cautious</option>
+                                <option value="Introverted">Introverted</option>
+                                <option value="Extroverted">Extroverted</option>
+                                <option value="Optimistic">Optimistic</option>
+                            </select>
+                            <p className="text-xs text-[var(--text-soft)] mt-1">Hold Ctrl/Cmd to select multiple</p>
                         </div>
                     </div>
                 </div>
