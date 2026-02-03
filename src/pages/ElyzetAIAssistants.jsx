@@ -233,6 +233,27 @@ export default function ElyzetAIAssistants() {
                 ))}
             </div>
 
+            {/* AI Strategy Generation CTA */}
+            <div className="card p-8 mb-8 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border-2 border-indigo-200 dark:border-indigo-700">
+                <div className="text-center">
+                    <div className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-4 rounded-full inline-flex items-center justify-center mb-4">
+                        <Sparkles className="w-8 h-8" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-[var(--text-main)] mb-3">
+                        Generate Complete Business Strategies
+                    </h2>
+                    <p className="text-[var(--text-soft)] mb-6 max-w-2xl mx-auto">
+                        Get AI-powered 90-day strategic plans, comprehensive marketing strategies, and product roadmaps tailored to your business goals. These go beyond quick advice—they're full implementation plans.
+                    </p>
+                    <Link to={createPageUrl('AIStrategyHub')}>
+                        <Button className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
+                            <Target className="w-5 h-5 mr-2" />
+                            Open AI Strategy Hub
+                        </Button>
+                    </Link>
+                </div>
+            </div>
+
             {/* Tips Section */}
             <div className="card p-6 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-yellow-200 dark:border-yellow-700">
                 <h2 className="text-xl font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
