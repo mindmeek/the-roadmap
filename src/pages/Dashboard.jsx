@@ -277,9 +277,6 @@ export default function DashboardPage() {
                 {/* Member Action Checklist */}
                 <MemberActionChecklist />
 
-                {/* Foundation Progress - Shows for all free users based on their stage */}
-                <FoundationProgress user={user} />
-
                 {/* Today's Progress & Upcoming Tasks - SIDE BY SIDE */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                     {/* Today's Progress */}
@@ -370,7 +367,7 @@ export default function DashboardPage() {
                 </div>
 
                 {/* Quick Actions Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
                     <ActionCard
                         title="Annual Strategy"
                         description="Plan your year and quarterly goals"
@@ -385,7 +382,17 @@ export default function DashboardPage() {
                         link="MarketingOverview"
                         color="from-yellow-500 to-orange-600"
                     />
+                    <ActionCard
+                        title="Business Overview"
+                        description="Financial goals, products, and strategy"
+                        icon={Briefcase}
+                        link="BusinessOverview"
+                        color="from-gray-500 to-slate-600"
+                    />
                 </div>
+
+                {/* Foundation Progress - Shows for all free users based on their stage */}
+                <FoundationProgress user={user} />
 
                 {/* Meet Your AI Team */}
                 {aiSuggestion && recommendedAgent && (
