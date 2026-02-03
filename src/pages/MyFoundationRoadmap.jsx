@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User, FoundationProgress } from '@/entities/all';
 import { useNavigate } from 'react-router-dom';
@@ -437,23 +436,23 @@ export default function MyFoundationRoadmap() {
     const completionPercentage = Math.round((progress.completed_steps.length / totalSections) * 100);
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 px-4 pb-8">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 px-3 sm:px-4 pb-20 md:pb-8">
             <div className="max-w-7xl mx-auto">
                 {/* Hero Introduction */}
-                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 mb-6 overflow-hidden" style={{ borderRadius: '2px' }}>
+                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 mb-4 sm:mb-6 overflow-hidden" style={{ borderRadius: '2px' }}>
                     {/* Top Accent Bar */}
                     <div className="h-1 bg-[var(--primary-gold)]"></div>
                     
-                    <div className="p-8">
-                        <div className="flex items-start gap-4 mb-6">
-                            <div className="p-4 bg-[var(--primary-gold)]/10" style={{ borderRadius: '2px' }}>
-                                <Award className="w-10 h-10 text-[var(--primary-gold)]" />
+                    <div className="p-4 sm:p-6 md:p-8">
+                        <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
+                            <div className="p-3 sm:p-4 bg-[var(--primary-gold)]/10 mx-auto sm:mx-0" style={{ borderRadius: '2px' }}>
+                                <Award className="w-8 h-8 sm:w-10 sm:h-10 text-[var(--primary-gold)]" />
                             </div>
-                            <div className="flex-1">
-                                <h1 className="text-4xl font-bold text-[var(--text-main)] mb-3">
+                            <div className="flex-1 text-center sm:text-left">
+                                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text-main)] mb-2 sm:mb-3">
                                     My Foundation Roadmap
                                 </h1>
-                                <p className="text-lg text-[var(--text-soft)] leading-relaxed max-w-4xl">
+                                <p className="text-sm sm:text-base md:text-lg text-[var(--text-soft)] leading-relaxed max-w-4xl">
                                     Your Foundation is the strategic backbone of your entire business. These tools help you clarify your vision, 
                                     define your market position, and create the strategic documents that guide every decision you make. 
                                     Complete these frameworks before diving into your 90-Day Journey for maximum impact.
@@ -462,38 +461,38 @@ export default function MyFoundationRoadmap() {
                         </div>
 
                         {/* Three Key Benefits */}
-                        <div className="grid md:grid-cols-3 gap-6">
-                            <div className="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-700" style={{ borderRadius: '2px' }}>
-                                <div className="p-2 bg-blue-100 dark:bg-blue-900/30" style={{ borderRadius: '2px' }}>
-                                    <Target className="w-5 h-5 text-blue-600" />
+                        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+                            <div className="flex items-start gap-2 sm:gap-3 p-3 sm:p-4 bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-700" style={{ borderRadius: '2px' }}>
+                                <div className="p-1.5 sm:p-2 bg-blue-100 dark:bg-blue-900/30 flex-shrink-0" style={{ borderRadius: '2px' }}>
+                                    <Target className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-[var(--text-main)] mb-1">Strategic Clarity</h3>
-                                    <p className="text-sm text-[var(--text-soft)]">
+                                    <h3 className="font-bold text-[var(--text-main)] mb-1 text-sm sm:text-base">Strategic Clarity</h3>
+                                    <p className="text-xs sm:text-sm text-[var(--text-soft)]">
                                         Define your WHY, ideal client, and unique value so every business decision becomes clear and aligned.
                                     </p>
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-3 p-4 bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-700" style={{ borderRadius: '2px' }}>
-                                <div className="p-2 bg-green-100 dark:bg-green-900/30" style={{ borderRadius: '2px' }}>
-                                    <TrendingUp className="w-5 h-5 text-green-600" />
+                            <div className="flex items-start gap-2 sm:gap-3 p-3 sm:p-4 bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-700" style={{ borderRadius: '2px' }}>
+                                <div className="p-1.5 sm:p-2 bg-green-100 dark:bg-green-900/30 flex-shrink-0" style={{ borderRadius: '2px' }}>
+                                    <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-[var(--text-main)] mb-1">Faster Execution</h3>
-                                    <p className="text-sm text-[var(--text-soft)]">
+                                    <h3 className="font-bold text-[var(--text-main)] mb-1 text-sm sm:text-base">Faster Execution</h3>
+                                    <p className="text-xs sm:text-sm text-[var(--text-soft)]">
                                         With your foundation documented, you'll move faster in your 90-Day Journey—no more guessing or second-guessing.
                                     </p>
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-3 p-4 bg-purple-50 dark:bg-purple-900/10 border border-purple-200 dark:border-purple-700" style={{ borderRadius: '2px' }}>
-                                <div className="p-2 bg-purple-100 dark:bg-purple-900/30" style={{ borderRadius: '2px' }}>
-                                    <Rocket className="w-5 h-5 text-purple-600" />
+                            <div className="flex items-start gap-2 sm:gap-3 p-3 sm:p-4 bg-purple-50 dark:bg-purple-900/10 border border-purple-200 dark:border-purple-700" style={{ borderRadius: '2px' }}>
+                                <div className="p-1.5 sm:p-2 bg-purple-100 dark:bg-purple-900/30 flex-shrink-0" style={{ borderRadius: '2px' }}>
+                                    <Rocket className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-[var(--text-main)] mb-1">Scalable Systems</h3>
-                                    <p className="text-sm text-[var(--text-soft)]">
+                                    <h3 className="font-bold text-[var(--text-main)] mb-1 text-sm sm:text-base">Scalable Systems</h3>
+                                    <p className="text-xs sm:text-sm text-[var(--text-soft)]">
                                         Build a business that can grow without you being a bottleneck. Your foundation becomes your operating manual.
                                     </p>
                                 </div>
@@ -503,21 +502,21 @@ export default function MyFoundationRoadmap() {
                 </div>
 
                 {/* Progress Overview */}
-                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 mb-6 p-6" style={{ borderRadius: '2px' }}>
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-4">
-                        <div className="flex items-center gap-4">
-                            <div className="p-3 bg-blue-50 dark:bg-blue-900/20" style={{ borderRadius: '2px' }}>
-                                <Target className="w-6 h-6 text-blue-600" />
+                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 mb-4 sm:mb-6 p-4 sm:p-6" style={{ borderRadius: '2px' }}>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6 mb-4">
+                        <div className="flex items-center gap-3 sm:gap-4">
+                            <div className="p-2 sm:p-3 bg-blue-50 dark:bg-blue-900/20 flex-shrink-0" style={{ borderRadius: '2px' }}>
+                                <Target className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
                             </div>
                             <div>
-                                <h3 className="text-lg font-bold text-[var(--text-main)] mb-1">Your Progress</h3>
-                                <p className="text-sm text-[var(--text-soft)]">
+                                <h3 className="text-base sm:text-lg font-bold text-[var(--text-main)] mb-1">Your Progress</h3>
+                                <p className="text-xs sm:text-sm text-[var(--text-soft)]">
                                     {progress.completed_steps.length} of {totalSections} tools completed
                                 </p>
                             </div>
                         </div>
-                        <div className="text-center md:text-right">
-                            <div className="text-4xl font-bold text-[var(--primary-gold)]">
+                        <div className="text-center sm:text-right">
+                            <div className="text-3xl sm:text-4xl font-bold text-[var(--primary-gold)]">
                                 {completionPercentage}%
                             </div>
                             <p className="text-xs text-[var(--text-soft)] mt-1 font-medium uppercase tracking-wide">Complete</p>
@@ -534,12 +533,12 @@ export default function MyFoundationRoadmap() {
                 </div>
 
                 {/* Info Banner */}
-                <div className="bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-700 mb-8 p-4" style={{ borderRadius: '2px' }}>
-                    <div className="flex items-start gap-3">
-                        <Sparkles className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                <div className="bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-700 mb-6 sm:mb-8 p-3 sm:p-4" style={{ borderRadius: '2px' }}>
+                    <div className="flex items-start gap-2 sm:gap-3">
+                        <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                         <div>
-                            <h4 className="font-semibold text-[var(--text-main)] mb-1">All Tools Are Fully Interactive</h4>
-                            <p className="text-sm text-[var(--text-soft)]">
+                            <h4 className="font-semibold text-[var(--text-main)] mb-1 text-sm sm:text-base">All Tools Are Fully Interactive</h4>
+                            <p className="text-xs sm:text-sm text-[var(--text-soft)]">
                                 Click any card to open the dedicated form, fill it out, save your progress, and get AI assistance. 
                                 Your data is saved automatically and can be reviewed anytime.
                             </p>
@@ -548,25 +547,25 @@ export default function MyFoundationRoadmap() {
                 </div>
 
                 {/* Vision Stage */}
-                <div className="mb-10">
-                    <div className={`${stageData.vision.bgColor} border border-gray-200 dark:border-gray-700 p-6 mb-4`} style={{ borderRadius: '2px' }}>
-                        <div className="flex items-start gap-4 mb-4">
-                            <div className="p-3" style={{ backgroundColor: stageData.vision.color + '20', borderRadius: '2px' }}>
-                                <stageData.vision.icon className="w-8 h-8" style={{ color: stageData.vision.color }} />
+                <div className="mb-8 sm:mb-10">
+                    <div className={`${stageData.vision.bgColor} border border-gray-200 dark:border-gray-700 p-4 sm:p-6 mb-4`} style={{ borderRadius: '2px' }}>
+                        <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4 mb-4">
+                            <div className="p-2 sm:p-3 mx-auto sm:mx-0" style={{ backgroundColor: stageData.vision.color + '20', borderRadius: '2px' }}>
+                                <stageData.vision.icon className="w-6 h-6 sm:w-8 sm:h-8" style={{ color: stageData.vision.color }} />
                             </div>
-                            <div className="flex-1">
-                                <div className="flex items-center justify-between mb-2">
-                                    <h2 className="text-2xl font-bold text-[var(--text-main)]">{stageData.vision.title}</h2>
-                                    <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700" style={{ borderRadius: '2px' }}>
+                            <div className="flex-1 text-center sm:text-left">
+                                <div className="flex flex-col sm:flex-row items-center justify-between mb-2 gap-2">
+                                    <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-main)]">{stageData.vision.title}</h2>
+                                    <div className="flex md:hidden sm:flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700" style={{ borderRadius: '2px' }}>
                                         <span className="text-lg font-bold text-[var(--text-main)]">
                                             {stageData.vision.sections.filter(s => progress.completed_steps.includes(s.id)).length}
                                         </span>
                                         <span className="text-sm text-[var(--text-soft)]">/ {stageData.vision.sections.length}</span>
                                     </div>
                                 </div>
-                                <p className="text-sm text-[var(--text-soft)] mb-3">{stageData.vision.description}</p>
-                                <div className="bg-white dark:bg-gray-800 border border-amber-200 dark:border-amber-700 p-4" style={{ borderRadius: '2px' }}>
-                                    <p className="text-sm text-[var(--text-main)] leading-relaxed">
+                                <p className="text-xs sm:text-sm text-[var(--text-soft)] mb-3">{stageData.vision.description}</p>
+                                <div className="bg-white dark:bg-gray-800 border border-amber-200 dark:border-amber-700 p-3 sm:p-4" style={{ borderRadius: '2px' }}>
+                                    <p className="text-xs sm:text-sm text-[var(--text-main)] leading-relaxed">
                                         <strong className="text-[var(--primary-gold)]">Why This Stage Matters:</strong> Before you can build, market, or scale, 
                                         you need clarity. This stage helps you define WHO you are, WHO you serve, and WHAT makes you different. 
                                         These foundational decisions inform everything—from your messaging to your pricing to your product roadmap. 
@@ -576,14 +575,14 @@ export default function MyFoundationRoadmap() {
                             </div>
                         </div>
                     </div>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                         {stageData.vision.sections.map(section => renderSectionCard(section))}
                     </div>
                 </div>
 
                 {/* Startup Stage */}
-                <div className="mb-10">
-                    <div className={`${stageData.startup.bgColor} border border-gray-200 dark:border-gray-700 p-6 mb-4`} style={{ borderRadius: '2px' }}>
+                <div className="mb-8 sm:mb-10">
+                    <div className={`${stageData.startup.bgColor} border border-gray-200 dark:border-gray-700 p-4 sm:p-6 mb-4`} style={{ borderRadius: '2px' }}>
                         <div className="flex items-start gap-4 mb-4">
                             <div className="p-3" style={{ backgroundColor: stageData.startup.color + '20', borderRadius: '2px' }}>
                                 <stageData.startup.icon className="w-8 h-8" style={{ color: stageData.startup.color }} />
@@ -616,8 +615,8 @@ export default function MyFoundationRoadmap() {
                 </div>
 
                 {/* Growth Stage */}
-                <div className="mb-10">
-                    <div className={`${stageData.growth.bgColor} border border-gray-200 dark:border-gray-700 p-6 mb-4`} style={{ borderRadius: '2px' }}>
+                <div className="mb-8 sm:mb-10">
+                    <div className={`${stageData.growth.bgColor} border border-gray-200 dark:border-gray-700 p-4 sm:p-6 mb-4`} style={{ borderRadius: '2px' }}>
                         <div className="flex items-start gap-4 mb-4">
                             <div className="p-3" style={{ backgroundColor: stageData.growth.color + '20', borderRadius: '2px' }}>
                                 <stageData.growth.icon className="w-8 h-8" style={{ color: stageData.growth.color }} />

@@ -113,9 +113,9 @@ export default function NicheRoadmapPage() {
   const progressPercentage = totalTasks > 0 ? Math.round((completedCount / totalTasks) * 100) : 0;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 pb-24 lg:pb-8">
+    <div className="max-w-6xl mx-auto px-3 sm:px-4 py-6 sm:py-8 pb-24 lg:pb-8">
       {/* Header */}
-      <div className="card p-6 md:p-8 mb-6">
+      <div className="card p-4 sm:p-6 md:p-8 mb-4 sm:mb-6">
         <button
           onClick={() => navigate(createPageUrl('NicheRoadmaps'))}
           className="btn btn-ghost mb-4"
@@ -124,15 +124,15 @@ export default function NicheRoadmapPage() {
           Back to Niche Roadmaps
         </button>
 
-        <div className="mb-6">
-          <h1 className="text-2xl md:text-3xl font-bold text-[var(--text-main)] mb-2">{programContent.courseTitle}</h1>
-          <p className="text-[var(--text-soft)] mb-4">{programContent.courseDescription}</p>
+        <div className="mb-4 sm:mb-6">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--text-main)] mb-2">{programContent.courseTitle}</h1>
+          <p className="text-sm sm:text-base text-[var(--text-soft)] mb-4">{programContent.courseDescription}</p>
           
           {/* Success Metrics */}
           {programContent.successMetrics && (
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-4 rounded-lg border border-green-200 dark:border-green-700">
-              <p className="font-semibold text-[var(--text-main)] mb-3 text-sm">🎯 Success After 90 Days:</p>
-              <div className="grid md:grid-cols-4 gap-3">
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-3 sm:p-4 rounded-lg border border-green-200 dark:border-green-700">
+              <p className="font-semibold text-[var(--text-main)] mb-2 sm:mb-3 text-xs sm:text-sm">🎯 Success After 90 Days:</p>
+              <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
                 {Object.entries(programContent.successMetrics).map(([key, value]) => (
                   <div key={key} className="flex items-start gap-2">
                     <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
@@ -145,10 +145,10 @@ export default function NicheRoadmapPage() {
         </div>
 
         {/* Progress Bar */}
-        <div className="mt-4">
+        <div className="mt-3 sm:mt-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-[var(--text-main)]">Your Progress</span>
-            <span className="text-sm text-[var(--text-soft)]">{completedCount}/{totalTasks} tasks ({progressPercentage}%)</span>
+            <span className="text-xs sm:text-sm font-medium text-[var(--text-main)]">Your Progress</span>
+            <span className="text-xs sm:text-sm text-[var(--text-soft)]">{completedCount}/{totalTasks} tasks ({progressPercentage}%)</span>
           </div>
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
             <div
@@ -161,7 +161,7 @@ export default function NicheRoadmapPage() {
 
       {/* Access Gate */}
       {!hasAccess && (
-        <div className="card p-8 mb-6 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-[var(--primary-gold)]">
+        <div className="card p-4 sm:p-6 md:p-8 mb-4 sm:mb-6 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-[var(--primary-gold)]">
           <div className="flex items-start gap-4">
             <div className="bg-[var(--primary-gold)] p-3 rounded-lg">
               <Lock className="w-6 h-6 text-white" />
@@ -184,12 +184,12 @@ export default function NicheRoadmapPage() {
 
       {/* KPI Checklist */}
       {programContent.kpiChecklist && hasAccess && (
-        <div className="card p-6 mb-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700">
-          <h3 className="font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-blue-600" />
+        <div className="card p-4 sm:p-6 mb-4 sm:mb-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700">
+          <h3 className="font-bold text-[var(--text-main)] mb-3 sm:mb-4 flex items-center gap-2 text-base sm:text-lg">
+            <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
             Weekly KPI Checklist
           </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
             {programContent.kpiChecklist.map((kpi, idx) => (
               <div key={idx} className="bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
                 <p className="text-sm font-medium text-[var(--text-main)]">{kpi.metric}</p>

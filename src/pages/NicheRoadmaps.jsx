@@ -203,32 +203,32 @@ export default function NicheRoadmapsPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 pb-24 lg:pb-8">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-6 sm:py-8 pb-24 lg:pb-8">
       {/* Hero Section */}
-      <div className="card p-8 md:p-12 mb-8 bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-purple-900/20 dark:via-blue-900/20 dark:to-indigo-900/20 border-2 border-purple-200 dark:border-purple-700">
+      <div className="card p-4 sm:p-6 md:p-8 lg:p-12 mb-6 sm:mb-8 bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-purple-900/20 dark:via-blue-900/20 dark:to-indigo-900/20 border-2 border-purple-200 dark:border-purple-700">
         <div className="max-w-4xl">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="bg-[var(--primary-gold)] p-3 rounded-lg">
-              <Target className="w-8 h-8 text-white" />
+          <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 mb-4 text-center sm:text-left">
+            <div className="bg-[var(--primary-gold)] p-2 sm:p-3 rounded-lg">
+              <Target className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-[var(--primary-gold)] uppercase tracking-wide">Niche-Specific</p>
-              <h1 className="text-3xl md:text-4xl font-bold text-[var(--text-main)]">90-Day Growth Roadmaps</h1>
+              <p className="text-xs sm:text-sm font-semibold text-[var(--primary-gold)] uppercase tracking-wide">Niche-Specific</p>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text-main)]">90-Day Growth Roadmaps</h1>
             </div>
           </div>
           
-          <p className="text-lg text-[var(--text-main)] leading-relaxed mb-6">
+          <p className="text-sm sm:text-base md:text-lg text-[var(--text-main)] leading-relaxed mb-4 sm:mb-6">
             <strong>Your industry has unique challenges and opportunities.</strong> These niche-specific roadmaps give you a step-by-step plan tailored exactly to your business type, with every task mapped to the specific HQ tools that will help you execute.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-4">
-            <div className="flex items-start gap-3">
-              <div className="bg-blue-100 dark:bg-blue-900/30 p-2 rounded-lg">
-                <Sparkles className="w-5 h-5 text-blue-600" />
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+            <div className="flex items-start gap-2 sm:gap-3">
+              <div className="bg-blue-100 dark:bg-blue-900/30 p-1.5 sm:p-2 rounded-lg flex-shrink-0">
+                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-[var(--text-main)] mb-1">Hyper-Focused</h3>
-                <p className="text-sm text-[var(--text-soft)]">Every task designed for your specific niche</p>
+                <h3 className="font-semibold text-[var(--text-main)] mb-1 text-sm sm:text-base">Hyper-Focused</h3>
+                <p className="text-xs sm:text-sm text-[var(--text-soft)]">Every task designed for your specific niche</p>
               </div>
             </div>
             
