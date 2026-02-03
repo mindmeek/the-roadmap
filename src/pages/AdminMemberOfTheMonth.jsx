@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { notifyMemberSelection } from '@/functions/notifyMemberSelection';
-import { Award, Loader2, Eye, CheckCircle2, XCircle, Sparkles, Calendar, Send } from 'lucide-react';
+import { inviteMemberOfTheMonth } from '@/functions/inviteMemberOfTheMonth';
+import { Award, Loader2, Eye, CheckCircle2, XCircle, Sparkles, Calendar, Send, UserPlus, Search } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -12,6 +13,10 @@ export default function AdminMemberOfTheMonth() {
     const [loading, setLoading] = useState(true);
     const [selectedSubmission, setSelectedSubmission] = useState(null);
     const [generating, setGenerating] = useState(false);
+    const [showSelectMember, setShowSelectMember] = useState(false);
+    const [eligibleMembers, setEligibleMembers] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [inviting, setInviting] = useState(false);
 
     useEffect(() => {
         loadData();
@@ -29,10 +34,62 @@ export default function AdminMemberOfTheMonth() {
 
             const highlights = await base44.entities.CommunityHighlight.list('-created_date', 50);
             setSubmissions(highlights);
+
+            // Load eligible members
+            await loadEligibleMembers();
         } catch (error) {
             console.error('Error loading data:', error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const loadEligibleMembers = async () => {
+        try {
+            const allUsers = await base44.entities.User.list('-created_date', 200);
+            const eligible = [];
+
+            for (const u of allUsers) {
+                // Skip if already has submission
+                const hasSubmission = submissions.some(s => s.member_email === u.email);
+                if (hasSubmission) continue;
+
+                // Check basic eligibility
+                if (u.entrepreneurship_stage !== 'startup' && u.entrepreneurship_stage !== 'growth') continue;
+
+                eligible.push({
+                    id: u.id,
+                    name: u.full_name || 'Unknown',
+                    email: u.email,
+                    stage: u.entrepreneurship_stage
+                });
+            }
+
+            setEligibleMembers(eligible);
+        } catch (error) {
+            console.error('Error loading eligible members:', error);
+        }
+    };
+
+    const handleInviteMember = async (member) => {
+        if (!confirm(`Invite ${member.name} to be Member of the Month?`)) return;
+
+        setInviting(true);
+        try {
+            await inviteMemberOfTheMonth({
+                member_email: member.email,
+                member_name: member.name,
+                member_user_id: member.id
+            });
+
+            alert(`${member.name} has been invited! They'll receive an email with instructions.`);
+            setShowSelectMember(false);
+            loadData();
+        } catch (error) {
+            console.error('Error inviting member:', error);
+            alert('Failed to invite member. Please try again.');
+        } finally {
+            setInviting(false);
         }
     };
 
@@ -154,14 +211,27 @@ export default function AdminMemberOfTheMonth() {
         );
     }
 
+    const filteredMembers = eligibleMembers.filter(m => 
+        m.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        m.email.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
             <div className="mb-8">
-                <div className="flex items-center gap-3 mb-2">
-                    <Award className="w-8 h-8 text-[var(--primary-gold)]" />
-                    <h1 className="text-3xl font-bold">Member of the Month - Admin</h1>
+                <div className="flex items-center justify-between">
+                    <div>
+                        <div className="flex items-center gap-3 mb-2">
+                            <Award className="w-8 h-8 text-[var(--primary-gold)]" />
+                            <h1 className="text-3xl font-bold">Member of the Month - Admin</h1>
+                        </div>
+                        <p className="text-[var(--text-soft)]">Manage submissions and generate content</p>
+                    </div>
+                    <Button onClick={() => setShowSelectMember(true)} className="btn-primary">
+                        <UserPlus className="w-4 h-4 mr-2" />
+                        Select New Member
+                    </Button>
                 </div>
-                <p className="text-[var(--text-soft)]">Manage submissions and generate content</p>
             </div>
 
             <div className="grid gap-6">
@@ -340,6 +410,63 @@ export default function AdminMemberOfTheMonth() {
                                             ))}
                                         </div>
                                     </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Select Member Modal */}
+            {showSelectMember && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                        <div className="p-6">
+                            <div className="flex items-center justify-between mb-6">
+                                <h2 className="text-2xl font-bold">Select Member of the Month</h2>
+                                <Button variant="ghost" onClick={() => setShowSelectMember(false)}>Close</Button>
+                            </div>
+
+                            <div className="mb-4">
+                                <div className="relative">
+                                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                                    <input
+                                        type="text"
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                        placeholder="Search members..."
+                                        className="form-input w-full pl-10"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="space-y-2">
+                                {filteredMembers.length === 0 ? (
+                                    <p className="text-center text-[var(--text-soft)] py-8">No eligible members found</p>
+                                ) : (
+                                    filteredMembers.map((member) => (
+                                        <div key={member.id} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                            <div>
+                                                <p className="font-semibold">{member.name}</p>
+                                                <p className="text-sm text-[var(--text-soft)]">{member.email}</p>
+                                                <Badge variant="outline" className="mt-1 text-xs">{member.stage}</Badge>
+                                            </div>
+                                            <Button
+                                                size="sm"
+                                                onClick={() => handleInviteMember(member)}
+                                                disabled={inviting}
+                                            >
+                                                {inviting ? (
+                                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                                ) : (
+                                                    <>
+                                                        <Send className="w-4 h-4 mr-2" />
+                                                        Invite
+                                                    </>
+                                                )}
+                                            </Button>
+                                        </div>
+                                    ))
                                 )}
                             </div>
                         </div>
