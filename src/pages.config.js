@@ -147,6 +147,8 @@ import VisionStrategySession from './pages/VisionStrategySession';
 import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
 import Week from './pages/Week';
 import layout from './pages/layout';
+import MemberOfTheMonthSubmission from './pages/MemberOfTheMonthSubmission';
+import AdminMemberOfTheMonth from './pages/AdminMemberOfTheMonth';
 import __Layout from './Layout.jsx';
 
 
@@ -251,6 +253,8 @@ export const PAGES = {
     "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
     "Week": Week,
     "layout": layout,
+    "MemberOfTheMonthSubmission": MemberOfTheMonthSubmission,
+    "AdminMemberOfTheMonth": AdminMemberOfTheMonth,
 }
 
 export const pagesConfig = {
