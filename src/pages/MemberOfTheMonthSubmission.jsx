@@ -211,60 +211,60 @@ export default function MemberOfTheMonthSubmission() {
     }
 
     return (
-        <div className="max-w-4xl mx-auto px-4 py-8">
-            <div className="mb-8 text-center">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[var(--primary-gold)] to-yellow-600 rounded-full mb-4">
-                    <Award className="w-10 h-10 text-white" />
+        <div className="max-w-4xl mx-auto px-3 sm:px-4 py-6 sm:py-8 pb-24 md:pb-8">
+            <div className="mb-6 sm:mb-8 text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[var(--primary-gold)] to-yellow-600 rounded-full mb-3 sm:mb-4">
+                    <Award className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                 </div>
-                <h1 className="text-4xl font-bold mb-2">Member of the Month</h1>
-                <p className="text-[var(--text-soft)] text-lg">Get featured and inspire the community!</p>
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 px-2">Member of the Month</h1>
+                <p className="text-[var(--text-soft)] text-base sm:text-lg px-4">Get featured and inspire the community!</p>
             </div>
 
             {/* Why It Matters Section */}
-            <Card className="mb-8 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-700">
-                <CardContent className="pt-6">
-                    <h2 className="text-2xl font-bold mb-4 text-[var(--text-main)] flex items-center gap-2">
-                        <Sparkles className="w-6 h-6 text-blue-600" />
+            <Card className="mb-6 sm:mb-8 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-700">
+                <CardContent className="pt-4 sm:pt-6 px-4 sm:px-6">
+                    <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-[var(--text-main)] flex items-center gap-2">
+                        <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
                         Why This Matters for Your Business
                     </h2>
                     
-                    <div className="space-y-4 text-[var(--text-main)]">
-                        <p className="leading-relaxed">
+                    <div className="space-y-3 sm:space-y-4 text-[var(--text-main)]">
+                        <p className="leading-relaxed text-sm sm:text-base">
                             Being featured as Member of the Month isn't just recognition—it's a powerful growth opportunity for your business. Here's how active community engagement helps you succeed:
                         </p>
 
-                        <div className="grid md:grid-cols-2 gap-4">
-                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
-                                <h3 className="font-semibold mb-2 text-blue-600">🎯 Increased Visibility</h3>
-                                <p className="text-sm text-[var(--text-soft)]">
+                        <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                            <div className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg">
+                                <h3 className="font-semibold mb-1 sm:mb-2 text-blue-600 text-sm sm:text-base">🎯 Increased Visibility</h3>
+                                <p className="text-xs sm:text-sm text-[var(--text-soft)]">
                                     Your story reaches thousands of entrepreneurs, potential clients, and partners across our blog, social media, and TheIndex.cc
                                 </p>
                             </div>
 
-                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
-                                <h3 className="font-semibold mb-2 text-blue-600">🤝 Strategic Connections</h3>
-                                <p className="text-sm text-[var(--text-soft)]">
+                            <div className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg">
+                                <h3 className="font-semibold mb-1 sm:mb-2 text-blue-600 text-sm sm:text-base">🤝 Strategic Connections</h3>
+                                <p className="text-xs sm:text-sm text-[var(--text-soft)]">
                                     Active community members form partnerships, find clients, and create collaboration opportunities that lead to real revenue
                                 </p>
                             </div>
 
-                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
-                                <h3 className="font-semibold mb-2 text-blue-600">💡 Social Proof & Credibility</h3>
-                                <p className="text-sm text-[var(--text-soft)]">
+                            <div className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg">
+                                <h3 className="font-semibold mb-1 sm:mb-2 text-blue-600 text-sm sm:text-base">💡 Social Proof & Credibility</h3>
+                                <p className="text-xs sm:text-sm text-[var(--text-soft)]">
                                     Being featured builds trust and authority in your industry—making it easier to attract clients and raise prices
                                 </p>
                             </div>
 
-                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
-                                <h3 className="font-semibold mb-2 text-blue-600">📈 Accountability & Growth</h3>
-                                <p className="text-sm text-[var(--text-soft)]">
+                            <div className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg">
+                                <h3 className="font-semibold mb-1 sm:mb-2 text-blue-600 text-sm sm:text-base">📈 Accountability & Growth</h3>
+                                <p className="text-xs sm:text-sm text-[var(--text-soft)]">
                                     Community engagement keeps you motivated, accountable, and learning from others who've overcome similar challenges
                                 </p>
                             </div>
                         </div>
 
-                        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-4 mt-4">
-                            <p className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
+                        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-3 sm:p-4 mt-3 sm:mt-4">
+                            <p className="text-xs sm:text-sm font-medium text-yellow-800 dark:text-yellow-200">
                                 💼 <strong>Real Impact:</strong> Past Members of the Month have reported gaining new clients, forming strategic partnerships, and growing their businesses directly from the exposure and connections made through this feature.
                             </p>
                         </div>
@@ -273,9 +273,9 @@ export default function MemberOfTheMonthSubmission() {
             </Card>
 
             {/* Eligibility Check */}
-            <Card className="mb-8">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
+            <Card className="mb-6 sm:mb-8">
+                <CardHeader className="px-4 sm:px-6">
+                    <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
                         {isEligible ? (
                             <CheckCircle2 className="w-6 h-6 text-green-600" />
                         ) : (
@@ -284,17 +284,17 @@ export default function MemberOfTheMonthSubmission() {
                         Eligibility Requirements
                     </CardTitle>
                 </CardHeader>
-                <CardContent>
-                    <div className="space-y-3 mb-4">
+                <CardContent className="px-4 sm:px-6">
+                    <div className="space-y-2 sm:space-y-3 mb-4">
                         {eligibilityCriteria.map(criteria => (
-                            <div key={criteria.key} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                                <div className="flex items-center gap-3">
+                            <div key={criteria.key} className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                <div className="flex items-start gap-3 flex-1">
                                     {eligibility[criteria.key] ? (
-                                        <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />
+                                        <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 flex-shrink-0 mt-0.5" />
                                     ) : (
-                                        <XCircle className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                                        <XCircle className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 flex-shrink-0 mt-0.5" />
                                     )}
-                                    <span className={eligibility[criteria.key] ? 'text-[var(--text-main)]' : 'text-[var(--text-soft)]'}>
+                                    <span className={`text-sm sm:text-base ${eligibility[criteria.key] ? 'text-[var(--text-main)]' : 'text-[var(--text-soft)]'}`}>
                                         {criteria.label}
                                     </span>
                                 </div>
@@ -322,15 +322,15 @@ export default function MemberOfTheMonthSubmission() {
                         ))}
                     </div>
                     {!isEligible && (
-                        <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 rounded-lg p-4">
-                            <p className="text-sm text-orange-800 dark:text-orange-200">
+                        <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 rounded-lg p-3 sm:p-4">
+                            <p className="text-xs sm:text-sm text-orange-800 dark:text-orange-200">
                                 Complete all requirements above to be eligible for Member of the Month. Each requirement helps you engage more deeply with the community and build your business!
                             </p>
                         </div>
                     )}
                     {isEligible && (
-                        <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg p-4">
-                            <p className="text-sm text-green-800 dark:text-green-200 flex items-center gap-2">
+                        <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg p-3 sm:p-4">
+                            <p className="text-xs sm:text-sm text-green-800 dark:text-green-200 flex items-center gap-2">
                                 <Sparkles className="w-4 h-4" />
                                 You meet all requirements! Fill out the form below to submit your story.
                             </p>
@@ -342,7 +342,7 @@ export default function MemberOfTheMonthSubmission() {
             {/* Existing Submission Notice */}
             {existingSubmission && (
                 <Card className="mb-6 border-blue-200 bg-blue-50 dark:bg-blue-900/20">
-                    <CardContent className="pt-6">
+                    <CardContent className="pt-4 sm:pt-6 px-4 sm:px-6">
                         <div className="flex items-center gap-2 mb-2">
                             <CheckCircle2 className="w-5 h-5 text-blue-600" />
                             <h3 className="font-semibold">You've Already Submitted!</h3>
@@ -361,10 +361,10 @@ export default function MemberOfTheMonthSubmission() {
             {isEligible && (
                 <form onSubmit={handleSubmit}>
                     <Card className="mb-6">
-                        <CardHeader>
-                            <CardTitle>Tell Us Your Story</CardTitle>
+                        <CardHeader className="px-4 sm:px-6">
+                            <CardTitle className="text-lg sm:text-xl">Tell Us Your Story</CardTitle>
                         </CardHeader>
-                        <CardContent className="space-y-6">
+                        <CardContent className="space-y-4 sm:space-y-6 px-4 sm:px-6">
                             <div>
                                 <label className="block text-sm font-medium mb-2">Business Name *</label>
                                 <input
