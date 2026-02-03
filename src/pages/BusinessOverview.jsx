@@ -217,8 +217,13 @@ export default function BusinessOverview() {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                             {business.services.map((service, idx) => (
-                                <div key={idx} className="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-center" style={{ borderRadius: '1px' }}>
+                                <div key={idx} className="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700" style={{ borderRadius: '1px' }}>
                                     <h3 className="font-semibold mb-2 text-sm">{service.name}</h3>
+                                    {service.description && (
+                                        <p className="text-xs text-[var(--text-soft)] mb-2">
+                                            {service.description.slice(0, 40)}{service.description.length > 40 ? '...' : ''}
+                                        </p>
+                                    )}
                                     {service.price && (
                                         <p className="text-lg font-bold text-[var(--primary-gold)]">{service.price}</p>
                                     )}
@@ -370,13 +375,77 @@ export default function BusinessOverview() {
                         formPage="StrategyFormBusinessModelCanvas"
                         color="from-green-500 to-emerald-600"
                     />
-                    <StrategyCard
-                        title="Value Proposition"
-                        icon={TrendingUp}
-                        document={strategyDocs['value_proposition_canvas']}
-                        formPage="StrategyFormValueProposition"
-                        color="from-indigo-500 to-purple-600"
-                    />
+                    
+                    {/* Value Proposition - Full View */}
+                    <div className="border border-gray-200 dark:border-gray-700 p-4 hover:shadow-lg transition-all" style={{ borderRadius: '1px' }}>
+                        <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-2">
+                                <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-2" style={{ borderRadius: '1px' }}>
+                                    <TrendingUp className="w-4 h-4 text-white" />
+                                </div>
+                                <span className="font-bold text-sm">Value Proposition</span>
+                            </div>
+                            {strategyDocs['value_proposition_canvas']?.is_completed && <CheckCircle className="w-4 h-4 text-green-600" />}
+                        </div>
+                        {strategyDocs['value_proposition_canvas'] && strategyDocs['value_proposition_canvas'].content ? (
+                            <div className="space-y-3">
+                                <div className="text-sm text-[var(--text-soft)] bg-gray-50 dark:bg-gray-800 p-3 max-h-48 overflow-y-auto leading-relaxed space-y-2" style={{ borderRadius: '1px' }}>
+                                    {strategyDocs['value_proposition_canvas'].content.customer_jobs && (
+                                        <div>
+                                            <p className="font-semibold text-[var(--text-main)] text-xs mb-1">Customer Jobs:</p>
+                                            <p className="text-xs">{strategyDocs['value_proposition_canvas'].content.customer_jobs}</p>
+                                        </div>
+                                    )}
+                                    {strategyDocs['value_proposition_canvas'].content.pains && (
+                                        <div>
+                                            <p className="font-semibold text-[var(--text-main)] text-xs mb-1">Pains:</p>
+                                            <p className="text-xs">{strategyDocs['value_proposition_canvas'].content.pains}</p>
+                                        </div>
+                                    )}
+                                    {strategyDocs['value_proposition_canvas'].content.gains && (
+                                        <div>
+                                            <p className="font-semibold text-[var(--text-main)] text-xs mb-1">Gains:</p>
+                                            <p className="text-xs">{strategyDocs['value_proposition_canvas'].content.gains}</p>
+                                        </div>
+                                    )}
+                                    {strategyDocs['value_proposition_canvas'].content.products_services && (
+                                        <div>
+                                            <p className="font-semibold text-[var(--text-main)] text-xs mb-1">Products & Services:</p>
+                                            <p className="text-xs">{strategyDocs['value_proposition_canvas'].content.products_services}</p>
+                                        </div>
+                                    )}
+                                    {strategyDocs['value_proposition_canvas'].content.pain_relievers && (
+                                        <div>
+                                            <p className="font-semibold text-[var(--text-main)] text-xs mb-1">Pain Relievers:</p>
+                                            <p className="text-xs">{strategyDocs['value_proposition_canvas'].content.pain_relievers}</p>
+                                        </div>
+                                    )}
+                                    {strategyDocs['value_proposition_canvas'].content.gain_creators && (
+                                        <div>
+                                            <p className="font-semibold text-[var(--text-main)] text-xs mb-1">Gain Creators:</p>
+                                            <p className="text-xs">{strategyDocs['value_proposition_canvas'].content.gain_creators}</p>
+                                        </div>
+                                    )}
+                                </div>
+                                <Link to={createPageUrl('StrategyFormValueProposition')}>
+                                    <Button variant="outline" size="sm" className="w-full" style={{ borderRadius: '1px' }}>
+                                        <Edit className="w-3 h-3 mr-2" />
+                                        Edit
+                                    </Button>
+                                </Link>
+                            </div>
+                        ) : (
+                            <div className="text-center py-4">
+                                <p className="text-sm text-[var(--text-soft)] mb-3">Not completed yet</p>
+                                <Link to={createPageUrl('StrategyFormValueProposition')}>
+                                    <Button size="sm" className="btn-primary w-full" style={{ borderRadius: '1px' }}>
+                                        <FileText className="w-3 h-3 mr-2" />
+                                        Complete Now
+                                    </Button>
+                                </Link>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 
@@ -440,15 +509,21 @@ export default function BusinessOverview() {
                             Current 90-Day Journey
                         </h3>
                         <div>
-                            {currentJourney ? (
+                            {currentJourney && user ? (
                                 <div className="space-y-3">
                                     <div className="bg-gray-50 dark:bg-gray-800 p-3" style={{ borderRadius: '1px' }}>
-                                        <p className="text-xs text-[var(--text-soft)] mb-1">Goal</p>
+                                        <p className="text-xs text-[var(--text-soft)] mb-1">Current Goal</p>
                                         <p className="font-semibold text-sm">{currentJourney.source_name}</p>
                                     </div>
                                     <div className="bg-gray-50 dark:bg-gray-800 p-3" style={{ borderRadius: '1px' }}>
-                                        <p className="text-xs text-[var(--text-soft)] mb-1">Type</p>
-                                        <p className="font-semibold text-sm capitalize">{currentJourney.source_type}</p>
+                                        <p className="text-xs text-[var(--text-soft)] mb-1">Stage</p>
+                                        <p className="font-semibold text-sm capitalize">{user.entrepreneurship_stage}</p>
+                                    </div>
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-3" style={{ borderRadius: '1px' }}>
+                                        <p className="text-xs text-[var(--text-soft)] mb-1">Current Week</p>
+                                        <p className="font-semibold text-sm">
+                                            Week {user.journey_current_week || 1} of 12
+                                        </p>
                                     </div>
                                     <Link to={createPageUrl('Journey')}>
                                         <Button variant="outline" size="sm" className="w-full" style={{ borderRadius: '1px' }}>
