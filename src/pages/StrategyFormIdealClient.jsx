@@ -4,9 +4,132 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { 
     Users, Save, Loader2, CheckCircle, ArrowLeft, 
-    Target, Heart, TrendingUp, AlertCircle, Sparkles, HelpCircle, Brain, DollarSign
+    Target, Heart, TrendingUp, AlertCircle, Sparkles, HelpCircle, Brain, DollarSign, Plus, X
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
+
+// Dropdown options matching Customer Journey form
+const DEMOGRAPHICS_OPTIONS = {
+    age_range: ['18-24', '25-34', '35-44', '45-54', '55-64', '65+'],
+    gender: ['All', 'Female', 'Male'],
+    location: ['Urban', 'Suburban', 'Rural', 'North America', 'Europe', 'Asia', 'Global/Online'],
+    income_level: ['Under $30k', '$30k-$50k', '$50k-$75k', '$75k-$100k', '$100k-$150k', '$150k-$250k', '$250k+'],
+    education: ['High School', 'Some College', 'Bachelor\'s Degree', 'Master\'s Degree', 'Doctorate', 'Self-Taught/Trade School'],
+    occupation: ['Business Owner', 'Entrepreneur', 'Executive/Manager', 'Professional/Specialist', 'Freelancer/Consultant', 'Creative/Artist', 'Healthcare', 'Education', 'Technology', 'Other']
+};
+
+const BUYING_BEHAVIORS_OPTIONS = {
+    research_method: ['Google search', 'Social media', 'Recommendations', 'Reviews/testimonials', 'YouTube videos', 'Podcasts', 'Industry publications'],
+    decision_speed: ['Impulsive (same day)', 'Quick (within a week)', 'Moderate (1-2 weeks)', 'Careful (several weeks)', 'Very deliberate (months)'],
+    price_sensitivity: ['Budget-conscious', 'Value-focused', 'Quality over price', 'Premium buyer'],
+    preferred_contact: ['Email', 'Phone', 'Text/SMS', 'In-person', 'Video call', 'Live chat', 'Social media DM']
+};
+
+const PSYCHOGRAPHICS_SUGGESTIONS = ['Innovation', 'Tradition', 'Family', 'Success', 'Freedom', 'Security', 'Community', 'Sustainability', 'Efficiency', 'Quality', 'Technology', 'Business', 'Health & Fitness', 'Travel', 'Arts & Culture', 'Sports', 'Education', 'Finance', 'Entertainment', 'Food & Dining', 'Fast-paced', 'Balanced', 'Minimalist', 'Luxury-oriented', 'Family-focused', 'Career-driven', 'Health-conscious', 'Adventure-seeking', 'Analytical', 'Creative', 'Pragmatic', 'Innovative', 'Traditional', 'Risk-taker', 'Cautious', 'Social', 'Independent'];
+
+const PAIN_POINTS_SUGGESTIONS = ['Lack of time', 'Limited budget', 'Information overload', 'Fear of failure', 'Unclear direction', 'Poor work-life balance', 'Difficulty scaling', 'Technology challenges', 'Marketing struggles', 'Cash flow issues', 'Finding reliable help', 'Competition pressure'];
+
+const GOALS_SUGGESTIONS = ['Start a business', 'Grow existing business', 'Achieve financial freedom', 'Better work-life balance', 'Build passive income', 'Become an expert', 'Help others', 'Create legacy', 'Increase revenue', 'Reduce stress', 'Gain more customers', 'Improve efficiency'];
+
+const VALUES_SUGGESTIONS = ['Integrity', 'Excellence', 'Innovation', 'Family', 'Community', 'Growth', 'Transparency', 'Sustainability', 'Empowerment', 'Reliability', 'Creativity', 'Service'];
+
+// Multi-value input component
+const MultiValueInput = ({ values = [], onChange, suggestions = [], placeholder = "Type and press Enter" }) => {
+    const [inputValue, setInputValue] = useState('');
+    const [showSuggestions, setShowSuggestions] = useState(false);
+    
+    const safeValues = Array.isArray(values) ? values : [];
+
+    const addValue = (value) => {
+        const trimmedValue = value.trim();
+        if (trimmedValue && !safeValues.includes(trimmedValue)) {
+            onChange([...safeValues, trimmedValue]);
+            setInputValue('');
+            setShowSuggestions(false);
+        }
+    };
+
+    const removeValue = (index) => {
+        onChange(safeValues.filter((_, i) => i !== index));
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            addValue(inputValue);
+        } else if (e.key === 'Tab' && inputValue && showSuggestions && filteredSuggestions.length > 0) {
+            e.preventDefault();
+            addValue(filteredSuggestions[0]);
+        }
+    };
+
+    const filteredSuggestions = suggestions.filter(s =>
+        s.toLowerCase().includes(inputValue.toLowerCase()) && !safeValues.includes(s)
+    );
+
+    return (
+        <div className="space-y-2">
+            <div className="relative">
+                <input
+                    type="text"
+                    value={inputValue}
+                    onChange={(e) => {
+                        setInputValue(e.target.value);
+                        setShowSuggestions(e.target.value.length > 0);
+                    }}
+                    onKeyDown={handleKeyDown}
+                    onFocus={() => setShowSuggestions(inputValue.length > 0)}
+                    onBlur={() => setTimeout(() => setShowSuggestions(false), 100)}
+                    placeholder={placeholder}
+                    className="form-input pr-12"
+                />
+                <button
+                    type="button"
+                    onClick={() => addValue(inputValue)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 btn btn-primary text-xs py-1 px-3"
+                    disabled={!inputValue.trim()}
+                >
+                    <Plus className="w-4 h-4" />
+                </button>
+
+                {showSuggestions && filteredSuggestions.length > 0 && (
+                    <div className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg max-h-48 overflow-y-auto">
+                        {filteredSuggestions.slice(0, 10).map((suggestion, index) => (
+                            <button
+                                key={index}
+                                type="button"
+                                onClick={() => addValue(suggestion)}
+                                className="w-full text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm text-[var(--text-main)]"
+                            >
+                                {suggestion}
+                            </button>
+                        ))}
+                    </div>
+                )}
+            </div>
+
+            {safeValues.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                    {safeValues.map((value, index) => (
+                        <span
+                            key={index}
+                            className="inline-flex items-center gap-1 px-3 py-1 bg-[var(--primary-gold)] text-white rounded-full text-sm"
+                        >
+                            {value}
+                            <button
+                                type="button"
+                                onClick={() => removeValue(index)}
+                                className="hover:bg-white/20 rounded-full p-0.5"
+                            >
+                                <X className="w-3 h-3" />
+                            </button>
+                        </span>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+};
 
 export default function StrategyFormIdealClient() {
     const [user, setUser] = useState(null);
@@ -24,24 +147,17 @@ export default function StrategyFormIdealClient() {
         education: '',
         occupation: '',
         
-        // Psychographics
-        values: '',
-        interests: '',
-        lifestyle: '',
-        personality_traits: '',
+        // Psychographics - now arrays
+        psychographics: [],
+        pain_points: [],
+        goals: [],
+        core_values: [],
         
-        // Pain Points & Goals
-        biggest_challenge: '',
-        frustrations: '',
-        fears: '',
-        desired_outcome: '',
-        goals: '',
-        
-        // Behavior
-        buying_behavior: '',
-        decision_making_process: '',
-        objections: '',
-        preferred_communication: '',
+        // Buying Behaviors - now single dropdowns
+        research_method: '',
+        decision_speed: '',
+        price_sensitivity: '',
+        preferred_contact: '',
         
         // Identity
         how_they_describe_themselves: '',
@@ -382,129 +498,145 @@ export default function StrategyFormIdealClient() {
                     </div>
                 </div>
 
-                {/* Pain Points & Goals Section */}
+                {/* Pain Points Section */}
                 <div className="card p-6 mb-6">
                     <h3 className="font-bold text-xl text-[var(--text-main)] mb-4 flex items-center gap-2">
-                        <Target className="w-6 h-6 text-orange-600" />
-                        Pain Points & Goals
+                        <AlertCircle className="w-6 h-6 text-red-600" />
+                        Pain Points
                     </h3>
-                    <p className="text-sm text-[var(--text-soft)] mb-4">What keeps them up at night and what they're trying to achieve</p>
-
-                    <div className="space-y-4">
-                        <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                <AlertCircle className="w-4 h-4 inline mr-1 text-red-500" />
-                                Biggest Challenge (Most Important!)
-                            </label>
-                            <textarea
-                                value={formData.biggest_challenge}
-                                onChange={(e) => setFormData({ ...formData, biggest_challenge: e.target.value })}
-                                className="form-input border-red-200 dark:border-red-700"
-                                rows="3"
-                                placeholder="What is THE problem they're desperate to solve?"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Daily Frustrations</label>
-                            <textarea
-                                value={formData.frustrations}
-                                onChange={(e) => setFormData({ ...formData, frustrations: e.target.value })}
-                                className="form-input"
-                                rows="3"
-                                placeholder="What frustrates them on a daily basis?"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Fears & Concerns</label>
-                            <textarea
-                                value={formData.fears}
-                                onChange={(e) => setFormData({ ...formData, fears: e.target.value })}
-                                className="form-input"
-                                rows="3"
-                                placeholder="What are they afraid of? What keeps them from taking action?"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                <Heart className="w-4 h-4 inline mr-1 text-green-500" />
-                                Desired Outcome
-                            </label>
-                            <textarea
-                                value={formData.desired_outcome}
-                                onChange={(e) => setFormData({ ...formData, desired_outcome: e.target.value })}
-                                className="form-input border-green-200 dark:border-green-700"
-                                rows="3"
-                                placeholder="What does success look like for them? What transformation do they want?"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Goals & Aspirations</label>
-                            <textarea
-                                value={formData.goals}
-                                onChange={(e) => setFormData({ ...formData, goals: e.target.value })}
-                                className="form-input"
-                                rows="3"
-                                placeholder="What are they working towards?"
-                            />
-                        </div>
+                    
+                    <div className="mb-6 bg-red-50 dark:bg-red-900/10 p-4 rounded-lg border border-red-100 dark:border-red-800/30 text-sm">
+                        <p className="mb-2"><strong className="text-red-700 dark:text-red-400">Why it matters:</strong> People don't buy products; they buy solutions to problems. Identifying deep pain points allows you to position your offer as the cure.</p>
+                        <p className="italic text-[var(--text-soft)]"><strong className="not-italic text-[var(--text-main)]">Example:</strong> A busy mom doesn't just want a "meal kit." Her pain point is "guilt over feeding her kids fast food." The solution is "peace of mind."</p>
                     </div>
+
+                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                        What problems or frustrations do they face?
+                    </label>
+                    <MultiValueInput
+                        values={formData.pain_points}
+                        onChange={(values) => setFormData({ ...formData, pain_points: values })}
+                        suggestions={PAIN_POINTS_SUGGESTIONS}
+                        placeholder="Add pain points (e.g., Lack of time, Limited budget)"
+                    />
+                    <p className="text-xs text-[var(--text-soft)] mt-2">Understanding their pain points helps you create targeted solutions.</p>
                 </div>
 
-                {/* Behavior Section */}
+                {/* Goals & Aspirations Section */}
                 <div className="card p-6 mb-6">
                     <h3 className="font-bold text-xl text-[var(--text-main)] mb-4 flex items-center gap-2">
-                        <TrendingUp className="w-6 h-6 text-green-600" />
-                        Buying Behavior
+                        <Target className="w-6 h-6 text-green-600" />
+                        Goals & Aspirations
                     </h3>
-                    <p className="text-sm text-[var(--text-soft)] mb-4">How they make purchase decisions</p>
+                    
+                    <div className="mb-6 bg-green-50 dark:bg-green-900/10 p-4 rounded-lg border border-green-100 dark:border-green-800/30 text-sm">
+                        <p className="mb-2"><strong className="text-green-700 dark:text-green-400">Why it matters:</strong> This is where your customer <em>wants</em> to be. Your product is the bridge between their current pain and their future goal.</p>
+                        <p className="italic text-[var(--text-soft)]"><strong className="not-italic text-[var(--text-main)]">Example:</strong> A freelance writer buys a course not just to "learn SEO," but to achieve the goal of "Working from Bali." Sell the destination.</p>
+                    </div>
+
+                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                        What are they trying to achieve?
+                    </label>
+                    <MultiValueInput
+                        values={formData.goals}
+                        onChange={(values) => setFormData({ ...formData, goals: values })}
+                        suggestions={GOALS_SUGGESTIONS}
+                        placeholder="Add goals (e.g., Start a business, Achieve financial freedom)"
+                    />
+                    <p className="text-xs text-[var(--text-soft)] mt-2">Their goals drive their decisions and actions.</p>
+                </div>
+
+                {/* Core Values Section */}
+                <div className="card p-6 mb-6">
+                    <h3 className="font-bold text-xl text-[var(--text-main)] mb-4 flex items-center gap-2">
+                        <Heart className="w-6 h-6 text-indigo-600" />
+                        Core Values
+                    </h3>
+                    
+                    <div className="mb-6 bg-indigo-50 dark:bg-indigo-900/10 p-4 rounded-lg border border-indigo-100 dark:border-indigo-800/30 text-sm">
+                        <p className="mb-2"><strong className="text-indigo-700 dark:text-indigo-400">Why it matters:</strong> Shared values build trust and long-term loyalty. Customers buy from brands that believe what they believe.</p>
+                        <p className="italic text-[var(--text-soft)]"><strong className="not-italic text-[var(--text-main)]">Example:</strong> Patagonia customers pay 2x more for a jacket because they share the value of "Environmental Protection." They are buying identity.</p>
+                    </div>
+
+                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                        What principles guide their decisions?
+                    </label>
+                    <MultiValueInput
+                        values={formData.core_values}
+                        onChange={(values) => setFormData({ ...formData, core_values: values })}
+                        suggestions={VALUES_SUGGESTIONS}
+                        placeholder="Add core values (e.g., Integrity, Innovation, Family)"
+                    />
+                    <p className="text-xs text-[var(--text-soft)] mt-2">Core values help you align your messaging with what matters most to them.</p>
+                </div>
+
+                {/* Buying Behaviors Section */}
+                <div className="card p-6 mb-6">
+                    <h3 className="font-bold text-xl text-[var(--text-main)] mb-4 flex items-center gap-2">
+                        <TrendingUp className="w-6 h-6 text-orange-600" />
+                        Buying Behaviors
+                    </h3>
+                    
+                    <div className="mb-6 bg-orange-50 dark:bg-orange-900/10 p-4 rounded-lg border border-orange-100 dark:border-orange-800/30 text-sm">
+                        <p className="mb-2"><strong className="text-orange-700 dark:text-orange-400">Why it matters:</strong> Knowing <em>how</em> they buy removes friction. Mismatching your sales process with their buying style kills sales.</p>
+                        <p className="italic text-[var(--text-soft)]"><strong className="not-italic text-[var(--text-main)]">Example:</strong> An impulse buyer (fashion) needs a "1-Click Checkout." A careful buyer (software) needs a "Free Trial" and case studies.</p>
+                    </div>
 
                     <div className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Typical Buying Behavior</label>
-                            <textarea
-                                value={formData.buying_behavior}
-                                onChange={(e) => setFormData({ ...formData, buying_behavior: e.target.value })}
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Research Method</label>
+                            <select
+                                value={formData.research_method}
+                                onChange={(e) => setFormData({ ...formData, research_method: e.target.value })}
                                 className="form-input"
-                                rows="3"
-                                placeholder="Do they research extensively? Impulse buy? Look for deals?"
-                            />
+                            >
+                                <option value="">Select research method</option>
+                                {BUYING_BEHAVIORS_OPTIONS.research_method.map(option => (
+                                    <option key={option} value={option}>{option}</option>
+                                ))}
+                            </select>
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Decision-Making Process</label>
-                            <textarea
-                                value={formData.decision_making_process}
-                                onChange={(e) => setFormData({ ...formData, decision_making_process: e.target.value })}
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Decision Speed</label>
+                            <select
+                                value={formData.decision_speed}
+                                onChange={(e) => setFormData({ ...formData, decision_speed: e.target.value })}
                                 className="form-input"
-                                rows="3"
-                                placeholder="What influences their decision? Testimonials? Data? Recommendations?"
-                            />
+                            >
+                                <option value="">Select decision speed</option>
+                                {BUYING_BEHAVIORS_OPTIONS.decision_speed.map(option => (
+                                    <option key={option} value={option}>{option}</option>
+                                ))}
+                            </select>
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Common Objections</label>
-                            <textarea
-                                value={formData.objections}
-                                onChange={(e) => setFormData({ ...formData, objections: e.target.value })}
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Price Sensitivity</label>
+                            <select
+                                value={formData.price_sensitivity}
+                                onChange={(e) => setFormData({ ...formData, price_sensitivity: e.target.value })}
                                 className="form-input"
-                                rows="3"
-                                placeholder="What objections do they typically have? (price, time, skepticism, etc.)"
-                            />
+                            >
+                                <option value="">Select price sensitivity</option>
+                                {BUYING_BEHAVIORS_OPTIONS.price_sensitivity.map(option => (
+                                    <option key={option} value={option}>{option}</option>
+                                ))}
+                            </select>
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Preferred Communication Channels</label>
-                            <textarea
-                                value={formData.preferred_communication}
-                                onChange={(e) => setFormData({ ...formData, preferred_communication: e.target.value })}
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Preferred Contact Method</label>
+                            <select
+                                value={formData.preferred_contact}
+                                onChange={(e) => setFormData({ ...formData, preferred_contact: e.target.value })}
                                 className="form-input"
-                                rows="3"
-                                placeholder="Email? Social media? Phone? In-person?"
-                            />
+                            >
+                                <option value="">Select contact method</option>
+                                {BUYING_BEHAVIORS_OPTIONS.preferred_contact.map(option => (
+                                    <option key={option} value={option}>{option}</option>
+                                ))}
+                            </select>
                         </div>
                     </div>
                 </div>
