@@ -21,7 +21,8 @@ import {
     Rocket,
     MessageSquare,
     ChevronDown,
-    Map
+    Map,
+    Briefcase
 } from 'lucide-react';
 import moment from 'moment';
 
