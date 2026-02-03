@@ -513,7 +513,7 @@ export default function BusinessOverview() {
                                 <div className="space-y-3">
                                     <div className="bg-gray-50 dark:bg-gray-800 p-3" style={{ borderRadius: '1px' }}>
                                         <p className="text-xs text-[var(--text-soft)] mb-1">Current Goal</p>
-                                        <p className="font-semibold text-sm">{currentJourney.source_name}</p>
+                                        <p className="font-semibold text-sm">{user.selected_goal || currentJourney.source_name}</p>
                                     </div>
                                     <div className="bg-gray-50 dark:bg-gray-800 p-3" style={{ borderRadius: '1px' }}>
                                         <p className="text-xs text-[var(--text-soft)] mb-1">Stage</p>
@@ -558,6 +558,11 @@ export default function BusinessOverview() {
                                     <div className="bg-gray-50 dark:bg-gray-800 p-3" style={{ borderRadius: '1px' }}>
                                         <p className="text-xs text-[var(--text-soft)] mb-1">Year</p>
                                         <p className="font-semibold text-sm">{annualPlan.year}</p>
+                                        {annualPlan.financial_goal_snapshot && (
+                                            <p className="text-xs text-[var(--primary-gold)] font-bold mt-2">
+                                                Freedom Number: {annualPlan.financial_goal_snapshot}
+                                            </p>
+                                        )}
                                     </div>
                                     <div className="bg-gray-50 dark:bg-gray-800 p-3" style={{ borderRadius: '1px' }}>
                                         <p className="text-xs text-[var(--text-soft)] mb-1">Theme</p>
