@@ -511,12 +511,40 @@ export default function DashboardPage() {
                             </li>
                         </ul>
 
+                        <div className="flex flex-wrap gap-2">
+                            <a 
+                                href="https://thebminds.com" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="btn btn-primary flex-1"
+                            >
+                                <Users className="w-4 h-4 mr-2" />
+                                Desktop
+                            </a>
+                            <a 
+                                href="https://apps.apple.com/us/app/the-business-minds/id6742644847" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="btn btn-secondary flex-1"
+                            >
+                                iOS App
+                            </a>
+                            <a 
+                                href="https://play.google.com/store/apps/details?id=com.thebusinessminds.wl&hl=en_IN" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="btn btn-secondary flex-1"
+                            >
+                                Android
+                            </a>
+                        </div>
+
                         <Link 
-                            to={createPageUrl('TheCommunity')}
-                            className="btn btn-primary w-full justify-center"
+                            to={createPageUrl('BusinessOverview')}
+                            className="btn btn-ghost w-full justify-center mt-2 text-purple-600 dark:text-purple-400"
                         >
-                            <Users className="w-4 h-4 mr-2" />
-                            Login to Community
+                            <Briefcase className="w-4 h-4 mr-2" />
+                            View Your Business Overview
                         </Link>
                     </div>
 
