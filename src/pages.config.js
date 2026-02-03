@@ -52,6 +52,7 @@ import Admin from './pages/Admin';
 import AdminAnalytics from './pages/AdminAnalytics';
 import AdminContentManagement from './pages/AdminContentManagement';
 import AdminCourseManagement from './pages/AdminCourseManagement';
+import AdminMemberOfTheMonth from './pages/AdminMemberOfTheMonth';
 import AdminNotifications from './pages/AdminNotifications';
 import AdminPostScheduler from './pages/AdminPostScheduler';
 import AdminRoadmapContent from './pages/AdminRoadmapContent';
@@ -93,6 +94,7 @@ import LiveWebinar from './pages/LiveWebinar';
 import Magazine from './pages/Magazine';
 import MarketingOverview from './pages/MarketingOverview';
 import MemberDirectory from './pages/MemberDirectory';
+import MemberOfTheMonthSubmission from './pages/MemberOfTheMonthSubmission';
 import MemberProfile from './pages/MemberProfile';
 import MindsetHack from './pages/MindsetHack';
 import MindsetHacks from './pages/MindsetHacks';
@@ -147,8 +149,6 @@ import VisionStrategySession from './pages/VisionStrategySession';
 import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
 import Week from './pages/Week';
 import layout from './pages/layout';
-import MemberOfTheMonthSubmission from './pages/MemberOfTheMonthSubmission';
-import AdminMemberOfTheMonth from './pages/AdminMemberOfTheMonth';
 import __Layout from './Layout.jsx';
 
 
@@ -158,6 +158,7 @@ export const PAGES = {
     "AdminAnalytics": AdminAnalytics,
     "AdminContentManagement": AdminContentManagement,
     "AdminCourseManagement": AdminCourseManagement,
+    "AdminMemberOfTheMonth": AdminMemberOfTheMonth,
     "AdminNotifications": AdminNotifications,
     "AdminPostScheduler": AdminPostScheduler,
     "AdminRoadmapContent": AdminRoadmapContent,
@@ -199,6 +200,7 @@ export const PAGES = {
     "Magazine": Magazine,
     "MarketingOverview": MarketingOverview,
     "MemberDirectory": MemberDirectory,
+    "MemberOfTheMonthSubmission": MemberOfTheMonthSubmission,
     "MemberProfile": MemberProfile,
     "MindsetHack": MindsetHack,
     "MindsetHacks": MindsetHacks,
@@ -253,8 +255,6 @@ export const PAGES = {
     "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
     "Week": Week,
     "layout": layout,
-    "MemberOfTheMonthSubmission": MemberOfTheMonthSubmission,
-    "AdminMemberOfTheMonth": AdminMemberOfTheMonth,
 }
 
 export const pagesConfig = {

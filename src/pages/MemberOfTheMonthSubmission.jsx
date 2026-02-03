@@ -194,10 +194,9 @@ export default function MemberOfTheMonthSubmission() {
         { key: 'has_business_profile', label: 'Have a business profile on TheIndex.cc', action: 'Create Profile', link: 'MyBusinesses' },
         { 
             key: 'meaningful_connections', 
-            label: 'Follow 3+ members in our community app (thebminds.com - Members tab)', 
-            action: 'Visit Community App', 
-            link: 'https://thebminds.com',
-            isExternal: true 
+            label: 'Follow 3+ members in our community (Members tab on thebminds.com)', 
+            action: 'Go to Community', 
+            link: 'TheCommunity'
         },
         { key: 'shared_win_or_milestone', label: 'Shared a win or milestone in community', action: 'Share a Win', link: 'TheCommunity' }
     ];
@@ -299,24 +298,13 @@ export default function MemberOfTheMonthSubmission() {
                                     </span>
                                 </div>
                                 {!eligibility[criteria.key] && (
-                                    criteria.isExternal ? (
-                                        <a 
-                                            href={criteria.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="btn btn-outline btn-sm"
-                                        >
-                                            {criteria.action}
-                                        </a>
-                                    ) : (
-                                        <Button
-                                            variant="outline"
-                                            size="sm"
-                                            onClick={() => navigate(createPageUrl(criteria.link))}
-                                        >
-                                            {criteria.action}
-                                        </Button>
-                                    )
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => navigate(createPageUrl(criteria.link))}
+                                    >
+                                        {criteria.action}
+                                    </Button>
                                 )}
                             </div>
                         ))}
