@@ -192,7 +192,13 @@ export default function MemberOfTheMonthSubmission() {
         { key: 'foundation_roadmap_progress', label: 'Completed at least 50% of Foundation Roadmap', action: 'View Roadmap', link: 'MyFoundationRoadmap' },
         { key: 'active_engagement', label: 'Posted 3+ times or engaged in past 30 days', action: 'Go to Community', link: 'TheCommunity' },
         { key: 'has_business_profile', label: 'Have a business profile on TheIndex.cc', action: 'Create Profile', link: 'MyBusinesses' },
-        { key: 'meaningful_connections', label: 'Connected with 3+ members or have accountability partner', action: 'Find Members', link: 'MemberDirectory' },
+        { 
+            key: 'meaningful_connections', 
+            label: 'Follow 3+ members in our community app (thebminds.com - Members tab)', 
+            action: 'Visit Community App', 
+            link: 'https://thebminds.com',
+            isExternal: true 
+        },
         { key: 'shared_win_or_milestone', label: 'Shared a win or milestone in community', action: 'Share a Win', link: 'TheCommunity' }
     ];
 
@@ -213,6 +219,58 @@ export default function MemberOfTheMonthSubmission() {
                 <h1 className="text-4xl font-bold mb-2">Member of the Month</h1>
                 <p className="text-[var(--text-soft)] text-lg">Get featured and inspire the community!</p>
             </div>
+
+            {/* Why It Matters Section */}
+            <Card className="mb-8 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-700">
+                <CardContent className="pt-6">
+                    <h2 className="text-2xl font-bold mb-4 text-[var(--text-main)] flex items-center gap-2">
+                        <Sparkles className="w-6 h-6 text-blue-600" />
+                        Why This Matters for Your Business
+                    </h2>
+                    
+                    <div className="space-y-4 text-[var(--text-main)]">
+                        <p className="leading-relaxed">
+                            Being featured as Member of the Month isn't just recognition—it's a powerful growth opportunity for your business. Here's how active community engagement helps you succeed:
+                        </p>
+
+                        <div className="grid md:grid-cols-2 gap-4">
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                <h3 className="font-semibold mb-2 text-blue-600">🎯 Increased Visibility</h3>
+                                <p className="text-sm text-[var(--text-soft)]">
+                                    Your story reaches thousands of entrepreneurs, potential clients, and partners across our blog, social media, and TheIndex.cc
+                                </p>
+                            </div>
+
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                <h3 className="font-semibold mb-2 text-blue-600">🤝 Strategic Connections</h3>
+                                <p className="text-sm text-[var(--text-soft)]">
+                                    Active community members form partnerships, find clients, and create collaboration opportunities that lead to real revenue
+                                </p>
+                            </div>
+
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                <h3 className="font-semibold mb-2 text-blue-600">💡 Social Proof & Credibility</h3>
+                                <p className="text-sm text-[var(--text-soft)]">
+                                    Being featured builds trust and authority in your industry—making it easier to attract clients and raise prices
+                                </p>
+                            </div>
+
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                <h3 className="font-semibold mb-2 text-blue-600">📈 Accountability & Growth</h3>
+                                <p className="text-sm text-[var(--text-soft)]">
+                                    Community engagement keeps you motivated, accountable, and learning from others who've overcome similar challenges
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-4 mt-4">
+                            <p className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
+                                💼 <strong>Real Impact:</strong> Past Members of the Month have reported gaining new clients, forming strategic partnerships, and growing their businesses directly from the exposure and connections made through this feature.
+                            </p>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
 
             {/* Eligibility Check */}
             <Card className="mb-8">
@@ -241,13 +299,24 @@ export default function MemberOfTheMonthSubmission() {
                                     </span>
                                 </div>
                                 {!eligibility[criteria.key] && (
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => navigate(createPageUrl(criteria.link))}
-                                    >
-                                        {criteria.action}
-                                    </Button>
+                                    criteria.isExternal ? (
+                                        <a 
+                                            href={criteria.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="btn btn-outline btn-sm"
+                                        >
+                                            {criteria.action}
+                                        </a>
+                                    ) : (
+                                        <Button
+                                            variant="outline"
+                                            size="sm"
+                                            onClick={() => navigate(createPageUrl(criteria.link))}
+                                        >
+                                            {criteria.action}
+                                        </Button>
+                                    )
                                 )}
                             </div>
                         ))}
