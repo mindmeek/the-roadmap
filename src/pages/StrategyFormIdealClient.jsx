@@ -286,55 +286,55 @@ export default function StrategyFormIdealClient() {
 
                     <div className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Core Values (Select all that apply)</label>
-                            <select
-                                multiple
-                                value={formData.values ? formData.values.split(', ') : []}
-                                onChange={(e) => {
-                                    const selected = Array.from(e.target.selectedOptions, option => option.value);
-                                    setFormData({ ...formData, values: selected.join(', ') });
-                                }}
-                                className="form-input"
-                                size="6"
-                            >
-                                <option value="Family">Family</option>
-                                <option value="Freedom">Freedom</option>
-                                <option value="Innovation">Innovation</option>
-                                <option value="Quality">Quality</option>
-                                <option value="Success">Success</option>
-                                <option value="Growth">Growth</option>
-                                <option value="Community">Community</option>
-                                <option value="Health">Health</option>
-                                <option value="Security">Security</option>
-                                <option value="Adventure">Adventure</option>
-                            </select>
-                            <p className="text-xs text-[var(--text-soft)] mt-1">Hold Ctrl/Cmd to select multiple</p>
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-3">Core Values (Select all that apply)</label>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                {['Family', 'Freedom', 'Innovation', 'Quality', 'Success', 'Growth', 'Community', 'Health', 'Security', 'Adventure'].map(value => {
+                                    const isSelected = formData.values && formData.values.split(', ').includes(value);
+                                    return (
+                                        <label key={value} className="flex items-center space-x-2 cursor-pointer">
+                                            <input
+                                                type="checkbox"
+                                                checked={isSelected}
+                                                onChange={(e) => {
+                                                    const current = formData.values ? formData.values.split(', ').filter(v => v) : [];
+                                                    const updated = e.target.checked
+                                                        ? [...current, value]
+                                                        : current.filter(v => v !== value);
+                                                    setFormData({ ...formData, values: updated.join(', ') });
+                                                }}
+                                                className="w-4 h-4 text-[var(--primary-gold)] border-gray-300 rounded focus:ring-[var(--primary-gold)]"
+                                            />
+                                            <span className="text-sm text-[var(--text-main)]">{value}</span>
+                                        </label>
+                                    );
+                                })}
+                            </div>
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Interests & Hobbies (Select all that apply)</label>
-                            <select
-                                multiple
-                                value={formData.interests ? formData.interests.split(', ') : []}
-                                onChange={(e) => {
-                                    const selected = Array.from(e.target.selectedOptions, option => option.value);
-                                    setFormData({ ...formData, interests: selected.join(', ') });
-                                }}
-                                className="form-input"
-                                size="6"
-                            >
-                                <option value="Business & Entrepreneurship">Business & Entrepreneurship</option>
-                                <option value="Technology">Technology</option>
-                                <option value="Health & Fitness">Health & Fitness</option>
-                                <option value="Travel">Travel</option>
-                                <option value="Reading">Reading</option>
-                                <option value="Sports">Sports</option>
-                                <option value="Arts & Creativity">Arts & Creativity</option>
-                                <option value="Personal Development">Personal Development</option>
-                                <option value="Networking">Networking</option>
-                                <option value="Investing">Investing</option>
-                            </select>
-                            <p className="text-xs text-[var(--text-soft)] mt-1">Hold Ctrl/Cmd to select multiple</p>
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-3">Interests & Hobbies (Select all that apply)</label>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                {['Business & Entrepreneurship', 'Technology', 'Health & Fitness', 'Travel', 'Reading', 'Sports', 'Arts & Creativity', 'Personal Development', 'Networking', 'Investing'].map(interest => {
+                                    const isSelected = formData.interests && formData.interests.split(', ').includes(interest);
+                                    return (
+                                        <label key={interest} className="flex items-center space-x-2 cursor-pointer">
+                                            <input
+                                                type="checkbox"
+                                                checked={isSelected}
+                                                onChange={(e) => {
+                                                    const current = formData.interests ? formData.interests.split(', ').filter(v => v) : [];
+                                                    const updated = e.target.checked
+                                                        ? [...current, interest]
+                                                        : current.filter(v => v !== interest);
+                                                    setFormData({ ...formData, interests: updated.join(', ') });
+                                                }}
+                                                className="w-4 h-4 text-[var(--primary-gold)] border-gray-300 rounded focus:ring-[var(--primary-gold)]"
+                                            />
+                                            <span className="text-sm text-[var(--text-main)]">{interest}</span>
+                                        </label>
+                                    );
+                                })}
+                            </div>
                         </div>
 
                         <div>
@@ -356,29 +356,29 @@ export default function StrategyFormIdealClient() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Personality Traits (Select all that apply)</label>
-                            <select
-                                multiple
-                                value={formData.personality_traits ? formData.personality_traits.split(', ') : []}
-                                onChange={(e) => {
-                                    const selected = Array.from(e.target.selectedOptions, option => option.value);
-                                    setFormData({ ...formData, personality_traits: selected.join(', ') });
-                                }}
-                                className="form-input"
-                                size="6"
-                            >
-                                <option value="Ambitious">Ambitious</option>
-                                <option value="Analytical">Analytical</option>
-                                <option value="Creative">Creative</option>
-                                <option value="Detail-oriented">Detail-oriented</option>
-                                <option value="Decisive">Decisive</option>
-                                <option value="Risk-taker">Risk-taker</option>
-                                <option value="Cautious">Cautious</option>
-                                <option value="Introverted">Introverted</option>
-                                <option value="Extroverted">Extroverted</option>
-                                <option value="Optimistic">Optimistic</option>
-                            </select>
-                            <p className="text-xs text-[var(--text-soft)] mt-1">Hold Ctrl/Cmd to select multiple</p>
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-3">Personality Traits (Select all that apply)</label>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                {['Ambitious', 'Analytical', 'Creative', 'Detail-oriented', 'Decisive', 'Risk-taker', 'Cautious', 'Introverted', 'Extroverted', 'Optimistic'].map(trait => {
+                                    const isSelected = formData.personality_traits && formData.personality_traits.split(', ').includes(trait);
+                                    return (
+                                        <label key={trait} className="flex items-center space-x-2 cursor-pointer">
+                                            <input
+                                                type="checkbox"
+                                                checked={isSelected}
+                                                onChange={(e) => {
+                                                    const current = formData.personality_traits ? formData.personality_traits.split(', ').filter(v => v) : [];
+                                                    const updated = e.target.checked
+                                                        ? [...current, trait]
+                                                        : current.filter(v => v !== trait);
+                                                    setFormData({ ...formData, personality_traits: updated.join(', ') });
+                                                }}
+                                                className="w-4 h-4 text-[var(--primary-gold)] border-gray-300 rounded focus:ring-[var(--primary-gold)]"
+                                            />
+                                            <span className="text-sm text-[var(--text-main)]">{trait}</span>
+                                        </label>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>
