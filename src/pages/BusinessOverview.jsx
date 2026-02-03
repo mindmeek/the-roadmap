@@ -267,19 +267,30 @@ export default function BusinessOverview() {
                             </Link>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                            {business.services.map((service, idx) => (
-                                <div key={idx} className="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700" style={{ borderRadius: '1px' }}>
-                                    <h3 className="font-semibold mb-2 text-sm">{service.name}</h3>
-                                    {service.description && (
-                                        <p className="text-xs text-[var(--text-soft)] mb-2">
-                                            {service.description.slice(0, 40)}{service.description.length > 40 ? '...' : ''}
-                                        </p>
-                                    )}
-                                    {service.price && (
-                                        <p className="text-lg font-bold text-[var(--primary-gold)]">{service.price}</p>
-                                    )}
-                                </div>
-                            ))}
+                            {business.services.map((service, idx) => {
+                                const matchingProduct = user?.financial_projections?.products?.find(
+                                    p => p.name?.toLowerCase() === service.name?.toLowerCase()
+                                );
+                                
+                                return (
+                                    <div key={idx} className="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700" style={{ borderRadius: '1px' }}>
+                                        <h3 className="font-semibold mb-2 text-sm">{service.name}</h3>
+                                        {service.description && (
+                                            <p className="text-xs text-[var(--text-soft)] mb-2">
+                                                {service.description.slice(0, 40)}{service.description.length > 40 ? '...' : ''}
+                                            </p>
+                                        )}
+                                        {service.price && (
+                                            <p className="text-lg font-bold text-[var(--primary-gold)]">{service.price}</p>
+                                        )}
+                                        {matchingProduct && (
+                                            <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold mt-2">
+                                                Need to sell: {matchingProduct.quantity}/month
+                                            </p>
+                                        )}
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 )}
