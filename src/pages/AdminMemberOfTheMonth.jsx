@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
+import { notifyMemberSelection } from '@/functions/notifyMemberSelection';
 import { Award, Loader2, Eye, CheckCircle2, XCircle, Sparkles, Calendar, Send } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -116,6 +117,17 @@ export default function AdminMemberOfTheMonth() {
     const updateStatus = async (submissionId, newStatus) => {
         try {
             await base44.entities.CommunityHighlight.update(submissionId, { status: newStatus });
+            
+            // Send email notification when approved
+            if (newStatus === 'approved') {
+                try {
+                    await notifyMemberSelection({ submission_id: submissionId });
+                } catch (emailError) {
+                    console.error('Error sending notification email:', emailError);
+                    alert('Status updated but failed to send notification email.');
+                }
+            }
+            
             loadData();
         } catch (error) {
             console.error('Error updating status:', error);

@@ -10,6 +10,8 @@ export default function MemberOfTheMonthSubmission() {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
+    const [existingSubmission, setExistingSubmission] = useState(null);
+    const [isEditing, setIsEditing] = useState(false);
     const [eligibility, setEligibility] = useState({
         introduced_in_community: false,
         has_90_day_plan: false,
@@ -114,6 +116,18 @@ export default function MemberOfTheMonthSubmission() {
             setEligibility(eligibilityStatus);
             setIsEligible(Object.values(eligibilityStatus).every(v => v === true));
 
+            // Check for existing submission
+            const existingHighlights = await base44.entities.CommunityHighlight.filter({ 
+                member_email: currentUser.email 
+            });
+            if (existingHighlights.length > 0) {
+                const existing = existingHighlights[0];
+                setExistingSubmission(existing);
+                if (existing.submission_answers) {
+                    setFormData(existing.submission_answers);
+                }
+            }
+
             // Pre-fill business info if available
             if (businesses.length > 0) {
                 const biz = businesses[0];
@@ -142,18 +156,26 @@ export default function MemberOfTheMonthSubmission() {
 
         setSubmitting(true);
         try {
-            await base44.entities.CommunityHighlight.create({
-                member_user_id: user.id,
-                member_name: user.full_name,
-                member_email: user.email,
-                theindex_profile_url: formData.theindex_profile_url,
-                submission_answers: formData,
-                eligibility_checklist: eligibility,
-                status: 'draft',
-                month_featured: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
-            });
-
-            alert('Your submission has been received! We\'ll review it and be in touch soon.');
+            if (existingSubmission) {
+                await base44.entities.CommunityHighlight.update(existingSubmission.id, {
+                    theindex_profile_url: formData.theindex_profile_url,
+                    submission_answers: formData,
+                    eligibility_checklist: eligibility
+                });
+                alert('Your submission has been updated successfully!');
+            } else {
+                await base44.entities.CommunityHighlight.create({
+                    member_user_id: user.id,
+                    member_name: user.full_name,
+                    member_email: user.email,
+                    theindex_profile_url: formData.theindex_profile_url,
+                    submission_answers: formData,
+                    eligibility_checklist: eligibility,
+                    status: 'draft',
+                    month_featured: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+                });
+                alert('Your submission has been received! We\'ll review it and be in touch soon.');
+            }
             navigate(createPageUrl('Dashboard'));
         } catch (error) {
             console.error('Error submitting:', error);
@@ -247,6 +269,24 @@ export default function MemberOfTheMonthSubmission() {
                     )}
                 </CardContent>
             </Card>
+
+            {/* Existing Submission Notice */}
+            {existingSubmission && (
+                <Card className="mb-6 border-blue-200 bg-blue-50 dark:bg-blue-900/20">
+                    <CardContent className="pt-6">
+                        <div className="flex items-center gap-2 mb-2">
+                            <CheckCircle2 className="w-5 h-5 text-blue-600" />
+                            <h3 className="font-semibold">You've Already Submitted!</h3>
+                        </div>
+                        <p className="text-sm text-[var(--text-soft)] mb-2">
+                            Status: <Badge>{existingSubmission.status}</Badge>
+                        </p>
+                        <p className="text-sm text-[var(--text-soft)]">
+                            You can edit your submission below anytime before it's approved.
+                        </p>
+                    </CardContent>
+                </Card>
+            )}
 
             {/* Submission Form */}
             {isEligible && (
@@ -411,12 +451,12 @@ export default function MemberOfTheMonthSubmission() {
                         {submitting ? (
                             <>
                                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                Submitting...
+                                {existingSubmission ? 'Updating...' : 'Submitting...'}
                             </>
                         ) : (
                             <>
                                 <Save className="w-4 h-4 mr-2" />
-                                Submit My Story
+                                {existingSubmission ? 'Update My Story' : 'Submit My Story'}
                             </>
                         )}
                     </Button>
