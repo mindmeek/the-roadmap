@@ -539,337 +539,128 @@ export default function DashboardPage() {
                     </motion.div>
                 )}
 
-                {/* Meet Your AI Team */}
-                {aiSuggestion && recommendedAgent && (
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                        {/* Recommended Agent */}
-                        <div className={`card p-8 sm:p-10 bg-gradient-to-br ${recommendedAgent.color} text-white shadow-xl hover:shadow-2xl transition-all h-full`} style={{ borderRadius: '2px' }}>
-                            <div className="flex flex-col items-center justify-center text-center gap-6 h-full">
-                                {/* Header with Icon */}
-                                <div className="flex items-center justify-center gap-2 mb-2">
-                                    <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 animate-pulse" />
-                                    <span className="text-sm sm:text-base font-semibold uppercase tracking-widest opacity-90 border-b border-white/30 pb-1">
-                                        AI Support for Your Journey
-                                    </span>
-                                </div>
-
-                                {/* Avatar */}
-                                <div className="relative">
-                                    <div className="text-7xl sm:text-8xl animate-bounce drop-shadow-2xl transform hover:scale-110 transition-transform duration-300 cursor-pointer">
-                                        {recommendedAgent.avatar}
-                                    </div>
-                                    <div className="absolute -bottom-2 -right-2 bg-white text-black text-xs font-bold px-2 py-1 rounded-full shadow-lg">
-                                        Online
-                                    </div>
-                                </div>
-
-                                {/* Name & Role */}
-                                <div>
-                                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 tracking-tight">
-                                        Meet {recommendedAgent.name}
-                                    </h3>
-                                    <p className="text-sm sm:text-base md:text-lg opacity-90 font-medium bg-white/10 px-4 py-1 rounded-full inline-block backdrop-blur-sm">
-                                        {recommendedAgent.role} • Expert for {user.entrepreneurship_stage} Stage
-                                    </p>
-                                </div>
-
-                                {/* Message */}
-                                <div className="max-w-2xl bg-black/20 p-6 rounded-xl backdrop-blur-sm border border-white/10">
-                                    <p className="text-base sm:text-lg md:text-xl leading-relaxed font-light italic">
-                                        "{aiSuggestion.message}"
-                                    </p>
-                                </div>
-
-                                {/* CTA Button - Main */}
-                                <div className="w-full">
-                                    <button
-                                        onClick={() => openAIAssistant(aiSuggestion.assistant)}
-                                        className="btn bg-white text-gray-900 hover:bg-gray-100 font-bold text-base sm:text-lg px-8 py-4 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all flex items-center justify-center w-full"
-                                    >
-                                        <MessageSquare className="w-5 h-5 mr-2" />
-                                        {aiSuggestion.cta}
-                                    </button>
-                                    <p className="text-xs sm:text-sm mt-3 opacity-75 font-medium">
-                                        💡 {recommendedAgent.name} is ready to guide you through your Foundation Roadmap tasks
-                                    </p>
-                                </div>
-                            </div>
+                {/* AI Team Section */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.7 }}
+                    className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-2xl p-6 shadow-lg border-2 border-purple-200 dark:border-purple-700 mb-8"
+                >
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-3 rounded-xl">
+                            <Sparkles className="w-6 h-6 text-white" />
                         </div>
-
-                        {/* Other Team Members */}
-                        <div className="card p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 h-full flex flex-col" style={{ borderRadius: '2px' }}>
-                            <div className="flex items-center justify-between mb-4">
-                                <div>
-                                    <h3 className="text-xl font-bold text-[var(--text-main)]">Meet the Rest of the Team</h3>
-                                    <p className="text-sm text-[var(--text-soft)]">Specialized experts for every business need</p>
-                                </div>
-                                <Link 
-                                    to={createPageUrl('ElyzetAIAssistants')}
-                                    className="text-sm font-medium text-[var(--primary-gold)] hover:underline flex items-center"
-                                >
-                                    View All <ArrowRight className="w-4 h-4 ml-1" />
-                                </Link>
-                            </div>
-                            
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-y-auto flex-1 pr-1">
-                                {AI_TEAM_MEMBERS.filter(m => m.id !== recommendedAgent.id).map(member => (
-                                    <button
-                                        key={member.id}
-                                        onClick={() => openAIAssistant(member.id)}
-                                        className="p-4 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all text-center flex flex-col items-center gap-2 border border-gray-100 dark:border-gray-600 group h-full"
-                                    >
-                                        <span className="text-4xl sm:text-5xl group-hover:scale-110 transition-transform duration-300">{member.avatar}</span>
-                                        <div className="w-full">
-                                            <div className="font-bold text-base sm:text-lg text-[var(--text-main)] mb-1">{member.name}</div>
-                                            <div className="text-xs uppercase tracking-wider text-[var(--primary-gold)] font-bold mb-2">{member.role}</div>
-                                            <p className="text-sm text-[var(--text-soft)] line-clamp-3 leading-relaxed">{member.description}</p>
-                                        </div>
-                                    </button>
-                                ))}
-                            </div>
+                        <div>
+                            <h2 className="text-2xl font-black text-[var(--text-main)]">Your AI Business Team</h2>
+                            <p className="text-sm text-[var(--text-soft)]">Get expert guidance 24/7</p>
                         </div>
                     </div>
-                )}
-
-                {/* Community + SOP + Upgrade CTAs */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                    {/* Community CTA */}
-                    <div className="card p-6 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border-2 border-purple-200 dark:border-purple-700" style={{ borderRadius: '2px' }}>
-                        <div className="flex items-start gap-4 mb-4">
-                            <div className="bg-gradient-to-br from-purple-500 to-blue-600 p-3 rounded-xl flex-shrink-0">
-                                <Users className="w-6 h-6 text-white" />
-                            </div>
-                            <div className="flex-1">
-                                <h3 className="text-lg font-bold text-[var(--text-main)] mb-2">
-                                    You're Part of The Business Minds Community! 🎉
-                                </h3>
-                                <p className="text-sm text-[var(--text-soft)] mb-4">
-                                    Login to ask questions about your current journey, get feedback on your progress, and connect with fellow entrepreneurs.
-                                </p>
-                            </div>
-                        </div>
-
-                        <ul className="space-y-2 text-sm text-[var(--text-soft)] mb-4">
-                            <li className="flex items-start gap-2">
-                                <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
-                                <span><strong>Ask Questions:</strong> Get answers about your 90-day journey and foundation roadmap</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
-                                <span><strong>Weekly Live Coaching:</strong> Join group sessions every Tuesday & Thursday</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
-                                <span><strong>Share Your Wins:</strong> Celebrate milestones and inspire others</span>
-                            </li>
-                        </ul>
-
-                        <div className="flex flex-wrap gap-2">
-                            <a 
-                                href="https://thebminds.com" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="btn btn-primary flex-1"
+                    
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-4">
+                        {AI_TEAM_MEMBERS.slice(0, 6).map((member, index) => (
+                            <motion.button
+                                key={member.id}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.1 * index }}
+                                onClick={() => openAIAssistant(member.id)}
+                                className="bg-white dark:bg-gray-800 rounded-xl p-4 hover:shadow-lg transition-all group text-center"
                             >
-                                <Users className="w-4 h-4 mr-2" />
-                                Desktop
-                            </a>
-                            <a 
-                                href="https://apps.apple.com/us/app/the-business-minds/id6742644847" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="btn btn-secondary flex-1"
-                            >
-                                iOS App
-                            </a>
-                            <a 
-                                href="https://play.google.com/store/apps/details?id=com.thebusinessminds.wl&hl=en_IN" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="btn btn-secondary flex-1"
-                            >
-                                Android
-                            </a>
-                        </div>
-
-                        <Link 
-                            to={createPageUrl('BusinessOverview')}
-                            className="btn btn-ghost w-full justify-center mt-2 text-purple-600 dark:text-purple-400"
-                        >
-                            <Briefcase className="w-4 h-4 mr-2" />
-                            View Your Business Overview
-                        </Link>
+                                <div className="text-4xl mb-2 group-hover:scale-110 transition-transform">{member.avatar}</div>
+                                <div className="font-bold text-sm text-[var(--text-main)]">{member.name}</div>
+                                <div className="text-xs text-purple-600 dark:text-purple-400 font-medium">{member.role}</div>
+                            </motion.button>
+                        ))}
                     </div>
+                    
+                    <Link to={createPageUrl('ElyzetAIAssistants')} className="btn w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 justify-center">
+                        <Users className="w-5 h-5 mr-2" />
+                        Meet the Full AI Team
+                    </Link>
+                </motion.div>
 
-                    {/* SOP Library CTA */}
-                    <div className="card p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200 dark:border-green-700" style={{ borderRadius: '2px' }}>
-                        <div className="flex items-start gap-4 mb-4">
-                            <div className="bg-gradient-to-br from-green-500 to-emerald-600 p-3 rounded-xl flex-shrink-0">
-                                <BookOpen className="w-6 h-6 text-white" />
+                {/* Quick Access Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <Link to={createPageUrl('Schedule')} className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all group">
+                        <div className="flex items-center gap-4">
+                            <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-xl group-hover:scale-110 transition-transform">
+                                <Calendar className="w-6 h-6 text-blue-600" />
                             </div>
-                            <div className="flex-1">
-                                <h3 className="text-lg font-bold text-[var(--text-main)] mb-2">
-                                    Standard Operating Procedures
-                                </h3>
-                                <p className="text-sm text-[var(--text-soft)] mb-4">
-                                    Document, organize, and scale your business processes with AI-powered SOP creation.
-                                </p>
+                            <div>
+                                <h3 className="font-bold text-[var(--text-main)]">Daily Scheduler</h3>
+                                <p className="text-sm text-[var(--text-soft)]">Plan your day</p>
                             </div>
                         </div>
-                        
-                        <ul className="space-y-2 text-sm text-[var(--text-soft)] mb-4">
-                            <li className="flex items-start gap-2">
-                                <span className="text-green-600 dark:text-green-400 font-bold flex-shrink-0">✓</span>
-                                <span><strong>AI Generation:</strong> Create SOPs instantly from simple descriptions</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-green-600 dark:text-green-400 font-bold flex-shrink-0">✓</span>
-                                <span><strong>Organize by Category:</strong> Sales, operations, marketing, and more</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-green-600 dark:text-green-400 font-bold flex-shrink-0">✓</span>
-                                <span><strong>Scale Your Business:</strong> Build systems that work without you</span>
-                            </li>
-                        </ul>
+                    </Link>
 
-                        <Link 
-                            to={createPageUrl('SOPs')}
-                            className="btn btn-primary w-full justify-center"
-                        >
-                            <BookOpen className="w-4 h-4 mr-2" />
-                            Manage SOPs
-                        </Link>
-                    </div>
-
-                    {/* Upgrade CTA */}
-                    {user?.subscription_level === 'free' && (
-                        <div className="card p-6 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-[var(--primary-gold)] rounded-xl lg:col-span-2">
-                            <div className="flex items-start gap-4 mb-4">
-                                <div className="bg-gradient-to-br from-[var(--primary-gold)] to-yellow-600 p-3 rounded-xl flex-shrink-0">
-                                    <Rocket className="w-6 h-6 text-white" />
-                                </div>
-                                <div className="flex-1">
-                                    <h3 className="text-lg font-bold text-[var(--text-main)] mb-2">
-                                        Unlock The Full HQ Experience
-                                    </h3>
-                                    <p className="text-sm text-[var(--text-soft)] mb-4">
-                                        Get unlimited access to every tool, training, and resource you need to scale your business faster than ever.
-                                    </p>
-                                </div>
+                    <Link to={createPageUrl('DailyTrack')} className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all group">
+                        <div className="flex items-center gap-4">
+                            <div className="bg-green-100 dark:bg-green-900/30 p-3 rounded-xl group-hover:scale-110 transition-transform">
+                                <TrendingUp className="w-6 h-6 text-green-600" />
                             </div>
-                            
-                            <ul className="space-y-2 text-sm text-[var(--text-soft)] mb-4">
-                                <li className="flex items-start gap-2">
-                                    <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
-                                    <span><strong>Unlimited Journeys:</strong> Switch goals anytime and access every roadmap</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
-                                    <span><strong>All Strategy Tools:</strong> Full Foundation Roadmap access and premium templates</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
-                                    <span><strong>Unlimited AI Access:</strong> Use all AI assistants with no restrictions</span>
-                                </li>
-                            </ul>
-
-                            <Link 
-                                to={createPageUrl('Upgrade')}
-                                className="btn w-full justify-center bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 text-white hover:shadow-lg"
-                            >
-                                <Rocket className="w-4 h-4 mr-2" />
-                                Upgrade to The HQ - $99/mo
-                            </Link>
+                            <div>
+                                <h3 className="font-bold text-[var(--text-main)]">Daily 1% Tracker</h3>
+                                <p className="text-sm text-[var(--text-soft)]">Track progress</p>
+                            </div>
                         </div>
-                    )}
+                    </Link>
+
+                    <Link to={createPageUrl('MarketingOverview')} className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all group">
+                        <div className="flex items-center gap-4">
+                            <div className="bg-orange-100 dark:bg-orange-900/30 p-3 rounded-xl group-hover:scale-110 transition-transform">
+                                <BarChart3 className="w-6 h-6 text-orange-600" />
+                            </div>
+                            <div>
+                                <h3 className="font-bold text-[var(--text-main)]">Marketing Hub</h3>
+                                <p className="text-sm text-[var(--text-soft)]">Grow your reach</p>
+                            </div>
+                        </div>
+                    </Link>
                 </div>
 
-                {/* Customer Journey Completion Incentive */}
-                {user.subscription_level === 'free' && !user.customer_journey_completed_date && (
-                    <div className="card p-4 sm:p-6 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-2 border-purple-300 dark:border-purple-700" style={{ borderRadius: '2px' }}>
-                        <div className="flex flex-col sm:flex-row items-start space-y-3 sm:space-y-0 sm:space-x-4">
-                            <div className="bg-purple-100 dark:bg-purple-800 p-2 sm:p-3 mx-auto sm:mx-0 flex-shrink-0" style={{ borderRadius: '2px' }}>
-                                <Gift className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-purple-600 dark:text-purple-400" />
-                            </div>
-                            <div className="flex-1 min-w-0 text-center sm:text-left w-full">
-                                <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-[var(--text-main)] mb-2 flex items-center flex-wrap gap-2 justify-center sm:justify-start">
-                                    <span>🎁 Unlock Your Exclusive Discount!</span>
-                                    <Tooltip content="Complete your Customer Journey Map to unlock a special 3-month discount on The Business Minds HQ subscription ($49.99/month instead of $99/month).">
-                                        <HelpCircle className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 dark:text-gray-500" />
-                                    </Tooltip>
-                                </h3>
-                                <p className="text-xs sm:text-sm text-[var(--text-soft)] mb-3 sm:mb-4">
-                                    Complete your <strong>Customer Journey Map</strong> and unlock <span className="text-purple-600 dark:text-purple-400 font-bold">$49.99/month for 3 months</span> (regular $99/month)!
-                                </p>
-                                
-                                <div className="mb-3 sm:mb-4">
-                                    <div className="flex items-center justify-between mb-2">
-                                        <span className="text-xs sm:text-sm font-medium text-[var(--text-soft)]">
-                                            {customerJourneyProgress.completed} of {customerJourneyProgress.total} stages complete
-                                        </span>
-                                        <span className="text-xs sm:text-sm font-bold text-purple-600 dark:text-purple-400">
-                                            {journeyProgressPercentage}%
-                                        </span>
-                                    </div>
-                                    <div className="w-full bg-gray-200 dark:bg-gray-700 h-2 sm:h-3" style={{ borderRadius: '2px' }}>
-                                        <div 
-                                            className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 sm:h-3 transition-all duration-500"
-                                            style={{ width: `${journeyProgressPercentage}%`, borderRadius: '2px' }}
-                                        ></div>
-                                    </div>
+                {/* Upgrade CTA for Free Users */}
+                {user?.subscription_level === 'free' && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.8 }}
+                        className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-2xl p-8 shadow-2xl mb-8 relative overflow-hidden"
+                    >
+                        <div className="absolute inset-0 bg-black opacity-10"></div>
+                        <div className="relative z-10">
+                            <div className="flex items-start gap-4 mb-4">
+                                <div className="bg-white p-3 rounded-xl">
+                                    <Rocket className="w-8 h-8 text-orange-600" />
                                 </div>
-
-                                <Link to={createPageUrl('StrategyFormCustomerJourney')} className="btn btn-primary w-full justify-center text-xs sm:text-sm">
-                                    <Target className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-                                    Continue My Customer Journey
-                                </Link>
+                                <div className="flex-1">
+                                    <h3 className="text-2xl font-black text-white mb-2">
+                                        Ready to Accelerate Your Growth?
+                                    </h3>
+                                    <p className="text-white/90 mb-4">
+                                        Unlock unlimited journeys, premium strategy tools, and 24/7 AI support
+                                    </p>
+                                    <ul className="space-y-2 text-white/90 text-sm mb-6">
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
+                                            Switch between unlimited 90-day journeys
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
+                                            Access all foundation strategy tools
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
+                                            Unlimited AI assistant conversations
+                                        </li>
+                                    </ul>
+                                    <Link to={createPageUrl('Upgrade')} className="btn bg-white text-orange-600 hover:bg-gray-100 font-bold text-lg px-8 py-4 shadow-xl">
+                                        <Rocket className="w-5 h-5 mr-2" />
+                                        Upgrade to The HQ - $99/mo
+                                    </Link>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                )}
-
-                {/* Community Highlights */}
-                {communityHighlights.length > 0 && (
-                    <div className="card p-4 sm:p-6" style={{ borderRadius: '2px' }}>
-                        <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)] mb-4">🔥 Community Spotlight</h3>
-                        <div className="space-y-3">
-                            {communityHighlights.slice(0, 2).map(highlight => (
-                                <Link
-                                    key={highlight.id}
-                                    to={highlight.link}
-                                    className="block p-3 sm:p-4 bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 border border-orange-200 dark:border-orange-700 hover:shadow-lg transition-all"
-                                    style={{ borderRadius: '2px' }}
-                                >
-                                    <h4 className="font-semibold text-[var(--text-main)] mb-1 text-sm sm:text-base">{highlight.title}</h4>
-                                    <p className="text-xs sm:text-sm text-[var(--text-soft)] mb-2">{highlight.description}</p>
-                                    <span className="text-xs sm:text-sm text-orange-600 dark:text-orange-400 font-medium flex items-center">
-                                        {highlight.cta_text || 'Join the Conversation →'}
-                                    </span>
-                                </Link>
-                            ))}
-                        </div>
-                    </div>
-                )}
-
-                {/* Upcoming Events */}
-                {upcomingEvents.length > 0 && (
-                    <div className="card p-4 sm:p-6" style={{ borderRadius: '2px' }}>
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)]">Upcoming Events</h3>
-                            <Bell className="w-5 h-5 text-[var(--text-soft)]" />
-                        </div>
-                        <div className="space-y-3">
-                            {upcomingEvents.map(event => (
-                                <div key={event.id} className="p-3 sm:p-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700" style={{ borderRadius: '2px' }}>
-                                    <h4 className="font-semibold text-[var(--text-main)] mb-1 text-sm sm:text-base">{event.title}</h4>
-                                    <p className="text-xs sm:text-sm text-[var(--text-soft)] mb-2">{moment(event.event_date).format('MMM D, YYYY [at] h:mm A')}</p>
-                                    <span className="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300" style={{ borderRadius: '2px' }}>
-                                        {event.event_type}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    </motion.div>
                 )}
 
 
