@@ -370,8 +370,8 @@ function TaskFormModal({ business, teamMembers, currentUser, editingTask, onClos
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white dark:bg-gray-900 max-w-lg w-full p-6" style={{ borderRadius: '1px' }}>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-y-auto">
+            <div className="bg-white dark:bg-gray-900 max-w-lg w-full p-6 my-8" style={{ borderRadius: '1px' }}>
                 <h2 className="text-xl font-bold mb-4">
                     {editingTask ? 'Edit Task' : 'Create New Task'}
                 </h2>
