@@ -1,90 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import { User, DailyProgress, CommunityHighlight, Event, StrategyDocument } from '@/entities/all';
+import { User, DailyProgress, FoundationProgress as FoundationProgressEntity } from '@/entities/all';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { base44 } from '@/api/base44Client';
 import {
     Loader2,
-    TrendingUp,
-    Users,
-    Calendar,
-    ChevronRight,
-    Bell,
-    CheckCircle,
-    Sparkles,
-    HelpCircle,
     Target,
-    Gift,
-    Zap,
+    Calendar,
+    Briefcase,
+    CheckCircle,
+    Circle,
+    Plus,
     ArrowRight,
-    BookOpen,
-    Award,
-    Rocket,
-    MessageSquare,
-    ChevronDown,
-    Map,
-    Briefcase
+    Zap,
+    Lightbulb,
+    Users,
+    TrendingUp,
+    Palette,
+    Clock,
+    ListChecks,
+    Map
 } from 'lucide-react';
 import moment from 'moment';
-
-// Component imports
-import FoundationRoadmapVisual from '../components/dashboard/FoundationRoadmapVisual';
-import JourneyTimeline from '../components/dashboard/JourneyTimeline';
-import FinancialSnapshot from '../components/dashboard/FinancialSnapshot';
-import GamificationDisplay from '../components/dashboard/GamificationDisplay';
-
-import ActionCard from '../components/dashboard/ActionCard';
-import Tooltip from '../components/common/Tooltip';
+import { Button } from '@/components/ui/button';
 import AITeamModal from '../components/ai/AITeamModal';
-
-import UpcomingTasksPreview from '../components/dashboard/UpcomingTasksPreview';
-import DailyInsightTabs from '../components/dashboard/DailyInsightTabs';
-import MemberActionChecklist from '../components/dashboard/MemberActionChecklist';
-import FoundationProgress from '../components/dashboard/VisionStageProgress';
-import RestartTourButton from '../components/common/RestartTourButton';
-
-import { AI_TEAM_MEMBERS } from '../components/ai/aiTeamInfo';
-
-const AI_TEAM_INFO = AI_TEAM_MEMBERS.reduce((acc, member) => {
-    acc[member.id] = {
-        name: member.name,
-        role: member.role,
-        avatar: member.avatar,
-        color: member.color,
-    };
-    return acc;
-}, {});
 
 export default function DashboardPage() {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [todayProgress, setTodayProgress] = useState(null);
-    const [communityHighlights, setCommunityHighlights] = useState([]);
-    const [upcomingEvents, setUpcomingEvents] = useState([]);
-    const [customerJourneyProgress, setCustomerJourneyProgress] = useState({ completed: 0, total: 5 });
+    const [foundationProgress, setFoundationProgress] = useState(null);
+    const [hasJourney, setHasJourney] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
     const [aiAssistantType, setAiAssistantType] = useState('elyzet');
-    const [aiSuggestion, setAiSuggestion] = useState(null);
-    const [hasJourney, setHasJourney] = useState(false);
-    const [isFoundationOpen, setIsFoundationOpen] = useState(false);
-    
 
     useEffect(() => {
         loadDashboardData();
-        generateAISuggestion();
     }, []);
 
     const loadDashboardData = async () => {
         try {
-            const currentUser = await User.me();
+            const currentUser = await base44.auth.me();
             setUser(currentUser);
 
             const userHasJourney = !!(currentUser.journey_start_date && currentUser.selected_goal);
             setHasJourney(userHasJourney);
 
-
-
             const today = moment().format('YYYY-MM-DD');
-            const progressRecords = await DailyProgress.filter({ 
+            const progressRecords = await base44.entities.DailyProgress.filter({ 
                 created_by: currentUser.email, 
                 date: today 
             });
@@ -92,28 +55,9 @@ export default function DashboardPage() {
                 setTodayProgress(progressRecords[0]);
             }
 
-            const highlights = await CommunityHighlight.filter({ is_active: true });
-            setCommunityHighlights(highlights);
-
-            const now = moment().format('YYYY-MM-DDTHH:mm');
-            const events = await Event.filter({ is_published: true });
-            const upcoming = events.filter(e => e.event_date >= now).slice(0, 3);
-            setUpcomingEvents(upcoming);
-
-            if (currentUser.subscription_level === 'free' && !currentUser.customer_journey_completed_date) {
-                const customerJourneyDoc = await StrategyDocument.filter({
-                    created_by: currentUser.email,
-                    document_type: 'customer_journey'
-                });
-
-                if (customerJourneyDoc.length > 0) {
-                    const content = customerJourneyDoc[0].content || {};
-                    const stages = content.stages || [];
-                    const completedCount = stages.filter(stage => stage.isComplete).length;
-                    setCustomerJourneyProgress({ completed: completedCount, total: stages.length || 5 });
-                } else {
-                    setCustomerJourneyProgress({ completed: 0, total: 5 });
-                }
+            const progressData = await base44.entities.FoundationProgress.filter({ created_by: currentUser.email });
+            if (progressData.length > 0) {
+                setFoundationProgress(progressData[0]);
             }
 
         } catch (error) {
@@ -121,40 +65,6 @@ export default function DashboardPage() {
         } finally {
             setLoading(false);
         }
-    };
-
-    const generateAISuggestion = async () => {
-        try {
-            const currentUser = await User.me();
-            
-            const suggestions = {
-                vision: {
-                    assistant: 'elyzet',
-                    message: "Ready to clarify your business vision? Elyzet can help you craft a compelling mission statement and strategic foundation.",
-                    cta: "Talk to Elyzet"
-                },
-                startup: {
-                    assistant: 'ava',
-                    message: "Need help defining your ideal client? Ava can guide you through creating a powerful customer avatar and marketing strategy.",
-                    cta: "Talk to Ava"
-                },
-                growth: {
-                    assistant: 'finley',
-                    message: "Looking to optimize your pricing? Finley can help you develop a value ladder that maximizes revenue and profitability.",
-                    cta: "Talk to Finley"
-                }
-            };
-
-            const suggestion = suggestions[currentUser.entrepreneurship_stage] || suggestions.vision;
-            setAiSuggestion(suggestion);
-        } catch (error) {
-            console.error('Error generating AI suggestion:', error);
-        }
-    };
-
-    const openAIAssistant = (assistantType) => {
-        setAiAssistantType(assistantType);
-        setShowAIAssistant(true);
     };
 
     if (loading) {
@@ -175,42 +85,20 @@ export default function DashboardPage() {
 
     if (!hasJourney) {
         return (
-            <div className="px-3 sm:px-4 pb-20 md:pb-8">
-                <div className="max-w-7xl mx-auto">
-                    <div className="card p-4 sm:p-6" style={{ borderRadius: '2px' }}>
-                        <div className="text-center py-6 sm:py-8">
-                            <div className="flex justify-center mb-4">
-                                <div className="bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 p-3 sm:p-4 rounded-full">
-                                    <Target className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-                                </div>
-                            </div>
-                            <h3 className="text-xl sm:text-2xl font-bold text-[var(--text-main)] mb-3">
-                                Choose Your 90-Day Journey
-                            </h3>
-                            <p className="text-sm sm:text-base text-[var(--text-soft)] mb-2 max-w-md mx-auto">
-                                Start your personalized roadmap to success. Choose from our focused programs or complete your journey setup.
-                            </p>
-                            {user.subscription_level === 'free' && (
-                                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 p-3 rounded-lg mb-4 max-w-md mx-auto">
-                                    <p className="text-xs text-blue-700 dark:text-blue-300">
-                                        <strong>Free Member:</strong> You get ONE 90-day journey that you can restart unlimited times. 
-                                        All your notes and progress are saved forever. Upgrade for unlimited goal changes.
-                                    </p>
-                                </div>
-                            )}
-                            
-                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                                <Link to={createPageUrl('FocusedPrograms')} className="btn btn-primary flex items-center justify-center">
-                                    <Award className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                                    Browse Focused Programs
-                                </Link>
-                                <Link to={createPageUrl('Onboarding')} className="btn btn-secondary flex items-center justify-center">
-                                    <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                                    Set Up My Journey
-                                </Link>
-                            </div>
-                        </div>
+            <div className="max-w-7xl mx-auto px-4 py-6">
+                <div className="card p-8 text-center" style={{ borderRadius: '1px' }}>
+                    <div className="bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 p-4 inline-block mb-4" style={{ borderRadius: '1px' }}>
+                        <Target className="w-8 h-8 text-white" />
                     </div>
+                    <h3 className="text-2xl font-bold mb-3">Choose Your 90-Day Journey</h3>
+                    <p className="text-[var(--text-soft)] mb-6 max-w-md mx-auto">
+                        Start your personalized roadmap to success.
+                    </p>
+                    <Link to={createPageUrl('Onboarding')}>
+                        <Button className="btn-primary" style={{ borderRadius: '1px' }}>
+                            Set Up My Journey
+                        </Button>
+                    </Link>
                 </div>
             </div>
         );
@@ -218,517 +106,208 @@ export default function DashboardPage() {
 
     const completedTasksToday = todayProgress?.daily_tasks?.filter(t => t.completed).length || 0;
     const totalTasksToday = todayProgress?.daily_tasks?.length || 0;
-    const journeyProgressPercentage = customerJourneyProgress.total > 0 
-        ? Math.round((customerJourneyProgress.completed / customerJourneyProgress.total) * 100) 
-        : 0;
-
-    const recommendedAgent = aiSuggestion ? AI_TEAM_INFO[aiSuggestion.assistant] : null;
 
     return (
-        <div className="px-3 sm:px-4 pb-20 md:pb-8">
-            <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6">
-                
-                {/* Welcome Hero Section */}
-                <div 
-                    id="dashboard-hero"
-                    className="relative overflow-hidden shadow-xl"
-                    style={{ 
-                        backgroundImage: 'url(https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/87939415f_lycs-architecture-U2BI3GMnSSE-unsplash.jpg)',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        borderRadius: '2px'
-                    }}
-                >
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
-
-                    <div className="absolute top-4 right-4 z-20">
-                        <RestartTourButton tourKey="dashboard" className="text-white hover:text-[var(--primary-gold)] bg-black/20 hover:bg-black/40 border border-white/10" />
-                    </div>
-
-                    <div className="relative z-10 p-4 sm:p-6 md:p-8 lg:p-12">
-                        <div className="flex items-center space-x-2 mb-2 sm:mb-3">
-                            <Sparkles className="w-4 h-4 sm:w-5 sm:h-6 text-[var(--primary-gold)] animate-pulse" />
-                            <span className="text-[var(--primary-gold)] font-semibold text-xs sm:text-sm uppercase tracking-wide">
-                                Your Journey Hub
-                            </span>
-                            <Tooltip content="This is your central command center where you can track your progress, access your roadmap, and take action on your business goals.">
-                                <HelpCircle className="w-3 h-3 sm:w-4 sm:h-4 text-[var(--primary-gold)] opacity-70 hover:opacity-100" />
-                            </Tooltip>
-                        </div>
-                        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-bold mb-2 sm:mb-3 text-white drop-shadow-lg">
-                            Welcome back, {user.first_name || user.full_name}! 👋
+        <div className="max-w-7xl mx-auto px-4 py-6 pb-24 md:pb-8">
+            {/* Hero - Journey Overview */}
+            <div className="card p-6 mb-6 border-2 border-[var(--primary-gold)]" style={{ borderRadius: '1px' }}>
+                <div className="flex items-center justify-between mb-4">
+                    <div>
+                        <h1 className="text-3xl font-bold mb-1">
+                            {user.business_name || user.full_name?.split(' ')[0] + "'s Business Journey"}
                         </h1>
-                        <p className="text-white/90 text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mb-3 sm:mb-4 md:mb-6">
-                            {user.business_name ? `Let's keep building ${user.business_name} - one step closer to your goals.` : "Let's make today count - one step closer to your goals."}
-                        </p>
-                        <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3">
-                            <Link to={createPageUrl('DailyTrack')} className="btn btn-primary text-xs sm:text-sm md:text-base w-full sm:w-auto justify-center">
-                                <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-                                Track Today's Progress
-                            </Link>
-                            <Link to={createPageUrl('Journey')} className="btn btn-secondary bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 text-xs sm:text-sm md:text-base w-full sm:w-auto justify-center">
-                                <Target className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-                                Continue Your 90-Day Journey
-                            </Link>
-                        </div>
+                        <p className="text-[var(--text-soft)]">Your roadmap to business success</p>
+                    </div>
+                    <div className="flex gap-2">
+                        <Link to={createPageUrl('DailyTrack')}>
+                            <Button size="sm" className="btn-primary" style={{ borderRadius: '1px' }}>
+                                <ListChecks className="w-4 h-4 mr-2" />
+                                Daily 1%
+                            </Button>
+                        </Link>
+                        <Link to={createPageUrl('Schedule')}>
+                            <Button size="sm" variant="outline" style={{ borderRadius: '1px' }}>
+                                <Clock className="w-4 h-4 mr-2" />
+                                Schedule
+                            </Button>
+                        </Link>
                     </div>
                 </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-4 border border-blue-200 dark:border-blue-700" style={{ borderRadius: '1px' }}>
+                        <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold mb-1">Current Stage</p>
+                        <p className="text-xl font-bold capitalize">{user.entrepreneurship_stage || 'Vision'}</p>
+                    </div>
+                    
+                    <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-4 border border-purple-200 dark:border-purple-700" style={{ borderRadius: '1px' }}>
+                        <p className="text-xs text-purple-600 dark:text-purple-400 font-semibold mb-1">90-Day Journey</p>
+                        <p className="text-lg font-bold">{user.selected_goal || 'Not Set'}</p>
+                        <p className="text-xs text-[var(--text-soft)] mt-1">Week {user.journey_current_week || 1} of 12</p>
+                    </div>
+                    
+                    <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-4 border border-green-200 dark:border-green-700" style={{ borderRadius: '1px' }}>
+                        <p className="text-xs text-green-600 dark:text-green-400 font-semibold mb-1">Freedom Number</p>
+                        <p className="text-xl font-bold">
+                            ${user.financial_projections?.freedomNumber ? parseInt(user.financial_projections.freedomNumber).toLocaleString() : '0'}
+                        </p>
+                        <p className="text-xs text-[var(--text-soft)] mt-1">Monthly Target</p>
+                    </div>
+                </div>
+            </div>
 
-                {/* Member Action Checklist */}
-                <MemberActionChecklist />
-
-                {/* Today's Progress & Upcoming Tasks - SIDE BY SIDE */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                    {/* Today's Progress */}
-                    <div id="dashboard-daily-progress" className="card p-4 sm:p-6" style={{ borderRadius: '2px' }}>
-                        <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-                            <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)] flex items-center flex-wrap gap-2">
-                                <TrendingUp className="w-5 h-5 text-[var(--primary-gold)]" />
-                                <span>Today's Progress</span>
-                                <Tooltip content="Track your daily 1% improvements. Small, consistent actions compound into massive results over time.">
-                                    <HelpCircle className="w-4 h-4 text-gray-400 dark:text-gray-500" />
-                                </Tooltip>
-                            </h3>
-                            <Link to={createPageUrl('DailyTrack')} className="text-[var(--primary-gold)] hover:underline flex items-center text-xs sm:text-sm font-medium">
-                                Track More <ChevronRight className="w-4 h-4 ml-1" />
-                            </Link>
-                        </div>
-                        {totalTasksToday > 0 ? (
-                            <div>
-                                <div className="flex items-center justify-between mb-2">
-                                    <span className="text-xs sm:text-sm text-[var(--text-soft)]">
-                                        {completedTasksToday} of {totalTasksToday} tasks completed
-                                    </span>
-                                    <span className="text-xs sm:text-sm font-bold text-[var(--primary-gold)]">
-                                        {Math.round((completedTasksToday / totalTasksToday) * 100)}%
-                                    </span>
+            {/* Next Actionable Steps */}
+            <div className="card p-6 mb-6 bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20 border-2 border-orange-200 dark:border-orange-700" style={{ borderRadius: '1px' }}>
+                <div className="flex items-center gap-2 mb-4">
+                    <Zap className="w-5 h-5 text-orange-600" />
+                    <h2 className="text-xl font-bold">Your Next Step</h2>
+                </div>
+                {todayProgress && todayProgress.daily_tasks?.length > 0 ? (
+                    <div className="space-y-3">
+                        {todayProgress.daily_tasks.filter(t => !t.completed).slice(0, 2).map((task) => (
+                            <div key={task.id} className="bg-white dark:bg-gray-800 p-4 border-l-4 border-orange-500" style={{ borderRadius: '1px' }}>
+                                <div className="flex items-start gap-3">
+                                    <Circle className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                                    <span className="text-[var(--text-main)] font-medium">{task.task}</span>
                                 </div>
-                                <div className="w-full bg-gray-200 dark:bg-gray-700 h-3" style={{ borderRadius: '2px' }}>
-                                    <div 
-                                        className="bg-gradient-to-r from-green-500 to-emerald-600 h-3 transition-all"
-                                        style={{ width: `${(completedTasksToday / totalTasksToday) * 100}%`, borderRadius: '2px' }}
-                                    ></div>
+                            </div>
+                        ))}
+                        <Link to={createPageUrl('DailyTrack')} className="block">
+                            <Button variant="outline" size="sm" className="w-full" style={{ borderRadius: '1px' }}>
+                                <ArrowRight className="w-4 h-4 mr-2" />
+                                View All Today's Tasks ({totalTasksToday})
+                            </Button>
+                        </Link>
+                    </div>
+                ) : (
+                    <div className="text-center py-6">
+                        <p className="text-[var(--text-soft)] mb-4">Start your day with focused action</p>
+                        <Link to={createPageUrl('DailyTrack')}>
+                            <Button size="sm" className="btn-primary" style={{ borderRadius: '1px' }}>
+                                <Plus className="w-4 h-4 mr-2" />
+                                Plan Today's Tasks
+                            </Button>
+                        </Link>
+                    </div>
+                )}
+            </div>
+
+            {/* Foundational Strategy Tools */}
+            <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
+                <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2">
+                        <Briefcase className="w-5 h-5 text-[var(--primary-gold)]" />
+                        <h2 className="text-xl font-bold">Business Foundation</h2>
+                    </div>
+                    <Link to={createPageUrl('MyFoundationRoadmap')}>
+                        <Button variant="outline" size="sm" style={{ borderRadius: '1px' }}>
+                            <Map className="w-4 h-4 mr-2" />
+                            View All Tools
+                        </Button>
+                    </Link>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <FoundationToolCard
+                        title="Your Why"
+                        icon={Lightbulb}
+                        linkTo="StrategyFormDefineYourWhy"
+                        isComplete={foundationProgress?.completed_steps?.includes('define_your_why')}
+                    />
+                    <FoundationToolCard
+                        title="Ideal Client"
+                        icon={Users}
+                        linkTo="StrategyFormIdealClient"
+                        isComplete={foundationProgress?.completed_steps?.includes('ideal_client_persona')}
+                    />
+                    <FoundationToolCard
+                        title="Brand Kit"
+                        icon={Palette}
+                        linkTo="StrategyFormBrandKit"
+                        isComplete={foundationProgress?.completed_steps?.includes('brand_kit')}
+                    />
+                    <FoundationToolCard
+                        title="Value Prop"
+                        icon={TrendingUp}
+                        linkTo="StrategyFormValueProposition"
+                        isComplete={foundationProgress?.completed_steps?.includes('value_proposition')}
+                    />
+                </div>
+            </div>
+
+            {/* Journey & Strategic Plans */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <Link to={createPageUrl('Journey')}>
+                    <div className="card p-6 hover:shadow-lg transition-all cursor-pointer h-full" style={{ borderRadius: '1px' }}>
+                        <div className="flex items-center gap-2 mb-4">
+                            <div className="bg-gradient-to-br from-blue-500 to-indigo-600 p-2" style={{ borderRadius: '1px' }}>
+                                <Target className="w-5 h-5 text-white" />
+                            </div>
+                            <h3 className="text-lg font-bold">90-Day Journey</h3>
+                        </div>
+                        {user.selected_goal ? (
+                            <div>
+                                <p className="text-sm text-[var(--text-soft)] mb-2">Current Goal:</p>
+                                <p className="font-semibold mb-3">{user.selected_goal}</p>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-xs text-[var(--text-soft)]">Week {user.journey_current_week || 1} of 12</span>
+                                    <ArrowRight className="w-4 h-4 text-[var(--primary-gold)]" />
                                 </div>
                             </div>
                         ) : (
-                            <div className="text-center py-6">
-                                <p className="text-[var(--text-soft)] mb-4 text-sm">No tasks tracked today yet.</p>
-                                <Link to={createPageUrl('DailyTrack')} className="btn btn-primary text-sm">
-                                    <CheckCircle className="w-4 h-4 mr-2" />
-                                    Start Tracking
-                                </Link>
-                            </div>
+                            <p className="text-[var(--text-soft)] text-sm">Start your 90-day strategic journey</p>
                         )}
                     </div>
-
-                    <UpcomingTasksPreview />
-                </div>
-
-                {/* Quick Actions Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
-                    <ActionCard
-                        title="Annual Strategy"
-                        description="Plan your year and quarterly goals"
-                        icon={Calendar}
-                        link="AnnualPlanning"
-                        color="from-indigo-500 to-purple-600"
-                    />
-                    <ActionCard
-                        title="Marketing Hub"
-                        description="Your complete marketing strategy and social plan"
-                        icon={TrendingUp}
-                        link="MarketingOverview"
-                        color="from-yellow-500 to-orange-600"
-                    />
-                    <ActionCard
-                        title="Business Overview"
-                        description="Financial goals, products, and strategy"
-                        icon={Briefcase}
-                        link="BusinessOverview"
-                        color="from-gray-500 to-slate-600"
-                    />
-                </div>
-
-                {/* Journey Timeline & Financial Snapshot & Daily Insights */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-                    <div className="lg:col-span-2 h-full">
-                        <JourneyTimeline user={user} />
-                    </div>
-                    <div className="space-y-4 sm:space-y-6 h-full flex flex-col">
-                        <FinancialSnapshot user={user} />
-                        <DailyInsightTabs />
-                    </div>
-                </div>
-
-                {/* Foundation Roadmap Accordion */}
-                <div className="card p-6" style={{ borderRadius: '2px' }}>
-                    <button 
-                        onClick={() => setIsFoundationOpen(!isFoundationOpen)}
-                        className="w-full flex items-center justify-between"
-                    >
-                        <div className="flex items-center gap-3">
-                            <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg">
-                                <Map className="w-6 h-6 text-blue-600" />
+                </Link>
+                
+                <Link to={createPageUrl('AnnualPlanning')}>
+                    <div className="card p-6 hover:shadow-lg transition-all cursor-pointer h-full" style={{ borderRadius: '1px' }}>
+                        <div className="flex items-center gap-2 mb-4">
+                            <div className="bg-gradient-to-br from-purple-500 to-pink-600 p-2" style={{ borderRadius: '1px' }}>
+                                <Calendar className="w-5 h-5 text-white" />
                             </div>
-                            <div className="text-left">
-                                <h2 className="text-2xl font-bold text-[var(--text-main)]">My Foundation Roadmap</h2>
-                                <p className="text-sm text-[var(--text-soft)]">Essential strategy tools for building a strong business foundation</p>
-                            </div>
+                            <h3 className="text-lg font-bold">Annual Strategy</h3>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <Link to={createPageUrl('MyFoundationRoadmap')} onClick={(e) => e.stopPropagation()}>
-                                <button className="btn btn-secondary btn-sm">
-                                    View All
-                                </button>
-                            </Link>
-                            <ChevronDown className={`w-5 h-5 text-[var(--text-soft)] transition-transform ${isFoundationOpen ? 'rotate-180' : ''}`} />
+                        <p className="text-sm text-[var(--text-soft)] mb-2">2026 Strategic Plan</p>
+                        <div className="flex items-center justify-between">
+                            <span className="text-xs text-[var(--text-soft)]">View quarterly objectives</span>
+                            <ArrowRight className="w-4 h-4 text-[var(--primary-gold)]" />
+                        </div>
+                    </div>
+                </Link>
+            </div>
+
+            {/* Quick Access Resources */}
+            <div className="card p-6" style={{ borderRadius: '1px' }}>
+                <h2 className="text-xl font-bold mb-4">Quick Access</h2>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <Link to={createPageUrl('MarketingOverview')}>
+                        <div className="p-3 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 border border-orange-200 dark:border-orange-700 hover:shadow-md transition-all cursor-pointer" style={{ borderRadius: '1px' }}>
+                            <TrendingUp className="w-5 h-5 text-orange-600 mb-2" />
+                            <h3 className="font-semibold text-xs">Marketing Hub</h3>
+                        </div>
+                    </Link>
+                    
+                    <button onClick={() => { setAiAssistantType('elyzet'); setShowAIAssistant(true); }}>
+                        <div className="p-3 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border border-purple-200 dark:border-purple-700 hover:shadow-md transition-all cursor-pointer" style={{ borderRadius: '1px' }}>
+                            <Zap className="w-5 h-5 text-purple-600 mb-2" />
+                            <h3 className="font-semibold text-xs">AI Assistants</h3>
                         </div>
                     </button>
-                    {isFoundationOpen && (
-                        <div className="mt-6">
-                            <FoundationRoadmapVisual user={user} />
+                    
+                    <a href="https://thebminds.com" target="_blank" rel="noopener noreferrer">
+                        <div className="p-3 bg-gradient-to-br from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 border border-green-200 dark:border-green-700 hover:shadow-md transition-all cursor-pointer" style={{ borderRadius: '1px' }}>
+                            <Users className="w-5 h-5 text-green-600 mb-2" />
+                            <h3 className="font-semibold text-xs">Community</h3>
                         </div>
-                    )}
+                    </a>
+                    
+                    <Link to={createPageUrl('BusinessOverview')}>
+                        <div className="p-3 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-700 hover:shadow-md transition-all cursor-pointer" style={{ borderRadius: '1px' }}>
+                            <Briefcase className="w-5 h-5 text-blue-600 mb-2" />
+                            <h3 className="font-semibold text-xs">Business Hub</h3>
+                        </div>
+                    </Link>
                 </div>
-
-                {/* Foundation Progress - Shows for all free users based on their stage */}
-                <FoundationProgress user={user} />
-
-                {/* Meet Your AI Team */}
-                {aiSuggestion && recommendedAgent && (
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                        {/* Recommended Agent */}
-                        <div className={`card p-8 sm:p-10 bg-gradient-to-br ${recommendedAgent.color} text-white shadow-xl hover:shadow-2xl transition-all h-full`} style={{ borderRadius: '2px' }}>
-                            <div className="flex flex-col items-center justify-center text-center gap-6 h-full">
-                                {/* Header with Icon */}
-                                <div className="flex items-center justify-center gap-2 mb-2">
-                                    <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 animate-pulse" />
-                                    <span className="text-sm sm:text-base font-semibold uppercase tracking-widest opacity-90 border-b border-white/30 pb-1">
-                                        AI Support for Your Journey
-                                    </span>
-                                </div>
-
-                                {/* Avatar */}
-                                <div className="relative">
-                                    <div className="text-7xl sm:text-8xl animate-bounce drop-shadow-2xl transform hover:scale-110 transition-transform duration-300 cursor-pointer">
-                                        {recommendedAgent.avatar}
-                                    </div>
-                                    <div className="absolute -bottom-2 -right-2 bg-white text-black text-xs font-bold px-2 py-1 rounded-full shadow-lg">
-                                        Online
-                                    </div>
-                                </div>
-
-                                {/* Name & Role */}
-                                <div>
-                                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 tracking-tight">
-                                        Meet {recommendedAgent.name}
-                                    </h3>
-                                    <p className="text-sm sm:text-base md:text-lg opacity-90 font-medium bg-white/10 px-4 py-1 rounded-full inline-block backdrop-blur-sm">
-                                        {recommendedAgent.role} • Expert for {user.entrepreneurship_stage} Stage
-                                    </p>
-                                </div>
-
-                                {/* Message */}
-                                <div className="max-w-2xl bg-black/20 p-6 rounded-xl backdrop-blur-sm border border-white/10">
-                                    <p className="text-base sm:text-lg md:text-xl leading-relaxed font-light italic">
-                                        "{aiSuggestion.message}"
-                                    </p>
-                                </div>
-
-                                {/* CTA Button - Main */}
-                                <div className="w-full">
-                                    <button
-                                        onClick={() => openAIAssistant(aiSuggestion.assistant)}
-                                        className="btn bg-white text-gray-900 hover:bg-gray-100 font-bold text-base sm:text-lg px-8 py-4 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all flex items-center justify-center w-full"
-                                    >
-                                        <MessageSquare className="w-5 h-5 mr-2" />
-                                        {aiSuggestion.cta}
-                                    </button>
-                                    <p className="text-xs sm:text-sm mt-3 opacity-75 font-medium">
-                                        💡 {recommendedAgent.name} is ready to guide you through your Foundation Roadmap tasks
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Other Team Members */}
-                        <div className="card p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 h-full flex flex-col" style={{ borderRadius: '2px' }}>
-                            <div className="flex items-center justify-between mb-4">
-                                <div>
-                                    <h3 className="text-xl font-bold text-[var(--text-main)]">Meet the Rest of the Team</h3>
-                                    <p className="text-sm text-[var(--text-soft)]">Specialized experts for every business need</p>
-                                </div>
-                                <Link 
-                                    to={createPageUrl('ElyzetAIAssistants')}
-                                    className="text-sm font-medium text-[var(--primary-gold)] hover:underline flex items-center"
-                                >
-                                    View All <ArrowRight className="w-4 h-4 ml-1" />
-                                </Link>
-                            </div>
-                            
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-y-auto flex-1 pr-1">
-                                {AI_TEAM_MEMBERS.filter(m => m.id !== recommendedAgent.id).map(member => (
-                                    <button
-                                        key={member.id}
-                                        onClick={() => openAIAssistant(member.id)}
-                                        className="p-4 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all text-center flex flex-col items-center gap-2 border border-gray-100 dark:border-gray-600 group h-full"
-                                    >
-                                        <span className="text-4xl sm:text-5xl group-hover:scale-110 transition-transform duration-300">{member.avatar}</span>
-                                        <div className="w-full">
-                                            <div className="font-bold text-base sm:text-lg text-[var(--text-main)] mb-1">{member.name}</div>
-                                            <div className="text-xs uppercase tracking-wider text-[var(--primary-gold)] font-bold mb-2">{member.role}</div>
-                                            <p className="text-sm text-[var(--text-soft)] line-clamp-3 leading-relaxed">{member.description}</p>
-                                        </div>
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {/* Community + SOP + Upgrade CTAs */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                    {/* Community CTA */}
-                    <div className="card p-6 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border-2 border-purple-200 dark:border-purple-700" style={{ borderRadius: '2px' }}>
-                        <div className="flex items-start gap-4 mb-4">
-                            <div className="bg-gradient-to-br from-purple-500 to-blue-600 p-3 rounded-xl flex-shrink-0">
-                                <Users className="w-6 h-6 text-white" />
-                            </div>
-                            <div className="flex-1">
-                                <h3 className="text-lg font-bold text-[var(--text-main)] mb-2">
-                                    You're Part of The Business Minds Community! 🎉
-                                </h3>
-                                <p className="text-sm text-[var(--text-soft)] mb-4">
-                                    Login to ask questions about your current journey, get feedback on your progress, and connect with fellow entrepreneurs.
-                                </p>
-                            </div>
-                        </div>
-
-                        <ul className="space-y-2 text-sm text-[var(--text-soft)] mb-4">
-                            <li className="flex items-start gap-2">
-                                <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
-                                <span><strong>Ask Questions:</strong> Get answers about your 90-day journey and foundation roadmap</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
-                                <span><strong>Weekly Live Coaching:</strong> Join group sessions every Tuesday & Thursday</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-purple-600 dark:text-purple-400 font-bold flex-shrink-0">✓</span>
-                                <span><strong>Share Your Wins:</strong> Celebrate milestones and inspire others</span>
-                            </li>
-                        </ul>
-
-                        <div className="flex flex-wrap gap-2">
-                            <a 
-                                href="https://thebminds.com" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="btn btn-primary flex-1"
-                            >
-                                <Users className="w-4 h-4 mr-2" />
-                                Desktop
-                            </a>
-                            <a 
-                                href="https://apps.apple.com/us/app/the-business-minds/id6742644847" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="btn btn-secondary flex-1"
-                            >
-                                iOS App
-                            </a>
-                            <a 
-                                href="https://play.google.com/store/apps/details?id=com.thebusinessminds.wl&hl=en_IN" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="btn btn-secondary flex-1"
-                            >
-                                Android
-                            </a>
-                        </div>
-
-                        <Link 
-                            to={createPageUrl('BusinessOverview')}
-                            className="btn btn-ghost w-full justify-center mt-2 text-purple-600 dark:text-purple-400"
-                        >
-                            <Briefcase className="w-4 h-4 mr-2" />
-                            View Your Business Overview
-                        </Link>
-                    </div>
-
-                    {/* SOP Library CTA */}
-                    <div className="card p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200 dark:border-green-700" style={{ borderRadius: '2px' }}>
-                        <div className="flex items-start gap-4 mb-4">
-                            <div className="bg-gradient-to-br from-green-500 to-emerald-600 p-3 rounded-xl flex-shrink-0">
-                                <BookOpen className="w-6 h-6 text-white" />
-                            </div>
-                            <div className="flex-1">
-                                <h3 className="text-lg font-bold text-[var(--text-main)] mb-2">
-                                    Standard Operating Procedures
-                                </h3>
-                                <p className="text-sm text-[var(--text-soft)] mb-4">
-                                    Document, organize, and scale your business processes with AI-powered SOP creation.
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <ul className="space-y-2 text-sm text-[var(--text-soft)] mb-4">
-                            <li className="flex items-start gap-2">
-                                <span className="text-green-600 dark:text-green-400 font-bold flex-shrink-0">✓</span>
-                                <span><strong>AI Generation:</strong> Create SOPs instantly from simple descriptions</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-green-600 dark:text-green-400 font-bold flex-shrink-0">✓</span>
-                                <span><strong>Organize by Category:</strong> Sales, operations, marketing, and more</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-green-600 dark:text-green-400 font-bold flex-shrink-0">✓</span>
-                                <span><strong>Scale Your Business:</strong> Build systems that work without you</span>
-                            </li>
-                        </ul>
-
-                        <Link 
-                            to={createPageUrl('SOPs')}
-                            className="btn btn-primary w-full justify-center"
-                        >
-                            <BookOpen className="w-4 h-4 mr-2" />
-                            Manage SOPs
-                        </Link>
-                    </div>
-
-                    {/* Upgrade CTA */}
-                    {user?.subscription_level === 'free' && (
-                        <div className="card p-6 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-[var(--primary-gold)] rounded-xl lg:col-span-2">
-                            <div className="flex items-start gap-4 mb-4">
-                                <div className="bg-gradient-to-br from-[var(--primary-gold)] to-yellow-600 p-3 rounded-xl flex-shrink-0">
-                                    <Rocket className="w-6 h-6 text-white" />
-                                </div>
-                                <div className="flex-1">
-                                    <h3 className="text-lg font-bold text-[var(--text-main)] mb-2">
-                                        Unlock The Full HQ Experience
-                                    </h3>
-                                    <p className="text-sm text-[var(--text-soft)] mb-4">
-                                        Get unlimited access to every tool, training, and resource you need to scale your business faster than ever.
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            <ul className="space-y-2 text-sm text-[var(--text-soft)] mb-4">
-                                <li className="flex items-start gap-2">
-                                    <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
-                                    <span><strong>Unlimited Journeys:</strong> Switch goals anytime and access every roadmap</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
-                                    <span><strong>All Strategy Tools:</strong> Full Foundation Roadmap access and premium templates</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="text-[var(--primary-gold)] font-bold flex-shrink-0">✓</span>
-                                    <span><strong>Unlimited AI Access:</strong> Use all AI assistants with no restrictions</span>
-                                </li>
-                            </ul>
-
-                            <Link 
-                                to={createPageUrl('Upgrade')}
-                                className="btn w-full justify-center bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 text-white hover:shadow-lg"
-                            >
-                                <Rocket className="w-4 h-4 mr-2" />
-                                Upgrade to The HQ - $99/mo
-                            </Link>
-                        </div>
-                    )}
-                </div>
-
-                {/* Customer Journey Completion Incentive */}
-                {user.subscription_level === 'free' && !user.customer_journey_completed_date && (
-                    <div className="card p-4 sm:p-6 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-2 border-purple-300 dark:border-purple-700" style={{ borderRadius: '2px' }}>
-                        <div className="flex flex-col sm:flex-row items-start space-y-3 sm:space-y-0 sm:space-x-4">
-                            <div className="bg-purple-100 dark:bg-purple-800 p-2 sm:p-3 mx-auto sm:mx-0 flex-shrink-0" style={{ borderRadius: '2px' }}>
-                                <Gift className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-purple-600 dark:text-purple-400" />
-                            </div>
-                            <div className="flex-1 min-w-0 text-center sm:text-left w-full">
-                                <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-[var(--text-main)] mb-2 flex items-center flex-wrap gap-2 justify-center sm:justify-start">
-                                    <span>🎁 Unlock Your Exclusive Discount!</span>
-                                    <Tooltip content="Complete your Customer Journey Map to unlock a special 3-month discount on The Business Minds HQ subscription ($49.99/month instead of $99/month).">
-                                        <HelpCircle className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 dark:text-gray-500" />
-                                    </Tooltip>
-                                </h3>
-                                <p className="text-xs sm:text-sm text-[var(--text-soft)] mb-3 sm:mb-4">
-                                    Complete your <strong>Customer Journey Map</strong> and unlock <span className="text-purple-600 dark:text-purple-400 font-bold">$49.99/month for 3 months</span> (regular $99/month)!
-                                </p>
-                                
-                                <div className="mb-3 sm:mb-4">
-                                    <div className="flex items-center justify-between mb-2">
-                                        <span className="text-xs sm:text-sm font-medium text-[var(--text-soft)]">
-                                            {customerJourneyProgress.completed} of {customerJourneyProgress.total} stages complete
-                                        </span>
-                                        <span className="text-xs sm:text-sm font-bold text-purple-600 dark:text-purple-400">
-                                            {journeyProgressPercentage}%
-                                        </span>
-                                    </div>
-                                    <div className="w-full bg-gray-200 dark:bg-gray-700 h-2 sm:h-3" style={{ borderRadius: '2px' }}>
-                                        <div 
-                                            className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 sm:h-3 transition-all duration-500"
-                                            style={{ width: `${journeyProgressPercentage}%`, borderRadius: '2px' }}
-                                        ></div>
-                                    </div>
-                                </div>
-
-                                <Link to={createPageUrl('StrategyFormCustomerJourney')} className="btn btn-primary w-full justify-center text-xs sm:text-sm">
-                                    <Target className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-                                    Continue My Customer Journey
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {/* Community Highlights */}
-                {communityHighlights.length > 0 && (
-                    <div className="card p-4 sm:p-6" style={{ borderRadius: '2px' }}>
-                        <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)] mb-4">🔥 Community Spotlight</h3>
-                        <div className="space-y-3">
-                            {communityHighlights.slice(0, 2).map(highlight => (
-                                <Link
-                                    key={highlight.id}
-                                    to={highlight.link}
-                                    className="block p-3 sm:p-4 bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 border border-orange-200 dark:border-orange-700 hover:shadow-lg transition-all"
-                                    style={{ borderRadius: '2px' }}
-                                >
-                                    <h4 className="font-semibold text-[var(--text-main)] mb-1 text-sm sm:text-base">{highlight.title}</h4>
-                                    <p className="text-xs sm:text-sm text-[var(--text-soft)] mb-2">{highlight.description}</p>
-                                    <span className="text-xs sm:text-sm text-orange-600 dark:text-orange-400 font-medium flex items-center">
-                                        {highlight.cta_text || 'Join the Conversation →'}
-                                    </span>
-                                </Link>
-                            ))}
-                        </div>
-                    </div>
-                )}
-
-                {/* Upcoming Events */}
-                {upcomingEvents.length > 0 && (
-                    <div className="card p-4 sm:p-6" style={{ borderRadius: '2px' }}>
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)]">Upcoming Events</h3>
-                            <Bell className="w-5 h-5 text-[var(--text-soft)]" />
-                        </div>
-                        <div className="space-y-3">
-                            {upcomingEvents.map(event => (
-                                <div key={event.id} className="p-3 sm:p-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700" style={{ borderRadius: '2px' }}>
-                                    <h4 className="font-semibold text-[var(--text-main)] mb-1 text-sm sm:text-base">{event.title}</h4>
-                                    <p className="text-xs sm:text-sm text-[var(--text-soft)] mb-2">{moment(event.event_date).format('MMM D, YYYY [at] h:mm A')}</p>
-                                    <span className="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300" style={{ borderRadius: '2px' }}>
-                                        {event.event_type}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
-
-
-
             </div>
 
             {/* AI Team Modal */}
@@ -741,3 +320,15 @@ export default function DashboardPage() {
         </div>
     );
 }
+
+const FoundationToolCard = ({ title, icon: Icon, linkTo, isComplete }) => (
+    <Link to={createPageUrl(linkTo)}>
+        <div className={`p-3 border hover:shadow-md transition-all cursor-pointer ${isComplete ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700' : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700'}`} style={{ borderRadius: '1px' }}>
+            <div className="flex items-center justify-between mb-2">
+                <Icon className={`w-4 h-4 ${isComplete ? 'text-green-600' : 'text-gray-400'}`} />
+                {isComplete && <CheckCircle className="w-4 h-4 text-green-600" />}
+            </div>
+            <h3 className="font-semibold text-xs">{title}</h3>
+        </div>
+    </Link>
+);
