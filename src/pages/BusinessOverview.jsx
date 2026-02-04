@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import TeamManagementPanel from '@/components/business/TeamManagementPanel';
 
 export default function BusinessOverview() {
     const [user, setUser] = useState(null);
@@ -766,6 +767,11 @@ export default function BusinessOverview() {
                     </div>
                 </div>
             </div>
-        </div>
-    );
-}
+
+            {/* Team Management Section */}
+            {business && (
+                <TeamManagementPanel business={business} />
+            )}
+            </div>
+            );
+            }
