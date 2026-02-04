@@ -74,6 +74,7 @@ import CourseDetails from './pages/CourseDetails';
 import Courses from './pages/Courses';
 import CreateSOP from './pages/CreateSOP';
 import DailyTrack from './pages/DailyTrack';
+import Dashboard from './pages/Dashboard';
 import DfyServiceDetail from './pages/DfyServiceDetail';
 import DfyServices from './pages/DfyServices';
 import EditBusiness from './pages/EditBusiness';
@@ -150,7 +151,6 @@ import VisionStrategySession from './pages/VisionStrategySession';
 import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
 import Week from './pages/Week';
 import layout from './pages/layout';
-import Dashboard from './pages/Dashboard';
 import __Layout from './Layout.jsx';
 
 
@@ -182,6 +182,7 @@ export const PAGES = {
     "Courses": Courses,
     "CreateSOP": CreateSOP,
     "DailyTrack": DailyTrack,
+    "Dashboard": Dashboard,
     "DfyServiceDetail": DfyServiceDetail,
     "DfyServices": DfyServices,
     "EditBusiness": EditBusiness,
@@ -258,7 +259,6 @@ export const PAGES = {
     "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
     "Week": Week,
     "layout": layout,
-    "Dashboard": Dashboard,
 }
 
 export const pagesConfig = {

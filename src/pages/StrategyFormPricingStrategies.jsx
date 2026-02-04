@@ -1,9 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { DollarSign, Save, Loader2, CheckCircle, TrendingUp, Target, Users, Zap, Award, ArrowRight, HelpCircle, Sparkles } from 'lucide-react';
+import { DollarSign, Save, Loader2, CheckCircle, TrendingUp, Target, Users, Zap, Award, ArrowRight, HelpCircle, Sparkles, Calculator } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Tooltip from '../components/common/Tooltip';
 import AITeamModal from '@/components/ai/AITeamModal';
 
@@ -190,6 +190,7 @@ export default function StrategyFormPricingStrategies() {
     const [pricingChallenges, setPricingChallenges] = useState('');
     const [targetCustomerWillingness, setTargetCustomerWillingness] = useState('');
     const [showAIAssistant, setShowAIAssistant] = useState(false);
+    const [freedomProducts, setFreedomProducts] = useState([]);
 
     useEffect(() => {
         loadData();
@@ -199,6 +200,14 @@ export default function StrategyFormPricingStrategies() {
         try {
             const currentUser = await base44.auth.me();
             setUser(currentUser);
+
+            // Load Freedom Calculator products
+            if (currentUser.financial_projections?.products) {
+                const validProducts = currentUser.financial_projections.products.filter(
+                    p => p.name && p.name.trim() !== ''
+                );
+                setFreedomProducts(validProducts);
+            }
 
             const docs = await base44.entities.StrategyDocument.filter({
                 created_by: currentUser.email,
@@ -331,6 +340,25 @@ export default function StrategyFormPricingStrategies() {
                     </div>
                 </div>
             </div>
+
+            {/* Freedom Calculator Link */}
+            {freedomProducts.length === 0 && (
+                <div className="card p-4 mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-700">
+                    <div className="flex items-start gap-3">
+                        <Calculator className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
+                        <div className="flex-1">
+                            <h3 className="font-semibold text-[var(--text-main)] mb-1">No Products Found</h3>
+                            <p className="text-sm text-[var(--text-soft)] mb-3">
+                                Set up your products in the Freedom Calculator first to auto-populate your pricing strategies.
+                            </p>
+                            <Link to={createPageUrl('FreedomCalculator')} className="btn btn-sm btn-primary">
+                                <Calculator className="w-4 h-4 mr-2" />
+                                Go to Freedom Calculator
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Current Situation */}
             <div className="card p-6 mb-6">
@@ -491,18 +519,49 @@ export default function StrategyFormPricingStrategies() {
                                         </h4>
                                         
                                         <div className="space-y-4">
-                                            <div>
-                                                <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                                    Which product/service will use this pricing?
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    value={strategyDetails[strategy.id]?.product || ''}
-                                                    onChange={(e) => handleStrategyDetailChange(strategy.id, 'product', e.target.value)}
-                                                    placeholder="e.g., Premium Consulting Package, Basic Software Plan"
-                                                    className="form-input w-full"
-                                                />
-                                            </div>
+                                           <div>
+                                               <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                                   Which product/service will use this pricing?
+                                               </label>
+                                               {freedomProducts.length > 0 ? (
+                                                   <select
+                                                       value={strategyDetails[strategy.id]?.product || ''}
+                                                       onChange={(e) => {
+                                                           const selectedProduct = freedomProducts.find(p => p.name === e.target.value);
+                                                           handleStrategyDetailChange(strategy.id, 'product', e.target.value);
+                                                           if (selectedProduct && selectedProduct.price) {
+                                                               handleStrategyDetailChange(strategy.id, 'price', `$${selectedProduct.price}`);
+                                                           }
+                                                       }}
+                                                       className="form-input w-full"
+                                                   >
+                                                       <option value="">Select a product from Freedom Calculator...</option>
+                                                       {freedomProducts.map((product, idx) => (
+                                                           <option key={idx} value={product.name}>
+                                                               {product.name} {product.price ? `($${product.price})` : ''}
+                                                           </option>
+                                                       ))}
+                                                       <option value="__custom__">➕ Enter custom product/service</option>
+                                                   </select>
+                                               ) : (
+                                                   <input
+                                                       type="text"
+                                                       value={strategyDetails[strategy.id]?.product || ''}
+                                                       onChange={(e) => handleStrategyDetailChange(strategy.id, 'product', e.target.value)}
+                                                       placeholder="e.g., Premium Consulting Package, Basic Software Plan"
+                                                       className="form-input w-full"
+                                                   />
+                                               )}
+                                               {strategyDetails[strategy.id]?.product === '__custom__' && (
+                                                   <input
+                                                       type="text"
+                                                       value={strategyDetails[strategy.id]?.customProduct || ''}
+                                                       onChange={(e) => handleStrategyDetailChange(strategy.id, 'customProduct', e.target.value)}
+                                                       placeholder="Enter custom product/service name..."
+                                                       className="form-input w-full mt-2"
+                                                   />
+                                               )}
+                                           </div>
 
                                             <div>
                                                 <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
