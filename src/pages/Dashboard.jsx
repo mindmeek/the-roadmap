@@ -1,90 +1,68 @@
 import React, { useState, useEffect } from 'react';
-import { User, DailyProgress, CommunityHighlight, Event, StrategyDocument } from '@/entities/all';
+import { User, DailyProgress, StrategyDocument, Business, AnnualPlan, RoadmapContent, BusinessMilestone } from '@/entities/all';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { base44 } from '@/api/base44Client';
 import {
     Loader2,
     TrendingUp,
     Users,
     Calendar,
     ChevronRight,
-    Bell,
     CheckCircle,
     Sparkles,
-    HelpCircle,
     Target,
-    Gift,
     Zap,
     ArrowRight,
-    BookOpen,
-    Award,
     Rocket,
     MessageSquare,
-    ChevronDown,
     Map,
-    Briefcase
+    Briefcase,
+    DollarSign,
+    Eye,
+    Brain,
+    BarChart3,
+    Clock,
+    CheckCircle2,
+    Circle,
+    AlertCircle,
+    PlayCircle
 } from 'lucide-react';
 import moment from 'moment';
 
-// Component imports
-import FoundationRoadmapVisual from '../components/dashboard/FoundationRoadmapVisual';
-import JourneyTimeline from '../components/dashboard/JourneyTimeline';
-import FinancialSnapshot from '../components/dashboard/FinancialSnapshot';
-import GamificationDisplay from '../components/dashboard/GamificationDisplay';
-
-import ActionCard from '../components/dashboard/ActionCard';
-import Tooltip from '../components/common/Tooltip';
 import AITeamModal from '../components/ai/AITeamModal';
-
-import UpcomingTasksPreview from '../components/dashboard/UpcomingTasksPreview';
-import DailyInsightTabs from '../components/dashboard/DailyInsightTabs';
-import MemberActionChecklist from '../components/dashboard/MemberActionChecklist';
-import FoundationProgress from '../components/dashboard/VisionStageProgress';
-import RestartTourButton from '../components/common/RestartTourButton';
-
 import { AI_TEAM_MEMBERS } from '../components/ai/aiTeamInfo';
-
-const AI_TEAM_INFO = AI_TEAM_MEMBERS.reduce((acc, member) => {
-    acc[member.id] = {
-        name: member.name,
-        role: member.role,
-        avatar: member.avatar,
-        color: member.color,
-    };
-    return acc;
-}, {});
+import { motion } from 'framer-motion';
 
 export default function DashboardPage() {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [todayProgress, setTodayProgress] = useState(null);
-    const [communityHighlights, setCommunityHighlights] = useState([]);
-    const [upcomingEvents, setUpcomingEvents] = useState([]);
-    const [customerJourneyProgress, setCustomerJourneyProgress] = useState({ completed: 0, total: 5 });
+    const [business, setBusiness] = useState(null);
+    const [annualPlan, setAnnualPlan] = useState(null);
+    const [roadmapContent, setRoadmapContent] = useState(null);
+    const [milestones, setMilestones] = useState([]);
+    const [strategyDocs, setStrategyDocs] = useState([]);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
     const [aiAssistantType, setAiAssistantType] = useState('elyzet');
-    const [aiSuggestion, setAiSuggestion] = useState(null);
     const [hasJourney, setHasJourney] = useState(false);
-    const [isFoundationOpen, setIsFoundationOpen] = useState(false);
     
 
     useEffect(() => {
         loadDashboardData();
-        generateAISuggestion();
     }, []);
 
     const loadDashboardData = async () => {
         try {
-            const currentUser = await User.me();
+            const currentUser = await base44.auth.me();
             setUser(currentUser);
 
             const userHasJourney = !!(currentUser.journey_start_date && currentUser.selected_goal);
             setHasJourney(userHasJourney);
 
-
-
-            const today = moment().format('YYYY-MM-DD');
-            const progressRecords = await DailyProgress.filter({ 
+            // Load today's progress
+            const today = new Date().toISOString().split('T')[0];
+            const progressRecords = await base44.entities.DailyProgress.filter({ 
                 created_by: currentUser.email, 
                 date: today 
             });
@@ -92,29 +70,35 @@ export default function DashboardPage() {
                 setTodayProgress(progressRecords[0]);
             }
 
-            const highlights = await CommunityHighlight.filter({ is_active: true });
-            setCommunityHighlights(highlights);
+            // Load business data
+            const businesses = await base44.entities.Business.filter({ owner_user_id: currentUser.id });
+            if (businesses.length > 0) {
+                setBusiness(businesses[0]);
+                
+                // Load milestones for this business
+                const businessMilestones = await base44.entities.BusinessMilestone.filter({ 
+                    business_id: businesses[0].id 
+                }, '-created_date', 5);
+                setMilestones(businessMilestones);
+            }
 
-            const now = moment().format('YYYY-MM-DDTHH:mm');
-            const events = await Event.filter({ is_published: true });
-            const upcoming = events.filter(e => e.event_date >= now).slice(0, 3);
-            setUpcomingEvents(upcoming);
+            // Load annual plan
+            const plans = await base44.entities.AnnualPlan.filter({ created_by: currentUser.email }, '-created_date', 1);
+            if (plans.length > 0) {
+                setAnnualPlan(plans[0]);
+            }
 
-            if (currentUser.subscription_level === 'free' && !currentUser.customer_journey_completed_date) {
-                const customerJourneyDoc = await StrategyDocument.filter({
-                    created_by: currentUser.email,
-                    document_type: 'customer_journey'
-                });
-
-                if (customerJourneyDoc.length > 0) {
-                    const content = customerJourneyDoc[0].content || {};
-                    const stages = content.stages || [];
-                    const completedCount = stages.filter(stage => stage.isComplete).length;
-                    setCustomerJourneyProgress({ completed: completedCount, total: stages.length || 5 });
-                } else {
-                    setCustomerJourneyProgress({ completed: 0, total: 5 });
+            // Load roadmap content for journey
+            if (currentUser.selected_goal) {
+                const roadmaps = await base44.entities.RoadmapContent.filter({ content_key: currentUser.selected_goal });
+                if (roadmaps.length > 0) {
+                    setRoadmapContent(roadmaps[0]);
                 }
             }
+
+            // Load key strategy documents
+            const docs = await base44.entities.StrategyDocument.filter({ created_by: currentUser.email });
+            setStrategyDocs(docs);
 
         } catch (error) {
             console.error('Error loading dashboard:', error);
@@ -123,33 +107,27 @@ export default function DashboardPage() {
         }
     };
 
-    const generateAISuggestion = async () => {
-        try {
-            const currentUser = await User.me();
-            
-            const suggestions = {
-                vision: {
-                    assistant: 'elyzet',
-                    message: "Ready to clarify your business vision? Elyzet can help you craft a compelling mission statement and strategic foundation.",
-                    cta: "Talk to Elyzet"
-                },
-                startup: {
-                    assistant: 'ava',
-                    message: "Need help defining your ideal client? Ava can guide you through creating a powerful customer avatar and marketing strategy.",
-                    cta: "Talk to Ava"
-                },
-                growth: {
-                    assistant: 'finley',
-                    message: "Looking to optimize your pricing? Finley can help you develop a value ladder that maximizes revenue and profitability.",
-                    cta: "Talk to Finley"
-                }
-            };
-
-            const suggestion = suggestions[currentUser.entrepreneurship_stage] || suggestions.vision;
-            setAiSuggestion(suggestion);
-        } catch (error) {
-            console.error('Error generating AI suggestion:', error);
+    const getNextAction = () => {
+        if (!todayProgress || todayProgress.daily_tasks?.length === 0) {
+            return { text: "Track your first daily task", link: "DailyTrack", icon: TrendingUp };
         }
+        
+        const completedTasks = todayProgress.daily_tasks?.filter(t => t.completed).length || 0;
+        const totalTasks = todayProgress.daily_tasks?.length || 0;
+        
+        if (completedTasks < totalTasks) {
+            return { text: "Complete today's tasks", link: "DailyTrack", icon: CheckCircle };
+        }
+        
+        if (milestones.some(m => m.status === 'in_progress')) {
+            return { text: "Update milestone progress", link: "BusinessOverview", icon: Target };
+        }
+        
+        if (!business) {
+            return { text: "Set up your business profile", link: "BusinessOverview", icon: Briefcase };
+        }
+        
+        return { text: "Plan tomorrow's tasks", link: "DailyTrack", icon: Calendar };
     };
 
     const openAIAssistant = (assistantType) => {
@@ -175,42 +153,55 @@ export default function DashboardPage() {
 
     if (!hasJourney) {
         return (
-            <div className="px-3 sm:px-4 pb-20 md:pb-8">
-                <div className="max-w-7xl mx-auto">
-                    <div className="card p-4 sm:p-6" style={{ borderRadius: '2px' }}>
-                        <div className="text-center py-6 sm:py-8">
-                            <div className="flex justify-center mb-4">
-                                <div className="bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 p-3 sm:p-4 rounded-full">
-                                    <Target className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-                                </div>
+            <div className="min-h-screen relative overflow-hidden">
+                {/* Animated Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 opacity-90"></div>
+                <div className="absolute inset-0" style={{
+                    backgroundImage: 'url(https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/87939415f_lycs-architecture-U2BI3GMnSSE-unsplash.jpg)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    opacity: 0.2
+                }}></div>
+                
+                <div className="relative z-10 flex items-center justify-center min-h-screen px-4 py-12">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="max-w-2xl w-full text-center"
+                    >
+                        <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ delay: 0.2, type: "spring" }}
+                            className="inline-flex items-center justify-center w-24 h-24 bg-white rounded-full mb-6 shadow-2xl"
+                        >
+                            <Rocket className="w-12 h-12 text-purple-600" />
+                        </motion.div>
+                        
+                        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                            Ready to Build Your Business?
+                        </h1>
+                        <p className="text-xl text-white/90 mb-8">
+                            Choose your 90-day journey and get a personalized roadmap to success
+                        </p>
+                        
+                        {user?.subscription_level === 'free' && (
+                            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 mb-8 text-white">
+                                <p className="text-sm">
+                                    <strong>Free Member:</strong> You get ONE 90-day journey that you can restart unlimited times. 
+                                    All progress is saved forever.
+                                </p>
                             </div>
-                            <h3 className="text-xl sm:text-2xl font-bold text-[var(--text-main)] mb-3">
-                                Choose Your 90-Day Journey
-                            </h3>
-                            <p className="text-sm sm:text-base text-[var(--text-soft)] mb-2 max-w-md mx-auto">
-                                Start your personalized roadmap to success. Choose from our focused programs or complete your journey setup.
-                            </p>
-                            {user.subscription_level === 'free' && (
-                                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 p-3 rounded-lg mb-4 max-w-md mx-auto">
-                                    <p className="text-xs text-blue-700 dark:text-blue-300">
-                                        <strong>Free Member:</strong> You get ONE 90-day journey that you can restart unlimited times. 
-                                        All your notes and progress are saved forever. Upgrade for unlimited goal changes.
-                                    </p>
-                                </div>
-                            )}
-                            
-                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                                <Link to={createPageUrl('FocusedPrograms')} className="btn btn-primary flex items-center justify-center">
-                                    <Award className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                                    Browse Focused Programs
-                                </Link>
-                                <Link to={createPageUrl('Onboarding')} className="btn btn-secondary flex items-center justify-center">
-                                    <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                                    Set Up My Journey
-                                </Link>
-                            </div>
+                        )}
+                        
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <Link to={createPageUrl('FocusedPrograms')} className="btn bg-white text-purple-600 hover:bg-gray-100 text-lg px-8 py-4 shadow-xl">
+                                <Sparkles className="w-5 h-5 mr-2" />
+                                Start My Journey
+                            </Link>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         );
@@ -218,61 +209,97 @@ export default function DashboardPage() {
 
     const completedTasksToday = todayProgress?.daily_tasks?.filter(t => t.completed).length || 0;
     const totalTasksToday = todayProgress?.daily_tasks?.length || 0;
-    const journeyProgressPercentage = customerJourneyProgress.total > 0 
-        ? Math.round((customerJourneyProgress.completed / customerJourneyProgress.total) * 100) 
-        : 0;
-
-    const recommendedAgent = aiSuggestion ? AI_TEAM_INFO[aiSuggestion.assistant] : null;
+    const tasksProgress = totalTasksToday > 0 ? Math.round((completedTasksToday / totalTasksToday) * 100) : 0;
+    
+    const strategyToolsCompleted = strategyDocs.length;
+    const totalStrategyTools = 8; // Define Your Why, Ideal Client, BMC, Value Prop, Customer Journey, Brand, SWOT, Pricing
+    const strategyProgress = Math.round((strategyToolsCompleted / totalStrategyTools) * 100);
+    
+    const nextAction = getNextAction();
+    
+    // Get current week/month from journey
+    const getJourneyProgress = () => {
+        if (!user?.journey_start_date || !roadmapContent) return null;
+        const startDate = new Date(user.journey_start_date);
+        const today = new Date();
+        const daysPassed = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+        const currentWeek = Math.min(Math.floor(daysPassed / 7) + 1, 12);
+        const currentMonth = Math.min(Math.floor(daysPassed / 30) + 1, 3);
+        return { currentWeek, currentMonth, daysPassed, totalDays: 90 };
+    };
+    
+    const journeyProgress = getJourneyProgress();
 
     return (
-        <div className="px-3 sm:px-4 pb-20 md:pb-8">
-            <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6">
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24 md:pb-8">
                 
-                {/* Welcome Hero Section */}
-                <div 
-                    id="dashboard-hero"
-                    className="relative overflow-hidden shadow-xl"
+                {/* Hero Section */}
+                <motion.div 
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="relative overflow-hidden rounded-3xl shadow-2xl mb-8"
                     style={{ 
                         backgroundImage: 'url(https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/87939415f_lycs-architecture-U2BI3GMnSSE-unsplash.jpg)',
                         backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        borderRadius: '2px'
+                        backgroundPosition: 'center'
                     }}
                 >
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
-
-                    <div className="absolute top-4 right-4 z-20">
-                        <RestartTourButton tourKey="dashboard" className="text-white hover:text-[var(--primary-gold)] bg-black/20 hover:bg-black/40 border border-white/10" />
-                    </div>
-
-                    <div className="relative z-10 p-4 sm:p-6 md:p-8 lg:p-12">
-                        <div className="flex items-center space-x-2 mb-2 sm:mb-3">
-                            <Sparkles className="w-4 h-4 sm:w-5 sm:h-6 text-[var(--primary-gold)] animate-pulse" />
-                            <span className="text-[var(--primary-gold)] font-semibold text-xs sm:text-sm uppercase tracking-wide">
-                                Your Journey Hub
+                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/95 via-purple-900/90 to-pink-900/85"></div>
+                    
+                    <div className="relative z-10 p-8 md:p-12">
+                        <motion.div 
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.2 }}
+                            className="flex items-center gap-2 mb-4"
+                        >
+                            <Sparkles className="w-5 h-5 text-yellow-400 animate-pulse" />
+                            <span className="text-yellow-400 font-bold uppercase tracking-wider text-sm">
+                                {user?.entrepreneurship_stage ? `${user.entrepreneurship_stage} Stage` : 'Your Journey'}
                             </span>
-                            <Tooltip content="This is your central command center where you can track your progress, access your roadmap, and take action on your business goals.">
-                                <HelpCircle className="w-3 h-3 sm:w-4 sm:h-4 text-[var(--primary-gold)] opacity-70 hover:opacity-100" />
-                            </Tooltip>
-                        </div>
-                        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-bold mb-2 sm:mb-3 text-white drop-shadow-lg">
-                            Welcome back, {user.first_name || user.full_name}! 👋
+                        </motion.div>
+                        
+                        <h1 className="text-3xl md:text-5xl font-black text-white mb-3">
+                            Welcome Back, {user?.first_name || 'Entrepreneur'}! 👋
                         </h1>
-                        <p className="text-white/90 text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mb-3 sm:mb-4 md:mb-6">
-                            {user.business_name ? `Let's keep building ${user.business_name} - one step closer to your goals.` : "Let's make today count - one step closer to your goals."}
+                        <p className="text-xl text-white/90 mb-6 max-w-2xl">
+                            {business?.name ? `Building ${business.name}` : 'Building your vision'} - one strategic step at a time
                         </p>
-                        <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3">
-                            <Link to={createPageUrl('DailyTrack')} className="btn btn-primary text-xs sm:text-sm md:text-base w-full sm:w-auto justify-center">
-                                <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-                                Track Today's Progress
+                        
+                        {/* Journey Progress Bar */}
+                        {journeyProgress && (
+                            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 mb-6 border border-white/20">
+                                <div className="flex items-center justify-between mb-3">
+                                    <span className="text-white font-semibold">90-Day Journey Progress</span>
+                                    <span className="text-yellow-400 font-bold">{journeyProgress.daysPassed} / 90 days</span>
+                                </div>
+                                <div className="w-full bg-white/20 rounded-full h-4 overflow-hidden">
+                                    <motion.div 
+                                        initial={{ width: 0 }}
+                                        animate={{ width: `${(journeyProgress.daysPassed / 90) * 100}%` }}
+                                        transition={{ duration: 1, ease: "easeOut" }}
+                                        className="h-full bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-500 rounded-full"
+                                    />
+                                </div>
+                                <div className="mt-3 text-sm text-white/80">
+                                    Week {journeyProgress.currentWeek} of 12 • Month {journeyProgress.currentMonth} of 3
+                                </div>
+                            </div>
+                        )}
+                        
+                        <div className="flex flex-wrap gap-3">
+                            <Link to={createPageUrl(nextAction.link)} className="btn bg-white text-purple-900 hover:bg-gray-100 font-bold shadow-xl">
+                                <nextAction.icon className="w-5 h-5 mr-2" />
+                                {nextAction.text}
                             </Link>
-                            <Link to={createPageUrl('Journey')} className="btn btn-secondary bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 text-xs sm:text-sm md:text-base w-full sm:w-auto justify-center">
-                                <Target className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-                                Continue Your 90-Day Journey
+                            <Link to={createPageUrl('Journey')} className="btn bg-white/20 backdrop-blur-sm text-white border-2 border-white/30 hover:bg-white/30 font-semibold">
+                                <Map className="w-5 h-5 mr-2" />
+                                View Full Roadmap
                             </Link>
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Member Action Checklist */}
                 <MemberActionChecklist />
