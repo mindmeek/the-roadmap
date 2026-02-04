@@ -1,6 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { User } from '@/entities/User';
 import AITeamModal from '@/components/ai/AITeamModal';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
+import { Button } from '@/components/ui/button';
 import { 
     Sparkles, 
     Users, 
@@ -299,6 +302,7 @@ export default function ElyzetAIAssistants() {
                     assistantType={selectedAssistant.id}
                     sectionTitle={`${selectedAssistant.name} - Journey Support`}
                     userNotes={[]}
+                    currentBusinessId={user?.business_id}
                 />
             )}
         </div>

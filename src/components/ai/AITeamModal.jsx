@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { X, Send, Loader2, Sparkles, History, Save, Share2, FileText, Copy, Check, Plus, Edit2, Trash2, Star, MessageSquare, StickyNote } from 'lucide-react';
 import { aiTeamAssistant } from '@/functions/aiTeamAssistant';
@@ -60,7 +59,8 @@ export default function AITeamModal({
     sectionTitle = '',
     userNotes = [],
     additionalContext = '',
-    conversationId = null
+    conversationId = null,
+    currentBusinessId = null
 }) {
     const [userPrompt, setUserPrompt] = useState('');
     const [conversation, setConversation] = useState([]);
@@ -202,7 +202,8 @@ Summary:`;
                 assistant_type: 'elyzet',
                 user_prompt: summaryPrompt,
                 context: {},
-                user_notes: []
+                user_notes: [],
+                current_business_id: currentBusinessId
             });
 
             if (response.data.success) {
@@ -262,7 +263,8 @@ Summary:`;
                     section_title: sectionTitle,
                     additional_context: additionalContext
                 },
-                user_notes: userNotes
+                user_notes: userNotes,
+                current_business_id: currentBusinessId
             });
 
             if (result.data.success && result.data.response) {
