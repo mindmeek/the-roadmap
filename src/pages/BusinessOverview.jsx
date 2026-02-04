@@ -769,11 +769,11 @@ export default function BusinessOverview() {
                 </div>
             </div>
 
-            {/* Team Task Board */}
+            {/* Business Milestones */}
             {business && (
                 <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
                     <h2 className="text-2xl font-bold mb-4 pb-2 border-b-2 border-[var(--primary-gold)]">
-                        Team Task Board
+                        Business Milestones & Strategic Goals
                     </h2>
                     <TeamTaskBoard business={business} currentUser={user} />
                 </div>
