@@ -49,6 +49,7 @@
  */
 import AIConversationHistory from './pages/AIConversationHistory';
 import AIStrategyHub from './pages/AIStrategyHub';
+import AcceptTeamInvitation from './pages/AcceptTeamInvitation';
 import Admin from './pages/Admin';
 import AdminAnalytics from './pages/AdminAnalytics';
 import AdminContentManagement from './pages/AdminContentManagement';
@@ -150,13 +151,13 @@ import VisionStrategySession from './pages/VisionStrategySession';
 import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
 import Week from './pages/Week';
 import layout from './pages/layout';
-import AcceptTeamInvitation from './pages/AcceptTeamInvitation';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "AIConversationHistory": AIConversationHistory,
     "AIStrategyHub": AIStrategyHub,
+    "AcceptTeamInvitation": AcceptTeamInvitation,
     "Admin": Admin,
     "AdminAnalytics": AdminAnalytics,
     "AdminContentManagement": AdminContentManagement,
@@ -258,7 +259,6 @@ export const PAGES = {
     "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
     "Week": Week,
     "layout": layout,
-    "AcceptTeamInvitation": AcceptTeamInvitation,
 }
 
 export const pagesConfig = {

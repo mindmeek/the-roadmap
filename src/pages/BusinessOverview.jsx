@@ -22,6 +22,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import TeamManagementPanel from '@/components/business/TeamManagementPanel';
+import TeamTaskBoard from '@/components/business/TeamTaskBoard';
 
 export default function BusinessOverview() {
     const [user, setUser] = useState(null);
@@ -767,6 +768,16 @@ export default function BusinessOverview() {
                     </div>
                 </div>
             </div>
+
+            {/* Team Task Board */}
+            {business && (
+                <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
+                    <h2 className="text-2xl font-bold mb-4 pb-2 border-b-2 border-[var(--primary-gold)]">
+                        Team Task Board
+                    </h2>
+                    <TeamTaskBoard business={business} currentUser={user} />
+                </div>
+            )}
 
             {/* Team Management Section */}
             {business && (
