@@ -301,125 +301,243 @@ export default function DashboardPage() {
                     </div>
                 </motion.div>
 
-                {/* Member Action Checklist */}
-                <MemberActionChecklist />
+                {/* Key Metrics */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                        className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700"
+                    >
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="bg-green-100 dark:bg-green-900/30 p-3 rounded-xl">
+                                <CheckCircle2 className="w-6 h-6 text-green-600 dark:text-green-400" />
+                            </div>
+                            <span className="text-3xl font-black text-green-600">{tasksProgress}%</span>
+                        </div>
+                        <h3 className="font-bold text-lg text-[var(--text-main)] mb-1">Daily Progress</h3>
+                        <p className="text-sm text-[var(--text-soft)]">
+                            {completedTasksToday} of {totalTasksToday || 0} tasks completed today
+                        </p>
+                        <div className="mt-3 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                            <div 
+                                className="bg-gradient-to-r from-green-500 to-emerald-600 h-2 rounded-full transition-all duration-500"
+                                style={{ width: `${tasksProgress}%` }}
+                            />
+                        </div>
+                    </motion.div>
 
-                {/* Today's Progress & Upcoming Tasks - SIDE BY SIDE */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                    {/* Today's Progress */}
-                    <div id="dashboard-daily-progress" className="card p-4 sm:p-6" style={{ borderRadius: '2px' }}>
-                        <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-                            <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)] flex items-center flex-wrap gap-2">
-                                <TrendingUp className="w-5 h-5 text-[var(--primary-gold)]" />
-                                <span>Today's Progress</span>
-                                <Tooltip content="Track your daily 1% improvements. Small, consistent actions compound into massive results over time.">
-                                    <HelpCircle className="w-4 h-4 text-gray-400 dark:text-gray-500" />
-                                </Tooltip>
-                            </h3>
-                            <Link to={createPageUrl('DailyTrack')} className="text-[var(--primary-gold)] hover:underline flex items-center text-xs sm:text-sm font-medium">
-                                Track More <ChevronRight className="w-4 h-4 ml-1" />
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700"
+                    >
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-xl">
+                                <Brain className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                            </div>
+                            <span className="text-3xl font-black text-blue-600">{strategyProgress}%</span>
+                        </div>
+                        <h3 className="font-bold text-lg text-[var(--text-main)] mb-1">Foundation Built</h3>
+                        <p className="text-sm text-[var(--text-soft)]">
+                            {strategyToolsCompleted} of {totalStrategyTools} strategy tools completed
+                        </p>
+                        <div className="mt-3 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                            <div 
+                                className="bg-gradient-to-r from-blue-500 to-indigo-600 h-2 rounded-full transition-all duration-500"
+                                style={{ width: `${strategyProgress}%` }}
+                            />
+                        </div>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700"
+                    >
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="bg-purple-100 dark:bg-purple-900/30 p-3 rounded-xl">
+                                <Target className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                            </div>
+                            <span className="text-3xl font-black text-purple-600">{milestones.filter(m => m.status !== 'not_started').length}</span>
+                        </div>
+                        <h3 className="font-bold text-lg text-[var(--text-main)] mb-1">Active Goals</h3>
+                        <p className="text-sm text-[var(--text-soft)]">
+                            {milestones.filter(m => m.status === 'achieved').length} achieved • {milestones.filter(m => m.status === 'in_progress').length} in progress
+                        </p>
+                        <Link to={createPageUrl('BusinessOverview')} className="mt-3 text-sm text-purple-600 hover:text-purple-700 font-medium flex items-center">
+                            View all <ArrowRight className="w-4 h-4 ml-1" />
+                        </Link>
+                    </motion.div>
+                </div>
+
+                {/* Strategic Milestones */}
+                {milestones.length > 0 && (
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4 }}
+                        className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 mb-8"
+                    >
+                        <div className="flex items-center justify-between mb-6">
+                            <h2 className="text-2xl font-black text-[var(--text-main)] flex items-center gap-3">
+                                <div className="bg-yellow-100 dark:bg-yellow-900/30 p-2 rounded-xl">
+                                    <Target className="w-6 h-6 text-yellow-600" />
+                                </div>
+                                Strategic Milestones & Goals
+                            </h2>
+                            <Link to={createPageUrl('BusinessOverview')} className="text-purple-600 hover:text-purple-700 font-semibold flex items-center gap-1">
+                                View All <ArrowRight className="w-5 h-5" />
                             </Link>
                         </div>
-                        {totalTasksToday > 0 ? (
-                            <div>
-                                <div className="flex items-center justify-between mb-2">
-                                    <span className="text-xs sm:text-sm text-[var(--text-soft)]">
-                                        {completedTasksToday} of {totalTasksToday} tasks completed
-                                    </span>
-                                    <span className="text-xs sm:text-sm font-bold text-[var(--primary-gold)]">
-                                        {Math.round((completedTasksToday / totalTasksToday) * 100)}%
-                                    </span>
-                                </div>
-                                <div className="w-full bg-gray-200 dark:bg-gray-700 h-3" style={{ borderRadius: '2px' }}>
-                                    <div 
-                                        className="bg-gradient-to-r from-green-500 to-emerald-600 h-3 transition-all"
-                                        style={{ width: `${(completedTasksToday / totalTasksToday) * 100}%`, borderRadius: '2px' }}
-                                    ></div>
-                                </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {milestones.slice(0, 6).map((milestone, index) => (
+                                <motion.div
+                                    key={milestone.id}
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: 0.1 * index }}
+                                    className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-600 hover:shadow-md transition-all"
+                                >
+                                    <div className="flex items-start justify-between mb-3">
+                                        <div className="flex items-center gap-2">
+                                            {milestone.status === 'achieved' && <CheckCircle2 className="w-5 h-5 text-green-500" />}
+                                            {milestone.status === 'in_progress' && <Clock className="w-5 h-5 text-blue-500" />}
+                                            {milestone.status === 'blocked' && <AlertCircle className="w-5 h-5 text-red-500" />}
+                                            {milestone.status === 'not_started' && <Circle className="w-5 h-5 text-gray-400" />}
+                                        </div>
+                                        <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                                            milestone.priority === 'urgent' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
+                                            milestone.priority === 'high' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
+                                            milestone.priority === 'medium' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' :
+                                            'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
+                                        }`}>
+                                            {milestone.priority}
+                                        </span>
+                                    </div>
+                                    <h3 className="font-bold text-[var(--text-main)] mb-2">{milestone.title}</h3>
+                                    {milestone.target_metric && (
+                                        <p className="text-sm text-purple-600 dark:text-purple-400 font-semibold mb-2">
+                                            🎯 {milestone.target_metric}
+                                        </p>
+                                    )}
+                                    {milestone.due_date && (
+                                        <p className="text-xs text-[var(--text-soft)]">
+                                            Due: {new Date(milestone.due_date).toLocaleDateString()}
+                                        </p>
+                                    )}
+                                </motion.div>
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+
+                {/* Foundation Strategy Tools */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 mb-8"
+                >
+                    <div className="flex items-center justify-between mb-6">
+                        <h2 className="text-2xl font-black text-[var(--text-main)] flex items-center gap-3">
+                            <div className="bg-indigo-100 dark:bg-indigo-900/30 p-2 rounded-xl">
+                                <Map className="w-6 h-6 text-indigo-600" />
                             </div>
-                        ) : (
-                            <div className="text-center py-6">
-                                <p className="text-[var(--text-soft)] mb-4 text-sm">No tasks tracked today yet.</p>
-                                <Link to={createPageUrl('DailyTrack')} className="btn btn-primary text-sm">
-                                    <CheckCircle className="w-4 h-4 mr-2" />
-                                    Start Tracking
+                            Foundation Strategy Tools
+                        </h2>
+                        <Link to={createPageUrl('MyFoundationRoadmap')} className="text-indigo-600 hover:text-indigo-700 font-semibold flex items-center gap-1">
+                            View All <ArrowRight className="w-5 h-5" />
+                        </Link>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        {[
+                            { name: 'Define Your WHY', type: 'define_your_why', icon: Target, color: 'from-red-500 to-pink-500' },
+                            { name: 'Ideal Client', type: 'ideal_client', icon: Users, color: 'from-blue-500 to-cyan-500' },
+                            { name: 'Business Model Canvas', type: 'business_model_canvas', icon: Briefcase, color: 'from-green-500 to-emerald-500' },
+                            { name: 'Value Proposition', type: 'value_proposition', icon: Zap, color: 'from-yellow-500 to-orange-500' },
+                        ].map((tool) => {
+                            const completed = strategyDocs.some(doc => doc.document_type === tool.type);
+                            return (
+                                <Link
+                                    key={tool.type}
+                                    to={createPageUrl('MyFoundationRoadmap')}
+                                    className="relative overflow-hidden rounded-xl p-4 bg-gradient-to-br hover:scale-105 transition-all duration-300 group"
+                                    style={{ 
+                                        backgroundImage: `linear-gradient(135deg, ${completed ? '#10b981' : '#6b7280'}, ${completed ? '#059669' : '#4b5563'})`
+                                    }}
+                                >
+                                    <div className="relative z-10">
+                                        <tool.icon className="w-8 h-8 text-white mb-3" />
+                                        <h3 className="text-white font-bold mb-1">{tool.name}</h3>
+                                        <div className="flex items-center gap-1">
+                                            {completed ? (
+                                                <>
+                                                    <CheckCircle2 className="w-4 h-4 text-white" />
+                                                    <span className="text-xs text-white/90">Complete</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Circle className="w-4 h-4 text-white/70" />
+                                                    <span className="text-xs text-white/70">Not Started</span>
+                                                </>
+                                            )}
+                                        </div>
+                                    </div>
                                 </Link>
+                            );
+                        })}
+                    </div>
+                </motion.div>
+
+                {/* Financial Snapshot */}
+                {business && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.6 }}
+                        className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl p-6 shadow-lg border-2 border-green-200 dark:border-green-700 mb-8"
+                    >
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="bg-green-500 p-3 rounded-xl">
+                                <DollarSign className="w-6 h-6 text-white" />
+                            </div>
+                            <div>
+                                <h2 className="text-2xl font-black text-[var(--text-main)]">Financial Snapshot</h2>
+                                <p className="text-sm text-[var(--text-soft)]">Your path to financial freedom</p>
+                            </div>
+                        </div>
+                        
+                        {user?.freedom_number && (
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="bg-white dark:bg-gray-800 rounded-xl p-4">
+                                    <p className="text-sm text-[var(--text-soft)] mb-1">Freedom Number</p>
+                                    <p className="text-3xl font-black text-green-600">${user.freedom_number?.toLocaleString()}</p>
+                                    <p className="text-xs text-[var(--text-soft)] mt-1">Monthly revenue goal</p>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 rounded-xl p-4">
+                                    <p className="text-sm text-[var(--text-soft)] mb-1">Products/Services</p>
+                                    <p className="text-3xl font-black text-blue-600">{user?.products?.length || 0}</p>
+                                    <p className="text-xs text-[var(--text-soft)] mt-1">Active offerings</p>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800 rounded-xl p-4">
+                                    <p className="text-sm text-[var(--text-soft)] mb-1">Monthly Expenses</p>
+                                    <p className="text-3xl font-black text-orange-600">${user?.monthly_expenses?.toLocaleString() || 0}</p>
+                                    <p className="text-xs text-[var(--text-soft)] mt-1">Baseline to cover</p>
+                                </div>
                             </div>
                         )}
-                    </div>
-
-                    <UpcomingTasksPreview />
-                </div>
-
-                {/* Quick Actions Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
-                    <ActionCard
-                        title="Annual Strategy"
-                        description="Plan your year and quarterly goals"
-                        icon={Calendar}
-                        link="AnnualPlanning"
-                        color="from-indigo-500 to-purple-600"
-                    />
-                    <ActionCard
-                        title="Marketing Hub"
-                        description="Your complete marketing strategy and social plan"
-                        icon={TrendingUp}
-                        link="MarketingOverview"
-                        color="from-yellow-500 to-orange-600"
-                    />
-                    <ActionCard
-                        title="Business Overview"
-                        description="Financial goals, products, and strategy"
-                        icon={Briefcase}
-                        link="BusinessOverview"
-                        color="from-gray-500 to-slate-600"
-                    />
-                </div>
-
-                {/* Journey Timeline & Financial Snapshot & Daily Insights */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-                    <div className="lg:col-span-2 h-full">
-                        <JourneyTimeline user={user} />
-                    </div>
-                    <div className="space-y-4 sm:space-y-6 h-full flex flex-col">
-                        <FinancialSnapshot user={user} />
-                        <DailyInsightTabs />
-                    </div>
-                </div>
-
-                {/* Foundation Roadmap Accordion */}
-                <div className="card p-6" style={{ borderRadius: '2px' }}>
-                    <button 
-                        onClick={() => setIsFoundationOpen(!isFoundationOpen)}
-                        className="w-full flex items-center justify-between"
-                    >
-                        <div className="flex items-center gap-3">
-                            <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg">
-                                <Map className="w-6 h-6 text-blue-600" />
-                            </div>
-                            <div className="text-left">
-                                <h2 className="text-2xl font-bold text-[var(--text-main)]">My Foundation Roadmap</h2>
-                                <p className="text-sm text-[var(--text-soft)]">Essential strategy tools for building a strong business foundation</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Link to={createPageUrl('MyFoundationRoadmap')} onClick={(e) => e.stopPropagation()}>
-                                <button className="btn btn-secondary btn-sm">
-                                    View All
-                                </button>
-                            </Link>
-                            <ChevronDown className={`w-5 h-5 text-[var(--text-soft)] transition-transform ${isFoundationOpen ? 'rotate-180' : ''}`} />
-                        </div>
-                    </button>
-                    {isFoundationOpen && (
-                        <div className="mt-6">
-                            <FoundationRoadmapVisual user={user} />
-                        </div>
-                    )}
-                </div>
-
-                {/* Foundation Progress - Shows for all free users based on their stage */}
-                <FoundationProgress user={user} />
+                        
+                        <Link to={createPageUrl('FreedomCalculator')} className="btn w-full mt-4 bg-green-600 hover:bg-green-700 text-white justify-center">
+                            <BarChart3 className="w-5 h-5 mr-2" />
+                            Update Financial Goals
+                        </Link>
+                    </motion.div>
+                )}
 
                 {/* Meet Your AI Team */}
                 {aiSuggestion && recommendedAgent && (
