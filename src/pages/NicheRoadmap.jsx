@@ -339,17 +339,38 @@ export default function NicheRoadmapPage() {
                                 {isTaskExpanded && (
                                   <div className="mt-4 space-y-4">
                                     {task.detailedSteps.map((step, idx) => (
-                                      <div key={idx} className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg border-l-4 border-[var(--primary-gold)]">
-                                        <div className="flex items-start gap-3">
-                                          <span className="flex-shrink-0 w-7 h-7 bg-[var(--primary-gold)] text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                      <div key={idx} className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 p-4 sm:p-5 rounded-lg border-l-4 border-[var(--primary-gold)] shadow-sm">
+                                        <div className="flex items-start gap-3 sm:gap-4">
+                                          <span className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-[var(--primary-gold)] to-yellow-600 text-white rounded-full flex items-center justify-center text-base font-bold shadow-md">
                                             {idx + 1}
                                           </span>
-                                          <p className="text-base leading-relaxed text-[var(--text-main)] flex-1">
+                                          <p className="text-base sm:text-lg leading-relaxed text-[var(--text-main)] flex-1">
                                             {step}
                                           </p>
                                         </div>
                                       </div>
                                     ))}
+                                    
+                                    {task.hqTools && task.hqTools.length > 0 && (
+                                      <div className="mt-6 bg-purple-50 dark:bg-purple-900/30 border-2 border-purple-300 dark:border-purple-700 rounded-lg p-4">
+                                        <h5 className="font-bold text-[var(--text-main)] mb-3 flex items-center gap-2 text-base">
+                                          <ExternalLink className="w-5 h-5 text-purple-600" />
+                                          Interactive Forms & Tools
+                                        </h5>
+                                        <div className="flex flex-wrap gap-2">
+                                          {getToolLinks(task.hqTools).map((toolLink, tlIdx) => (
+                                            <Link
+                                              key={tlIdx}
+                                              to={createPageUrl(toolLink.page)}
+                                              className="inline-flex items-center gap-2 px-3 py-2 bg-white dark:bg-gray-800 hover:bg-purple-100 dark:hover:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-lg border border-purple-300 dark:border-purple-600 transition-all text-sm font-medium shadow-sm hover:shadow-md"
+                                            >
+                                              <Zap className="w-4 h-4" />
+                                              {toolLink.label}
+                                            </Link>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    )}
                                   </div>
                                 )}
                               </div>
