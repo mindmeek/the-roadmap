@@ -689,18 +689,19 @@ const NavItem = ({ item, isExpanded, isActive, onClick }) => {
         <Link
             to={createPageUrl(item.href)}
             onClick={onClick}
-            className={`group flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors whitespace-nowrap overflow-hidden ${
+            className={`group flex items-center px-2 py-2.5 text-sm font-medium rounded-md transition-all whitespace-nowrap ${
                 isActive
                     ? 'bg-[var(--primary-gold)] text-white'
                     : 'text-gray-300 hover:bg-gray-800 hover:text-white'
-            }`}
+            } ${!isExpanded ? 'justify-center' : ''}`}
             id={`nav-item-${item.href}`}
-            >
-            {IconComponent && <IconComponent className={`mr-3 h-5 w-5 ${isActive ? 'text-white' : 'text-gray-500 group-hover:text-gray-300'} ${isExpanded ? '' : 'mx-auto mr-0'}`} />}
-            {isExpanded && item.label}
-            </Link>
-            );
-            };
+            title={!isExpanded ? item.label : ''}
+        >
+            {IconComponent && <IconComponent className={`h-5 w-5 ${isActive ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'} ${isExpanded ? 'mr-3' : ''}`} />}
+            {isExpanded && <span className="truncate">{item.label}</span>}
+        </Link>
+    );
+};
 
 const CollapsibleSection = ({ title, items, isExpanded, isOpen, onToggle, location, onItemClick, user }) => {
     const filteredItems = items.filter(item => {
