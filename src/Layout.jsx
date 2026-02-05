@@ -1197,38 +1197,15 @@ export default function Layout({ children, currentPageName }) {
                 onMouseLeave={() => setIsSidebarExpanded(false)}
             >
                 <div className={`flex flex-col h-full bg-black border-r border-gray-800 transition-all duration-300 ${isSidebarExpanded ? 'w-64' : 'w-16'}`}>
-                    <div
-                        className={`flex-shrink-0 flex items-center justify-center border-b border-gray-800 relative transition-all duration-300 ${isSidebarExpanded ? 'h-32 p-4' : 'h-20 p-2'}`}
-                        style={isSidebarExpanded ? {
-                            backgroundImage: `url(https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/87939415f_lycs-architecture-U2BI3GMnSSE-unsplash.jpg)`,
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                        } : {}}
-                    >
-                        {isSidebarExpanded && <div className="absolute inset-0 bg-black bg-opacity-50"></div>}
-                        <Link to={createPageUrl("Dashboard")} className="relative z-10 flex items-center justify-center" onClick={() => !isSidebarExpanded && setIsSidebarExpanded(true)}>
-                            {isSidebarExpanded ? (
-                                <img
-                                    src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/e1535f93c_gfg8788.png"
-                                    alt="Business Minds"
-                                    className="h-16 w-auto transition-all duration-300"
-                                    loading="lazy"
-                                />
-                            ) : (
-                                <img
-                                    src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/bb3a4dba9_SmallAppIcon.png"
-                                    alt="BM"
-                                    className="h-12 w-12 rounded-md transition-all duration-300"
-                                    loading="lazy"
-                                />
-                            )}
+                    <div className="flex-shrink-0 flex items-center justify-center border-b border-gray-800 py-4">
+                        <Link to={createPageUrl("Dashboard")} className="flex items-center justify-center">
+                            <img
+                                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/bb3a4dba9_SmallAppIcon.png"
+                                alt="BM"
+                                className="h-10 w-10 rounded-md transition-all duration-300"
+                                loading="lazy"
+                            />
                         </Link>
-                        <button
-                            onClick={() => setIsSidebarExpanded(!isSidebarExpanded)}
-                            className="absolute top-1/2 -right-4 -translate-y-1/2 bg-[var(--primary-gold)] text-white rounded-full p-1 shadow-md z-20 hover:scale-110 transition-transform duration-300 hidden xl:block"
-                        >
-                            {isSidebarExpanded ? <ChevronsLeft className="w-4 h-4" /> : <ChevronsRight className="w-4 h-4" />}
-                        </button>
                     </div>
 
                     <SidebarContent
