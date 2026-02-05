@@ -607,11 +607,11 @@ const UserProfileSidebar = () => {
 
     if (loading) {
         return (
-            <div className="p-4 flex items-center space-x-3 animate-pulse">
-                <div className="w-12 h-12 bg-gray-700 rounded-md"></div>
+            <div className="p-3 flex items-center space-x-3 animate-pulse">
+                <div className="w-10 h-10 bg-gray-700 rounded-md"></div>
                 <div className="flex-1">
-                    <div className="h-4 bg-gray-700 rounded w-3/4"></div>
-                    <div className="h-3 bg-gray-700 rounded w-1/2 mt-2"></div>
+                    <div className="h-3 bg-gray-700 rounded w-3/4"></div>
+                    <div className="h-2 bg-gray-700 rounded w-1/2 mt-2"></div>
                 </div>
             </div>
         );
@@ -620,19 +620,19 @@ const UserProfileSidebar = () => {
     if (!user) return null;
 
     return (
-        <div className="p-4 border-t border-gray-800">
-            <div className="flex items-center space-x-3">
+        <div className="p-3">
+            <Link to={createPageUrl('Profile')} className="flex items-center space-x-3 hover:bg-gray-800/50 p-2 rounded-md transition-colors">
                 <img
                     src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/bb3a4dba9_SmallAppIcon.png"
                     alt="Profile"
-                    className="w-[50px] h-[50px] rounded-md object-cover"
+                    className="w-10 h-10 rounded-md object-cover"
                     loading="lazy"
                 />
                 <div className="flex-1 min-w-0">
                     <p className="font-semibold text-sm text-white truncate">{user.full_name}</p>
-                    <Link to={createPageUrl('Profile')} className="text-xs text-gray-300 hover:text-[var(--primary-gold)]">View Profile</Link>
+                    <p className="text-xs text-gray-400">View Profile</p>
                 </div>
-            </div>
+            </Link>
         </div>
     );
 };
