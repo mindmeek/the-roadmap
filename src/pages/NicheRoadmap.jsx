@@ -21,6 +21,34 @@ const programContentMap = {
   'musical_artist_growth': musicalArtistGrowthRoadmap,
 };
 
+// Tool mapping for quick access to interactive forms
+const getToolLinks = (hqTools) => {
+  const toolMap = {
+    'HQ Strategy Tool: Ideal Client Profile': { label: 'Ideal Client Profile', page: 'StrategyFormIdealClient' },
+    'HQ Strategy Tool: Value Ladder': { label: 'Value Ladder', page: 'StrategyFormValueLadder' },
+    'HQ Strategy Tool: Brand Identity': { label: 'Brand Identity', page: 'StrategyFormBrandIdentity' },
+    'HQ Strategy Tools': { label: 'Strategy Tools', page: 'MyFoundationRoadmap' },
+    'HQ AI Tools': { label: 'AI Assistants', page: 'ElyzetAIAssistants' },
+    'Brand Kit': { label: 'Brand Kit', page: 'BrandKit' },
+    'HQ Forms': { label: 'Forms', page: 'MyFoundationRoadmap' },
+    'HQ Community': { label: 'Community', page: 'TheCommunity' },
+    'HQ Community Hub': { label: 'Community', page: 'TheCommunity' },
+  };
+
+  const links = [];
+  const addedPages = new Set();
+  
+  hqTools.forEach(tool => {
+    const match = toolMap[tool];
+    if (match && !addedPages.has(match.page)) {
+      links.push(match);
+      addedPages.add(match.page);
+    }
+  });
+  
+  return links;
+};
+
 export default function NicheRoadmapPage() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
