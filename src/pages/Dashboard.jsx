@@ -324,6 +324,17 @@ export default function DashboardPage() {
                     <UpcomingTasksPreview />
                 </div>
 
+                {/* Journey Timeline & Financial Snapshot & Daily Insights */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+                    <div className="lg:col-span-2 h-full">
+                        <JourneyTimeline user={user} />
+                    </div>
+                    <div className="space-y-4 sm:space-y-6 h-full flex flex-col">
+                        <FinancialSnapshot user={user} />
+                        <DailyInsightTabs />
+                    </div>
+                </div>
+
                 {/* Quick Actions Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
                     <ActionCard
@@ -347,17 +358,6 @@ export default function DashboardPage() {
                         link="BusinessOverview"
                         color="from-gray-500 to-slate-600"
                     />
-                </div>
-
-                {/* Journey Timeline & Financial Snapshot & Daily Insights */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-                    <div className="lg:col-span-2 h-full">
-                        <JourneyTimeline user={user} />
-                    </div>
-                    <div className="space-y-4 sm:space-y-6 h-full flex flex-col">
-                        <FinancialSnapshot user={user} />
-                        <DailyInsightTabs />
-                    </div>
                 </div>
 
                 {/* Foundation Roadmap Accordion */}
