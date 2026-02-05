@@ -19,7 +19,10 @@ import {
     Apple,
     Smartphone,
     Map,
-    DollarSign
+    DollarSign,
+    Save,
+    X,
+    Sparkles
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -34,6 +37,9 @@ export default function BusinessOverview() {
     const [foundationProgress, setFoundationProgress] = useState(null);
     const [currentJourney, setCurrentJourney] = useState(null);
     const [annualPlan, setAnnualPlan] = useState(null);
+    const [isEditingAbout, setIsEditingAbout] = useState(false);
+    const [aboutText, setAboutText] = useState('');
+    const [savingAbout, setSavingAbout] = useState(false);
 
     useEffect(() => {
         loadBusinessOverview();
@@ -64,6 +70,7 @@ export default function BusinessOverview() {
             const businesses = await base44.entities.Business.filter({ owner_user_id: currentUser.id });
             if (businesses.length > 0) {
                 setBusiness(businesses[0]);
+                setAboutText(businesses[0].description || '');
             }
 
             // Fetch all Strategy Documents
@@ -101,6 +108,41 @@ export default function BusinessOverview() {
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleSaveAbout = async () => {
+        if (!business) return;
+        setSavingAbout(true);
+        try {
+            await base44.entities.Business.update(business.id, { description: aboutText });
+            setBusiness({ ...business, description: aboutText });
+            setIsEditingAbout(false);
+        } catch (error) {
+            console.error('Error saving about section:', error);
+        } finally {
+            setSavingAbout(false);
+        }
+    };
+
+    const generateAboutFromStrategy = () => {
+        const whyDoc = strategyDocs['define_your_why'];
+        const idealClientDoc = strategyDocs['ideal_client'];
+        
+        let generatedText = '';
+        
+        if (whyDoc?.content?.why_statement) {
+            generatedText += whyDoc.content.why_statement + '\n\n';
+        }
+        
+        if (whyDoc?.content?.core_values && Array.isArray(whyDoc.content.core_values)) {
+            generatedText += 'Our Core Values: ' + whyDoc.content.core_values.join(', ') + '.\n\n';
+        }
+        
+        if (idealClientDoc?.content?.problem) {
+            generatedText += `We help ${idealClientDoc.content.name || 'our clients'} solve ${idealClientDoc.content.problem}`;
+        }
+        
+        setAboutText(generatedText.trim());
     };
 
     const StrategyCard = ({ title, icon: Icon, document, formPage, color }) => {
@@ -269,32 +311,123 @@ export default function BusinessOverview() {
             </div>
 
             <div className="max-w-5xl mx-auto px-4">
-            {/* Business Contact Card */}
-            {business?.description && (
-                <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
-                    <h2 className="text-xl font-bold mb-3 text-[var(--primary-gold)] flex items-center gap-2">
+            {/* About Our Business - Editable */}
+            <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
+                <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-xl font-bold text-[var(--primary-gold)] flex items-center gap-2">
                         <Briefcase className="w-5 h-5" />
                         About Our Business
                     </h2>
-                    <p className="text-[var(--text-soft)] leading-relaxed mb-4">{business.description}</p>
-                    <div className="flex flex-wrap gap-4 text-sm text-[var(--text-soft)] pt-4 border-t border-gray-200 dark:border-gray-700">
-                        {business?.public_email && (
-                            <span><strong>Email:</strong> {business.public_email}</span>
-                        )}
-                        {business?.public_phone && (
-                            <span><strong>Phone:</strong> {business.public_phone}</span>
-                        )}
-                        {business?.city && (
-                            <span><strong>Location:</strong> {business.city}</span>
-                        )}
-                        {business?.website_url && (
-                            <a href={business.website_url} target="_blank" rel="noopener noreferrer" className="text-[var(--primary-gold)] hover:underline">
-                                <strong>Website</strong>
-                            </a>
-                        )}
-                    </div>
+                    {!isEditingAbout && (
+                        <Button 
+                            onClick={() => setIsEditingAbout(true)} 
+                            variant="outline" 
+                            size="sm"
+                            style={{ borderRadius: '1px' }}
+                        >
+                            <Edit className="w-3 h-3 mr-2" />
+                            Edit
+                        </Button>
+                    )}
                 </div>
-            )}
+
+                {isEditingAbout ? (
+                    <div className="space-y-4">
+                        {(strategyDocs['define_your_why'] || strategyDocs['ideal_client']) && (
+                            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-300 dark:border-blue-700 p-3" style={{ borderRadius: '1px' }}>
+                                <p className="text-sm text-[var(--text-soft)] mb-2 flex items-center gap-2">
+                                    <Sparkles className="w-4 h-4 text-blue-600" />
+                                    Want to auto-generate from your Why and Core Values?
+                                </p>
+                                <Button 
+                                    onClick={generateAboutFromStrategy}
+                                    size="sm"
+                                    variant="outline"
+                                    style={{ borderRadius: '1px' }}
+                                >
+                                    <Sparkles className="w-3 h-3 mr-2" />
+                                    Generate from Strategy
+                                </Button>
+                            </div>
+                        )}
+                        <textarea
+                            value={aboutText}
+                            onChange={(e) => setAboutText(e.target.value)}
+                            placeholder="Describe your business, what you do, who you serve, and what makes you unique..."
+                            className="w-full h-40 form-input resize-none"
+                            style={{ borderRadius: '1px' }}
+                        />
+                        <div className="flex gap-2 justify-end">
+                            <Button 
+                                onClick={() => {
+                                    setIsEditingAbout(false);
+                                    setAboutText(business?.description || '');
+                                }}
+                                variant="outline"
+                                size="sm"
+                                style={{ borderRadius: '1px' }}
+                            >
+                                <X className="w-3 h-3 mr-2" />
+                                Cancel
+                            </Button>
+                            <Button 
+                                onClick={handleSaveAbout}
+                                disabled={savingAbout}
+                                size="sm"
+                                style={{ borderRadius: '1px' }}
+                            >
+                                {savingAbout ? (
+                                    <>
+                                        <Loader2 className="w-3 h-3 mr-2 animate-spin" />
+                                        Saving...
+                                    </>
+                                ) : (
+                                    <>
+                                        <Save className="w-3 h-3 mr-2" />
+                                        Save
+                                    </>
+                                )}
+                            </Button>
+                        </div>
+                    </div>
+                ) : (
+                    <>
+                        {aboutText ? (
+                            <p className="text-[var(--text-soft)] leading-relaxed mb-4 whitespace-pre-wrap">{aboutText}</p>
+                        ) : (
+                            <div className="text-center py-8 border-2 border-dashed border-gray-300 dark:border-gray-600" style={{ borderRadius: '1px' }}>
+                                <p className="text-sm text-[var(--text-soft)] mb-3">Tell visitors about your business</p>
+                                <Button 
+                                    onClick={() => setIsEditingAbout(true)}
+                                    size="sm"
+                                    style={{ borderRadius: '1px' }}
+                                >
+                                    <Edit className="w-3 h-3 mr-2" />
+                                    Add About Section
+                                </Button>
+                            </div>
+                        )}
+                        {business && (
+                            <div className="flex flex-wrap gap-4 text-sm text-[var(--text-soft)] pt-4 border-t border-gray-200 dark:border-gray-700">
+                                {business.public_email && (
+                                    <span><strong>Email:</strong> {business.public_email}</span>
+                                )}
+                                {business.public_phone && (
+                                    <span><strong>Phone:</strong> {business.public_phone}</span>
+                                )}
+                                {business.city && (
+                                    <span><strong>Location:</strong> {business.city}</span>
+                                )}
+                                {business.website_url && (
+                                    <a href={business.website_url} target="_blank" rel="noopener noreferrer" className="text-[var(--primary-gold)] hover:underline">
+                                        <strong>Website</strong>
+                                    </a>
+                                )}
+                            </div>
+                        )}
+                    </>
+                )}
+            </div>
 
             {/* Freedom Number & Products - Dedicated Section */}
             <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
