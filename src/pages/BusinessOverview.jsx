@@ -17,7 +17,8 @@ import {
     FileText,
     ArrowRight,
     Apple,
-    Smartphone
+    Smartphone,
+    Map
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -186,9 +187,89 @@ export default function BusinessOverview() {
     }
 
     return (
-        <div className="max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-8">
-            {/* Header - Business Card Style */}
-            <div className="card p-8 mb-6 border-2 border-[var(--primary-gold)]" style={{ borderRadius: '1px' }}>
+        <div className="pb-24 md:pb-8">
+            {/* Hero Section with Modern Background */}
+            <div 
+                className="relative mb-8"
+                style={{
+                    backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1600&h=500&fit=crop')`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    minHeight: '450px'
+                }}
+            >
+                <div className="max-w-7xl mx-auto px-4 py-12 md:py-16">
+                    <div className="flex flex-col md:flex-row items-start gap-8 mb-8">
+                        {business?.logo_url && (
+                            <img 
+                                src={business.logo_url} 
+                                alt="Business Logo" 
+                                className="w-32 h-32 object-contain bg-white p-4 shadow-2xl"
+                                style={{ borderRadius: '1px' }}
+                            />
+                        )}
+                        <div className="flex-1 text-white">
+                            <h1 className="text-4xl md:text-5xl font-bold mb-3 text-white">
+                                {business?.name || user?.business_name || 'Your Business'}
+                            </h1>
+                            {business?.tagline && (
+                                <p className="text-xl md:text-2xl text-[var(--primary-gold)] mb-4">
+                                    {business.tagline}
+                                </p>
+                            )}
+                            {business?.industry && (
+                                <p className="text-gray-200 mb-6">
+                                    <strong>Industry:</strong> {business.industry}
+                                </p>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Hero Intro */}
+                    <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-6 max-w-5xl" style={{ borderRadius: '1px' }}>
+                        <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                            <Briefcase className="w-7 h-7 text-[var(--primary-gold)]" />
+                            Your Complete Business Command Center
+                        </h2>
+                        <p className="text-gray-100 text-base leading-relaxed mb-6">
+                            This is your all-in-one business dashboard where strategy meets execution. Everything you need to build, grow, and scale your business is organized here—from your financial goals and strategic framework to team collaboration and daily operations. Track progress, align your team, and make data-driven decisions all from this central hub.
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="flex items-start gap-3">
+                                <div className="bg-[var(--primary-gold)] p-2" style={{ borderRadius: '1px' }}>
+                                    <Target className="w-5 h-5 text-white" />
+                                </div>
+                                <div>
+                                    <h3 className="font-semibold text-white mb-1">Strategic Clarity</h3>
+                                    <p className="text-xs text-gray-200">See your complete business strategy at a glance</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <div className="bg-blue-500 p-2" style={{ borderRadius: '1px' }}>
+                                    <Users className="w-5 h-5 text-white" />
+                                </div>
+                                <div>
+                                    <h3 className="font-semibold text-white mb-1">Team Alignment</h3>
+                                    <p className="text-xs text-gray-200">Collaborate seamlessly with your team</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <div className="bg-green-500 p-2" style={{ borderRadius: '1px' }}>
+                                    <TrendingUp className="w-5 h-5 text-white" />
+                                </div>
+                                <div>
+                                    <h3 className="font-semibold text-white mb-1">Growth Tracking</h3>
+                                    <p className="text-xs text-gray-200">Monitor progress toward your freedom number</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="max-w-5xl mx-auto px-4">
+            {/* Financial Overview Card */}
+            <div className="card p-6 mb-6 border-2 border-[var(--primary-gold)]" style={{ borderRadius: '1px' }}>
                 <div className="text-center mb-8">
                     {business?.logo_url && (
                         <img 
@@ -341,9 +422,23 @@ export default function BusinessOverview() {
 
             {/* Core Business Identity */}
             <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
-                <h2 className="text-2xl font-bold mb-4 pb-2 border-b-2 border-[var(--primary-gold)]">
-                    Core Business Identity
-                </h2>
+                <div className="mb-6 pb-4 border-b-2 border-[var(--primary-gold)]">
+                    <h2 className="text-2xl font-bold mb-3">
+                        Core Business Identity
+                    </h2>
+                    <p className="text-[var(--text-soft)] leading-relaxed mb-3">
+                        Your business identity is the foundation of everything you do. It defines who you are, what you stand for, and how customers perceive you. This section contains your brand essence, ideal client profile, and value proposition—the core elements that differentiate you from competitors and attract your perfect customers.
+                    </p>
+                    <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-4" style={{ borderRadius: '1px' }}>
+                        <p className="text-sm font-semibold text-[var(--text-main)] mb-2 flex items-center gap-2">
+                            <Lightbulb className="w-4 h-4 text-blue-600" />
+                            Real-World Example
+                        </p>
+                        <p className="text-sm text-[var(--text-soft)]">
+                            Nike's core identity isn't just selling shoes—it's about inspiring athletes. Their "Just Do It" tagline, swoosh logo, and focus on high-performing individuals create a clear identity that attracts their ideal customers. Similarly, your brand identity and ideal client profile work together to attract the right people to your business.
+                        </p>
+                    </div>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Your Why */}
                     <div className="border border-gray-200 dark:border-gray-700 p-4 hover:shadow-lg transition-all" style={{ borderRadius: '1px' }}>
@@ -436,9 +531,23 @@ export default function BusinessOverview() {
 
             {/* Strategic Framework */}
             <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
-                <h2 className="text-2xl font-bold mb-4 pb-2 border-b-2 border-[var(--primary-gold)]">
-                    Strategic Framework
-                </h2>
+                <div className="mb-6 pb-4 border-b-2 border-[var(--primary-gold)]">
+                    <h2 className="text-2xl font-bold mb-3">
+                        Strategic Framework
+                    </h2>
+                    <p className="text-[var(--text-soft)] leading-relaxed mb-3">
+                        Your strategic framework is the blueprint for how your business operates and competes. It includes your business model, SWOT analysis, value ladder, and competitive positioning. This framework helps you understand your market position, identify opportunities, and create multiple revenue streams.
+                    </p>
+                    <div className="bg-purple-50 dark:bg-purple-900/20 border-l-4 border-purple-500 p-4" style={{ borderRadius: '1px' }}>
+                        <p className="text-sm font-semibold text-[var(--text-main)] mb-2 flex items-center gap-2">
+                            <Target className="w-4 h-4 text-purple-600" />
+                            Real-World Example
+                        </p>
+                        <p className="text-sm text-[var(--text-soft)]">
+                            Amazon started by selling books but used a strategic framework to expand into a marketplace, cloud computing (AWS), and streaming services. Their business model canvas showed multiple revenue streams, while their value ladder moved customers from low-cost products to high-value Prime memberships. Your strategic framework creates this same clarity for growth opportunities.
+                        </p>
+                    </div>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <StrategyCard
                         title="Business Model Canvas"
@@ -523,9 +632,23 @@ export default function BusinessOverview() {
 
             {/* Customer Journey Map */}
             <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
-                <div className="flex items-center justify-between mb-4 pb-2 border-b-2 border-[var(--primary-gold)]">
-                    <h2 className="text-2xl font-bold">Customer Journey Map</h2>
-                    {strategyDocs['customer_journey']?.is_completed && <CheckCircle className="w-5 h-5 text-green-600" />}
+                <div className="mb-6 pb-4 border-b-2 border-[var(--primary-gold)]">
+                    <div className="flex items-center justify-between mb-3">
+                        <h2 className="text-2xl font-bold">Customer Journey Map</h2>
+                        {strategyDocs['customer_journey']?.is_completed && <CheckCircle className="w-5 h-5 text-green-600" />}
+                    </div>
+                    <p className="text-[var(--text-soft)] leading-relaxed mb-3">
+                        Your customer journey map shows every touchpoint from awareness to purchase and beyond. Understanding this journey helps you create better marketing, improve conversions, and deliver exceptional experiences at each stage. It's your roadmap for turning strangers into loyal advocates.
+                    </p>
+                    <div className="bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500 p-4" style={{ borderRadius: '1px' }}>
+                        <p className="text-sm font-semibold text-[var(--text-main)] mb-2 flex items-center gap-2">
+                            <Heart className="w-4 h-4 text-green-600" />
+                            Real-World Example
+                        </p>
+                        <p className="text-sm text-[var(--text-soft)]">
+                            Starbucks mastered the customer journey: Awareness (store on every corner), Consideration (enticing aromas and displays), Purchase (mobile ordering for convenience), Experience (personalized drinks and cozy atmosphere), and Loyalty (rewards program). Each stage is optimized to move customers forward. Your journey map creates this same intentional experience.
+                        </p>
+                    </div>
                 </div>
                 {strategyDocs['customer_journey'] && strategyDocs['customer_journey'].content?.stages ? (
                     <div className="space-y-4">
@@ -570,9 +693,23 @@ export default function BusinessOverview() {
 
             {/* Active Journeys & Plans */}
             <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
-                <h2 className="text-2xl font-bold mb-4 pb-2 border-b-2 border-[var(--primary-gold)]">
-                    Active Journeys & Plans
-                </h2>
+                <div className="mb-6 pb-4 border-b-2 border-[var(--primary-gold)]">
+                    <h2 className="text-2xl font-bold mb-3">
+                        Active Journeys & Plans
+                    </h2>
+                    <p className="text-[var(--text-soft)] leading-relaxed mb-3">
+                        Your active journeys and plans are where strategy becomes action. This section tracks your 90-day business journey, foundation roadmap progress, and annual strategic plans. It's the bridge between your long-term vision and daily execution, keeping you focused on what matters most.
+                    </p>
+                    <div className="bg-orange-50 dark:bg-orange-900/20 border-l-4 border-orange-500 p-4" style={{ borderRadius: '1px' }}>
+                        <p className="text-sm font-semibold text-[var(--text-main)] mb-2 flex items-center gap-2">
+                            <Calendar className="w-4 h-4 text-orange-600" />
+                            Real-World Example
+                        </p>
+                        <p className="text-sm text-[var(--text-soft)]">
+                            Elon Musk famously breaks down SpaceX's ambitious goals into quarterly milestones and weekly sprints. Their "90-day plans" focus on specific rocket launches or manufacturing targets, while their annual vision guides the company toward Mars. Your journeys work the same way—breaking your big vision into achievable 90-day sprints with weekly actions.
+                        </p>
+                    </div>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Current 90-Day Journey */}
                     <div className="border border-gray-200 dark:border-gray-700 p-4" style={{ borderRadius: '1px' }}>
@@ -783,6 +920,7 @@ export default function BusinessOverview() {
             {business && (
                 <TeamManagementPanel business={business} />
             )}
-            </div>
-            );
-            }
+        </div>
+        </div>
+    );
+}
