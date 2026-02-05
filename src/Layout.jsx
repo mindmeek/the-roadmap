@@ -1184,7 +1184,7 @@ export default function Layout({ children, currentPageName }) {
                 onMouseEnter={() => setIsSidebarExpanded(true)}
                 onMouseLeave={() => setIsSidebarExpanded(false)}
             >
-                <div className={`flex flex-col h-full bg-black border-r border-gray-800 transition-all duration-300 ${isSidebarExpanded ? 'w-64' : 'w-16'}`}>
+                <div className={`flex flex-col h-full bg-black/95 backdrop-blur-sm border-r border-gray-800 shadow-2xl transition-all duration-300 ${isSidebarExpanded ? 'w-64' : 'w-16'}`}>
                     <div className="flex-shrink-0 flex items-center justify-center border-b border-gray-800 py-4">
                         <Link to={createPageUrl("Dashboard")} className="flex items-center justify-center">
                             <img
