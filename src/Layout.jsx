@@ -762,8 +762,8 @@ const SidebarContent = ({ user, isExpanded, onCloseMobileMenu, setIsListenDropdo
     };
 
     return (
-        <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-            <div className="flex-1 px-4 space-y-4">
+        <div className="flex-1 flex flex-col pt-3 pb-4 overflow-y-auto overflow-x-hidden">
+            <div className="flex-1 px-2 space-y-2">
                 <CollapsibleSection
                     title="My Journey Hub"
                     items={myJourneyHubItems}
