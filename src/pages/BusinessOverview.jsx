@@ -18,7 +18,8 @@ import {
     ArrowRight,
     Apple,
     Smartphone,
-    Map
+    Map,
+    DollarSign
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -268,40 +269,65 @@ export default function BusinessOverview() {
             </div>
 
             <div className="max-w-5xl mx-auto px-4">
-            {/* Financial Overview Card */}
-            <div className="card p-6 mb-6 border-2 border-[var(--primary-gold)]" style={{ borderRadius: '1px' }}>
-                <div className="text-center mb-8">
-                    {business?.logo_url && (
-                        <img 
-                            src={business.logo_url} 
-                            alt="Business Logo" 
-                            className="w-24 h-24 mx-auto mb-4 object-contain"
-                            style={{ borderRadius: '1px' }}
-                        />
-                    )}
-                    <h1 className="text-4xl font-bold mb-3">
-                        {business?.name || user?.business_name || 'Your Business'}
-                    </h1>
-                    {business?.tagline && (
-                        <p className="text-xl text-[var(--primary-gold)] font-semibold mb-4">
-                            {business.tagline}
-                        </p>
-                    )}
-                    {business?.industry && (
-                        <p className="text-[var(--text-soft)] mb-4">
-                            <strong>Industry:</strong> {business.industry}
-                        </p>
-                    )}
+            {/* Business Contact Card */}
+            {business?.description && (
+                <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
+                    <h2 className="text-xl font-bold mb-3 text-[var(--primary-gold)] flex items-center gap-2">
+                        <Briefcase className="w-5 h-5" />
+                        About Our Business
+                    </h2>
+                    <p className="text-[var(--text-soft)] leading-relaxed mb-4">{business.description}</p>
+                    <div className="flex flex-wrap gap-4 text-sm text-[var(--text-soft)] pt-4 border-t border-gray-200 dark:border-gray-700">
+                        {business?.public_email && (
+                            <span><strong>Email:</strong> {business.public_email}</span>
+                        )}
+                        {business?.public_phone && (
+                            <span><strong>Phone:</strong> {business.public_phone}</span>
+                        )}
+                        {business?.city && (
+                            <span><strong>Location:</strong> {business.city}</span>
+                        )}
+                        {business?.website_url && (
+                            <a href={business.website_url} target="_blank" rel="noopener noreferrer" className="text-[var(--primary-gold)] hover:underline">
+                                <strong>Website</strong>
+                            </a>
+                        )}
+                    </div>
+                </div>
+            )}
 
-                    {/* Financial Overview */}
-                    {user?.financial_projections && (
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+            {/* Freedom Number & Products - Dedicated Section */}
+            <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
+                <div className="mb-6 pb-4 border-b-2 border-[var(--primary-gold)]">
+                    <h2 className="text-2xl font-bold mb-3 flex items-center gap-3">
+                        <DollarSign className="w-7 h-7 text-green-600" />
+                        Freedom Number & Revenue Strategy
+                    </h2>
+                    <p className="text-[var(--text-soft)] leading-relaxed mb-3">
+                        Your Freedom Number is the exact monthly revenue you need to achieve financial independence. It's calculated from your personal expenses, desired salary, business costs, and a safety buffer. Below, you'll see how many units or subscriptions of each product/service you need to sell monthly to reach your Freedom Number—turning your financial goal into a clear, actionable sales target.
+                    </p>
+                    <div className="bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500 p-4" style={{ borderRadius: '1px' }}>
+                        <p className="text-sm font-semibold text-[var(--text-main)] mb-2 flex items-center gap-2">
+                            <Target className="w-4 h-4 text-green-600" />
+                            Real-World Example
+                        </p>
+                        <p className="text-sm text-[var(--text-soft)]">
+                            A fitness coach calculated her Freedom Number at $8,000/month. She offers 1-on-1 coaching ($500/session) and a group program ($97/month). To hit her target, she needs either 16 private clients OR 83 group members OR a mix—like 8 private clients + 42 group members. This clarity helps her focus marketing efforts and set realistic monthly sales goals.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Financial Overview */}
+                {user?.financial_projections ? (
+                    <>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                             {/* Monthly Freedom Number */}
-                            <div className="bg-green-50 dark:bg-green-900/20 border-2 border-green-500 p-4" style={{ borderRadius: '1px' }}>
+                            <div className="bg-green-50 dark:bg-green-900/20 border-2 border-green-500 p-4 text-center" style={{ borderRadius: '1px' }}>
                                 <p className="text-xs text-green-700 dark:text-green-400 font-semibold mb-2">Monthly Freedom Number</p>
-                                <p className="text-2xl font-bold text-green-600 dark:text-green-500">
+                                <p className="text-3xl font-bold text-green-600 dark:text-green-500">
                                     ${parseInt(user.financial_projections.freedomNumber || 0).toLocaleString()}
                                 </p>
+                                <p className="text-xs text-green-600/70 mt-1">Your revenue target</p>
                             </div>
 
                             {/* Personal & Lifestyle */}
@@ -341,83 +367,61 @@ export default function BusinessOverview() {
                                 </div>
                             </div>
                         </div>
-                    )}
-                </div>
 
-                {/* Business Description */}
-                {business?.description && (
-                    <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-800" style={{ borderRadius: '1px' }}>
-                        <h2 className="text-lg font-bold mb-2 text-[var(--primary-gold)]">About Our Business</h2>
-                        <p className="text-[var(--text-soft)] leading-relaxed">{business.description}</p>
+                        {/* Products & Sales Targets */}
+                        {user.financial_projections.products && user.financial_projections.products.length > 0 && (
+                            <div>
+                                <div className="flex items-center justify-between mb-4">
+                                    <h3 className="text-xl font-bold text-[var(--text-main)]">Your Products & Monthly Sales Targets</h3>
+                                    <Link to={createPageUrl('FreedomCalculator')}>
+                                        <Button variant="outline" size="sm" style={{ borderRadius: '1px' }}>
+                                            <Edit className="w-3 h-3 mr-2" />
+                                            Edit
+                                        </Button>
+                                    </Link>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    {user.financial_projections.products.map((product, idx) => {
+                                        const unitsNeeded = calculateUnitsNeeded(product, user.financial_projections.freedomNumber || 0);
+                                        return (
+                                            <div key={idx} className="p-4 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 border-2 border-gray-200 dark:border-gray-600 hover:shadow-lg transition-all" style={{ borderRadius: '1px' }}>
+                                                <h4 className="font-bold mb-2 text-[var(--text-main)]">{product.name}</h4>
+                                                {product.description && (
+                                                    <p className="text-xs text-[var(--text-soft)] mb-3 leading-relaxed">
+                                                        {product.description}
+                                                    </p>
+                                                )}
+                                                <div className="bg-white dark:bg-gray-900 p-3 mb-3" style={{ borderRadius: '1px' }}>
+                                                    <p className="text-xs text-[var(--text-soft)] mb-1">Current Price</p>
+                                                    <p className="text-2xl font-bold text-[var(--primary-gold)]">${product.price}</p>
+                                                </div>
+                                                <div className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 p-3" style={{ borderRadius: '1px' }}>
+                                                    <p className="text-xs text-blue-700 dark:text-blue-400 font-semibold mb-1">Monthly Sales Target</p>
+                                                    <p className="text-xl font-bold text-blue-600 dark:text-blue-500">
+                                                        {unitsNeeded.toLocaleString()}
+                                                    </p>
+                                                    <p className="text-xs text-blue-600/70 mt-1">
+                                                        {product.pricingType === 'monthly_subscription' ? 'subscribers needed' : 'units to sell'}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
+                    </>
+                ) : (
+                    <div className="text-center py-8">
+                        <p className="text-[var(--text-soft)] mb-4">Set up your Freedom Number and products to see your revenue strategy</p>
+                        <Link to={createPageUrl('FreedomCalculator')}>
+                            <Button className="btn-primary" style={{ borderRadius: '1px' }}>
+                                <DollarSign className="w-4 h-4 mr-2" />
+                                Calculate Freedom Number
+                            </Button>
+                        </Link>
                     </div>
                 )}
-
-                {/* Services */}
-                {user?.financial_projections?.products && user.financial_projections.products.length > 0 && (
-                    <div className="mb-6">
-                        <div className="flex items-center justify-between mb-3">
-                            <h2 className="text-lg font-bold text-[var(--primary-gold)]">Services & Products</h2>
-                            <Link to={createPageUrl('FreedomCalculator')}>
-                                <Button variant="outline" size="sm" style={{ borderRadius: '1px' }}>
-                                    <Edit className="w-3 h-3 mr-2" />
-                                    Edit
-                                </Button>
-                            </Link>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                            {user.financial_projections.products.map((product, idx) => {
-                                const unitsNeeded = calculateUnitsNeeded(product, user.financial_projections.freedomNumber || 0);
-                                return (
-                                    <div key={idx} className="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700" style={{ borderRadius: '1px' }}>
-                                        <h3 className="font-semibold mb-2 text-sm">{product.name}</h3>
-                                        {product.description && (
-                                            <p className="text-xs text-[var(--text-soft)] mb-2">
-                                                {product.description}
-                                            </p>
-                                        )}
-                                        <p className="text-lg font-bold text-[var(--primary-gold)] mb-2">${product.price}</p>
-                                        <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold">
-                                            Need to sell: {unitsNeeded.toLocaleString()}/month
-                                        </p>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                )}
-                
-                {(!user?.financial_projections?.products || user.financial_projections.products.length === 0) && (
-                    <div className="mb-6">
-                        <h2 className="text-lg font-bold mb-3 text-[var(--primary-gold)]">Services & Products</h2>
-                        <div className="p-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-center" style={{ borderRadius: '1px' }}>
-                            <p className="text-sm text-[var(--text-soft)] mb-3">No products defined yet</p>
-                            <Link to={createPageUrl('FreedomCalculator')}>
-                                <Button size="sm" className="btn-primary" style={{ borderRadius: '1px' }}>
-                                    <FileText className="w-3 h-3 mr-2" />
-                                    Define Products
-                                </Button>
-                            </Link>
-                        </div>
-                    </div>
-                )}
-
-                {/* Contact Information */}
-                <div className="flex flex-wrap gap-4 justify-center text-sm text-[var(--text-soft)]">
-                    {business?.public_email && (
-                        <span><strong>Email:</strong> {business.public_email}</span>
-                    )}
-                    {business?.public_phone && (
-                        <span><strong>Phone:</strong> {business.public_phone}</span>
-                    )}
-                    {business?.city && (
-                        <span><strong>Location:</strong> {business.city}</span>
-                    )}
-                    {business?.website_url && (
-                        <a href={business.website_url} target="_blank" rel="noopener noreferrer" className="text-[var(--primary-gold)] hover:underline">
-                            <strong>Website</strong>
-                        </a>
-                    )}
-                </div>
             </div>
 
             {/* Core Business Identity */}
