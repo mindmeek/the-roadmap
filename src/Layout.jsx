@@ -1191,8 +1191,12 @@ export default function Layout({ children, currentPageName }) {
             <TourGuide user={user} />
             <PWAInstallPrompt />
 
-            <div className={`hidden lg:flex lg:flex-shrink-0 transition-all duration-300 ${isSidebarExpanded ? 'w-64' : 'w-20'}`}>
-                <div className="flex flex-col flex-1 bg-black border-r border-gray-800">
+            <div 
+                className="hidden lg:block fixed left-0 top-0 h-screen z-40 group"
+                onMouseEnter={() => setIsSidebarExpanded(true)}
+                onMouseLeave={() => setIsSidebarExpanded(false)}
+            >
+                <div className={`flex flex-col h-full bg-black border-r border-gray-800 transition-all duration-300 ${isSidebarExpanded ? 'w-64' : 'w-16'}`}>
                     <div
                         className={`flex-shrink-0 flex items-center justify-center border-b border-gray-800 relative transition-all duration-300 ${isSidebarExpanded ? 'h-32 p-4' : 'h-20 p-2'}`}
                         style={isSidebarExpanded ? {
