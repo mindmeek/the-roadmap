@@ -837,31 +837,33 @@ const SidebarContent = ({ user, isExpanded, onCloseMobileMenu, setIsListenDropdo
                 )}
 
                 {/* HQ Login Button */}
-                <div className="pt-2">
+                <div className="pt-1">
                     <a
                         href="https://app.thebminds.com"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`group flex items-center px-3 py-2 text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors ${isExpanded ? '' : 'justify-center'}`}
+                        className={`group flex items-center px-2 py-2.5 text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors ${isExpanded ? '' : 'justify-center'}`}
+                        title={!isExpanded ? 'The HQ Login' : ''}
                     >
-                        <Globe className={`h-5 w-5 ${isExpanded ? 'mr-3' : ''}`} />
-                        {isExpanded && "The HQ Login"}
+                        <Globe className={`h-5 w-5 ${isExpanded ? 'mr-2' : ''}`} />
+                        {isExpanded && <span className="truncate">The HQ Login</span>}
                     </a>
                 </div>
 
                 {/* Podcast & Radio Button */}
-                <div className="pt-2">
+                <div className="pt-1">
                     <button
                         onClick={() => {
                             setIsListenDropdownOpen(true);
                             onCloseMobileMenu();
                         }}
-                        className={`group flex items-center px-3 py-2 text-sm font-medium rounded-md text-white hover:bg-gray-800 hover:text-[var(--primary-gold)] w-full ${isExpanded ? '' : 'justify-center'}`}
+                        className={`group flex items-center px-2 py-2.5 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-800 hover:text-[var(--primary-gold)] w-full transition-colors ${isExpanded ? '' : 'justify-center'}`}
+                        title={!isExpanded ? 'Podcast & Radio' : ''}
                     >
-                        <svg className={`h-5 w-5 ${isExpanded ? 'mr-3' : ''} text-gray-300 group-hover:text-[var(--primary-gold)]`} fill="currentColor" viewBox="0 0 20 20">
+                        <svg className={`h-5 w-5 ${isExpanded ? 'mr-2' : ''} group-hover:text-[var(--primary-gold)]`} fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.775L4.617 14H2a1 1 0 01-1-1V7a1 1 0 011-1h2.617l3.766-2.775zm2.658 4.163a3 3 0 010 5.522l-.707-.707a2 2 0 000-4.108l.707-.707zm3.292-1.292a6 6 0 010 10.106l-.707-.707a5 5 0 000-8.692l.707-.707z" clipRule="evenodd" />
                         </svg>
-                        {isExpanded && "Podcast & Radio"}
+                        {isExpanded && <span className="truncate">Podcast & Radio</span>}
                     </button>
                 </div>
             </div>
