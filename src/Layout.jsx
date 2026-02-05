@@ -718,7 +718,7 @@ const CollapsibleSection = ({ title, items, isExpanded, isOpen, onToggle, locati
             {isExpanded && (
                 <button
                     onClick={onToggle}
-                    className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-[var(--primary-gold)] uppercase tracking-wider hover:bg-gray-800/50 rounded-md transition-colors"
+                    className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-[var(--primary-gold)] uppercase tracking-wider bg-gray-800/50 hover:bg-gray-800 rounded-md transition-colors"
                 >
                     <span>{title}</span>
                     <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'transform rotate-180' : ''}`} />

@@ -335,65 +335,6 @@ export default function DashboardPage() {
                     </div>
                 </div>
 
-                {/* Quick Actions Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
-                    <ActionCard
-                        title="Annual Strategy"
-                        description="Plan your year and quarterly goals"
-                        icon={Calendar}
-                        link="AnnualPlanning"
-                        color="from-indigo-500 to-purple-600"
-                    />
-                    <ActionCard
-                        title="Marketing Hub"
-                        description="Your complete marketing strategy and social plan"
-                        icon={TrendingUp}
-                        link="MarketingOverview"
-                        color="from-yellow-500 to-orange-600"
-                    />
-                    <ActionCard
-                        title="Business Overview"
-                        description="Financial goals, products, and strategy"
-                        icon={Briefcase}
-                        link="BusinessOverview"
-                        color="from-gray-500 to-slate-600"
-                    />
-                </div>
-
-                {/* Foundation Roadmap Accordion */}
-                <div className="card p-6" style={{ borderRadius: '2px' }}>
-                    <button 
-                        onClick={() => setIsFoundationOpen(!isFoundationOpen)}
-                        className="w-full flex items-center justify-between"
-                    >
-                        <div className="flex items-center gap-3">
-                            <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg">
-                                <Map className="w-6 h-6 text-blue-600" />
-                            </div>
-                            <div className="text-left">
-                                <h2 className="text-2xl font-bold text-[var(--text-main)]">My Foundation Roadmap</h2>
-                                <p className="text-sm text-[var(--text-soft)]">Essential strategy tools for building a strong business foundation</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Link to={createPageUrl('MyFoundationRoadmap')} onClick={(e) => e.stopPropagation()}>
-                                <button className="btn btn-secondary btn-sm">
-                                    View All
-                                </button>
-                            </Link>
-                            <ChevronDown className={`w-5 h-5 text-[var(--text-soft)] transition-transform ${isFoundationOpen ? 'rotate-180' : ''}`} />
-                        </div>
-                    </button>
-                    {isFoundationOpen && (
-                        <div className="mt-6">
-                            <FoundationRoadmapVisual user={user} />
-                        </div>
-                    )}
-                </div>
-
-                {/* Foundation Progress - Shows for all free users based on their stage */}
-                <FoundationProgress user={user} />
-
                 {/* Meet Your AI Team */}
                 {aiSuggestion && recommendedAgent && (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
