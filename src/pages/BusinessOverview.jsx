@@ -22,12 +22,16 @@ import {
     DollarSign,
     Save,
     X,
-    Sparkles
+    Sparkles,
+    ChevronDown
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import TeamManagementPanel from '@/components/business/TeamManagementPanel';
 import TeamTaskBoard from '@/components/business/TeamTaskBoard';
+import FoundationRoadmapVisual from '@/components/dashboard/FoundationRoadmapVisual';
+import FoundationProgress from '@/components/dashboard/VisionStageProgress';
+import ActionCard from '@/components/dashboard/ActionCard';
 
 export default function BusinessOverview() {
     const [user, setUser] = useState(null);
@@ -40,6 +44,7 @@ export default function BusinessOverview() {
     const [isEditingAbout, setIsEditingAbout] = useState(false);
     const [aboutText, setAboutText] = useState('');
     const [savingAbout, setSavingAbout] = useState(false);
+    const [isFoundationOpen, setIsFoundationOpen] = useState(false);
 
     useEffect(() => {
         loadBusinessOverview();
@@ -311,6 +316,32 @@ export default function BusinessOverview() {
             </div>
 
             <div className="max-w-5xl mx-auto px-4">
+
+            {/* Quick Actions Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-6">
+                <ActionCard
+                    title="Annual Strategy"
+                    description="Plan your year and quarterly goals"
+                    icon={Calendar}
+                    link="AnnualPlanning"
+                    color="from-indigo-500 to-purple-600"
+                />
+                <ActionCard
+                    title="Marketing Hub"
+                    description="Your complete marketing strategy and social plan"
+                    icon={TrendingUp}
+                    link="MarketingOverview"
+                    color="from-yellow-500 to-orange-600"
+                />
+                <ActionCard
+                    title="Business Overview"
+                    description="Financial goals, products, and strategy"
+                    icon={Briefcase}
+                    link="BusinessOverview"
+                    color="from-gray-500 to-slate-600"
+                />
+            </div>
+
             {/* About Our Business - Editable */}
             <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
                 <div className="flex items-center justify-between mb-4">
@@ -1057,6 +1088,40 @@ export default function BusinessOverview() {
             {business && (
                 <TeamManagementPanel business={business} />
             )}
+
+            {/* Foundation Roadmap Accordion */}
+            <div className="card p-6 mb-6" style={{ borderRadius: '1px' }}>
+                <button 
+                    onClick={() => setIsFoundationOpen(!isFoundationOpen)}
+                    className="w-full flex items-center justify-between"
+                >
+                    <div className="flex items-center gap-3">
+                        <div className="bg-blue-100 dark:bg-blue-900 p-3" style={{ borderRadius: '1px' }}>
+                            <Map className="w-6 h-6 text-blue-600" />
+                        </div>
+                        <div className="text-left">
+                            <h2 className="text-2xl font-bold text-[var(--text-main)]">My Foundation Roadmap</h2>
+                            <p className="text-sm text-[var(--text-soft)]">Essential strategy tools for building a strong business foundation</p>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Link to={createPageUrl('MyFoundationRoadmap')} onClick={(e) => e.stopPropagation()}>
+                            <Button variant="outline" size="sm" style={{ borderRadius: '1px' }}>
+                                View All
+                            </Button>
+                        </Link>
+                        <ChevronDown className={`w-5 h-5 text-[var(--text-soft)] transition-transform ${isFoundationOpen ? 'rotate-180' : ''}`} />
+                    </div>
+                </button>
+                {isFoundationOpen && (
+                    <div className="mt-6">
+                        <FoundationRoadmapVisual user={user} />
+                    </div>
+                )}
+            </div>
+
+            {/* Foundation Progress */}
+            <FoundationProgress user={user} />
         </div>
         </div>
     );
