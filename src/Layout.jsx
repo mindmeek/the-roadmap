@@ -714,18 +714,21 @@ const CollapsibleSection = ({ title, items, isExpanded, isOpen, onToggle, locati
     if (filteredItems.length === 0) return null;
 
     return (
-        <div className="mb-4">
+        <div className="mb-3">
             {isExpanded && (
                 <button
                     onClick={onToggle}
-                    className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-white uppercase tracking-wider bg-gray-800 hover:bg-gray-700 rounded-md transition-colors"
+                    className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-[var(--primary-gold)] uppercase tracking-wider hover:bg-gray-800/50 rounded-md transition-colors"
                 >
                     <span>{title}</span>
                     <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'transform rotate-180' : ''}`} />
                 </button>
             )}
+            {!isExpanded && (
+                <div className="h-px bg-gray-800 mx-2 mb-2"></div>
+            )}
             {(!isExpanded || isOpen) && (
-                <div className={`space-y-1 ${isExpanded ? 'mt-2' : ''}`}>
+                <div className={`space-y-1 ${isExpanded ? 'mt-1' : ''}`}>
                     {filteredItems.map((item) => (
                         <NavItem
                             key={item.href}
