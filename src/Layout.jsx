@@ -823,33 +823,15 @@ const SidebarContent = ({ user, isExpanded, onCloseMobileMenu, setIsListenDropdo
 
                 {/* Upgrade CTA - Only for free users - MORE PROMINENT */}
                 {user && user.subscription_level === 'free' && (
-                    <div className="pt-4 border-t border-gray-800">
+                    <div className="pt-2 border-t border-gray-800">
                         <Link
                             to={createPageUrl('Upgrade')}
                             onClick={onCloseMobileMenu}
-                            className={`group flex flex-col px-4 py-4 text-sm font-bold rounded-lg text-white bg-gradient-to-br from-[var(--primary-gold)] via-yellow-600 to-yellow-500 hover:shadow-2xl hover:scale-105 transition-all duration-300 ${isExpanded ? '' : 'items-center justify-center px-2'}`}
-                            style={{ borderRadius: '2px' }}
+                            className={`group flex items-center justify-center px-2 py-2.5 text-sm font-bold rounded-md text-white bg-gradient-to-br from-[var(--primary-gold)] via-yellow-600 to-yellow-500 hover:shadow-lg transition-all duration-300`}
+                            title={!isExpanded ? 'Upgrade to The HQ' : ''}
                         >
-                            <div className="flex items-center w-full">
-                                <Rocket className={`h-5 w-5 animate-pulse ${isExpanded ? 'mr-3' : ''}`} />
-                                {isExpanded && <span>Upgrade to The HQ</span>}
-                            </div>
-                            {isExpanded && (
-                                <div className="mt-2 space-y-1">
-                                    <p className="text-xs font-normal text-white/90">
-                                        🔓 Unlock unlimited journeys
-                                    </p>
-                                    <p className="text-xs font-normal text-white/90">
-                                        🎯 Access all strategy tools
-                                    </p>
-                                    <p className="text-xs font-normal text-white/90">
-                                        ⚡ Unlimited AI assistance
-                                    </p>
-                                    <p className="text-xs font-semibold text-white mt-2">
-                                        $99/month →
-                                    </p>
-                                </div>
-                            )}
+                            <Rocket className={`h-5 w-5 ${isExpanded ? 'mr-2' : ''}`} />
+                            {isExpanded && <span className="truncate">Upgrade to The HQ</span>}
                         </Link>
                     </div>
                 )}
