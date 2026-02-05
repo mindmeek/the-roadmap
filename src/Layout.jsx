@@ -747,7 +747,7 @@ const CollapsibleSection = ({ title, items, isExpanded, isOpen, onToggle, locati
 const SidebarContent = ({ user, isExpanded, onCloseMobileMenu, setIsListenDropdownOpen }) => {
     const location = useLocation();
     const [openSections, setOpenSections] = useState({
-        myJourney: true,
+        myJourney: isExpanded,
         learning: false,
         connect: false,
         account: false,
