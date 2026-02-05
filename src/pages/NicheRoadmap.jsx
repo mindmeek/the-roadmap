@@ -337,14 +337,19 @@ export default function NicheRoadmapPage() {
                                 </button>
                                 
                                 {isTaskExpanded && (
-                                  <div className="mt-3 bg-gray-50 dark:bg-gray-900 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                                    <ol className="space-y-2 list-decimal list-inside">
-                                      {task.detailedSteps.map((step, idx) => (
-                                        <li key={idx} className="text-sm text-[var(--text-main)] pl-2">
-                                          {step}
-                                        </li>
-                                      ))}
-                                    </ol>
+                                  <div className="mt-4 space-y-4">
+                                    {task.detailedSteps.map((step, idx) => (
+                                      <div key={idx} className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg border-l-4 border-[var(--primary-gold)]">
+                                        <div className="flex items-start gap-3">
+                                          <span className="flex-shrink-0 w-7 h-7 bg-[var(--primary-gold)] text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                            {idx + 1}
+                                          </span>
+                                          <p className="text-base leading-relaxed text-[var(--text-main)] flex-1">
+                                            {step}
+                                          </p>
+                                        </div>
+                                      </div>
+                                    ))}
                                   </div>
                                 )}
                               </div>
