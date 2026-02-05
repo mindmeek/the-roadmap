@@ -1242,7 +1242,7 @@ export default function Layout({ children, currentPageName }) {
                 </div>
             </div>
 
-            <div className="flex flex-col w-0 flex-1 overflow-hidden">
+            <div className="flex flex-col flex-1 overflow-hidden">
                 <header className="bg-black sticky top-0 z-10 shadow-md safe-top">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between items-center py-3">
