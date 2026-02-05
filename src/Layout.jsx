@@ -1215,7 +1215,11 @@ export default function Layout({ children, currentPageName }) {
                         setIsListenDropdownOpen={setIsListenDropdownOpen}
                     />
 
-                    {isSidebarExpanded && <UserProfileSidebar />}
+                    {isSidebarExpanded && (
+                        <div className="border-t border-gray-800">
+                            <UserProfileSidebar />
+                        </div>
+                    )}
                 </div>
             </div>
 
