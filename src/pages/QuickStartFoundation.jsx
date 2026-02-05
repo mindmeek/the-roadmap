@@ -1054,17 +1054,13 @@ export default function QuickStartFoundation() {
                                             )}
                                             {section.detailedGuide.journeyConnection && (
                                                 <Link
-                                                    to={createPageUrl(section.detailedGuide.journeyConnection.linkPage, {
-                                                        stage: section.linkedToJourney.stage,
-                                                        week: section.linkedToJourney.weekNumber,
-                                                        goalId: section.linkedToJourney.goalId
-                                                    })}
+                                                    to={createPageUrl('Journey')}
                                                     className="block p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800 text-purple-800 dark:text-purple-200 hover:bg-purple-100 dark:hover:bg-purple-800/30 transition-colors"
                                                 >
                                                     <p className="text-xs font-semibold uppercase mb-1">{section.detailedGuide.journeyConnection.text}</p>
                                                     <p className="text-sm">{section.detailedGuide.journeyConnection.description}</p>
                                                     <p className="text-sm font-semibold mt-2 flex items-center gap-1">
-                                                        {section.detailedGuide.journeyConnection.linkText} <ArrowRight className="w-4 h-4" />
+                                                        Go to Journey <ArrowRight className="w-4 h-4" />
                                                     </p>
                                                 </Link>
                                             )}
