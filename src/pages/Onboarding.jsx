@@ -74,17 +74,44 @@ export default function OnboardingPage() {
         return Target;
     };
 
+    const nicheRoadmaps = [
+        { id: "book_author_growth", title: "Book Author Growth Plan", description: "Build an audience, form a community, and grow book sales", icon: "📚", stage: "startup" },
+        { id: "life_coach_growth", title: "Life Coach Business Plan", description: "Build a thriving coaching practice with consistent client flow", icon: "🎯", stage: "startup" },
+        { id: "non_profit_growth", title: "Non-Profit Growth Plan", description: "Scale your mission with donor acquisition and measurable impact", icon: "❤️", stage: "startup" },
+        { id: "ecommerce_growth", title: "E-Commerce Store Growth Plan", description: "Launch and scale your online store to consistent profitability", icon: "🛒", stage: "startup" },
+        { id: "private_community_growth", title: "Private Community Growth Plan", description: "Launch and scale a thriving paid membership community", icon: "👥", stage: "growth" },
+        { id: "podcast_growth", title: "Podcast Growth Plan", description: "Launch a chart-topping podcast and build a loyal listener base", icon: "🎙️", stage: "growth" },
+        { id: "musical_artist_growth", title: "Musical Artist Growth Plan", description: "Launch your music career and build a superfan community", icon: "🎵", stage: "growth" }
+    ];
+
     const availableGoals = useMemo(() => {
         if (!formData.entrepreneurship_stage) return [];
         
         const stageData = roadmapData.default?.[formData.entrepreneurship_stage] || roadmapData[formData.entrepreneurship_stage];
         if (!stageData || !stageData.goals) return [];
         
-        return Object.entries(stageData.goals).map(([id, goal]) => ({
+        const baseGoals = Object.entries(stageData.goals).map(([id, goal]) => ({
             id,
             title: goal.title,
-            description: goal.description
+            description: goal.description,
+            isNiche: false
         }));
+
+        // Add niche roadmaps for startup and growth stages
+        if (formData.entrepreneurship_stage === 'startup' || formData.entrepreneurship_stage === 'growth') {
+            const nicheGoals = nicheRoadmaps
+                .filter(niche => niche.stage === formData.entrepreneurship_stage)
+                .map(niche => ({
+                    id: niche.id,
+                    title: niche.title,
+                    description: niche.description,
+                    icon: niche.icon,
+                    isNiche: true
+                }));
+            return [...baseGoals, ...nicheGoals];
+        }
+        
+        return baseGoals;
     }, [formData.entrepreneurship_stage]);
 
     const handleNext = () => {
@@ -464,32 +491,43 @@ export default function OnboardingPage() {
                                 
                                 return (
                                     <button
-                                        key={goal.id}
-                                        onClick={() => handleInputChange('selected_goal', goal.id)}
-                                        className={`p-6 rounded-lg border-2 text-left transition-all ${
-                                            isSelected
-                                                ? 'border-[var(--primary-gold)] bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 shadow-lg'
-                                                : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-[var(--primary-gold)] hover:shadow-md'
-                                        }`}
+                                       key={goal.id}
+                                       onClick={() => handleInputChange('selected_goal', goal.id)}
+                                       className={`p-6 rounded-lg border-2 text-left transition-all ${
+                                           isSelected
+                                               ? 'border-[var(--primary-gold)] bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 shadow-lg'
+                                               : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-[var(--primary-gold)] hover:shadow-md'
+                                       }`}
                                     >
-                                        <div className="flex items-center space-x-3 mb-4">
-                                            <div className={`p-3 rounded-lg ${
-                                                isSelected 
-                                                    ? 'bg-[var(--primary-gold)]' 
-                                                    : 'bg-gray-100 dark:bg-gray-700'
-                                            }`}>
-                                                <GoalIcon className={`w-6 h-6 ${
-                                                    isSelected ? 'text-white' : 'text-gray-600 dark:text-gray-300'
-                                                }`} />
-                                            </div>
-                                            {isSelected && <CheckCircle className="w-6 h-6 text-[var(--primary-gold)]" />}
-                                        </div>
-                                        <h3 className="text-lg font-bold text-[var(--text-main)] mb-2">
-                                            {goal.title}
-                                        </h3>
-                                        <p className="text-sm text-[var(--text-soft)]">
-                                            {goal.description}
-                                        </p>
+                                       <div className="flex items-center justify-between mb-4">
+                                           <div className="flex items-center space-x-3">
+                                               <div className={`p-3 rounded-lg ${
+                                                   isSelected 
+                                                       ? 'bg-[var(--primary-gold)]' 
+                                                       : 'bg-gray-100 dark:bg-gray-700'
+                                               }`}>
+                                                   {goal.isNiche ? (
+                                                       <span className="text-2xl">{goal.icon}</span>
+                                                   ) : (
+                                                       <GoalIcon className={`w-6 h-6 ${
+                                                           isSelected ? 'text-white' : 'text-gray-600 dark:text-gray-300'
+                                                       }`} />
+                                                   )}
+                                               </div>
+                                               {isSelected && <CheckCircle className="w-6 h-6 text-[var(--primary-gold)]" />}
+                                           </div>
+                                           {goal.isNiche && (
+                                               <span className="text-xs bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 px-2 py-1 rounded-full font-semibold">
+                                                   Niche Focus
+                                               </span>
+                                           )}
+                                       </div>
+                                       <h3 className="text-lg font-bold text-[var(--text-main)] mb-2">
+                                           {goal.title}
+                                       </h3>
+                                       <p className="text-sm text-[var(--text-soft)]">
+                                           {goal.description}
+                                       </p>
                                     </button>
                                 );
                             })}
