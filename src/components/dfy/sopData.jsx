@@ -2,6 +2,279 @@ import {
     Users, Layout, Rocket, Crown, Settings, BarChart
 } from "lucide-react";
 
+export const SOCIAL_MEDIA_PACKAGES = [
+    {
+        id: 'trial_social',
+        title: 'Trial Social Media Package',
+        price: '$199/month',
+        icon: 'Share2',
+        description: 'Best for testing consistency & brand presence',
+        platforms: ['Facebook', 'Instagram'],
+        duration: '90 days',
+        steps: [
+            {
+                id: 'trial_onboarding',
+                title: 'Client Onboarding & Setup',
+                description: 'Complete onboarding form and provide brand assets',
+                responsible_party: 'Client',
+                status: 'pending',
+                checklist: [
+                    { id: 'logo', text: 'Provide logo (PNG or SVG)', is_checked: false },
+                    { id: 'colors', text: 'Share brand colors & fonts', is_checked: false },
+                    { id: 'description', text: 'Submit business description (1-2 paragraphs)', is_checked: false },
+                    { id: 'audience', text: 'Define target audience', is_checked: false },
+                    { id: 'access', text: 'Grant access to Facebook & Instagram', is_checked: false }
+                ]
+            },
+            {
+                id: 'trial_month1',
+                title: 'Month 1 - Foundation',
+                description: 'Establish consistency and brand clarity',
+                responsible_party: 'Service Provider',
+                status: 'pending',
+                checklist: [
+                    { id: 'm1_strategy', text: 'Initial campaign strategy created', is_checked: false },
+                    { id: 'm1_voice', text: 'Brand voice & hashtag research completed', is_checked: false },
+                    { id: 'm1_calendar', text: 'Content calendar setup', is_checked: false },
+                    { id: 'm1_posts', text: '12 branded image posts published', is_checked: false },
+                    { id: 'm1_tracking', text: 'Engagement tracking baseline established', is_checked: false }
+                ]
+            },
+            {
+                id: 'trial_month2',
+                title: 'Month 2 - Engagement',
+                description: 'Improve reach and post engagement',
+                responsible_party: 'Service Provider',
+                status: 'pending',
+                checklist: [
+                    { id: 'm2_captions', text: 'Optimized captions & hashtag refinement', is_checked: false },
+                    { id: 'm2_posting', text: 'Continued posting cadence', is_checked: false },
+                    { id: 'm2_review', text: 'Engagement review completed', is_checked: false },
+                    { id: 'm2_visuals', text: 'Visual branding consistency improved', is_checked: false }
+                ]
+            },
+            {
+                id: 'trial_month3',
+                title: 'Month 3 - Optimization',
+                description: 'Prepare brand for upgrade or scale',
+                responsible_party: 'Service Provider',
+                status: 'pending',
+                checklist: [
+                    { id: 'm3_performance', text: 'Performance review completed', is_checked: false },
+                    { id: 'm3_adjustments', text: 'Content adjusted based on best posts', is_checked: false },
+                    { id: 'm3_recommendations', text: 'Growth recommendations provided', is_checked: false }
+                ]
+            }
+        ]
+    },
+    {
+        id: 'standard_social',
+        title: 'Standard Social Media Package',
+        price: '$399/month',
+        icon: 'TrendingUp',
+        description: 'Perfect for most businesses',
+        platforms: ['Facebook', 'Instagram', 'LinkedIn'],
+        duration: '90 days',
+        steps: [
+            {
+                id: 'std_onboarding',
+                title: 'Client Onboarding & Setup',
+                description: 'Complete onboarding and provide all necessary assets',
+                responsible_party: 'Client',
+                status: 'pending',
+                checklist: [
+                    { id: 'logo', text: 'Provide logo + brand assets', is_checked: false },
+                    { id: 'website', text: 'Share website URL', is_checked: false },
+                    { id: 'audience', text: 'Define target audience & service list', is_checked: false },
+                    { id: 'competitors', text: 'Provide competitor examples (optional)', is_checked: false },
+                    { id: 'access', text: 'Grant platform access (FB, IG, LinkedIn)', is_checked: false },
+                    { id: 'blog', text: 'Share blog topics or keyword focus', is_checked: false }
+                ]
+            },
+            {
+                id: 'std_month1',
+                title: 'Month 1 - Strategy & Visibility',
+                description: 'Look professional and active across platforms',
+                responsible_party: 'Service Provider',
+                status: 'pending',
+                checklist: [
+                    { id: 'm1_strategy', text: 'Initial campaign strategy created', is_checked: false },
+                    { id: 'm1_research', text: 'Audience & competitor research completed', is_checked: false },
+                    { id: 'm1_calendar', text: 'Monthly content calendar created', is_checked: false },
+                    { id: 'm1_posts', text: '12 branded image posts published', is_checked: false },
+                    { id: 'm1_reels', text: '2 reels/videos created and posted', is_checked: false },
+                    { id: 'm1_blog', text: '1 SEO blog written and published', is_checked: false },
+                    { id: 'm1_report', text: 'Engagement baseline report delivered', is_checked: false }
+                ]
+            },
+            {
+                id: 'std_month2',
+                title: 'Month 2 - Authority & Growth',
+                description: 'Increase reach and brand authority',
+                responsible_party: 'Service Provider',
+                status: 'pending',
+                checklist: [
+                    { id: 'm2_optimization', text: 'Caption & hashtag optimization completed', is_checked: false },
+                    { id: 'm2_publishing', text: 'Continued content publishing', is_checked: false },
+                    { id: 'm2_blog', text: 'SEO blog focused on discoverability published', is_checked: false },
+                    { id: 'm2_analysis', text: 'Engagement trend analysis completed', is_checked: false }
+                ]
+            },
+            {
+                id: 'std_month3',
+                title: 'Month 3 - Optimization',
+                description: 'Consistent growth and message clarity',
+                responsible_party: 'Service Provider',
+                status: 'pending',
+                checklist: [
+                    { id: 'm3_refinement', text: 'Performance-based content refinement', is_checked: false },
+                    { id: 'm3_topics', text: 'Blog and video topic optimization', is_checked: false },
+                    { id: 'm3_roadmap', text: 'Growth roadmap recommendations delivered', is_checked: false }
+                ]
+            }
+        ]
+    },
+    {
+        id: 'advanced_social',
+        title: 'Advanced Social Media Package',
+        price: '$549/month',
+        icon: 'Rocket',
+        description: 'For aggressive content marketing',
+        platforms: ['Facebook', 'Instagram', 'LinkedIn', 'Google Business', 'YouTube'],
+        duration: '90 days',
+        steps: [
+            {
+                id: 'adv_onboarding',
+                title: 'Client Onboarding & Setup',
+                description: 'Complete comprehensive onboarding',
+                responsible_party: 'Client',
+                status: 'pending',
+                checklist: [
+                    { id: 'brandkit', text: 'Provide full brand kit', is_checked: false },
+                    { id: 'website', text: 'Share website & email platform access', is_checked: false },
+                    { id: 'google_youtube', text: 'Grant Google Business & YouTube access', is_checked: false },
+                    { id: 'cta', text: 'Provide lead offer or CTA', is_checked: false },
+                    { id: 'faqs', text: 'Share customer FAQs or objections', is_checked: false },
+                    { id: 'reviews', text: 'Grant review access (Google, Facebook)', is_checked: false }
+                ]
+            },
+            {
+                id: 'adv_month1',
+                title: 'Month 1 - Authority Build',
+                description: 'Establish authority and omnipresence',
+                responsible_party: 'Service Provider',
+                status: 'pending',
+                checklist: [
+                    { id: 'm1_strategy', text: 'Initial campaign strategy created', is_checked: false },
+                    { id: 'm1_pillars', text: 'Content pillars & video strategy defined', is_checked: false },
+                    { id: 'm1_posts', text: '20 branded image posts published', is_checked: false },
+                    { id: 'm1_reels', text: '4 reels/videos created and posted', is_checked: false },
+                    { id: 'm1_blog', text: '1 SEO blog published', is_checked: false },
+                    { id: 'm1_newsletter', text: '1 email newsletter sent', is_checked: false },
+                    { id: 'm1_calendar', text: 'Monthly content calendar delivered', is_checked: false }
+                ]
+            },
+            {
+                id: 'adv_month2',
+                title: 'Month 2 - Engagement & Trust',
+                description: 'Build trust and deepen engagement',
+                responsible_party: 'Service Provider',
+                status: 'pending',
+                checklist: [
+                    { id: 'm2_consultation', text: 'Monthly strategy consultation completed', is_checked: false },
+                    { id: 'm2_analytics', text: 'Analytics review delivered', is_checked: false },
+                    { id: 'm2_email', text: 'Email engagement optimization completed', is_checked: false },
+                    { id: 'm2_video', text: 'Video performance refinement completed', is_checked: false }
+                ]
+            },
+            {
+                id: 'adv_month3',
+                title: 'Month 3 - Conversion Focus',
+                description: 'Turn attention into leads',
+                responsible_party: 'Service Provider',
+                status: 'pending',
+                checklist: [
+                    { id: 'm3_conversion', text: 'Conversion-focused content themes implemented', is_checked: false },
+                    { id: 'm3_optimization', text: 'Content & messaging optimization completed', is_checked: false },
+                    { id: 'm3_analytics', text: 'Monthly analytics report delivered', is_checked: false },
+                    { id: 'm3_strategy', text: 'Growth and scaling strategy provided', is_checked: false }
+                ]
+            }
+        ]
+    },
+    {
+        id: 'growth_social',
+        title: 'Growth Social Media Package',
+        price: '$800/month',
+        icon: 'Zap',
+        description: 'Full marketing execution & paid growth',
+        platforms: ['Facebook', 'Instagram', 'LinkedIn', 'X', 'Google Business', 'TikTok', 'Pinterest', 'YouTube'],
+        duration: '90 days',
+        steps: [
+            {
+                id: 'growth_onboarding',
+                title: 'Client Onboarding & Setup',
+                description: 'Complete comprehensive onboarding for full service',
+                responsible_party: 'Client',
+                status: 'pending',
+                checklist: [
+                    { id: 'brandkit', text: 'Provide full brand kit', is_checked: false },
+                    { id: 'access', text: 'Grant website, email, ad account access', is_checked: false },
+                    { id: 'pixel', text: 'Provide pixel/tracking access', is_checked: false },
+                    { id: 'demographics', text: 'Share target locations & demographics', is_checked: false },
+                    { id: 'offers', text: 'Provide offer or promotion details', is_checked: false },
+                    { id: 'reviews', text: 'Grant review platform access', is_checked: false },
+                    { id: 'workflow', text: 'Assign approval workflow contact', is_checked: false }
+                ]
+            },
+            {
+                id: 'growth_month1',
+                title: 'Month 1 - System Setup',
+                description: 'Build a complete marketing system',
+                responsible_party: 'Service Provider',
+                status: 'pending',
+                checklist: [
+                    { id: 'm1_strategy', text: 'Full campaign strategy created', is_checked: false },
+                    { id: 'm1_funnel', text: 'Content + funnel alignment completed', is_checked: false },
+                    { id: 'm1_posts', text: '30 posts published', is_checked: false },
+                    { id: 'm1_reels', text: '4 reels/videos created', is_checked: false },
+                    { id: 'm1_blog', text: '1 SEO blog published', is_checked: false },
+                    { id: 'm1_newsletter', text: '1 email newsletter sent', is_checked: false },
+                    { id: 'm1_ads', text: 'Paid ad campaign setup completed', is_checked: false },
+                    { id: 'm1_spend', text: '$100 ad spend managed', is_checked: false },
+                    { id: 'm1_community', text: 'Community management activated', is_checked: false }
+                ]
+            },
+            {
+                id: 'growth_month2',
+                title: 'Month 2 - Scale & Optimize',
+                description: 'Scale what works',
+                responsible_party: 'Service Provider',
+                status: 'pending',
+                checklist: [
+                    { id: 'm2_consultation', text: 'Monthly strategy consultation completed', is_checked: false },
+                    { id: 'm2_ads', text: 'Ad optimization & audience testing completed', is_checked: false },
+                    { id: 'm2_engagement', text: 'Engagement + review responses handled', is_checked: false },
+                    { id: 'm2_analytics', text: 'Analytics review delivered', is_checked: false }
+                ]
+            },
+            {
+                id: 'growth_month3',
+                title: 'Month 3 - Conversion & Retargeting',
+                description: 'Consistent traffic, leads, and momentum',
+                responsible_party: 'Service Provider',
+                status: 'pending',
+                checklist: [
+                    { id: 'm3_retargeting', text: 'Retargeting ad campaigns launched', is_checked: false },
+                    { id: 'm3_conversion', text: 'Conversion-focused content published', is_checked: false },
+                    { id: 'm3_analytics', text: 'Full analytics report delivered', is_checked: false },
+                    { id: 'm3_plan', text: 'Next-phase growth plan provided', is_checked: false }
+                ]
+            }
+        ]
+    }
+];
+
 export const DFY_PACKAGES = [
     {
         id: "community",
