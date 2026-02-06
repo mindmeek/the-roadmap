@@ -130,18 +130,21 @@ export default function DashboardPage() {
             const suggestions = {
                 vision: {
                     assistant: 'elyzet',
-                    message: "Ready to clarify your business vision? Elyzet can help you craft a compelling mission statement and strategic foundation.",
-                    cta: "Talk to Elyzet"
+                    message: "Ready to clarify your business idea and create a strategic foundation? Elyzet can help you craft a compelling mission statement and validate your concept.",
+                    cta: "Talk to Elyzet",
+                    stageDescription: "Clarify your business idea and create a strategic foundation"
                 },
                 startup: {
                     assistant: 'ava',
-                    message: "Need help defining your ideal client? Ava can guide you through creating a powerful customer avatar and marketing strategy.",
-                    cta: "Talk to Ava"
+                    message: "Ready to launch your MVP and craft a unique customer journey? Ava can guide you through acquiring your first customers with proven marketing strategies.",
+                    cta: "Talk to Ava",
+                    stageDescription: "Launch your MVP and craft a unique customer journey to acquire your first customers"
                 },
                 growth: {
                     assistant: 'finley',
-                    message: "Looking to optimize your pricing? Finley can help you develop a value ladder that maximizes revenue and profitability.",
-                    cta: "Talk to Finley"
+                    message: "Ready to build systems and automate to scale? Finley can help you optimize operations and grow your proven business model.",
+                    cta: "Talk to Finley",
+                    stageDescription: "Build systems, optimize your current ones and customer journey, and automate to scale your proven business model"
                 }
             };
 
@@ -370,7 +373,10 @@ export default function DashboardPage() {
                                         Meet {recommendedAgent.name}
                                     </h3>
                                     <p className="text-sm sm:text-base md:text-lg opacity-90 font-medium bg-white/10 px-4 py-1 rounded-full inline-block backdrop-blur-sm">
-                                        {recommendedAgent.role} • Expert for {user.entrepreneurship_stage} Stage
+                                        {recommendedAgent.role}
+                                    </p>
+                                    <p className="text-xs sm:text-sm opacity-75 mt-2 max-w-md">
+                                        {aiSuggestion.stageDescription}
                                     </p>
                                 </div>
 
