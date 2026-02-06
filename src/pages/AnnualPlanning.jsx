@@ -163,8 +163,91 @@ export default function AnnualPlanningPage() {
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
-            {/* Header */}
-            <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10 shadow-sm">
+            {/* Modern Hero Banner */}
+            <div className="relative overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black text-white">
+                {/* Decorative Elements */}
+                <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--primary-gold)]/10 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
+                <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-blue-500/5 rounded-full blur-2xl"></div>
+                
+                <div className="relative max-w-6xl mx-auto px-4 py-12 md:py-16">
+                    <div className="flex items-center justify-between mb-8">
+                        <button onClick={() => navigate(-1)} className="p-2 hover:bg-white/10 rounded-full transition-colors">
+                            <ArrowLeft className="w-5 h-5 text-white/80 hover:text-white" />
+                        </button>
+                        <div className="flex items-center gap-2">
+                            {isEditing ? (
+                                <>
+                                    <button 
+                                        onClick={handleGeneratePlan} 
+                                        disabled={isGenerating}
+                                        className="btn btn-secondary text-sm flex items-center gap-2 bg-white/10 hover:bg-white/20 border-white/20"
+                                    >
+                                        {isGenerating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+                                        <span className="hidden sm:inline">AI Draft</span>
+                                    </button>
+                                    <button onClick={handleSavePlan} className="btn btn-primary text-sm flex items-center gap-2">
+                                        <Save className="w-4 h-4" />
+                                        <span className="hidden sm:inline">Save Plan</span>
+                                    </button>
+                                </>
+                            ) : (
+                                <button onClick={() => setIsEditing(true)} className="btn text-sm flex items-center gap-2 bg-white text-black hover:bg-white/90">
+                                    <Target className="w-4 h-4" /> Edit Plan
+                                </button>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="text-center max-w-4xl mx-auto">
+                        <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+                            <Calendar className="w-4 h-4 text-[var(--primary-gold)]" />
+                            <span className="text-sm font-semibold text-white/90">{currentPlan?.year} Annual Strategy</span>
+                        </div>
+                        
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                            {currentPlan?.title || 'Your Strategic Vision'}
+                        </h1>
+                        
+                        {currentPlan?.vision_description && (
+                            <p className="text-lg md:text-xl text-white/80 mb-8 leading-relaxed max-w-3xl mx-auto">
+                                {currentPlan.vision_description}
+                            </p>
+                        )}
+
+                        {/* Quick Stats */}
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+                            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
+                                <div className="text-2xl font-bold text-white mb-1">
+                                    {currentPlan?.quarterly_objectives?.filter(q => q.key_results?.some(kr => kr.is_completed)).length || 0}/4
+                                </div>
+                                <div className="text-xs text-white/70">Quarters Active</div>
+                            </div>
+                            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
+                                <div className="text-2xl font-bold text-white mb-1">
+                                    {currentPlan?.quarterly_objectives?.reduce((sum, q) => sum + (q.key_results?.filter(kr => kr.is_completed).length || 0), 0) || 0}
+                                </div>
+                                <div className="text-xs text-white/70">Results Achieved</div>
+                            </div>
+                            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
+                                <div className="text-2xl font-bold text-white mb-1">
+                                    ${(parseInt(financialGoal) * 12).toLocaleString()}
+                                </div>
+                                <div className="text-xs text-white/70">Annual Target</div>
+                            </div>
+                            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
+                                <div className="text-2xl font-bold text-white mb-1">
+                                    {Math.round((currentPlan?.quarterly_objectives?.reduce((sum, q) => sum + (q.key_results?.filter(kr => kr.is_completed).length || 0), 0) || 0) / (currentPlan?.quarterly_objectives?.reduce((sum, q) => sum + (q.key_results?.length || 0), 0) || 1) * 100)}%
+                                </div>
+                                <div className="text-xs text-white/70">Overall Progress</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Removed old header - replaced by hero banner */}
+            <div className="hidden">
                 <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <button onClick={() => navigate(-1)} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors">
@@ -202,7 +285,7 @@ export default function AnnualPlanningPage() {
                 </div>
             </div>
 
-            <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
+            <div className="max-w-6xl mx-auto px-4 py-8 space-y-8 -mt-8">
                 {/* Top Section: Vision & Financials */}
                 <div className="grid lg:grid-cols-3 gap-6">
                     {/* Vision Board */}
