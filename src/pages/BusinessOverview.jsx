@@ -252,7 +252,7 @@ export default function BusinessOverview() {
                             <img 
                                 src={business.logo_url} 
                                 alt="Business Logo" 
-                                className="w-24 h-24 md:w-32 md:h-32 object-contain shadow-2xl"
+                                className="w-24 h-24 md:w-32 md:h-32 object-contain bg-white p-[3px] shadow-2xl"
                                 style={{ borderRadius: '1px' }}
                             />
                         )}
