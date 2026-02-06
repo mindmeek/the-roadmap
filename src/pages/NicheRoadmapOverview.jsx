@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, Calendar, Target, TrendingUp, Award, CheckCircle, Sparkles, ExternalLink, ChevronRight, Loader2, Users, Brain, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Calendar, Target, TrendingUp, Award, CheckCircle, Sparkles, ExternalLink, ChevronRight, Loader2, Users, Brain, AlertCircle, ArrowRight } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { bookAuthorGrowthRoadmap } from '@/components/course_content/bookAuthorGrowth';
 import { lifeCoachGrowthRoadmap } from '@/components/course_content/lifeCoachGrowth';
