@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { toast } from "sonner";
+import AIMarketingGenerator from "@/components/marketing/AIMarketingGenerator";
 
 export default function MarketingOverviewPage() {
     const [loading, setLoading] = useState(true);
@@ -226,6 +227,14 @@ export default function MarketingOverviewPage() {
                         )}
                     </div>
                 )}
+
+                {/* AI Marketing Content Generator */}
+                <AIMarketingGenerator 
+                    user={user}
+                    idealClient={idealClient}
+                    valueProposition={valueProposition.value_proposition}
+                    brandVoice={brandKit.brand_voice}
+                />
 
                 {/* Core Marketing Strategy */}
                 <div className="card p-6 bg-white dark:bg-gray-900 border-2 border-[var(--primary-gold)]">
