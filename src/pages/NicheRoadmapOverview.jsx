@@ -101,7 +101,7 @@ export default function NicheRoadmapOverview() {
 
     return (
         <div className="px-3 sm:px-4 pb-20 md:pb-8">
-            <div className="max-w-7xl mx-auto space-y-6">
+            <div className="max-w-5xl mx-auto space-y-6">
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
@@ -127,48 +127,110 @@ export default function NicheRoadmapOverview() {
                 {/* Ideal Client Summary */}
                 {idealClientData && (
                     <div className="card p-6 bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border-2 border-purple-200 dark:border-purple-700">
-                        <h3 className="font-bold text-xl text-[var(--text-main)] mb-4 flex items-center gap-2">
-                            <Users className="w-6 h-6 text-purple-600" />
-                            Your Ideal Client Profile
-                        </h3>
-                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="font-bold text-xl text-[var(--text-main)] flex items-center gap-2">
+                                <Users className="w-6 h-6 text-purple-600" />
+                                Your Ideal Client Profile
+                            </h3>
+                            <Link
+                                to={createPageUrl('StrategyFormIdealClient')}
+                                className="text-sm text-purple-600 dark:text-purple-400 hover:underline flex items-center"
+                            >
+                                Edit <ChevronRight className="w-4 h-4 ml-1" />
+                            </Link>
+                        </div>
+                        
+                        <div className="space-y-4">
+                            {/* Avatar Name */}
                             {idealClientData.client_avatar_name && (
-                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
-                                    <p className="text-xs text-[var(--text-soft)] mb-1">Avatar Name</p>
-                                    <p className="font-bold text-[var(--text-main)]">{idealClientData.client_avatar_name}</p>
+                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-purple-200 dark:border-purple-700">
+                                    <p className="text-xs text-[var(--text-soft)] mb-2 uppercase tracking-wide">Client Avatar</p>
+                                    <p className="text-2xl font-bold text-[var(--text-main)]">👤 {idealClientData.client_avatar_name}</p>
                                 </div>
                             )}
-                            {idealClientData.age_range && (
-                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
-                                    <p className="text-xs text-[var(--text-soft)] mb-1">Age Range</p>
-                                    <p className="font-bold text-[var(--text-main)]">{idealClientData.age_range}</p>
-                                </div>
-                            )}
-                            {idealClientData.occupation && (
-                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
-                                    <p className="text-xs text-[var(--text-soft)] mb-1">Occupation</p>
-                                    <p className="font-bold text-[var(--text-main)]">{idealClientData.occupation}</p>
-                                </div>
-                            )}
+
+                            {/* Demographics */}
+                            <div className="grid sm:grid-cols-2 gap-3">
+                                {idealClientData.age_range && (
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded-lg">
+                                        <p className="text-xs text-[var(--text-soft)] mb-1">Age Range</p>
+                                        <p className="font-semibold text-[var(--text-main)]">{idealClientData.age_range}</p>
+                                    </div>
+                                )}
+                                {idealClientData.gender && (
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded-lg">
+                                        <p className="text-xs text-[var(--text-soft)] mb-1">Gender</p>
+                                        <p className="font-semibold text-[var(--text-main)]">{idealClientData.gender}</p>
+                                    </div>
+                                )}
+                                {idealClientData.location && (
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded-lg">
+                                        <p className="text-xs text-[var(--text-soft)] mb-1">Location</p>
+                                        <p className="font-semibold text-[var(--text-main)]">{idealClientData.location}</p>
+                                    </div>
+                                )}
+                                {idealClientData.income_level && (
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded-lg">
+                                        <p className="text-xs text-[var(--text-soft)] mb-1">Income Level</p>
+                                        <p className="font-semibold text-[var(--text-main)]">{idealClientData.income_level}</p>
+                                    </div>
+                                )}
+                                {idealClientData.occupation && (
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded-lg">
+                                        <p className="text-xs text-[var(--text-soft)] mb-1">Occupation</p>
+                                        <p className="font-semibold text-[var(--text-main)]">{idealClientData.occupation}</p>
+                                    </div>
+                                )}
+                                {idealClientData.education && (
+                                    <div className="bg-white dark:bg-gray-800 p-3 rounded-lg">
+                                        <p className="text-xs text-[var(--text-soft)] mb-1">Education</p>
+                                        <p className="font-semibold text-[var(--text-main)]">{idealClientData.education}</p>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Pain Points */}
                             {idealClientData.pain_points && idealClientData.pain_points.length > 0 && (
-                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg sm:col-span-2 lg:col-span-3">
-                                    <p className="text-xs text-[var(--text-soft)] mb-2">Top Pain Points</p>
+                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                    <p className="text-xs text-[var(--text-soft)] mb-2 uppercase tracking-wide">Top Pain Points</p>
                                     <div className="flex flex-wrap gap-2">
-                                        {idealClientData.pain_points.slice(0, 5).map((pain, idx) => (
-                                            <span key={idx} className="text-xs px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full">
+                                        {idealClientData.pain_points.map((pain, idx) => (
+                                            <span key={idx} className="text-sm px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full">
                                                 {pain}
                                             </span>
                                         ))}
                                     </div>
                                 </div>
                             )}
+
+                            {/* Goals */}
+                            {idealClientData.goals && idealClientData.goals.length > 0 && (
+                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                    <p className="text-xs text-[var(--text-soft)] mb-2 uppercase tracking-wide">Goals & Aspirations</p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {idealClientData.goals.map((goal, idx) => (
+                                            <span key={idx} className="text-sm px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full">
+                                                {goal}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Core Values */}
+                            {idealClientData.core_values && idealClientData.core_values.length > 0 && (
+                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                    <p className="text-xs text-[var(--text-soft)] mb-2 uppercase tracking-wide">Core Values</p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {idealClientData.core_values.map((value, idx) => (
+                                            <span key={idx} className="text-sm px-3 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-full">
+                                                {value}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
                         </div>
-                        <Link
-                            to={createPageUrl('StrategyFormIdealClient')}
-                            className="mt-4 text-sm text-purple-600 dark:text-purple-400 hover:underline flex items-center"
-                        >
-                            View Full Ideal Client Profile <ChevronRight className="w-4 h-4 ml-1" />
-                        </Link>
                     </div>
                 )}
 
