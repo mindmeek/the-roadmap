@@ -175,11 +175,11 @@ export default function NicheRoadmapOverview() {
                             <div className="bg-white dark:bg-gray-800 p-5 rounded-lg border border-blue-200 dark:border-blue-700">
                                 <div className="flex items-center justify-between mb-3">
                                     <h4 className="font-bold text-[var(--text-main)] flex items-center gap-2">
-                                        <Briefcase className="w-5 h-5 text-indigo-600" />
-                                        Business Model
+                                       <Briefcase className="w-5 h-5 text-indigo-600" />
+                                       One Page Business Plan
                                     </h4>
                                     <Link to={createPageUrl('StrategyFormBusinessModelCanvas')} className="text-xs text-blue-600 hover:underline">
-                                        Edit
+                                       Edit
                                     </Link>
                                 </div>
                                 <div className="space-y-2 text-sm">
