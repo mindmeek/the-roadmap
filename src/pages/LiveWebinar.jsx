@@ -63,7 +63,7 @@ export default function LiveWebinarPage() {
                         </div>
                     </div>
                     <h1 className="text-3xl md:text-4xl font-bold text-[var(--text-main)] mb-3">
-                        Join Our Live Community Sessions!
+                        Join The Strategy Session!
                     </h1>
                     <p className="text-lg text-[var(--text-soft)] max-w-2xl mx-auto mb-6">
                         Every session is designed to help you get at least 1% closer to building your vision of a successful business.
@@ -73,7 +73,7 @@ export default function LiveWebinarPage() {
                     <div className="p-6 bg-white dark:bg-gray-800 rounded-lg border-2 border-indigo-200 dark:border-indigo-700 shadow-lg mb-6" style={{ borderRadius: '2px' }}>
                         <div className="flex items-center justify-center gap-2 mb-3">
                             <Bell className="w-5 h-5 text-indigo-600 animate-pulse" />
-                            <h2 className="text-lg font-bold text-indigo-600">Next Live Session:</h2>
+                            <h2 className="text-lg font-bold text-indigo-600">Next Strategy Session:</h2>
                         </div>
                         <p className="text-2xl font-bold text-[var(--text-main)] mb-2">{formattedDate}</p>
                         <div className="flex items-center justify-center gap-2 mb-4">
@@ -88,7 +88,7 @@ export default function LiveWebinarPage() {
                             className="btn btn-primary inline-flex items-center text-lg px-8 py-4 mb-3"
                         >
                             <Video className="w-5 h-5 mr-2" />
-                            Join Live Session
+                            Join Strategy Session
                         </a>
                         
                         <p className="text-sm text-[var(--text-soft)]">
@@ -240,7 +240,7 @@ export default function LiveWebinarPage() {
                         className="btn btn-primary inline-flex items-center text-lg px-8 py-4"
                     >
                         <Video className="w-5 h-5 mr-2" />
-                        Join Community Session
+                        Join Strategy Session
                     </a>
                 </div>
             </div>
