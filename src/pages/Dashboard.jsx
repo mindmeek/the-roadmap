@@ -332,59 +332,67 @@ export default function DashboardPage() {
                     <UpcomingTasksPreview />
                 </div>
 
-                {/* Three Hub Tiles - Annual Strategy, Marketing Hub, Business Overview */}
+                {/* Three Hub Tiles - Business Overview, Marketing Hub, Annual Strategy */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-                    {/* Business Overview - Black Background */}
+                    {/* Business Overview - Black & White with Background Image */}
                     <Link 
                         to={createPageUrl('BusinessOverview')}
-                        className="card p-6 bg-black text-white hover:shadow-2xl transition-all group"
-                        style={{ borderRadius: '2px' }}
+                        className="card relative overflow-hidden p-6 text-white hover:shadow-2xl transition-all group border-2 border-gray-800"
+                        style={{ 
+                            borderRadius: '2px',
+                            backgroundImage: 'url(https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/87939415f_lycs-architecture-U2BI3GMnSSE-unsplash.jpg)',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center'
+                        }}
                     >
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="bg-white/10 p-3 rounded-lg group-hover:bg-white/20 transition-all">
-                                <Briefcase className="w-6 h-6 text-white" />
+                        <div className="absolute inset-0 bg-black/75 group-hover:bg-black/60 transition-all"></div>
+                        <div className="relative z-10">
+                            <div className="flex items-center justify-between mb-4">
+                                <div className="bg-white/20 p-3 rounded-lg group-hover:bg-white/30 transition-all backdrop-blur-sm">
+                                    <Briefcase className="w-6 h-6 text-white" />
+                                </div>
+                                <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white transition-all" />
                             </div>
-                            <ChevronRight className="w-5 h-5 text-white/50 group-hover:text-white transition-all" />
+                            <h3 className="text-xl font-bold mb-3">Business Overview</h3>
+                            <p className="text-white/90 text-sm leading-relaxed">
+                                Build your business profile, manage your team members, track milestones, and organize your brand identity in one centralized hub.
+                            </p>
                         </div>
-                        <h3 className="text-xl font-bold mb-2">Business Overview</h3>
-                        <p className="text-white/70 text-sm">
-                            Manage your business profile, team, and brand identity
-                        </p>
                     </Link>
 
-                    {/* Marketing Hub */}
+                    {/* Marketing Hub - Brand Colors */}
                     <Link 
                         to={createPageUrl('MarketingOverview')}
-                        className="card p-6 bg-gradient-to-br from-blue-500 to-indigo-600 text-white hover:shadow-2xl transition-all group"
+                        className="card p-6 bg-gradient-to-br from-[#8B6F4E] via-[#A88A6B] to-[#C4A882] text-white hover:shadow-2xl transition-all group border-2 border-[#8B6F4E]"
                         style={{ borderRadius: '2px' }}
                     >
                         <div className="flex items-center justify-between mb-4">
-                            <div className="bg-white/10 p-3 rounded-lg group-hover:bg-white/20 transition-all">
+                            <div className="bg-white/20 p-3 rounded-lg group-hover:bg-white/30 transition-all backdrop-blur-sm">
                                 <TrendingUp className="w-6 h-6 text-white" />
                             </div>
-                            <ChevronRight className="w-5 h-5 text-white/50 group-hover:text-white transition-all" />
+                            <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white transition-all" />
                         </div>
-                        <h3 className="text-xl font-bold mb-2">Marketing Hub</h3>
-                        <p className="text-white/80 text-sm">
-                            Access your marketing tools, campaigns, and analytics
+                        <h3 className="text-xl font-bold mb-3">Marketing Hub</h3>
+                        <p className="text-white/95 text-sm leading-relaxed">
+                            Execute your marketing strategies with content planning, social media management, email campaigns, and performance analytics all in one place.
                         </p>
                     </Link>
 
-                    {/* Annual Strategy */}
+                    {/* Annual Strategy - Brand Colors Variant */}
                     <Link 
                         to={createPageUrl('AnnualPlanning')}
-                        className="card p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white hover:shadow-2xl transition-all group"
+                        className="card p-6 bg-gradient-to-br from-[#6B5838] via-[#8B6F4E] to-[#A88A6B] text-white hover:shadow-2xl transition-all group border-2 border-[#6B5838]"
                         style={{ borderRadius: '2px' }}
                     >
                         <div className="flex items-center justify-between mb-4">
-                            <div className="bg-white/10 p-3 rounded-lg group-hover:bg-white/20 transition-all">
+                            <div className="bg-white/20 p-3 rounded-lg group-hover:bg-white/30 transition-all backdrop-blur-sm">
                                 <Calendar className="w-6 h-6 text-white" />
                             </div>
-                            <ChevronRight className="w-5 h-5 text-white/50 group-hover:text-white transition-all" />
+                            <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white transition-all" />
                         </div>
-                        <h3 className="text-xl font-bold mb-2">Annual Strategy</h3>
-                        <p className="text-white/80 text-sm">
-                            Plan your year with strategic goals and milestones
+                        <h3 className="text-xl font-bold mb-3">Annual Strategy</h3>
+                        <p className="text-white/95 text-sm leading-relaxed">
+                            Set your vision for the year ahead with strategic goals, quarterly objectives, key milestones, and actionable plans to achieve sustainable growth.
                         </p>
                     </Link>
                 </div>
