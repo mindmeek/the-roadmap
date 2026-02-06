@@ -288,40 +288,50 @@ export default function DashboardPage() {
                 {/* Today's Progress & Upcoming Tasks - SIDE BY SIDE */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                     {/* Today's Progress */}
-                    <div id="dashboard-daily-progress" className="card p-4 sm:p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200 dark:border-green-700" style={{ borderRadius: '2px' }}>
-                        <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+                    <div id="dashboard-daily-progress" className="card relative overflow-hidden p-4 sm:p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200 dark:border-green-700 hover:shadow-xl transition-all" style={{ borderRadius: '2px' }}>
+                        {/* Decorative accent circles */}
+                        <div className="absolute -top-8 -right-8 w-32 h-32 bg-green-200/30 dark:bg-green-600/10 rounded-full blur-2xl"></div>
+                        <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-emerald-200/30 dark:bg-emerald-600/10 rounded-full blur-2xl"></div>
+                        <div className="relative z-10 flex items-center justify-between mb-4 flex-wrap gap-2">
                             <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)] flex items-center flex-wrap gap-2">
-                                <TrendingUp className="w-5 h-5 text-green-600" />
+                                <div className="bg-green-100 dark:bg-green-800 p-2 rounded-lg">
+                                    <TrendingUp className="w-5 h-5 text-green-600" />
+                                </div>
                                 <span>Today's Progress</span>
                                 <Tooltip content="Track your daily 1% improvements. Small, consistent actions compound into massive results over time.">
                                     <HelpCircle className="w-4 h-4 text-gray-400 dark:text-gray-500" />
                                 </Tooltip>
                             </h3>
-                            <Link to={createPageUrl('DailyTrack')} className="text-[var(--primary-gold)] hover:underline flex items-center text-xs sm:text-sm font-medium">
-                                Track More <ChevronRight className="w-4 h-4 ml-1" />
+                            <Link to={createPageUrl('DailyTrack')} className="text-[var(--primary-gold)] hover:text-[#6B5838] flex items-center text-xs sm:text-sm font-medium group">
+                                Track More <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                             </Link>
                         </div>
                         {totalTasksToday > 0 ? (
-                            <div>
+                            <div className="relative z-10">
                                 <div className="flex items-center justify-between mb-2">
                                     <span className="text-xs sm:text-sm text-[var(--text-soft)]">
                                         {completedTasksToday} of {totalTasksToday} tasks completed
                                     </span>
-                                    <span className="text-xs sm:text-sm font-bold text-[var(--primary-gold)]">
+                                    <span className="text-xs sm:text-sm font-bold text-[var(--primary-gold)] bg-[var(--primary-gold)]/10 px-2 py-1 rounded">
                                         {Math.round((completedTasksToday / totalTasksToday) * 100)}%
                                     </span>
                                 </div>
-                                <div className="w-full bg-gray-200 dark:bg-gray-700 h-3" style={{ borderRadius: '2px' }}>
+                                <div className="relative w-full bg-gray-200 dark:bg-gray-700 h-3 overflow-hidden" style={{ borderRadius: '2px' }}>
                                     <div 
-                                        className="bg-gradient-to-r from-green-500 to-emerald-600 h-3 transition-all"
+                                        className="bg-gradient-to-r from-green-500 to-emerald-600 h-3 transition-all relative"
                                         style={{ width: `${(completedTasksToday / totalTasksToday) * 100}%`, borderRadius: '2px' }}
-                                    ></div>
+                                    >
+                                        <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
+                                    </div>
                                 </div>
                             </div>
                         ) : (
-                            <div className="text-center py-6">
+                            <div className="relative z-10 text-center py-6">
+                                <div className="bg-green-100 dark:bg-green-900/30 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <CheckCircle className="w-8 h-8 text-green-600" />
+                                </div>
                                 <p className="text-[var(--text-soft)] mb-4 text-sm">No tasks tracked today yet.</p>
-                                <Link to={createPageUrl('DailyTrack')} className="btn btn-primary text-sm">
+                                <Link to={createPageUrl('DailyTrack')} className="btn btn-primary text-sm shadow-lg hover:shadow-xl transition-all">
                                     <CheckCircle className="w-4 h-4 mr-2" />
                                     Start Tracking
                                 </Link>
@@ -337,7 +347,7 @@ export default function DashboardPage() {
                     {/* Business Overview - Black & White with Background Image */}
                     <Link 
                         to={createPageUrl('BusinessOverview')}
-                        className="card relative overflow-hidden p-6 text-white hover:shadow-2xl transition-all group border-2 border-gray-800"
+                        className="card relative overflow-hidden p-6 text-white hover:shadow-2xl hover:scale-[1.02] transition-all group border-2 border-gray-800"
                         style={{ 
                             borderRadius: '2px',
                             backgroundImage: 'url(https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/87939415f_lycs-architecture-U2BI3GMnSSE-unsplash.jpg)',
@@ -345,55 +355,92 @@ export default function DashboardPage() {
                             backgroundPosition: 'center'
                         }}
                     >
-                        <div className="absolute inset-0 bg-black/75 group-hover:bg-black/60 transition-all"></div>
+                        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/70 to-black/60 group-hover:from-black/70 group-hover:via-black/60 group-hover:to-black/50 transition-all"></div>
+                        
+                        {/* Decorative accent */}
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl group-hover:bg-white/10 transition-all"></div>
+                        <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-2xl"></div>
+                        
                         <div className="relative z-10">
                             <div className="flex items-center justify-between mb-4">
-                                <div className="bg-white/20 p-3 rounded-lg group-hover:bg-white/30 transition-all backdrop-blur-sm">
+                                <div className="bg-white/20 p-3 rounded-lg group-hover:bg-white/30 group-hover:scale-110 transition-all backdrop-blur-sm shadow-lg">
                                     <Briefcase className="w-6 h-6 text-white" />
                                 </div>
-                                <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white transition-all" />
+                                <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all" />
                             </div>
-                            <h3 className="text-xl font-bold mb-3">Business Overview</h3>
+                            <h3 className="text-xl font-bold mb-3 group-hover:text-white/95 transition-all">Business Overview</h3>
                             <p className="text-white/90 text-sm leading-relaxed">
                                 Build your business profile, manage your team members, track milestones, and organize your brand identity in one centralized hub.
                             </p>
+                            <div className="mt-4 pt-4 border-t border-white/20">
+                                <div className="flex items-center gap-2 text-xs text-white/70">
+                                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                    Active workspace
+                                </div>
+                            </div>
                         </div>
                     </Link>
 
                     {/* Marketing Hub - Brand Colors */}
                     <Link 
                         to={createPageUrl('MarketingOverview')}
-                        className="card p-6 bg-gradient-to-br from-[#8B6F4E] via-[#A88A6B] to-[#C4A882] text-white hover:shadow-2xl transition-all group border-2 border-[#8B6F4E]"
+                        className="card relative overflow-hidden p-6 bg-gradient-to-br from-[#8B6F4E] via-[#A88A6B] to-[#C4A882] text-white hover:shadow-2xl hover:scale-[1.02] transition-all group border-2 border-[#8B6F4E]"
                         style={{ borderRadius: '2px' }}
                     >
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="bg-white/20 p-3 rounded-lg group-hover:bg-white/30 transition-all backdrop-blur-sm">
-                                <TrendingUp className="w-6 h-6 text-white" />
+                        {/* Decorative accents */}
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl group-hover:bg-white/20 transition-all"></div>
+                        <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-black/10 rounded-full blur-2xl"></div>
+                        <div className="absolute top-1/2 right-0 w-1 h-12 bg-white/30 group-hover:h-16 transition-all"></div>
+                        
+                        <div className="relative z-10">
+                            <div className="flex items-center justify-between mb-4">
+                                <div className="bg-white/20 p-3 rounded-lg group-hover:bg-white/30 group-hover:scale-110 transition-all backdrop-blur-sm shadow-lg">
+                                    <TrendingUp className="w-6 h-6 text-white" />
+                                </div>
+                                <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all" />
                             </div>
-                            <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white transition-all" />
+                            <h3 className="text-xl font-bold mb-3">Marketing Hub</h3>
+                            <p className="text-white/95 text-sm leading-relaxed">
+                                Execute your marketing strategies with AI-powered content generation, social media management, email campaigns, and performance analytics.
+                            </p>
+                            <div className="mt-4 pt-4 border-t border-white/20">
+                                <div className="flex items-center gap-2 text-xs text-white/80">
+                                    <Sparkles className="w-3 h-3" />
+                                    AI-powered content tools
+                                </div>
+                            </div>
                         </div>
-                        <h3 className="text-xl font-bold mb-3">Marketing Hub</h3>
-                        <p className="text-white/95 text-sm leading-relaxed">
-                            Execute your marketing strategies with content planning, social media management, email campaigns, and performance analytics all in one place.
-                        </p>
                     </Link>
 
                     {/* Annual Strategy - Brand Colors Variant */}
                     <Link 
                         to={createPageUrl('AnnualPlanning')}
-                        className="card p-6 bg-gradient-to-br from-[#6B5838] via-[#8B6F4E] to-[#A88A6B] text-white hover:shadow-2xl transition-all group border-2 border-[#6B5838]"
+                        className="card relative overflow-hidden p-6 bg-gradient-to-br from-[#6B5838] via-[#8B6F4E] to-[#A88A6B] text-white hover:shadow-2xl hover:scale-[1.02] transition-all group border-2 border-[#6B5838]"
                         style={{ borderRadius: '2px' }}
                     >
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="bg-white/20 p-3 rounded-lg group-hover:bg-white/30 transition-all backdrop-blur-sm">
-                                <Calendar className="w-6 h-6 text-white" />
+                        {/* Decorative accents */}
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl group-hover:bg-white/20 transition-all"></div>
+                        <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-black/10 rounded-full blur-2xl"></div>
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+                        
+                        <div className="relative z-10">
+                            <div className="flex items-center justify-between mb-4">
+                                <div className="bg-white/20 p-3 rounded-lg group-hover:bg-white/30 group-hover:scale-110 transition-all backdrop-blur-sm shadow-lg">
+                                    <Calendar className="w-6 h-6 text-white" />
+                                </div>
+                                <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all" />
                             </div>
-                            <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white transition-all" />
+                            <h3 className="text-xl font-bold mb-3">Annual Strategy</h3>
+                            <p className="text-white/95 text-sm leading-relaxed">
+                                Set your vision for the year ahead with strategic goals, quarterly objectives, key milestones, and actionable plans to achieve sustainable growth.
+                            </p>
+                            <div className="mt-4 pt-4 border-t border-white/20">
+                                <div className="flex items-center gap-2 text-xs text-white/80">
+                                    <Target className="w-3 h-3" />
+                                    Long-term planning
+                                </div>
+                            </div>
                         </div>
-                        <h3 className="text-xl font-bold mb-3">Annual Strategy</h3>
-                        <p className="text-white/95 text-sm leading-relaxed">
-                            Set your vision for the year ahead with strategic goals, quarterly objectives, key milestones, and actionable plans to achieve sustainable growth.
-                        </p>
                     </Link>
                 </div>
 
