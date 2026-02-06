@@ -255,9 +255,11 @@ export default function DashboardPage() {
                                 <HelpCircle className="w-3 h-3 sm:w-4 sm:h-4 text-[var(--primary-gold)] opacity-70 hover:opacity-100" />
                             </Tooltip>
                         </div>
-                        <p className="text-white/80 text-sm sm:text-base mb-2">
-                            Welcome back, {user.first_name || user.full_name}! 👋
-                        </p>
+                        <div className="inline-block bg-black/80 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 mb-3 sm:mb-4" style={{ borderRadius: '2px' }}>
+                            <p className="text-white text-lg sm:text-xl md:text-2xl font-semibold">
+                                Welcome back, {user.first_name || user.full_name}! 👋
+                            </p>
+                        </div>
                         <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-2 sm:mb-3 text-white drop-shadow-lg">
                             {user.business_name || 'Your Business Journey'}
                         </h1>
@@ -283,10 +285,10 @@ export default function DashboardPage() {
                 {/* Today's Progress & Upcoming Tasks - SIDE BY SIDE */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                     {/* Today's Progress */}
-                    <div id="dashboard-daily-progress" className="card p-4 sm:p-6" style={{ borderRadius: '2px' }}>
+                    <div id="dashboard-daily-progress" className="card p-4 sm:p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200 dark:border-green-700" style={{ borderRadius: '2px' }}>
                         <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
                             <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)] flex items-center flex-wrap gap-2">
-                                <TrendingUp className="w-5 h-5 text-[var(--primary-gold)]" />
+                                <TrendingUp className="w-5 h-5 text-green-600" />
                                 <span>Today's Progress</span>
                                 <Tooltip content="Track your daily 1% improvements. Small, consistent actions compound into massive results over time.">
                                     <HelpCircle className="w-4 h-4 text-gray-400 dark:text-gray-500" />
@@ -396,7 +398,7 @@ export default function DashboardPage() {
                         </div>
 
                         {/* Other Team Members */}
-                        <div className="card p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 h-full flex flex-col" style={{ borderRadius: '2px' }}>
+                        <div className="card p-6 bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border-2 border-purple-200 dark:border-purple-700 h-full flex flex-col" style={{ borderRadius: '2px' }}>
                             <div className="flex items-center justify-between mb-4">
                                 <div>
                                     <h3 className="text-xl font-bold text-[var(--text-main)]">Meet the Rest of the Team</h3>
