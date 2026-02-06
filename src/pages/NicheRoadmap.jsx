@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, CheckCircle, Clock, Target, ChevronDown, ChevronUp, Award, Loader2, Lock, Sparkles, TrendingUp, Zap, Info, ExternalLink } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Clock, Target, ChevronDown, ChevronUp, Award, Loader2, Lock, Sparkles, TrendingUp, Zap, Info, ExternalLink, FileText, Edit, Users } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { StrategyDocument } from '@/entities/all';
+import StrategyFormModal from '@/components/strategy/StrategyFormModal';
 import { bookAuthorGrowthRoadmap } from '@/components/course_content/bookAuthorGrowth';
 import { lifeCoachGrowthRoadmap } from '@/components/course_content/lifeCoachGrowth';
 import { nonProfitGrowthRoadmap } from '@/components/course_content/nonProfitGrowth';
@@ -59,6 +60,8 @@ export default function NicheRoadmapPage() {
   const [completedTasks, setCompletedTasks] = useState({});
   const [expandedTasks, setExpandedTasks] = useState({});
   const [idealClientData, setIdealClientData] = useState(null);
+  const [activeFormModal, setActiveFormModal] = useState(null);
+  const [programKey, setProgramKey] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,6 +71,7 @@ export default function NicheRoadmapPage() {
 
         const urlParams = new URLSearchParams(window.location.search);
         const programKey = urlParams.get('program');
+        setProgramKey(programKey);
         
         if (programKey && programContentMap[programKey]) {
           setProgramContent(programContentMap[programKey]);
@@ -338,7 +342,80 @@ export default function NicheRoadmapPage() {
               </button>
 
               {isExpanded && (
-                <div className="border-t border-gray-200 dark:border-gray-700 p-6 space-y-4">
+                <div className="border-t border-gray-200 dark:border-gray-700 p-6 space-y-6">
+                  {/* Quick Access Strategy Forms for First 4 Weeks */}
+                  {week.weekNumber <= 4 && hasAccess && (
+                    <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg">
+                      <h5 className="font-semibold text-blue-800 dark:text-blue-300 mb-3 flex items-center gap-2">
+                        <FileText className="w-4 h-4" />
+                        Strategic Forms for Week {week.weekNumber}
+                      </h5>
+                      <div className="flex flex-wrap gap-2">
+                        {week.weekNumber === 1 && (
+                          <>
+                            <button
+                              onClick={() => setActiveFormModal('ideal_client')}
+                              className="btn btn-sm bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700"
+                            >
+                              <Edit className="w-3 h-3 mr-1" />
+                              Ideal Client Profile
+                            </button>
+                            <button
+                              onClick={() => setActiveFormModal('content_strategy')}
+                              className="btn btn-sm bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700"
+                            >
+                              <Edit className="w-3 h-3 mr-1" />
+                              Content Strategy
+                            </button>
+                          </>
+                        )}
+                        {week.weekNumber === 2 && (
+                          <>
+                            <button
+                              onClick={() => setActiveFormModal('social_media')}
+                              className="btn btn-sm bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700"
+                            >
+                              <Edit className="w-3 h-3 mr-1" />
+                              Social Media Strategy
+                            </button>
+                            <button
+                              onClick={() => setActiveFormModal('email_marketing')}
+                              className="btn btn-sm bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700"
+                            >
+                              <Edit className="w-3 h-3 mr-1" />
+                              Email Marketing
+                            </button>
+                          </>
+                        )}
+                        {week.weekNumber === 3 && (
+                          <>
+                            <button
+                              onClick={() => setActiveFormModal('pricing_strategy')}
+                              className="btn btn-sm bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700"
+                            >
+                              <Edit className="w-3 h-3 mr-1" />
+                              Pricing Strategy
+                            </button>
+                          </>
+                        )}
+                        {week.weekNumber === 4 && (
+                          <>
+                            <button
+                              onClick={() => setActiveFormModal('customer_journey')}
+                              className="btn btn-sm bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700"
+                            >
+                              <Edit className="w-3 h-3 mr-1" />
+                              Customer Journey Map
+                            </button>
+                          </>
+                        )}
+                      </div>
+                      <p className="text-xs text-blue-600 dark:text-blue-400 mt-2">
+                        💡 Fill out these forms directly here without leaving your roadmap
+                      </p>
+                    </div>
+                  )}
+
                   {week.tasks.map((task, taskIndex) => {
                     const taskKey = `${week.weekNumber}-${taskIndex}`;
                     const isCompleted = completedTasks[taskKey];
@@ -533,9 +610,17 @@ export default function NicheRoadmapPage() {
             className="btn btn-primary"
           >
             Explore More Niche Roadmaps
-          </button>
-        </div>
-      )}
-    </div>
-  );
-}
+            </button>
+            </div>
+            )}
+
+            {/* Strategy Form Modal */}
+            <StrategyFormModal
+            isOpen={activeFormModal !== null}
+            onClose={() => setActiveFormModal(null)}
+            formType={activeFormModal}
+            programKey={programKey}
+            />
+            </div>
+            );
+            }
