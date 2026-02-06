@@ -75,15 +75,15 @@ const BUYING_BEHAVIORS_OPTIONS = {
 
 const STAGES = [
     {
-        id: 'persona',
-        title: 'Customer Persona',
-        description: 'Define and name your ideal customer',
+        id: 'ideal_client',
+        title: 'Ideal Client Profile',
+        description: 'Define and name your ideal client',
         icon: UserCircle,
         color: 'from-blue-500 to-blue-600',
-        instructions: 'Give your ideal customer a name and bring their profile to life. This is the foundation of your entire customer journey. By deeply understanding WHO your customer is, you can tailor every subsequent stage to speak directly to them. This persona will guide your messaging, channel selection, content creation, and service delivery throughout the entire journey.',
+        instructions: 'Give your ideal client a name and bring their profile to life. This is the foundation of your entire customer journey. By deeply understanding WHO your ideal client is, you can tailor every subsequent stage to speak directly to them. This profile will guide your messaging, channel selection, content creation, and service delivery throughout the entire journey.',
         emotions: 'Understanding, Empathy, Connection',
-        connectionTip: 'By naming your customer and deeply understanding them, you create authentic connections that resonate throughout your entire business strategy. This isn\'t just data - this is a real person with real dreams, fears, and needs. Every marketing message, every product feature, and every customer interaction should be designed with this specific person in mind.',
-        howStagesConnect: 'Your customer persona is the north star for all 5 stages. Once you know WHO they are, you can determine WHERE to find them (Awareness), HOW to educate them (Consideration), WHAT will convince them to buy (Decision), HOW to serve them best (Service), and WHAT will make them loyal advocates (Loyalty).'
+        connectionTip: 'By naming your ideal client and deeply understanding them, you create authentic connections that resonate throughout your entire business strategy. This isn\'t just data - this is a real person with real dreams, fears, and needs. Every marketing message, every product feature, and every customer interaction should be designed with this specific person in mind.',
+        howStagesConnect: 'Your ideal client profile is the north star for all 5 stages. Once you know WHO they are, you can determine WHERE to find them (Awareness), HOW to educate them (Consideration), WHAT will convince them to buy (Decision), HOW to serve them best (Service), and WHAT will make them loyal advocates (Loyalty).'
     },
     {
         id: 'awareness',
@@ -579,7 +579,7 @@ export default function StrategyFormCustomerJourneyPage() {
     const [viewMode, setViewMode] = useState('input'); // 'input' or 'overview'
 
     const [formData, setFormData] = useState({
-        persona: {
+        ideal_client: {
             name: '',
             age_range: '',
             gender: '',
@@ -627,13 +627,13 @@ export default function StrategyFormCustomerJourneyPage() {
                 setFormData(prev => ({
                     ...prev,
                     ...loadedContent,
-                    persona: {
-                        ...prev.persona,
-                        ...safeObj(loadedContent.persona),
-                        psychographics: Array.isArray(loadedContent.persona?.psychographics) ? loadedContent.persona.psychographics : [],
-                        pain_points: Array.isArray(loadedContent.persona?.pain_points) ? loadedContent.persona.pain_points : [],
-                        goals: Array.isArray(loadedContent.persona?.goals) ? loadedContent.persona.goals : [],
-                        core_values: Array.isArray(loadedContent.persona?.core_values) ? loadedContent.persona.core_values : []
+                    ideal_client: {
+                        ...prev.ideal_client,
+                        ...(safeObj(loadedContent.ideal_client || loadedContent.persona)),
+                        psychographics: Array.isArray(loadedContent.ideal_client?.psychographics || loadedContent.persona?.psychographics) ? (loadedContent.ideal_client?.psychographics || loadedContent.persona?.psychographics) : [],
+                        pain_points: Array.isArray(loadedContent.ideal_client?.pain_points || loadedContent.persona?.pain_points) ? (loadedContent.ideal_client?.pain_points || loadedContent.persona?.pain_points) : [],
+                        goals: Array.isArray(loadedContent.ideal_client?.goals || loadedContent.persona?.goals) ? (loadedContent.ideal_client?.goals || loadedContent.persona?.goals) : [],
+                        core_values: Array.isArray(loadedContent.ideal_client?.core_values || loadedContent.persona?.core_values) ? (loadedContent.ideal_client?.core_values || loadedContent.persona?.core_values) : []
                     },
                     awareness: { 
                         ...prev.awareness, 
@@ -705,19 +705,19 @@ export default function StrategyFormCustomerJourneyPage() {
 
                 setFormData(prev => ({
                     ...prev,
-                    persona: {
-                        ...prev.persona,
-                        name: prev.persona.name || idealClient.name || '',
+                    ideal_client: {
+                        ...prev.ideal_client,
+                        name: prev.ideal_client.name || idealClient.client_avatar_name || idealClient.name || '',
                         age_range: Array.isArray(idealClient.age_range) ? idealClient.age_range[0] || '' : idealClient.age_range || '',
                         gender: Array.isArray(idealClient.gender) ? idealClient.gender[0] || '' : idealClient.gender || '',
                         location: Array.isArray(idealClient.location) ? idealClient.location[0] || '' : idealClient.location || '',
                         income_level: Array.isArray(idealClient.income_level) ? idealClient.income_level[0] || '' : idealClient.income_level || '',
                         education: Array.isArray(idealClient.education) ? idealClient.education[0] || '' : idealClient.education || '',
                         occupation: Array.isArray(idealClient.occupation) ? idealClient.occupation[0] || '' : idealClient.occupation || '',
-                        psychographics: getMultiArrayValue('values', 'interests', 'lifestyle', 'personality'),
-                        pain_points: getArrayValue('pain_points'),
-                        goals: getArrayValue('goals'),
-                        core_values: getArrayValue('core_values'),
+                        psychographics: getMultiArrayValue('values', 'interests', 'lifestyle', 'personality_traits'),
+                        pain_points: Array.isArray(idealClient.pain_points) ? idealClient.pain_points : (idealClient.pain_points ? [idealClient.pain_points] : []),
+                        goals: Array.isArray(idealClient.goals) ? idealClient.goals : (idealClient.goals ? [idealClient.goals] : []),
+                        core_values: Array.isArray(idealClient.core_values) ? idealClient.core_values : (idealClient.core_values ? [idealClient.core_values] : []),
                         research_method: Array.isArray(idealClient.research_method) ? idealClient.research_method[0] || '' : idealClient.research_method || '',
                         decision_speed: Array.isArray(idealClient.decision_speed) ? idealClient.decision_speed[0] || '' : idealClient.decision_speed || '',
                         price_sensitivity: Array.isArray(idealClient.price_sensitivity) ? idealClient.price_sensitivity[0] || '' : idealClient.price_sensitivity || '',
@@ -749,8 +749,8 @@ export default function StrategyFormCustomerJourneyPage() {
     const handleSelectChange = (field, value) => {
         setFormData(prev => ({
             ...prev,
-            persona: {
-                ...prev.persona,
+            ideal_client: {
+                ...prev.ideal_client,
                 [field]: value
             }
         }));
@@ -759,8 +759,8 @@ export default function StrategyFormCustomerJourneyPage() {
     const handleArrayChange = (field, values) => {
         setFormData(prev => ({
             ...prev,
-            persona: {
-                ...prev.persona,
+            ideal_client: {
+                ...prev.ideal_client,
                 [field]: values
             }
         }));
@@ -821,7 +821,7 @@ export default function StrategyFormCustomerJourneyPage() {
                 stage,
                 pathway,
                 userContext,
-                persona: formData.persona
+                ideal_client: formData.ideal_client
             });
 
             if (response.data) {
@@ -850,7 +850,7 @@ export default function StrategyFormCustomerJourneyPage() {
         setIsSaving(true);
         try {
             const allStagesComplete =
-                !!formData.persona.name &&
+                !!formData.ideal_client.name &&
                 !!formData.awareness.discovery_channels &&
                 !!formData.consideration.evaluation_criteria &&
                 !!formData.decision.purchase_factors &&
@@ -909,8 +909,8 @@ export default function StrategyFormCustomerJourneyPage() {
 
         const currentStageData = formData[stageId];
 
-        if (stageId === 'persona') {
-            notes.push({ content: `Current Persona Name: ${currentStageData.name || 'Not yet defined'}` });
+        if (stageId === 'ideal_client') {
+            notes.push({ content: `Current Ideal Client Name: ${currentStageData.name || 'Not yet defined'}` });
             notes.push({ content: "Demographics:" });
             if (currentStageData.age_range) notes.push({ content: `- Age Range: ${currentStageData.age_range}` });
             if (currentStageData.gender) notes.push({ content: `- Gender: ${currentStageData.gender}` });
@@ -930,7 +930,7 @@ export default function StrategyFormCustomerJourneyPage() {
             if (currentStageData.price_sensitivity) notes.push({ content: `- Price Sensitivity: ${currentStageData.price_sensitivity}` });
             if (currentStageData.preferred_contact) notes.push({ content: `- Preferred Contact: ${currentStageData.preferred_contact}` });
 
-            notes.push({ content: "Charlie, help me refine this persona description. What additional details or insights could make this persona more vivid and actionable for marketing purposes?" });
+            notes.push({ content: "Charlie, help me refine this ideal client profile. What additional details or insights could make this profile more vivid and actionable for marketing purposes?" });
 
         } else if (stageId === 'awareness') {
             if (currentStageData.discovery_channels) notes.push({ content: `Currently known discovery channels: ${currentStageData.discovery_channels}` });
@@ -973,7 +973,7 @@ export default function StrategyFormCustomerJourneyPage() {
 // Memoized Stage Content to prevent re-renders and focus loss
 const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChange, handleSelectChange, handleArrayChange, handleImportFromIdealClient, isImporting, handleToolsChecklistChange, handlePathwaySelect, handlePathwayInputChange, handleGenerateStrategy, isGenerating }) => {
     const Icon = stage.icon;
-    const isPersona = stage.id === 'persona';
+    const isIdealClient = stage.id === 'ideal_client';
     const [generationContext, setGenerationContext] = useState('');
 
     return (
@@ -1008,7 +1008,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                 </h3>
                 <p className="text-[var(--text-soft)] mb-4">{stage.instructions}</p>
 
-                {!isPersona && (
+                {!isIdealClient && (
                     <>
                         {stage.streamlinesBusiness && (
                             <div className="mb-4">
@@ -1040,7 +1040,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                     </>
                 )}
 
-                {isPersona && stage.connectionTip && (
+                {isIdealClient && stage.connectionTip && (
                     <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border-l-4 border-yellow-500 mt-4">
                         <h4 className="font-semibold text-[var(--text-main)] mb-2">🤝 Why This Matters:</h4>
                         <p className="text-[var(--text-soft)]">{stage.connectionTip}</p>
@@ -1055,7 +1055,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                 )}
             </div>
 
-            {isPersona ? (
+            {isIdealClient ? (
                 <div className="space-y-6">
                     {/* Import Button */}
                     <div className="card p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-700">
@@ -1084,19 +1084,19 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                         </div>
                     </div>
 
-                    {/* Customer Name */}
+                    {/* Client Name */}
                     <div>
                         <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                            Give Your Ideal Customer a Name *
+                            Give Your Ideal Client a Name *
                         </label>
                         <input
                             type="text"
-                            value={formData.persona.name}
-                            onChange={(e) => handleInputChange('persona', 'name', e.target.value)}
+                            value={formData.ideal_client.name}
+                            onChange={(e) => handleInputChange('ideal_client', 'name', e.target.value)}
                             placeholder="e.g., 'Startup Sarah' or 'Corporate Chris'"
                             className="form-input"
                         />
-                        <p className="text-xs text-[var(--text-soft)] mt-1">Naming your customer makes them real and helps you connect emotionally.</p>
+                        <p className="text-xs text-[var(--text-soft)] mt-1">Naming your ideal client makes them real and helps you connect emotionally.</p>
                     </div>
 
                     {/* Demographics Section */}
@@ -1112,7 +1112,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                             <div>
                                 <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Age Range</label>
                                 <select
-                                    value={formData.persona.age_range || ''}
+                                    value={formData.ideal_client.age_range || ''}
                                     onChange={(e) => handleSelectChange('age_range', e.target.value)}
                                     className="form-input"
                                 >
@@ -1126,7 +1126,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                             <div>
                                 <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Gender</label>
                                 <select
-                                    value={formData.persona.gender || ''}
+                                    value={formData.ideal_client.gender || ''}
                                     onChange={(e) => handleSelectChange('gender', e.target.value)}
                                     className="form-input"
                                 >
@@ -1140,7 +1140,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                             <div>
                                 <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Location</label>
                                 <select
-                                    value={formData.persona.location || ''}
+                                    value={formData.ideal_client.location || ''}
                                     onChange={(e) => handleSelectChange('location', e.target.value)}
                                     className="form-input"
                                 >
@@ -1154,7 +1154,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                             <div>
                                 <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Income Level</label>
                                 <select
-                                    value={formData.persona.income_level || ''}
+                                    value={formData.ideal_client.income_level || ''}
                                     onChange={(e) => handleSelectChange('income_level', e.target.value)}
                                     className="form-input"
                                 >
@@ -1168,7 +1168,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                             <div>
                                 <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Education</label>
                                 <select
-                                    value={formData.persona.education || ''}
+                                    value={formData.ideal_client.education || ''}
                                     onChange={(e) => handleSelectChange('education', e.target.value)}
                                     className="form-input"
                                 >
@@ -1182,7 +1182,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                             <div>
                                 <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Occupation</label>
                                 <select
-                                    value={formData.persona.occupation || ''}
+                                    value={formData.ideal_client.occupation || ''}
                                     onChange={(e) => handleSelectChange('occupation', e.target.value)}
                                     className="form-input"
                                 >

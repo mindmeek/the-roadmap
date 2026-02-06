@@ -104,6 +104,7 @@ import MorningRoutineBuilder from './pages/MorningRoutineBuilder';
 import MyFoundation from './pages/MyFoundation';
 import MyFoundationRoadmap from './pages/MyFoundationRoadmap';
 import NicheRoadmap from './pages/NicheRoadmap';
+import NicheRoadmapOverview from './pages/NicheRoadmapOverview';
 import NicheRoadmaps from './pages/NicheRoadmaps';
 import Onboarding from './pages/Onboarding';
 import Partners from './pages/Partners';
@@ -151,7 +152,6 @@ import VisionStrategySession from './pages/VisionStrategySession';
 import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
 import Week from './pages/Week';
 import layout from './pages/layout';
-import NicheRoadmapOverview from './pages/NicheRoadmapOverview';
 import __Layout from './Layout.jsx';
 
 
@@ -213,6 +213,7 @@ export const PAGES = {
     "MyFoundation": MyFoundation,
     "MyFoundationRoadmap": MyFoundationRoadmap,
     "NicheRoadmap": NicheRoadmap,
+    "NicheRoadmapOverview": NicheRoadmapOverview,
     "NicheRoadmaps": NicheRoadmaps,
     "Onboarding": Onboarding,
     "Partners": Partners,
@@ -260,7 +261,6 @@ export const PAGES = {
     "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
     "Week": Week,
     "layout": layout,
-    "NicheRoadmapOverview": NicheRoadmapOverview,
 }
 
 export const pagesConfig = {
