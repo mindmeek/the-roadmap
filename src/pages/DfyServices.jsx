@@ -6,7 +6,7 @@ import {
     Briefcase, Calendar, CheckCircle, Clock, 
     ArrowRight, Loader2, Plus, Filter, User, Trash2 
 } from 'lucide-react';
-import { DFY_PACKAGES } from '@/components/dfy/sopData';
+import { DFY_PACKAGES, SOCIAL_MEDIA_PACKAGES } from '@/components/dfy/sopData';
 import { Button } from "@/components/ui/button";
 
 export default function DfyServicesPage() {
@@ -201,18 +201,35 @@ export default function DfyServicesPage() {
                             <h3 className="text-lg font-medium text-[var(--text-main)]">No Active Services</h3>
                             <p className="text-[var(--text-soft)]">You don't have any active Done-For-You projects yet.</p>
                             {isAdmin && (
-                                <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto px-4">
-                                    {DFY_PACKAGES.map(pkg => (
-                                        <button 
-                                            key={pkg.id}
-                                            onClick={() => createNewService(pkg)}
-                                            className="p-4 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 text-left transition-colors"
-                                        >
-                                            <div className="font-bold text-sm mb-1">{pkg.title}</div>
-                                            <div className="text-xs text-[var(--text-soft)]">{pkg.price}</div>
-                                        </button>
-                                    ))}
-                                </div>
+                                <>
+                                    <h3 className="mt-6 mb-3 text-center font-semibold text-[var(--text-main)]">Social Media Management</h3>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto px-4 mb-6">
+                                        {SOCIAL_MEDIA_PACKAGES.map(pkg => (
+                                            <button 
+                                                key={pkg.id}
+                                                onClick={() => createNewService(pkg)}
+                                                className="p-4 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 text-left transition-colors"
+                                            >
+                                                <div className="font-bold text-sm mb-1">{pkg.title}</div>
+                                                <div className="text-xs text-[var(--primary-gold)] font-semibold mb-2">{pkg.price}</div>
+                                                <div className="text-xs text-[var(--text-soft)]">{pkg.description}</div>
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <h3 className="mb-3 text-center font-semibold text-[var(--text-main)]">Other Services</h3>
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto px-4">
+                                        {DFY_PACKAGES.map(pkg => (
+                                            <button 
+                                                key={pkg.id}
+                                                onClick={() => createNewService(pkg)}
+                                                className="p-4 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 text-left transition-colors"
+                                            >
+                                                <div className="font-bold text-sm mb-1">{pkg.title}</div>
+                                                <div className="text-xs text-[var(--text-soft)]">{pkg.price}</div>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </>
                             )}
                         </div>
                     )}
