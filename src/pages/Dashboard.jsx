@@ -255,11 +255,14 @@ export default function DashboardPage() {
                                 <HelpCircle className="w-3 h-3 sm:w-4 sm:h-4 text-[var(--primary-gold)] opacity-70 hover:opacity-100" />
                             </Tooltip>
                         </div>
-                        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-bold mb-2 sm:mb-3 text-white drop-shadow-lg">
+                        <p className="text-white/80 text-sm sm:text-base mb-2">
                             Welcome back, {user.first_name || user.full_name}! 👋
+                        </p>
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-2 sm:mb-3 text-white drop-shadow-lg">
+                            {user.business_name || 'Your Business Journey'}
                         </h1>
                         <p className="text-white/90 text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mb-3 sm:mb-4 md:mb-6">
-                            {user.business_name ? `Let's keep building ${user.business_name} - one step closer to your goals.` : "Let's make today count - one step closer to your goals."}
+                            {user.business_name ? "Let's keep building - one step closer to your goals." : "Let's make today count - one step closer to your goals."}
                         </p>
                         <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3">
                             <Link to={createPageUrl('DailyTrack')} className="btn btn-primary text-xs sm:text-sm md:text-base w-full sm:w-auto justify-center">
