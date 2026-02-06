@@ -29,6 +29,7 @@ export default function NicheRoadmapOverview() {
     const [programContent, setProgramContent] = useState(null);
     const [idealClientData, setIdealClientData] = useState(null);
     const [completedTasks, setCompletedTasks] = useState({});
+    const [strategyDocs, setStrategyDocs] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
@@ -67,6 +68,15 @@ export default function NicheRoadmapOverview() {
                 } else {
                     navigate(createPageUrl('NicheRoadmaps'));
                 }
+            } catch (e) {
+                console.error('Error loading program:', e);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [navigate]);
             } catch (e) {
                 console.error('Error loading program:', e);
             } finally {
@@ -131,8 +141,8 @@ export default function NicheRoadmapOverview() {
                     </Link>
                 </div>
 
-                {/* Strategic Foundation Overview - NEW SECTION */}
-                <div className="card p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-700 mb-6">
+                {/* Strategic Foundation Overview */}
+                <div className="card p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-700">
                     <h3 className="font-bold text-2xl text-[var(--text-main)] mb-4 flex items-center gap-2">
                         <Target className="w-7 h-7 text-blue-600" />
                         Your Strategic Foundation
@@ -248,9 +258,115 @@ export default function NicheRoadmapOverview() {
                     </div>
                 </div>
 
+                {/* Marketing & Growth Strategies */}
+                <div className="card p-6 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 border-2 border-orange-200 dark:border-orange-700">
+                    <h3 className="font-bold text-xl text-[var(--text-main)] mb-4 flex items-center gap-2">
+                        <TrendingUp className="w-6 h-6 text-orange-600" />
+                        Your Marketing & Growth Strategies
+                    </h3>
+
+                    <div className="grid md:grid-cols-3 gap-4">
+                        {/* Content Strategy */}
+                        {strategyDocs['content_strategy'] && (
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                <div className="flex items-center justify-between mb-2">
+                                    <h4 className="font-semibold text-sm text-[var(--text-main)]">Content Strategy</h4>
+                                    <CheckCircle className="w-4 h-4 text-green-600" />
+                                </div>
+                                <p className="text-xs text-[var(--text-soft)] mb-2">
+                                    {strategyDocs['content_strategy'].content_pillars?.filter(p => p).length || 0} content pillars defined
+                                </p>
+                                <Link to={createPageUrl('StrategyFormContentStrategy')} className="text-xs text-orange-600 hover:underline">
+                                    View Details →
+                                </Link>
+                            </div>
+                        )}
+
+                        {/* Social Media Strategy */}
+                        {strategyDocs['social_media_strategy'] && (
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                <div className="flex items-center justify-between mb-2">
+                                    <h4 className="font-semibold text-sm text-[var(--text-main)]">Social Media</h4>
+                                    <CheckCircle className="w-4 h-4 text-green-600" />
+                                </div>
+                                <p className="text-xs text-[var(--text-soft)] mb-2">
+                                    {Object.values(strategyDocs['social_media_strategy'].target_platforms || {}).filter(p => p.enabled).length} platforms active
+                                </p>
+                                <Link to={createPageUrl('StrategyFormSocialMedia')} className="text-xs text-orange-600 hover:underline">
+                                    View Details →
+                                </Link>
+                            </div>
+                        )}
+
+                        {/* Email Marketing */}
+                        {strategyDocs['email_marketing'] && (
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                <div className="flex items-center justify-between mb-2">
+                                    <h4 className="font-semibold text-sm text-[var(--text-main)]">Email Marketing</h4>
+                                    <CheckCircle className="w-4 h-4 text-green-600" />
+                                </div>
+                                <p className="text-xs text-[var(--text-soft)] mb-2">
+                                    Platform: {strategyDocs['email_marketing'].email_platform || 'Not set'}
+                                </p>
+                                <Link to={createPageUrl('StrategyFormEmailMarketing')} className="text-xs text-orange-600 hover:underline">
+                                    View Details →
+                                </Link>
+                            </div>
+                        )}
+
+                        {/* Pricing Strategy */}
+                        {strategyDocs['pricing_strategies'] && (
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                <div className="flex items-center justify-between mb-2">
+                                    <h4 className="font-semibold text-sm text-[var(--text-main)]">Pricing Strategy</h4>
+                                    <CheckCircle className="w-4 h-4 text-green-600" />
+                                </div>
+                                <p className="text-xs text-[var(--text-soft)] mb-2">
+                                    {strategyDocs['pricing_strategies'].selected_strategies?.length || 0} models selected
+                                </p>
+                                <Link to={createPageUrl('StrategyFormPricingStrategies')} className="text-xs text-orange-600 hover:underline">
+                                    View Details →
+                                </Link>
+                            </div>
+                        )}
+
+                        {/* Community Building */}
+                        {strategyDocs['community_building'] && (
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                <div className="flex items-center justify-between mb-2">
+                                    <h4 className="font-semibold text-sm text-[var(--text-main)]">Community Building</h4>
+                                    <CheckCircle className="w-4 h-4 text-green-600" />
+                                </div>
+                                <p className="text-xs text-[var(--text-soft)] mb-2">
+                                    Platform: {strategyDocs['community_building'].community_platform || 'Not set'}
+                                </p>
+                                <Link to={createPageUrl('StrategyFormCommunityBuilding')} className="text-xs text-orange-600 hover:underline">
+                                    View Details →
+                                </Link>
+                            </div>
+                        )}
+
+                        {/* Partnerships */}
+                        {strategyDocs['strategic_partnerships'] && (
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                <div className="flex items-center justify-between mb-2">
+                                    <h4 className="font-semibold text-sm text-[var(--text-main)]">Partnerships</h4>
+                                    <CheckCircle className="w-4 h-4 text-green-600" />
+                                </div>
+                                <p className="text-xs text-[var(--text-soft)] mb-2">
+                                    {Object.values(strategyDocs['strategic_partnerships'].partnership_types || {}).filter(p => p.enabled).length} types planned
+                                </p>
+                                <Link to={createPageUrl('StrategyFormStrategicPartnerships')} className="text-xs text-orange-600 hover:underline">
+                                    View Details →
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
                 {/* Ideal Client Summary */}
                 {idealClientData && (
-                    <div className="card p-6 bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border-2 border-purple-200 dark:border-purple-700 mb-6">
+                    <div className="card p-6 bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border-2 border-purple-200 dark:border-purple-700">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="font-bold text-xl text-[var(--text-main)] flex items-center gap-2">
                                 <Users className="w-6 h-6 text-purple-600" />
@@ -358,9 +474,9 @@ export default function NicheRoadmapOverview() {
                     </div>
                 )}
 
-                {/* Customer Journey Overview - NEW SECTION */}
+                {/* Customer Journey Overview */}
                 {strategyDocs['customer_journey'] && (
-                    <div className="card p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200 dark:border-green-700 mb-6">
+                    <div className="card p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200 dark:border-green-700">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="font-bold text-xl text-[var(--text-main)] flex items-center gap-2">
                                 <Map className="w-6 h-6 text-green-600" />
@@ -439,12 +555,13 @@ export default function NicheRoadmapOverview() {
                     </div>
                 )}
 
-                {/* Ideal Client Summary */}
-                {idealClientData && (
-                    <div className="card p-6 bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border-2 border-purple-200 dark:border-purple-700 mb-6">
-                <div className="card p-6">
+                {/* Progress Overview */}
+                <div className="card p-6 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border-2 border-blue-200 dark:border-blue-700">
                     <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-bold text-xl text-[var(--text-main)]">Your Progress</h3>
+                        <h3 className="font-bold text-xl text-[var(--text-main)] flex items-center gap-2">
+                            <Target className="w-6 h-6 text-blue-600" />
+                            Your 90-Day Progress
+                        </h3>
                         <span className="text-sm text-[var(--text-soft)]">{completedCount}/{totalTasks} tasks ({progressPercentage}%)</span>
                     </div>
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-4">
@@ -471,11 +588,20 @@ export default function NicheRoadmapOverview() {
                 </div>
 
                 {/* 90-Day Roadmap Overview */}
-                <div className="card p-6">
-                    <h2 className="text-2xl font-bold text-[var(--text-main)] mb-6 flex items-center gap-3">
-                        <Calendar className="w-7 h-7 text-[var(--primary-gold)]" />
-                        90-Day Roadmap at a Glance
-                    </h2>
+                <div className="card p-6 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700">
+                    <div className="flex items-center justify-between mb-6">
+                        <h2 className="text-2xl font-bold text-[var(--text-main)] flex items-center gap-3">
+                            <Calendar className="w-7 h-7 text-[var(--primary-gold)]" />
+                            90-Day Roadmap at a Glance
+                        </h2>
+                        <Link
+                            to={createPageUrl('NicheRoadmap') + `?program=${new URLSearchParams(window.location.search).get('program')}`}
+                            className="btn btn-primary hidden md:flex items-center"
+                        >
+                            Start Working
+                            <ChevronRight className="w-4 h-4 ml-2" />
+                        </Link>
+                    </div>
 
                     <div className="space-y-6">
                         {months.map(month => {
