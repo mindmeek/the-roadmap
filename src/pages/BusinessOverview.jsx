@@ -240,7 +240,7 @@ export default function BusinessOverview() {
             <div 
                 className="relative mb-6 md:mb-8"
                 style={{
-                    backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1600&h=500&fit=crop')`,
+                    backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.75)), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1600&h=500&fit=crop')`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     minHeight: '300px'
