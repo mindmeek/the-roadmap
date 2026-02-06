@@ -48,14 +48,21 @@ export default function NicheRoadmapOverview() {
                         setCompletedTasks(JSON.parse(savedCompleted));
                     }
 
-                    // Load ideal client data
-                    const idealClientDocs = await StrategyDocument.filter({
-                        created_by: userData.email,
-                        document_type: 'ideal_client'
+                    // Load all relevant strategy documents
+                    const allDocs = await StrategyDocument.filter({
+                        created_by: userData.email
                     });
 
-                    if (idealClientDocs && idealClientDocs.length > 0) {
-                        setIdealClientData(idealClientDocs[0].content);
+                    const docsByType = {};
+                    allDocs.forEach(doc => {
+                        docsByType[doc.document_type] = doc.content;
+                    });
+
+                    setStrategyDocs(docsByType);
+
+                    // Set ideal client data
+                    if (docsByType['ideal_client']) {
+                        setIdealClientData(docsByType['ideal_client']);
                     }
                 } else {
                     navigate(createPageUrl('NicheRoadmaps'));
@@ -124,9 +131,126 @@ export default function NicheRoadmapOverview() {
                     </Link>
                 </div>
 
+                {/* Strategic Foundation Overview - NEW SECTION */}
+                <div className="card p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-700 mb-6">
+                    <h3 className="font-bold text-2xl text-[var(--text-main)] mb-4 flex items-center gap-2">
+                        <Target className="w-7 h-7 text-blue-600" />
+                        Your Strategic Foundation
+                    </h3>
+                    <p className="text-sm text-[var(--text-soft)] mb-6">
+                        Here's a snapshot of your business foundation that guides this entire roadmap.
+                    </p>
+
+                    <div className="grid md:grid-cols-2 gap-4">
+                        {/* Value Proposition Card */}
+                        {strategyDocs['value_proposition_canvas'] && (
+                            <div className="bg-white dark:bg-gray-800 p-5 rounded-lg border border-blue-200 dark:border-blue-700">
+                                <div className="flex items-center justify-between mb-3">
+                                    <h4 className="font-bold text-[var(--text-main)] flex items-center gap-2">
+                                        <Star className="w-5 h-5 text-yellow-600" />
+                                        Value Proposition
+                                    </h4>
+                                    <Link to={createPageUrl('StrategyFormValueProposition')} className="text-xs text-blue-600 hover:underline">
+                                        Edit
+                                    </Link>
+                                </div>
+                                <div className="space-y-2 text-sm">
+                                    {strategyDocs['value_proposition_canvas'].products_services?.[0] && (
+                                        <p className="text-[var(--text-main)]">
+                                            <span className="font-semibold">Core Offer:</span> {strategyDocs['value_proposition_canvas'].products_services[0]}
+                                        </p>
+                                    )}
+                                    {strategyDocs['value_proposition_canvas'].pain_relievers?.[0] && (
+                                        <p className="text-[var(--text-soft)] text-xs">
+                                            ✓ {strategyDocs['value_proposition_canvas'].pain_relievers[0]}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Business Model Card */}
+                        {strategyDocs['business_model_canvas'] && (
+                            <div className="bg-white dark:bg-gray-800 p-5 rounded-lg border border-blue-200 dark:border-blue-700">
+                                <div className="flex items-center justify-between mb-3">
+                                    <h4 className="font-bold text-[var(--text-main)] flex items-center gap-2">
+                                        <Briefcase className="w-5 h-5 text-indigo-600" />
+                                        Business Model
+                                    </h4>
+                                    <Link to={createPageUrl('StrategyFormBusinessModelCanvas')} className="text-xs text-blue-600 hover:underline">
+                                        Edit
+                                    </Link>
+                                </div>
+                                <div className="space-y-2 text-sm">
+                                    {strategyDocs['business_model_canvas'].revenueStreams && (
+                                        <p className="text-[var(--text-main)]">
+                                            <span className="font-semibold">Revenue:</span> {strategyDocs['business_model_canvas'].revenueStreams.substring(0, 60)}...
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* SWOT Highlights Card */}
+                        {strategyDocs['swot_analysis'] && (
+                            <div className="bg-white dark:bg-gray-800 p-5 rounded-lg border border-blue-200 dark:border-blue-700">
+                                <div className="flex items-center justify-between mb-3">
+                                    <h4 className="font-bold text-[var(--text-main)] flex items-center gap-2">
+                                        <Shield className="w-5 h-5 text-green-600" />
+                                        SWOT Analysis
+                                    </h4>
+                                    <Link to={createPageUrl('StrategyFormSWOTAnalysis')} className="text-xs text-blue-600 hover:underline">
+                                        Edit
+                                    </Link>
+                                </div>
+                                <div className="grid grid-cols-2 gap-2 text-xs">
+                                    {strategyDocs['swot_analysis'].strengths?.[0] && (
+                                        <div className="bg-green-50 dark:bg-green-900/20 p-2 rounded">
+                                            <p className="font-semibold text-green-700 dark:text-green-400">Strength</p>
+                                            <p className="text-[var(--text-soft)]">{strategyDocs['swot_analysis'].strengths[0].substring(0, 40)}...</p>
+                                        </div>
+                                    )}
+                                    {strategyDocs['swot_analysis'].opportunities?.[0] && (
+                                        <div className="bg-blue-50 dark:bg-blue-900/20 p-2 rounded">
+                                            <p className="font-semibold text-blue-700 dark:text-blue-400">Opportunity</p>
+                                            <p className="text-[var(--text-soft)]">{strategyDocs['swot_analysis'].opportunities[0].substring(0, 40)}...</p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Value Ladder Card */}
+                        {strategyDocs['value_ladder'] && (
+                            <div className="bg-white dark:bg-gray-800 p-5 rounded-lg border border-blue-200 dark:border-blue-700">
+                                <div className="flex items-center justify-between mb-3">
+                                    <h4 className="font-bold text-[var(--text-main)] flex items-center gap-2">
+                                        <TrendingUp className="w-5 h-5 text-red-600" />
+                                        Value Ladder
+                                    </h4>
+                                    <Link to={createPageUrl('StrategyFormValueLadder')} className="text-xs text-blue-600 hover:underline">
+                                        Edit
+                                    </Link>
+                                </div>
+                                <div className="space-y-1 text-xs">
+                                    {strategyDocs['value_ladder'].ladder_levels?.slice(0, 3).map((level, idx) => (
+                                        level.offer_name && (
+                                            <div key={idx} className="flex items-center gap-2">
+                                                <span className="text-[var(--primary-gold)]">•</span>
+                                                <span className="text-[var(--text-main)] font-medium">{level.offer_name}</span>
+                                                <span className="text-[var(--text-soft)]">({level.price})</span>
+                                            </div>
+                                        )
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
                 {/* Ideal Client Summary */}
                 {idealClientData && (
-                    <div className="card p-6 bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border-2 border-purple-200 dark:border-purple-700">
+                    <div className="card p-6 bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border-2 border-purple-200 dark:border-purple-700 mb-6">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="font-bold text-xl text-[var(--text-main)] flex items-center gap-2">
                                 <Users className="w-6 h-6 text-purple-600" />
@@ -234,7 +358,90 @@ export default function NicheRoadmapOverview() {
                     </div>
                 )}
 
-                {/* Progress Overview */}
+                {/* Customer Journey Overview - NEW SECTION */}
+                {strategyDocs['customer_journey'] && (
+                    <div className="card p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200 dark:border-green-700 mb-6">
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="font-bold text-xl text-[var(--text-main)] flex items-center gap-2">
+                                <Map className="w-6 h-6 text-green-600" />
+                                Your Customer Journey Map
+                            </h3>
+                            <Link
+                                to={createPageUrl('StrategyFormCustomerJourney')}
+                                className="text-sm text-green-600 dark:text-green-400 hover:underline flex items-center"
+                            >
+                                View Full Map <ChevronRight className="w-4 h-4 ml-1" />
+                            </Link>
+                        </div>
+
+                        {/* Journey Stages Flow */}
+                        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
+                            {[
+                                { id: 'awareness', label: 'Awareness', icon: Eye, color: 'purple' },
+                                { id: 'consideration', label: 'Consideration', icon: Search, color: 'green' },
+                                { id: 'decision', label: 'Decision', icon: ShoppingCart, color: 'yellow' },
+                                { id: 'service', label: 'Service', icon: HeartHandshake, color: 'orange' },
+                                { id: 'loyalty', label: 'Loyalty', icon: Trophy, color: 'red' }
+                            ].map((stage, idx) => {
+                                const StageIcon = stage.icon;
+                                const stageData = strategyDocs['customer_journey']?.[stage.id];
+                                const hasPathway = stageData?.selected_pathway;
+                                
+                                return (
+                                    <div key={stage.id} className="bg-white dark:bg-gray-800 p-3 rounded-lg border border-green-200 dark:border-green-700 text-center">
+                                        <div className={`mx-auto w-10 h-10 rounded-full bg-${stage.color}-100 dark:bg-${stage.color}-900/30 flex items-center justify-center mb-2`}>
+                                            <StageIcon className={`w-5 h-5 text-${stage.color}-600`} />
+                                        </div>
+                                        <p className="text-xs font-semibold text-[var(--text-main)] mb-1">{stage.label}</p>
+                                        {hasPathway ? (
+                                            <div className="flex items-center justify-center gap-1">
+                                                <CheckCircle className="w-3 h-3 text-green-600" />
+                                                <span className="text-xs text-green-600">Mapped</span>
+                                            </div>
+                                        ) : (
+                                            <span className="text-xs text-[var(--text-soft)]">-</span>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                        {/* Selected Pathways Summary */}
+                        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-green-200 dark:border-green-700">
+                            <p className="text-xs font-semibold text-[var(--text-soft)] uppercase mb-3">Your Selected Strategies</p>
+                            <div className="space-y-2">
+                                {strategyDocs['customer_journey']?.awareness?.selected_pathway && (
+                                    <div className="flex items-start gap-2">
+                                        <span className="text-purple-600 font-bold text-xs">Awareness:</span>
+                                        <span className="text-xs text-[var(--text-main)]">
+                                            {strategyDocs['customer_journey'].awareness.selected_pathway.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                                        </span>
+                                    </div>
+                                )}
+                                {strategyDocs['customer_journey']?.consideration?.selected_pathway && (
+                                    <div className="flex items-start gap-2">
+                                        <span className="text-green-600 font-bold text-xs">Consideration:</span>
+                                        <span className="text-xs text-[var(--text-main)]">
+                                            {strategyDocs['customer_journey'].consideration.selected_pathway.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                                        </span>
+                                    </div>
+                                )}
+                                {strategyDocs['customer_journey']?.decision?.selected_pathway && (
+                                    <div className="flex items-start gap-2">
+                                        <span className="text-yellow-600 font-bold text-xs">Decision:</span>
+                                        <span className="text-xs text-[var(--text-main)]">
+                                            {strategyDocs['customer_journey'].decision.selected_pathway.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                                        </span>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Ideal Client Summary */}
+                {idealClientData && (
+                    <div className="card p-6 bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border-2 border-purple-200 dark:border-purple-700 mb-6">
                 <div className="card p-6">
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="font-bold text-xl text-[var(--text-main)]">Your Progress</h3>
