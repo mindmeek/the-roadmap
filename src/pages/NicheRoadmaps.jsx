@@ -372,13 +372,22 @@ export default function NicheRoadmapsPage() {
                     Unlock with HQ
                   </Link>
                 ) : (
-                  <Link
-                    to={createPageUrl(`NicheRoadmap?program=${program.contentKey}`)}
-                    className="btn btn-primary w-full justify-center"
-                  >
-                    Start Roadmap
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Link>
+                  <div className="flex gap-2">
+                    <Link
+                      to={createPageUrl(`NicheRoadmapOverview?program=${program.contentKey}`)}
+                      className="btn btn-secondary flex-1 justify-center"
+                    >
+                      <Target className="w-4 h-4 mr-2" />
+                      Overview
+                    </Link>
+                    <Link
+                      to={createPageUrl(`NicheRoadmap?program=${program.contentKey}`)}
+                      className="btn btn-primary flex-1 justify-center"
+                    >
+                      Start
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Link>
+                  </div>
                 )}
               </div>
             </div>

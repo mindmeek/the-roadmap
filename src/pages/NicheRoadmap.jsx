@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { ArrowLeft, CheckCircle, Clock, Target, ChevronDown, ChevronUp, Award, Loader2, Lock, Sparkles, TrendingUp, Zap, Info, ExternalLink } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import { StrategyDocument } from '@/entities/all';
 import { bookAuthorGrowthRoadmap } from '@/components/course_content/bookAuthorGrowth';
 import { lifeCoachGrowthRoadmap } from '@/components/course_content/lifeCoachGrowth';
 import { nonProfitGrowthRoadmap } from '@/components/course_content/nonProfitGrowth';
@@ -57,6 +58,7 @@ export default function NicheRoadmapPage() {
   const [expandedWeeks, setExpandedWeeks] = useState({});
   const [completedTasks, setCompletedTasks] = useState({});
   const [expandedTasks, setExpandedTasks] = useState({});
+  const [idealClientData, setIdealClientData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,6 +76,16 @@ export default function NicheRoadmapPage() {
           const savedCompleted = localStorage.getItem(`niche_${programKey}_completed`);
           if (savedCompleted) {
             setCompletedTasks(JSON.parse(savedCompleted));
+          }
+
+          // Load ideal client data
+          const idealClientDocs = await StrategyDocument.filter({
+            created_by: userData.email,
+            document_type: 'ideal_client'
+          });
+
+          if (idealClientDocs && idealClientDocs.length > 0) {
+            setIdealClientData(idealClientDocs[0].content);
           }
         } else {
           navigate(createPageUrl('NicheRoadmaps'));
@@ -144,13 +156,22 @@ export default function NicheRoadmapPage() {
     <div className="max-w-6xl mx-auto px-3 sm:px-4 py-6 sm:py-8 pb-24 lg:pb-8">
       {/* Header */}
       <div className="card p-4 sm:p-6 md:p-8 mb-4 sm:mb-6">
-        <button
-          onClick={() => navigate(createPageUrl('NicheRoadmaps'))}
-          className="btn btn-ghost mb-4"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Niche Roadmaps
-        </button>
+        <div className="flex items-center justify-between mb-4">
+          <button
+            onClick={() => navigate(createPageUrl('NicheRoadmaps'))}
+            className="btn btn-ghost"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Niche Roadmaps
+          </button>
+          <Link
+            to={createPageUrl('NicheRoadmapOverview') + `?program=${new URLSearchParams(window.location.search).get('program')}`}
+            className="btn btn-secondary text-sm"
+          >
+            <Target className="w-4 h-4 mr-2" />
+            View Overview
+          </Link>
+        </div>
 
         <div className="mb-4 sm:mb-6">
           <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--text-main)] mb-2">{programContent.courseTitle}</h1>
@@ -171,6 +192,48 @@ export default function NicheRoadmapPage() {
             </div>
           )}
         </div>
+
+        {/* Ideal Client Summary */}
+        {idealClientData && (
+          <div className="mt-4 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-700">
+            <h3 className="font-bold text-sm text-[var(--text-main)] mb-2 flex items-center gap-2">
+              <Users className="w-4 h-4 text-purple-600" />
+              Your Ideal Client
+            </h3>
+            <div className="flex flex-wrap gap-2 mb-3">
+              {idealClientData.client_avatar_name && (
+                <span className="text-xs px-2 py-1 bg-white dark:bg-gray-800 border border-purple-200 dark:border-purple-700 rounded-full">
+                  👤 {idealClientData.client_avatar_name}
+                </span>
+              )}
+              {idealClientData.age_range && (
+                <span className="text-xs px-2 py-1 bg-white dark:bg-gray-800 border border-purple-200 dark:border-purple-700 rounded-full">
+                  {idealClientData.age_range}
+                </span>
+              )}
+              {idealClientData.occupation && (
+                <span className="text-xs px-2 py-1 bg-white dark:bg-gray-800 border border-purple-200 dark:border-purple-700 rounded-full">
+                  {idealClientData.occupation}
+                </span>
+              )}
+            </div>
+            {idealClientData.pain_points && idealClientData.pain_points.length > 0 && (
+              <div className="mb-2">
+                <p className="text-xs font-medium text-[var(--text-main)] mb-1">Top Pain Points:</p>
+                <div className="flex flex-wrap gap-1">
+                  {idealClientData.pain_points.slice(0, 3).map((pain, idx) => (
+                    <span key={idx} className="text-xs px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full">
+                      {pain}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+            <p className="text-xs text-[var(--text-soft)] mt-2">
+              💡 Keep your ideal client in mind as you work through each task
+            </p>
+          </div>
+        )}
 
         {/* Progress Bar */}
         <div className="mt-3 sm:mt-4">
