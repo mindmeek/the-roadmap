@@ -106,7 +106,7 @@ export default function MyFoundationRoadmap() {
                 {
                     id: 'business_model',
                     icon: Briefcase,
-                    title: 'Business Model Canvas',
+                    title: 'One Page Business Plan',
                     description: 'Map out your complete business model',
                     color: '#6366F1',
                     link: 'StrategyFormBusinessModelCanvas',
