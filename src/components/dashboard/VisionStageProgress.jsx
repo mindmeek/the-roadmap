@@ -7,7 +7,7 @@ import { CheckCircle, Circle, ChevronRight, Target, Sparkles, Crown, Rocket, Tre
 const STAGE_STEPS_CONFIG = {
     vision: {
         title: 'Vision Stage',
-        description: 'Build your strategic foundation',
+        description: 'Clarify your business idea and create a strategic foundation',
         icon: Target,
         color: 'blue',
         steps: [
@@ -20,7 +20,7 @@ const STAGE_STEPS_CONFIG = {
     },
     startup: {
         title: 'Startup Stage',
-        description: 'Launch and validate your business',
+        description: 'Launch your MVP and craft a unique customer journey to acquire your first customers',
         icon: Rocket,
         color: 'green',
         steps: [
@@ -33,7 +33,7 @@ const STAGE_STEPS_CONFIG = {
     },
     growth: {
         title: 'Growth Stage',
-        description: 'Scale and optimize your business',
+        description: 'Build systems, optimize your current ones and customer journey, and automate to scale your proven business model',
         icon: TrendingUp,
         color: 'purple',
         steps: [

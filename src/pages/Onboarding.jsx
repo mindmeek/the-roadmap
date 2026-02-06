@@ -342,7 +342,7 @@ export default function OnboardingPage() {
                                 Vision Stage
                             </h3>
                             <p className="text-sm text-[var(--text-soft)] mb-3">
-                                For aspiring entrepreneurs with an idea, defining your vision and validating your concept
+                                Clarify your business idea and create a strategic foundation
                             </p>
                             <ul className="space-y-2 text-xs text-[var(--text-soft)]">
                                 <li className="flex items-start">
@@ -384,7 +384,7 @@ export default function OnboardingPage() {
                                 Startup Stage
                             </h3>
                             <p className="text-sm text-[var(--text-soft)] mb-3">
-                                For entrepreneurs building and launching their business
+                                Launch your MVP and craft a unique customer journey to acquire your first customers
                             </p>
                             <ul className="space-y-2 text-xs text-[var(--text-soft)]">
                                 <li className="flex items-start">
@@ -426,7 +426,7 @@ export default function OnboardingPage() {
                                 Growth Stage
                             </h3>
                             <p className="text-sm text-[var(--text-soft)] mb-3">
-                                For established businesses focused on scaling and optimization
+                                Build systems, optimize your current ones and customer journey, and automate to scale your proven business model
                             </p>
                             <ul className="space-y-2 text-xs text-[var(--text-soft)]">
                                 <li className="flex items-start">
