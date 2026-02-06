@@ -238,35 +238,35 @@ export default function BusinessOverview() {
         <div className="pb-24 md:pb-8">
             {/* Hero Section with Modern Background */}
             <div 
-                className="relative mb-8"
+                className="relative mb-6 md:mb-8"
                 style={{
                     backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1600&h=500&fit=crop')`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    minHeight: '450px'
+                    minHeight: '300px'
                 }}
             >
-                <div className="max-w-7xl mx-auto px-4 py-12 md:py-16">
-                    <div className="flex flex-col md:flex-row items-start gap-8 mb-8">
+                <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
+                    <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 mb-6 md:mb-8">
                         {business?.logo_url && (
                             <img 
                                 src={business.logo_url} 
                                 alt="Business Logo" 
-                                className="w-32 h-32 object-contain bg-white p-4 shadow-2xl"
+                                className="w-24 h-24 md:w-32 md:h-32 object-contain bg-white p-3 md:p-4 shadow-2xl border-[3px] border-white"
                                 style={{ borderRadius: '1px' }}
                             />
                         )}
-                        <div className="flex-1 text-white">
-                            <h1 className="text-4xl md:text-5xl font-bold mb-3 text-white">
+                        <div className="flex-1 text-white text-center md:text-left">
+                            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-3 text-white">
                                 {business?.name || user?.business_name || 'Your Business'}
                             </h1>
                             {business?.tagline && (
-                                <p className="text-xl md:text-2xl text-[var(--primary-gold)] mb-4">
+                                <p className="text-base sm:text-lg md:text-xl text-[var(--primary-gold)] mb-2 md:mb-4">
                                     {business.tagline}
                                 </p>
                             )}
                             {business?.industry && (
-                                <p className="text-gray-200 mb-6">
+                                <p className="text-sm md:text-base text-gray-200 mb-4 md:mb-6">
                                     <strong>Industry:</strong> {business.industry}
                                 </p>
                             )}
@@ -274,40 +274,40 @@ export default function BusinessOverview() {
                     </div>
 
                     {/* Hero Intro */}
-                    <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-6 max-w-5xl" style={{ borderRadius: '1px' }}>
-                        <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                            <Briefcase className="w-7 h-7 text-[var(--primary-gold)]" />
+                    <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-4 md:p-6 max-w-5xl" style={{ borderRadius: '1px' }}>
+                        <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-white mb-3 md:mb-4 flex items-center gap-2 md:gap-3 justify-center md:justify-start">
+                            <Briefcase className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-[var(--primary-gold)]" />
                             Your Complete Business Command Center
                         </h2>
-                        <p className="text-gray-100 text-base leading-relaxed mb-6">
-                            This is your all-in-one business dashboard where strategy meets execution. Everything you need to build, grow, and scale your business is organized here—from your financial goals and strategic framework to team collaboration and daily operations. Track progress, align your team, and make data-driven decisions all from this central hub.
+                        <p className="text-gray-100 text-sm md:text-base leading-relaxed mb-4 md:mb-6 text-center md:text-left">
+                            This is your all-in-one business dashboard where strategy meets execution. Everything you need to build, grow, and scale your business is organized here—from your financial goals and strategic framework to team collaboration and daily operations.
                         </p>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div className="flex items-start gap-3">
-                                <div className="bg-[var(--primary-gold)] p-2" style={{ borderRadius: '1px' }}>
-                                    <Target className="w-5 h-5 text-white" />
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+                            <div className="flex items-start gap-2 md:gap-3">
+                                <div className="bg-[var(--primary-gold)] p-1.5 md:p-2 flex-shrink-0" style={{ borderRadius: '1px' }}>
+                                    <Target className="w-4 h-4 md:w-5 md:h-5 text-white" />
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-white mb-1">Strategic Clarity</h3>
-                                    <p className="text-xs text-gray-200">See your complete business strategy at a glance</p>
+                                    <h3 className="font-semibold text-white mb-1 text-sm md:text-base">Strategic Clarity</h3>
+                                    <p className="text-[10px] md:text-xs text-gray-200">See your complete business strategy</p>
                                 </div>
                             </div>
-                            <div className="flex items-start gap-3">
-                                <div className="bg-blue-500 p-2" style={{ borderRadius: '1px' }}>
-                                    <Users className="w-5 h-5 text-white" />
+                            <div className="flex items-start gap-2 md:gap-3">
+                                <div className="bg-blue-500 p-1.5 md:p-2 flex-shrink-0" style={{ borderRadius: '1px' }}>
+                                    <Users className="w-4 h-4 md:w-5 md:h-5 text-white" />
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-white mb-1">Team Alignment</h3>
-                                    <p className="text-xs text-gray-200">Collaborate seamlessly with your team</p>
+                                    <h3 className="font-semibold text-white mb-1 text-sm md:text-base">Team Alignment</h3>
+                                    <p className="text-[10px] md:text-xs text-gray-200">Collaborate with your team</p>
                                 </div>
                             </div>
-                            <div className="flex items-start gap-3">
-                                <div className="bg-green-500 p-2" style={{ borderRadius: '1px' }}>
-                                    <TrendingUp className="w-5 h-5 text-white" />
+                            <div className="flex items-start gap-2 md:gap-3">
+                                <div className="bg-green-500 p-1.5 md:p-2 flex-shrink-0" style={{ borderRadius: '1px' }}>
+                                    <TrendingUp className="w-4 h-4 md:w-5 md:h-5 text-white" />
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-white mb-1">Growth Tracking</h3>
-                                    <p className="text-xs text-gray-200">Monitor progress toward your freedom number</p>
+                                    <h3 className="font-semibold text-white mb-1 text-sm md:text-base">Growth Tracking</h3>
+                                    <p className="text-[10px] md:text-xs text-gray-200">Monitor your progress</p>
                                 </div>
                             </div>
                         </div>
