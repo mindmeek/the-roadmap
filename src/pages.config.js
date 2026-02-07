@@ -59,6 +59,7 @@ import AdminNotifications from './pages/AdminNotifications';
 import AdminPostScheduler from './pages/AdminPostScheduler';
 import AdminRoadmapContent from './pages/AdminRoadmapContent';
 import AdminTestSystems from './pages/AdminTestSystems';
+import AdvertisingServices from './pages/AdvertisingServices';
 import AnnualPlanning from './pages/AnnualPlanning';
 import AssistantGuide from './pages/AssistantGuide';
 import BeaconIntro from './pages/BeaconIntro';
@@ -153,7 +154,6 @@ import VisionStrategySession from './pages/VisionStrategySession';
 import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
 import Week from './pages/Week';
 import layout from './pages/layout';
-import AdvertisingServices from './pages/AdvertisingServices';
 import __Layout from './Layout.jsx';
 
 
@@ -170,6 +170,7 @@ export const PAGES = {
     "AdminPostScheduler": AdminPostScheduler,
     "AdminRoadmapContent": AdminRoadmapContent,
     "AdminTestSystems": AdminTestSystems,
+    "AdvertisingServices": AdvertisingServices,
     "AnnualPlanning": AnnualPlanning,
     "AssistantGuide": AssistantGuide,
     "BeaconIntro": BeaconIntro,
@@ -264,7 +265,6 @@ export const PAGES = {
     "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
     "Week": Week,
     "layout": layout,
-    "AdvertisingServices": AdvertisingServices,
 }
 
 export const pagesConfig = {

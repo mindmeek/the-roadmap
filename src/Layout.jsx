@@ -1189,12 +1189,21 @@ export default function Layout({ children, currentPageName }) {
                 <div className={`flex flex-col h-full bg-black/95 backdrop-blur-sm border-r border-gray-800 shadow-2xl transition-all duration-300 ${isSidebarExpanded ? 'w-64' : 'w-16'}`}>
                     <div className="flex-shrink-0 flex items-center justify-center border-b border-gray-800 py-4">
                         <Link to={createPageUrl("Dashboard")} className="flex items-center justify-center">
-                            <img
-                                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/bb3a4dba9_SmallAppIcon.png"
-                                alt="BM"
-                                className="h-10 w-10 rounded-md transition-all duration-300"
-                                loading="lazy"
-                            />
+                            {isSidebarExpanded ? (
+                                <img
+                                    src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/688e3deef052dd144c001643/abce1e604_THEHQLOGO1200x330px2.png"
+                                    alt="The Roadmap"
+                                    className="h-10 w-auto max-w-[200px] transition-all duration-300"
+                                    loading="lazy"
+                                />
+                            ) : (
+                                <img
+                                    src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/bb3a4dba9_SmallAppIcon.png"
+                                    alt="BM"
+                                    className="h-10 w-10 rounded-md transition-all duration-300"
+                                    loading="lazy"
+                                />
+                            )}
                         </Link>
                     </div>
 
