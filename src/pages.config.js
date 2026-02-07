@@ -120,6 +120,7 @@ import SOPPoliciesAI from './pages/SOPPoliciesAI';
 import SOPs from './pages/SOPs';
 import Schedule from './pages/Schedule';
 import SocialMediaPlanner from './pages/SocialMediaPlanner';
+import SocialMediaServices from './pages/SocialMediaServices';
 import StartupStrategySession from './pages/StartupStrategySession';
 import StrategyFormAffiliateProgram from './pages/StrategyFormAffiliateProgram';
 import StrategyFormAutomation from './pages/StrategyFormAutomation';
@@ -152,7 +153,6 @@ import VisionStrategySession from './pages/VisionStrategySession';
 import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
 import Week from './pages/Week';
 import layout from './pages/layout';
-import SocialMediaServices from './pages/SocialMediaServices';
 import __Layout from './Layout.jsx';
 
 
@@ -230,6 +230,7 @@ export const PAGES = {
     "SOPs": SOPs,
     "Schedule": Schedule,
     "SocialMediaPlanner": SocialMediaPlanner,
+    "SocialMediaServices": SocialMediaServices,
     "StartupStrategySession": StartupStrategySession,
     "StrategyFormAffiliateProgram": StrategyFormAffiliateProgram,
     "StrategyFormAutomation": StrategyFormAutomation,
@@ -262,7 +263,6 @@ export const PAGES = {
     "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
     "Week": Week,
     "layout": layout,
-    "SocialMediaServices": SocialMediaServices,
 }
 
 export const pagesConfig = {
