@@ -1191,7 +1191,7 @@ export default function Layout({ children, currentPageName }) {
                         <Link to={createPageUrl("Dashboard")} className="flex items-center justify-center">
                             {isSidebarExpanded ? (
                                 <img
-                                    src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/688e3deef052dd144c001643/abce1e604_THEHQLOGO1200x330px2.png"
+                                    src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/688e3deef052dd144c001643/197f75538_THEHQLOGO1200x330px3.png"
                                     alt="The Roadmap"
                                     className="h-14 w-auto max-w-[240px] transition-all duration-300"
                                     loading="lazy"
