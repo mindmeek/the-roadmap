@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { toast } from "sonner";
 import AIMarketingGenerator from "@/components/marketing/AIMarketingGenerator";
+import AITeamModal from "@/components/ai/AITeamModal";
 
 export default function MarketingOverviewPage() {
     const [loading, setLoading] = useState(true);
@@ -21,6 +22,9 @@ export default function MarketingOverviewPage() {
     const [expandedMonth, setExpandedMonth] = useState(1);
     const [financialGoals, setFinancialGoals] = useState(null);
     const [refreshing, setRefreshing] = useState(false);
+    const [business, setBusiness] = useState(null);
+    const [showAIModal, setShowAIModal] = useState(false);
+    const [aiAssistantType, setAiAssistantType] = useState('ava');
 
     useEffect(() => {
         loadData();
@@ -55,6 +59,12 @@ export default function MarketingOverviewPage() {
             if (socialPlans.length > 0) {
                 setSocialMediaPlan(socialPlans[0]);
             }
+
+            // Fetch Business
+            const businesses = await base44.entities.Business.filter({ owner_user_id: userData.id });
+            if (businesses.length > 0) {
+                setBusiness(businesses[0]);
+            }
         } catch (error) {
             console.error("Error loading marketing data:", error);
             toast.error("Failed to load marketing data");
@@ -74,6 +84,19 @@ export default function MarketingOverviewPage() {
     const idealClient = strategyDocs.ideal_client?.content || {};
     const valueProposition = strategyDocs.value_proposition_canvas?.content || {};
     const brandKit = strategyDocs.brand_kit?.content || {};
+
+    // Check if business overview is complete enough for marketing plan
+    const hasBusinessFoundation = business && (
+        business.description || 
+        strategyDocs.ideal_client?.is_completed || 
+        strategyDocs.value_proposition_canvas?.is_completed ||
+        financialGoals?.products?.length > 0
+    );
+
+    const openAIAssistant = (assistantType) => {
+        setAiAssistantType(assistantType);
+        setShowAIModal(true);
+    };
 
     const handleRefreshContent = async () => {
         setRefreshing(true);
@@ -113,6 +136,72 @@ export default function MarketingOverviewPage() {
                         </Button>
                     </Link>
                 </div>
+
+                {/* AI Marketing Plan Generator - Priority CTA */}
+                {hasBusinessFoundation ? (
+                    <div className="card p-8 bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-600 text-white border-4 border-white shadow-2xl">
+                        <div className="flex flex-col md:flex-row items-center gap-6">
+                            <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl">
+                                <Sparkles className="w-12 h-12 text-white" />
+                            </div>
+                            <div className="flex-1 text-center md:text-left">
+                                <h2 className="text-3xl font-bold mb-2">Ready to Build Your Complete Marketing Plan?</h2>
+                                <p className="text-white/90 mb-4">
+                                    Your business foundation is in place! Now let our AI Marketing Strategist (Ava) analyze your business 
+                                    data and create a comprehensive, personalized marketing plan tailored to your goals, audience, and offerings.
+                                </p>
+                                <div className="flex flex-wrap gap-2 text-sm">
+                                    <div className="bg-white/20 px-3 py-1 rounded-full">✓ Ideal Client Analysis</div>
+                                    <div className="bg-white/20 px-3 py-1 rounded-full">✓ Value Proposition Integration</div>
+                                    <div className="bg-white/20 px-3 py-1 rounded-full">✓ Revenue Target Strategy</div>
+                                    <div className="bg-white/20 px-3 py-1 rounded-full">✓ Channel Recommendations</div>
+                                </div>
+                            </div>
+                            <Button 
+                                onClick={() => openAIAssistant('ava')}
+                                className="bg-white text-purple-600 hover:bg-gray-100 font-bold text-lg px-8 py-6"
+                            >
+                                <Sparkles className="w-5 h-5 mr-2" />
+                                Generate My Marketing Plan
+                            </Button>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="card p-8 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-yellow-400 dark:border-yellow-600">
+                        <div className="flex flex-col md:flex-row items-center gap-6">
+                            <div className="bg-yellow-100 dark:bg-yellow-900 p-4 rounded-xl">
+                                <Target className="w-12 h-12 text-yellow-600" />
+                            </div>
+                            <div className="flex-1 text-center md:text-left">
+                                <h2 className="text-2xl font-bold text-[var(--text-main)] mb-2">Complete Your Business Foundation First</h2>
+                                <p className="text-[var(--text-soft)] mb-4">
+                                    Before creating your marketing plan, you need to define your business basics: who you serve, 
+                                    what you offer, and your revenue goals. This ensures your marketing is targeted and effective.
+                                </p>
+                                <div className="flex flex-wrap gap-2 text-sm text-[var(--text-soft)]">
+                                    <div className="flex items-center gap-1">
+                                        {strategyDocs.ideal_client?.is_completed ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-gray-300" />}
+                                        <span>Ideal Client Profile</span>
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                        {strategyDocs.value_proposition_canvas?.is_completed ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-gray-300" />}
+                                        <span>Value Proposition</span>
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                        {financialGoals?.products?.length > 0 ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-gray-300" />}
+                                        <span>Products/Services & Goals</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <Link to={createPageUrl('BusinessOverview')}>
+                                <Button className="bg-[var(--primary-gold)] hover:bg-[var(--primary-gold)]/90 font-bold text-lg px-8 py-6">
+                                    <ArrowRight className="w-5 h-5 mr-2" />
+                                    Complete Business Overview
+                                </Button>
+                            </Link>
+                        </div>
+                    </div>
+                )}
 
                 {/* Financial Goals & Targets */}
                 {financialGoals && (
@@ -1269,6 +1358,22 @@ export default function MarketingOverviewPage() {
                     </div>
                 </div>
             </div>
+
+            {/* AI Team Modal */}
+            {showAIModal && (
+                <AITeamModal
+                    isOpen={showAIModal}
+                    onClose={() => setShowAIModal(false)}
+                    assistantType={aiAssistantType}
+                    sectionTitle="Marketing Hub - Complete Marketing Plan"
+                    additionalContext={`Business: ${business?.name || user?.business_name || 'Not set'}
+Ideal Client: ${idealClient.name || 'Not defined'}
+Value Proposition: ${valueProposition.value_proposition || 'Not defined'}
+Products/Services: ${financialGoals?.products?.map(p => p.name).join(', ') || 'Not set'}
+Freedom Number: $${financialGoals?.freedomNumber || 'Not calculated'}/month`}
+                    currentBusinessId={business?.id}
+                />
+            )}
         </div>
     );
 }
