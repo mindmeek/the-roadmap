@@ -153,6 +153,7 @@ import VisionStrategySession from './pages/VisionStrategySession';
 import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
 import Week from './pages/Week';
 import layout from './pages/layout';
+import AdvertisingServices from './pages/AdvertisingServices';
 import __Layout from './Layout.jsx';
 
 
@@ -263,6 +264,7 @@ export const PAGES = {
     "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
     "Week": Week,
     "layout": layout,
+    "AdvertisingServices": AdvertisingServices,
 }
 
 export const pagesConfig = {

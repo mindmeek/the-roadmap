@@ -63,6 +63,7 @@ const connectBuildItems = [
     { href: "BusinessOverview", icon: Briefcase, label: "Business Overview", mobileLabel: "Business" },
     { href: "MarketingOverview", icon: TrendingUp, label: "Marketing Hub", mobileLabel: "Marketing" },
     { href: "SocialMediaServices", icon: Share2, label: "Social Media Services", mobileLabel: "SM Services" },
+    { href: "AdvertisingServices", icon: Target, label: "Advertising Services", mobileLabel: "Ads Services" },
     { href: "DfyServices", icon: Briefcase, label: "My Services", mobileLabel: "Services" },
     { href: "Partners", icon: Handshake, label: "Partners", mobileLabel: "Partners" },
     { href: "TheBeacon", icon: Podcast, label: "The Beacon Studio", mobileLabel: "Podcast" },
