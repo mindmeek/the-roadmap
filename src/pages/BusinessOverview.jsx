@@ -238,7 +238,7 @@ export default function BusinessOverview() {
         <div className="pb-24 md:pb-8">
             {/* Hero Section with Modern Background */}
             <div 
-                className="relative mb-6 md:mb-8"
+                className="relative mb-6 md:mb-8 -mx-4 lg:-mx-6"
                 style={{
                     backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.75)), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1600&h=500&fit=crop')`,
                     backgroundSize: 'cover',
