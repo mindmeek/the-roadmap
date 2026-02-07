@@ -1193,7 +1193,7 @@ export default function Layout({ children, currentPageName }) {
                                 <img
                                     src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/688e3deef052dd144c001643/abce1e604_THEHQLOGO1200x330px2.png"
                                     alt="The Roadmap"
-                                    className="h-10 w-auto max-w-[200px] transition-all duration-300"
+                                    className="h-14 w-auto max-w-[240px] transition-all duration-300"
                                     loading="lazy"
                                 />
                             ) : (
