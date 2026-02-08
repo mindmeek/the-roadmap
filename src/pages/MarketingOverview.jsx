@@ -28,9 +28,13 @@ export default function MarketingOverviewPage() {
     const [showAIModal, setShowAIModal] = useState(false);
     const [aiAssistantType, setAiAssistantType] = useState('ava');
     const [selectedChannels, setSelectedChannels] = useState([]);
+    const [overallProgress, setOverallProgress] = useState(0);
 
-    // Calculate overall marketing progress
-    const overallProgress = React.useMemo(() => {
+    useEffect(() => {
+        loadData();
+    }, []);
+
+    useEffect(() => {
         const milestones = [
             !!strategyDocs.ideal_client?.is_completed,
             !!strategyDocs.value_proposition_canvas?.is_completed,
@@ -40,12 +44,8 @@ export default function MarketingOverviewPage() {
             !!annualPlan
         ];
         const completedCount = milestones.filter(Boolean).length;
-        return Math.round((completedCount / milestones.length) * 100);
+        setOverallProgress(Math.round((completedCount / milestones.length) * 100));
     }, [strategyDocs, financialGoals, socialMediaPlan, annualPlan]);
-
-    useEffect(() => {
-        loadData();
-    }, []);
 
     const loadData = async () => {
         try {
