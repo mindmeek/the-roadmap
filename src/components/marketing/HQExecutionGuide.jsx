@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { 
     Share2, Mail, BarChart, FileText, Sparkles, Phone, MessageSquare, 
-    Globe, Palette, Video, Instagram, Facebook, Linkedin, ArrowRight,
-    CheckCircle, Zap
+    Globe, ArrowRight, CheckCircle, Zap, Calendar, TrendingUp, DollarSign
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
