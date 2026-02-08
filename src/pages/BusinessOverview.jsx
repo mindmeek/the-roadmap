@@ -32,6 +32,7 @@ import TeamTaskBoard from '@/components/business/TeamTaskBoard';
 import FoundationRoadmapVisual from '@/components/dashboard/FoundationRoadmapVisual';
 import FoundationProgress from '@/components/dashboard/VisionStageProgress';
 import ActionCard from '@/components/dashboard/ActionCard';
+import BusinessInfoEditor from '@/components/business/BusinessInfoEditor';
 
 export default function BusinessOverview() {
     const [user, setUser] = useState(null);
@@ -45,6 +46,7 @@ export default function BusinessOverview() {
     const [aboutText, setAboutText] = useState('');
     const [savingAbout, setSavingAbout] = useState(false);
     const [isFoundationOpen, setIsFoundationOpen] = useState(false);
+    const [showBusinessEditor, setShowBusinessEditor] = useState(false);
 
     useEffect(() => {
         loadBusinessOverview();
@@ -270,6 +272,15 @@ export default function BusinessOverview() {
                                     <strong>Industry:</strong> {business.industry}
                                 </p>
                             )}
+                            <Button 
+                                onClick={() => setShowBusinessEditor(true)}
+                                variant="outline"
+                                className="bg-white/10 hover:bg-white/20 text-white border-white/30"
+                                style={{ borderRadius: '1px' }}
+                            >
+                                <Edit className="w-4 h-4 mr-2" />
+                                Edit Business Info
+                            </Button>
                         </div>
                     </div>
 
@@ -1122,6 +1133,18 @@ export default function BusinessOverview() {
 
             {/* Foundation Progress */}
             <FoundationProgress user={user} />
+
+            {/* Business Info Editor Modal */}
+            {showBusinessEditor && (
+                <BusinessInfoEditor
+                    business={business}
+                    onSave={() => {
+                        setShowBusinessEditor(false);
+                        loadBusinessOverview();
+                    }}
+                    onCancel={() => setShowBusinessEditor(false)}
+                />
+            )}
         </div>
         </div>
     );
