@@ -109,28 +109,32 @@ export default function MarketingStrategyDashboard({
             key: 'social_media', 
             icon: Share2, 
             color: 'from-pink-500 to-rose-600',
-            link: 'SocialMediaPlanner'
+            link: 'SocialMediaPlanner',
+            hqFeatures: ['Multi-platform posting', 'Custom per platform', '9+ social channels']
         },
         { 
             name: 'Email Marketing', 
             key: 'email', 
             icon: Mail, 
             color: 'from-blue-500 to-indigo-600',
-            link: 'MyFoundationRoadmap'
+            link: 'MyFoundationRoadmap',
+            hqFeatures: ['Email campaigns', 'AI copywriting', 'Automation']
         },
         { 
             name: 'Content Strategy', 
             key: 'content', 
             icon: Target, 
             color: 'from-purple-500 to-violet-600',
-            link: 'MyFoundationRoadmap'
+            link: 'MyFoundationRoadmap',
+            hqFeatures: ['Blog platform', 'Landing pages', 'AI page builder']
         },
         { 
             name: 'Paid Advertising', 
             key: 'paid_ads', 
             icon: BarChart, 
             color: 'from-green-500 to-emerald-600',
-            link: 'AdvertisingServices'
+            link: 'AdvertisingServices',
+            hqFeatures: ['Google Ads', 'Facebook Ads', 'LinkedIn Ads']
         }
     ];
 
@@ -251,8 +255,8 @@ export default function MarketingStrategyDashboard({
                     const progress = channelProgress[channel.key] || 0;
                     
                     return (
-                        <Link key={channel.key} to={createPageUrl(channel.link)}>
-                            <div className="card p-4 hover:shadow-lg transition-all cursor-pointer h-full">
+                        <div key={channel.key}>
+                            <div className="card p-4 hover:shadow-lg transition-all h-full">
                                 <div className={`bg-gradient-to-br ${channel.color} p-3 rounded-lg inline-block mb-3`}>
                                     <Icon className="w-5 h-5 text-white" />
                                 </div>
@@ -266,15 +270,25 @@ export default function MarketingStrategyDashboard({
                                             style={{ width: `${progress}%` }}
                                         ></div>
                                     </div>
-                                    <p className="text-xs text-[var(--text-soft)] mt-1">{progress}% Complete</p>
+                                    <p className="text-xs text-[var(--text-soft)] mt-1">Strategy: {progress}% Complete</p>
                                 </div>
 
-                                <div className="flex items-center text-xs text-[var(--primary-gold)] font-medium">
-                                    {progress === 100 ? 'Manage' : 'Set Up'} 
-                                    <ArrowRight className="w-3 h-3 ml-1" />
+                                {/* HQ Features */}
+                                <div className="bg-blue-50 dark:bg-blue-900/20 p-2 rounded mb-3">
+                                    <p className="text-xs font-semibold text-blue-700 dark:text-blue-400 mb-1">Execute in The HQ:</p>
+                                    {channel.hqFeatures.map((feature, idx) => (
+                                        <p key={idx} className="text-xs text-[var(--text-soft)]">• {feature}</p>
+                                    ))}
                                 </div>
+
+                                <Link to={createPageUrl(channel.link)}>
+                                    <Button variant="outline" size="sm" className="w-full text-xs">
+                                        {progress === 100 ? 'View Strategy' : 'Plan Strategy'} 
+                                        <ArrowRight className="w-3 h-3 ml-1" />
+                                    </Button>
+                                </Link>
                             </div>
-                        </Link>
+                        </div>
                     );
                 })}
             </div>
@@ -332,27 +346,75 @@ export default function MarketingStrategyDashboard({
                 <div className="card p-8 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200 dark:border-green-800 text-center">
                     <Award className="w-16 h-16 mx-auto mb-4 text-green-600" />
                     <h3 className="text-2xl font-bold text-[var(--text-main)] mb-2">
-                        🎉 Your Marketing Foundation is Complete!
+                        🎉 Your Marketing Strategy is Complete!
                     </h3>
                     <p className="text-[var(--text-soft)] mb-6">
-                        You've built a solid marketing strategy. Now it's time to execute, measure, and optimize.
+                        You've built a comprehensive marketing foundation. Now execute it all seamlessly in The Business Minds HQ—
+                        your all-in-one platform for social media, email, ads, landing pages, and more.
                     </p>
                     <div className="flex flex-wrap gap-3 justify-center">
+                        <a 
+                            href="https://app.thebminds.com" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="btn btn-primary"
+                        >
+                            <Sparkles className="w-4 h-4 mr-2" />
+                            Execute in The HQ
+                        </a>
                         <Link to={createPageUrl('SocialMediaPlanner')}>
-                            <Button className="bg-pink-600 hover:bg-pink-700">
+                            <Button variant="outline">
                                 <Share2 className="w-4 h-4 mr-2" />
                                 View Social Plan
-                            </Button>
-                        </Link>
-                        <Link to={createPageUrl('DailyTrack')}>
-                            <Button className="bg-blue-600 hover:bg-blue-700">
-                                <Calendar className="w-4 h-4 mr-2" />
-                                Track Daily Progress
                             </Button>
                         </Link>
                     </div>
                 </div>
             )}
+
+            {/* The HQ Execution Platform CTA */}
+            <div className="card p-6 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 text-white">
+                <div className="flex flex-col md:flex-row items-center gap-6">
+                    <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl flex-shrink-0">
+                        <Sparkles className="w-12 h-12 text-white" />
+                    </div>
+                    <div className="flex-1 text-center md:text-left">
+                        <h3 className="text-2xl font-bold mb-2">Execute Your Strategy in The Business Minds HQ</h3>
+                        <p className="text-white/90 mb-4 text-sm">
+                            Once your strategy is planned here, execute it all in The HQ—your complete marketing command center.
+                        </p>
+                        
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs mb-4">
+                            <div className="bg-white/10 px-2 py-1 rounded">📱 9+ Social Platforms</div>
+                            <div className="bg-white/10 px-2 py-1 rounded">✉️ Email Marketing</div>
+                            <div className="bg-white/10 px-2 py-1 rounded">🎯 Google/FB/LinkedIn Ads</div>
+                            <div className="bg-white/10 px-2 py-1 rounded">📄 Unlimited Landing Pages</div>
+                            <div className="bg-white/10 px-2 py-1 rounded">📝 Blog Platform</div>
+                            <div className="bg-white/10 px-2 py-1 rounded">🤖 AI Web Chat</div>
+                            <div className="bg-white/10 px-2 py-1 rounded">📞 Voice AI Phone</div>
+                            <div className="bg-white/10 px-2 py-1 rounded">⚙️ Marketing Automation</div>
+                        </div>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <a 
+                            href="https://app.thebminds.com" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="bg-white text-indigo-600 hover:bg-gray-100 font-bold px-6 py-3 rounded-lg transition-colors inline-flex items-center justify-center"
+                        >
+                            Launch The HQ
+                            <ArrowRight className="w-4 h-4 ml-2" />
+                        </a>
+                        {user?.subscription_level === 'free' && (
+                            <Link to={createPageUrl('Upgrade')}>
+                                <Button variant="outline" className="border-white text-white hover:bg-white/10 w-full">
+                                    Upgrade to Access
+                                </Button>
+                            </Link>
+                        )}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

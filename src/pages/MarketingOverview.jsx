@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import AIMarketingGenerator from "@/components/marketing/AIMarketingGenerator";
 import AITeamModal from "@/components/ai/AITeamModal";
 import MarketingStrategyDashboard from "@/components/marketing/MarketingStrategyDashboard";
+import HQExecutionGuide from "@/components/marketing/HQExecutionGuide";
 
 export default function MarketingOverviewPage() {
     const [loading, setLoading] = useState(true);
@@ -1376,6 +1377,12 @@ export default function MarketingOverviewPage() {
                         </div>
                     </div>
                 </div>
+
+                {/* The HQ Execution Platform Guide */}
+                <HQExecutionGuide 
+                    user={user}
+                    hasStrategy={overallProgress >= 50}
+                />
 
                 {/* Community Engagement CTA */}
                 <div className="card p-6 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border-2 border-indigo-200 dark:border-indigo-800">
