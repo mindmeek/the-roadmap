@@ -5,7 +5,7 @@ import { createPageUrl } from '@/utils';
 import {
     Target, Users, Zap, TrendingUp, Calendar, Sparkles, Loader2,
     MessageSquare, BarChart, Globe, Mail, Phone, Edit, Plus, CheckCircle, ArrowLeft,
-    DollarSign, ShoppingCart, FileText, Send, UserPlus, Share2, X, ChevronDown, RefreshCw
+    DollarSign, ShoppingCart, FileText, Send, UserPlus, Share2, X, ChevronDown, RefreshCw, ArrowRight
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
