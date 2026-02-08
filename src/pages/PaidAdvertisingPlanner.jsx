@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { BarChart, Sparkles, Loader2, Calendar, ArrowLeft, ArrowRight, Target, DollarSign, TrendingUp } from 'lucide-react';
+import { BarChart, Sparkles, Loader2, Calendar, ArrowLeft, ArrowRight, Target, DollarSign, TrendingUp, Lightbulb, CheckCircle } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import AIAdCopyGenerator from "@/components/marketing/AIAdCopyGenerator";
 
 export default function PaidAdvertisingPlanner() {
     const [loading, setLoading] = useState(true);
@@ -15,6 +16,9 @@ export default function PaidAdvertisingPlanner() {
     const [selectedMonth, setSelectedMonth] = useState(0);
     const [business, setBusiness] = useState(null);
     const [strategyDocs, setStrategyDocs] = useState({});
+    const [campaignTheme, setCampaignTheme] = useState('');
+    const [showThemeGenerator, setShowThemeGenerator] = useState(false);
+    const [generatingTheme, setGeneratingTheme] = useState(false);
 
     useEffect(() => {
         loadData();
@@ -25,26 +29,27 @@ export default function PaidAdvertisingPlanner() {
             const userData = await base44.auth.me();
             setUser(userData);
 
-            const businesses = await base44.entities.Business.filter({ owner_user_id: userData.id });
+            // Load all data in parallel with limits
+            const [businesses, docs, plans] = await Promise.all([
+                base44.entities.Business.filter({ owner_user_id: userData.id }, '-updated_date', 1),
+                base44.entities.StrategyDocument.filter({}, '-updated_date', 20),
+                base44.entities.MarketingPlan.filter({ plan_type: 'paid_advertising' }, '-created_date', 10)
+            ]);
+
             if (businesses.length > 0) {
                 setBusiness(businesses[0]);
             }
 
-            const docs = await base44.entities.StrategyDocument.filter({});
             const docsMap = {};
             docs.forEach(doc => {
                 docsMap[doc.document_type] = doc;
             });
             setStrategyDocs(docsMap);
 
-            const plans = await base44.entities.MarketingPlan.filter(
-                { plan_type: 'paid_advertising' },
-                '-created_date'
-            );
-
             const active = plans.find(p => p.is_active) || plans[0];
             if (active) {
                 setActivePlan(active);
+                setCampaignTheme(active.plan_data?.title || '');
             }
 
             setPreviousPlans(plans.filter(p => p.id !== active?.id));
@@ -53,6 +58,61 @@ export default function PaidAdvertisingPlanner() {
             toast.error('Failed to load data');
         } finally {
             setLoading(false);
+        }
+    };
+
+    const generateCampaignTheme = async () => {
+        setGeneratingTheme(true);
+        try {
+            const idealClient = strategyDocs.ideal_client?.content || {};
+            const valueProposition = strategyDocs.value_proposition_canvas?.content || {};
+
+            const prompt = `You are a marketing strategist. Based on this business profile, create a focused 90-day advertising campaign theme:
+
+Business: ${business?.name || user?.business_name || 'Business'}
+Industry: ${business?.industry || 'General'}
+Target Audience: ${idealClient.demographics || 'General audience'}
+Pain Points: ${idealClient.pain_points || 'General challenges'}
+Goals: ${idealClient.goals || 'Growth'}
+Value Proposition: ${valueProposition.value_proposition || 'Unique value'}
+Products/Services: ${user?.financial_projections?.products?.map(p => p.name).join(', ') || 'Services'}
+Financial Goal: $${user?.financial_projections?.freedomNumber || 0}/month
+
+Create a single, focused 90-day campaign theme that:
+1. Addresses the target audience's main pain point
+2. Aligns with the business's value proposition
+3. Supports the financial goals
+4. Is specific and actionable (not generic)
+
+Also provide:
+- Campaign tagline (short, memorable)
+- Core message (2-3 sentences explaining the theme)
+- Why this theme works for this business
+
+Format as JSON.`;
+
+            const result = await base44.integrations.Core.InvokeLLM({
+                prompt: prompt,
+                add_context_from_internet: false,
+                response_json_schema: {
+                    type: "object",
+                    properties: {
+                        theme: { type: "string" },
+                        tagline: { type: "string" },
+                        core_message: { type: "string" },
+                        reasoning: { type: "string" }
+                    }
+                }
+            });
+
+            setCampaignTheme(result.theme);
+            toast.success('Campaign theme generated!');
+            setShowThemeGenerator(false);
+        } catch (error) {
+            console.error('Error generating theme:', error);
+            toast.error('Failed to generate theme');
+        } finally {
+            setGeneratingTheme(false);
         }
     };
 
@@ -66,10 +126,11 @@ export default function PaidAdvertisingPlanner() {
                 value_proposition: strategyDocs.value_proposition_canvas?.content || {},
                 products: user?.financial_projections?.products || [],
                 freedom_number: user?.financial_projections?.freedomNumber || 0,
-                previous_plan_summary: activePlan?.plan_data ? 'Optimizing based on previous campaigns' : 'First ad campaign'
+                previous_plan_summary: activePlan?.plan_data ? 'Optimizing based on previous campaigns' : 'First ad campaign',
+                campaign_theme: campaignTheme || 'General Growth Campaign'
             };
 
-            const prompt = `Create a comprehensive 90-day PAID ADVERTISING plan for this business.
+            const prompt = `Create a comprehensive 90-day PAID ADVERTISING plan aligned with this campaign theme: "${businessContext.campaign_theme}"
 
 Business Context:
 - Business Name: ${businessContext.business_name}
@@ -193,6 +254,75 @@ Make it actionable with specific campaign ideas, ad copy, and budget guidance.`;
                     </p>
                 </div>
 
+                {/* Campaign Theme Setup */}
+                <div className="card p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-800">
+                    <div className="flex items-center justify-between mb-4">
+                        <div>
+                            <h2 className="text-xl font-bold text-[var(--text-main)] flex items-center gap-2">
+                                <Lightbulb className="w-5 h-5 text-blue-600" />
+                                90-Day Campaign Theme
+                            </h2>
+                            <p className="text-sm text-[var(--text-soft)] mt-1">
+                                Set a focused theme to align all your advertising efforts
+                            </p>
+                        </div>
+                        <Button
+                            onClick={() => setShowThemeGenerator(!showThemeGenerator)}
+                            variant="outline"
+                            size="sm"
+                        >
+                            {campaignTheme ? 'Update Theme' : 'Set Theme'}
+                        </Button>
+                    </div>
+
+                    {campaignTheme && (
+                        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-l-4 border-blue-600">
+                            <div className="flex items-start justify-between">
+                                <div className="flex-1">
+                                    <span className="text-xs text-blue-600 font-semibold">Current Theme:</span>
+                                    <p className="text-[var(--text-main)] font-bold text-lg mt-1">{campaignTheme}</p>
+                                </div>
+                                <CheckCircle className="w-5 h-5 text-green-600" />
+                            </div>
+                        </div>
+                    )}
+
+                    {showThemeGenerator && (
+                        <div className="mt-4 space-y-4">
+                            <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border border-yellow-200 dark:border-yellow-700">
+                                <p className="text-sm text-[var(--text-soft)]">
+                                    💡 AI will analyze your business profile, ideal client, and goals to create a focused 90-day campaign theme 
+                                    that aligns all your advertising efforts across Google, Facebook, and LinkedIn.
+                                </p>
+                            </div>
+                            
+                            <div className="flex gap-3">
+                                <input
+                                    type="text"
+                                    value={campaignTheme}
+                                    onChange={(e) => setCampaignTheme(e.target.value)}
+                                    placeholder="Or enter your own campaign theme..."
+                                    className="form-input flex-1"
+                                />
+                                <Button
+                                    onClick={generateCampaignTheme}
+                                    disabled={generatingTheme}
+                                    className="bg-blue-600 hover:bg-blue-700"
+                                >
+                                    {generatingTheme ? (
+                                        <Loader2 className="w-4 h-4 animate-spin" />
+                                    ) : (
+                                        <>
+                                            <Sparkles className="w-4 h-4 mr-2" />
+                                            AI Generate
+                                        </>
+                                    )}
+                                </Button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
                 {!activePlan ? (
                     <div className="card p-8 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200 dark:border-green-800">
                         <div className="text-center">
@@ -203,12 +333,14 @@ Make it actionable with specific campaign ideas, ad copy, and budget guidance.`;
                                 Generate Your 90-Day Advertising Strategy
                             </h2>
                             <p className="text-[var(--text-soft)] max-w-2xl mx-auto mb-6">
-                                Our AI will create a personalized paid advertising plan with campaign strategies, ad copy examples, 
-                                audience targeting, budget recommendations, and optimization tactics for Google, Facebook, and LinkedIn.
+                                {campaignTheme 
+                                    ? `Create a comprehensive advertising plan aligned with your "${campaignTheme}" campaign theme.`
+                                    : 'Our AI will create a personalized paid advertising plan with campaign strategies, ad copy examples, audience targeting, and budget recommendations.'
+                                }
                             </p>
                             <Button 
                                 onClick={generatePlan}
-                                disabled={generating}
+                                disabled={generating || !campaignTheme}
                                 className="bg-green-600 hover:bg-green-700 text-lg px-8 py-6"
                             >
                                 {generating ? (
@@ -223,6 +355,11 @@ Make it actionable with specific campaign ideas, ad copy, and budget guidance.`;
                                     </>
                                 )}
                             </Button>
+                            {!campaignTheme && (
+                                <p className="text-sm text-yellow-600 mt-3">
+                                    ⚠️ Set your campaign theme above first
+                                </p>
+                            )}
                         </div>
                     </div>
                 ) : (
@@ -341,6 +478,14 @@ Make it actionable with specific campaign ideas, ad copy, and budget guidance.`;
                                 ))}
                             </div>
                         )}
+
+                        {/* AI Ad Copy Generator */}
+                        <AIAdCopyGenerator
+                            user={user}
+                            business={business}
+                            strategyDocs={strategyDocs}
+                            campaignTheme={campaignTheme}
+                        />
 
                         <div className="card p-6 bg-gradient-to-r from-green-600 to-emerald-600 text-white">
                             <div className="text-center">
