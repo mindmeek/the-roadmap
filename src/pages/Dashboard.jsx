@@ -81,31 +81,27 @@ export default function DashboardPage() {
             const userHasJourney = !!(currentUser.journey_start_date && currentUser.selected_goal);
             setHasJourney(userHasJourney);
 
-
-
             const today = moment().format('YYYY-MM-DD');
-            const progressRecords = await DailyProgress.filter({ 
-                created_by: currentUser.email, 
-                date: today 
-            });
+            const now = moment().format('YYYY-MM-DDTHH:mm');
+
+            // Fetch all data in parallel with limits
+            const [progressRecords, highlights, events, customerJourneyDoc] = await Promise.all([
+                DailyProgress.filter({ created_by: currentUser.email, date: today }, '-created_date', 1),
+                CommunityHighlight.filter({ is_active: true }, '-created_date', 5),
+                Event.filter({ is_published: true, event_date: { $gte: now } }, 'event_date', 10),
+                currentUser.subscription_level === 'free' && !currentUser.customer_journey_completed_date
+                    ? StrategyDocument.filter({ created_by: currentUser.email, document_type: 'customer_journey' }, '-updated_date', 1)
+                    : Promise.resolve([])
+            ]);
+
             if (progressRecords.length > 0) {
                 setTodayProgress(progressRecords[0]);
             }
 
-            const highlights = await CommunityHighlight.filter({ is_active: true });
             setCommunityHighlights(highlights);
-
-            const now = moment().format('YYYY-MM-DDTHH:mm');
-            const events = await Event.filter({ is_published: true });
-            const upcoming = events.filter(e => e.event_date >= now).slice(0, 3);
-            setUpcomingEvents(upcoming);
+            setUpcomingEvents(events.slice(0, 3));
 
             if (currentUser.subscription_level === 'free' && !currentUser.customer_journey_completed_date) {
-                const customerJourneyDoc = await StrategyDocument.filter({
-                    created_by: currentUser.email,
-                    document_type: 'customer_journey'
-                });
-
                 if (customerJourneyDoc.length > 0) {
                     const content = customerJourneyDoc[0].content || {};
                     const stages = content.stages || [];

@@ -73,38 +73,39 @@ export default function BusinessOverview() {
             const currentUser = await base44.auth.me();
             setUser(currentUser);
 
-            // Fetch Business
-            const businesses = await base44.entities.Business.filter({ owner_user_id: currentUser.id });
+            // Fetch all data in parallel with proper limits
+            const [businesses, allDocs, progress, journeys, plans] = await Promise.all([
+                base44.entities.Business.filter({ owner_user_id: currentUser.id }, '-updated_date', 5),
+                base44.entities.StrategyDocument.filter({ created_by: currentUser.email }, '-updated_date', 20),
+                base44.entities.FoundationProgress.filter({ created_by: currentUser.email }, '-updated_date', 1),
+                base44.entities.SocialMediaPlan.filter({ created_by: currentUser.email, is_active: true }, '-created_date', 1),
+                base44.entities.AnnualPlan.filter({ created_by: currentUser.email }, '-created_date', 5)
+            ]);
+
+            // Process Business
             if (businesses.length > 0) {
                 setBusiness(businesses[0]);
                 setAboutText(businesses[0].description || '');
             }
 
-            // Fetch all Strategy Documents
-            const allDocs = await base44.entities.StrategyDocument.filter({ created_by: currentUser.email });
+            // Process Strategy Documents
             const docsMap = {};
             allDocs.forEach(doc => {
                 docsMap[doc.document_type] = doc;
             });
             setStrategyDocs(docsMap);
 
-            // Fetch Foundation Progress
-            const progress = await base44.entities.FoundationProgress.filter({ created_by: currentUser.email });
+            // Process Foundation Progress
             if (progress.length > 0) {
                 setFoundationProgress(progress[0]);
             }
 
-            // Fetch Current Journey
-            const journeys = await base44.entities.SocialMediaPlan.filter({ 
-                created_by: currentUser.email, 
-                is_active: true 
-            });
+            // Process Current Journey
             if (journeys.length > 0) {
                 setCurrentJourney(journeys[0]);
             }
 
-            // Fetch Annual Plan
-            const plans = await base44.entities.AnnualPlan.filter({ created_by: currentUser.email });
+            // Process Annual Plan
             if (plans.length > 0) {
                 const activePlan = plans.find(p => p.status === 'active') || plans[0];
                 setAnnualPlan(activePlan);
