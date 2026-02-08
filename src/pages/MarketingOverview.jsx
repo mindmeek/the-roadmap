@@ -29,6 +29,7 @@ export default function MarketingOverviewPage() {
     const [aiAssistantType, setAiAssistantType] = useState('ava');
     const [selectedChannels, setSelectedChannels] = useState([]);
     const [overallProgress, setOverallProgress] = useState(0);
+    const [expandedSteps, setExpandedSteps] = useState({});
 
     useEffect(() => {
         loadData();
@@ -179,6 +180,13 @@ export default function MarketingOverviewPage() {
     const currentStep = roadmapSteps.findIndex(step => !step.complete);
     const activeStepIndex = currentStep === -1 ? roadmapSteps.length - 1 : currentStep;
 
+    const toggleStep = (stepIndex) => {
+        setExpandedSteps(prev => ({
+            ...prev,
+            [stepIndex]: !prev[stepIndex]
+        }));
+    };
+
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-black pb-20 p-6">
             <div className="max-w-7xl mx-auto space-y-8">
@@ -269,18 +277,26 @@ export default function MarketingOverviewPage() {
 
                 {/* STEP 1: Foundation Setup */}
                 <div className={`card p-6 ${activeStepIndex === 0 ? 'border-4 border-[var(--primary-gold)] shadow-2xl' : 'border-2 border-gray-200 dark:border-gray-700'}`}>
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white ${
-                            roadmapSteps[0].complete ? 'bg-green-500' : activeStepIndex === 0 ? 'bg-[var(--primary-gold)]' : 'bg-gray-400'
-                        }`}>
-                            {roadmapSteps[0].complete ? <CheckCircle className="w-6 h-6" /> : '1'}
+                    <button 
+                        onClick={() => toggleStep(0)}
+                        className="w-full flex items-center justify-between mb-6 hover:opacity-80 transition-opacity"
+                    >
+                        <div className="flex items-center gap-3">
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white ${
+                                roadmapSteps[0].complete ? 'bg-green-500' : activeStepIndex === 0 ? 'bg-[var(--primary-gold)]' : 'bg-gray-400'
+                            }`}>
+                                {roadmapSteps[0].complete ? <CheckCircle className="w-6 h-6" /> : '1'}
+                            </div>
+                            <div className="text-left">
+                                <h2 className="text-2xl font-bold text-[var(--text-main)]">Step 1: Foundation Setup</h2>
+                                <p className="text-[var(--text-soft)]">Define who you serve and what makes you unique</p>
+                            </div>
                         </div>
-                        <div>
-                            <h2 className="text-2xl font-bold text-[var(--text-main)]">Step 1: Foundation Setup</h2>
-                            <p className="text-[var(--text-soft)]">Define who you serve and what makes you unique</p>
-                        </div>
-                    </div>
+                        <ChevronDown className={`w-6 h-6 text-gray-400 transition-transform ${expandedSteps[0] ? 'rotate-180' : ''}`} />
+                    </button>
 
+                    {expandedSteps[0] && (
+                        <>
                     <MarketingStrategyDashboard
                         user={user}
                         strategyDocs={strategyDocs}
@@ -289,21 +305,32 @@ export default function MarketingOverviewPage() {
                         annualPlan={annualPlan}
                         business={business}
                     />
+                    </>
+                    )}
                 </div>
 
                 {/* STEP 2: Financial Goals */}
                 <div className={`card p-6 ${activeStepIndex === 1 ? 'border-4 border-[var(--primary-gold)] shadow-2xl' : 'border-2 border-gray-200 dark:border-gray-700'}`}>
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white ${
-                            roadmapSteps[1].complete ? 'bg-green-500' : activeStepIndex === 1 ? 'bg-[var(--primary-gold)]' : 'bg-gray-400'
-                        }`}>
-                            {roadmapSteps[1].complete ? <CheckCircle className="w-6 h-6" /> : '2'}
+                    <button 
+                        onClick={() => toggleStep(1)}
+                        className="w-full flex items-center justify-between mb-6 hover:opacity-80 transition-opacity"
+                    >
+                        <div className="flex items-center gap-3">
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white ${
+                                roadmapSteps[1].complete ? 'bg-green-500' : activeStepIndex === 1 ? 'bg-[var(--primary-gold)]' : 'bg-gray-400'
+                            }`}>
+                                {roadmapSteps[1].complete ? <CheckCircle className="w-6 h-6" /> : '2'}
+                            </div>
+                            <div className="text-left">
+                                <h2 className="text-2xl font-bold text-[var(--text-main)]">Step 2: Set Revenue Targets</h2>
+                                <p className="text-[var(--text-soft)]">Know your numbers to guide marketing decisions</p>
+                            </div>
                         </div>
-                        <div>
-                            <h2 className="text-2xl font-bold text-[var(--text-main)]">Step 2: Set Revenue Targets</h2>
-                            <p className="text-[var(--text-soft)]">Know your numbers to guide marketing decisions</p>
-                        </div>
-                    </div>
+                        <ChevronDown className={`w-6 h-6 text-gray-400 transition-transform ${expandedSteps[1] ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {expandedSteps[1] && (
+                        <>
 
                     {financialGoals ? (
                         <div className="card p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200 dark:border-green-800">
@@ -431,29 +458,42 @@ export default function MarketingOverviewPage() {
                         </Link>
                     </div>
                 )}
+                </>
+                )}
                 </div>
 
                 {/* STEP 3: Social Media Strategy */}
                 <div className={`card p-6 ${activeStepIndex === 2 ? 'border-4 border-[var(--primary-gold)] shadow-2xl' : 'border-2 border-gray-200 dark:border-gray-700'}`}>
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white ${
-                            roadmapSteps[2].complete ? 'bg-green-500' : activeStepIndex === 2 ? 'bg-[var(--primary-gold)]' : 'bg-gray-400'
-                        }`}>
-                            {roadmapSteps[2].complete ? <CheckCircle className="w-6 h-6" /> : '3'}
+                    <button 
+                        onClick={() => toggleStep(2)}
+                        className="w-full flex items-center justify-between mb-6 hover:opacity-80 transition-opacity"
+                    >
+                        <div className="flex items-center gap-3 flex-1">
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white ${
+                                roadmapSteps[2].complete ? 'bg-green-500' : activeStepIndex === 2 ? 'bg-[var(--primary-gold)]' : 'bg-gray-400'
+                            }`}>
+                                {roadmapSteps[2].complete ? <CheckCircle className="w-6 h-6" /> : '3'}
+                            </div>
+                            <div className="text-left">
+                                <h2 className="text-2xl font-bold text-[var(--text-main)]">Step 3: Social Media Strategy</h2>
+                                <p className="text-[var(--text-soft)]">Build relationships and attract your ideal clients organically</p>
+                            </div>
                         </div>
-                        <div className="flex-1">
-                            <h2 className="text-2xl font-bold text-[var(--text-main)]">Step 3: Social Media Strategy</h2>
-                            <p className="text-[var(--text-soft)]">Build relationships and attract your ideal clients organically</p>
+                        <div className="flex items-center gap-2">
+                            {socialMediaPlan && (
+                                <Link to={createPageUrl('SocialMediaPlanner')} onClick={(e) => e.stopPropagation()}>
+                                    <Button variant="outline" size="sm">
+                                        <Edit className="w-4 h-4 mr-2" />
+                                        Manage Plans
+                                    </Button>
+                                </Link>
+                            )}
+                            <ChevronDown className={`w-6 h-6 text-gray-400 transition-transform ${expandedSteps[2] ? 'rotate-180' : ''}`} />
                         </div>
-                        {socialMediaPlan && (
-                            <Link to={createPageUrl('SocialMediaPlanner')}>
-                                <Button variant="outline" size="sm">
-                                    <Edit className="w-4 h-4 mr-2" />
-                                    Manage Plans
-                                </Button>
-                            </Link>
-                        )}
-                    </div>
+                    </button>
+
+                    {expandedSteps[2] && (
+                        <>
 
                     {/* 90-Day Social Media Plan Display */}
                     {socialMediaPlan ? (
@@ -499,21 +539,32 @@ export default function MarketingOverviewPage() {
                             </Link>
                         </div>
                     )}
+                    </>
+                    )}
                 </div>
 
                 {/* STEP 4: Content & Email */}
                 <div className={`card p-6 ${activeStepIndex === 3 ? 'border-4 border-[var(--primary-gold)] shadow-2xl' : 'border-2 border-gray-200 dark:border-gray-700'}`}>
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white ${
-                            activeStepIndex > 3 ? 'bg-green-500' : activeStepIndex === 3 ? 'bg-[var(--primary-gold)]' : 'bg-gray-400'
-                        }`}>
-                            {activeStepIndex > 3 ? <CheckCircle className="w-6 h-6" /> : '4'}
+                    <button 
+                        onClick={() => toggleStep(3)}
+                        className="w-full flex items-center justify-between mb-6 hover:opacity-80 transition-opacity"
+                    >
+                        <div className="flex items-center gap-3">
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white ${
+                                activeStepIndex > 3 ? 'bg-green-500' : activeStepIndex === 3 ? 'bg-[var(--primary-gold)]' : 'bg-gray-400'
+                            }`}>
+                                {activeStepIndex > 3 ? <CheckCircle className="w-6 h-6" /> : '4'}
+                            </div>
+                            <div className="text-left">
+                                <h2 className="text-2xl font-bold text-[var(--text-main)]">Step 4: Content & Email Messaging</h2>
+                                <p className="text-[var(--text-soft)]">Craft compelling copy for your website and email sequences</p>
+                            </div>
                         </div>
-                        <div>
-                            <h2 className="text-2xl font-bold text-[var(--text-main)]">Step 4: Content & Email Messaging</h2>
-                            <p className="text-[var(--text-soft)]">Craft compelling copy for your website and email sequences</p>
-                        </div>
-                    </div>
+                        <ChevronDown className={`w-6 h-6 text-gray-400 transition-transform ${expandedSteps[3] ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {expandedSteps[3] && (
+                        <>
 
                     {/* Understanding Your Online Presence Options */}
                 <div className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 p-6 rounded-lg border-2 border-indigo-200 dark:border-indigo-800 mb-6">
@@ -934,21 +985,32 @@ export default function MarketingOverviewPage() {
                     </div>
 
                 </div>
+                </>
+                )}
                 </div>
 
                 {/* STEP 5: Paid Advertising */}
                 <div className={`card p-6 ${activeStepIndex === 4 ? 'border-4 border-[var(--primary-gold)] shadow-2xl' : 'border-2 border-gray-200 dark:border-gray-700'}`}>
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white ${
-                            activeStepIndex > 4 ? 'bg-green-500' : activeStepIndex === 4 ? 'bg-[var(--primary-gold)]' : 'bg-gray-400'
-                        }`}>
-                            {activeStepIndex > 4 ? <CheckCircle className="w-6 h-6" /> : '5'}
+                    <button 
+                        onClick={() => toggleStep(4)}
+                        className="w-full flex items-center justify-between mb-6 hover:opacity-80 transition-opacity"
+                    >
+                        <div className="flex items-center gap-3">
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white ${
+                                activeStepIndex > 4 ? 'bg-green-500' : activeStepIndex === 4 ? 'bg-[var(--primary-gold)]' : 'bg-gray-400'
+                            }`}>
+                                {activeStepIndex > 4 ? <CheckCircle className="w-6 h-6" /> : '5'}
+                            </div>
+                            <div className="text-left">
+                                <h2 className="text-2xl font-bold text-[var(--text-main)]">Step 5: Paid Advertising</h2>
+                                <p className="text-[var(--text-soft)]">Launch targeted ad campaigns to accelerate growth</p>
+                            </div>
                         </div>
-                        <div>
-                            <h2 className="text-2xl font-bold text-[var(--text-main)]">Step 5: Paid Advertising</h2>
-                            <p className="text-[var(--text-soft)]">Launch targeted ad campaigns to accelerate growth</p>
-                        </div>
-                    </div>
+                        <ChevronDown className={`w-6 h-6 text-gray-400 transition-transform ${expandedSteps[4] ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {expandedSteps[4] && (
+                        <>
 
                     <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-lg border-2 border-green-200 dark:border-green-800 mb-6">
                         <h3 className="font-bold text-lg text-[var(--text-main)] mb-3 flex items-center gap-2">
@@ -987,6 +1049,8 @@ export default function MarketingOverviewPage() {
                             Generate campaign themes, ad copy, and 90-day advertising roadmap
                         </p>
                     </div>
+                    </>
+                    )}
                 </div>
 
                 {/* Marketing Messages Quick Reference */}
