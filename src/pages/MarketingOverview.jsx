@@ -518,172 +518,43 @@ export default function MarketingOverviewPage() {
                             </div>
                         )}
                     </div>
-                )}
-
-                {/* AI Marketing Content Generator */}
-                <AIMarketingGenerator 
-                    user={user}
-                    idealClient={idealClient}
-                    valueProposition={valueProposition.value_proposition}
-                    brandVoice={brandKit.brand_voice}
-                />
-
-                {/* Core Marketing Strategy */}
-                <div className="card p-6 bg-white dark:bg-gray-900 border-2 border-[var(--primary-gold)]">
-                    <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-2xl font-bold text-[var(--text-main)] flex items-center gap-2">
-                            <Target className="w-6 h-6 text-[var(--primary-gold)]" />
-                            Core Marketing Strategy
-                        </h2>
-                        <Button 
-                            onClick={handleRefreshContent} 
-                            variant="outline" 
-                            size="sm"
-                            disabled={refreshing}
-                        >
-                            <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
-                            Refresh Content
-                        </Button>
+                ) : (
+                    <div className="text-center py-12 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <DollarSign className="w-12 h-12 mx-auto text-gray-300 mb-4" />
+                        <h4 className="text-lg font-medium text-[var(--text-main)] mb-2">Set Your Financial Goals</h4>
+                        <p className="text-[var(--text-soft)] mb-6 max-w-md mx-auto">
+                            Calculate your Freedom Number and define your products/services to set clear revenue targets
+                        </p>
+                        <Link to={createPageUrl('FreedomCalculator')}>
+                            <Button className="bg-[var(--primary-gold)] hover:bg-[var(--primary-gold)]/90">
+                                <DollarSign className="w-4 h-4 mr-2" />
+                                Calculate Freedom Number
+                            </Button>
+                        </Link>
                     </div>
+                )}
+                </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Ideal Client */}
-                        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                            <div className="flex justify-between items-center mb-3">
-                                <h4 className="font-semibold text-[var(--text-main)] flex items-center gap-2">
-                                    <Users className="w-4 h-4 text-[var(--primary-gold)]" />
-                                    Target Audience
-                                </h4>
-                                {idealClient.demographics ? (
-                                    <CheckCircle className="w-4 h-4 text-green-500" />
-                                ) : (
-                                    <Link to={createPageUrl('StrategyFormIdealClient')}>
-                                        <Button variant="ghost" size="sm" className="text-xs">
-                                            <Plus className="w-3 h-3 mr-1" />
-                                            Define
-                                        </Button>
-                                    </Link>
-                                )}
-                            </div>
-                            {idealClient.demographics ? (
-                                <div className="space-y-2 text-sm">
-                                    <div>
-                                        <span className="text-[var(--text-soft)]">Demographics:</span>
-                                        <p className="text-[var(--text-main)]">{idealClient.demographics}</p>
-                                    </div>
-                                    {idealClient.pain_points && (
-                                        <div>
-                                            <span className="text-[var(--text-soft)]">Pain Points:</span>
-                                            <p className="text-[var(--text-main)]">{idealClient.pain_points}</p>
-                                        </div>
-                                    )}
-                                    {idealClient.goals && (
-                                        <div>
-                                            <span className="text-[var(--text-soft)]">Goals:</span>
-                                            <p className="text-[var(--text-main)]">{idealClient.goals}</p>
-                                        </div>
-                                    )}
-                                </div>
-                            ) : (
-                                <p className="text-sm text-[var(--text-soft)]">Define your ideal client to strengthen your marketing messaging.</p>
-                            )}
+                {/* STEP 3: Social Media Strategy */}
+                <div className={`card p-6 ${activeStepIndex === 2 ? 'border-4 border-[var(--primary-gold)] shadow-2xl' : 'border-2 border-gray-200 dark:border-gray-700'}`}>
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white ${
+                            roadmapSteps[2].complete ? 'bg-green-500' : activeStepIndex === 2 ? 'bg-[var(--primary-gold)]' : 'bg-gray-400'
+                        }`}>
+                            {roadmapSteps[2].complete ? <CheckCircle className="w-6 h-6" /> : '3'}
                         </div>
-
-                        {/* Value Proposition */}
-                        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                            <div className="flex justify-between items-center mb-3">
-                                <h4 className="font-semibold text-[var(--text-main)] flex items-center gap-2">
-                                    <Zap className="w-4 h-4 text-[var(--primary-gold)]" />
-                                    Unique Value Proposition
-                                </h4>
-                                {valueProposition.value_proposition ? (
-                                    <CheckCircle className="w-4 h-4 text-green-500" />
-                                ) : (
-                                    <Link to={createPageUrl('StrategyFormValueProposition')}>
-                                        <Button variant="ghost" size="sm" className="text-xs">
-                                            <Plus className="w-3 h-3 mr-1" />
-                                            Define
-                                        </Button>
-                                    </Link>
-                                )}
-                            </div>
-                            {valueProposition.value_proposition ? (
-                                <div className="text-sm">
-                                    <p className="text-[var(--text-main)] font-medium">{valueProposition.value_proposition}</p>
-                                    {valueProposition.benefits && (
-                                        <div className="mt-2">
-                                            <span className="text-[var(--text-soft)]">Key Benefits:</span>
-                                            <p className="text-[var(--text-main)]">{valueProposition.benefits}</p>
-                                        </div>
-                                    )}
-                                </div>
-                            ) : (
-                                <p className="text-sm text-[var(--text-soft)]">Define what makes your business unique.</p>
-                            )}
+                        <div className="flex-1">
+                            <h2 className="text-2xl font-bold text-[var(--text-main)]">Step 3: Social Media Strategy</h2>
+                            <p className="text-[var(--text-soft)]">Build relationships and attract your ideal clients organically</p>
                         </div>
-
-                        {/* Current 90-Day Goal */}
-                        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-4 rounded-lg border-2 border-blue-200 dark:border-blue-800">
-                            <div className="flex justify-between items-center mb-3">
-                                <h4 className="font-semibold text-[var(--text-main)] flex items-center gap-2">
-                                    <Target className="w-4 h-4 text-blue-600" />
-                                    90-Day Marketing Goal
-                                </h4>
-                                {annualPlan ? (
-                                    <Link to={createPageUrl('AnnualPlanning')}>
-                                        <Button variant="ghost" size="sm" className="text-xs">
-                                            <Edit className="w-3 h-3 mr-1" />
-                                            Edit
-                                        </Button>
-                                    </Link>
-                                ) : (
-                                    <Link to={createPageUrl('AnnualPlanning')}>
-                                        <Button variant="ghost" size="sm" className="text-xs">
-                                            <Plus className="w-3 h-3 mr-1" />
-                                            Set Goal
-                                        </Button>
-                                    </Link>
-                                )}
-                            </div>
-                            {annualPlan ? (
-                                <div className="text-sm">
-                                    <p className="text-[var(--text-main)] font-medium mb-2">{annualPlan.title}</p>
-                                    {annualPlan.quarterly_objectives && annualPlan.quarterly_objectives[0] && (
-                                        <div>
-                                            <span className="text-[var(--text-soft)]">Q1 Focus:</span>
-                                            <p className="text-[var(--text-main)]">{annualPlan.quarterly_objectives[0].objective}</p>
-                                        </div>
-                                    )}
-                                </div>
-                            ) : (
-                                <p className="text-sm text-[var(--text-soft)]">Set your annual goals to define quarterly marketing objectives.</p>
-                            )}
-                        </div>
-
-                        {/* Brand Voice */}
-                        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                            <div className="flex justify-between items-center mb-3">
-                                <h4 className="font-semibold text-[var(--text-main)] flex items-center gap-2">
-                                    <MessageSquare className="w-4 h-4 text-[var(--primary-gold)]" />
-                                    Brand Voice & Tone
-                                </h4>
-                                {brandKit.brand_voice ? (
-                                    <CheckCircle className="w-4 h-4 text-green-500" />
-                                ) : (
-                                    <Link to={createPageUrl('StrategyFormBrandKit')}>
-                                        <Button variant="ghost" size="sm" className="text-xs">
-                                            <Plus className="w-3 h-3 mr-1" />
-                                            Define
-                                        </Button>
-                                    </Link>
-                                )}
-                            </div>
-                            {brandKit.brand_voice ? (
-                                <p className="text-sm text-[var(--text-main)]">{brandKit.brand_voice}</p>
-                            ) : (
-                                <p className="text-sm text-[var(--text-soft)]">Define your brand's voice to maintain consistency.</p>
-                            )}
-                        </div>
+                        {socialMediaPlan && (
+                            <Link to={createPageUrl('SocialMediaPlanner')}>
+                                <Button variant="outline" size="sm">
+                                    <Edit className="w-4 h-4 mr-2" />
+                                    Manage Plans
+                                </Button>
+                            </Link>
+                        )}
                     </div>
 
                     {/* 90-Day Social Media Plan Display */}
