@@ -847,84 +847,7 @@ export default function MarketingOverviewPage() {
                     </div>
                 </div>
 
-                {/* Social Media Strategy & Purpose - moved into step 3 */}
-                    <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
-                        <Share2 className="w-6 h-6 text-pink-600" />
-                        Your Social Media Strategy & Purpose
-                    </h2>
 
-                    <div className="bg-white dark:bg-gray-800 p-5 rounded-lg border-2 border-pink-300 dark:border-pink-700 mb-4">
-                        <h3 className="font-bold text-lg text-[var(--text-main)] mb-3">
-                            🎯 The #1 Goal: Build Relationships, Not Just Followers
-                        </h3>
-                        <p className="text-sm text-[var(--text-soft)] leading-relaxed mb-4">
-                            For small business owners, social media is NOT about going viral or chasing follower counts. 
-                            It's about creating genuine connections with your ideal customers and building a community 
-                            that knows, likes, and trusts you enough to buy from you.
-                        </p>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-                                <h4 className="font-semibold text-green-700 dark:text-green-400 mb-2 flex items-center gap-2">
-                                    <CheckCircle className="w-4 h-4" />
-                                    What TO Focus On
-                                </h4>
-                                <ul className="text-xs text-[var(--text-soft)] space-y-1">
-                                    <li>✓ Engaging with comments and DMs personally</li>
-                                    <li>✓ Sharing valuable tips and insights</li>
-                                    <li>✓ Showcasing behind-the-scenes of your business</li>
-                                    <li>✓ Building trust through consistency</li>
-                                    <li>✓ Directing followers to your email list or website</li>
-                                </ul>
-                            </div>
-
-                            <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
-                                <h4 className="font-semibold text-red-700 dark:text-red-400 mb-2 flex items-center gap-2">
-                                    <X className="w-4 h-4" />
-                                    What NOT To Focus On
-                                </h4>
-                                <ul className="text-xs text-[var(--text-soft)] space-y-1">
-                                    <li>✗ Obsessing over likes and follower count</li>
-                                    <li>✗ Posting without a purpose or strategy</li>
-                                    <li>✗ Being on every single platform</li>
-                                    <li>✗ Copying competitors without authenticity</li>
-                                    <li>✗ Only promoting/selling (no value)</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="space-y-4">
-                        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
-                            <h4 className="font-semibold text-[var(--text-main)] mb-2">🎪 Social Media's True Role in Your Business</h4>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-                                <div>
-                                    <div className="font-medium text-blue-600 mb-1">Top of Funnel</div>
-                                    <p className="text-xs text-[var(--text-soft)]">Attract attention and introduce people to your brand through valuable content</p>
-                                </div>
-                                <div>
-                                    <div className="font-medium text-purple-600 mb-1">Middle of Funnel</div>
-                                    <p className="text-xs text-[var(--text-soft)]">Build trust by engaging, educating, and showing your expertise consistently</p>
-                                </div>
-                                <div>
-                                    <div className="font-medium text-green-600 mb-1">Bottom of Funnel</div>
-                                    <p className="text-xs text-[var(--text-soft)]">Drive traffic to your website, landing pages, or email list where sales happen</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 p-4 rounded-lg border-l-4 border-[var(--primary-gold)]">
-                            <p className="text-sm text-[var(--text-main)] font-semibold mb-2">
-                                💰 Remember: Social Media Builds the Relationship, But Sales Happen on YOUR Platforms
-                            </p>
-                            <p className="text-xs text-[var(--text-soft)]">
-                                Use social media to warm up your audience, then guide them to your email list, website, or booking page 
-                                where you control the conversation and can close the sale. You don't own your social media followers—
-                                algorithms can change overnight. Always be building your email list in parallel.
-                            </p>
-                        </div>
-                    </div>
-                </div>
 
                 {/* Website Content Strategy - Enhanced with User Data */}
                 <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border-2 border-[var(--primary-gold)]">
@@ -1241,45 +1164,7 @@ export default function MarketingOverviewPage() {
                         </Link>
                     </div>
 
-                    {/* 90-Day Social Media Plan Display */}
-                    {socialMediaPlan ? (
-                        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
-                            <p className="text-sm text-[var(--text-soft)] mb-3">
-                                ✅ Social media plan is active: <span className="font-bold text-[var(--text-main)]">{socialMediaPlan.source_name}</span>
-                            </p>
-                            <Link to={createPageUrl('SocialMediaPlanner')}>
-                                <Button className="bg-pink-600 hover:bg-pink-700 text-white w-full">
-                                    <Share2 className="w-4 h-4 mr-2" />
-                                    View Full Social Media Plan & Daily Actions
-                                </Button>
-                            </Link>
-                        </div>
-                    ) : (
-                        <div className="text-center py-12 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                            <Share2 className="w-12 h-12 mx-auto text-gray-300 mb-4" />
-                            <h4 className="text-lg font-medium text-[var(--text-main)] mb-2">Generate Your Social Media Plan</h4>
-                            <p className="text-[var(--text-soft)] mb-6 max-w-md mx-auto">
-                                Create a customized 90-day social media strategy with daily actions
-                            </p>
-                            <Link to={createPageUrl('SocialMediaPlanner')}>
-                                <Button className="bg-pink-600 hover:bg-pink-700 text-white">
-                                    <Sparkles className="w-4 h-4 mr-2" />
-                                    Generate Social Media Plan
-                                </Button>
-                            </Link>
-                        </div>
-                    )}
                 </div>
-
-                {/* STEP 4 CONTENT: Understanding Your Online Presence Options */}
-
-                {/* AI Content Generator */}
-                <AIMarketingGenerator 
-                    user={user}
-                    idealClient={idealClient}
-                    valueProposition={valueProposition.value_proposition}
-                    brandVoice={brandKit.brand_voice}
-                />
                 </div>
 
                 {/* STEP 5: Paid Advertising */}
