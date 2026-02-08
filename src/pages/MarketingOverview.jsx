@@ -12,6 +12,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { toast } from "sonner";
 import AIMarketingGenerator from "@/components/marketing/AIMarketingGenerator";
 import AITeamModal from "@/components/ai/AITeamModal";
+import MarketingStrategyDashboard from "@/components/marketing/MarketingStrategyDashboard";
 
 export default function MarketingOverviewPage() {
     const [loading, setLoading] = useState(true);
@@ -25,6 +26,7 @@ export default function MarketingOverviewPage() {
     const [business, setBusiness] = useState(null);
     const [showAIModal, setShowAIModal] = useState(false);
     const [aiAssistantType, setAiAssistantType] = useState('ava');
+    const [selectedChannels, setSelectedChannels] = useState([]);
 
     useEffect(() => {
         loadData();
@@ -98,6 +100,23 @@ export default function MarketingOverviewPage() {
         setShowAIModal(true);
     };
 
+    const toggleChannel = (channel) => {
+        setSelectedChannels(prev => 
+            prev.includes(channel) 
+                ? prev.filter(c => c !== channel)
+                : [...prev, channel]
+        );
+    };
+
+    const marketingChannels = [
+        { id: 'social_media', label: 'Social Media', icon: Share2, color: 'pink' },
+        { id: 'email', label: 'Email Marketing', icon: Mail, color: 'blue' },
+        { id: 'paid_ads', label: 'Paid Advertising', icon: BarChart, color: 'green' },
+        { id: 'content', label: 'Content Marketing', icon: FileText, color: 'purple' },
+        { id: 'seo', label: 'SEO', icon: TrendingUp, color: 'indigo' },
+        { id: 'partnerships', label: 'Strategic Partnerships', icon: Users, color: 'orange' }
+    ];
+
     const handleRefreshContent = async () => {
         setRefreshing(true);
         try {
@@ -114,6 +133,16 @@ export default function MarketingOverviewPage() {
         <div className="min-h-screen bg-gray-50 dark:bg-black pb-20 p-6">
             <div className="max-w-7xl mx-auto space-y-8">
                 
+                {/* Marketing Strategy Dashboard */}
+                <MarketingStrategyDashboard
+                    user={user}
+                    strategyDocs={strategyDocs}
+                    financialGoals={financialGoals}
+                    socialMediaPlan={socialMediaPlan}
+                    annualPlan={annualPlan}
+                    business={business}
+                />
+
                 {/* Header */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
@@ -140,26 +169,61 @@ export default function MarketingOverviewPage() {
                 {/* AI Marketing Plan Generator - Priority CTA */}
                 {hasBusinessFoundation ? (
                     <div className="card p-8 bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-600 text-white border-4 border-white shadow-2xl">
-                        <div className="flex flex-col md:flex-row items-center gap-6">
+                        <div className="flex flex-col items-center gap-6">
                             <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl">
                                 <Sparkles className="w-12 h-12 text-white" />
                             </div>
-                            <div className="flex-1 text-center md:text-left">
+                            <div className="flex-1 text-center">
                                 <h2 className="text-3xl font-bold mb-2">Ready to Build Your Complete Marketing Plan?</h2>
                                 <p className="text-white/90 mb-4">
-                                    Your business foundation is in place! Now let our AI Marketing Strategist (Ava) analyze your business 
-                                    data and create a comprehensive, personalized marketing plan tailored to your goals, audience, and offerings.
+                                    Your business foundation is in place! Select the marketing channels you want to focus on, 
+                                    and our AI Marketing Strategist (Ava) will create a comprehensive, personalized plan with 
+                                    strategies, content calendars, ad copy examples, and KPIs for each channel.
                                 </p>
-                                <div className="flex flex-wrap gap-2 text-sm">
-                                    <div className="bg-white/20 px-3 py-1 rounded-full">✓ Ideal Client Analysis</div>
-                                    <div className="bg-white/20 px-3 py-1 rounded-full">✓ Value Proposition Integration</div>
-                                    <div className="bg-white/20 px-3 py-1 rounded-full">✓ Revenue Target Strategy</div>
-                                    <div className="bg-white/20 px-3 py-1 rounded-full">✓ Channel Recommendations</div>
+                                
+                                {/* Channel Selection */}
+                                <div className="bg-white/10 backdrop-blur-sm p-5 rounded-xl mb-4">
+                                    <h3 className="text-lg font-bold mb-3">Select Your Marketing Channels:</h3>
+                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                        {marketingChannels.map(channel => {
+                                            const Icon = channel.icon;
+                                            const isSelected = selectedChannels.includes(channel.id);
+                                            
+                                            return (
+                                                <button
+                                                    key={channel.id}
+                                                    onClick={() => toggleChannel(channel.id)}
+                                                    className={`p-3 rounded-lg border-2 transition-all ${
+                                                        isSelected
+                                                            ? 'bg-white text-purple-600 border-white shadow-lg scale-105'
+                                                            : 'bg-white/10 text-white border-white/30 hover:bg-white/20'
+                                                    }`}
+                                                >
+                                                    <Icon className="w-5 h-5 mx-auto mb-1" />
+                                                    <div className="text-xs font-semibold">{channel.label}</div>
+                                                    {isSelected && <CheckCircle className="w-4 h-4 mx-auto mt-1" />}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                    {selectedChannels.length === 0 && (
+                                        <p className="text-sm text-white/80 mt-3 text-center">
+                                            Select at least one channel to generate a focused plan
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div className="flex flex-wrap gap-2 text-sm mb-4 justify-center">
+                                    <div className="bg-white/20 px-3 py-1 rounded-full">✓ Channel-Specific Strategies</div>
+                                    <div className="bg-white/20 px-3 py-1 rounded-full">✓ Content Calendar Ideas</div>
+                                    <div className="bg-white/20 px-3 py-1 rounded-full">✓ Ad Copy Examples</div>
+                                    <div className="bg-white/20 px-3 py-1 rounded-full">✓ KPIs & Metrics</div>
                                 </div>
                             </div>
                             <Button 
                                 onClick={() => openAIAssistant('ava')}
-                                className="bg-white text-purple-600 hover:bg-gray-100 font-bold text-lg px-8 py-6"
+                                disabled={selectedChannels.length === 0}
+                                className="bg-white text-purple-600 hover:bg-gray-100 font-bold text-lg px-8 py-6 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 <Sparkles className="w-5 h-5 mr-2" />
                                 Generate My Marketing Plan
@@ -1371,6 +1435,7 @@ Ideal Client: ${idealClient.name || 'Not defined'}
 Value Proposition: ${valueProposition.value_proposition || 'Not defined'}
 Products/Services: ${financialGoals?.products?.map(p => p.name).join(', ') || 'Not set'}
 Freedom Number: $${financialGoals?.freedomNumber || 'Not calculated'}/month`}
+                    selectedChannels={selectedChannels}
                     currentBusinessId={business?.id}
                 />
             )}

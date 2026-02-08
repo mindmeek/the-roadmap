@@ -60,7 +60,8 @@ export default function AITeamModal({
     userNotes = [],
     additionalContext = '',
     conversationId = null,
-    currentBusinessId = null
+    currentBusinessId = null,
+    selectedChannels = []
 }) {
     const [userPrompt, setUserPrompt] = useState('');
     const [conversation, setConversation] = useState([]);
@@ -256,12 +257,26 @@ Summary:`;
         }
 
         try {
+            // Build enhanced context for Ava if channels are selected
+            let enhancedContext = additionalContext;
+            if (selectedChannels.length > 0 && assistantType === 'ava') {
+                enhancedContext += `\n\nSelected Marketing Channels: ${selectedChannels.join(', ')}`;
+                enhancedContext += `\n\nPLEASE CREATE A COMPREHENSIVE MARKETING PLAN that includes:
+For EACH selected channel (${selectedChannels.join(', ')}), provide:
+1. Channel-Specific Strategy (how to use this channel for this business)
+2. Content Calendar Ideas (what to post/send and when)
+3. Ad Copy Examples (where relevant - headlines, body copy, CTAs)
+4. Key Performance Indicators (KPIs to track success)
+
+Make the plan actionable, specific to this business, and organized by channel.`;
+            }
+
             const result = await aiTeamAssistant({
                 assistant_type: assistantType,
                 user_prompt: userPrompt,
                 context: {
                     section_title: sectionTitle,
-                    additional_context: additionalContext
+                    additional_context: enhancedContext
                 },
                 user_notes: userNotes,
                 current_business_id: currentBusinessId
