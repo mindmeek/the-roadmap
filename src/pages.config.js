@@ -154,6 +154,9 @@ import VisionStrategySession from './pages/VisionStrategySession';
 import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
 import Week from './pages/Week';
 import layout from './pages/layout';
+import EmailMarketingPlanner from './pages/EmailMarketingPlanner';
+import ContentStrategyPlanner from './pages/ContentStrategyPlanner';
+import PaidAdvertisingPlanner from './pages/PaidAdvertisingPlanner';
 import __Layout from './Layout.jsx';
 
 
@@ -265,6 +268,9 @@ export const PAGES = {
     "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
     "Week": Week,
     "layout": layout,
+    "EmailMarketingPlanner": EmailMarketingPlanner,
+    "ContentStrategyPlanner": ContentStrategyPlanner,
+    "PaidAdvertisingPlanner": PaidAdvertisingPlanner,
 }
 
 export const pagesConfig = {

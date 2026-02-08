@@ -117,7 +117,7 @@ export default function MarketingStrategyDashboard({
             key: 'email', 
             icon: Mail, 
             color: 'from-blue-500 to-indigo-600',
-            link: 'MyFoundationRoadmap',
+            link: 'EmailMarketingPlanner',
             hqFeatures: ['Email campaigns', 'AI copywriting', 'Automation']
         },
         { 
@@ -125,7 +125,7 @@ export default function MarketingStrategyDashboard({
             key: 'content', 
             icon: Target, 
             color: 'from-purple-500 to-violet-600',
-            link: 'MyFoundationRoadmap',
+            link: 'ContentStrategyPlanner',
             hqFeatures: ['Blog platform', 'Landing pages', 'AI page builder']
         },
         { 
@@ -133,7 +133,7 @@ export default function MarketingStrategyDashboard({
             key: 'paid_ads', 
             icon: BarChart, 
             color: 'from-green-500 to-emerald-600',
-            link: 'AdvertisingServices',
+            link: 'PaidAdvertisingPlanner',
             hqFeatures: ['Google Ads', 'Facebook Ads', 'LinkedIn Ads']
         }
     ];
