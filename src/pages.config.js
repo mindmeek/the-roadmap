@@ -71,6 +71,7 @@ import BusinessOverview from './pages/BusinessOverview';
 import BusinessProfile from './pages/BusinessProfile';
 import Community from './pages/Community';
 import CompetitorAnalysis from './pages/CompetitorAnalysis';
+import ContentStrategyPlanner from './pages/ContentStrategyPlanner';
 import CourseDetails from './pages/CourseDetails';
 import Courses from './pages/Courses';
 import CreateSOP from './pages/CreateSOP';
@@ -82,6 +83,7 @@ import EditBusiness from './pages/EditBusiness';
 import EditSOP from './pages/EditSOP';
 import ElyzetAI from './pages/ElyzetAI';
 import ElyzetAIAssistants from './pages/ElyzetAIAssistants';
+import EmailMarketingPlanner from './pages/EmailMarketingPlanner';
 import FinancialProjections from './pages/FinancialProjections';
 import FocusedProgram from './pages/FocusedProgram';
 import FocusedPrograms from './pages/FocusedPrograms';
@@ -108,6 +110,7 @@ import NicheRoadmap from './pages/NicheRoadmap';
 import NicheRoadmapOverview from './pages/NicheRoadmapOverview';
 import NicheRoadmaps from './pages/NicheRoadmaps';
 import Onboarding from './pages/Onboarding';
+import PaidAdvertisingPlanner from './pages/PaidAdvertisingPlanner';
 import Partners from './pages/Partners';
 import PartnershipDetail from './pages/PartnershipDetail';
 import PaymentFailed from './pages/PaymentFailed';
@@ -154,9 +157,6 @@ import VisionStrategySession from './pages/VisionStrategySession';
 import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
 import Week from './pages/Week';
 import layout from './pages/layout';
-import EmailMarketingPlanner from './pages/EmailMarketingPlanner';
-import ContentStrategyPlanner from './pages/ContentStrategyPlanner';
-import PaidAdvertisingPlanner from './pages/PaidAdvertisingPlanner';
 import __Layout from './Layout.jsx';
 
 
@@ -185,6 +185,7 @@ export const PAGES = {
     "BusinessProfile": BusinessProfile,
     "Community": Community,
     "CompetitorAnalysis": CompetitorAnalysis,
+    "ContentStrategyPlanner": ContentStrategyPlanner,
     "CourseDetails": CourseDetails,
     "Courses": Courses,
     "CreateSOP": CreateSOP,
@@ -196,6 +197,7 @@ export const PAGES = {
     "EditSOP": EditSOP,
     "ElyzetAI": ElyzetAI,
     "ElyzetAIAssistants": ElyzetAIAssistants,
+    "EmailMarketingPlanner": EmailMarketingPlanner,
     "FinancialProjections": FinancialProjections,
     "FocusedProgram": FocusedProgram,
     "FocusedPrograms": FocusedPrograms,
@@ -222,6 +224,7 @@ export const PAGES = {
     "NicheRoadmapOverview": NicheRoadmapOverview,
     "NicheRoadmaps": NicheRoadmaps,
     "Onboarding": Onboarding,
+    "PaidAdvertisingPlanner": PaidAdvertisingPlanner,
     "Partners": Partners,
     "PartnershipDetail": PartnershipDetail,
     "PaymentFailed": PaymentFailed,
@@ -268,9 +271,6 @@ export const PAGES = {
     "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
     "Week": Week,
     "layout": layout,
-    "EmailMarketingPlanner": EmailMarketingPlanner,
-    "ContentStrategyPlanner": ContentStrategyPlanner,
-    "PaidAdvertisingPlanner": PaidAdvertisingPlanner,
 }
 
 export const pagesConfig = {

@@ -57,31 +57,25 @@ export default function MarketingOverviewPage() {
                 setFinancialGoals(userData.financial_projections);
             }
 
-            // Fetch strategy documents
-            const docs = await base44.entities.StrategyDocument.filter({});
+            // Fetch all data in parallel with proper limits
+            const [docs, plans, socialPlans, businesses] = await Promise.all([
+                base44.entities.StrategyDocument.filter({}, '-updated_date', 20),
+                base44.entities.AnnualPlan.filter({ status: 'active' }, '-created_date', 1),
+                base44.entities.SocialMediaPlan.filter({ is_active: true }, '-created_date', 1),
+                base44.entities.Business.filter({ owner_user_id: userData.id }, '-updated_date', 1)
+            ]);
+
+            // Process strategy documents
             const docsMap = {};
             docs.forEach(doc => {
                 docsMap[doc.document_type] = doc;
             });
             setStrategyDocs(docsMap);
 
-            // Fetch annual plan
-            const plans = await base44.entities.AnnualPlan.filter({ status: 'active' }, '-created_date', 1);
-            if (plans.length > 0) {
-                setAnnualPlan(plans[0]);
-            }
-
-            // Fetch active social media plan
-            const socialPlans = await base44.entities.SocialMediaPlan.filter({ is_active: true }, '-created_date', 1);
-            if (socialPlans.length > 0) {
-                setSocialMediaPlan(socialPlans[0]);
-            }
-
-            // Fetch Business
-            const businesses = await base44.entities.Business.filter({ owner_user_id: userData.id });
-            if (businesses.length > 0) {
-                setBusiness(businesses[0]);
-            }
+            // Set other data
+            if (plans.length > 0) setAnnualPlan(plans[0]);
+            if (socialPlans.length > 0) setSocialMediaPlan(socialPlans[0]);
+            if (businesses.length > 0) setBusiness(businesses[0]);
         } catch (error) {
             console.error("Error loading marketing data:", error);
             toast.error("Failed to load marketing data");
