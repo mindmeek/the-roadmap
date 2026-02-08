@@ -109,6 +109,20 @@ export default function MarketingOverviewPage() {
         );
     };
 
+    // Calculate overall marketing progress
+    const overallProgress = React.useMemo(() => {
+        const milestones = [
+            !!strategyDocs.ideal_client?.is_completed,
+            !!strategyDocs.value_proposition_canvas?.is_completed,
+            !!strategyDocs.brand_kit?.is_completed,
+            !!financialGoals?.freedomNumber,
+            !!socialMediaPlan,
+            !!annualPlan
+        ];
+        const completedCount = milestones.filter(Boolean).length;
+        return Math.round((completedCount / milestones.length) * 100);
+    }, [strategyDocs, financialGoals, socialMediaPlan, annualPlan]);
+
     const marketingChannels = [
         { id: 'social_media', label: 'Social Media', icon: Share2, color: 'pink' },
         { id: 'email', label: 'Email Marketing', icon: Mail, color: 'blue' },
