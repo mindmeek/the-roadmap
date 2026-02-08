@@ -747,7 +747,7 @@ export default function MarketingOverviewPage() {
                     </div>
 
                     {/* Understanding Your Online Presence Options */}
-                <div className="card p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border-2 border-indigo-200 dark:border-indigo-800 mb-8">
+                <div className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 p-6 rounded-lg border-2 border-indigo-200 dark:border-indigo-800 mb-6">
                     <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
                         <Globe className="w-6 h-6 text-indigo-600" />
                         Understanding Your Online Presence Options
@@ -847,8 +847,7 @@ export default function MarketingOverviewPage() {
                     </div>
                 </div>
 
-                {/* Social Media Strategy & Purpose */}
-                <div className="card p-6 bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20 border-2 border-pink-200 dark:border-pink-800 mb-8">
+                {/* Social Media Strategy & Purpose - moved into step 3 */}
                     <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
                         <Share2 className="w-6 h-6 text-pink-600" />
                         Your Social Media Strategy & Purpose
@@ -928,7 +927,7 @@ export default function MarketingOverviewPage() {
                 </div>
 
                 {/* Website Content Strategy - Enhanced with User Data */}
-                <div className="card p-6 bg-white dark:bg-gray-900 border-2 border-[var(--primary-gold)]">
+                <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border-2 border-[var(--primary-gold)]">
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-2xl font-bold text-[var(--text-main)] flex items-center gap-2">
                             <Globe className="w-6 h-6 text-[var(--primary-gold)]" />
@@ -1171,7 +1170,7 @@ export default function MarketingOverviewPage() {
                 </div>
 
                 {/* Welcome Email Templates */}
-                <div className="card p-6 bg-white dark:bg-gray-900 border-2 border-[var(--primary-gold)]">
+                <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border-2 border-[var(--primary-gold)] mt-6">
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-2xl font-bold text-[var(--text-main)] flex items-center gap-2">
                             <Send className="w-6 h-6 text-[var(--primary-gold)]" />
