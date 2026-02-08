@@ -138,20 +138,51 @@ export default function MarketingOverviewPage() {
         }
     };
 
+    const roadmapSteps = [
+        {
+            step: 1,
+            title: "Foundation Setup",
+            description: "Define your core business identity",
+            items: ['ideal_client', 'value_proposition_canvas', 'brand_kit'],
+            complete: !!(strategyDocs.ideal_client?.is_completed && strategyDocs.value_proposition_canvas?.is_completed)
+        },
+        {
+            step: 2,
+            title: "Financial Goals",
+            description: "Set your revenue targets",
+            items: ['financial_projections'],
+            complete: !!(financialGoals?.freedomNumber && financialGoals?.products?.length > 0)
+        },
+        {
+            step: 3,
+            title: "Social Media Strategy",
+            description: "Plan your 90-day social presence",
+            items: ['social_media_plan'],
+            complete: !!socialMediaPlan
+        },
+        {
+            step: 4,
+            title: "Content & Email",
+            description: "Craft your website and email messaging",
+            items: ['website_content', 'email_sequence'],
+            complete: false
+        },
+        {
+            step: 5,
+            title: "Paid Advertising",
+            description: "Launch targeted ad campaigns",
+            items: ['paid_advertising'],
+            complete: false
+        }
+    ];
+
+    const currentStep = roadmapSteps.findIndex(step => !step.complete);
+    const activeStepIndex = currentStep === -1 ? roadmapSteps.length - 1 : currentStep;
+
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-black pb-20 p-6">
             <div className="max-w-7xl mx-auto space-y-8">
                 
-                {/* Marketing Strategy Dashboard */}
-                <MarketingStrategyDashboard
-                    user={user}
-                    strategyDocs={strategyDocs}
-                    financialGoals={financialGoals}
-                    socialMediaPlan={socialMediaPlan}
-                    annualPlan={annualPlan}
-                    business={business}
-                />
-
                 {/* Header */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
@@ -161,10 +192,10 @@ export default function MarketingOverviewPage() {
                         </Link>
                         <h1 className="text-3xl font-bold text-[var(--text-main)] flex items-center gap-3">
                             <TrendingUp className="w-8 h-8 text-[var(--primary-gold)]" />
-                            Marketing Hub
+                            Marketing Roadmap
                         </h1>
                         <p className="text-[var(--text-soft)] mt-1">
-                            Your complete marketing strategy, planning, and messaging center
+                            Follow this step-by-step path to build your complete marketing strategy
                         </p>
                     </div>
                     <Link to={createPageUrl('ElyzetAIAssistants')}>
@@ -175,8 +206,107 @@ export default function MarketingOverviewPage() {
                     </Link>
                 </div>
 
-                {/* AI Marketing Plan Generator - Priority CTA */}
-                {hasBusinessFoundation ? (
+                {/* Progress Roadmap Visual */}
+                <div className="card p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-800">
+                    <h2 className="text-xl font-bold text-[var(--text-main)] mb-6 flex items-center gap-2">
+                        <Target className="w-5 h-5 text-blue-600" />
+                        Your Marketing Journey Progress
+                    </h2>
+                    
+                    {/* Road Visual */}
+                    <div className="relative">
+                        {/* Progress Line */}
+                        <div className="absolute top-6 left-0 right-0 h-1 bg-gray-200 dark:bg-gray-700 hidden md:block">
+                            <div 
+                                className="h-full bg-gradient-to-r from-green-500 to-[var(--primary-gold)] transition-all duration-500"
+                                style={{ width: `${(activeStepIndex / (roadmapSteps.length - 1)) * 100}%` }}
+                            ></div>
+                        </div>
+
+                        {/* Steps */}
+                        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-2 relative z-10">
+                            {roadmapSteps.map((step, idx) => {
+                                const isActive = idx === activeStepIndex;
+                                const isComplete = step.complete;
+                                const isUpcoming = idx > activeStepIndex;
+
+                                return (
+                                    <div key={idx} className="flex flex-col items-center">
+                                        <div className={`w-12 h-12 rounded-full flex items-center justify-center border-4 transition-all ${
+                                            isComplete ? 'bg-green-500 border-green-600' :
+                                            isActive ? 'bg-[var(--primary-gold)] border-[var(--primary-gold)] animate-pulse' :
+                                            'bg-gray-200 dark:bg-gray-700 border-gray-300 dark:border-gray-600'
+                                        }`}>
+                                            {isComplete ? (
+                                                <CheckCircle className="w-6 h-6 text-white" />
+                                            ) : (
+                                                <span className={`font-bold ${isActive ? 'text-white' : 'text-gray-400'}`}>
+                                                    {step.step}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className="text-center mt-3">
+                                            <h4 className={`font-bold text-sm ${isActive ? 'text-[var(--primary-gold)]' : isComplete ? 'text-green-600' : 'text-gray-400'}`}>
+                                                {step.title}
+                                            </h4>
+                                            <p className="text-xs text-[var(--text-soft)] mt-1">{step.description}</p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+
+                    <div className="mt-6 text-center">
+                        <p className="text-sm text-[var(--text-soft)]">
+                            {activeStepIndex === roadmapSteps.length - 1 && roadmapSteps[activeStepIndex].complete
+                                ? '🎉 Marketing roadmap complete! Execute in The HQ.'
+                                : `Step ${activeStepIndex + 1} of ${roadmapSteps.length}: ${roadmapSteps[activeStepIndex].title}`
+                            }
+                        </p>
+                    </div>
+                </div>
+
+                {/* STEP 1: Foundation Setup */}
+                <div className={`card p-6 ${activeStepIndex === 0 ? 'border-4 border-[var(--primary-gold)] shadow-2xl' : 'border-2 border-gray-200 dark:border-gray-700'}`}>
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white ${
+                            roadmapSteps[0].complete ? 'bg-green-500' : activeStepIndex === 0 ? 'bg-[var(--primary-gold)]' : 'bg-gray-400'
+                        }`}>
+                            {roadmapSteps[0].complete ? <CheckCircle className="w-6 h-6" /> : '1'}
+                        </div>
+                        <div>
+                            <h2 className="text-2xl font-bold text-[var(--text-main)]">Step 1: Foundation Setup</h2>
+                            <p className="text-[var(--text-soft)]">Define who you serve and what makes you unique</p>
+                        </div>
+                    </div>
+
+                    <MarketingStrategyDashboard
+                        user={user}
+                        strategyDocs={strategyDocs}
+                        financialGoals={financialGoals}
+                        socialMediaPlan={socialMediaPlan}
+                        annualPlan={annualPlan}
+                        business={business}
+                    />
+                </div>
+
+                {/* STEP 2: Financial Goals */}
+                <div className={`card p-6 ${activeStepIndex === 1 ? 'border-4 border-[var(--primary-gold)] shadow-2xl' : 'border-2 border-gray-200 dark:border-gray-700'}`}>
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white ${
+                            roadmapSteps[1].complete ? 'bg-green-500' : activeStepIndex === 1 ? 'bg-[var(--primary-gold)]' : 'bg-gray-400'
+                        }`}>
+                            {roadmapSteps[1].complete ? <CheckCircle className="w-6 h-6" /> : '2'}
+                        </div>
+                        <div>
+                            <h2 className="text-2xl font-bold text-[var(--text-main)]">Step 2: Set Revenue Targets</h2>
+                            <p className="text-[var(--text-soft)]">Know your numbers to guide marketing decisions</p>
+                        </div>
+                    </div>
+
+                    {/* Financial Goals & Targets */}
+                {financialGoals ? (
                     <div className="card p-8 bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-600 text-white border-4 border-white shadow-2xl">
                         <div className="flex flex-col items-center gap-6">
                             <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl">
@@ -555,9 +685,68 @@ export default function MarketingOverviewPage() {
                             )}
                         </div>
                     </div>
+
+                    {/* 90-Day Social Media Plan Display */}
+                    {socialMediaPlan ? (
+                        <div className="space-y-4">
+                            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                                <div className="flex items-center gap-3">
+                                    <BarChart className="w-5 h-5 text-blue-600" />
+                                    <div>
+                                        <h4 className="font-semibold text-[var(--text-main)]">Active Plan: {socialMediaPlan.source_name}</h4>
+                                        <p className="text-sm text-[var(--text-soft)]">
+                                            Source: {socialMediaPlan.source_type === 'goal' ? 'Your Goal' : socialMediaPlan.source_type === 'niche' ? 'Niche Roadmap' : 'Focused Program'}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {socialMediaPlan.plan_data?.months && socialMediaPlan.plan_data.months.length > 0 && (
+                                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                    <p className="text-sm text-[var(--text-soft)] mb-3">
+                                        ✅ Social media plan is active. View full details and weekly actions in the Social Media Planner.
+                                    </p>
+                                    <Link to={createPageUrl('SocialMediaPlanner')}>
+                                        <Button className="bg-pink-600 hover:bg-pink-700 text-white">
+                                            <Share2 className="w-4 h-4 mr-2" />
+                                            View Full Social Media Plan
+                                        </Button>
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        <div className="text-center py-12 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                            <Share2 className="w-12 h-12 mx-auto text-gray-300 mb-4" />
+                            <h4 className="text-lg font-medium text-[var(--text-main)] mb-2">Generate Your Social Media Plan</h4>
+                            <p className="text-[var(--text-soft)] mb-6 max-w-md mx-auto">
+                                Create a customized 90-day social media strategy with daily actions
+                            </p>
+                            <Link to={createPageUrl('SocialMediaPlanner')}>
+                                <Button className="bg-pink-600 hover:bg-pink-700 text-white">
+                                    <Sparkles className="w-4 h-4 mr-2" />
+                                    Generate Social Media Plan
+                                </Button>
+                            </Link>
+                        </div>
+                    )}
                 </div>
 
-                {/* Understanding Your Online Presence Options */}
+                {/* STEP 4: Content & Email */}
+                <div className={`card p-6 ${activeStepIndex === 3 ? 'border-4 border-[var(--primary-gold)] shadow-2xl' : 'border-2 border-gray-200 dark:border-gray-700'}`}>
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white ${
+                            activeStepIndex > 3 ? 'bg-green-500' : activeStepIndex === 3 ? 'bg-[var(--primary-gold)]' : 'bg-gray-400'
+                        }`}>
+                            {activeStepIndex > 3 ? <CheckCircle className="w-6 h-6" /> : '4'}
+                        </div>
+                        <div>
+                            <h2 className="text-2xl font-bold text-[var(--text-main)]">Step 4: Content & Email Messaging</h2>
+                            <p className="text-[var(--text-soft)]">Craft compelling copy for your website and email sequences</p>
+                        </div>
+                    </div>
+
+                    {/* Understanding Your Online Presence Options */}
                 <div className="card p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border-2 border-indigo-200 dark:border-indigo-800 mb-8">
                     <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
                         <Globe className="w-6 h-6 text-indigo-600" />
@@ -1052,162 +1241,110 @@ export default function MarketingOverviewPage() {
                             </Button>
                         </Link>
                     </div>
+
+                    {/* 90-Day Social Media Plan Display */}
+                    {socialMediaPlan ? (
+                        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                            <p className="text-sm text-[var(--text-soft)] mb-3">
+                                ✅ Social media plan is active: <span className="font-bold text-[var(--text-main)]">{socialMediaPlan.source_name}</span>
+                            </p>
+                            <Link to={createPageUrl('SocialMediaPlanner')}>
+                                <Button className="bg-pink-600 hover:bg-pink-700 text-white w-full">
+                                    <Share2 className="w-4 h-4 mr-2" />
+                                    View Full Social Media Plan & Daily Actions
+                                </Button>
+                            </Link>
+                        </div>
+                    ) : (
+                        <div className="text-center py-12 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                            <Share2 className="w-12 h-12 mx-auto text-gray-300 mb-4" />
+                            <h4 className="text-lg font-medium text-[var(--text-main)] mb-2">Generate Your Social Media Plan</h4>
+                            <p className="text-[var(--text-soft)] mb-6 max-w-md mx-auto">
+                                Create a customized 90-day social media strategy with daily actions
+                            </p>
+                            <Link to={createPageUrl('SocialMediaPlanner')}>
+                                <Button className="bg-pink-600 hover:bg-pink-700 text-white">
+                                    <Sparkles className="w-4 h-4 mr-2" />
+                                    Generate Social Media Plan
+                                </Button>
+                            </Link>
+                        </div>
+                    )}
                 </div>
 
-                {/* 90-Day Step-by-Step Social Media Plan */}
-                <Accordion type="single" collapsible className="card overflow-hidden bg-white dark:bg-gray-900 border-2 border-[var(--primary-gold)]">
-                    <AccordionItem value="social-media-plan" className="border-0">
-                        <AccordionTrigger className="px-6 py-4 hover:no-underline">
-                            <div className="flex items-center justify-between w-full pr-4">
-                                <div className="flex items-center gap-2">
-                                    <Calendar className="w-6 h-6 text-[var(--primary-gold)]" />
-                                    <h2 className="text-2xl font-bold text-[var(--text-main)]">90-Day Social Media Action Plan</h2>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    {socialMediaPlan ? (
-                                        <Link to={createPageUrl('SocialMediaPlanner')} onClick={(e) => e.stopPropagation()}>
-                                            <Button variant="outline" size="sm">
-                                                <Edit className="w-4 h-4 mr-2" />
-                                                Manage Plans
-                                            </Button>
-                                        </Link>
-                                    ) : (
-                                        <Link to={createPageUrl('SocialMediaPlanner')} onClick={(e) => e.stopPropagation()}>
-                                            <Button size="sm">
-                                                <Plus className="w-4 h-4 mr-2" />
-                                                Generate Plan
-                                            </Button>
-                                        </Link>
-                                    )}
-                                </div>
+                {/* STEP 4 CONTENT: Understanding Your Online Presence Options */}
+
+                {/* AI Content Generator */}
+                <AIMarketingGenerator 
+                    user={user}
+                    idealClient={idealClient}
+                    valueProposition={valueProposition.value_proposition}
+                    brandVoice={brandKit.brand_voice}
+                />
+                </div>
+
+                {/* STEP 5: Paid Advertising */}
+                <div className={`card p-6 ${activeStepIndex === 4 ? 'border-4 border-[var(--primary-gold)] shadow-2xl' : 'border-2 border-gray-200 dark:border-gray-700'}`}>
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white ${
+                            activeStepIndex > 4 ? 'bg-green-500' : activeStepIndex === 4 ? 'bg-[var(--primary-gold)]' : 'bg-gray-400'
+                        }`}>
+                            {activeStepIndex > 4 ? <CheckCircle className="w-6 h-6" /> : '5'}
+                        </div>
+                        <div>
+                            <h2 className="text-2xl font-bold text-[var(--text-main)]">Step 5: Paid Advertising</h2>
+                            <p className="text-[var(--text-soft)]">Launch targeted ad campaigns to accelerate growth</p>
+                        </div>
+                    </div>
+
+                    <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-lg border-2 border-green-200 dark:border-green-800 mb-6">
+                        <h3 className="font-bold text-lg text-[var(--text-main)] mb-3 flex items-center gap-2">
+                            <BarChart className="w-5 h-5 text-green-600" />
+                            Why Paid Ads Matter
+                        </h3>
+                        <p className="text-sm text-[var(--text-soft)] mb-4">
+                            While organic social media builds relationships, paid advertising gives you immediate visibility 
+                            and precise targeting. You can reach your exact ideal client demographic, test messaging quickly, 
+                            and scale what works. Combined with your organic strategy, ads accelerate your growth dramatically.
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div className="bg-white dark:bg-gray-800 p-3 rounded-lg">
+                                <h4 className="font-semibold text-sm text-[var(--text-main)] mb-1">Google Ads</h4>
+                                <p className="text-xs text-[var(--text-soft)]">Capture high-intent searchers actively looking for your solution</p>
                             </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="px-6 pb-6">
-                            {socialMediaPlan ? (
-                                <div className="space-y-4">
-                                    <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-                                        <div className="flex items-center gap-3">
-                                            <BarChart className="w-5 h-5 text-blue-600" />
-                                            <div>
-                                                <h4 className="font-semibold text-[var(--text-main)]">Active Plan: {socialMediaPlan.source_name}</h4>
-                                                <p className="text-sm text-[var(--text-soft)]">
-                                                    Source: {socialMediaPlan.source_type === 'goal' ? 'Your Goal' : socialMediaPlan.source_type === 'niche' ? 'Niche Roadmap' : 'Focused Program'}
-                                                </p>
-                                                {socialMediaPlan.plan_data?.overview && (
-                                                    <p className="text-xs text-[var(--text-soft)] mt-2">{socialMediaPlan.plan_data.overview}</p>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div className="bg-white dark:bg-gray-800 p-3 rounded-lg">
+                                <h4 className="font-semibold text-sm text-[var(--text-main)] mb-1">Facebook/Instagram</h4>
+                                <p className="text-xs text-[var(--text-soft)]">Build awareness and retarget warm audiences with visual ads</p>
+                            </div>
+                            <div className="bg-white dark:bg-gray-800 p-3 rounded-lg">
+                                <h4 className="font-semibold text-sm text-[var(--text-main)] mb-1">LinkedIn Ads</h4>
+                                <p className="text-xs text-[var(--text-soft)]">Target B2B decision-makers by job title, company, and industry</p>
+                            </div>
+                        </div>
+                    </div>
 
-                                    {/* Month Navigation */}
-                                    {socialMediaPlan.plan_data?.months && socialMediaPlan.plan_data.months.length > 0 && (
-                                        <>
-                                            <div className="flex gap-2 mb-4">
-                                                {socialMediaPlan.plan_data.months.map((month, idx) => (
-                                                    <button
-                                                        key={idx}
-                                                        onClick={() => setExpandedMonth(idx)}
-                                                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                                                            expandedMonth === idx
-                                                                ? 'bg-[var(--primary-gold)] text-white'
-                                                                : 'bg-gray-100 dark:bg-gray-800 text-[var(--text-soft)] hover:bg-gray-200 dark:hover:bg-gray-700'
-                                                        }`}
-                                                    >
-                                                        Month {month.month || (idx + 1)}
-                                                    </button>
-                                                ))}
-                                            </div>
+                    <div className="text-center">
+                        <Link to={createPageUrl('PaidAdvertisingPlanner')}>
+                            <Button className="bg-green-600 hover:bg-green-700 text-white text-lg px-8 py-4">
+                                <BarChart className="w-5 h-5 mr-2" />
+                                Create My Advertising Strategy
+                            </Button>
+                        </Link>
+                        <p className="text-xs text-[var(--text-soft)] mt-3">
+                            Generate campaign themes, ad copy, and 90-day advertising roadmap
+                        </p>
+                    </div>
+                </div>
 
-                                            {/* Display Selected Month */}
-                                            {socialMediaPlan.plan_data.months[expandedMonth] && (
-                                                <div className="space-y-4">
-                                                    <div className="bg-gradient-to-r from-[var(--primary-gold)]/10 to-yellow-50 dark:to-yellow-900/20 p-4 rounded-lg border border-[var(--primary-gold)]/20">
-                                                        <h4 className="font-bold text-lg text-[var(--text-main)] mb-2">
-                                                            {socialMediaPlan.plan_data.months[expandedMonth].theme}
-                                                        </h4>
-                                                        <p className="text-sm text-[var(--text-soft)]">
-                                                            {socialMediaPlan.plan_data.months[expandedMonth].focus}
-                                                        </p>
-                                                    </div>
-
-                                                    {/* Weeks */}
-                                                    {socialMediaPlan.plan_data.months[expandedMonth].weeks && socialMediaPlan.plan_data.months[expandedMonth].weeks.length > 0 && (
-                                                        <div className="space-y-3">
-                                                            {socialMediaPlan.plan_data.months[expandedMonth].weeks.map((week, weekIdx) => (
-                                                                <div key={weekIdx} className="card p-4 bg-white dark:bg-gray-800">
-                                                                    <div className="flex items-start gap-3">
-                                                                        <div className="bg-[var(--primary-gold)]/20 p-2 rounded-lg">
-                                                                            <Calendar className="w-4 h-4 text-[var(--primary-gold)]" />
-                                                                        </div>
-                                                                        <div className="flex-1">
-                                                                            <h5 className="font-semibold text-[var(--text-main)] mb-2">
-                                                                                Week {week.week || (weekIdx + 1)}: {week.focus}
-                                                                            </h5>
-                                                                            
-                                                                            {/* Daily Actions */}
-                                                                            {week.days && week.days.length > 0 && (
-                                                                                <div className="space-y-2">
-                                                                                    {week.days.map((day, dayIdx) => (
-                                                                                        <div key={dayIdx} className="bg-gray-50 dark:bg-gray-900 p-3 rounded-lg">
-                                                                                            <div className="flex items-start gap-2 mb-2">
-                                                                                                <span className="font-medium text-[var(--primary-gold)] text-sm">
-                                                                                                    Day {day.day || (dayIdx + 1)}:
-                                                                                                </span>
-                                                                                                <span className="text-xs text-[var(--text-soft)]">{day.platform}</span>
-                                                                                                <span className="ml-auto text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded">
-                                                                                                    {day.content_type}
-                                                                                                </span>
-                                                                                            </div>
-                                                                                            <p className="text-sm text-[var(--text-main)] font-medium mb-1">{day.topic}</p>
-                                                                                            <p className="text-xs text-[var(--text-soft)] mb-2">{day.action}</p>
-                                                                                            {day.hq_feature && (
-                                                                                                <div className="flex items-center gap-1 text-xs text-[var(--primary-gold)]">
-                                                                                                    <Sparkles className="w-3 h-3" />
-                                                                                                    Use: {day.hq_feature}
-                                                                                                </div>
-                                                                                            )}
-                                                                                        </div>
-                                                                                    ))}
-                                                                                </div>
-                                                                            )}
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            )}
-                                        </>
-                                    )}
-                                </div>
-                            ) : (
-                                <div className="text-center py-12 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                                    <Calendar className="w-12 h-12 mx-auto text-gray-300 mb-4" />
-                                    <h4 className="text-lg font-medium text-[var(--text-main)] mb-2">No Social Media Plan Yet</h4>
-                                    <p className="text-[var(--text-soft)] mb-6">Generate a customized 90-day social media plan with AI assistance</p>
-                                    <Link to={createPageUrl('SocialMediaPlanner')}>
-                                        <Button className="bg-[var(--primary-gold)] hover:bg-[var(--primary-gold)]/90">
-                                            <Sparkles className="w-4 h-4 mr-2" />
-                                            Generate Social Media Plan
-                                        </Button>
-                                    </Link>
-                                </div>
-                            )}
-                        </AccordionContent>
-                    </AccordionItem>
-                </Accordion>
-
-                {/* Craft Marketing Messages Section */}
-                <div className="card p-6 bg-white dark:bg-gray-900 border-2 border-[var(--primary-gold)]">
+                {/* Marketing Messages Quick Reference */}
+                <div className="card p-6 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700">
                     <div className="flex justify-between items-start mb-6">
                         <div>
                             <h2 className="text-2xl font-bold text-[var(--text-main)] flex items-center gap-2">
                                 <MessageSquare className="w-6 h-6 text-[var(--primary-gold)]" />
-                                Marketing Messages
+                                Quick Marketing Messages
                             </h2>
-                            <p className="text-sm text-[var(--text-soft)] mt-1">Craft compelling messages for every marketing channel</p>
+                            <p className="text-sm text-[var(--text-soft)] mt-1">Templates and examples for common marketing needs</p>
                         </div>
                     </div>
 
@@ -1386,11 +1523,44 @@ export default function MarketingOverviewPage() {
                     </div>
                 </div>
 
-                {/* The HQ Execution Platform Guide */}
-                <HQExecutionGuide 
-                    user={user}
-                    hasStrategy={overallProgress >= 50}
-                />
+                {/* The HQ Execution Platform - Final Step */}
+                <div className="card p-8 bg-gradient-to-r from-black via-gray-900 to-black text-white border-4 border-[var(--primary-gold)]">
+                    <div className="text-center mb-8">
+                        <div className="bg-[var(--primary-gold)] p-4 rounded-full inline-block mb-4">
+                            <Sparkles className="w-12 h-12 text-white" />
+                        </div>
+                        <h2 className="text-3xl font-bold mb-3">🎉 Ready to Execute Your Marketing Strategy?</h2>
+                        <p className="text-white/90 text-lg max-w-3xl mx-auto mb-6">
+                            You've built the strategy—now execute it all seamlessly in The Business Minds HQ. 
+                            Post to 9+ social platforms, run email campaigns, manage ads, build landing pages, 
+                            and track everything from one unified dashboard.
+                        </p>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs mb-6 max-w-4xl mx-auto">
+                            <div className="bg-white/10 px-3 py-2 rounded">📱 Multi-Platform Posting</div>
+                            <div className="bg-white/10 px-3 py-2 rounded">✉️ Email Marketing</div>
+                            <div className="bg-white/10 px-3 py-2 rounded">🎯 Ad Management</div>
+                            <div className="bg-white/10 px-3 py-2 rounded">📄 Landing Page Builder</div>
+                            <div className="bg-white/10 px-3 py-2 rounded">📝 Blog Platform</div>
+                            <div className="bg-white/10 px-3 py-2 rounded">🤖 AI Web Chat</div>
+                            <div className="bg-white/10 px-3 py-2 rounded">📞 Voice AI</div>
+                            <div className="bg-white/10 px-3 py-2 rounded">⚙️ Automation</div>
+                        </div>
+                        <a 
+                            href="https://app.thebminds.com" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="btn bg-white text-black hover:bg-gray-100 font-bold text-xl px-12 py-5 inline-flex items-center"
+                        >
+                            Launch The HQ
+                            <ArrowRight className="w-6 h-6 ml-2" />
+                        </a>
+                    </div>
+
+                    <HQExecutionGuide 
+                        user={user}
+                        hasStrategy={overallProgress >= 50}
+                    />
+                </div>
 
                 {/* Community Engagement CTA */}
                 <div className="card p-6 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border-2 border-indigo-200 dark:border-indigo-800">
