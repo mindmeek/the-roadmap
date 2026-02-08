@@ -477,6 +477,11 @@ Make the plan actionable, specific to this business, and organized by channel.`;
                         <p className="text-sm text-[var(--text-soft)]">
                             <span className="font-semibold">Working on:</span> {sectionTitle}
                         </p>
+                        {selectedChannels.length > 0 && assistantType === 'ava' && (
+                            <p className="text-xs text-[var(--text-soft)] mt-1">
+                                <span className="font-semibold">Selected Channels:</span> {selectedChannels.join(', ')}
+                            </p>
+                        )}
                         {userNotes.length > 0 && (
                             <p className="text-xs text-[var(--text-soft)] mt-1">
                                 {assistant.name} can see your {userNotes.length} note{userNotes.length !== 1 ? 's' : ''} for context
