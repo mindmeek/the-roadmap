@@ -26,7 +26,7 @@ export default function HQExecutionGuide({ user, hasStrategy = false }) {
                 {
                     title: 'Custom Per-Platform Messaging',
                     description: 'Select which platforms to post to and customize the message for each one to match platform best practices',
-                    icon: Edit
+                    icon: MessageSquare
                 },
                 {
                     title: 'Content Calendar & Scheduling',
