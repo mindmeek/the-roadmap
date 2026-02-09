@@ -30,6 +30,8 @@ export default function MarketingOverviewPage() {
     const [selectedChannels, setSelectedChannels] = useState([]);
     const [overallProgress, setOverallProgress] = useState(0);
     const [expandedSteps, setExpandedSteps] = useState({});
+    const [generatingStrategy, setGeneratingStrategy] = useState(false);
+    const [showStrategyResult, setShowStrategyResult] = useState(null);
 
     useEffect(() => {
         loadData();
@@ -187,6 +189,28 @@ export default function MarketingOverviewPage() {
         }));
     };
 
+    const handleGenerateComprehensiveStrategy = async () => {
+        setGeneratingStrategy(true);
+        try {
+            const { data: result } = await base44.functions.invoke('generateComprehensiveMarketingStrategy');
+            
+            if (result.success) {
+                setShowStrategyResult(result.strategy);
+                toast.success('Complete marketing strategy generated!');
+                
+                // Reload data to show new plans
+                await loadData();
+            } else {
+                toast.error(result.error || 'Failed to generate strategy');
+            }
+        } catch (error) {
+            console.error('Error generating strategy:', error);
+            toast.error('Failed to generate comprehensive marketing strategy');
+        } finally {
+            setGeneratingStrategy(false);
+        }
+    };
+
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-black pb-20 p-6">
             <div className="max-w-7xl mx-auto space-y-8">
@@ -206,13 +230,146 @@ export default function MarketingOverviewPage() {
                             Follow this step-by-step path to build your complete marketing strategy
                         </p>
                     </div>
-                    <Link to={createPageUrl('ElyzetAIAssistants')}>
-                        <Button className="bg-[var(--primary-gold)] hover:bg-[var(--primary-gold)]/90">
-                            <Sparkles className="w-4 h-4 mr-2" />
-                            AI Assistance
-                        </Button>
-                    </Link>
+                    <div className="flex gap-2">
+                        {hasBusinessFoundation && (
+                            <Button 
+                                onClick={handleGenerateComprehensiveStrategy}
+                                disabled={generatingStrategy}
+                                className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white"
+                            >
+                                {generatingStrategy ? (
+                                    <>
+                                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                        Generating...
+                                    </>
+                                ) : (
+                                    <>
+                                        <Zap className="w-4 h-4 mr-2" />
+                                        AI: Generate Complete Strategy
+                                    </>
+                                )}
+                            </Button>
+                        )}
+                        <Link to={createPageUrl('ElyzetAIAssistants')}>
+                            <Button className="bg-[var(--primary-gold)] hover:bg-[var(--primary-gold)]/90">
+                                <Sparkles className="w-4 h-4 mr-2" />
+                                AI Assistance
+                            </Button>
+                        </Link>
+                    </div>
                 </div>
+
+                {/* AI Strategy Generation Explainer */}
+                {hasBusinessFoundation && !generatingStrategy && (
+                    <div className="card p-6 bg-gradient-to-br from-purple-50 via-indigo-50 to-blue-50 dark:from-purple-900/20 dark:via-indigo-900/20 dark:to-blue-900/20 border-2 border-purple-300 dark:border-purple-700">
+                        <div className="flex items-start gap-4">
+                            <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-3 rounded-lg flex-shrink-0">
+                                <Zap className="w-6 h-6 text-white" />
+                            </div>
+                            <div className="flex-1">
+                                <h3 className="text-xl font-bold text-[var(--text-main)] mb-2">
+                                    🚀 Let AI Build Your Complete Marketing Strategy
+                                </h3>
+                                <p className="text-sm text-[var(--text-soft)] mb-3">
+                                    Based on your ideal client, value proposition, and financial goals, AI will instantly generate:
+                                </p>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-4">
+                                    <div className="flex items-center gap-2 text-sm text-[var(--text-main)]">
+                                        <CheckCircle className="w-4 h-4 text-green-600" />
+                                        <span>90-Day Content Calendar</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-sm text-[var(--text-main)]">
+                                        <CheckCircle className="w-4 h-4 text-green-600" />
+                                        <span>Social Media Post Templates</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-sm text-[var(--text-main)]">
+                                        <CheckCircle className="w-4 h-4 text-green-600" />
+                                        <span>Email Welcome Sequence</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-sm text-[var(--text-main)]">
+                                        <CheckCircle className="w-4 h-4 text-green-600" />
+                                        <span>Ad Campaign Outlines</span>
+                                    </div>
+                                </div>
+                                <p className="text-xs text-[var(--text-soft)] italic">
+                                    ✨ Everything is customized to YOUR business, audience, and goals—ready to implement immediately.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* AI Generated Strategy Display */}
+                {showStrategyResult && (
+                    <div className="card p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200 dark:border-green-800">
+                        <div className="flex justify-between items-start mb-4">
+                            <div>
+                                <h2 className="text-2xl font-bold text-[var(--text-main)] flex items-center gap-2">
+                                    <CheckCircle className="w-6 h-6 text-green-600" />
+                                    AI-Generated Marketing Strategy Complete!
+                                </h2>
+                                <p className="text-sm text-[var(--text-soft)] mt-1">
+                                    Your comprehensive strategy has been saved and is ready to implement
+                                </p>
+                            </div>
+                            <Button variant="ghost" size="sm" onClick={() => setShowStrategyResult(null)}>
+                                <X className="w-4 h-4" />
+                            </Button>
+                        </div>
+
+                        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4">
+                            <h3 className="font-bold text-[var(--text-main)] mb-2">📊 Strategy Overview</h3>
+                            <p className="text-sm text-[var(--text-soft)] mb-2">
+                                <strong>Theme:</strong> {showStrategyResult.overview?.strategyTheme}
+                            </p>
+                            <p className="text-sm text-[var(--text-soft)]">
+                                <strong>Primary Focus:</strong> {showStrategyResult.overview?.primaryFocus}
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <Calendar className="w-4 h-4 text-blue-600" />
+                                    <h4 className="font-semibold text-[var(--text-main)]">Content Calendar</h4>
+                                </div>
+                                <p className="text-xs text-[var(--text-soft)]">
+                                    {showStrategyResult.contentCalendar?.months?.length || 0} months of content themes
+                                </p>
+                            </div>
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <Share2 className="w-4 h-4 text-pink-600" />
+                                    <h4 className="font-semibold text-[var(--text-main)]">Social Posts</h4>
+                                </div>
+                                <p className="text-xs text-[var(--text-soft)]">
+                                    {showStrategyResult.socialMediaPosts?.length || 0} ready-to-use posts
+                                </p>
+                            </div>
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <Mail className="w-4 h-4 text-purple-600" />
+                                    <h4 className="font-semibold text-[var(--text-main)]">Email Sequences</h4>
+                                </div>
+                                <p className="text-xs text-[var(--text-soft)]">
+                                    {(showStrategyResult.emailSequences?.welcomeSequence?.length || 0) + 
+                                     (showStrategyResult.emailSequences?.nurtureSequences?.length || 0)} email templates
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="mt-4 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-lg">
+                            <p className="text-sm text-[var(--text-main)] mb-2">
+                                <strong>🎯 Quick Start Actions:</strong>
+                            </p>
+                            <ul className="text-xs text-[var(--text-soft)] space-y-1 ml-4">
+                                {showStrategyResult.implementationGuide?.week1Actions?.slice(0, 3).map((action, idx) => (
+                                    <li key={idx}>• {action}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                )}
 
                 {/* Progress Roadmap Visual */}
                 <div className="card p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-800">
