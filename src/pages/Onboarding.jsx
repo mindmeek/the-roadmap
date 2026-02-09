@@ -20,7 +20,12 @@ export default function OnboardingPage() {
         company_size: '',
         legal_structure: '',
         years_in_business: 0,
-        interested_in_media_production: false
+        interested_in_media_production: false,
+        ideal_client_description: '',
+        value_proposition_statement: '',
+        current_challenges: '',
+        primary_revenue_streams: '',
+        marketing_channels_focus: ''
     });
 
     useEffect(() => {
@@ -45,7 +50,12 @@ export default function OnboardingPage() {
                 company_size: currentUser.company_size || '',
                 legal_structure: currentUser.legal_structure || '',
                 years_in_business: currentUser.years_in_business || 0,
-                interested_in_media_production: currentUser.interested_in_media_production || false
+                interested_in_media_production: currentUser.interested_in_media_production || false,
+                ideal_client_description: currentUser.ideal_client_description || '',
+                value_proposition_statement: currentUser.value_proposition_statement || '',
+                current_challenges: currentUser.current_challenges || '',
+                primary_revenue_streams: currentUser.primary_revenue_streams || '',
+                marketing_channels_focus: currentUser.marketing_channels_focus || ''
             }));
             
         } catch (error) {
@@ -475,6 +485,110 @@ export default function OnboardingPage() {
             )
         },
         {
+            title: "Tell us about your business",
+            description: "Help us create a personalized 90-day roadmap for you",
+            content: (
+                <div className="space-y-6 max-w-2xl mx-auto">
+                    {!formData.entrepreneurship_stage ? (
+                        <div className="text-center py-12">
+                            <p className="text-[var(--text-soft)]">Please select your entrepreneurship stage first</p>
+                        </div>
+                    ) : (
+                        <>
+                            {(formData.entrepreneurship_stage === 'startup' || formData.entrepreneurship_stage === 'growth') && (
+                                <>
+                                    <div>
+                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                            Who is your ideal client? *
+                                        </label>
+                                        <p className="text-xs text-[var(--text-soft)] mb-2">
+                                            {formData.entrepreneurship_stage === 'startup' 
+                                                ? 'Describe who you want to serve (e.g., "busy professionals seeking wellness")'
+                                                : 'Describe your target customer in more detail'
+                                            }
+                                        </p>
+                                        <textarea
+                                            value={formData.ideal_client_description}
+                                            onChange={(e) => handleInputChange('ideal_client_description', e.target.value)}
+                                            className="form-input w-full"
+                                            placeholder="e.g., Small business owners aged 35-50 looking to scale..."
+                                            rows={3}
+                                            required
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                            What's your unique value proposition? *
+                                        </label>
+                                        <p className="text-xs text-[var(--text-soft)] mb-2">
+                                            {formData.entrepreneurship_stage === 'startup'
+                                                ? 'What makes your offering different or better?'
+                                                : 'What specific value do you provide that competitors don\'t?'
+                                            }
+                                        </p>
+                                        <textarea
+                                            value={formData.value_proposition_statement}
+                                            onChange={(e) => handleInputChange('value_proposition_statement', e.target.value)}
+                                            className="form-input w-full"
+                                            placeholder="e.g., We help businesses grow faster with personalized strategies..."
+                                            rows={3}
+                                            required
+                                        />
+                                    </div>
+                                </>
+                            )}
+
+                            {formData.entrepreneurship_stage === 'startup' && (
+                                <div>
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                        What are your biggest current challenges?
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={formData.current_challenges}
+                                        onChange={(e) => handleInputChange('current_challenges', e.target.value)}
+                                        className="form-input w-full"
+                                        placeholder="e.g., Getting first customers, building brand awareness..."
+                                    />
+                                </div>
+                            )}
+
+                            {formData.entrepreneurship_stage === 'growth' && (
+                                <>
+                                    <div>
+                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                            What are your primary revenue streams?
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={formData.primary_revenue_streams}
+                                            onChange={(e) => handleInputChange('primary_revenue_streams', e.target.value)}
+                                            className="form-input w-full"
+                                            placeholder="e.g., Coaching packages, online courses, consulting..."
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
+                                            What marketing channels are you focusing on?
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={formData.marketing_channels_focus}
+                                            onChange={(e) => handleInputChange('marketing_channels_focus', e.target.value)}
+                                            className="form-input w-full"
+                                            placeholder="e.g., Social media, email marketing, paid ads..."
+                                        />
+                                    </div>
+                                </>
+                            )}
+                        </>
+                    )}
+                </div>
+            )
+        },
+        {
             title: "Choose your 90-day goal",
             description: "Select the specific outcome you want to achieve in the next 90 days",
             content: (
@@ -638,8 +752,15 @@ export default function OnboardingPage() {
             case 0: return true;
             case 1: return formData.first_name && formData.last_name && formData.business_name && formData.company_size && formData.legal_structure;
             case 2: return formData.entrepreneurship_stage !== '';
-            case 3: return formData.selected_goal !== '';
-            case 4: return true;
+            case 3: {
+                // Business details step - only validate if startup or growth stage
+                if (formData.entrepreneurship_stage === 'startup' || formData.entrepreneurship_stage === 'growth') {
+                    return formData.ideal_client_description && formData.value_proposition_statement;
+                }
+                return true; // Skip validation for vision stage
+            }
+            case 4: return formData.selected_goal !== '';
+            case 5: return true;
             default: return false;
         }
     };
