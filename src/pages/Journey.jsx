@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User } from '@/entities/User';
 import { RoadmapContent } from '@/entities/RoadmapContent'; // Assuming RoadmapContent entity is here
@@ -633,23 +632,23 @@ export default function JourneyPage() {
 
                         return (
                             <div key={monthIndex} className="card overflow-hidden">
-                                <button onClick={() => handleToggleMonth(monthIndex)} className="w-full p-4 text-left bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border-b border-gray-200 dark:border-gray-700">
+                                <button onClick={() => handleToggleMonth(monthIndex)} className="w-full p-3 sm:p-4 text-left bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border-b border-gray-200 dark:border-gray-700">
                                     <div className="flex justify-between items-center">
-                                        <div>
-                                            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-3">
-                                                {month.title}
-                                                {isCurrentMonth && <span className="text-xs bg-[var(--primary-gold)] text-white px-2 py-1 rounded-full">Current</span>}
+                                        <div className="flex-1 min-w-0 pr-2">
+                                            <h2 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2 flex-wrap">
+                                                <span className="truncate">{month.title}</span>
+                                                {isCurrentMonth && <span className="text-xs bg-[var(--primary-gold)] text-white px-2 py-1 rounded-full whitespace-nowrap">Current</span>}
                                             </h2>
-                                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">
                                                 {completedWeeksInMonth}/{totalWeeksInMonth} weeks completed
                                             </p>
                                         </div>
-                                        <ChevronDown className={`w-6 h-6 text-gray-500 dark:text-gray-400 transition-transform ${expandedMonth === monthIndex ? 'rotate-180' : ''}`} />
+                                        <ChevronDown className={`w-5 h-5 sm:w-6 sm:h-6 text-gray-500 dark:text-gray-400 transition-transform flex-shrink-0 ${expandedMonth === monthIndex ? 'rotate-180' : ''}`} />
                                     </div>
                                 </button>
 
                                {expandedMonth === monthIndex && month.weeks && (
-                                    <div className="p-4 space-y-3">
+                                    <div className="p-3 sm:p-4 space-y-3">
                                         {month.weeks.map((week, weekIndex) => {
                                             const globalWeekNumber = monthIndex * 4 + weekIndex + 1;
                                             const isCompleted = user.completed_weeks?.includes(globalWeekNumber);
@@ -657,34 +656,35 @@ export default function JourneyPage() {
                                             const bulletPoints = getWeekBulletPoints(week);
                                             
                                             return (
-                                                <div key={weekIndex} className={`border rounded-md p-4 ${isCurrentWeek ? 'border-[var(--primary-gold)] bg-yellow-50 dark:bg-yellow-900/20' : 'border-gray-200 dark:border-gray-700'}`}>
-                                                    <div className="flex justify-between items-start">
-                                                        <div className="flex-1">
-                                                            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                                                <div key={weekIndex} className={`border rounded-md p-3 sm:p-4 ${isCurrentWeek ? 'border-[var(--primary-gold)] bg-yellow-50 dark:bg-yellow-900/20' : 'border-gray-200 dark:border-gray-700'}`}>
+                                                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3">
+                                                        <div className="flex-1 min-w-0">
+                                                            <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
                                                                 Week {globalWeekNumber}: {week.title}
                                                             </h3>
                                                             
                                                             <ul className="space-y-1 mb-3">
                                                                 {bulletPoints.map((point, idx) => (
-                                                                    <li key={idx} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
-                                                                        <span className="text-[var(--primary-gold)] mt-1">•</span>
-                                                                        <span>{point}</span>
+                                                                    <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+                                                                        <span className="text-[var(--primary-gold)] mt-1 flex-shrink-0">•</span>
+                                                                        <span className="break-words">{point}</span>
                                                                     </li>
                                                                 ))}
                                                             </ul>
                                                             
-                                                            <div className="flex items-center space-x-3">
+                                                            <div className="flex items-center space-x-2 sm:space-x-3">
                                                                 <button
                                                                     onClick={() => navigateToWeek(globalWeekNumber)}
-                                                                    className="btn btn-secondary text-sm"
+                                                                    className="btn btn-secondary text-xs sm:text-sm flex-1 sm:flex-initial"
                                                                 >
-                                                                    <BookOpen className="w-4 h-4" />
-                                                                    <span>View Details</span>
-                                                                    <ArrowRight className="w-4 h-4" />
+                                                                    <BookOpen className="w-3 h-3 sm:w-4 sm:h-4" />
+                                                                    <span className="hidden xs:inline">View Details</span>
+                                                                    <span className="xs:hidden">Details</span>
+                                                                    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                        <button onClick={() => markWeekComplete(globalWeekNumber)} disabled={isCompleted} className="btn btn-ghost text-sm p-2 disabled:cursor-not-allowed ml-4">
+                                                        <button onClick={() => markWeekComplete(globalWeekNumber)} disabled={isCompleted} className="btn btn-ghost text-sm p-2 disabled:cursor-not-allowed self-end sm:self-start">
                                                             {isCompleted ? <CheckCircle className="w-5 h-5 text-green-500" /> : <div className="w-5 h-5 rounded-full border-2 border-gray-400"></div>}
                                                         </button>
                                                     </div>
