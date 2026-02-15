@@ -910,8 +910,8 @@ const MobileMenu = React.memo(({ onClose, user, setIsListenDropdownOpen, onDelet
                         <div className="flex-shrink-0 flex items-center justify-center px-4 pb-4">
                             <Link to={createPageUrl("Dashboard")} onClick={onClose}>
                                 <img
-                                    src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/e1535f93c_gfg8788.png"
-                                    alt="Business Minds"
+                                    src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/688e3deef052dd144c001643/ebdea9911_THEHQLOGO1200x330pxfdf.png"
+                                    alt="The Roadmap"
                                     className="h-12 w-auto max-w-[200px] object-contain"
                                     loading="lazy"
                                 />
@@ -1308,7 +1308,7 @@ export default function Layout({ children, currentPageName }) {
                         <Link to={createPageUrl("Dashboard")} className="flex items-center justify-center">
                             {isSidebarExpanded ? (
                                 <img
-                                    src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/688e3deef052dd144c001643/542e7a54a_THEHQLOGO1200x330px4.png"
+                                    src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/688e3deef052dd144c001643/ebdea9911_THEHQLOGO1200x330pxfdf.png"
                                     alt="The Roadmap"
                                     className="h-14 w-auto max-w-[240px] transition-all duration-300"
                                     loading="lazy"
