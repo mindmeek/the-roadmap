@@ -81,7 +81,6 @@ export default function OnboardingPage() {
             isNiche: false
         }));
 
-        // Get niche roadmaps and filter by both stage AND business type
         const nicheGoals = Object.entries(roadmapData.nicheRoadmaps || {})
             .map(([id, roadmap]) => ({
                 id,
@@ -227,26 +226,25 @@ export default function OnboardingPage() {
                         <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
                             Industry
                         </label>
-                        <input
-                            type="text"
+                        <select
                             value={formData.industry}
                             onChange={(e) => handleInputChange('industry', e.target.value)}
                             className="form-input w-full"
-                            placeholder="e.g., Tech, Consulting, E-commerce"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                            Website (Optional)
-                        </label>
-                        <input
-                            type="url"
-                            value={formData.website}
-                            onChange={(e) => handleInputChange('website', e.target.value)}
-                            className="form-input w-full"
-                            placeholder="https://www.mybusiness.com"
-                        />
+                        >
+                            <option value="">Select your industry</option>
+                            <option value="Technology & Software">Technology & Software</option>
+                            <option value="Consulting & Professional Services">Consulting & Professional Services</option>
+                            <option value="E-commerce & Retail">E-commerce & Retail</option>
+                            <option value="Health & Wellness">Health & Wellness</option>
+                            <option value="Education & Training">Education & Training</option>
+                            <option value="Creative & Design">Creative & Design</option>
+                            <option value="Marketing & Advertising">Marketing & Advertising</option>
+                            <option value="Real Estate">Real Estate</option>
+                            <option value="Food & Beverage">Food & Beverage</option>
+                            <option value="Financial Services">Financial Services</option>
+                            <option value="Non-Profit & Social Impact">Non-Profit & Social Impact</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
 
                     <div>
@@ -279,11 +277,14 @@ export default function OnboardingPage() {
                             required
                         >
                             <option value="">Select legal structure</option>
+                            <option value="Not yet formed">Not Yet Formed</option>
                             <option value="Sole Proprietorship">Sole Proprietorship</option>
                             <option value="LLC">LLC (Limited Liability Company)</option>
                             <option value="S-Corp">S-Corp</option>
                             <option value="C-Corp">C-Corp</option>
                             <option value="Partnership">Partnership</option>
+                            <option value="501(c)(3) Non-Profit">501(c)(3) Non-Profit</option>
+                            <option value="B-Corp">B-Corp</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
@@ -613,124 +614,125 @@ export default function OnboardingPage() {
             )
         },
         {
-            title: "Tell us about your business",
-            description: "Help us create a personalized 90-day roadmap for you",
+            title: "Tell us about your focus",
+            description: "Help us understand your priorities and challenges",
             content: (
-                <div className="space-y-6 max-w-2xl mx-auto">
+                <div className="space-y-6 max-w-3xl mx-auto">
                     {!formData.entrepreneurship_stage ? (
                         <div className="text-center py-12">
                             <p className="text-[var(--text-soft)]">Please select your entrepreneurship stage first</p>
                         </div>
                     ) : (
-                        <>
-                            {(formData.entrepreneurship_stage === 'startup' || formData.entrepreneurship_stage === 'growth') && (
-                                <>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            Who is your ideal {formData.business_type === 'non_profit' ? 'donor/supporter' : 'client'}? *
-                                        </label>
-                                        <p className="text-xs text-[var(--text-soft)] mb-2">
-                                            {formData.business_type === 'non_profit' 
-                                                ? 'Describe who you want to engage (donors, volunteers, beneficiaries)'
-                                                : formData.entrepreneurship_stage === 'startup' 
-                                                    ? 'Describe who you want to serve (e.g., "busy professionals seeking wellness")'
-                                                    : 'Describe your target customer in more detail'
-                                            }
-                                        </p>
-                                        <textarea
-                                            value={formData.ideal_client_description}
-                                            onChange={(e) => handleInputChange('ideal_client_description', e.target.value)}
-                                            className="form-input w-full"
-                                            placeholder={formData.business_type === 'non_profit' 
-                                                ? "e.g., Socially conscious millennials passionate about education..." 
-                                                : "e.g., Small business owners aged 35-50 looking to scale..."
-                                            }
-                                            rows={3}
-                                            required
-                                        />
-                                    </div>
+                        <div className="space-y-6">
+                            <div>
+                                <label className="block text-sm font-medium text-[var(--text-main)] mb-3">
+                                    What's your #1 current challenge? *
+                                </label>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {(formData.business_type === 'non_profit' ? [
+                                        'Finding consistent donors',
+                                        'Building brand awareness',
+                                        'Recruiting volunteers',
+                                        'Proving impact/results',
+                                        'Managing limited resources',
+                                        'Other'
+                                    ] : [
+                                        'Getting my first customers',
+                                        'Building brand awareness',
+                                        'Pricing my offers correctly',
+                                        'Managing my time effectively',
+                                        'Marketing and sales',
+                                        'Other'
+                                    ]).map((challenge) => (
+                                        <button
+                                            key={challenge}
+                                            onClick={() => handleInputChange('current_challenges', challenge)}
+                                            className={`p-4 rounded-lg border-2 text-left transition-all ${
+                                                formData.current_challenges === challenge
+                                                    ? 'border-[var(--primary-gold)] bg-yellow-50 dark:bg-yellow-900/20'
+                                                    : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-[var(--primary-gold)]'
+                                            }`}
+                                        >
+                                            <div className="flex items-center justify-between">
+                                                <span className="text-sm font-medium text-[var(--text-main)]">{challenge}</span>
+                                                {formData.current_challenges === challenge && <CheckCircle className="w-5 h-5 text-[var(--primary-gold)]" />}
+                                            </div>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
 
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            What's your unique {formData.business_type === 'non_profit' ? 'mission impact' : 'value proposition'}? *
-                                        </label>
-                                        <p className="text-xs text-[var(--text-soft)] mb-2">
-                                            {formData.business_type === 'non_profit'
-                                                ? 'What specific change or impact are you creating in the world?'
-                                                : formData.entrepreneurship_stage === 'startup'
-                                                    ? 'What makes your offering different or better?'
-                                                    : 'What specific value do you provide that competitors don\'t?'
-                                            }
-                                        </p>
-                                        <textarea
-                                            value={formData.value_proposition_statement}
-                                            onChange={(e) => handleInputChange('value_proposition_statement', e.target.value)}
-                                            className="form-input w-full"
-                                            placeholder={formData.business_type === 'non_profit'
-                                                ? "e.g., We provide free education to underserved communities..."
-                                                : "e.g., We help businesses grow faster with personalized strategies..."
-                                            }
-                                            rows={3}
-                                            required
-                                        />
-                                    </div>
-                                </>
-                            )}
-
-                            {formData.entrepreneurship_stage === 'startup' && (
+                            {formData.entrepreneurship_stage === 'growth' && (
                                 <div>
-                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                        What are your biggest current challenges?
+                                    <label className="block text-sm font-medium text-[var(--text-main)] mb-3">
+                                        What's your primary {formData.business_type === 'non_profit' ? 'funding source' : 'revenue stream'}? *
                                     </label>
-                                    <input
-                                        type="text"
-                                        value={formData.current_challenges}
-                                        onChange={(e) => handleInputChange('current_challenges', e.target.value)}
-                                        className="form-input w-full"
-                                        placeholder={formData.business_type === 'non_profit'
-                                            ? "e.g., Finding donors, building awareness, recruiting volunteers..."
-                                            : "e.g., Getting first customers, building brand awareness..."
-                                        }
-                                    />
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        {(formData.business_type === 'non_profit' ? [
+                                            'Individual donations',
+                                            'Corporate sponsorships',
+                                            'Foundation grants',
+                                            'Government funding',
+                                            'Events and fundraisers',
+                                            'Other'
+                                        ] : [
+                                            'Service-based (coaching, consulting)',
+                                            'Product sales (physical or digital)',
+                                            'Courses or membership',
+                                            'Freelancing or agency work',
+                                            'E-commerce store',
+                                            'Other'
+                                        ]).map((stream) => (
+                                            <button
+                                                key={stream}
+                                                onClick={() => handleInputChange('primary_revenue_streams', stream)}
+                                                className={`p-4 rounded-lg border-2 text-left transition-all ${
+                                                    formData.primary_revenue_streams === stream
+                                                        ? 'border-[var(--primary-gold)] bg-yellow-50 dark:bg-yellow-900/20'
+                                                        : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-[var(--primary-gold)]'
+                                                }`}
+                                            >
+                                                <div className="flex items-center justify-between">
+                                                    <span className="text-sm font-medium text-[var(--text-main)]">{stream}</span>
+                                                    {formData.primary_revenue_streams === stream && <CheckCircle className="w-5 h-5 text-[var(--primary-gold)]" />}
+                                                </div>
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
                             )}
 
-                            {formData.entrepreneurship_stage === 'growth' && (
-                                <>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            What are your primary {formData.business_type === 'non_profit' ? 'funding sources' : 'revenue streams'}?
-                                        </label>
-                                        <input
-                                            type="text"
-                                            value={formData.primary_revenue_streams}
-                                            onChange={(e) => handleInputChange('primary_revenue_streams', e.target.value)}
-                                            className="form-input w-full"
-                                            placeholder={formData.business_type === 'non_profit'
-                                                ? "e.g., Individual donations, grants, corporate sponsorships..."
-                                                : "e.g., Coaching packages, online courses, consulting..."
-                                            }
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            What {formData.business_type === 'non_profit' ? 'outreach' : 'marketing'} channels are you focusing on?
-                                        </label>
-                                        <input
-                                            type="text"
-                                            value={formData.marketing_channels_focus}
-                                            onChange={(e) => handleInputChange('marketing_channels_focus', e.target.value)}
-                                            className="form-input w-full"
-                                            placeholder={formData.business_type === 'non_profit'
-                                                ? "e.g., Community events, social media, email campaigns..."
-                                                : "e.g., Social media, email marketing, paid ads..."
-                                            }
-                                        />
-                                    </div>
-                                </>
-                            )}
-                        </>
+                            <div>
+                                <label className="block text-sm font-medium text-[var(--text-main)] mb-3">
+                                    What marketing/outreach do you focus on most? *
+                                </label>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {[
+                                        'Social media',
+                                        'Email marketing',
+                                        'Paid advertising',
+                                        'Content marketing (blog, video)',
+                                        'Networking and referrals',
+                                        'None yet - need help with this'
+                                    ].map((channel) => (
+                                        <button
+                                            key={channel}
+                                            onClick={() => handleInputChange('marketing_channels_focus', channel)}
+                                            className={`p-4 rounded-lg border-2 text-left transition-all ${
+                                                formData.marketing_channels_focus === channel
+                                                    ? 'border-[var(--primary-gold)] bg-yellow-50 dark:bg-yellow-900/20'
+                                                    : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-[var(--primary-gold)]'
+                                            }`}
+                                        >
+                                            <div className="flex items-center justify-between">
+                                                <span className="text-sm font-medium text-[var(--text-main)]">{channel}</span>
+                                                {formData.marketing_channels_focus === channel && <CheckCircle className="w-5 h-5 text-[var(--primary-gold)]" />}
+                                            </div>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
                     )}
                 </div>
             )
@@ -900,12 +902,7 @@ export default function OnboardingPage() {
             case 1: return formData.first_name && formData.last_name && formData.business_name && formData.company_size && formData.legal_structure;
             case 2: return formData.business_type !== '';
             case 3: return formData.entrepreneurship_stage !== '';
-            case 4: {
-                if (formData.entrepreneurship_stage === 'startup' || formData.entrepreneurship_stage === 'growth') {
-                    return formData.ideal_client_description && formData.value_proposition_statement;
-                }
-                return true;
-            }
+            case 4: return formData.current_challenges && formData.marketing_channels_focus && (formData.entrepreneurship_stage !== 'growth' || formData.primary_revenue_streams);
             case 5: return formData.selected_goal !== '';
             case 6: return true;
             default: return false;
