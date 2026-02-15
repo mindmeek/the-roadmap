@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
-import { Award, CheckCircle2, XCircle, Loader2, AlertCircle, Save, Sparkles } from 'lucide-react';
+import { Award, CheckCircle2, XCircle, Loader2, AlertCircle, Save, Sparkles, FileText, Eye } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export default function MemberOfTheMonthSubmission() {
     const [user, setUser] = useState(null);
@@ -12,6 +13,10 @@ export default function MemberOfTheMonthSubmission() {
     const [submitting, setSubmitting] = useState(false);
     const [existingSubmission, setExistingSubmission] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
+    const [generatedArticle, setGeneratedArticle] = useState('');
+    const [generatingArticle, setGeneratingArticle] = useState(false);
+    const [showArticlePreview, setShowArticlePreview] = useState(false);
+    const [agreedToTerms, setAgreedToTerms] = useState(false);
     const [eligibility, setEligibility] = useState({
         introduced_in_community: false,
         has_90_day_plan: false,
@@ -99,6 +104,48 @@ export default function MemberOfTheMonthSubmission() {
         });
     };
 
+    const generateArticle = async () => {
+        setGeneratingArticle(true);
+        try {
+            const result = await base44.integrations.Core.InvokeLLM({
+                prompt: `Write a professional, inspiring article featuring ${formData.business_name} for The Business Minds Magazine's "Member of the Month" feature. 
+
+Use this information:
+- Business: ${formData.business_name}
+- Industry: ${formData.industry}
+- Years in Business: ${formData.years_in_business}
+- Description: ${formData.business_description}
+- Why They Started: ${formData.why_started}
+- Biggest Challenge: ${formData.biggest_challenge}
+- How They Overcame It: ${formData.how_overcame}
+- Proudest Moment: ${formData.proudest_moment}
+- Daily Routine: ${formData.daily_routine}
+- Tools/Resources: ${formData.tools_resources}
+- Advice to Others: ${formData.advice_to_others}
+- Community Impact: ${formData.community_impact}
+- Future Vision: ${formData.future_vision}
+
+Write an engaging 800-1000 word article with:
+1. Compelling introduction
+2. Their entrepreneurial journey
+3. Challenges and how they overcame them
+4. Key insights and advice
+5. Future vision
+6. Call to action encouraging readers to connect with them
+
+Use a professional yet conversational tone. Make it inspiring and actionable.`,
+            });
+            
+            setGeneratedArticle(result);
+            setShowArticlePreview(true);
+        } catch (error) {
+            console.error('Error generating article:', error);
+            alert('Failed to generate article. Please try again.');
+        } finally {
+            setGeneratingArticle(false);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!isEligible && !existingSubmission) {
@@ -108,21 +155,22 @@ export default function MemberOfTheMonthSubmission() {
 
         setSubmitting(true);
         try {
+            const submissionData = {
+                theindex_profile_url: formData.theindex_profile_url,
+                submission_answers: formData,
+                eligibility_checklist: eligibility,
+                blog_post_intro: generatedArticle
+            };
+
             if (existingSubmission) {
-                await base44.entities.CommunityHighlight.update(existingSubmission.id, {
-                    theindex_profile_url: formData.theindex_profile_url,
-                    submission_answers: formData,
-                    eligibility_checklist: eligibility
-                });
+                await base44.entities.CommunityHighlight.update(existingSubmission.id, submissionData);
                 alert('Your submission has been updated successfully!');
             } else {
                 await base44.entities.CommunityHighlight.create({
                     member_user_id: user.id,
                     member_name: user.full_name,
                     member_email: user.email,
-                    theindex_profile_url: formData.theindex_profile_url,
-                    submission_answers: formData,
-                    eligibility_checklist: eligibility,
+                    ...submissionData,
                     status: 'pending_review',
                     month_featured: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
                 });
@@ -168,7 +216,18 @@ export default function MemberOfTheMonthSubmission() {
                     <Award className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                 </div>
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 px-2">Member of the Month</h1>
-                <p className="text-[var(--text-soft)] text-base sm:text-lg px-4">Get featured and inspire the community!</p>
+                <p className="text-[var(--text-soft)] text-base sm:text-lg px-4 mb-3">Get featured and inspire the community!</p>
+                <div className="max-w-2xl mx-auto bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border-2 border-purple-200 dark:border-purple-700 rounded-lg p-4">
+                    <div className="flex items-start gap-3">
+                        <FileText className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                        <div className="text-left">
+                            <p className="text-sm text-[var(--text-main)] font-semibold mb-1">Your Story in The Business Minds Magazine</p>
+                            <p className="text-xs text-[var(--text-soft)]">
+                                We'll use your answers to write a professional article about your journey, showcase it in our magazine, share it across our blog and social media, and feature you on TheIndex.cc to help grow your business visibility.
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             {/* Why It Matters Section */}
@@ -354,25 +413,45 @@ export default function MemberOfTheMonthSubmission() {
 
                             <div>
                                 <label className="block text-sm font-medium mb-2">Industry *</label>
-                                <input
-                                    type="text"
+                                <select
                                     value={formData.industry}
                                     onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
                                     className="form-input w-full"
                                     required
-                                />
+                                >
+                                    <option value="">Select your industry...</option>
+                                    <option value="Coaching & Consulting">Coaching & Consulting</option>
+                                    <option value="E-commerce & Retail">E-commerce & Retail</option>
+                                    <option value="Health & Wellness">Health & Wellness</option>
+                                    <option value="Real Estate">Real Estate</option>
+                                    <option value="Marketing & Advertising">Marketing & Advertising</option>
+                                    <option value="Technology & Software">Technology & Software</option>
+                                    <option value="Food & Beverage">Food & Beverage</option>
+                                    <option value="Creative & Design">Creative & Design</option>
+                                    <option value="Education & Training">Education & Training</option>
+                                    <option value="Professional Services">Professional Services</option>
+                                    <option value="Non-Profit">Non-Profit</option>
+                                    <option value="Other">Other</option>
+                                </select>
                             </div>
 
                             <div>
                                 <label className="block text-sm font-medium mb-2">How long have you been in business? *</label>
-                                <input
-                                    type="text"
+                                <select
                                     value={formData.years_in_business}
                                     onChange={(e) => setFormData({ ...formData, years_in_business: e.target.value })}
                                     className="form-input w-full"
-                                    placeholder="e.g., 2 years"
                                     required
-                                />
+                                >
+                                    <option value="">Select duration...</option>
+                                    <option value="Less than 6 months">Less than 6 months</option>
+                                    <option value="6 months - 1 year">6 months - 1 year</option>
+                                    <option value="1-2 years">1-2 years</option>
+                                    <option value="2-3 years">2-3 years</option>
+                                    <option value="3-5 years">3-5 years</option>
+                                    <option value="5-10 years">5-10 years</option>
+                                    <option value="10+ years">10+ years</option>
+                                </select>
                             </div>
 
                             <div>
@@ -479,10 +558,76 @@ export default function MemberOfTheMonthSubmission() {
                                     Don't have one? <a href="https://theindex.cc" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Create your free profile</a>
                                 </p>
                             </div>
+
+                            {/* Generate Article Button */}
+                            <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <Button
+                                    type="button"
+                                    onClick={generateArticle}
+                                    disabled={generatingArticle || !formData.business_name || !formData.biggest_challenge}
+                                    className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                                >
+                                    {generatingArticle ? (
+                                        <>
+                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                            Writing Your Article...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Sparkles className="w-4 h-4 mr-2" />
+                                            Generate Magazine Article Preview
+                                        </>
+                                    )}
+                                </Button>
+                                <p className="text-xs text-[var(--text-soft)] text-center mt-2">
+                                    Fill out the form above, then click to preview your article
+                                </p>
+                            </div>
                         </CardContent>
                     </Card>
 
-                    <Button type="submit" disabled={submitting} className="w-full btn-primary">
+                    {/* Article Preview */}
+                    {generatedArticle && (
+                        <Card className="mb-6 border-2 border-purple-200 dark:border-purple-700">
+                            <CardHeader className="px-4 sm:px-6 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20">
+                                <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                                    <Eye className="w-5 h-5 text-purple-600" />
+                                    Your Magazine Article Preview
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent className="px-4 sm:px-6 pt-6">
+                                <div className="prose prose-sm max-w-none dark:prose-invert mb-4">
+                                    <div className="whitespace-pre-wrap text-[var(--text-main)] leading-relaxed">
+                                        {generatedArticle}
+                                    </div>
+                                </div>
+                                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-3">
+                                    <p className="text-xs text-blue-800 dark:text-blue-200">
+                                        ℹ️ This is a preview of how your story will appear in The Business Minds Magazine and on our blog. Our team may make minor edits for clarity and consistency.
+                                    </p>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    )}
+
+                    {/* Terms and Conditions */}
+                    <Card className="mb-6 border-2 border-gray-200 dark:border-gray-700">
+                        <CardContent className="px-4 sm:px-6 pt-6">
+                            <div className="flex items-start gap-3">
+                                <Checkbox
+                                    id="terms"
+                                    checked={agreedToTerms}
+                                    onCheckedChange={setAgreedToTerms}
+                                    className="mt-1"
+                                />
+                                <label htmlFor="terms" className="text-sm text-[var(--text-soft)] cursor-pointer">
+                                    I agree to allow The Business Minds to feature my story in the magazine, blog, and social media. I understand that the article will be written based on my submission answers and may be edited for clarity. I consent to having my business information and story shared publicly to inspire and educate other entrepreneurs. *
+                                </label>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    <Button type="submit" disabled={submitting || !agreedToTerms} className="w-full btn-primary text-lg py-6">
                         {submitting ? (
                             <>
                                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -495,6 +640,11 @@ export default function MemberOfTheMonthSubmission() {
                             </>
                         )}
                     </Button>
+                    {!agreedToTerms && (
+                        <p className="text-xs text-center text-orange-600 dark:text-orange-400 mt-2">
+                            Please agree to the terms and conditions to submit
+                        </p>
+                    )}
                 </form>
             )}
         </div>
