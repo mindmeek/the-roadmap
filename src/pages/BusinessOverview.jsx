@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
@@ -52,7 +52,7 @@ export default function BusinessOverview() {
         loadBusinessOverview();
     }, []);
 
-    const calculateUnitsNeeded = (product, freedomNumber) => {
+    const calculateUnitsNeeded = useMemo(() => (product, freedomNumber) => {
         const price = parseFloat(product.price) || 0;
         const cost = parseFloat(product.cost) || 0;
         
@@ -66,7 +66,7 @@ export default function BusinessOverview() {
         
         const targetProfit = freedomNumber + fixedMonthlyCost;
         return Math.ceil(targetProfit / profitPerUnit);
-    };
+    }, []);
 
     const loadBusinessOverview = async () => {
         try {

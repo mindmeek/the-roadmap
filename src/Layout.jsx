@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useRef, useCallback, useMemo, lazy, Suspense } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
@@ -27,9 +27,11 @@ import {
     Award,
     Brain, Lightbulb, UserCircle, Newspaper, Handshake, Loader2, Sun, Moon, CalendarDays, Clock, Globe, Podcast, ShieldCheck, Building, KeyRound, Palette, Video, ListChecks, TrendingUp, PiggyBank, Zap, Search, MessageSquare, ChevronRight, GripVertical, Layers, Share2, Mic
 } from "lucide-react";
-import WelcomePopup from "@/components/common/WelcomePopup";
-import PWAInstallPrompt from "@/components/common/PWAInstallPrompt";
-import TourGuide from "@/components/common/TourGuide";
+
+// Lazy load heavy components
+const WelcomePopup = lazy(() => import("@/components/common/WelcomePopup"));
+const PWAInstallPrompt = lazy(() => import("@/components/common/PWAInstallPrompt"));
+const TourGuide = lazy(() => import("@/components/common/TourGuide"));
 
 // Updated navigation structure with simplified grouping
 const myJourneyHubItems = [
@@ -104,7 +106,7 @@ const SEARCHABLE_PAGES = [
     { name: 'Audio & Media Hub', url: 'MediaHub', category: 'Pages', description: 'Podcast studio and radio show hosting' },
 ];
 
-const ElyzetChatBox = ({ isOpen, onClose }) => {
+const ElyzetChatBox = React.memo(({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
@@ -141,9 +143,9 @@ const ElyzetChatBox = ({ isOpen, onClose }) => {
             </div>
         </div>
     );
-};
+});
 
-const GlobalSearchModal = ({ isOpen, onClose }) => {
+const GlobalSearchModal = React.memo(({ isOpen, onClose }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
@@ -310,9 +312,9 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
             </div>
         </div>
     );
-};
+});
 
-const ListenDropdown = ({ isOpen, onClose, onSelectRadio, onSelectPodcast }) => {
+const ListenDropdown = React.memo(({ isOpen, onClose, onSelectRadio, onSelectPodcast }) => {
     const [activePlayer, setActivePlayer] = useState(null);
 
     if (!isOpen) return null;
@@ -437,17 +439,9 @@ const ListenDropdown = ({ isOpen, onClose, onSelectRadio, onSelectPodcast }) => 
             </div>
         </div>
     );
-};
+});
 
-const MovableRadioPlayer = ({ isOpen, onClose }) => {
-    return null;
-};
-
-const MovablePodcastModal = ({ isOpen, onClose }) => {
-    return null;
-};
-
-const NotificationDropdown = () => {
+const NotificationDropdown = React.memo(() => {
     const [isOpen, setIsOpen] = useState(false);
     const [notifications, setNotifications] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -557,9 +551,9 @@ const NotificationDropdown = () => {
             )}
         </div>
     );
-};
+});
 
-const ThemeProvider = () => {
+const ThemeProvider = React.memo(() => {
     const [theme, setTheme] = useState(() => {
         if (typeof window !== 'undefined') {
             return localStorage.getItem('theme') || 'light';
@@ -584,9 +578,9 @@ const ThemeProvider = () => {
             {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
         </button>
     );
-};
+});
 
-const UserProfileSidebar = () => {
+const UserProfileSidebar = React.memo(() => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -634,9 +628,9 @@ const UserProfileSidebar = () => {
             </Link>
         </div>
     );
-};
+});
 
-const MobileBottomNav = ({ user }) => {
+const MobileBottomNav = React.memo(({ user }) => {
     const location = useLocation();
 
     const mobileNavItems = [
@@ -679,9 +673,9 @@ const MobileBottomNav = ({ user }) => {
             </div>
         </div>
     );
-};
+});
 
-const NavItem = ({ item, isExpanded, isActive, onClick }) => {
+const NavItem = React.memo(({ item, isExpanded, isActive, onClick }) => {
     const IconComponent = item.icon;
 
     return (
@@ -700,9 +694,9 @@ const NavItem = ({ item, isExpanded, isActive, onClick }) => {
             {isExpanded && <span className="truncate">{item.label}</span>}
         </Link>
     );
-};
+});
 
-const CollapsibleSection = ({ title, items, isExpanded, isOpen, onToggle, location, onItemClick, user }) => {
+const CollapsibleSection = React.memo(({ title, items, isExpanded, isOpen, onToggle, location, onItemClick, user }) => {
     const filteredItems = items.filter(item => {
         if (item.requiredLevel) {
             return user && user.subscription_level === item.requiredLevel;
@@ -741,9 +735,9 @@ const CollapsibleSection = ({ title, items, isExpanded, isOpen, onToggle, locati
             )}
         </div>
     );
-};
+});
 
-const SidebarContent = ({ user, isExpanded, onCloseMobileMenu, setIsListenDropdownOpen }) => {
+const SidebarContent = React.memo(({ user, isExpanded, onCloseMobileMenu, setIsListenDropdownOpen }) => {
     const location = useLocation();
     const [openSections, setOpenSections] = useState({
         myJourney: isExpanded,
@@ -868,9 +862,9 @@ const SidebarContent = ({ user, isExpanded, onCloseMobileMenu, setIsListenDropdo
             </div>
         </div>
     );
-};
+});
 
-const MobileMenu = ({ onClose, user, setIsListenDropdownOpen }) => {
+const MobileMenu = React.memo(({ onClose, user, setIsListenDropdownOpen }) => {
     const location = useLocation();
 
     const filterNavItems = (items) => {
@@ -1025,7 +1019,7 @@ const MobileMenu = ({ onClose, user, setIsListenDropdownOpen }) => {
             </div>
         </>
     );
-};
+});
 
 export default function Layout({ children, currentPageName }) {
     const location = useLocation();
@@ -1035,6 +1029,16 @@ export default function Layout({ children, currentPageName }) {
     const [showWelcomePopup, setShowWelcomePopup] = useState(false);
     const [isGlobalSearchOpen, setIsGlobalSearchOpen] = useState(false);
     const [isListenDropdownOpen, setIsListenDropdownOpen] = useState(false);
+
+    // Memoize filter function
+    const filterNavItems = useCallback((items) => {
+        return items.filter(item => {
+            if (item.requiredLevel) {
+                return user && user.subscription_level === item.requiredLevel;
+            }
+            return true;
+        });
+    }, [user]);
 
     useEffect(() => {
         const fetchUserAndCheckOnboarding = async () => {
@@ -1144,18 +1148,6 @@ export default function Layout({ children, currentPageName }) {
         setIsMobileMenuOpen(false);
     }, [location.pathname]);
 
-    // Optimize re-renders with memoized filter functions
-    const filterNavItems = useCallback((items) => {
-        return items.filter(item => {
-            if (item.requiredLevel) {
-                return user && user.subscription_level === item.requiredLevel;
-            }
-            return true;
-        });
-    }, [user]);
-
-
-
     useEffect(() => {
         const handleKeyDown = (e) => {
             if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -1174,9 +1166,11 @@ export default function Layout({ children, currentPageName }) {
     return (
         <div className="flex h-screen bg-white dark:bg-black overflow-hidden">
             <GlobalSearchModal isOpen={isGlobalSearchOpen} onClose={() => setIsGlobalSearchOpen(false)} />
-            <WelcomePopup isOpen={showWelcomePopup} onClose={handleCloseWelcomePopup} user={user} />
-            <TourGuide user={user} />
-            <PWAInstallPrompt />
+            <Suspense fallback={null}>
+                <WelcomePopup isOpen={showWelcomePopup} onClose={handleCloseWelcomePopup} user={user} />
+                <TourGuide user={user} />
+                <PWAInstallPrompt />
+            </Suspense>
 
             <div 
                 className="hidden lg:block fixed left-0 top-0 h-screen z-40 group"
