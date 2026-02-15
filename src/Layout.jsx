@@ -25,7 +25,7 @@ import {
     Calendar,
     Sparkles,
     Award,
-    Brain, Lightbulb, UserCircle, Newspaper, Handshake, Loader2, Sun, Moon, CalendarDays, Clock, Globe, Podcast, ShieldCheck, Building, KeyRound, Palette, Video, ListChecks, TrendingUp, PiggyBank, Zap, Search, MessageSquare, ChevronRight, GripVertical, Layers, Share2, Mic
+    Brain, Lightbulb, UserCircle, Newspaper, Handshake, Loader2, Sun, Moon, CalendarDays, Clock, Globe, Podcast, ShieldCheck, Building, KeyRound, Palette, Video, ListChecks, TrendingUp, PiggyBank, Zap, Search, MessageSquare, ChevronRight, GripVertical, Layers, Share2, Mic, ChevronLeft, Trash2
 } from "lucide-react";
 
 // Lazy load heavy components
@@ -64,6 +64,7 @@ const myAccountItems = [
     { href: "BrandKit", icon: Palette, label: "Brand Kit", mobileLabel: "Brand Kit", requiredLevel: 'business_hq' },
     { href: "ScheduledPosts", icon: Clock, label: "Scheduled Posts", mobileLabel: "Scheduled Posts", requiredLevel: 'business_hq' },
     { href: "AIConversationHistory", icon: MessageSquare, label: "AI Conversation History", mobileLabel: "AI History" },
+    { href: "DeleteAccount", icon: Trash2, label: "Delete Account", mobileLabel: "Delete Account", isAction: true },
 ];
 
 const adminNavItems = [
@@ -675,8 +676,21 @@ const MobileBottomNav = React.memo(({ user }) => {
     );
 });
 
-const NavItem = React.memo(({ item, isExpanded, isActive, onClick }) => {
+const NavItem = React.memo(({ item, isExpanded, isActive, onClick, onDeleteAccount }) => {
     const IconComponent = item.icon;
+
+    if (item.isAction && item.href === 'DeleteAccount') {
+        return (
+            <button
+                onClick={() => onDeleteAccount && onDeleteAccount()}
+                className={`group flex items-center px-2 py-2.5 text-sm font-medium rounded-md transition-all whitespace-nowrap text-red-400 hover:bg-red-900/20 hover:text-red-300 w-full ${!isExpanded ? 'justify-center' : ''}`}
+                title={!isExpanded ? item.label : ''}
+            >
+                {IconComponent && <IconComponent className={`h-5 w-5 ${isExpanded ? 'mr-3' : ''}`} />}
+                {isExpanded && <span className="truncate">{item.label}</span>}
+            </button>
+        );
+    }
 
     return (
         <Link
@@ -696,7 +710,7 @@ const NavItem = React.memo(({ item, isExpanded, isActive, onClick }) => {
     );
 });
 
-const CollapsibleSection = React.memo(({ title, items, isExpanded, isOpen, onToggle, location, onItemClick, user }) => {
+const CollapsibleSection = React.memo(({ title, items, isExpanded, isOpen, onToggle, location, onItemClick, user, onDeleteAccount }) => {
     const filteredItems = items.filter(item => {
         if (item.requiredLevel) {
             return user && user.subscription_level === item.requiredLevel;
@@ -729,6 +743,7 @@ const CollapsibleSection = React.memo(({ title, items, isExpanded, isOpen, onTog
                             isExpanded={isExpanded}
                             isActive={location.pathname === createPageUrl(item.href)}
                             onClick={onItemClick}
+                            onDeleteAccount={onDeleteAccount}
                         />
                     ))}
                 </div>
@@ -737,7 +752,7 @@ const CollapsibleSection = React.memo(({ title, items, isExpanded, isOpen, onTog
     );
 });
 
-const SidebarContent = React.memo(({ user, isExpanded, onCloseMobileMenu, setIsListenDropdownOpen }) => {
+const SidebarContent = React.memo(({ user, isExpanded, onCloseMobileMenu, setIsListenDropdownOpen, onDeleteAccount }) => {
     const location = useLocation();
     const [openSections, setOpenSections] = useState({
         myJourney: isExpanded,
@@ -812,6 +827,7 @@ const SidebarContent = React.memo(({ user, isExpanded, onCloseMobileMenu, setIsL
                     location={location}
                     onItemClick={onCloseMobileMenu}
                     user={user}
+                    onDeleteAccount={onDeleteAccount}
                 />
 
                 {/* Upgrade CTA - Only for free users - MORE PROMINENT */}
@@ -864,7 +880,7 @@ const SidebarContent = React.memo(({ user, isExpanded, onCloseMobileMenu, setIsL
     );
 });
 
-const MobileMenu = React.memo(({ onClose, user, setIsListenDropdownOpen }) => {
+const MobileMenu = React.memo(({ onClose, user, setIsListenDropdownOpen, onDeleteAccount }) => {
     const location = useLocation();
 
     const filterNavItems = (items) => {
@@ -976,15 +992,29 @@ const MobileMenu = React.memo(({ onClose, user, setIsListenDropdownOpen }) => {
                                 <h3 className="px-3 text-xs font-semibold text-[var(--primary-gold)] uppercase tracking-wider mb-2">My Account</h3>
                                 <div className="space-y-1">
                                     {filterNavItems(myAccountItems).map((item) => (
-                                        <Link
-                                            key={item.href}
-                                            to={createPageUrl(item.href)}
-                                            onClick={onClose}
-                                            className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-white hover:bg-gray-800 hover:text-[var(--primary-gold)]"
-                                        >
-                                            <item.icon className="mr-3 h-4 w-4 text-gray-300 group-hover:text-[var(--primary-gold)]" />
-                                            {item.mobileLabel}
-                                        </Link>
+                                        item.isAction && item.href === 'DeleteAccount' ? (
+                                            <button
+                                                key={item.href}
+                                                onClick={() => {
+                                                    onDeleteAccount();
+                                                    onClose();
+                                                }}
+                                                className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-red-400 hover:bg-red-900/20 hover:text-red-300 w-full"
+                                            >
+                                                <item.icon className="mr-3 h-4 w-4" />
+                                                {item.mobileLabel}
+                                            </button>
+                                        ) : (
+                                            <Link
+                                                key={item.href}
+                                                to={createPageUrl(item.href)}
+                                                onClick={onClose}
+                                                className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-white hover:bg-gray-800 hover:text-[var(--primary-gold)]"
+                                            >
+                                                <item.icon className="mr-3 h-4 w-4 text-gray-300 group-hover:text-[var(--primary-gold)]" />
+                                                {item.mobileLabel}
+                                            </Link>
+                                        )
                                     ))}
                                 </div>
                             </div>
@@ -1021,14 +1051,87 @@ const MobileMenu = React.memo(({ onClose, user, setIsListenDropdownOpen }) => {
     );
 });
 
+const PullToRefresh = React.memo(({ onRefresh }) => {
+    const [pullStart, setPullStart] = useState(0);
+    const [pullDistance, setPullDistance] = useState(0);
+    const [isRefreshing, setIsRefreshing] = useState(false);
+    const containerRef = useRef(null);
+
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        let touchStartY = 0;
+
+        const handleTouchStart = (e) => {
+            if (window.scrollY === 0) {
+                touchStartY = e.touches[0].clientY;
+            }
+        };
+
+        const handleTouchMove = (e) => {
+            if (window.scrollY > 0 || isRefreshing) return;
+
+            const touchY = e.touches[0].clientY;
+            const distance = touchY - touchStartY;
+
+            if (distance > 0) {
+                e.preventDefault();
+                setPullDistance(Math.min(distance, 100));
+            }
+        };
+
+        const handleTouchEnd = async () => {
+            if (pullDistance > 60 && !isRefreshing) {
+                setIsRefreshing(true);
+                setPullDistance(0);
+                await onRefresh();
+                setIsRefreshing(false);
+            } else {
+                setPullDistance(0);
+            }
+        };
+
+        container.addEventListener('touchstart', handleTouchStart, { passive: true });
+        container.addEventListener('touchmove', handleTouchMove, { passive: false });
+        container.addEventListener('touchend', handleTouchEnd);
+
+        return () => {
+            container.removeEventListener('touchstart', handleTouchStart);
+            container.removeEventListener('touchmove', handleTouchMove);
+            container.removeEventListener('touchend', handleTouchEnd);
+        };
+    }, [pullDistance, isRefreshing, onRefresh]);
+
+    return (
+        <>
+            <div ref={containerRef} className="absolute inset-0 pointer-events-none z-50">
+                {(pullDistance > 0 || isRefreshing) && (
+                    <div 
+                        className="flex items-center justify-center bg-[var(--primary-gold)] text-white transition-all"
+                        style={{ 
+                            height: isRefreshing ? '50px' : `${pullDistance}px`,
+                            opacity: Math.min(pullDistance / 60, 1)
+                        }}
+                    >
+                        <Loader2 className={`w-5 h-5 ${isRefreshing ? 'animate-spin' : ''}`} />
+                    </div>
+                )}
+            </div>
+        </>
+    );
+});
+
 export default function Layout({ children, currentPageName }) {
     const location = useLocation();
+    const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [user, setUser] = useState(null);
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
     const [showWelcomePopup, setShowWelcomePopup] = useState(false);
     const [isGlobalSearchOpen, setIsGlobalSearchOpen] = useState(false);
     const [isListenDropdownOpen, setIsListenDropdownOpen] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     // Memoize filter function
     const filterNavItems = useCallback((items) => {
@@ -1063,6 +1166,29 @@ export default function Layout({ children, currentPageName }) {
                 } catch (error) {
                     console.error("Failed to update welcome popup status", error);
                 }
+            };
+
+            const handleDeleteAccount = () => {
+                setShowDeleteModal(true);
+                setIsMobileMenuOpen(false);
+            };
+
+            const confirmDeleteAccount = async () => {
+                if (confirm('This action cannot be undone. All your data will be permanently deleted. Are you absolutely sure?')) {
+                    try {
+                        // Delete user account
+                        await base44.auth.updateMe({ account_status: 'deleted' });
+                        await base44.auth.logout();
+                        window.location.href = '/';
+                    } catch (error) {
+                        console.error('Error deleting account:', error);
+                        alert('Failed to delete account. Please contact support.');
+                    }
+                }
+            };
+
+            const handleRefresh = async () => {
+                window.location.reload();
             };
 
     // Enhanced PWA Setup
@@ -1203,6 +1329,7 @@ export default function Layout({ children, currentPageName }) {
                         isExpanded={isSidebarExpanded}
                         onCloseMobileMenu={() => { }}
                         setIsListenDropdownOpen={setIsListenDropdownOpen}
+                        onDeleteAccount={handleDeleteAccount}
                     />
 
                     {isSidebarExpanded && (
@@ -1218,14 +1345,23 @@ export default function Layout({ children, currentPageName }) {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between items-center py-3">
                             <div className="flex items-center space-x-4 lg:hidden">
-                                <Link to={createPageUrl("Dashboard")}>
-                                    <img
-                                        src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/e1535f93c_gfg8788.png"
-                                        alt="Business Minds Logo"
-                                        className="h-10 w-auto max-w-[150px] object-contain"
-                                        loading="lazy"
-                                    />
-                                </Link>
+                                {location.pathname !== createPageUrl('Dashboard') ? (
+                                    <button
+                                        onClick={() => navigate(-1)}
+                                        className="flex items-center justify-center w-10 h-10 rounded-md hover:bg-gray-800 text-white transition-colors"
+                                    >
+                                        <ChevronLeft className="w-6 h-6" />
+                                    </button>
+                                ) : (
+                                    <Link to={createPageUrl("Dashboard")}>
+                                        <img
+                                            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/e1535f93c_gfg8788.png"
+                                            alt="Business Minds Logo"
+                                            className="h-10 w-auto max-w-[150px] object-contain"
+                                            loading="lazy"
+                                        />
+                                    </Link>
+                                )}
                             </div>
 
                             <div className="hidden lg:flex flex-1 items-center justify-start max-w-lg mr-6">
@@ -1295,10 +1431,42 @@ export default function Layout({ children, currentPageName }) {
                             </div>
                         </div>
                     </div>
-                    {isMobileMenuOpen && <MobileMenu onClose={() => setIsMobileMenuOpen(false)} user={user} setIsListenDropdownOpen={setIsListenDropdownOpen} />}
+                    {isMobileMenuOpen && <MobileMenu onClose={() => setIsMobileMenuOpen(false)} user={user} setIsListenDropdownOpen={setIsListenDropdownOpen} onDeleteAccount={handleDeleteAccount} />}
                 </header>
 
+                {/* Delete Account Modal */}
+                {showDeleteModal && (
+                    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[130] p-4">
+                        <div className="bg-white dark:bg-gray-900 rounded-lg max-w-md w-full p-6">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full">
+                                    <Trash2 className="w-6 h-6 text-red-600" />
+                                </div>
+                                <h2 className="text-xl font-bold text-[var(--text-main)]">Delete Account</h2>
+                            </div>
+                            <p className="text-[var(--text-soft)] mb-6">
+                                Are you sure you want to delete your account? This action cannot be undone and all your data will be permanently removed.
+                            </p>
+                            <div className="flex gap-3">
+                                <button
+                                    onClick={() => setShowDeleteModal(false)}
+                                    className="flex-1 px-4 py-3 bg-gray-200 dark:bg-gray-700 text-[var(--text-main)] rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors font-medium"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={confirmDeleteAccount}
+                                    className="flex-1 px-4 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors font-medium"
+                                >
+                                    Delete Forever
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
                 <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none py-6 pb-24 lg:pb-6">
+                    <PullToRefresh onRefresh={handleRefresh} />
                     <div style={{
                         backgroundColor: 'var(--background-main)',
                         minHeight: '100%',
@@ -1325,10 +1493,24 @@ export default function Layout({ children, currentPageName }) {
                           --border-color: #334155;
                         }
 
+                        * {
+                          -webkit-tap-highlight-color: transparent;
+                          -webkit-touch-callout: none;
+                          user-select: none;
+                          -webkit-user-select: none;
+                        }
+
+                        p, span, div, h1, h2, h3, h4, h5, h6, input, textarea {
+                          user-select: text;
+                          -webkit-user-select: text;
+                        }
+
                         body {
                           background-color: var(--background-main);
                           color: var(--text-main);
                           transition: background-color 0.3s ease, color 0.3s ease;
+                          overscroll-behavior: none;
+                          -webkit-overflow-scrolling: touch;
                         }
 
                         h1 {
@@ -1444,9 +1626,12 @@ export default function Layout({ children, currentPageName }) {
                           }
                         }
 
-                        /* Performance optimizations */
-                        * {
-                          -webkit-tap-highlight-color: transparent;
+                        /* Mobile tap targets */
+                        @media (max-width: 768px) {
+                          button, a, .btn {
+                            min-height: 44px;
+                            min-width: 44px;
+                          }
                         }
 
                         img {
