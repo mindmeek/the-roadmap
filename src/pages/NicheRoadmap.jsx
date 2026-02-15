@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { ArrowLeft, CheckCircle, Clock, Target, ChevronDown, ChevronUp, Award, Loader2, Lock, Sparkles, TrendingUp, Zap, Info, ExternalLink, FileText, Edit, Users } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
-import { StrategyDocument } from '@/entities/all';
 import StrategyFormModal from '@/components/strategy/StrategyFormModal';
 import { bookAuthorGrowthRoadmap } from '@/components/course_content/bookAuthorGrowth';
 import { lifeCoachGrowthRoadmap } from '@/components/course_content/lifeCoachGrowth';
@@ -89,7 +88,7 @@ export default function NicheRoadmapPage() {
 
           // Load ideal client data
           try {
-            const idealClientDocs = await StrategyDocument.filter({
+            const idealClientDocs = await base44.entities.StrategyDocument.filter({
               created_by: userData.email,
               document_type: 'ideal_client'
             });
