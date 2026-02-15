@@ -10,7 +10,6 @@ import { ecommerceGrowthRoadmap } from '@/components/course_content/ecommerceGro
 import { privateCommunityGrowthRoadmap } from '@/components/course_content/privateCommunityGrowth';
 import { podcastGrowthRoadmap } from '@/components/course_content/podcastGrowth';
 import { musicalArtistGrowthRoadmap } from '@/components/course_content/musicalArtistGrowth';
-import { StrategyDocument } from '@/entities/all';
 
 const programContentMap = {
   'book_author_growth': bookAuthorGrowthRoadmap,
@@ -50,7 +49,7 @@ export default function NicheRoadmapOverview() {
                     }
 
                     // Load all relevant strategy documents
-                    const allDocs = await StrategyDocument.filter({
+                    const allDocs = await base44.entities.StrategyDocument.filter({
                         created_by: userData.email
                     });
 
