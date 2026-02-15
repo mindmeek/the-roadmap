@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -48,6 +47,8 @@ const PostCard = ({ post, user, onVote, onLike, onEdit }) => {
     const [showComments, setShowComments] = useState(false);
     const [newComment, setNewComment] = useState('');
     const [isCommenting, setIsCommenting] = useState(false);
+    const [optimisticLiked, setOptimisticLiked] = useState(post.liked_by?.includes(user?.email));
+    const [optimisticLikesCount, setOptimisticLikesCount] = useState(post.likes_count || 0);
     
     const isAuthor = user?.email === post.created_by;
     const isAdmin = user?.role === 'admin';
@@ -184,9 +185,16 @@ const PostCard = ({ post, user, onVote, onLike, onEdit }) => {
                     )}
                     
                     <div className="flex items-center space-x-4 text-[var(--text-soft)] border-t border-gray-200 pt-3">
-                        <button onClick={() => onLike(post.id)} className="btn btn-ghost text-sm">
-                            <Heart className={`w-4 h-4 ${post.liked_by?.includes(user?.email) ? 'text-red-500 fill-current' : ''}`} />
-                            <span>{post.likes_count || 0}</span>
+                        <button 
+                            onClick={async () => {
+                                setOptimisticLiked(!optimisticLiked);
+                                setOptimisticLikesCount(prev => optimisticLiked ? prev - 1 : prev + 1);
+                                await onLike(post.id);
+                            }} 
+                            className="btn btn-ghost text-sm"
+                        >
+                            <Heart className={`w-4 h-4 ${optimisticLiked ? 'text-red-500 fill-current' : ''}`} />
+                            <span>{optimisticLikesCount}</span>
                         </button>
                         <button onClick={toggleComments} className="btn btn-ghost text-sm">
                             <MessageCircle className="w-4 h-4" />

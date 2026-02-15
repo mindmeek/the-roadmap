@@ -633,6 +633,7 @@ const UserProfileSidebar = React.memo(() => {
 
 const MobileBottomNav = React.memo(({ user }) => {
     const location = useLocation();
+    const navigate = useNavigate();
 
     const mobileNavItems = [
         myJourneyHubItems.find(item => item.href === "Dashboard"),
@@ -641,6 +642,15 @@ const MobileBottomNav = React.memo(({ user }) => {
         connectBuildItems.find(item => item.href === "TheCommunity"),
         myAccountItems.find(item => item.href === "Profile"),
     ].filter(Boolean);
+
+    const handleTabClick = (e, item) => {
+        const isActive = location.pathname === createPageUrl(item.href);
+        if (isActive) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            navigate(createPageUrl(item.href), { replace: true });
+        }
+    };
 
     return (
         <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-black border-t border-gray-800 z-50 safe-bottom">
@@ -653,6 +663,7 @@ const MobileBottomNav = React.memo(({ user }) => {
                         <Link
                             key={item.href}
                             to={createPageUrl(item.href)}
+                            onClick={(e) => handleTabClick(e, item)}
                             className={`flex flex-col items-center py-2 px-2 min-w-0 flex-1 ${
                                 isActive ? 'text-[var(--primary-gold)]' : 'text-gray-400'
                             }`}

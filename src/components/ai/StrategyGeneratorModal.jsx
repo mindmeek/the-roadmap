@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { X, Sparkles, Loader2, Target, TrendingUp, Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import MobileBottomSheet from '@/components/common/MobileBottomSheet';
 
 export default function StrategyGeneratorModal({ isOpen, onClose, planType }) {
     const [user, setUser] = useState(null);
     const [business, setBusiness] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [showStageSheet, setShowStageSheet] = useState(false);
     const [formData, setFormData] = useState({
         business_name: '',
         industry: '',
@@ -136,10 +138,35 @@ export default function StrategyGeneratorModal({ isOpen, onClose, planType }) {
                         <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
                             Current Stage
                         </label>
+                        <div className="lg:hidden">
+                            <button
+                                type="button"
+                                onClick={() => setShowStageSheet(true)}
+                                className="form-input text-left w-full"
+                            >
+                                {formData.stage ? 
+                                    formData.stage === 'vision' ? 'Vision Stage' :
+                                    formData.stage === 'startup' ? 'Startup Stage' :
+                                    formData.stage === 'growth' ? 'Growth Stage' : 'Select stage'
+                                : 'Select stage'}
+                            </button>
+                            <MobileBottomSheet
+                                isOpen={showStageSheet}
+                                onClose={() => setShowStageSheet(false)}
+                                options={[
+                                    { value: 'vision', label: 'Vision Stage' },
+                                    { value: 'startup', label: 'Startup Stage' },
+                                    { value: 'growth', label: 'Growth Stage' }
+                                ]}
+                                value={formData.stage}
+                                onChange={(value) => setFormData({ ...formData, stage: value })}
+                                label="Select Current Stage"
+                            />
+                        </div>
                         <select
                             value={formData.stage}
                             onChange={(e) => setFormData({ ...formData, stage: e.target.value })}
-                            className="form-input"
+                            className="form-input hidden lg:block"
                         >
                             <option value="">Select stage</option>
                             <option value="vision">Vision Stage</option>

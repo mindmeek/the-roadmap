@@ -5,6 +5,7 @@ import {
     Loader2, Mail, CheckCircle2, AlertCircle 
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import MobileBottomSheet from '@/components/common/MobileBottomSheet';
 
 export default function BusinessTeamModal({ isOpen, onClose, business, currentUser }) {
     const [activeTab, setActiveTab] = useState('members'); // 'members' or 'invite'
@@ -15,6 +16,7 @@ export default function BusinessTeamModal({ isOpen, onClose, business, currentUs
     const [inviting, setInviting] = useState(false);
     const [inviteStatus, setInviteStatus] = useState(null); // { type: 'success' | 'error', message: '' }
     const [removingId, setRemovingId] = useState(null);
+    const [showRoleSheet, setShowRoleSheet] = useState(false);
 
     useEffect(() => {
         if (isOpen && business) {
@@ -220,6 +222,17 @@ export default function BusinessTeamModal({ isOpen, onClose, business, currentUs
                                             <p className="text-xs text-[var(--text-soft)]">Can manage members and settings.</p>
                                         </button>
                                     </div>
+                                    <MobileBottomSheet
+                                        isOpen={showRoleSheet}
+                                        onClose={() => setShowRoleSheet(false)}
+                                        options={[
+                                            { value: 'member', label: 'Member - Can view and edit assigned tasks' },
+                                            { value: 'admin', label: 'Admin - Can manage members and settings' }
+                                        ]}
+                                        value={inviteRole}
+                                        onChange={setInviteRole}
+                                        label="Select Role"
+                                    />
                                 </div>
 
                                 {inviteStatus && (

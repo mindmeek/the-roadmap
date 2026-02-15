@@ -5,18 +5,24 @@ import { Loader2 } from 'lucide-react';
 export default function PollDisplay({ post, user, onVote }) {
     const [selectedOption, setSelectedOption] = useState(null);
     const [isVoting, setIsVoting] = useState(false);
+    const [optimisticHasVoted, setOptimisticHasVoted] = useState(post.voters?.includes(user?.email));
+    const [optimisticVotes, setOptimisticVotes] = useState(post.poll_votes || []);
 
-    const hasVoted = post.voters?.includes(user?.email);
-    const totalVotes = post.poll_votes?.reduce((sum, option) => sum + option.votes, 0) || 0;
+    const hasVoted = optimisticHasVoted;
+    const totalVotes = optimisticVotes?.reduce((sum, option) => sum + option.votes, 0) || 0;
 
     const handleVote = async () => {
         if (!selectedOption || hasVoted) return;
 
+        // Optimistic update
+        const updatedVotes = optimisticVotes.map(opt => 
+            opt.option === selectedOption ? { ...opt, votes: opt.votes + 1 } : opt
+        );
+        setOptimisticVotes(updatedVotes);
+        setOptimisticHasVoted(true);
+
         setIsVoting(true);
         try {
-            const updatedVotes = post.poll_votes.map(opt => 
-                opt.option === selectedOption ? { ...opt, votes: opt.votes + 1 } : opt
-            );
             const updatedVoters = [...(post.voters || []), user.email];
 
             await CommunityPost.update(post.id, {
@@ -26,6 +32,9 @@ export default function PollDisplay({ post, user, onVote }) {
             onVote(); // Trigger a reload of posts on the parent page
         } catch (error) {
             console.error("Error submitting vote:", error);
+            // Revert optimistic update on error
+            setOptimisticVotes(post.poll_votes || []);
+            setOptimisticHasVoted(false);
         } finally {
             setIsVoting(false);
         }
@@ -39,7 +48,7 @@ export default function PollDisplay({ post, user, onVote }) {
         <div className="my-4">
             {hasVoted ? (
                 <div className="space-y-2">
-                    {post.poll_votes.map((option, index) => {
+                    {optimisticVotes.map((option, index) => {
                         const percentage = totalVotes > 0 ? (option.votes / totalVotes) * 100 : 0;
                         return (
                             <div key={index}>
@@ -49,7 +58,7 @@ export default function PollDisplay({ post, user, onVote }) {
                                 </div>
                                 <div className="w-full bg-gray-200 rounded-full h-2.5">
                                     <div 
-                                        className="bg-[var(--primary-gold)] h-2.5 rounded-full" 
+                                        className="bg-[var(--primary-gold)] h-2.5 rounded-full transition-all duration-500" 
                                         style={{ width: `${percentage}%` }}
                                     ></div>
                                 </div>
