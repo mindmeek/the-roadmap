@@ -160,6 +160,8 @@ import layout from './pages/layout';
 import MyBusinessHub from './pages/MyBusinessHub';
 import LearningHub from './pages/LearningHub';
 import RoadmapsHub from './pages/RoadmapsHub';
+import ServicesHub from './pages/ServicesHub';
+import MediaHub from './pages/MediaHub';
 import __Layout from './Layout.jsx';
 
 
@@ -277,6 +279,8 @@ export const PAGES = {
     "MyBusinessHub": MyBusinessHub,
     "LearningHub": LearningHub,
     "RoadmapsHub": RoadmapsHub,
+    "ServicesHub": ServicesHub,
+    "MediaHub": MediaHub,
 }
 
 export const pagesConfig = {

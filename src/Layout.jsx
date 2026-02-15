@@ -52,13 +52,10 @@ const learningGrowthItems = [
 const connectBuildItems = [
     { href: "TheCommunity", icon: Users, label: "Community", mobileLabel: "Community" },
     { href: "MemberOfTheMonthSubmission", icon: Award, label: "Member of the Month", mobileLabel: "MOTM" },
-    { href: "SocialMediaServices", icon: Share2, label: "Social Media Services", mobileLabel: "SM Services" },
-    { href: "AdvertisingServices", icon: Target, label: "Advertising Services", mobileLabel: "Ads Services" },
-    { href: "DfyServices", icon: Briefcase, label: "My Services", mobileLabel: "Services" },
+    { href: "ServicesHub", icon: Briefcase, label: "Done-For-You Services", mobileLabel: "Services" },
+    { href: "MediaHub", icon: Podcast, label: "Audio & Media", mobileLabel: "Media" },
     { href: "Partners", icon: Handshake, label: "Partners", mobileLabel: "Partners" },
-    { href: "TheBeacon", icon: Podcast, label: "The Beacon Studio", mobileLabel: "Podcast" },
-    { href: "BusinessMindsPodcastBooking", icon: Mic, label: "Be a Podcast Guest", mobileLabel: "Guest" },
-    ];
+];
 
 const myAccountItems = [
     { href: "Profile", icon: UserCircle, label: "My Profile", mobileLabel: "Profile" },
@@ -103,6 +100,8 @@ const SEARCHABLE_PAGES = [
     { name: 'The Beacon Studio', url: 'TheBeacon', category: 'Pages', description: 'Listen to exclusive entrepreneur podcasts' },
     { name: 'Be a Podcast Guest', url: 'BusinessMindsPodcastBooking', category: 'Pages', description: 'Apply to be a guest on The Business Minds Podcast' },
     { name: 'Social Media Planner', url: 'SocialMediaPlanner', category: 'Pages', description: 'Generate AI-powered 90-day social media plans' },
+    { name: 'Done-For-You Services', url: 'ServicesHub', category: 'Pages', description: 'Professional marketing services and packages' },
+    { name: 'Audio & Media Hub', url: 'MediaHub', category: 'Pages', description: 'Podcast studio and radio show hosting' },
 ];
 
 const ElyzetChatBox = ({ isOpen, onClose }) => {
