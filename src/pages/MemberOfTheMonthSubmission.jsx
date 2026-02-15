@@ -51,92 +51,36 @@ export default function MemberOfTheMonthSubmission() {
             const currentUser = await base44.auth.me();
             setUser(currentUser);
 
-            // Check community posts
-            const userPosts = await base44.entities.CommunityPost.filter({ created_by: currentUser.email });
-            const introduced_in_community = userPosts.length >= 1;
-
-            // Check 90-day plan
-            const plans = await base44.entities.SocialMediaPlan.filter({ created_by: currentUser.email, is_active: true });
-            const has_90_day_plan = plans.length > 0;
-
-            // Check stage
-            const startup_or_growth_stage = currentUser.entrepreneurship_stage === 'startup' || currentUser.entrepreneurship_stage === 'growth';
-
-            // Check foundation progress
-            const progress = await base44.entities.FoundationProgress.filter({ created_by: currentUser.email });
-            let foundation_roadmap_progress = false;
-            if (progress.length > 0) {
-                const completedSteps = progress[0].completed_steps || [];
-                foundation_roadmap_progress = completedSteps.length >= 10; // At least 10 steps completed
-            }
-
-            // Check engagement
-            const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-            const recentPosts = userPosts.filter(p => new Date(p.created_date) > new Date(thirtyDaysAgo));
-            const active_engagement = recentPosts.length >= 3;
-
-            // Check business profile on TheIndex
-            const businesses = await base44.entities.Business.filter({ owner_user_id: currentUser.id });
-            const has_business_profile = businesses.length > 0;
-
-            // Check connections
-            const connections = await base44.entities.Connection.filter({
-                $or: [
-                    { requester_email: currentUser.email, status: 'accepted' },
-                    { recipient_email: currentUser.email, status: 'accepted' }
-                ]
-            });
-            const partners = await base44.entities.AccountabilityPartner.filter({
-                $or: [
-                    { user_email: currentUser.email, status: 'active' },
-                    { partner_email: currentUser.email, status: 'active' }
-                ]
-            });
-            const meaningful_connections = connections.length >= 3 || partners.length > 0;
-
-            // Check wins/milestones
-            const winPosts = userPosts.filter(p => 
-                p.post_type === 'milestone' || 
-                p.post_type === 'celebration' ||
-                (p.content && p.content.toLowerCase().includes('win'))
-            );
-            const shared_win_or_milestone = winPosts.length > 0;
-
-            const eligibilityStatus = {
-                introduced_in_community,
-                has_90_day_plan,
-                startup_or_growth_stage,
-                foundation_roadmap_progress,
-                active_engagement,
-                has_business_profile,
-                meaningful_connections,
-                shared_win_or_milestone
-            };
-
-            setEligibility(eligibilityStatus);
-            setIsEligible(Object.values(eligibilityStatus).every(v => v === true));
-
-            // Check for existing submission
+            // Check for existing submission first
             const existingHighlights = await base44.entities.CommunityHighlight.filter({ 
                 member_email: currentUser.email 
             });
+
             if (existingHighlights.length > 0) {
                 const existing = existingHighlights[0];
                 setExistingSubmission(existing);
+                
+                // Use saved eligibility checklist if it exists
+                if (existing.eligibility_checklist) {
+                    setEligibility(existing.eligibility_checklist);
+                    setIsEligible(Object.values(existing.eligibility_checklist).every(v => v === true));
+                }
+                
                 if (existing.submission_answers) {
                     setFormData(existing.submission_answers);
                 }
             }
 
             // Pre-fill business info if available
+            const businesses = await base44.entities.Business.filter({ owner_user_id: currentUser.id });
             if (businesses.length > 0) {
                 const biz = businesses[0];
                 setFormData(prev => ({
                     ...prev,
-                    business_name: biz.name || '',
-                    business_description: biz.description || '',
-                    industry: biz.industry || '',
-                    theindex_profile_url: `https://theindex.cc/business/${biz.id}` // Adjust URL structure as needed
+                    business_name: prev.business_name || biz.name || '',
+                    business_description: prev.business_description || biz.description || '',
+                    industry: prev.industry || biz.industry || '',
+                    theindex_profile_url: prev.theindex_profile_url || `https://theindex.cc/business/${biz.id}`
                 }));
             }
 
@@ -147,10 +91,18 @@ export default function MemberOfTheMonthSubmission() {
         }
     };
 
+    const toggleRequirement = (key) => {
+        setEligibility(prev => {
+            const updated = { ...prev, [key]: !prev[key] };
+            setIsEligible(Object.values(updated).every(v => v === true));
+            return updated;
+        });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!isEligible && !existingSubmission) {
-            alert('Please meet all eligibility criteria before submitting.');
+            alert('Please mark all requirements as complete before submitting.');
             return;
         }
 
@@ -171,10 +123,10 @@ export default function MemberOfTheMonthSubmission() {
                     theindex_profile_url: formData.theindex_profile_url,
                     submission_answers: formData,
                     eligibility_checklist: eligibility,
-                    status: 'draft',
+                    status: 'pending_review',
                     month_featured: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
                 });
-                alert('Your submission has been received! We\'ll review it and be in touch soon.');
+                alert('Your submission has been received! Our team will verify your requirements and be in touch soon.');
             }
             navigate(createPageUrl('Dashboard'));
         } catch (error) {
@@ -288,12 +240,18 @@ export default function MemberOfTheMonthSubmission() {
                         {eligibilityCriteria.map(criteria => (
                             <div key={criteria.key} className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                                 <div className="flex items-start gap-3 flex-1">
-                                    {eligibility[criteria.key] ? (
-                                        <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                                    ) : (
-                                        <XCircle className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 flex-shrink-0 mt-0.5" />
-                                    )}
-                                    <span className={`text-sm sm:text-base ${eligibility[criteria.key] ? 'text-[var(--text-main)]' : 'text-[var(--text-soft)]'}`}>
+                                    <button
+                                        type="button"
+                                        onClick={() => toggleRequirement(criteria.key)}
+                                        className="flex-shrink-0 mt-0.5 cursor-pointer hover:scale-110 transition-transform"
+                                    >
+                                        {eligibility[criteria.key] ? (
+                                            <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
+                                        ) : (
+                                            <XCircle className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 hover:text-gray-600" />
+                                        )}
+                                    </button>
+                                    <span className={`text-sm sm:text-base ${eligibility[criteria.key] ? 'text-[var(--text-main)] font-medium' : 'text-[var(--text-soft)]'}`}>
                                         {criteria.label}
                                     </span>
                                 </div>
@@ -309,10 +267,15 @@ export default function MemberOfTheMonthSubmission() {
                             </div>
                         ))}
                     </div>
+                    <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-3 sm:p-4 mb-4">
+                        <p className="text-xs sm:text-sm text-blue-800 dark:text-blue-200">
+                            ✅ <strong>Click the checkboxes</strong> to mark off each requirement as you complete it. Our admin team will verify them when reviewing your submission.
+                        </p>
+                    </div>
                     {!isEligible && (
                         <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 rounded-lg p-3 sm:p-4">
                             <p className="text-xs sm:text-sm text-orange-800 dark:text-orange-200">
-                                Complete all requirements above to be eligible for Member of the Month. Each requirement helps you engage more deeply with the community and build your business!
+                                Mark all requirements as complete to submit. Our team will verify each one during the review process.
                             </p>
                         </div>
                     )}
@@ -320,7 +283,7 @@ export default function MemberOfTheMonthSubmission() {
                         <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg p-3 sm:p-4">
                             <p className="text-xs sm:text-sm text-green-800 dark:text-green-200 flex items-center gap-2">
                                 <Sparkles className="w-4 h-4" />
-                                You meet all requirements! Fill out the form below to submit your story.
+                                All requirements marked! Fill out the form below and our team will verify during review.
                             </p>
                         </div>
                     )}
