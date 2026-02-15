@@ -1,7 +1,21 @@
+
 import { createPageUrl } from "@/utils";
 import { nonProfitGrowthRoadmap } from './course_content/nonProfitGrowth';
 import { ecommerceGrowthRoadmap } from './course_content/ecommerceGrowth';
 import { privateCommunityGrowthRoadmap } from './course_content/privateCommunityGrowth';
+
+// Add businessType and stage to imported niche roadmaps
+nonProfitGrowthRoadmap.businessType = "non_profit";
+nonProfitGrowthRoadmap.stage = "startup";
+nonProfitGrowthRoadmap.icon = "❤️";
+
+ecommerceGrowthRoadmap.businessType = "for_profit";
+ecommerceGrowthRoadmap.stage = "startup";
+ecommerceGrowthRoadmap.icon = "🛒";
+
+privateCommunityGrowthRoadmap.businessType = "for_profit";
+privateCommunityGrowthRoadmap.stage = "growth";
+privateCommunityGrowthRoadmap.icon = "👥";
 
 const vision = {
   title: "Vision Stage", 
@@ -901,7 +915,7 @@ const startup = {
                     "Plan the next marketing push based on what you learned. If one channel worked best, focus your energy there next week."
                   ],
                   tips: ["Look for patterns.", "Don't panic over small sample sizes."],
-                  commonChallenges: ["Ignoring negative feedback.", "Focusing only on vanity metrics."],
+                  commonChallenges: ["Ignoring the data.", "Focusing only on vanity metrics."],
                   successCriteria: ["You know what to improve next week.", "You have thanked your team/supporters."]
                 }
               ],
@@ -2806,7 +2820,7 @@ const growth = {
                 }
               ],
               resources: [
-                { title: "Content Strategy Tool", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" },
+                { title: "Content Calendar", type: "Tool", icon: "Calendar", link: "StrategyFormContentStrategy" },
                 { title: "Guide: Community Content", type: "Guide", icon: "BookOpen", link: "Guides" },
                 { title: "Lesson: Engagement Starters", type: "Lesson", icon: "Lightbulb", link: "QuickLessons" },
                 { title: "Mindset: Contribution", type: "Mindset", icon: "Brain", link: "MindsetHacks" },
@@ -3149,11 +3163,60 @@ const growth = {
   }
 };
 
-// Niche roadmaps for startup stage
+// Define all niche roadmaps with businessType and stage
 const nicheRoadmaps = {
   non_profit_growth: nonProfitGrowthRoadmap,
   ecommerce_growth: ecommerceGrowthRoadmap,
-  private_community_growth: privateCommunityGrowthRoadmap
+  private_community_growth: privateCommunityGrowthRoadmap,
+  book_author_growth: {
+    stage: "startup",
+    businessType: "for_profit",
+    icon: "📚",
+    courseTitle: "Book Author Growth Plan",
+    courseDescription: "Build an audience, form a community, and grow book sales"
+  },
+  life_coach_growth: {
+    stage: "startup",
+    businessType: "for_profit",
+    icon: "🎯",
+    courseTitle: "Life Coach Business Plan",
+    courseDescription: "Build a thriving coaching practice with consistent client flow"
+  },
+  podcast_growth: {
+    stage: "growth",
+    businessType: "for_profit",
+    icon: "🎙️",
+    courseTitle: "Podcast Growth Plan",
+    courseDescription: "Launch a chart-topping podcast and build a loyal listener base"
+  },
+  musical_artist_growth: {
+    stage: "growth",
+    businessType: "for_profit",
+    icon: "🎵",
+    courseTitle: "Musical Artist Growth Plan",
+    courseDescription: "Launch your music career and build a superfan community"
+  },
+  social_enterprise_growth: {
+    stage: "startup",
+    businessType: "social_business",
+    icon: "🌱",
+    courseTitle: "Social Enterprise Growth Plan",
+    courseDescription: "Build a profitable business model that creates measurable social impact"
+  },
+  sustainable_business_growth: {
+    stage: "growth",
+    businessType: "social_business",
+    icon: "♻️",
+    courseTitle: "Sustainable Business Scaling Plan",
+    courseDescription: "Scale your eco-friendly business while maintaining environmental mission"
+  },
+  impact_driven_startup: {
+    stage: "startup",
+    businessType: "social_business",
+    icon: "💚",
+    courseTitle: "Impact-Driven Startup Plan",
+    courseDescription: "Launch a business where profit and purpose work hand-in-hand"
+  }
 };
 
 const roadmapData = { vision, startup, growth, nicheRoadmaps };
