@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { User as UserIcon, Building, Target, Rocket, CheckCircle, ChevronRight, Sparkles, TrendingUp, Lightbulb, Award, Loader2, CalendarDays } from 'lucide-react';
+import { User as UserIcon, Building, Target, Rocket, CheckCircle, ChevronRight, Sparkles, TrendingUp, Lightbulb, Award, Loader2, CalendarDays, DollarSign, Heart, Users, ExternalLink, Building2 } from 'lucide-react';
 import { User } from '@/entities/User';
 import { createPageUrl } from '@/utils';
 import { Link } from 'react-router-dom';
@@ -20,12 +20,12 @@ export default function OnboardingPage() {
         company_size: '',
         legal_structure: '',
         years_in_business: 0,
-        interested_in_media_production: false,
         ideal_client_description: '',
         value_proposition_statement: '',
         current_challenges: '',
         primary_revenue_streams: '',
-        marketing_channels_focus: ''
+        marketing_channels_focus: '',
+        business_type: ''
     });
 
     useEffect(() => {
@@ -37,7 +37,6 @@ export default function OnboardingPage() {
             const currentUser = await User.me();
             setUser(currentUser);
             
-            // Pre-fill form with existing user data if available
             setFormData(prev => ({
                 ...prev,
                 first_name: currentUser.first_name || '',
@@ -50,12 +49,12 @@ export default function OnboardingPage() {
                 company_size: currentUser.company_size || '',
                 legal_structure: currentUser.legal_structure || '',
                 years_in_business: currentUser.years_in_business || 0,
-                interested_in_media_production: currentUser.interested_in_media_production || false,
                 ideal_client_description: currentUser.ideal_client_description || '',
                 value_proposition_statement: currentUser.value_proposition_statement || '',
                 current_challenges: currentUser.current_challenges || '',
                 primary_revenue_streams: currentUser.primary_revenue_streams || '',
-                marketing_channels_focus: currentUser.marketing_channels_focus || ''
+                marketing_channels_focus: currentUser.marketing_channels_focus || '',
+                business_type: currentUser.business_type || ''
             }));
             
         } catch (error) {
@@ -69,33 +68,8 @@ export default function OnboardingPage() {
         setFormData(prev => ({ ...prev, [field]: value }));
     };
 
-    const getStageIcon = (stage) => {
-        switch (stage) {
-            case 'vision': return Lightbulb;
-            case 'startup': return Rocket;
-            case 'growth': return TrendingUp;
-            default: return Target;
-        }
-    };
-
-    const getGoalIcon = (goalId) => {
-        if (goalId && goalId.includes('authority')) return Award;
-        if (goalId && goalId.includes('community')) return UserIcon;
-        return Target;
-    };
-
-    const nicheRoadmaps = [
-        { id: "book_author_growth", title: "Book Author Growth Plan", description: "Build an audience, form a community, and grow book sales", icon: "📚", stage: "startup" },
-        { id: "life_coach_growth", title: "Life Coach Business Plan", description: "Build a thriving coaching practice with consistent client flow", icon: "🎯", stage: "startup" },
-        { id: "non_profit_growth", title: "Non-Profit Growth Plan", description: "Scale your mission with donor acquisition and measurable impact", icon: "❤️", stage: "startup" },
-        { id: "ecommerce_growth", title: "E-Commerce Store Growth Plan", description: "Launch and scale your online store to consistent profitability", icon: "🛒", stage: "startup" },
-        { id: "private_community_growth", title: "Private Community Growth Plan", description: "Launch and scale a thriving paid membership community", icon: "👥", stage: "growth" },
-        { id: "podcast_growth", title: "Podcast Growth Plan", description: "Launch a chart-topping podcast and build a loyal listener base", icon: "🎙️", stage: "growth" },
-        { id: "musical_artist_growth", title: "Musical Artist Growth Plan", description: "Launch your music career and build a superfan community", icon: "🎵", stage: "growth" }
-    ];
-
     const availableGoals = useMemo(() => {
-        if (!formData.entrepreneurship_stage) return [];
+        if (!formData.entrepreneurship_stage || !formData.business_type) return [];
         
         const stageData = roadmapData.default?.[formData.entrepreneurship_stage] || roadmapData[formData.entrepreneurship_stage];
         if (!stageData || !stageData.goals) return [];
@@ -107,22 +81,25 @@ export default function OnboardingPage() {
             isNiche: false
         }));
 
-        // Add niche roadmaps for startup and growth stages
-        if (formData.entrepreneurship_stage === 'startup' || formData.entrepreneurship_stage === 'growth') {
-            const nicheGoals = nicheRoadmaps
-                .filter(niche => niche.stage === formData.entrepreneurship_stage)
-                .map(niche => ({
-                    id: niche.id,
-                    title: niche.title,
-                    description: niche.description,
-                    icon: niche.icon,
-                    isNiche: true
-                }));
-            return [...baseGoals, ...nicheGoals];
-        }
+        // Get niche roadmaps and filter by both stage AND business type
+        const nicheGoals = Object.entries(roadmapData.nicheRoadmaps || {})
+            .map(([id, roadmap]) => ({
+                id,
+                title: roadmap.courseTitle,
+                description: roadmap.courseDescription,
+                icon: roadmap.icon || "✨",
+                stage: roadmap.stage,
+                businessType: roadmap.businessType || "for_profit",
+                isNiche: true
+            }))
+            .filter(niche => {
+                const stageMatch = niche.stage === formData.entrepreneurship_stage;
+                const businessTypeMatch = !niche.businessType || niche.businessType === formData.business_type;
+                return stageMatch && businessTypeMatch;
+            });
         
-        return baseGoals;
-    }, [formData.entrepreneurship_stage]);
+        return [...baseGoals, ...nicheGoals];
+    }, [formData.entrepreneurship_stage, formData.business_type]);
 
     const handleNext = () => {
         if (currentStep < steps.length - 1) {
@@ -175,7 +152,7 @@ export default function OnboardingPage() {
                     </div>
                     <h2 className="text-3xl font-bold text-[var(--text-main)]">Welcome to The Roadmap</h2>
                     <p className="text-lg text-[var(--text-soft)] max-w-2xl mx-auto">
-                        You're about to embark on a transformative 90-day journey designed specifically for your stage of business. 
+                        You're about to embark on a transformative 90-day journey designed specifically for your stage and type of business. 
                         We'll guide you step-by-step with daily actions, proven strategies, and AI-powered support.
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 max-w-4xl mx-auto">
@@ -327,25 +304,176 @@ export default function OnboardingPage() {
                             <option value={5}>5+ years</option>
                         </select>
                     </div>
-
-                    <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
-                        <label className="flex items-start space-x-3 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                checked={formData.interested_in_media_production}
-                                onChange={(e) => handleInputChange('interested_in_media_production', e.target.checked)}
-                                className="mt-1"
-                            />
-                            <div>
-                                <p className="font-medium text-[var(--text-main)]">
-                                    I'm interested in media production services
-                                </p>
-                                <p className="text-sm text-[var(--text-soft)] mt-1">
-                                    Get information about podcast production, radio shows, and content creation services from The Beacon and Equalizer Radio.
-                                </p>
+                </div>
+            )
+        },
+        {
+            title: "What type of business is it?",
+            description: "Choose the type that best describes your business model",
+            content: (
+                <div className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                        <button
+                            onClick={() => handleInputChange('business_type', 'for_profit')}
+                            className={`p-6 rounded-lg border-2 text-left transition-all ${
+                                formData.business_type === 'for_profit'
+                                    ? 'border-[var(--primary-gold)] bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 shadow-lg'
+                                    : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-[var(--primary-gold)] hover:shadow-md'
+                            }`}
+                        >
+                            <div className="flex items-center space-x-3 mb-4">
+                                <div className={`p-3 rounded-lg ${
+                                    formData.business_type === 'for_profit'
+                                        ? 'bg-[var(--primary-gold)]' 
+                                        : 'bg-gray-100 dark:bg-gray-700'
+                                }`}>
+                                    <DollarSign className={`w-6 h-6 ${
+                                        formData.business_type === 'for_profit' ? 'text-white' : 'text-gray-600 dark:text-gray-300'
+                                    }`} />
+                                </div>
+                                {formData.business_type === 'for_profit' && <CheckCircle className="w-6 h-6 text-[var(--primary-gold)]" />}
                             </div>
-                        </label>
+                            <h3 className="text-xl font-bold text-[var(--text-main)] mb-2">
+                                For-Profit Business
+                            </h3>
+                            <p className="text-sm text-[var(--text-soft)] mb-3">
+                                Your primary goal is financial gain through selling products or services.
+                            </p>
+                            <ul className="space-y-2 text-xs text-[var(--text-soft)]">
+                                <li className="flex items-start">
+                                    <span className="text-[var(--primary-gold)] mr-2">•</span>
+                                    <span>Focus on revenue generation, market share, and growth</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[var(--primary-gold)] mr-2">•</span>
+                                    <span>Typical business structure with commercial objectives</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[var(--primary-gold)] mr-2">•</span>
+                                    <span>Strategies geared towards profit maximization and scale</span>
+                                </li>
+                            </ul>
+                        </button>
+
+                        <button
+                            onClick={() => handleInputChange('business_type', 'non_profit')}
+                            className={`p-6 rounded-lg border-2 text-left transition-all ${
+                                formData.business_type === 'non_profit'
+                                    ? 'border-[var(--primary-gold)] bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 shadow-lg'
+                                    : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-[var(--primary-gold)] hover:shadow-md'
+                            }`}
+                        >
+                            <div className="flex items-center space-x-3 mb-4">
+                                <div className={`p-3 rounded-lg ${
+                                    formData.business_type === 'non_profit'
+                                        ? 'bg-[var(--primary-gold)]' 
+                                        : 'bg-gray-100 dark:bg-gray-700'
+                                }`}>
+                                    <Heart className={`w-6 h-6 ${
+                                        formData.business_type === 'non_profit' ? 'text-white' : 'text-gray-600 dark:text-gray-300'
+                                    }`} />
+                                </div>
+                                {formData.business_type === 'non_profit' && <CheckCircle className="w-6 h-6 text-[var(--primary-gold)]" />}
+                            </div>
+                            <h3 className="text-xl font-bold text-[var(--text-main)] mb-2">
+                                Non-Profit Organization
+                            </h3>
+                            <p className="text-sm text-[var(--text-soft)] mb-3">
+                                Focus on mission-driven growth, fundraising, and community impact.
+                            </p>
+                            <ul className="space-y-2 text-xs text-[var(--text-soft)]">
+                                <li className="flex items-start">
+                                    <span className="text-[var(--primary-gold)] mr-2">•</span>
+                                    <span>You lead a charitable organization, foundation, or cause</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[var(--primary-gold)] mr-2">•</span>
+                                    <span>Focus on donor acquisition, grants, and volunteer engagement</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[var(--primary-gold)] mr-2">•</span>
+                                    <span>Measuring and communicating social impact is key</span>
+                                </li>
+                            </ul>
+                        </button>
+
+                        <button
+                            onClick={() => handleInputChange('business_type', 'social_business')}
+                            className={`p-6 rounded-lg border-2 text-left transition-all ${
+                                formData.business_type === 'social_business'
+                                    ? 'border-[var(--primary-gold)] bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 shadow-lg'
+                                    : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-[var(--primary-gold)] hover:shadow-md'
+                            }`}
+                        >
+                            <div className="flex items-center space-x-3 mb-4">
+                                <div className={`p-3 rounded-lg ${
+                                    formData.business_type === 'social_business'
+                                        ? 'bg-[var(--primary-gold)]' 
+                                        : 'bg-gray-100 dark:bg-gray-700'
+                                }`}>
+                                    <Users className={`w-6 h-6 ${
+                                        formData.business_type === 'social_business' ? 'text-white' : 'text-gray-600 dark:text-gray-300'
+                                    }`} />
+                                </div>
+                                {formData.business_type === 'social_business' && <CheckCircle className="w-6 h-6 text-[var(--primary-gold)]" />}
+                            </div>
+                            <h3 className="text-xl font-bold text-[var(--text-main)] mb-2">
+                                Social Business / B-Corp
+                            </h3>
+                            <p className="text-sm text-[var(--text-soft)] mb-3">
+                                Achieve financial sustainability while driving positive social impact.
+                            </p>
+                            <ul className="space-y-2 text-xs text-[var(--text-soft)]">
+                                <li className="flex items-start">
+                                    <span className="text-[var(--primary-gold)] mr-2">•</span>
+                                    <span>For-profit model with a core social or environmental mission</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[var(--primary-gold)] mr-2">•</span>
+                                    <span>Focus on ethical practices and measurable impact</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[var(--primary-gold)] mr-2">•</span>
+                                    <span>Balancing profit with purpose is central to your strategy</span>
+                                </li>
+                            </ul>
+                        </button>
                     </div>
+
+                    {formData.business_type === 'non_profit' && (
+                        <div className="mt-6 p-6 bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 rounded-lg border-2 border-red-200 dark:border-red-700">
+                            <div className="flex items-start gap-4">
+                                <div className="bg-red-100 dark:bg-red-900 p-3 rounded-full flex-shrink-0">
+                                    <Building2 className="w-6 h-6 text-red-600" />
+                                </div>
+                                <div className="text-left flex-1">
+                                    <h4 className="font-bold text-lg text-[var(--text-main)] mb-2">📋 Need to Form Your Non-Profit?</h4>
+                                    <p className="text-sm text-[var(--text-soft)] mb-3">
+                                        Our trusted partner can help you establish your 501(c)(3) for just <strong>$39 + state filing fees</strong>. 
+                                        They handle all the paperwork and guide you through the process.
+                                    </p>
+                                    <a 
+                                        href="https://www.northwestregisteredagent.com/northwest-39-package-landing-page?utm_source=awin&utm_medium=referral&utm_campaign=default&sv1=affiliate&sv_campaign_id=2456757&sscid=66946_1771137297_4b47feca373412da26101a11c73d057e&awc=66946_1771137297_4b47feca373412da26101a11c73d057e&sscid=66946_1771137297_4b47feca373412da26101a11c73d057e"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="btn btn-primary inline-flex items-center text-sm mb-3"
+                                    >
+                                        <Building2 className="w-4 h-4 mr-2" />
+                                        Form Your Non-Profit Now
+                                        <ExternalLink className="w-4 h-4 ml-2" />
+                                    </a>
+                                    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mt-3">
+                                        <p className="text-sm text-[var(--text-main)] font-semibold mb-2">💡 Important Reminder:</p>
+                                        <p className="text-sm text-[var(--text-soft)]">
+                                            Even as a non-profit, you must <strong>run it like a business</strong>. Consider establishing a 
+                                            separate foundation if you plan to raise significant funds or provide grants. Your mission deserves 
+                                            the same strategic planning and operational excellence as any for-profit venture.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             )
         },
@@ -499,19 +627,24 @@ export default function OnboardingPage() {
                                 <>
                                     <div>
                                         <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            Who is your ideal client? *
+                                            Who is your ideal {formData.business_type === 'non_profit' ? 'donor/supporter' : 'client'}? *
                                         </label>
                                         <p className="text-xs text-[var(--text-soft)] mb-2">
-                                            {formData.entrepreneurship_stage === 'startup' 
-                                                ? 'Describe who you want to serve (e.g., "busy professionals seeking wellness")'
-                                                : 'Describe your target customer in more detail'
+                                            {formData.business_type === 'non_profit' 
+                                                ? 'Describe who you want to engage (donors, volunteers, beneficiaries)'
+                                                : formData.entrepreneurship_stage === 'startup' 
+                                                    ? 'Describe who you want to serve (e.g., "busy professionals seeking wellness")'
+                                                    : 'Describe your target customer in more detail'
                                             }
                                         </p>
                                         <textarea
                                             value={formData.ideal_client_description}
                                             onChange={(e) => handleInputChange('ideal_client_description', e.target.value)}
                                             className="form-input w-full"
-                                            placeholder="e.g., Small business owners aged 35-50 looking to scale..."
+                                            placeholder={formData.business_type === 'non_profit' 
+                                                ? "e.g., Socially conscious millennials passionate about education..." 
+                                                : "e.g., Small business owners aged 35-50 looking to scale..."
+                                            }
                                             rows={3}
                                             required
                                         />
@@ -519,19 +652,24 @@ export default function OnboardingPage() {
 
                                     <div>
                                         <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            What's your unique value proposition? *
+                                            What's your unique {formData.business_type === 'non_profit' ? 'mission impact' : 'value proposition'}? *
                                         </label>
                                         <p className="text-xs text-[var(--text-soft)] mb-2">
-                                            {formData.entrepreneurship_stage === 'startup'
-                                                ? 'What makes your offering different or better?'
-                                                : 'What specific value do you provide that competitors don\'t?'
+                                            {formData.business_type === 'non_profit'
+                                                ? 'What specific change or impact are you creating in the world?'
+                                                : formData.entrepreneurship_stage === 'startup'
+                                                    ? 'What makes your offering different or better?'
+                                                    : 'What specific value do you provide that competitors don\'t?'
                                             }
                                         </p>
                                         <textarea
                                             value={formData.value_proposition_statement}
                                             onChange={(e) => handleInputChange('value_proposition_statement', e.target.value)}
                                             className="form-input w-full"
-                                            placeholder="e.g., We help businesses grow faster with personalized strategies..."
+                                            placeholder={formData.business_type === 'non_profit'
+                                                ? "e.g., We provide free education to underserved communities..."
+                                                : "e.g., We help businesses grow faster with personalized strategies..."
+                                            }
                                             rows={3}
                                             required
                                         />
@@ -549,7 +687,10 @@ export default function OnboardingPage() {
                                         value={formData.current_challenges}
                                         onChange={(e) => handleInputChange('current_challenges', e.target.value)}
                                         className="form-input w-full"
-                                        placeholder="e.g., Getting first customers, building brand awareness..."
+                                        placeholder={formData.business_type === 'non_profit'
+                                            ? "e.g., Finding donors, building awareness, recruiting volunteers..."
+                                            : "e.g., Getting first customers, building brand awareness..."
+                                        }
                                     />
                                 </div>
                             )}
@@ -558,27 +699,33 @@ export default function OnboardingPage() {
                                 <>
                                     <div>
                                         <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            What are your primary revenue streams?
+                                            What are your primary {formData.business_type === 'non_profit' ? 'funding sources' : 'revenue streams'}?
                                         </label>
                                         <input
                                             type="text"
                                             value={formData.primary_revenue_streams}
                                             onChange={(e) => handleInputChange('primary_revenue_streams', e.target.value)}
                                             className="form-input w-full"
-                                            placeholder="e.g., Coaching packages, online courses, consulting..."
+                                            placeholder={formData.business_type === 'non_profit'
+                                                ? "e.g., Individual donations, grants, corporate sponsorships..."
+                                                : "e.g., Coaching packages, online courses, consulting..."
+                                            }
                                         />
                                     </div>
 
                                     <div>
                                         <label className="block text-sm font-medium text-[var(--text-main)] mb-2">
-                                            What marketing channels are you focusing on?
+                                            What {formData.business_type === 'non_profit' ? 'outreach' : 'marketing'} channels are you focusing on?
                                         </label>
                                         <input
                                             type="text"
                                             value={formData.marketing_channels_focus}
                                             onChange={(e) => handleInputChange('marketing_channels_focus', e.target.value)}
                                             className="form-input w-full"
-                                            placeholder="e.g., Social media, email marketing, paid ads..."
+                                            placeholder={formData.business_type === 'non_profit'
+                                                ? "e.g., Community events, social media, email campaigns..."
+                                                : "e.g., Social media, email marketing, paid ads..."
+                                            }
                                         />
                                     </div>
                                 </>
@@ -593,14 +740,13 @@ export default function OnboardingPage() {
             description: "Select the specific outcome you want to achieve in the next 90 days",
             content: (
                 <div className="space-y-6">
-                    {!formData.entrepreneurship_stage ? (
+                    {!formData.entrepreneurship_stage || !formData.business_type ? (
                         <div className="text-center py-12">
-                            <p className="text-[var(--text-soft)]">Please select your entrepreneurship stage first</p>
+                            <p className="text-[var(--text-soft)]">Please select your business type and entrepreneurship stage first</p>
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
                             {availableGoals.map((goal) => {
-                                const GoalIcon = getGoalIcon(goal.id);
                                 const isSelected = formData.selected_goal === goal.id;
                                 
                                 return (
@@ -623,7 +769,7 @@ export default function OnboardingPage() {
                                                    {goal.isNiche ? (
                                                        <span className="text-2xl">{goal.icon}</span>
                                                    ) : (
-                                                       <GoalIcon className={`w-6 h-6 ${
+                                                       <Target className={`w-6 h-6 ${
                                                            isSelected ? 'text-white' : 'text-gray-600 dark:text-gray-300'
                                                        }`} />
                                                    )}
@@ -660,7 +806,8 @@ export default function OnboardingPage() {
                     </div>
                     <h2 className="text-3xl font-bold text-[var(--text-main)]">Ready to Transform Your Business!</h2>
                     <p className="text-lg text-[var(--text-soft)]">
-                        You've chosen the <strong>{formData.entrepreneurship_stage} stage</strong> and your goal is to{' '}
+                        You've chosen the <strong>{formData.entrepreneurship_stage} stage</strong> for your{' '}
+                        <strong>{formData.business_type === 'for_profit' ? 'For-Profit Business' : formData.business_type === 'non_profit' ? 'Non-Profit Organization' : 'Social Business'}</strong> and your goal is to{' '}
                         <strong>{availableGoals.find(g => g.id === formData.selected_goal)?.title}</strong>.
                     </p>
                     
@@ -705,10 +852,10 @@ export default function OnboardingPage() {
                                     <div className="w-8 h-8 rounded-full bg-[var(--primary-gold)] flex items-center justify-center text-white font-bold">
                                         4
                                     </div>
-                                    <h4 className="font-semibold text-[var(--text-main)]">Live Webinars</h4>
+                                    <h4 className="font-semibold text-[var(--text-main)]">Live Strategy Sessions</h4>
                                 </div>
                                 <p className="text-sm text-[var(--text-soft)]">
-                                    Join our bi-weekly live sessions every 1st & 3rd Thursday
+                                    Join our bi-weekly live sessions every Tuesday & Thursday
                                 </p>
                             </div>
                         </div>
@@ -720,9 +867,9 @@ export default function OnboardingPage() {
                                 <CalendarDays className="w-6 h-6 text-purple-600" />
                             </div>
                             <div className="text-left flex-1">
-                                <h4 className="font-bold text-lg text-[var(--text-main)] mb-2">🎉 Don't Miss Our Live Webinars!</h4>
+                                <h4 className="font-bold text-lg text-[var(--text-main)] mb-2">🎉 Don't Miss Our Live Strategy Sessions!</h4>
                                 <p className="text-sm text-[var(--text-soft)] mb-3">
-                                    Join us every <strong>1st & 3rd Thursday</strong> for live training, Q&A, and community connection. 
+                                    Join us every <strong>Tuesday & Thursday</strong> for live training, Q&A, and community connection. 
                                     Get expert guidance and network with fellow entrepreneurs!
                                 </p>
                                 <Link 
@@ -730,7 +877,7 @@ export default function OnboardingPage() {
                                     className="btn btn-primary inline-flex items-center text-sm"
                                 >
                                     <CalendarDays className="w-4 h-4 mr-2" />
-                                    View Webinar Schedule
+                                    View Session Schedule
                                     <ChevronRight className="w-4 h-4 ml-2" />
                                 </Link>
                             </div>
@@ -751,16 +898,16 @@ export default function OnboardingPage() {
         switch (currentStep) {
             case 0: return true;
             case 1: return formData.first_name && formData.last_name && formData.business_name && formData.company_size && formData.legal_structure;
-            case 2: return formData.entrepreneurship_stage !== '';
-            case 3: {
-                // Business details step - only validate if startup or growth stage
+            case 2: return formData.business_type !== '';
+            case 3: return formData.entrepreneurship_stage !== '';
+            case 4: {
                 if (formData.entrepreneurship_stage === 'startup' || formData.entrepreneurship_stage === 'growth') {
                     return formData.ideal_client_description && formData.value_proposition_statement;
                 }
-                return true; // Skip validation for vision stage
+                return true;
             }
-            case 4: return formData.selected_goal !== '';
-            case 5: return true;
+            case 5: return formData.selected_goal !== '';
+            case 6: return true;
             default: return false;
         }
     };
