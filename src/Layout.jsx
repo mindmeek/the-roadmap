@@ -35,14 +35,12 @@ import TourGuide from "@/components/common/TourGuide";
 const myJourneyHubItems = [
     { href: "Dashboard", icon: Home, label: "Dashboard", mobileLabel: "Dashboard" },
     { href: "Journey", icon: Target, label: "My 90-Day Journey", mobileLabel: "My Journey" },
+    { href: "MyBusinessHub", icon: Briefcase, label: "Business & Marketing Hub", mobileLabel: "Business Hub" },
     { href: "MyFoundationRoadmap", icon: Layers, label: "My Foundation Roadmap", mobileLabel: "Foundation" },
     { href: "QuickStartFoundation", icon: Zap, label: "Quick Wins", mobileLabel: "Quick Wins" },
-    { href: "FreedomCalculator", icon: PiggyBank, label: "My Financial Goal", mobileLabel: "Financial Goal" },
-    { href: "AnnualPlanning", icon: Calendar, label: "Annual Strategy", mobileLabel: "Annual Plan" },
     { href: "DailyTrack", icon: BarChart2, label: "Daily 1% Tracker", mobileLabel: "Daily 1%" },
     { href: "Schedule", icon: Calendar, label: "Daily Scheduler", mobileLabel: "Schedule" },
     { href: "LiveWebinar", icon: Video, label: "The Strategy Session", mobileLabel: "Strategy" },
-    { href: "StrategySession", icon: Award, label: "1-on-1 Strategy Session", mobileLabel: "Strategy" },
     { href: "ElyzetAIAssistants", icon: Sparkles, label: "Your Business Employee", mobileLabel: "AI Assistant" },
 ];
 
@@ -57,18 +55,14 @@ const learningGrowthItems = [
 ];
 
 const connectBuildItems = [
-    { href: "TheHQ", icon: Building, label: "The Business Minds HQ", mobileLabel: "The HQ", requiredLevel: 'business_hq' },
     { href: "TheCommunity", icon: Users, label: "Community", mobileLabel: "Community" },
     { href: "MemberOfTheMonthSubmission", icon: Award, label: "Member of the Month", mobileLabel: "MOTM" },
-    { href: "BusinessOverview", icon: Briefcase, label: "Business Overview", mobileLabel: "Business" },
-    { href: "MarketingOverview", icon: TrendingUp, label: "Marketing Hub", mobileLabel: "Marketing" },
     { href: "SocialMediaServices", icon: Share2, label: "Social Media Services", mobileLabel: "SM Services" },
     { href: "AdvertisingServices", icon: Target, label: "Advertising Services", mobileLabel: "Ads Services" },
     { href: "DfyServices", icon: Briefcase, label: "My Services", mobileLabel: "Services" },
     { href: "Partners", icon: Handshake, label: "Partners", mobileLabel: "Partners" },
     { href: "TheBeacon", icon: Podcast, label: "The Beacon Studio", mobileLabel: "Podcast" },
     { href: "BusinessMindsPodcastBooking", icon: Mic, label: "Be a Podcast Guest", mobileLabel: "Guest" },
-    { href: "SocialMediaPlanner", icon: Share2, label: "Social Media Planner", mobileLabel: "Social Plan" },
     ];
 
 const myAccountItems = [
@@ -97,6 +91,9 @@ const SEARCHABLE_PAGES = [
     { name: 'Mindset Hacks', url: 'MindsetHacks', category: 'Pages', description: 'Mental frameworks for success' },
     { name: 'Member Directory', url: 'MemberDirectory', category: 'Pages', description: 'Find and connect with other members' },
     { name: 'My Businesses', url: 'MyBusinesses', category: 'Pages', description: 'Manage your business listings' },
+    { name: 'Business & Marketing Hub', url: 'MyBusinessHub', category: 'Pages', description: 'Central hub for business and marketing strategies' },
+    { name: 'Business Overview', url: 'BusinessOverview', category: 'Pages', description: 'Your main business information and strategic documents' },
+    { name: 'Marketing Hub', url: 'MarketingOverview', category: 'Pages', description: 'Your complete marketing strategy and social plan' },
     { name: 'AI Assistants', url: 'ElyzetAIAssistants', category: 'Pages', description: 'Access AI-powered business tools' },
     { name: 'Freedom Calculator', url: 'FreedomCalculator', category: 'Pages', description: 'Calculate your financial freedom number' },
     { name: 'Strategy Session', url: 'StrategySession', category: 'Pages', description: 'Book your free strategy consultation' },
