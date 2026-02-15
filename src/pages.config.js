@@ -158,6 +158,7 @@ import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
 import Week from './pages/Week';
 import layout from './pages/layout';
 import MyBusinessHub from './pages/MyBusinessHub';
+import LearningHub from './pages/LearningHub';
 import __Layout from './Layout.jsx';
 
 
@@ -273,6 +274,7 @@ export const PAGES = {
     "Week": Week,
     "layout": layout,
     "MyBusinessHub": MyBusinessHub,
+    "LearningHub": LearningHub,
 }
 
 export const pagesConfig = {

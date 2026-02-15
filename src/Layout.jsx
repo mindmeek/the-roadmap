@@ -45,13 +45,7 @@ const myJourneyHubItems = [
 ];
 
 const learningGrowthItems = [
-    { href: "QuickLessons", icon: Lightbulb, label: "Quick Lessons", mobileLabel: "Lessons" },
-    { href: "Courses", icon: BookOpen, label: "Courses", mobileLabel: "Courses" },
-    { href: "MindsetHacks", icon: Brain, label: "Mindset", mobileLabel: "Mindset" },
-    { href: "Guides", icon: Map, label: "Guides", mobileLabel: "Guides" },
-    { href: "FocusedPrograms", icon: Award, label: "90-Day Focused Programs", mobileLabel: "Programs" },
-    { href: "NicheRoadmaps", icon: Target, label: "Niche Growth Roadmaps", mobileLabel: "Niche Plans" },
-    { href: "Magazine", icon: Newspaper, label: "Magazine", mobileLabel: "Magazine" },
+    { href: "LearningHub", icon: BookOpen, label: "Learning Hub", mobileLabel: "Learning" },
 ];
 
 const connectBuildItems = [
@@ -86,9 +80,14 @@ const SEARCHABLE_PAGES = [
     { name: 'My Foundation Roadmap', url: 'MyFoundationRoadmap', category: 'Pages', description: 'Access strategy tools and business foundation' },
     { name: 'Quick Wins', url: 'QuickStartFoundation', category: 'Pages', description: 'Access quick business strategies and wins' },
     { name: 'Community', url: 'TheCommunity', category: 'Pages', description: 'Connect with other entrepreneurs' },
+    { name: 'Learning Hub', url: 'LearningHub', category: 'Pages', description: 'Access all learning resources and courses' },
     { name: 'Quick Lessons', url: 'QuickLessons', category: 'Pages', description: 'Short, actionable business lessons' },
     { name: 'Interactive Courses', url: 'InteractiveCourses', category: 'Pages', description: 'Engage with in-depth learning modules' },
     { name: 'Mindset Hacks', url: 'MindsetHacks', category: 'Pages', description: 'Mental frameworks for success' },
+    { name: 'Guides', url: 'Guides', category: 'Pages', description: 'Comprehensive business guides' },
+    { name: 'Focused Programs', url: 'FocusedPrograms', category: 'Pages', description: '90-day specialized programs' },
+    { name: 'Niche Roadmaps', url: 'NicheRoadmaps', category: 'Pages', description: 'Industry-specific growth strategies' },
+    { name: 'Magazine', url: 'Magazine', category: 'Pages', description: 'Monthly digital magazine' },
     { name: 'Member Directory', url: 'MemberDirectory', category: 'Pages', description: 'Find and connect with other members' },
     { name: 'My Businesses', url: 'MyBusinesses', category: 'Pages', description: 'Manage your business listings' },
     { name: 'Business & Marketing Hub', url: 'MyBusinessHub', category: 'Pages', description: 'Central hub for business and marketing strategies' },
