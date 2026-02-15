@@ -4,13 +4,13 @@ import { createPageUrl } from '@/utils';
 import { ArrowLeft, CheckCircle, Clock, Target, ChevronDown, ChevronUp, Award, Loader2, Lock, Sparkles, TrendingUp, Zap, Info, ExternalLink, FileText, Edit, Users } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import StrategyFormModal from '@/components/strategy/StrategyFormModal';
-import { bookAuthorGrowthRoadmap } from '@/components/course_content/bookAuthorGrowth.jsx';
-import { lifeCoachGrowthRoadmap } from '@/components/course_content/lifeCoachGrowth.jsx';
-import { nonProfitGrowthRoadmap } from '@/components/course_content/nonProfitGrowth.jsx';
-import { ecommerceGrowthRoadmap } from '@/components/course_content/ecommerceGrowth.jsx';
-import { privateCommunityGrowthRoadmap } from '@/components/course_content/privateCommunityGrowth.jsx';
-import { podcastGrowthRoadmap } from '@/components/course_content/podcastGrowth.jsx';
-import { musicalArtistGrowthRoadmap } from '@/components/course_content/musicalArtistGrowth.jsx';
+import { bookAuthorGrowthRoadmap } from '@/components/course_content/bookAuthorGrowth';
+import { lifeCoachGrowthRoadmap } from '@/components/course_content/lifeCoachGrowth';
+import { nonProfitGrowthRoadmap } from '@/components/course_content/nonProfitGrowth';
+import { ecommerceGrowthRoadmap } from '@/components/course_content/ecommerceGrowth';
+import { privateCommunityGrowthRoadmap } from '@/components/course_content/privateCommunityGrowth';
+import { podcastGrowthRoadmap } from '@/components/course_content/podcastGrowth';
+import { musicalArtistGrowthRoadmap } from '@/components/course_content/musicalArtistGrowth';
 
 const programContentMap = {
   'book_author_growth': bookAuthorGrowthRoadmap,
