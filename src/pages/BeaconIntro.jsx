@@ -18,20 +18,20 @@ export default function BeaconIntroPage() {
                         <ArrowLeft className="w-5 h-5 mr-2" />
                         Back to The Beacon
                     </button>
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                         <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg">
                             <Calendar className="w-6 h-6 text-blue-600" />
                         </div>
                         <div>
-                            <h1 className="text-2xl md:text-3xl font-bold">Free 15-Minute Intro Session</h1>
+                            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">Free 15-Minute Intro Session</h1>
                             <p className="text-sm text-[var(--text-soft)]">Meet our team and plan your vision</p>
                         </div>
                     </div>
                 </div>
 
                 {/* What to Expect */}
-                <div className="card p-6">
-                    <h2 className="text-xl font-bold mb-4">What to Expect</h2>
+                <div className="card p-4 sm:p-6">
+                    <h2 className="text-lg sm:text-xl font-bold mb-4">What to Expect</h2>
                     <div className="space-y-3">
                         <div className="flex items-start gap-3">
                             <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
@@ -67,8 +67,8 @@ export default function BeaconIntroPage() {
                 </div>
 
                 {/* Prerequisite */}
-                <div className="card p-6 bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-300 dark:border-yellow-700">
-                    <h3 className="font-bold text-[var(--text-main)] mb-2">⚠️ Before You Book</h3>
+                <div className="card p-4 sm:p-6 bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-300 dark:border-yellow-700">
+                    <h3 className="text-base sm:text-lg font-bold text-[var(--text-main)] mb-2">⚠️ Before You Book</h3>
                     <p className="text-sm text-[var(--text-soft)]">
                         We recommend completing the <strong>"Plan Your Show"</strong> interactive form on The Beacon page. 
                         This helps us understand your vision and provide better recommendations during your intro session.
@@ -76,15 +76,16 @@ export default function BeaconIntroPage() {
                 </div>
 
                 {/* Calendly Embed */}
-                <div className="card p-6">
-                    <h2 className="text-xl font-bold mb-4">Schedule Your Free Intro Session</h2>
-                    <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4">
+                <div className="card p-4 sm:p-6">
+                    <h2 className="text-lg sm:text-xl font-bold mb-4">Schedule Your Free Intro Session</h2>
+                    <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-2 sm:p-4">
                         <iframe 
                             src="https://calendly.com/YOUR_CALENDLY_LINK_HERE" 
                             width="100%" 
                             height="700" 
                             frameBorder="0"
                             title="Free Intro Session Booking"
+                            className="min-h-[600px] sm:min-h-[700px]"
                         ></iframe>
                     </div>
                 </div>
