@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, CheckCircle, Clock, Target, ChevronDown, ChevronUp, Award, Loader2, Lock, Sparkles, TrendingUp, Zap, Info, ExternalLink, FileText, Edit, Users } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Clock, Target, ChevronDown, ChevronUp, Award, Loader2, Lock, Sparkles, TrendingUp, Zap, Info, ExternalLink, FileText, Edit, Users, Lightbulb } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import { FoundationProgress } from '@/entities/all';
 import StrategyFormModal from '@/components/strategy/StrategyFormModal';
 import { bookAuthorGrowthRoadmap } from '@/components/course_content/bookAuthorGrowth';
 import { lifeCoachGrowthRoadmap } from '@/components/course_content/lifeCoachGrowth';
@@ -61,12 +62,23 @@ export default function NicheRoadmapPage() {
   const [idealClientData, setIdealClientData] = useState(null);
   const [activeFormModal, setActiveFormModal] = useState(null);
   const [programKey, setProgramKey] = useState(null);
+  const [foundationProgress, setFoundationProgress] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const userData = await base44.auth.me();
         setUser(userData);
+
+        // Fetch foundation progress for the banner
+        try {
+          const foundationData = await FoundationProgress.filter({ created_by: userData.email });
+          if (foundationData && foundationData.length > 0) {
+            setFoundationProgress(foundationData[0]);
+          }
+        } catch (foundationError) {
+          console.error('Error loading foundation progress:', foundationError);
+        }
 
         const urlParams = new URLSearchParams(window.location.search);
         const programKey = urlParams.get('program');
@@ -162,6 +174,14 @@ export default function NicheRoadmapPage() {
   }
 
   const hasAccess = user && (user.role === 'admin' || user.subscription_level === 'business_hq');
+
+  // Determine if foundation roadmap is completed
+  const foundationSections = [
+    'define_your_why', 'mission_vision', 'brand_identity', 'ideal_client',
+    'value_proposition', 'customer_journey', 'value_ladder', 'swot',
+    'business_model', 'financial_goal'
+  ];
+  const isFoundationComplete = foundationProgress && foundationSections.every(step => foundationProgress.completed_steps.includes(step));
 
   const totalTasks = programContent.weeks.reduce((sum, week) => sum + week.tasks.length, 0);
   const completedCount = Object.values(completedTasks).filter(Boolean).length;
@@ -269,6 +289,29 @@ export default function NicheRoadmapPage() {
           </div>
         </div>
       </div>
+
+      {/* Foundation Reminder */}
+      {!isFoundationComplete && hasAccess && (
+        <div className="card p-4 sm:p-6 md:p-8 mb-4 sm:mb-6 bg-gradient-to-r from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20 border-2 border-orange-400">
+          <div className="flex items-start gap-4">
+            <div className="bg-orange-400 p-3 rounded-lg">
+              <Lightbulb className="w-6 h-6 text-white" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-[var(--text-main)] mb-2">Solidify Your Foundation First!</h3>
+              <p className="text-[var(--text-soft)] mb-4">
+                Before diving deep into this niche roadmap, we highly recommend completing your Business Foundation. This ensures you have clarity on your vision, ideal client, and core offerings, making this roadmap even more effective.
+              </p>
+              <Link
+                to={createPageUrl('MyFoundationRoadmap')}
+                className="btn btn-primary bg-orange-500 hover:bg-orange-600"
+              >
+                Go to My Foundation Roadmap
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Access Gate */}
       {!hasAccess && (
@@ -626,17 +669,17 @@ export default function NicheRoadmapPage() {
             className="btn btn-primary"
           >
             Explore More Niche Roadmaps
-            </button>
-            </div>
-            )}
+          </button>
+        </div>
+      )}
 
-            {/* Strategy Form Modal */}
-            <StrategyFormModal
-            isOpen={activeFormModal !== null}
-            onClose={() => setActiveFormModal(null)}
-            formType={activeFormModal}
-            programKey={programKey}
-            />
-            </div>
-            );
-            }
+      {/* Strategy Form Modal */}
+      <StrategyFormModal
+        isOpen={activeFormModal !== null}
+        onClose={() => setActiveFormModal(null)}
+        formType={activeFormModal}
+        programKey={programKey}
+      />
+    </div>
+  );
+}
