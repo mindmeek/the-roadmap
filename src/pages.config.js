@@ -95,15 +95,18 @@ import Guides from './pages/Guides';
 import HQCustomerJourneyGuide from './pages/HQCustomerJourneyGuide';
 import Home from './pages/Home';
 import Journey from './pages/Journey';
+import LearningHub from './pages/LearningHub';
 import LiveWebinar from './pages/LiveWebinar';
 import Magazine from './pages/Magazine';
 import MarketingOverview from './pages/MarketingOverview';
+import MediaHub from './pages/MediaHub';
 import MemberDirectory from './pages/MemberDirectory';
 import MemberOfTheMonthSubmission from './pages/MemberOfTheMonthSubmission';
 import MemberProfile from './pages/MemberProfile';
 import MindsetHack from './pages/MindsetHack';
 import MindsetHacks from './pages/MindsetHacks';
 import MorningRoutineBuilder from './pages/MorningRoutineBuilder';
+import MyBusinessHub from './pages/MyBusinessHub';
 import MyFoundation from './pages/MyFoundation';
 import MyFoundationRoadmap from './pages/MyFoundationRoadmap';
 import NicheRoadmap from './pages/NicheRoadmap';
@@ -120,9 +123,11 @@ import Progress from './pages/Progress';
 import QuickLesson from './pages/QuickLesson';
 import QuickLessons from './pages/QuickLessons';
 import QuickStartFoundation from './pages/QuickStartFoundation';
+import RoadmapsHub from './pages/RoadmapsHub';
 import SOPPoliciesAI from './pages/SOPPoliciesAI';
 import SOPs from './pages/SOPs';
 import Schedule from './pages/Schedule';
+import ServicesHub from './pages/ServicesHub';
 import SocialMediaPlanner from './pages/SocialMediaPlanner';
 import SocialMediaServices from './pages/SocialMediaServices';
 import StartupStrategySession from './pages/StartupStrategySession';
@@ -157,11 +162,6 @@ import VisionStrategySession from './pages/VisionStrategySession';
 import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
 import Week from './pages/Week';
 import layout from './pages/layout';
-import MyBusinessHub from './pages/MyBusinessHub';
-import MediaHub from './pages/MediaHub';
-import LearningHub from './pages/LearningHub';
-import RoadmapsHub from './pages/RoadmapsHub';
-import ServicesHub from './pages/ServicesHub';
 import __Layout from './Layout.jsx';
 
 
@@ -214,15 +214,18 @@ export const PAGES = {
     "HQCustomerJourneyGuide": HQCustomerJourneyGuide,
     "Home": Home,
     "Journey": Journey,
+    "LearningHub": LearningHub,
     "LiveWebinar": LiveWebinar,
     "Magazine": Magazine,
     "MarketingOverview": MarketingOverview,
+    "MediaHub": MediaHub,
     "MemberDirectory": MemberDirectory,
     "MemberOfTheMonthSubmission": MemberOfTheMonthSubmission,
     "MemberProfile": MemberProfile,
     "MindsetHack": MindsetHack,
     "MindsetHacks": MindsetHacks,
     "MorningRoutineBuilder": MorningRoutineBuilder,
+    "MyBusinessHub": MyBusinessHub,
     "MyFoundation": MyFoundation,
     "MyFoundationRoadmap": MyFoundationRoadmap,
     "NicheRoadmap": NicheRoadmap,
@@ -239,9 +242,11 @@ export const PAGES = {
     "QuickLesson": QuickLesson,
     "QuickLessons": QuickLessons,
     "QuickStartFoundation": QuickStartFoundation,
+    "RoadmapsHub": RoadmapsHub,
     "SOPPoliciesAI": SOPPoliciesAI,
     "SOPs": SOPs,
     "Schedule": Schedule,
+    "ServicesHub": ServicesHub,
     "SocialMediaPlanner": SocialMediaPlanner,
     "SocialMediaServices": SocialMediaServices,
     "StartupStrategySession": StartupStrategySession,
@@ -276,11 +281,6 @@ export const PAGES = {
     "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
     "Week": Week,
     "layout": layout,
-    "MyBusinessHub": MyBusinessHub,
-    "MediaHub": MediaHub,
-    "LearningHub": LearningHub,
-    "RoadmapsHub": RoadmapsHub,
-    "ServicesHub": ServicesHub,
 }
 
 export const pagesConfig = {

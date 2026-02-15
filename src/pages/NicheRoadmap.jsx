@@ -79,23 +79,35 @@ export default function NicheRoadmapPage() {
           // Load saved progress
           const savedCompleted = localStorage.getItem(`niche_${programKey}_completed`);
           if (savedCompleted) {
-            setCompletedTasks(JSON.parse(savedCompleted));
+            try {
+              setCompletedTasks(JSON.parse(savedCompleted));
+            } catch (parseError) {
+              console.error('Error parsing saved progress:', parseError);
+              localStorage.removeItem(`niche_${programKey}_completed`);
+            }
           }
 
           // Load ideal client data
-          const idealClientDocs = await StrategyDocument.filter({
-            created_by: userData.email,
-            document_type: 'ideal_client'
-          });
+          try {
+            const idealClientDocs = await StrategyDocument.filter({
+              created_by: userData.email,
+              document_type: 'ideal_client'
+            });
 
-          if (idealClientDocs && idealClientDocs.length > 0) {
-            setIdealClientData(idealClientDocs[0].content);
+            if (idealClientDocs && idealClientDocs.length > 0) {
+              setIdealClientData(idealClientDocs[0].content);
+            }
+          } catch (strategyError) {
+            console.error('Error loading ideal client data:', strategyError);
+            // Continue without ideal client data
           }
         } else {
+          console.log('Program key not found or invalid:', programKey);
           navigate(createPageUrl('NicheRoadmaps'));
         }
       } catch (e) {
         console.error('Error loading program:', e);
+        navigate(createPageUrl('NicheRoadmaps'));
       } finally {
         setLoading(false);
       }
