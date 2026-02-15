@@ -159,6 +159,7 @@ import Week from './pages/Week';
 import layout from './pages/layout';
 import MyBusinessHub from './pages/MyBusinessHub';
 import LearningHub from './pages/LearningHub';
+import RoadmapsHub from './pages/RoadmapsHub';
 import __Layout from './Layout.jsx';
 
 
@@ -275,6 +276,7 @@ export const PAGES = {
     "layout": layout,
     "MyBusinessHub": MyBusinessHub,
     "LearningHub": LearningHub,
+    "RoadmapsHub": RoadmapsHub,
 }
 
 export const pagesConfig = {

@@ -43,24 +43,7 @@ export default function LearningHub() {
             bgColor: "from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20",
             borderColor: "border-green-200 dark:border-green-700"
         },
-        {
-            title: "90-Day Focused Programs",
-            description: "Specialized 90-day roadmaps for specific business goals. Structured paths to achieve focused outcomes.",
-            icon: Award,
-            link: "FocusedPrograms",
-            color: "from-indigo-500 to-purple-600",
-            bgColor: "from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20",
-            borderColor: "border-indigo-200 dark:border-indigo-700"
-        },
-        {
-            title: "Niche Growth Roadmaps",
-            description: "Industry-specific growth strategies tailored for coaches, creators, e-commerce, and more.",
-            icon: Target,
-            link: "NicheRoadmaps",
-            color: "from-red-500 to-rose-600",
-            bgColor: "from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20",
-            borderColor: "border-red-200 dark:border-red-700"
-        },
+
         {
             title: "The Magazine",
             description: "Monthly digital magazine with expert interviews, case studies, and entrepreneurial insights.",

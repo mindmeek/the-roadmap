@@ -46,6 +46,7 @@ const myJourneyHubItems = [
 
 const learningGrowthItems = [
     { href: "LearningHub", icon: BookOpen, label: "Learning Hub", mobileLabel: "Learning" },
+    { href: "RoadmapsHub", icon: Map, label: "Specialized Roadmaps", mobileLabel: "Roadmaps" },
 ];
 
 const connectBuildItems = [
@@ -81,6 +82,7 @@ const SEARCHABLE_PAGES = [
     { name: 'Quick Wins', url: 'QuickStartFoundation', category: 'Pages', description: 'Access quick business strategies and wins' },
     { name: 'Community', url: 'TheCommunity', category: 'Pages', description: 'Connect with other entrepreneurs' },
     { name: 'Learning Hub', url: 'LearningHub', category: 'Pages', description: 'Access all learning resources and courses' },
+    { name: 'Specialized Roadmaps', url: 'RoadmapsHub', category: 'Pages', description: 'Focused programs and niche-specific growth roadmaps' },
     { name: 'Quick Lessons', url: 'QuickLessons', category: 'Pages', description: 'Short, actionable business lessons' },
     { name: 'Interactive Courses', url: 'InteractiveCourses', category: 'Pages', description: 'Engage with in-depth learning modules' },
     { name: 'Mindset Hacks', url: 'MindsetHacks', category: 'Pages', description: 'Mental frameworks for success' },
