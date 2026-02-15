@@ -232,11 +232,16 @@ export default function NicheRoadmapPage() {
                 </span>
               )}
             </div>
-            {idealClientData.pain_points && Array.isArray(idealClientData.pain_points) && idealClientData.pain_points.length > 0 && (
+            {idealClientData.pain_points && (
               <div className="mb-2">
                 <p className="text-xs font-medium text-[var(--text-main)] mb-1">Top Pain Points:</p>
                 <div className="flex flex-wrap gap-1">
-                  {idealClientData.pain_points.slice(0, 3).map((pain, idx) => (
+                  {(Array.isArray(idealClientData.pain_points) 
+                    ? idealClientData.pain_points 
+                    : typeof idealClientData.pain_points === 'string' 
+                      ? [idealClientData.pain_points]
+                      : []
+                  ).slice(0, 3).map((pain, idx) => (
                     <span key={idx} className="text-xs px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full">
                       {pain}
                     </span>
