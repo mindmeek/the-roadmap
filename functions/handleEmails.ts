@@ -223,6 +223,31 @@ const emailTemplates = {
       
       <p>— The Business Minds Team</p>
     `)
+  }),
+
+  eventReminder: (event) => ({
+    subject: `Reminder: ${event.title} starts in 1 hour`,
+    html: getEmailTemplate(`
+      <h2>Event Starting Soon!</h2>
+      
+      <p>Hi there,</p>
+      
+      <p>This is a friendly reminder that <strong>${event.title}</strong> starts in 1 hour.</p>
+      
+      <div class="quote">
+        <strong>Event:</strong> ${event.title}<br>
+        <strong>Time:</strong> ${new Date(event.event_date).toLocaleString()}<br>
+        <strong>Location:</strong> ${event.location}
+      </div>
+      
+      ${event.description ? `<p>${event.description}</p>` : ''}
+      
+      <a href="https://app.thebminds.com" class="cta">View Event Details →</a>
+      
+      <p>See you there!</p>
+      
+      <p>— The Business Minds Team</p>
+    `)
   })
 };
 
@@ -260,6 +285,13 @@ Deno.serve(async (req) => {
       case 'sendBusinessContact':
         emailData = emailTemplates.businessContact(payload.recipientName, payload.senderName, payload.senderEmail, payload.message);
         break;
+      case 'sendEventReminder':
+        emailData = emailTemplates.eventReminder(payload.event);
+        break;
+      case 'sendCustom':
+        // Allow sending custom emails with subject and html
+        await sendEmail(payload.to, payload.subject, payload.html);
+        return Response.json({ success: true });
       default:
         return Response.json({ error: 'Unknown action' }, { status: 400 });
     }

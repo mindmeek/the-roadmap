@@ -1,0 +1,374 @@
+// This file is intended to be run by a cron job daily.
+// Cron: "0 14 * * *" (Every day at 14:00 UTC)
+
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
+
+const generateEmailHtml = (user, baseUrl, subjectText, bodyContentHtml) => {
+    const userName = user.first_name || 'there';
+    const isPremium = user.subscription_level && user.subscription_level !== 'free';
+    const resolvedSubject = typeof subjectText === 'function' ? subjectText(isPremium) : subjectText;
+    const resolvedBodyContent = bodyContentHtml(userName, isPremium, baseUrl, user);
+
+    return `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${resolvedSubject}</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #f4f4f4;">
+    <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
+        ${resolvedBodyContent}
+    </div>
+</body>
+</html>
+    `;
+};
+
+const createEmailTemplate = (dayNumber, subject, roadmapFeature, roadmapDescription, hqFeature, hqDescription, motivationalMessage) => {
+    return {
+        subject: subject,
+        content: (userName, isPremium) => `
+        <div style="background: linear-gradient(135deg, #8B6F4E 0%, #6B5639 100%); padding: 40px 20px; text-align: center;">
+            <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: bold;">Day ${dayNumber}: ${subject.replace('📊 ', '').replace('🎯 ', '').replace('💡 ', '').replace('🚀 ', '').replace('✨ ', '').replace('📈 ', '').replace('🎨 ', '').replace('🤝 ', '').replace('⚡ ', '').replace('🔥 ', '')}</h1>
+        </div>
+
+        <div style="padding: 40px 30px;">
+            <p style="color: #333333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
+                Hey ${userName},
+            </p>
+            <p style="color: #333333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
+                ${motivationalMessage}
+            </p>
+
+            <div style="background-color: #f9f9f9; border-left: 4px solid #8B6F4E; padding: 20px; margin: 30px 0;">
+                <h3 style="color: #8B6F4E; margin-top: 0; font-size: 18px;">📊 Roadmap Feature: ${roadmapFeature}</h3>
+                <p style="color: #555555; line-height: 1.8;">
+                    ${roadmapDescription}
+                </p>
+            </div>
+
+            ${isPremium ? '' : `
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 8px; margin: 30px 0; text-align: center;">
+                <h3 style="color: #ffffff; margin-top: 0; font-size: 20px;">🎯 HQ Feature: ${hqFeature}</h3>
+                <p style="color: #ffffff; font-size: 14px; line-height: 1.6; margin-bottom: 15px;">
+                    ${hqDescription}
+                </p>
+                <a href="https://thebusinessminds.com/upgrade" style="display: inline-block; background-color: #ffffff; color: #667eea; padding: 14px 32px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                    Upgrade Now →
+                </a>
+            </div>
+            `}
+
+            <div style="background-color: #E8F4FD; border-radius: 8px; padding: 20px; margin: 30px 0;">
+                <h3 style="color: #1E88E5; margin-top: 0; font-size: 18px;">👥 Join Our Next Live Session!</h3>
+                <p style="color: #555555; font-size: 15px; line-height: 1.6;">
+                    Don't forget - you have access to live group coaching sessions with Christopher Shaw every <strong>Tuesday & Thursday at 1:15 PM PST</strong>. This is your chance to get real-time guidance and connect with other entrepreneurs.
+                </p>
+                <a href="https://thebusinessminds.com/community" style="display: inline-block; background-color: #1E88E5; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 14px; margin-top: 10px;">
+                    Access Community →
+                </a>
+            </div>
+
+            <p style="color: #333333; font-size: 16px; line-height: 1.6; margin-top: 30px;">
+                Keep building,<br>
+                <strong>Christopher Shaw</strong><br>
+                <span style="color: #888888; font-size: 14px;">Founder, The Business Minds</span>
+            </p>
+        </div>
+
+        <div style="background-color: #f4f4f4; padding: 30px; text-align: center;">
+            <p style="color: #888888; font-size: 12px; margin: 0;">
+                © 2025 The Business Minds. All rights reserved.
+            </p>
+        </div>
+        `
+    };
+};
+
+// 30 emails over 90 days - one every 3 days
+const emailTemplates = {
+    D0: {
+        subject: "🎉 Welcome to The Business Minds - Your Journey Starts Now!",
+        content: (userName, isPremium) => `
+        <div style="background: linear-gradient(135deg, #8B6F4E 0%, #6B5639 100%); padding: 40px 20px; text-align: center;">
+            <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: bold;">Welcome to The Business Minds! 🎉</h1>
+        </div>
+
+        <div style="padding: 40px 30px;">
+            <p style="color: #333333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
+                Hey ${userName},
+            </p>
+            <p style="color: #333333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
+                I'm thrilled to have you here! You've just taken the first step toward building something incredible, and I'm here to support you every step of the way.
+            </p>
+
+            <div style="background-color: #f9f9f9; border-left: 4px solid #8B6F4E; padding: 20px; margin: 30px 0;">
+                <h3 style="color: #8B6F4E; margin-top: 0; font-size: 18px;">🚀 Your 90-Day Roadmap</h3>
+                <p style="color: #555555; line-height: 1.8;">
+                    Your personalized roadmap gives you a clear path forward. No more guessing what to do next—just follow the weekly action steps designed specifically for your stage of business.
+                </p>
+            </div>
+
+            ${isPremium ? '' : `
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 8px; margin: 30px 0; text-align: center;">
+                <h3 style="color: #ffffff; margin-top: 0; font-size: 20px;">🎯 Ready for The HQ?</h3>
+                <p style="color: #ffffff; font-size: 14px; line-height: 1.6; margin-bottom: 20px;">
+                    <strong>Unlimited AI Assistance</strong> - Get instant guidance from 6 AI experts whenever you need it. No limits.
+                </p>
+                <a href="https://thebusinessminds.com/upgrade" style="display: inline-block; background-color: #ffffff; color: #667eea; padding: 14px 32px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 16px; margin-top: 10px;">
+                    Upgrade to The HQ →
+                </a>
+            </div>
+            `}
+
+            <div style="background-color: #E8F4FD; border-radius: 8px; padding: 20px; margin: 30px 0;">
+                <h3 style="color: #1E88E5; margin-top: 0; font-size: 18px;">👥 Join The Community</h3>
+                <p style="color: #555555; font-size: 15px; line-height: 1.6;">
+                    You're now part of The Business Minds Community. Connect with fellow entrepreneurs every <strong>Tuesday & Thursday at 1:15 PM PST</strong> for live group coaching.
+                </p>
+                <a href="https://thebusinessminds.com/community" style="display: inline-block; background-color: #1E88E5; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 14px; margin-top: 10px;">
+                    Access Community →
+                </a>
+            </div>
+
+            <p style="color: #333333; font-size: 16px; line-height: 1.6; margin-top: 30px;">
+                Let's build something amazing together!
+            </p>
+
+            <p style="color: #333333; font-size: 16px; line-height: 1.6; margin-top: 20px;">
+                <strong>Christopher Shaw</strong><br>
+                <span style="color: #888888; font-size: 14px;">Founder, The Business Minds</span>
+            </p>
+        </div>
+
+        <div style="background-color: #f4f4f4; padding: 30px; text-align: center;">
+            <p style="color: #888888; font-size: 12px; margin: 0;">
+                © 2025 The Business Minds. All rights reserved.
+            </p>
+        </div>
+        `
+    },
+
+    D3: createEmailTemplate(3, "📈 Your Daily 1% Tracker", "Daily 1% Tracker", "Your Daily 1% Tracker helps you log small wins every single day. Consistency beats intensity—and tracking your progress keeps you accountable and motivated.", "AI-Powered Daily Insights", "HQ members get AI-generated daily insights based on their progress, helping identify patterns and optimize their workflow.", "Success isn't built in a day—it's built 1% at a time."),
+
+    D6: createEmailTemplate(6, "🧭 Your Foundation Roadmap", "Foundation Roadmap", "Access 15+ strategic tools including Business Model Canvas, Customer Journey Map, and Value Proposition tools—everything you need to clarify your vision and validate your ideas.", "1-on-1 Strategy Sessions", "Get personalized guidance from Christopher Shaw to refine your foundation and accelerate your growth.", "Every successful business is built on a strong foundation. Let's build yours."),
+
+    D9: createEmailTemplate(9, "🤖 Meet Your AI Business Team", "AI Business Assistants", "You have 50 free AI assistant uses to get expert guidance on marketing, strategy, content, and more. Ask questions, get advice, solve problems—all powered by AI.", "Unlimited AI Access", "Never run out of AI help. HQ members get unlimited access to all 6 AI specialists plus priority response times.", "Imagine having a full business team available 24/7. Now you do."),
+
+    D12: createEmailTemplate(12, "📅 Daily Scheduler", "Daily Scheduler", "Plan your productive days with time-blocking. The Daily Scheduler helps you allocate focused time for deep work, meetings, and personal growth.", "Advanced Scheduling Templates", "HQ members get access to pre-built scheduling templates based on successful entrepreneurs' daily routines.", "Time is your most valuable asset. Learn to protect it."),
+
+    D15: createEmailTemplate(15, "🎯 Define Your Why", "Foundation Tool: Define Your Why", "This powerful exercise helps you uncover your deeper purpose—the 'why' behind your business that will fuel you through challenges.", "Mission & Vision Workshop", "HQ members get access to a comprehensive workshop on crafting mission and vision statements that inspire action.", "Your 'why' is your fuel when motivation runs low."),
+
+    D18: createEmailTemplate(18, "💼 Business Model Canvas", "Business Model Canvas", "Map out your entire business on one page. Understand your value proposition, customer segments, revenue streams, and key partnerships.", "Business Plan Builder", "HQ members get step-by-step guidance to create a full business plan with financial projections and market analysis.", "Clarity is power. Get crystal clear on how your business works."),
+
+    D21: createEmailTemplate(21, "🎨 Brand Identity Builder", "Brand Kit Tool", "Create your brand's visual identity—colors, fonts, logos, and messaging that make your business memorable and professional.", "Professional Brand Design", "HQ members get access to design resources and templates to create a cohesive brand across all platforms.", "Your brand is the promise you make to your customers."),
+
+    D24: createEmailTemplate(24, "👥 Ideal Client Avatar", "Ideal Client Profile", "Get laser-focused on who you serve. Create a detailed profile of your perfect customer—their pain points, goals, and buying behaviors.", "Advanced Market Research", "HQ members get access to market research tools and customer interview templates to validate their ideal client profile.", "When you speak to everyone, you speak to no one. Get specific."),
+
+    D27: createEmailTemplate(27, "💰 Value Proposition", "Value Proposition Canvas", "Clearly articulate what makes your offer irresistible. Understand the unique value you bring to your customers' lives.", "Pricing Psychology Workshop", "HQ members learn advanced pricing strategies that maximize value perception and revenue.", "Your value proposition is what makes customers choose you over competitors."),
+
+    D30: createEmailTemplate(30, "📊 SWOT Analysis", "SWOT Analysis Tool", "Assess your Strengths, Weaknesses, Opportunities, and Threats. Make strategic decisions based on a clear understanding of your position.", "Competitive Intelligence", "HQ members get tools to analyze competitors and identify market gaps for strategic positioning.", "Know thyself—and know thy competition. Strategy starts with awareness."),
+
+    D33: createEmailTemplate(33, "🚀 Customer Journey Mapping", "Customer Journey Map", "Visualize every touchpoint in your customer's experience. Identify opportunities to delight and retain customers.", "Conversion Optimization", "HQ members get advanced analytics to track and improve conversion rates at every stage of the customer journey.", "Great businesses don't just attract customers—they create experiences."),
+
+    D36: createEmailTemplate(36, "💡 Content Strategy Planner", "Content Strategy Tool", "Plan your content calendar with strategic themes that attract and engage your ideal audience.", "Content Creation Templates", "HQ members get done-for-you templates for blogs, emails, social posts, and video scripts.", "Content builds trust. Trust builds sales."),
+
+    D39: createEmailTemplate(39, "📧 Email Marketing Setup", "Email Marketing Guide", "Learn to build and nurture your email list—the most valuable asset in your business.", "Advanced Email Automation", "HQ members get proven email sequences and automation workflows that convert leads into customers.", "Your email list is an asset you own. Social media platforms can disappear tomorrow."),
+
+    D42: createEmailTemplate(42, "📱 Social Media Strategy", "Social Media Planner", "Create a consistent social media presence that builds your brand and attracts customers.", "Social Media Management", "HQ members get scheduling tools and content calendars to maintain consistent presence without burnout.", "Show up consistently, provide value repeatedly, and watch your audience grow."),
+
+    D45: createEmailTemplate(45, "🎓 Quick Lessons Library", "Quick Lessons", "Access bite-sized lessons on marketing, sales, operations, and mindset—learn in 10 minutes or less.", "Full Course Library", "HQ members get access to 20+ comprehensive courses on every aspect of building a successful business.", "Learning is earning. Invest in knowledge daily."),
+
+    D48: createEmailTemplate(48, "🧠 Mindset Hacks", "Mindset Hacks Collection", "Overcome limiting beliefs and develop the entrepreneurial mindset needed for long-term success.", "Monthly Mindset Mastermind", "HQ members join monthly group calls focused on mindset, motivation, and breaking through mental barriers.", "Your mindset determines your success more than your skill set."),
+
+    D51: createEmailTemplate(51, "🎯 Financial Goal Calculator", "Freedom Calculator", "Calculate your financial freedom number—know exactly what revenue and profit you need to live your dream life.", "Financial Projections Tool", "HQ members get sophisticated tools to project revenue, expenses, and profitability for the next 1-3 years.", "A goal without numbers is just a wish."),
+
+    D54: createEmailTemplate(54, "🤝 Partnership Strategies", "Partnership Finder", "Identify strategic partners who can amplify your reach and accelerate your growth.", "Partnership Outreach Templates", "HQ members get proven outreach scripts and partnership agreements to secure win-win collaborations.", "Strategic partnerships can 10x your growth overnight."),
+
+    D57: createEmailTemplate(57, "🏆 Your Journey Progress", "90-Day Journey Tracker", "See your progress visualized. Track completed weeks, milestones achieved, and momentum built.", "Accountability Partnerships", "HQ members get matched with accountability partners who keep them on track and celebrate wins.", "Progress, not perfection. Celebrate how far you've come."),
+
+    D60: createEmailTemplate(60, "📚 Business Resource Library", "Guides & Resources", "Access guides on website development, SEO, advertising, and more—everything you need to execute.", "Done-For-You Templates", "HQ members get contracts, proposals, onboarding documents, and SOPs ready to customize and use.", "Don't reinvent the wheel. Use proven templates and customize them."),
+
+    D63: createEmailTemplate(63, "⚡ Quick Wins Strategy", "Quick Start Foundation", "Identify the fastest path to your first (or next) sale. Focus on high-impact actions that generate revenue quickly.", "Revenue Acceleration Workshop", "HQ members get strategies to double their revenue in 90 days through proven sales and marketing tactics.", "Sometimes the best strategy is to start generating revenue immediately."),
+
+    D66: createEmailTemplate(66, "🎤 The Beacon Podcast Studio", "Podcast Opportunity", "Learn about The Beacon—our exclusive podcast production service to build your authority and reach.", "Priority Podcast Booking", "HQ members get priority access to podcast production and promotion through The Beacon Studio.", "Your voice has power. Podcasting amplifies your message to thousands."),
+
+    D69: createEmailTemplate(69, "📊 Analytics & Tracking", "Progress Analytics", "Understand your metrics—track daily progress, completion rates, and achievement milestones.", "Advanced Business Analytics", "HQ members get comprehensive dashboards tracking revenue, customer acquisition cost, lifetime value, and more.", "What gets measured gets managed. Track your numbers."),
+
+    D72: createEmailTemplate(72, "🔧 Operations & Automation", "Automation Strategies", "Learn to systematize your business operations and free up your time for high-value activities.", "Full Automation Toolkit", "HQ members get automation workflows for marketing, sales, onboarding, and customer service.", "Scale yourself through systems and automation."),
+
+    D75: createEmailTemplate(75, "🌟 Community Building", "Community Strategy", "Build a loyal community around your brand that becomes your biggest marketing asset.", "Private Community Platform", "HQ members can launch their own branded community platform with mobile apps.", "Your community is your moat. Cultivate it."),
+
+    D78: createEmailTemplate(78, "💻 Website Launch Strategy", "Website Planning Tool", "Plan your website structure, pages, and content strategy for maximum conversion.", "Website Development Support", "HQ members get access to web developers and designers for professional website creation.", "Your website is your 24/7 salesperson. Make it count."),
+
+    D81: createEmailTemplate(81, "🎯 Pricing Strategies", "Pricing Strategy Tool", "Master the psychology of pricing. Create offers that maximize value and profitability.", "Value Ladder Workshop", "HQ members learn to create tiered offerings that maximize customer lifetime value.", "Price based on value, not hours. Your expertise is worth more than you think."),
+
+    D84: createEmailTemplate(84, "🔥 You're Almost There!", "Final Week Push", "You're in the final week of your 90-day journey. Let's finish strong and celebrate your transformation.", "Lifetime Access & Support", "HQ members get continued access to all tools, courses, and community support beyond 90 days.", "The finish line is just the beginning of your next chapter."),
+
+    D87: {
+        subject: "🎓 Graduation Week - You Did It!",
+        content: (userName, isPremium) => `
+        <div style="background: linear-gradient(135deg, #8B6F4E 0%, #6B5639 100%); padding: 40px 20px; text-align: center;">
+            <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: bold;">Day 87: Celebrating Your Journey! 🎓</h1>
+        </div>
+
+        <div style="padding: 40px 30px;">
+            <p style="color: #333333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
+                Hey ${userName},
+            </p>
+            <p style="color: #333333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
+                <strong>Congratulations!</strong> You're completing your 90-day transformation. Look at how far you've come!
+            </p>
+
+            <div style="background-color: #f9f9f9; border-left: 4px solid #8B6F4E; padding: 20px; margin: 30px 0;">
+                <h3 style="color: #8B6F4E; margin-top: 0; font-size: 18px;">🏆 Your Roadmap Journey</h3>
+                <p style="color: #555555; line-height: 1.8;">
+                    You've learned, grown, and built something meaningful. The foundation you've created will serve your business for years to come.
+                </p>
+            </div>
+
+            ${isPremium ? `
+            <div style="background-color: #E8F4FD; border-radius: 8px; padding: 20px; margin: 30px 0;">
+                <h3 style="color: #1E88E5; margin-top: 0; font-size: 18px;">🚀 Your Next Chapter Awaits</h3>
+                <p style="color: #555555; line-height: 1.8;">
+                    As an HQ member, you have everything you need to scale. Continue using the advanced tools, unlimited AI, and community support to take your business to the next level.
+                </p>
+            </div>
+            ` : `
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 8px; margin: 30px 0; text-align: center;">
+                <h3 style="color: #ffffff; margin-top: 0; font-size: 20px;">🚀 Ready to Scale?</h3>
+                <p style="color: #ffffff; font-size: 14px; line-height: 1.6; margin-bottom: 15px;">
+                    You've proven you can make progress. Imagine what you'll achieve with unlimited tools, AI, and ongoing support.
+                </p>
+                <ul style="color: #ffffff; text-align: left; max-width: 400px; margin: 0 auto 20px; line-height: 1.8;">
+                    <li><strong>Unlimited AI Team Access</strong> - No more limits on expert guidance</li>
+                    <li><strong>All Strategy Tools Unlocked</strong> - Complete business-building toolkit</li>
+                    <li><strong>1-on-1 Strategy Sessions</strong> - Personal coaching from Christopher</li>
+                </ul>
+                <a href="https://thebusinessminds.com/upgrade" style="display: inline-block; background-color: #ffffff; color: #667eea; padding: 14px 32px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                    Join The HQ →
+                </a>
+            </div>
+            `}
+
+            <p style="color: #333333; font-size: 16px; line-height: 1.6; margin-top: 30px;">
+                <strong>Action for today:</strong> Share your biggest win from this 90-day journey in the community!
+            </p>
+
+            <p style="color: #333333; font-size: 16px; line-height: 1.6; margin-top: 20px;">
+                Proud of you,<br>
+                <strong>Christopher Shaw</strong><br>
+                <span style="color: #888888; font-size: 14px;">Founder, The Business Minds</span>
+            </p>
+        </div>
+
+        <div style="background-color: #f4f4f4; padding: 30px; text-align: center;">
+            <p style="color: #888888; font-size: 12px; margin: 0;">
+                © 2025 The Business Minds. All rights reserved.
+            </p>
+        </div>
+        `
+    }
+};
+
+Deno.serve(async (req) => {
+    try {
+        const base44 = createClientFromRequest(req);
+        const user = await base44.auth.me();
+
+        if (!user || user.role !== 'admin') {
+            return Response.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
+        console.log("Starting daily welcome email series job...");
+
+        const ninetyDaysAgo = new Date();
+        ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
+
+        const recentUsers = await base44.asServiceRole.entities.User.filter({
+            onboarding_completed: true,
+        });
+
+        let emailsSent = 0;
+
+        for (const user of recentUsers) {
+            if (!user.journey_start_date) continue;
+
+            const startDate = new Date(user.journey_start_date);
+            if (startDate < ninetyDaysAgo) continue;
+
+            const today = new Date();
+            const daysSinceSignup = Math.floor((today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+            
+            const baseUrl = Deno.env.get('BASE_URL') || 'https://app.thebminds.com';
+            const isPremiumUser = user.subscription_level && user.subscription_level !== 'free';
+
+            let emailIdToSend = null;
+            
+            if (daysSinceSignup === 0) emailIdToSend = 'D0';
+            else if (daysSinceSignup === 3) emailIdToSend = 'D3';
+            else if (daysSinceSignup === 6) emailIdToSend = 'D6';
+            else if (daysSinceSignup === 9) emailIdToSend = 'D9';
+            else if (daysSinceSignup === 12) emailIdToSend = 'D12';
+            else if (daysSinceSignup === 15) emailIdToSend = 'D15';
+            else if (daysSinceSignup === 18) emailIdToSend = 'D18';
+            else if (daysSinceSignup === 21) emailIdToSend = 'D21';
+            else if (daysSinceSignup === 24) emailIdToSend = 'D24';
+            else if (daysSinceSignup === 27) emailIdToSend = 'D27';
+            else if (daysSinceSignup === 30) emailIdToSend = 'D30';
+            else if (daysSinceSignup === 33) emailIdToSend = 'D33';
+            else if (daysSinceSignup === 36) emailIdToSend = 'D36';
+            else if (daysSinceSignup === 39) emailIdToSend = 'D39';
+            else if (daysSinceSignup === 42) emailIdToSend = 'D42';
+            else if (daysSinceSignup === 45) emailIdToSend = 'D45';
+            else if (daysSinceSignup === 48) emailIdToSend = 'D48';
+            else if (daysSinceSignup === 51) emailIdToSend = 'D51';
+            else if (daysSinceSignup === 54) emailIdToSend = 'D54';
+            else if (daysSinceSignup === 57) emailIdToSend = 'D57';
+            else if (daysSinceSignup === 60) emailIdToSend = 'D60';
+            else if (daysSinceSignup === 63) emailIdToSend = 'D63';
+            else if (daysSinceSignup === 66) emailIdToSend = 'D66';
+            else if (daysSinceSignup === 69) emailIdToSend = 'D69';
+            else if (daysSinceSignup === 72) emailIdToSend = 'D72';
+            else if (daysSinceSignup === 75) emailIdToSend = 'D75';
+            else if (daysSinceSignup === 78) emailIdToSend = 'D78';
+            else if (daysSinceSignup === 81) emailIdToSend = 'D81';
+            else if (daysSinceSignup === 84) emailIdToSend = 'D84';
+            else if (daysSinceSignup === 87) emailIdToSend = 'D87';
+
+            if (emailIdToSend && !user.sent_welcome_emails?.includes(emailIdToSend)) {
+                const emailEntry = emailTemplates[emailIdToSend];
+                if (emailEntry) {
+                    const resolvedSubject = typeof emailEntry.subject === 'function' ? emailEntry.subject(isPremiumUser) : emailEntry.subject;
+                    const fullHtml = generateEmailHtml(user, baseUrl, resolvedSubject, emailEntry.content);
+                    
+                    await base44.asServiceRole.integrations.Core.SendEmail({
+                        to: user.email,
+                        subject: resolvedSubject,
+                        body: fullHtml
+                    });
+                    
+                    const updatedSentEmails = [...(user.sent_welcome_emails || []), emailIdToSend];
+                    await base44.asServiceRole.entities.User.update(user.id, { sent_welcome_emails: updatedSentEmails });
+                    
+                    emailsSent++;
+                }
+            }
+        }
+
+        const message = `Welcome series job complete. Sent ${emailsSent} new emails.`;
+        console.log(message);
+        return new Response(JSON.stringify({ success: true, message, emailsSent }), {
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+    } catch (error) {
+        console.error("Error in sendWelcomeSeriesEmail job:", error);
+        return new Response(JSON.stringify({ success: false, error: error.message }), { 
+            status: 500,
+            headers: { 'Content-Type': 'application/json' }
+        });
+    }
+});

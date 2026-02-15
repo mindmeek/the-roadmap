@@ -1,0 +1,139 @@
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
+import webpush from 'npm:web-push@3.6.7';
+
+// Configure web-push with VAPID keys
+webpush.setVapidDetails(
+    'mailto:support@thebusinessminds.com',
+    Deno.env.get('VAPID_PUBLIC_KEY'),
+    Deno.env.get('VAPID_PRIVATE_KEY')
+);
+
+Deno.serve(async (req) => {
+    try {
+        const base44 = createClientFromRequest(req);
+        const user = await base44.auth.me();
+        
+        if (!user) {
+            return Response.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
+        const { action, payload } = await req.json();
+
+        switch (action) {
+            case 'subscribe':
+                // Store push subscription
+                const { endpoint, keys } = payload.subscription;
+                
+                // Check if subscription already exists
+                const existingSubscriptions = await base44.asServiceRole.entities.PushSubscription.filter({
+                    user_email: user.email,
+                    endpoint: endpoint
+                });
+
+                if (existingSubscriptions.length === 0) {
+                    await base44.asServiceRole.entities.PushSubscription.create({
+                        user_email: user.email,
+                        endpoint: endpoint,
+                        p256dh_key: keys.p256dh,
+                        auth_key: keys.auth,
+                        user_agent: payload.userAgent || 'Unknown',
+                        is_active: true
+                    });
+                }
+
+                return new Response(JSON.stringify({ success: true }), {
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+            case 'unsubscribe':
+                // Mark subscription as inactive
+                const subscriptions = await base44.asServiceRole.entities.PushSubscription.filter({
+                    user_email: user.email,
+                    endpoint: payload.endpoint
+                });
+
+                for (const sub of subscriptions) {
+                    await base44.asServiceRole.entities.PushSubscription.update(sub.id, { is_active: false });
+                }
+
+                return new Response(JSON.stringify({ success: true }), {
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+            case 'sendNotification':
+                // Send notification to specific user or all users
+                const { title, body, icon, url, targetUserEmail } = payload;
+                
+                let targetSubscriptions;
+                if (targetUserEmail) {
+                    targetSubscriptions = await base44.asServiceRole.entities.PushSubscription.filter({
+                        user_email: targetUserEmail,
+                        is_active: true
+                    });
+                } else {
+                    targetSubscriptions = await base44.asServiceRole.entities.PushSubscription.filter({
+                        is_active: true
+                    });
+                }
+
+                const notificationPayload = JSON.stringify({
+                    title: title || 'Business Minds',
+                    body: body || 'You have a new notification',
+                    icon: icon || '/favicon.ico',
+                    badge: '/favicon.ico',
+                    url: url || '/',
+                    timestamp: Date.now()
+                });
+
+                let successCount = 0;
+                let failureCount = 0;
+
+                for (const subscription of targetSubscriptions) {
+                    try {
+                        const pushSubscription = {
+                            endpoint: subscription.endpoint,
+                            keys: {
+                                p256dh: subscription.p256dh_key,
+                                auth: subscription.auth_key
+                            }
+                        };
+
+                        await webpush.sendNotification(pushSubscription, notificationPayload);
+                        successCount++;
+                    } catch (error) {
+                        console.error('Failed to send notification:', error);
+                        failureCount++;
+                        
+                        // If subscription is invalid, mark as inactive
+                        if (error.statusCode === 410 || error.statusCode === 404) {
+                            await base44.asServiceRole.entities.PushSubscription.update(subscription.id, { is_active: false });
+                        }
+                    }
+                }
+
+                return new Response(JSON.stringify({ 
+                    success: true, 
+                    sent: successCount, 
+                    failed: failureCount 
+                }), {
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+            case 'getPublicKey':
+                return new Response(JSON.stringify({ 
+                    publicKey: Deno.env.get('VAPID_PUBLIC_KEY') 
+                }), {
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+            default:
+                return new Response('Invalid action', { status: 400 });
+        }
+    } catch (error) {
+        console.error('Push notification error:', error);
+        return new Response(JSON.stringify({ error: error.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' }
+        });
+    }
+});
