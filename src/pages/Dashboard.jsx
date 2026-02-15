@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { User, DailyProgress, CommunityHighlight, Event, StrategyDocument } from '@/entities/all';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -119,7 +119,7 @@ export default function DashboardPage() {
         }
     };
 
-    const generateAISuggestion = async () => {
+    const generateAISuggestion = useCallback(async () => {
         try {
             const currentUser = await User.me();
             
@@ -149,12 +149,34 @@ export default function DashboardPage() {
         } catch (error) {
             console.error('Error generating AI suggestion:', error);
         }
-    };
+    }, []);
 
-    const openAIAssistant = (assistantType) => {
+    const openAIAssistant = useCallback((assistantType) => {
         setAiAssistantType(assistantType);
         setShowAIAssistant(true);
-    };
+    }, []);
+
+    const completedTasksToday = useMemo(() => 
+        todayProgress?.daily_tasks?.filter(t => t.completed).length || 0, 
+        [todayProgress]
+    );
+    
+    const totalTasksToday = useMemo(() => 
+        todayProgress?.daily_tasks?.length || 0, 
+        [todayProgress]
+    );
+    
+    const journeyProgressPercentage = useMemo(() => 
+        customerJourneyProgress.total > 0 
+            ? Math.round((customerJourneyProgress.completed / customerJourneyProgress.total) * 100) 
+            : 0,
+        [customerJourneyProgress]
+    );
+
+    const recommendedAgent = useMemo(() => 
+        aiSuggestion ? AI_TEAM_INFO[aiSuggestion.assistant] : null,
+        [aiSuggestion]
+    );
 
     if (loading) {
         return (
@@ -214,14 +236,6 @@ export default function DashboardPage() {
             </div>
         );
     }
-
-    const completedTasksToday = todayProgress?.daily_tasks?.filter(t => t.completed).length || 0;
-    const totalTasksToday = todayProgress?.daily_tasks?.length || 0;
-    const journeyProgressPercentage = customerJourneyProgress.total > 0 
-        ? Math.round((customerJourneyProgress.completed / customerJourneyProgress.total) * 100) 
-        : 0;
-
-    const recommendedAgent = aiSuggestion ? AI_TEAM_INFO[aiSuggestion.assistant] : null;
 
     return (
         <div className="px-3 sm:px-4 pb-20 md:pb-8">
