@@ -1,4 +1,7 @@
 import { createPageUrl } from "@/utils";
+import { nonProfitGrowthRoadmap } from './course_content/nonProfitGrowth';
+import { ecommerceGrowthRoadmap } from './course_content/ecommerceGrowth';
+import { privateCommunityGrowthRoadmap } from './course_content/privateCommunityGrowth';
 
 const vision = {
   title: "Vision Stage", 
@@ -3146,5 +3149,12 @@ const growth = {
   }
 };
 
-const roadmapData = { vision, startup, growth };
+// Niche roadmaps for startup stage
+const nicheRoadmaps = {
+  non_profit_growth: nonProfitGrowthRoadmap,
+  ecommerce_growth: ecommerceGrowthRoadmap,
+  private_community_growth: privateCommunityGrowthRoadmap
+};
+
+const roadmapData = { vision, startup, growth, nicheRoadmaps };
 export default roadmapData;
