@@ -232,7 +232,7 @@ export default function NicheRoadmapPage() {
                 </span>
               )}
             </div>
-            {idealClientData.pain_points && idealClientData.pain_points.length > 0 && (
+            {idealClientData.pain_points && Array.isArray(idealClientData.pain_points) && idealClientData.pain_points.length > 0 && (
               <div className="mb-2">
                 <p className="text-xs font-medium text-[var(--text-main)] mb-1">Top Pain Points:</p>
                 <div className="flex flex-wrap gap-1">
