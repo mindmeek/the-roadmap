@@ -35,7 +35,7 @@ Deno.serve(async (req) => {
                 email: user.email,
                 firstName: user.full_name.split(' ')[0] || user.full_name,
                 lastName: user.full_name.split(' ').slice(1).join(' ') || '',
-                tags: ['Business Minds Member', 'App Signup'],
+                tags: ['Business Minds Member', 'App Signup', 'free community access'],
                 source: 'Business Minds App',
                 customFields: [
                     {
@@ -77,29 +77,6 @@ Deno.serve(async (req) => {
         }
 
         const ghlContact = await response.json();
-        const contactId = ghlContact.contact?.id;
-
-        // Add contact to "The Business Minds" group
-        if (contactId) {
-            try {
-                const groupResponse = await fetch(`https://rest.gohighlevel.com/v1/contacts/${contactId}/campaigns`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${ghlApiKey}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        campaignId: 'The Business Minds' // This should be the actual group/campaign ID
-                    })
-                });
-
-                if (!groupResponse.ok) {
-                    console.error('Failed to add to group:', await groupResponse.text());
-                }
-            } catch (groupError) {
-                console.error('Error adding to group:', groupError);
-            }
-        }
 
         // Send welcome notification to user
         try {
