@@ -23,7 +23,7 @@ Deno.serve(async (req) => {
             return Response.json({ error: 'The HQ not configured' }, { status: 500 });
         }
 
-        // Create contact in GoHighLevel
+        // Create contact in The HQ
         const response = await fetch(`https://rest.gohighlevel.com/v1/contacts/`, {
             method: 'POST',
             headers: {
@@ -45,6 +45,26 @@ Deno.serve(async (req) => {
                     {
                         key: 'entrepreneurship_stage',
                         value: user.entrepreneurship_stage || 'not_set'
+                    },
+                    {
+                        key: 'selected_goal',
+                        value: user.selected_goal || 'not_set'
+                    },
+                    {
+                        key: 'business_name',
+                        value: user.business_name || ''
+                    },
+                    {
+                        key: 'industry',
+                        value: user.industry || ''
+                    },
+                    {
+                        key: 'business_stage',
+                        value: user.business_stage || ''
+                    },
+                    {
+                        key: 'primary_goal',
+                        value: user.primary_goal || ''
                     }
                 ]
             })
@@ -57,6 +77,29 @@ Deno.serve(async (req) => {
         }
 
         const ghlContact = await response.json();
+        const contactId = ghlContact.contact?.id;
+
+        // Add contact to "The Business Minds" group
+        if (contactId) {
+            try {
+                const groupResponse = await fetch(`https://rest.gohighlevel.com/v1/contacts/${contactId}/campaigns`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${ghlApiKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        campaignId: 'The Business Minds' // This should be the actual group/campaign ID
+                    })
+                });
+
+                if (!groupResponse.ok) {
+                    console.error('Failed to add to group:', await groupResponse.text());
+                }
+            } catch (groupError) {
+                console.error('Error adding to group:', groupError);
+            }
+        }
 
         // Send welcome notification to user
         try {
