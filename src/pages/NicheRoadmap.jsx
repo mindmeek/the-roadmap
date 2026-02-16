@@ -188,9 +188,9 @@ export default function NicheRoadmapPage() {
   const progressPercentage = totalTasks > 0 ? Math.round((completedCount / totalTasks) * 100) : 0;
 
   return (
-    <div className="max-w-6xl mx-auto px-3 sm:px-4 py-6 sm:py-8 pb-24 lg:pb-8">
-      {/* Header */}
-      <div className="card p-4 sm:p-6 md:p-8 mb-4 sm:mb-6">
+      <div className="max-w-6xl mx-auto px-4 py-4 sm:py-6 pb-24 lg:pb-8">
+          {/* Header */}
+          <div className="card p-4 sm:p-6 mb-4 sm:mb-6">
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={() => navigate(createPageUrl('NicheRoadmaps'))}
@@ -209,14 +209,14 @@ export default function NicheRoadmapPage() {
         </div>
 
         <div className="mb-4 sm:mb-6">
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--text-main)] mb-2">{programContent.courseTitle}</h1>
-          <p className="text-sm sm:text-base text-[var(--text-soft)] mb-4">{programContent.courseDescription}</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text-main)] mb-3 leading-tight">{programContent.courseTitle}</h1>
+            <p className="text-base text-[var(--text-soft)] mb-4 leading-relaxed">{programContent.courseDescription}</p>
           
           {/* Success Metrics */}
           {programContent.successMetrics && (
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-3 sm:p-4 rounded-lg border border-green-200 dark:border-green-700">
-              <p className="font-semibold text-[var(--text-main)] mb-2 sm:mb-3 text-xs sm:text-sm">🎯 Success After 90 Days:</p>
-              <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-4 rounded-lg border border-green-200 dark:border-green-700">
+                  <p className="font-semibold text-[var(--text-main)] mb-3 text-sm">🎯 Success After 90 Days:</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {Object.entries(programContent.successMetrics).map(([key, value]) => (
                   <div key={key} className="flex items-start gap-2">
                     <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
@@ -230,8 +230,8 @@ export default function NicheRoadmapPage() {
 
         {/* Ideal Client Summary */}
         {idealClientData && (
-          <div className="mt-4 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-700">
-            <h3 className="font-bold text-sm text-[var(--text-main)] mb-2 flex items-center gap-2">
+            <div className="mt-4 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-700">
+                <h3 className="font-bold text-base text-[var(--text-main)] mb-3 flex items-center gap-2">
               <Users className="w-4 h-4 text-purple-600" />
               Your Ideal Client
             </h3>
@@ -292,13 +292,13 @@ export default function NicheRoadmapPage() {
 
       {/* Foundation Reminder */}
       {!isFoundationComplete && hasAccess && (
-        <div className="card p-4 sm:p-6 md:p-8 mb-4 sm:mb-6 bg-gradient-to-r from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20 border-2 border-orange-400">
-          <div className="flex items-start gap-4">
-            <div className="bg-orange-400 p-3 rounded-lg">
-              <Lightbulb className="w-6 h-6 text-white" />
+          <div className="card p-4 sm:p-6 mb-4 sm:mb-6 bg-gradient-to-r from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20 border-2 border-orange-400">
+              <div className="flex flex-col sm:flex-row items-start gap-4">
+            <div className="bg-orange-400 p-3 rounded-lg mx-auto sm:mx-0">
+                <Lightbulb className="w-6 h-6 text-white" />
             </div>
-            <div className="flex-1">
-              <h3 className="text-xl font-bold text-[var(--text-main)] mb-2">Solidify Your Foundation First!</h3>
+            <div className="flex-1 text-center sm:text-left">
+                <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)] mb-2">Solidify Your Foundation First!</h3>
               <p className="text-[var(--text-soft)] mb-4">
                 Before diving deep into this niche roadmap, we highly recommend completing your Business Foundation. This ensures you have clarity on your vision, ideal client, and core offerings, making this roadmap even more effective.
               </p>
@@ -315,13 +315,13 @@ export default function NicheRoadmapPage() {
 
       {/* Access Gate */}
       {!hasAccess && (
-        <div className="card p-4 sm:p-6 md:p-8 mb-4 sm:mb-6 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-[var(--primary-gold)]">
-          <div className="flex items-start gap-4">
-            <div className="bg-[var(--primary-gold)] p-3 rounded-lg">
-              <Lock className="w-6 h-6 text-white" />
+          <div className="card p-4 sm:p-6 mb-4 sm:mb-6 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-[var(--primary-gold)]">
+              <div className="flex flex-col sm:flex-row items-start gap-4">
+            <div className="bg-[var(--primary-gold)] p-3 rounded-lg mx-auto sm:mx-0">
+                <Lock className="w-6 h-6 text-white" />
             </div>
-            <div className="flex-1">
-              <h3 className="text-xl font-bold text-[var(--text-main)] mb-2">Upgrade to Access This Roadmap</h3>
+            <div className="flex-1 text-center sm:text-left">
+                <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)] mb-2">Upgrade to Access This Roadmap</h3>
               <p className="text-[var(--text-soft)] mb-4">
                 This niche-specific roadmap is available exclusively to Business HQ members. Get unlimited access to all roadmaps, HQ tools, and step-by-step guidance.
               </p>
@@ -338,12 +338,12 @@ export default function NicheRoadmapPage() {
 
       {/* KPI Checklist */}
       {programContent.kpiChecklist && hasAccess && (
-        <div className="card p-4 sm:p-6 mb-4 sm:mb-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700">
-          <h3 className="font-bold text-[var(--text-main)] mb-3 sm:mb-4 flex items-center gap-2 text-base sm:text-lg">
-            <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
-            Weekly KPI Checklist
-          </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
+          <div className="card p-4 sm:p-6 mb-4 sm:mb-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700">
+              <h3 className="font-bold text-[var(--text-main)] mb-4 flex items-center gap-2 text-lg">
+                  <TrendingUp className="w-5 h-5 text-blue-600" />
+                  Weekly KPI Checklist
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {programContent.kpiChecklist.map((kpi, idx) => (
               <div key={idx} className="bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
                 <p className="text-sm font-medium text-[var(--text-main)]">{kpi.metric}</p>
@@ -365,18 +365,18 @@ export default function NicheRoadmapPage() {
 
           return (
             <div key={week.weekNumber} className="card overflow-hidden">
-              <button
-                onClick={() => toggleWeek(week.weekNumber)}
-                className="w-full p-6 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4 flex-1">
-                    <div className="bg-[var(--primary-gold)] p-3 rounded-lg">
-                      <Icon className="w-6 h-6 text-white" />
+                <button
+                    onClick={() => toggleWeek(week.weekNumber)}
+                    className="w-full p-4 sm:p-6 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                >
+                    <div className="flex items-start sm:items-center justify-between gap-3">
+                        <div className="flex items-start sm:items-center gap-3 sm:gap-4 flex-1">
+                    <div className="bg-[var(--primary-gold)] p-2 sm:p-3 rounded-lg flex-shrink-0">
+                        <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-1 flex-wrap">
-                        <span className="text-sm font-semibold text-[var(--primary-gold)]">Week {week.weekNumber}</span>
+                    <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                            <span className="text-sm font-semibold text-[var(--primary-gold)]">Week {week.weekNumber}</span>
                         <span className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-[var(--text-soft)]">
                           {weekTasksCompleted}/{week.tasks.length} tasks
                         </span>
@@ -387,8 +387,8 @@ export default function NicheRoadmapPage() {
                           </span>
                         )}
                       </div>
-                      <h3 className="text-lg font-bold text-[var(--text-main)]">{week.weekTitle}</h3>
-                      <p className="text-sm text-[var(--text-soft)] mt-1">{week.weekDescription}</p>
+                      <h3 className="text-base sm:text-lg font-bold text-[var(--text-main)] leading-snug">{week.weekTitle}</h3>
+                      <p className="text-sm text-[var(--text-soft)] mt-1 leading-relaxed">{week.weekDescription}</p>
                       {week.weeklyGoal && (
                         <p className="text-xs text-[var(--primary-gold)] mt-2 font-medium">
                           🎯 Goal: {week.weeklyGoal}
@@ -401,7 +401,7 @@ export default function NicheRoadmapPage() {
               </button>
 
               {isExpanded && (
-                <div className="border-t border-gray-200 dark:border-gray-700 p-6 space-y-6">
+                  <div className="border-t border-gray-200 dark:border-gray-700 p-4 sm:p-6 space-y-6">
                   {/* Quick Access Strategy Forms for First 4 Weeks */}
                   {week.weekNumber <= 4 && hasAccess && (
                     <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg">
