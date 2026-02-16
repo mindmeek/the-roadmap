@@ -19,8 +19,8 @@ Deno.serve(async (req) => {
         const ghlLocationId = Deno.env.get('GOHIGHLEVEL_LOCATION_ID');
 
         if (!ghlApiKey || !ghlLocationId) {
-            console.error('GoHighLevel credentials not configured');
-            return Response.json({ error: 'GoHighLevel not configured' }, { status: 500 });
+            console.error('The HQ credentials not configured');
+            return Response.json({ error: 'The HQ not configured' }, { status: 500 });
         }
 
         // Create contact in GoHighLevel
@@ -52,8 +52,8 @@ Deno.serve(async (req) => {
 
         if (!response.ok) {
             const errorText = await response.text();
-            console.error('GoHighLevel API error:', errorText);
-            return Response.json({ error: 'Failed to add to GoHighLevel', details: errorText }, { status: 500 });
+            console.error('The HQ API error:', errorText);
+            return Response.json({ error: 'Failed to add to The HQ', details: errorText }, { status: 500 });
         }
 
         const ghlContact = await response.json();
@@ -64,7 +64,7 @@ Deno.serve(async (req) => {
                 recipient_email: user.email,
                 type: 'general',
                 title: '🎉 Welcome to Business Minds!',
-                message: 'You now have access to our community! Check your email for GoHighLevel community access.',
+                message: 'You now have access to The HQ community! Check your email for your HQ login details.',
                 link: '/TheCommunity'
             });
         } catch (notifError) {
@@ -73,7 +73,7 @@ Deno.serve(async (req) => {
 
         return Response.json({ 
             success: true, 
-            message: 'User added to GoHighLevel',
+            message: 'User added to The HQ',
             ghlContactId: ghlContact.contact?.id 
         });
 
