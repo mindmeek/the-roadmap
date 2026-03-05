@@ -1,7 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
-const base44 = createClient({ appId: Deno.env.get('BASE44_APP_ID') });
-
 // --- Configuration ---
 const XP_VALUES = {
     COMPLETE_DAILY_TRACK: 10,
@@ -10,6 +8,7 @@ const XP_VALUES = {
     FORM_PARTNERSHIP: 25,
     COMPLETE_STRATEGY_DOC: 50,
     COMPLETE_JOURNEY_WEEK: 30,
+    COMPLETE_NICHE_TASK: 10,
 };
 
 const LEVEL_FORMULA = (level) => Math.floor(level * 100 * 1.2);
