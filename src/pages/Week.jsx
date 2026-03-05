@@ -432,6 +432,8 @@ export default function WeekPage() {
         try {
             await base44.auth.updateMe({ completed_weeks: updatedWeeks });
             setUser(prev => ({ ...prev, completed_weeks: updatedWeeks }));
+            showXPToast({ xp: 30, message: `Week ${weekNumber} Complete! 🎉` });
+            handleGamification({ action: 'COMPLETE_JOURNEY_WEEK' });
         } catch (error) {
             console.error("Error completing week:", error);
         }
