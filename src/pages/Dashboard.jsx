@@ -41,6 +41,7 @@ import DailyInsightTabs from '../components/dashboard/DailyInsightTabs';
 import MemberActionChecklist from '../components/dashboard/MemberActionChecklist';
 import FoundationProgress from '../components/dashboard/VisionStageProgress';
 import RestartTourButton from '../components/common/RestartTourButton';
+import StreakCounter from '../components/dashboard/StreakCounter';
 
 import { AI_TEAM_MEMBERS } from '../components/ai/aiTeamInfo';
 
