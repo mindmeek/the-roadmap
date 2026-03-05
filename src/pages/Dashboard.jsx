@@ -88,18 +88,31 @@ export default function DashboardPage() {
             const now = moment().format('YYYY-MM-DDTHH:mm');
 
             // Fetch all data in parallel with limits
-            const [progressRecords, highlights, events, customerJourneyDoc] = await Promise.all([
+            const [progressRecords, highlights, events, customerJourneyDoc, last30Days] = await Promise.all([
                 DailyProgress.filter({ created_by: currentUser.email, date: today }, '-created_date', 1),
                 CommunityHighlight.filter({ is_active: true }, '-created_date', 5),
                 Event.filter({ is_published: true, event_date: { $gte: now } }, 'event_date', 10),
                 currentUser.subscription_level === 'free' && !currentUser.customer_journey_completed_date
                     ? StrategyDocument.filter({ created_by: currentUser.email, document_type: 'customer_journey' }, '-updated_date', 1)
-                    : Promise.resolve([])
+                    : Promise.resolve([]),
+                DailyProgress.filter({ created_by: currentUser.email }, '-date', 30)
             ]);
 
             if (progressRecords.length > 0) {
                 setTodayProgress(progressRecords[0]);
             }
+
+            // Calculate streak
+            let streak = 0;
+            const todayDate = moment().format('YYYY-MM-DD');
+            for (let i = 0; i < 30; i++) {
+                const checkDate = moment().subtract(i, 'days').format('YYYY-MM-DD');
+                const entry = last30Days.find(p => p.date === checkDate);
+                const hasCompleted = entry?.daily_tasks?.some(t => t.completed);
+                if (hasCompleted) { streak++; } else { break; }
+            }
+            setCurrentStreak(streak);
+            setDaysTracked(last30Days.length);
 
             setCommunityHighlights(highlights);
             setUpcomingEvents(events.slice(0, 3));
