@@ -136,16 +136,21 @@ export default function NicheRoadmapPage() {
   };
 
   const toggleTask = (weekNumber, taskIndex) => {
-    const taskKey = `${weekNumber}-${taskIndex}`;
-    const newCompleted = {
-      ...completedTasks,
-      [taskKey]: !completedTasks[taskKey]
-    };
-    setCompletedTasks(newCompleted);
-    
-    const urlParams = new URLSearchParams(window.location.search);
-    const programKey = urlParams.get('program');
-    localStorage.setItem(`niche_${programKey}_completed`, JSON.stringify(newCompleted));
+  const taskKey = `${weekNumber}-${taskIndex}`;
+  const wasCompleted = completedTasks[taskKey];
+  const newCompleted = {
+    ...completedTasks,
+    [taskKey]: !wasCompleted
+  };
+  setCompletedTasks(newCompleted);
+
+  if (!wasCompleted) {
+    showXPToast({ xp: 10, message: 'Roadmap task completed!' });
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const programKey = urlParams.get('program');
+  localStorage.setItem(`niche_${programKey}_completed`, JSON.stringify(newCompleted));
   };
 
   const toggleTaskDetails = (weekNumber, taskIndex) => {
