@@ -7,6 +7,7 @@ import { Calendar, TrendingUp, Target, Edit3, Save, Plus, Trash2, ListChecks, Ch
 import { format, subDays } from "date-fns";
 import { handleGamification } from '@/functions/handleGamification';
 import { generateDailyTasks } from '@/functions/generateDailyTasks';
+import { showXPToast } from '@/components/common/XPToast';
 import roadmapData from '../components/roadmap';
 import RestartTourButton from '@/components/common/RestartTourButton';
 
