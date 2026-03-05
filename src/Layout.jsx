@@ -32,6 +32,7 @@ import {
 const WelcomePopup = lazy(() => import("@/components/common/WelcomePopup"));
 const PWAInstallPrompt = lazy(() => import("@/components/common/PWAInstallPrompt"));
 const TourGuide = lazy(() => import("@/components/common/TourGuide"));
+import XPToastProvider from "@/components/common/XPToast";
 
 // Updated navigation structure with simplified grouping
 const myJourneyHubItems = [
