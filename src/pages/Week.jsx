@@ -18,6 +18,8 @@ import {
 } from 'lucide-react';
 import AICopilotModal from '../components/ai/AICopilotModal';
 import roadmapData from '../components/roadmap';
+import { showXPToast } from '@/components/common/XPToast';
+import { handleGamification } from '@/functions/handleGamification';
 
 const iconComponents = {
     Sparkles, Book, Calendar, LayoutTemplate, Users, Share2, KanbanSquare, Lightbulb, Loader2,
