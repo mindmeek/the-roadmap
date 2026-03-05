@@ -62,6 +62,32 @@ Deno.serve(async (req) => {
                     link
                 });
 
+                // Also send email for evening reminder if user hasn't tracked
+                if (reminder_type === 'evening' && targetUser.email) {
+                    const firstName = targetUser.first_name || targetUser.full_name?.split(' ')[0] || 'there';
+                    await resend.emails.send({
+                        from: `The Business Minds HQ <${FROM_EMAIL}>`,
+                        to: targetUser.email,
+                        subject: `🌙 ${firstName}, don't forget to log today's progress!`,
+                        html: `
+                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                            <div style="background: #1a1a1a; padding: 30px; text-align: center;">
+                                <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/688e3deef052dd144c001643/ebdea9911_THEHQLOGO1200x330pxfdf.png" alt="The HQ" style="height: 40px;" />
+                            </div>
+                            <div style="padding: 30px; background: #fafafa;">
+                                <h2 style="color: #1F2937;">Hey ${firstName}, quick check-in! 🌙</h2>
+                                <p style="color: #6B7280; font-size: 15px; line-height: 1.6;">You haven't logged today's progress yet. It only takes 2 minutes, and it helps maintain your streak!</p>
+                                <div style="text-align: center; margin: 24px 0;">
+                                    <a href="https://app.thebminds.com/DailyTrack" style="display: inline-block; background: #8B6F4E; color: white; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                                        📊 Track Today's 1%
+                                    </a>
+                                </div>
+                                <p style="color: #9CA3AF; font-size: 13px;">Small consistent actions compound into massive results. Keep building! 💪</p>
+                            </div>
+                        </div>`
+                    }).catch(e => console.error('Email send error:', e.message));
+                }
+
                 sent++;
             } catch (err) {
                 console.error(`Error sending to ${targetUser.email}:`, err);
