@@ -4,6 +4,7 @@ import { createPageUrl } from '@/utils';
 import { ArrowLeft, CheckCircle, Clock, Target, ChevronDown, ChevronUp, Award, Loader2, Lock, Sparkles, TrendingUp, Zap, Info, ExternalLink, FileText, Edit, Users, Lightbulb } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { FoundationProgress } from '@/entities/all';
+import { showXPToast } from '@/components/common/XPToast';
 import StrategyFormModal from '@/components/strategy/StrategyFormModal';
 import { bookAuthorGrowthRoadmap } from '@/components/course_content/bookAuthorGrowth';
 import { lifeCoachGrowthRoadmap } from '@/components/course_content/lifeCoachGrowth';
