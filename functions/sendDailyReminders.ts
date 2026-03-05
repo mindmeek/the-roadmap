@@ -1,4 +1,8 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
+import { Resend } from 'npm:resend@3.2.0';
+
+const resend = new Resend(Deno.env.get('RESEND_API_KEY'));
+const FROM_EMAIL = Deno.env.get('RESEND_FROM_EMAIL') || 'noreply@thebusinessminds.com';
 
 Deno.serve(async (req) => {
     try {
