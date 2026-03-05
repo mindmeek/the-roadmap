@@ -1,11 +1,50 @@
-import React, { useEffect } from 'react';
-import { X, Target, Users, DollarSign, Rocket, ArrowRight, Star, CheckCircle2, Trophy } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { X, Target, Users, DollarSign, Rocket, ArrowRight, Star, CheckCircle2, Trophy, Lightbulb, TrendingUp, Settings, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
+import { base44 } from '@/api/base44Client';
+
+const GOALS = [
+    { id: 'launch', label: 'Launch my first product or service', icon: Rocket, color: 'blue' },
+    { id: 'grow', label: 'Grow my audience & revenue', icon: TrendingUp, color: 'green' },
+    { id: 'automate', label: 'Automate & scale my operations', icon: Settings, color: 'purple' },
+    { id: 'learn', label: 'Learn & build my skills', icon: BookOpen, color: 'orange' },
+];
+
+const colorMap = {
+    blue: 'border-blue-500 bg-blue-50 dark:bg-blue-900/20',
+    green: 'border-green-500 bg-green-50 dark:bg-green-900/20',
+    purple: 'border-purple-500 bg-purple-50 dark:bg-purple-900/20',
+    orange: 'border-orange-500 bg-orange-50 dark:bg-orange-900/20',
+};
+
+const iconColorMap = {
+    blue: 'text-blue-600',
+    green: 'text-green-600',
+    purple: 'text-purple-600',
+    orange: 'text-orange-600',
+};
 
 export default function WelcomePopup({ isOpen, onClose, user }) {
+    const [step, setStep] = useState(1);
+    const [selectedGoal, setSelectedGoal] = useState(null);
+    const [saving, setSaving] = useState(false);
+
+    const handleGoalContinue = async () => {
+        if (!selectedGoal) return;
+        setSaving(true);
+        try {
+            await base44.auth.updateMe({ primary_goal: selectedGoal });
+        } catch (e) {
+            console.error('Failed to save goal', e);
+        } finally {
+            setSaving(false);
+            setStep(2);
+        }
+    };
+
     useEffect(() => {
         if (isOpen) {
             // Trigger confetti
