@@ -32,6 +32,8 @@ const checkAchievements = async (user, action, context) => {
     if (action === 'CREATE_POST') unlock('first_post');
     if (action === 'FORM_PARTNERSHIP') unlock('first_partner');
     if (action === 'COMPLETE_STRATEGY_DOC') unlock('first_strategy_doc');
+    if (action === 'COMPLETE_JOURNEY_WEEK') unlock('first_week');
+    if (action === 'COMPLETE_NICHE_TASK') unlock('niche_starter');
     
     // Level-based achievements
     if (level >= 5) unlock('level_5');
