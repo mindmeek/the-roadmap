@@ -176,7 +176,8 @@ export default function DailyTrack() {
               // Trigger gamification for completing tasks
               const isNowCompleted = newTasks.find(t => t.id === id)?.completed;
               if (!wasCompleted && isNowCompleted) {
-                  await handleGamification({ action: 'COMPLETE_DAILY_TRACK' });
+                  showXPToast({ xp: 10, message: 'Task completed!' });
+                  handleGamification({ action: 'COMPLETE_DAILY_TRACK' });
               }
           } catch (error) {
               console.error("Error auto-saving task toggle:", error);
