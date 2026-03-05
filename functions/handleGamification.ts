@@ -42,12 +42,9 @@ const checkAchievements = async (user, action, context) => {
 
 Deno.serve(async (req) => {
     try {
-        const authHeader = req.headers.get('Authorization');
-        if (!authHeader) return new Response('Unauthorized', { status: 401 });
-        const token = authHeader.split(' ')[1];
-        base44.auth.setToken(token);
+        const base44 = createClientFromRequest(req);
         const user = await base44.auth.me();
-        if (!user) return new Response('Unauthorized', { status: 401 });
+        if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
         const { action, context } = await req.json();
         const xpToAdd = XP_VALUES[action] || 0;
