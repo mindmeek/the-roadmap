@@ -126,102 +126,162 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
                         </div>
                     </div>
 
-                    {/* Content Section */}
-                    <div className="p-6 space-y-6">
-                        <div className="text-center mb-6">
-                            <h3 className="text-lg font-semibold text-[var(--text-main)] mb-2">
-                                Ready to Make It Happen?
-                            </h3>
-                            <p className="text-[var(--text-soft)] text-sm">
-                                We've structured everything you need to succeed. Choose your first power move:
-                            </p>
-                        </div>
+                    {/* Step 1: Goal Selection */}
+                    {step === 1 && (
+                        <>
+                            <div className="p-6 space-y-4">
+                                <div className="text-center mb-2">
+                                    <div className="inline-flex items-center gap-2 bg-[var(--primary-gold)]/10 text-[var(--primary-gold)] px-3 py-1 rounded-full text-xs font-semibold mb-3">
+                                        <Lightbulb className="w-3 h-3" />
+                                        Quick Question
+                                    </div>
+                                    <h3 className="text-lg font-semibold text-[var(--text-main)] mb-1">
+                                        What's your #1 goal right now?
+                                    </h3>
+                                    <p className="text-[var(--text-soft)] text-sm">
+                                        We'll personalize your dashboard and recommendations to match.
+                                    </p>
+                                </div>
 
-                        <div className="grid md:grid-cols-2 gap-4">
-                            <Link
-                                to={createPageUrl('Journey')}
-                                onClick={onClose}
-                                className="group relative p-5 rounded-xl border-2 border-transparent bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-800/50 hover:border-[var(--primary-gold)] transition-all duration-300 hover:shadow-lg overflow-hidden"
-                            >
-                                <div className="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <ArrowRight className="w-5 h-5 text-[var(--primary-gold)] -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
+                                <div className="space-y-3">
+                                    {GOALS.map((goal) => {
+                                        const Icon = goal.icon;
+                                        const isSelected = selectedGoal === goal.id;
+                                        return (
+                                            <button
+                                                key={goal.id}
+                                                onClick={() => setSelectedGoal(goal.id)}
+                                                className={`w-full flex items-center gap-4 p-4 rounded-xl border-2 text-left transition-all duration-200 ${
+                                                    isSelected
+                                                        ? colorMap[goal.color] + ' border-current'
+                                                        : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 bg-white dark:bg-gray-800'
+                                                }`}
+                                            >
+                                                <div className={`p-2 rounded-lg ${isSelected ? 'bg-white dark:bg-gray-900' : 'bg-gray-100 dark:bg-gray-700'}`}>
+                                                    <Icon className={`w-5 h-5 ${isSelected ? iconColorMap[goal.color] : 'text-[var(--text-soft)]'}`} />
+                                                </div>
+                                                <span className={`font-medium text-sm ${isSelected ? 'text-[var(--text-main)]' : 'text-[var(--text-soft)]'}`}>
+                                                    {goal.label}
+                                                </span>
+                                                {isSelected && <CheckCircle2 className={`w-5 h-5 ml-auto ${iconColorMap[goal.color]}`} />}
+                                            </button>
+                                        );
+                                    })}
                                 </div>
-                                <div className="flex items-start gap-4">
-                                    <div className="p-3 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg group-hover:scale-110 transition-transform duration-300">
-                                        <Target className="w-6 h-6" />
-                                    </div>
-                                    <div>
-                                        <h4 className="font-bold text-[var(--text-main)] mb-1">Start Your Journey</h4>
-                                        <p className="text-xs text-[var(--text-soft)]">
-                                            Launch your personalized 90-day roadmap and start checking off wins.
-                                        </p>
-                                    </div>
-                                </div>
-                            </Link>
+                            </div>
 
-                            <Link
-                                to={createPageUrl('FreedomCalculator')}
-                                onClick={onClose}
-                                className="group relative p-5 rounded-xl border-2 border-transparent bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-800/50 hover:border-green-500 transition-all duration-300 hover:shadow-lg overflow-hidden"
-                            >
-                                <div className="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <ArrowRight className="w-5 h-5 text-green-500 -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
-                                </div>
-                                <div className="flex items-start gap-4">
-                                    <div className="p-3 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-lg group-hover:scale-110 transition-transform duration-300">
-                                        <DollarSign className="w-6 h-6" />
-                                    </div>
-                                    <div>
-                                        <h4 className="font-bold text-[var(--text-main)] mb-1">Define Freedom</h4>
-                                        <p className="text-xs text-[var(--text-soft)]">
-                                            Calculate your "Freedom Number" and set clear financial targets.
-                                        </p>
-                                    </div>
-                                </div>
-                            </Link>
-                        </div>
-
-                        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/10 dark:to-indigo-900/10 rounded-xl p-4 border border-purple-100 dark:border-purple-900/30">
-                            <div className="flex items-center justify-between flex-wrap gap-4">
-                                <div className="flex items-center gap-3">
-                                    <div className="p-2 bg-white dark:bg-gray-800 rounded-full shadow-sm">
-                                        <Users className="w-5 h-5 text-purple-600" />
-                                    </div>
-                                    <div>
-                                        <h4 className="font-semibold text-sm text-[var(--text-main)]">You Are Not Alone</h4>
-                                        <p className="text-xs text-[var(--text-soft)]">Join 1,000+ entrepreneurs in our community</p>
-                                    </div>
-                                </div>
-                                <a
-                                    href="https://thebminds.com"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium rounded-lg transition-colors shadow-md hover:shadow-lg flex items-center gap-2"
+                            <div className="p-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between gap-4">
+                                <button
+                                    onClick={onClose}
+                                    className="text-sm text-[var(--text-soft)] hover:text-[var(--text-main)] transition-colors"
                                 >
-                                    <span>Join Community</span>
+                                    Skip
+                                </button>
+                                <button
+                                    onClick={handleGoalContinue}
+                                    disabled={!selectedGoal || saving}
+                                    className="btn btn-primary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    {saving ? 'Saving...' : 'Continue'}
                                     <ArrowRight className="w-4 h-4" />
-                                </a>
+                                </button>
                             </div>
-                        </div>
+                        </>
+                    )}
 
-                        {user?.is_premium_trial_user && trialDaysRemaining > 0 && (
-                            <div className="flex items-center justify-center gap-2 py-2 px-4 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400 text-xs font-medium rounded-lg">
-                                <Rocket className="w-4 h-4" />
-                                <span>You have {trialDaysRemaining} days remaining in your premium trial</span>
+                    {/* Step 2: Action Choices */}
+                    {step === 2 && (
+                        <>
+                            <div className="p-6 space-y-6">
+                                <div className="text-center mb-6">
+                                    <h3 className="text-lg font-semibold text-[var(--text-main)] mb-2">
+                                        Ready to Make It Happen?
+                                    </h3>
+                                    <p className="text-[var(--text-soft)] text-sm">
+                                        We've structured everything you need to succeed. Choose your first power move:
+                                    </p>
+                                </div>
+
+                                <div className="grid md:grid-cols-2 gap-4">
+                                    <Link
+                                        to={createPageUrl('Journey')}
+                                        onClick={onClose}
+                                        className="group relative p-5 rounded-xl border-2 border-transparent bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-800/50 hover:border-[var(--primary-gold)] transition-all duration-300 hover:shadow-lg overflow-hidden"
+                                    >
+                                        <div className="flex items-start gap-4">
+                                            <div className="p-3 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                                                <Target className="w-6 h-6" />
+                                            </div>
+                                            <div>
+                                                <h4 className="font-bold text-[var(--text-main)] mb-1">Start Your Journey</h4>
+                                                <p className="text-xs text-[var(--text-soft)]">
+                                                    Launch your personalized 90-day roadmap and start checking off wins.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </Link>
+
+                                    <Link
+                                        to={createPageUrl('FreedomCalculator')}
+                                        onClick={onClose}
+                                        className="group relative p-5 rounded-xl border-2 border-transparent bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-800/50 hover:border-green-500 transition-all duration-300 hover:shadow-lg overflow-hidden"
+                                    >
+                                        <div className="flex items-start gap-4">
+                                            <div className="p-3 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                                                <DollarSign className="w-6 h-6" />
+                                            </div>
+                                            <div>
+                                                <h4 className="font-bold text-[var(--text-main)] mb-1">Define Freedom</h4>
+                                                <p className="text-xs text-[var(--text-soft)]">
+                                                    Calculate your "Freedom Number" and set clear financial targets.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </div>
+
+                                <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/10 dark:to-indigo-900/10 rounded-xl p-4 border border-purple-100 dark:border-purple-900/30">
+                                    <div className="flex items-center justify-between flex-wrap gap-4">
+                                        <div className="flex items-center gap-3">
+                                            <div className="p-2 bg-white dark:bg-gray-800 rounded-full shadow-sm">
+                                                <Users className="w-5 h-5 text-purple-600" />
+                                            </div>
+                                            <div>
+                                                <h4 className="font-semibold text-sm text-[var(--text-main)]">You Are Not Alone</h4>
+                                                <p className="text-xs text-[var(--text-soft)]">Join 1,000+ entrepreneurs in our community</p>
+                                            </div>
+                                        </div>
+                                        <a
+                                            href="https://thebminds.com"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium rounded-lg transition-colors shadow-md hover:shadow-lg flex items-center gap-2"
+                                        >
+                                            <span>Join Community</span>
+                                            <ArrowRight className="w-4 h-4" />
+                                        </a>
+                                    </div>
+                                </div>
+
+                                {user?.is_premium_trial_user && trialDaysRemaining > 0 && (
+                                    <div className="flex items-center justify-center gap-2 py-2 px-4 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400 text-xs font-medium rounded-lg">
+                                        <Rocket className="w-4 h-4" />
+                                        <span>You have {trialDaysRemaining} days remaining in your premium trial</span>
+                                    </div>
+                                )}
                             </div>
-                        )}
-                    </div>
 
-                    {/* Footer */}
-                    <div className="p-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-800 text-center">
-                        <button
-                            onClick={onClose}
-                            className="text-sm text-[var(--text-soft)] hover:text-[var(--text-main)] transition-colors flex items-center justify-center gap-1 mx-auto group"
-                        >
-                            <span>I'll explore the dashboard on my own</span>
-                            <ArrowRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                        </button>
-                    </div>
+                            <div className="p-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-800 text-center">
+                                <button
+                                    onClick={onClose}
+                                    className="text-sm text-[var(--text-soft)] hover:text-[var(--text-main)] transition-colors flex items-center justify-center gap-1 mx-auto group"
+                                >
+                                    <span>I'll explore the dashboard on my own</span>
+                                    <ArrowRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                                </button>
+                            </div>
+                        </>
+                    )}
                 </motion.div>
             </div>
         </AnimatePresence>
