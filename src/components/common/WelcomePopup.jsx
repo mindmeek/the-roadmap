@@ -70,6 +70,10 @@ export default function WelcomePopup({ isOpen, onClose, user }) {
         }
     }, [isOpen]);
 
+    useEffect(() => {
+        if (isOpen) setStep(1);
+    }, [isOpen]);
+
     if (!isOpen) return null;
 
     const handleBackdropClick = (e) => {
