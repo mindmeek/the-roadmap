@@ -1304,6 +1304,7 @@ export default function Layout({ children, currentPageName }) {
     return (
         <div className="flex h-screen bg-white dark:bg-black overflow-hidden">
             <GlobalSearchModal isOpen={isGlobalSearchOpen} onClose={() => setIsGlobalSearchOpen(false)} />
+            <XPToastProvider />
             <Suspense fallback={null}>
                 <WelcomePopup isOpen={showWelcomePopup} onClose={handleCloseWelcomePopup} user={user} />
                 <TourGuide user={user} />
