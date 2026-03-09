@@ -408,17 +408,13 @@ export default function SchedulePage() {
         DailyProgress.filter({ created_by: userData.email, date: dateStr }, "-created_date", 1)
       ]);
       
-      // const todaysProgress = progressEntries[0]; // This line will not make sense now.
+      const todaysProgress = progressEntries[0];
       const todaysSchedule = scheduleEntries[0];
 
-      setDailyProgress(null); // Explicitly set to null as DailyProgress is no longer fetched
+      setDailyProgress(todaysProgress || null);
       setScheduleRecord(todaysSchedule);
       
-      // Original: const allTasks = todaysProgress?.daily_tasks || [];
-      // Now, if daily_tasks are not coming from `todaysProgress`, they must come from somewhere else.
-      // If the intent was to replace DailyProgress with Schedule for tasks, it's not clear from the import change.
-      // Assuming for now, daily tasks are no longer loaded this way from an entity.
-      const allTasks = []; // No longer fetching daily tasks from DailyProgress
+      const allTasks = todaysProgress?.daily_tasks || [];
 
       const scheduledTaskIds = new Set((todaysSchedule?.items || []).map(item => item.linked_task_id).filter(Boolean));
 
