@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { User, Schedule } from '@/entities/all';
+import { User, Schedule, DailyProgress } from '@/entities/all';
 import { createPageUrl } from '@/utils';
 import { useNavigate } from 'react-router-dom';
 import { format, startOfWeek, addDays, parseISO } from 'date-fns';
