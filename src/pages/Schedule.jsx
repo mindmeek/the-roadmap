@@ -405,7 +405,7 @@ export default function SchedulePage() {
         // This means `unscheduledTasks` will likely be empty if there's no other source.
 
         // ORIGINAL: DailyProgress.filter({ created_by: userData.email, date: dateStr }, "-created_date", 1)
-        Promise.resolve([]) // Simulate an empty result for DailyProgress since it's removed.
+        DailyProgress.filter({ created_by: userData.email, date: dateStr }, "-created_date", 1)
       ]);
       
       // const todaysProgress = progressEntries[0]; // This line will not make sense now.
