@@ -586,14 +586,19 @@ export default function SchedulePage() {
   };
 
   const generateAISchedule = async () => {
-    if (unscheduledTasks.length === 0) {
-      alert("No unscheduled tasks to create a schedule from.");
+    const combinedTasks = [
+      ...unscheduledTasks.map(t => t.task),
+      ...weeklyTasks.filter(wt => !unscheduledTasks.find(t => t.id === wt.id)).map(wt => wt.title || wt.task || wt)
+    ].filter(Boolean);
+
+    if (combinedTasks.length === 0) {
+      alert("No tasks found. Please add tasks in the Daily 1% Tracker first.");
       return;
     }
     
     setIsGeneratingTemplate(true);
     try {
-      const taskList = unscheduledTasks.map(task => task.task);
+      const taskList = combinedTasks;
       const { data } = await generateScheduleTemplate({ 
         tasks: taskList,
         preferences: user?.working_hours?.has_day_job ? 
