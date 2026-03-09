@@ -735,7 +735,7 @@ export default function SchedulePage() {
                  <h3 className="font-bold text-lg mb-2">Actions</h3>
                  <button 
                    onClick={generateAISchedule} 
-                   disabled={isGeneratingTemplate || unscheduledTasks.length === 0} 
+                   disabled={isGeneratingTemplate || (unscheduledTasks.length === 0 && weeklyTasks.length === 0)} 
                    className="btn btn-secondary w-full"
                  >
                     {isGeneratingTemplate ? <Loader2 className="animate-spin mr-2"/> : <Sparkles className="w-4 h-4 mr-2"/>} {/* Changed Plus to Sparkles */}
