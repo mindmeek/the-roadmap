@@ -289,44 +289,49 @@ export default function JourneyPage() {
     const loadUserAndRoadmap = async () => {
         try {
             const userData = await User.me();
-            
+
             console.log('User Data:', {
                 stage: userData.entrepreneurship_stage,
                 goal: userData.selected_goal,
                 onboarding: userData.onboarding_completed
             });
-            
+
             if (!userData.onboarding_completed) {
                 navigate(createPageUrl("Onboarding"));
                 return;
             }
-            
+
             setUser(userData);
 
             // Load detailed content from database
-            const content = await RoadmapContent.filter({ is_published: true });
-            
-            // Organize content by stage/goal/month/week
-            const organized = {};
-            content.forEach(week => {
-                if (!organized[week.stage]) organized[week.stage] = {};
-                if (!organized[week.stage][week.goal_id]) organized[week.stage][week.goal_id] = {};
-                if (!organized[week.stage][week.goal_id][week.month_number]) {
-                    organized[week.stage][week.goal_id][week.month_number] = [];
-                }
-                organized[week.stage][week.goal_id][week.month_number].push(week);
-            });
+            try {
+                const content = await RoadmapContent.filter({ is_published: true });
 
-            // Sort weeks by week_number
-            Object.keys(organized).forEach(stage => {
-                Object.keys(organized[stage]).forEach(goal => {
-                    Object.keys(organized[stage][goal]).forEach(month => {
-                        organized[stage][goal][month].sort((a, b) => a.week_number - b.week_number);
+                // Organize content by stage/goal/month/week
+                const organized = {};
+                content.forEach(week => {
+                    if (!organized[week.stage]) organized[week.stage] = {};
+                    if (!organized[week.stage][week.goal_id]) organized[week.stage][week.goal_id] = {};
+                    if (!organized[week.stage][week.goal_id][week.month_number]) {
+                        organized[week.stage][week.goal_id][week.month_number] = [];
+                    }
+                    organized[week.stage][week.goal_id][week.month_number].push(week);
+                });
+
+                // Sort weeks by week_number
+                Object.keys(organized).forEach(stage => {
+                    Object.keys(organized[stage]).forEach(goal => {
+                        Object.keys(organized[stage][goal]).forEach(month => {
+                            organized[stage][goal][month].sort((a, b) => a.week_number - b.week_number);
+                        });
                     });
                 });
-            });
 
-            setRoadmapContent(organized);
+                setRoadmapContent(organized);
+            } catch (contentError) {
+                console.error("Failed to load roadmap content, but will display static roadmap", contentError);
+                // Continue without DB content - static roadmap will still work
+            }
 
             // Auto-select user's current goal if they have one
             if (userData?.entrepreneurship_stage && userData?.selected_goal) {
@@ -340,9 +345,11 @@ export default function JourneyPage() {
             setExpandedMonth(userData.current_month - 1);
 
         } catch (e) {
-            console.error("Failed to load journey or roadmap content", e);
-            // Optionally navigate to onboarding if critical data is missing or error occurs
-            navigate(createPageUrl("Onboarding"));
+            console.error("Failed to load user data", e);
+            // Only redirect to onboarding if it's a critical auth error
+            if (e.message?.includes('401') || e.message?.includes('Unauthorized')) {
+                navigate(createPageUrl("Onboarding"));
+            }
         }
         setLoading(false);
     };
