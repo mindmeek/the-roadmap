@@ -7,6 +7,7 @@ import {
     Sparkles, HelpCircle, Calendar, Target, Users
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
+import SocialMediaOverview from '@/components/strategy/SocialMediaOverview';
 
 export default function StrategyFormSocialMedia() {
     const [user, setUser] = useState(null);
@@ -14,6 +15,7 @@ export default function StrategyFormSocialMedia() {
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
+    const [viewMode, setViewMode] = useState('edit');
 
     const [formData, setFormData] = useState({
         social_media_goals: '',

@@ -7,6 +7,7 @@ import {
     Sparkles, HelpCircle, Plus, Trash2, Target, Calendar
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
+import ContentStrategyOverview from '@/components/strategy/ContentStrategyOverview';
 
 export default function StrategyFormContentStrategy() {
     const [user, setUser] = useState(null);
@@ -14,6 +15,7 @@ export default function StrategyFormContentStrategy() {
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
+    const [viewMode, setViewMode] = useState('edit');
 
     const [formData, setFormData] = useState({
         content_goals: '',

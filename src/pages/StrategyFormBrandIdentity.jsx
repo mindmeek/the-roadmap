@@ -7,6 +7,7 @@ import {
     Sparkles, HelpCircle, Plus, Trash2, Image, Type, MessageSquare
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
+import BrandIdentityOverview from '@/components/strategy/BrandIdentityOverview';
 
 export default function StrategyFormBrandIdentity() {
     const [user, setUser] = useState(null);
@@ -14,6 +15,7 @@ export default function StrategyFormBrandIdentity() {
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
+    const [viewMode, setViewMode] = useState('edit');
 
     const [formData, setFormData] = useState({
         brand_name: '',

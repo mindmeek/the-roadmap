@@ -7,6 +7,7 @@ import {
     Sparkles, HelpCircle, Send, Users, Target
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
+import EmailMarketingOverview from '@/components/strategy/EmailMarketingOverview';
 
 export default function StrategyFormEmailMarketing() {
     const [user, setUser] = useState(null);
@@ -14,6 +15,7 @@ export default function StrategyFormEmailMarketing() {
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
+    const [viewMode, setViewMode] = useState('edit');
 
     const [formData, setFormData] = useState({
         email_goals: '',
