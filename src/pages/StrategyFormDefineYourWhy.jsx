@@ -291,17 +291,17 @@ export default function StrategyFormDefineYourWhy() {
                         Get AI Help
                     </button>
                 </div>
-            </div>
 
-            {/* AI Modal */}
-            <AITeamModal
-                isOpen={showAIModal}
-                onClose={() => setShowAIModal(false)}
-                assistantType="elyzet"
-                sectionTitle="Define Your WHY"
-                additionalContext={JSON.stringify(formData, null, 2)}
-            />
-        )}
+                {/* AI Modal */}
+                <AITeamModal
+                    isOpen={showAIModal}
+                    onClose={() => setShowAIModal(false)}
+                    assistantType="elyzet"
+                    sectionTitle="Define Your WHY"
+                    additionalContext={JSON.stringify(formData, null, 2)}
+                />
+            </div>
+            )}
         </div>
     );
 }
