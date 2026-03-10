@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { User as UserIcon, Building, Target, Rocket, CheckCircle, ChevronRight, Sparkles, TrendingUp, Lightbulb, Award, Loader2, CalendarDays, DollarSign, Heart, Users, ExternalLink, Building2 } from 'lucide-react';
+import { User as UserIcon, Building, Target, Rocket, CheckCircle, ChevronRight, Sparkles, TrendingUp, Lightbulb, Award, Loader2, CalendarDays, DollarSign, Heart, Users, ExternalLink, Building2, MapPin } from 'lucide-react';
 import { User } from '@/entities/User';
 import { createPageUrl } from '@/utils';
 import { Link } from 'react-router-dom';
