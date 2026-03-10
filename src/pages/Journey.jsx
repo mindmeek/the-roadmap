@@ -538,9 +538,20 @@ export default function JourneyPage() {
 
     // Derive journey and stageInfo from merged data and user state
     const mergedRoadmap = getMergedRoadmapData();
-    const journey = user?.entrepreneurship_stage && user?.selected_goal 
-        ? mergedRoadmap?.[user.entrepreneurship_stage]?.goals?.[user.selected_goal] 
-        : null;
+    
+    // Look up goal in standard goals first, then check niche roadmaps
+    let journey = null;
+    if (user?.entrepreneurship_stage && user?.selected_goal) {
+        journey = mergedRoadmap?.[user.entrepreneurship_stage]?.goals?.[user.selected_goal];
+        // If not found in standard goals, check niche roadmaps
+        if (!journey) {
+            const nicheRoadmap = roadmapData.nicheRoadmaps?.[user.selected_goal];
+            if (nicheRoadmap && nicheRoadmap.months) {
+                journey = nicheRoadmap;
+            }
+        }
+    }
+    
     const stageInfo = user?.entrepreneurship_stage 
         ? mergedRoadmap?.[user.entrepreneurship_stage] 
         : null;
