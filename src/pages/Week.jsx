@@ -126,8 +126,13 @@ export default function WeekPage() {
             // Handle both structure types if roadmapData has a default export or named export
             const staticDataRoot = roadmapData.default || roadmapData;
             
-            if (staticDataRoot && staticDataRoot[stageKey] && staticDataRoot[stageKey].goals && staticDataRoot[stageKey].goals[goalKey]) {
-                const goalData = staticDataRoot[stageKey].goals[goalKey];
+            // Check niche roadmaps if not found in standard stage goals
+            const standardGoalData = staticDataRoot?.[stageKey]?.goals?.[goalKey];
+            const nicheGoalData = staticDataRoot?.nicheRoadmaps?.[goalKey];
+            const goalDataSource = standardGoalData || nicheGoalData;
+            
+            if (goalDataSource && goalDataSource.months) {
+                const goalData = goalDataSource;
                 let weekCount = 0;
                 
                 // Find the correct week across months
