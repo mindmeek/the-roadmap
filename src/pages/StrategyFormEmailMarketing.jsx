@@ -458,8 +458,10 @@ export default function StrategyFormEmailMarketing() {
             <AITeamModal
                 isOpen={showAIAssistant}
                 onClose={() => setShowAIAssistant(false)}
-                assistantType="charlie"
+                assistantType="strategy_form_agent"
                 sectionTitle="Email Marketing Strategy"
+                additionalContext={`Document Type: email_marketing\nCurrent Stage: ${user?.entrepreneurship_stage || 'unknown'}\nForm Fields: ${Object.keys(formData).join(', ')}`}
+                currentBusinessId={user?.current_business_id}
             />
         </>)}
         </div>
