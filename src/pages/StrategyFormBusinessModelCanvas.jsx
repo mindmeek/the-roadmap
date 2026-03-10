@@ -406,11 +406,10 @@ export default function StrategyFormBusinessModelCanvas() {
                                 What key resources do your value propositions require? Physical, intellectual, human, or financial assets.
                             </div>
                         </div>
-                        <textarea
-                            value={formData.keyResources}
-                            onChange={(e) => setFormData({...formData, keyResources: e.target.value})}
-                            placeholder="e.g., Physical assets, intellectual property, human resources, financial..."
-                            className="form-input h-32"
+                        <ListField
+                            values={formData.keyResources}
+                            onChange={(val) => setFormData({...formData, keyResources: val})}
+                            placeholder="e.g., Physical asset, IP, human resource..."
                         />
                     </div>
                 </div>
