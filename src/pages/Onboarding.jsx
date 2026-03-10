@@ -617,91 +617,9 @@ export default function OnboardingPage() {
             )
         },
         {
-            title: "We'll guide your path 🧭",
-            description: "Based on your stage, here's the recommended journey we've built for you",
-            content: (
-                <div className="space-y-6 max-w-3xl mx-auto">
-                    {!formData.entrepreneurship_stage ? (
-                        <div className="text-center py-12">
-                            <p className="text-[var(--text-soft)]">Please select your entrepreneurship stage first</p>
-                        </div>
-                    ) : (
-                        <div className="space-y-6">
-                            {/* Guided Path Card */}
-                            <div className={`p-6 rounded-xl border-2 border-[var(--primary-gold)] bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20`}>
-                                <div className="flex items-center gap-3 mb-4">
-                                    <div className="bg-[var(--primary-gold)] p-3 rounded-lg">
-                                        {formData.entrepreneurship_stage === 'vision' && <Lightbulb className="w-6 h-6 text-white" />}
-                                        {formData.entrepreneurship_stage === 'startup' && <Rocket className="w-6 h-6 text-white" />}
-                                        {formData.entrepreneurship_stage === 'growth' && <TrendingUp className="w-6 h-6 text-white" />}
-                                    </div>
-                                    <div>
-                                        <h3 className="font-bold text-lg text-[var(--text-main)]">
-                                            {formData.entrepreneurship_stage === 'vision' && 'Your Foundation Path'}
-                                            {formData.entrepreneurship_stage === 'startup' && 'Your Launch Path'}
-                                            {formData.entrepreneurship_stage === 'growth' && 'Your Scale Path'}
-                                        </h3>
-                                        <p className="text-sm text-[var(--text-soft)]">Recommended for your stage</p>
-                                    </div>
-                                    <CheckCircle className="w-6 h-6 text-[var(--primary-gold)] ml-auto" />
-                                </div>
-                                <p className="text-sm text-[var(--text-main)] leading-relaxed mb-4">
-                                    {formData.entrepreneurship_stage === 'vision' && "We'll take you through clarifying your business idea, defining your ideal customer, crafting your value proposition, and building your strategic foundation — step by step. No guesswork required."}
-                                    {formData.entrepreneurship_stage === 'startup' && "We'll guide you through launching your product or service, building your brand presence, acquiring your first paying customers, and establishing repeatable sales processes that work."}
-                                    {formData.entrepreneurship_stage === 'growth' && "We'll help you systematize your operations, optimize your customer journey, build marketing engines, and scale what's already working so you can grow without burning out."}
-                                </p>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                    {(formData.entrepreneurship_stage === 'vision' ? [
-                                        { step: '1', label: 'Clarify your vision & mission' },
-                                        { step: '2', label: 'Define your ideal customer' },
-                                        { step: '3', label: 'Build your business foundation' },
-                                    ] : formData.entrepreneurship_stage === 'startup' ? [
-                                        { step: '1', label: 'Launch your MVP or offer' },
-                                        { step: '2', label: 'Acquire your first customers' },
-                                        { step: '3', label: 'Build your marketing system' },
-                                    ] : [
-                                        { step: '1', label: 'Optimize & systematize operations' },
-                                        { step: '2', label: 'Scale your marketing & sales' },
-                                        { step: '3', label: 'Build a team & automate' },
-                                    ]).map(item => (
-                                        <div key={item.step} className="flex items-center gap-2 bg-white/60 dark:bg-black/20 p-3 rounded-lg">
-                                            <div className="w-7 h-7 rounded-full bg-[var(--primary-gold)] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
-                                                {item.step}
-                                            </div>
-                                            <span className="text-xs font-medium text-[var(--text-main)]">{item.label}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* What we handle for you */}
-                            <div className="p-5 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
-                                <h4 className="font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
-                                    <Sparkles className="w-4 h-4 text-[var(--primary-gold)]" />
-                                    What The Business Minds HQ does for you
-                                </h4>
-                                <ul className="space-y-2">
-                                    {[
-                                        'Builds your personalized 90-day roadmap with weekly action steps',
-                                        'Assigns AI business experts to guide you at every stage',
-                                        'Provides live coaching sessions every Tuesday & Thursday',
-                                        'Connects you with a community of entrepreneurs on the same journey',
-                                    ].map((item, i) => (
-                                        <li key={i} className="flex items-start gap-2 text-sm text-[var(--text-soft)]">
-                                            <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                                            {item}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            {/* Hidden fields still get a value so validation passes */}
-                            <input type="hidden" value={formData.current_challenges || 'Not specified'} />
-                            <input type="hidden" value={formData.marketing_channels_focus || 'Not specified'} />
-                        </div>
-                    )}
-                </div>
-            )
+            title: "Let's personalize your path 🎯",
+            description: "Answer a few quick questions so we can recommend the best 90-day goal for you",
+            content: <Step4Content formData={formData} handleInputChange={handleInputChange} availableGoals={availableGoals} />
         },
         {
             title: "Choose your 90-day goal",
