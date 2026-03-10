@@ -688,11 +688,17 @@ export default function StrategyFormIdealClient() {
                 {/* Identity & Summary Section */}
                 <div className="card p-6 mb-6">
                     <h3 className="font-bold text-xl text-[var(--text-main)] mb-4">Create Your Client Avatar</h3>
-                    <p className="text-sm text-[var(--text-soft)] mb-4">Bring your ideal client to life</p>
+                    <p className="text-sm text-[var(--text-soft)] mb-4">Bring your ideal client to life with a real human story</p>
+
+                    <div className="mb-6 bg-amber-50 dark:bg-amber-900/10 p-4 rounded-lg border border-amber-100 dark:border-amber-800/30 text-sm">
+                        <p className="mb-2"><strong className="text-amber-700 dark:text-amber-400">Why it matters:</strong> Giving your ideal client a name and story makes them real. Every piece of content, every offer, every email — you write it for <em>this specific person</em>. The more vivid the avatar, the more magnetic your marketing.</p>
+                        <p className="italic text-[var(--text-soft)]"><strong className="not-italic text-[var(--text-main)]">Real-world example:</strong> HubSpot's ideal client is "Marketing Mary" — a 35-year-old marketing manager juggling multiple campaigns, overwhelmed by data, and desperate for tools that make her look good to her CEO. Every feature and blog post they create speaks directly to Mary.</p>
+                    </div>
 
                     <div className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Give Them a Name</label>
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-1">Give Them a Name</label>
+                            <p className="text-xs text-[var(--text-soft)] mb-2"><em>Tip: Make it descriptive — "Entrepreneurial Emily" or "Struggling Steve" instantly tells you who they are. This name becomes your internal shorthand for every business decision.</em></p>
                             <input
                                 type="text"
                                 value={formData.client_avatar_name}
