@@ -161,7 +161,7 @@ export default function StrategyFormBusinessModelCanvas() {
 
         setAiContext({
             sectionTitle: `Business Model Canvas - ${sectionTitles[sectionKey] || sectionKey}`,
-            userNotes: formData[sectionKey] ? [{ content: formData[sectionKey] }] : []
+            userNotes: formData[sectionKey]?.filter(Boolean).length ? [{ content: formData[sectionKey].filter(Boolean).join('\n') }] : []
         });
         setShowAIAssistant(true);
     };
