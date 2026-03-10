@@ -432,6 +432,7 @@ export default function StrategyFormSWOTAnalysis() {
                 sectionTitle={aiContext.sectionTitle}
                 userNotes={aiContext.userNotes || []}
             />
+            </>)}
         </div>
     );
 }
