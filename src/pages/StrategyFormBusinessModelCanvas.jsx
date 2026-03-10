@@ -554,11 +554,10 @@ export default function StrategyFormBusinessModelCanvas() {
                                 For what value are customers willing to pay? How are they paying? One-time, subscription, usage-based?
                             </div>
                         </div>
-                        <textarea
-                            value={formData.revenueStreams}
-                            onChange={(e) => setFormData({...formData, revenueStreams: e.target.value})}
-                            placeholder="e.g., Asset sale, usage fee, subscription fees, lending/renting/leasing, licensing, brokerage fees, advertising..."
-                            className="form-input h-32"
+                        <ListField
+                            values={formData.revenueStreams}
+                            onChange={(val) => setFormData({...formData, revenueStreams: val})}
+                            placeholder="e.g., Subscription fee, one-time sale, licensing..."
                         />
                     </div>
                 </div>
