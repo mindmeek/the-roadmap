@@ -30,6 +30,7 @@ import {
 
 // Lazy load heavy components
 const WelcomePopup = lazy(() => import("@/components/common/WelcomePopup"));
+const WelcomeVideoPopup = lazy(() => import("@/components/common/WelcomeVideoPopup"));
 const PWAInstallPrompt = lazy(() => import("@/components/common/PWAInstallPrompt"));
 const TourGuide = lazy(() => import("@/components/common/TourGuide"));
 import XPToastProvider from "@/components/common/XPToast";
