@@ -372,7 +372,6 @@ export default function StrategyFormSocialMedia() {
                         Get AI Help
                     </button>
                 </div>
-            </div>
 
             <AITeamModal
                 isOpen={showAIAssistant}

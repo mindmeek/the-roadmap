@@ -454,7 +454,6 @@ export default function StrategyFormEmailMarketing() {
                         Get AI Help
                     </button>
                 </div>
-            </div>
 
             <AITeamModal
                 isOpen={showAIAssistant}
