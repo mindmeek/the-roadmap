@@ -413,7 +413,6 @@ export default function StrategyFormAffiliateProgram() {
                         Get AI Help
                     </button>
                 </div>
-                </div>
 
                 <AITeamModal
                     isOpen={showAIAssistant}

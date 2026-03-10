@@ -392,7 +392,6 @@ export default function StrategyFormAutomation() {
                         Get AI Help
                     </button>
                 </div>
-                </div>
 
                 <AITeamModal
                     isOpen={showAIAssistant}
