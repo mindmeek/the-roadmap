@@ -141,7 +141,15 @@ Deno.serve(async (req) => {
         // Build context
         let contextualData = `Business Context:
 - Stage: ${user.entrepreneurship_stage || 'Not specified'}
-- Business: ${user.business_name || 'Not specified'}`;
+- Business: ${user.business_name || 'Not specified'}
+- Industry: ${user.industry || 'Not specified'}
+- Business Type: ${user.business_type || 'Not specified'}
+- 90-Day Goal: ${user.selected_goal || 'Not specified'}`;
+
+        // Onboarding insights (from step 4 personalization)
+        if (user.step4_focus) contextualData += `\n- Primary Focus: ${user.step4_focus}`;
+        if (user.step4_challenge) contextualData += `\n- Main Challenge: ${user.step4_challenge}`;
+        if (user.step4_win) contextualData += `\n- Success Definition: ${user.step4_win}`;
 
         if (context.section_title) {
             contextualData += `\n- Working on: ${context.section_title}`;
