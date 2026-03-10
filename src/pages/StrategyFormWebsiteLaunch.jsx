@@ -463,15 +463,16 @@ export default function StrategyFormWebsiteLaunch() {
                         Get AI Help
                     </button>
                 </div>
+                </div>
 
-            <AITeamModal
-                isOpen={showAIAssistant}
-                onClose={() => setShowAIAssistant(false)}
-                assistantType="sam"
-                sectionTitle="Website Launch Plan"
-            />
-        </>)}
+                <AITeamModal
+                    isOpen={showAIAssistant}
+                    onClose={() => setShowAIAssistant(false)}
+                    assistantType="sam"
+                    sectionTitle="Website Launch Plan"
+                />
+            </>)}
+            </div>
         </div>
-    </div>
     );
 }

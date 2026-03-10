@@ -413,15 +413,16 @@ export default function StrategyFormAffiliateProgram() {
                         Get AI Help
                     </button>
                 </div>
+                </div>
 
-            <AITeamModal
-                isOpen={showAIAssistant}
-                onClose={() => setShowAIAssistant(false)}
-                assistantType="ava"
-                sectionTitle="Affiliate Program Strategy"
-            />
-        </>)}
+                <AITeamModal
+                    isOpen={showAIAssistant}
+                    onClose={() => setShowAIAssistant(false)}
+                    assistantType="ava"
+                    sectionTitle="Affiliate Program Strategy"
+                />
+            </>)}
+            </div>
         </div>
-    </div>
     );
 }

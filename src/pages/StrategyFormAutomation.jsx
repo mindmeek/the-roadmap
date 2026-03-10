@@ -392,15 +392,16 @@ export default function StrategyFormAutomation() {
                         Get AI Help
                     </button>
                 </div>
+                </div>
 
-            <AITeamModal
-                isOpen={showAIAssistant}
-                onClose={() => setShowAIAssistant(false)}
-                assistantType="olivia"
-                sectionTitle="Business Automation & Systematization"
-            />
-        </>)}
+                <AITeamModal
+                    isOpen={showAIAssistant}
+                    onClose={() => setShowAIAssistant(false)}
+                    assistantType="olivia"
+                    sectionTitle="Business Automation & Systematization"
+                />
+            </>)}
+            </div>
         </div>
-    </div>
     );
 }

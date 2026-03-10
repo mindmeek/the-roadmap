@@ -454,15 +454,16 @@ export default function StrategyFormStrategicPartnerships() {
                         Get AI Help
                     </button>
                 </div>
+                </div>
 
-            <AITeamModal
-                isOpen={showAIAssistant}
-                onClose={() => setShowAIAssistant(false)}
-                assistantType="ava"
-                sectionTitle="Strategic Partnerships"
-            />
-        </>)}
+                <AITeamModal
+                    isOpen={showAIAssistant}
+                    onClose={() => setShowAIAssistant(false)}
+                    assistantType="ava"
+                    sectionTitle="Strategic Partnerships"
+                />
+            </>)}
+            </div>
         </div>
-    </div>
     );
 }
