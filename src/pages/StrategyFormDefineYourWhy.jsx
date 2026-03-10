@@ -99,6 +99,17 @@ export default function StrategyFormDefineYourWhy() {
 
     return (
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            {/* View Toggle */}
+            <div className="flex justify-end mb-4">
+                <div className="inline-flex rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <button onClick={() => setViewMode('edit')} className={`px-4 py-2 text-sm font-medium transition-colors ${viewMode === 'edit' ? 'bg-[var(--primary-gold)] text-white' : 'bg-white dark:bg-gray-800 text-[var(--text-soft)] hover:bg-gray-50 dark:hover:bg-gray-700'}`}>Edit</button>
+                    <button onClick={() => setViewMode('overview')} className={`px-4 py-2 text-sm font-medium transition-colors ${viewMode === 'overview' ? 'bg-[var(--primary-gold)] text-white' : 'bg-white dark:bg-gray-800 text-[var(--text-soft)] hover:bg-gray-50 dark:hover:bg-gray-700'}`}>Overview</button>
+                </div>
+            </div>
+
+            {viewMode === 'overview' ? (
+                <DefineYourWhyOverview formData={formData} />
+            ) : (
             <div>
                 {/* Header */}
                 <div className="mb-8">
