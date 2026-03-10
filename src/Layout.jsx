@@ -1332,6 +1332,7 @@ export default function Layout({ children, currentPageName }) {
             <XPToastProvider />
             <Suspense fallback={null}>
                 <WelcomePopup isOpen={showWelcomePopup} onClose={handleCloseWelcomePopup} user={user} />
+                <WelcomeVideoPopup isOpen={showWelcomeVideo} onClose={handleCloseWelcomeVideo} />
                 <TourGuide user={user} />
                 <PWAInstallPrompt />
             </Suspense>
