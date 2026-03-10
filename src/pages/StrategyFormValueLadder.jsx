@@ -410,8 +410,6 @@ export default function StrategyFormValueLadder() {
                         Get AI Help
                     </button>
                 </div>
-            </div>
-
                 </>}
             </div>
 
