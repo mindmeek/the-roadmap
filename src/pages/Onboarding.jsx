@@ -4,6 +4,7 @@ import { User } from '@/entities/User';
 import { createPageUrl } from '@/utils';
 import { Link } from 'react-router-dom';
 import roadmapData from '@/components/roadmap';
+import Step4Content from '@/components/onboarding/Step4Content';
 
 export default function OnboardingPage() {
     const [currentStep, setCurrentStep] = useState(0);
