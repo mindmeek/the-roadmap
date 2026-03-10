@@ -716,7 +716,7 @@ export default function StrategyFormIdealClient() {
                                 onChange={(e) => setFormData({ ...formData, how_they_describe_themselves: e.target.value })}
                                 className="form-input"
                                 rows="3"
-                                placeholder='e.g., "I'm a driven mom of two trying to build a business I love without giving up my family time. I wear too many hats and I need systems."'
+                                placeholder="e.g., &quot;I'm a driven mom of two trying to build a business I love without giving up my family time. I wear too many hats and I need systems.&quot;"
                             />
                         </div>
 
