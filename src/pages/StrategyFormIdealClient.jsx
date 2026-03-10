@@ -424,22 +424,31 @@ export default function StrategyFormIdealClient() {
                     </h3>
                     <p className="text-sm text-[var(--text-soft)] mb-4">Their mindset, values, and personality</p>
 
-                    <div className="space-y-4">
+                    <div className="mb-6 bg-purple-50 dark:bg-purple-900/10 p-4 rounded-lg border border-purple-100 dark:border-purple-800/30 text-sm">
+                        <p className="mb-2"><strong className="text-purple-700 dark:text-purple-400">Why it matters:</strong> Psychographics reveal the <em>why</em> behind buying decisions — what your client believes, how they see themselves, and what motivates them. This is what makes your marketing feel personal.</p>
+                        <p className="italic text-[var(--text-soft)]"><strong className="not-italic text-[var(--text-main)]">Example:</strong> Apple doesn't sell specs — they sell "creativity" and "innovation" to ambitious, tech-savvy personalities. That's psychographic marketing at its best.</p>
+                    </div>
+
+                    <div className="space-y-6">
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-3">Core Values (Select all that apply)</label>
+                            <div className="flex items-center justify-between mb-1">
+                                <label className="block text-sm font-medium text-[var(--text-main)]">Core Values <span className="text-[var(--primary-gold)]">(Pick your top 3)</span></label>
+                                <span className="text-xs text-[var(--text-soft)]">{(formData.values ? formData.values.split(', ').filter(v=>v) : []).length}/3 selected</span>
+                            </div>
+                            <p className="text-xs text-[var(--text-soft)] mb-3">What principles guide their life? <em>Tip: A life coach's ideal client likely values "Growth" + "Freedom" + "Family" — use this to write copy like "Build a thriving business without sacrificing the people you love."</em></p>
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                                 {['Family', 'Freedom', 'Innovation', 'Quality', 'Success', 'Growth', 'Community', 'Health', 'Security', 'Adventure'].map(value => {
-                                    const isSelected = formData.values && formData.values.split(', ').includes(value);
+                                    const current = formData.values ? formData.values.split(', ').filter(v => v) : [];
+                                    const isSelected = current.includes(value);
+                                    const isDisabled = !isSelected && current.length >= 3;
                                     return (
-                                        <label key={value} className="flex items-center space-x-2 cursor-pointer">
+                                        <label key={value} className={`flex items-center space-x-2 ${isDisabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}>
                                             <input
                                                 type="checkbox"
                                                 checked={isSelected}
+                                                disabled={isDisabled}
                                                 onChange={(e) => {
-                                                    const current = formData.values ? formData.values.split(', ').filter(v => v) : [];
-                                                    const updated = e.target.checked
-                                                        ? [...current, value]
-                                                        : current.filter(v => v !== value);
+                                                    const updated = e.target.checked ? [...current, value] : current.filter(v => v !== value);
                                                     setFormData({ ...formData, values: updated.join(', ') });
                                                 }}
                                                 className="w-4 h-4 text-[var(--primary-gold)] border-gray-300 rounded focus:ring-[var(--primary-gold)]"
@@ -452,20 +461,25 @@ export default function StrategyFormIdealClient() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-3">Interests & Hobbies (Select all that apply)</label>
+                            <div className="flex items-center justify-between mb-1">
+                                <label className="block text-sm font-medium text-[var(--text-main)]">Interests & Hobbies <span className="text-[var(--primary-gold)]">(Pick your top 3)</span></label>
+                                <span className="text-xs text-[var(--text-soft)]">{(formData.interests ? formData.interests.split(', ').filter(v=>v) : []).length}/3 selected</span>
+                            </div>
+                            <p className="text-xs text-[var(--text-soft)] mb-3">Where do they spend their time and attention? <em>Tip: If your client is into "Personal Development" + "Business," they're likely listening to podcasts and reading books — that's where your ads and content should live.</em></p>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                 {['Business & Entrepreneurship', 'Technology', 'Health & Fitness', 'Travel', 'Reading', 'Sports', 'Arts & Creativity', 'Personal Development', 'Networking', 'Investing'].map(interest => {
-                                    const isSelected = formData.interests && formData.interests.split(', ').includes(interest);
+                                    const current = formData.interests ? formData.interests.split(', ').filter(v => v) : [];
+                                    const isSelected = current.includes(interest);
+                                    const isDisabled = !isSelected && current.length >= 3;
                                     return (
-                                        <label key={interest} className="flex items-center space-x-2 cursor-pointer">
+                                        <label key={interest} className={`flex items-center space-x-2 ${isDisabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}>
                                             <input
                                                 type="checkbox"
                                                 checked={isSelected}
+                                                disabled={isDisabled}
                                                 onChange={(e) => {
-                                                    const current = formData.interests ? formData.interests.split(', ').filter(v => v) : [];
-                                                    const updated = e.target.checked
-                                                        ? [...current, interest]
-                                                        : current.filter(v => v !== interest);
+                                                    const current2 = formData.interests ? formData.interests.split(', ').filter(v => v) : [];
+                                                    const updated = e.target.checked ? [...current2, interest] : current2.filter(v => v !== interest);
                                                     setFormData({ ...formData, interests: updated.join(', ') });
                                                 }}
                                                 className="w-4 h-4 text-[var(--primary-gold)] border-gray-300 rounded focus:ring-[var(--primary-gold)]"
@@ -478,7 +492,8 @@ export default function StrategyFormIdealClient() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Lifestyle</label>
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-1">Lifestyle</label>
+                            <p className="text-xs text-[var(--text-soft)] mb-2"><em>Tip: A "Fast-paced & Busy" client doesn't have time to read long emails — they need bullet points, short videos, and quick wins.</em></p>
                             <select
                                 value={formData.lifestyle}
                                 onChange={(e) => setFormData({ ...formData, lifestyle: e.target.value })}
@@ -496,20 +511,24 @@ export default function StrategyFormIdealClient() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-3">Personality Traits (Select all that apply)</label>
+                            <div className="flex items-center justify-between mb-1">
+                                <label className="block text-sm font-medium text-[var(--text-main)]">Personality Traits <span className="text-[var(--primary-gold)]">(Pick your top 3)</span></label>
+                                <span className="text-xs text-[var(--text-soft)]">{(formData.personality_traits ? formData.personality_traits.split(', ').filter(v=>v) : []).length}/3 selected</span>
+                            </div>
+                            <p className="text-xs text-[var(--text-soft)] mb-3">How do they operate? <em>Tip: An "Analytical" buyer needs data, proof, and testimonials before purchasing. An "Ambitious" buyer needs to see the transformation and outcome. Adjust your sales page accordingly.</em></p>
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                                 {['Ambitious', 'Analytical', 'Creative', 'Detail-oriented', 'Decisive', 'Risk-taker', 'Cautious', 'Introverted', 'Extroverted', 'Optimistic'].map(trait => {
-                                    const isSelected = formData.personality_traits && formData.personality_traits.split(', ').includes(trait);
+                                    const current = formData.personality_traits ? formData.personality_traits.split(', ').filter(v => v) : [];
+                                    const isSelected = current.includes(trait);
+                                    const isDisabled = !isSelected && current.length >= 3;
                                     return (
-                                        <label key={trait} className="flex items-center space-x-2 cursor-pointer">
+                                        <label key={trait} className={`flex items-center space-x-2 ${isDisabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}>
                                             <input
                                                 type="checkbox"
                                                 checked={isSelected}
+                                                disabled={isDisabled}
                                                 onChange={(e) => {
-                                                    const current = formData.personality_traits ? formData.personality_traits.split(', ').filter(v => v) : [];
-                                                    const updated = e.target.checked
-                                                        ? [...current, trait]
-                                                        : current.filter(v => v !== trait);
+                                                    const updated = e.target.checked ? [...current, trait] : current.filter(v => v !== trait);
                                                     setFormData({ ...formData, personality_traits: updated.join(', ') });
                                                 }}
                                                 className="w-4 h-4 text-[var(--primary-gold)] border-gray-300 rounded focus:ring-[var(--primary-gold)]"
