@@ -39,34 +39,48 @@ export default function ValueLadderOverview({ formData }) {
                     if (!level.offer_name && !level.description) return null;
                     return (
                         <div key={idx} className={`mx-auto ${widthClass} transition-all duration-300`}>
-                            <div className={`${colors.bg} border-2 ${colors.border} rounded-lg p-4`}>
-                                <div className="flex items-center justify-between flex-wrap gap-2">
+                            <div className={`${colors.bg} border-2 ${colors.border} rounded-lg p-5`}>
+                                {/* Level badge + Offer Name + Price */}
+                                <div className="flex items-start justify-between flex-wrap gap-2 mb-4">
                                     <div className="flex items-center gap-3">
-                                        <span className={`text-xs font-bold px-2 py-1 rounded-full ${colors.badge}`}>
+                                        <span className={`text-sm font-bold px-3 py-1 rounded-full ${colors.badge}`}>
                                             {level.level}
                                         </span>
-                                        <h3 className={`font-bold text-base ${colors.text}`}>{level.offer_name}</h3>
+                                        <h3 className={`font-bold text-xl ${colors.text}`}>{level.offer_name}</h3>
                                     </div>
                                     {level.price && (
-                                        <span className="flex items-center gap-1 font-bold text-[var(--text-main)] text-sm">
-                                            <DollarSign className="w-4 h-4" />
-                                            {level.price}
-                                        </span>
+                                        <div>
+                                            <p className="text-xs font-semibold text-[var(--text-soft)] uppercase tracking-wide mb-1">Price</p>
+                                            <span className="flex items-center gap-1 font-bold text-[var(--text-main)] text-lg">
+                                                <DollarSign className="w-4 h-4" />
+                                                {level.price}
+                                            </span>
+                                        </div>
                                     )}
                                 </div>
-                                {level.description && (
-                                    <p className="text-sm text-[var(--text-soft)] mt-2">{level.description}</p>
-                                )}
-                                {level.target_audience && (
-                                    <p className="text-xs text-[var(--text-soft)] mt-1 flex items-center gap-1">
-                                        <Users className="w-3 h-3" /> {level.target_audience}
-                                    </p>
-                                )}
-                                {level.example && (
-                                    <p className="text-xs text-[var(--text-soft)] mt-1 italic">
-                                        Example: {level.example}
-                                    </p>
-                                )}
+
+                                <div className="grid md:grid-cols-2 gap-4">
+                                    {level.description && (
+                                        <div>
+                                            <p className="text-xs font-semibold text-[var(--text-soft)] uppercase tracking-wide mb-1">Description</p>
+                                            <p className="text-base text-[var(--text-main)]">{level.description}</p>
+                                        </div>
+                                    )}
+                                    {level.target_audience && (
+                                        <div>
+                                            <p className="text-xs font-semibold text-[var(--text-soft)] uppercase tracking-wide mb-1 flex items-center gap-1">
+                                                <Users className="w-3 h-3" /> Target Audience
+                                            </p>
+                                            <p className="text-base text-[var(--text-main)]">{level.target_audience}</p>
+                                        </div>
+                                    )}
+                                    {level.example && (
+                                        <div className="md:col-span-2">
+                                            <p className="text-xs font-semibold text-[var(--text-soft)] uppercase tracking-wide mb-1">Example</p>
+                                            <p className="text-base text-[var(--text-main)] italic">{level.example}</p>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                             {idx < (formData.ladder_levels || []).length - 1 && (
                                 <div className="flex justify-center my-1">
