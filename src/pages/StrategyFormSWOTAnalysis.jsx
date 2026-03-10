@@ -428,8 +428,10 @@ export default function StrategyFormSWOTAnalysis() {
             <AITeamModal
                 isOpen={showAIAssistant}
                 onClose={() => setShowAIAssistant(false)}
-                assistantType="elyzet"
+                assistantType="strategy_form_agent"
                 sectionTitle={aiContext.sectionTitle}
+                additionalContext={`Document Type: swot_analysis\nCurrent Stage: ${currentStage}\nForm Fields: strengths, weaknesses, opportunities, threats`}
+                currentBusinessId={user?.current_business_id}
                 userNotes={aiContext.userNotes || []}
             />
         </>)}

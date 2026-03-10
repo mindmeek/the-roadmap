@@ -492,8 +492,10 @@ export default function ValuePropositionCanvasPage() { // Renamed from StrategyF
             <AITeamModal
                 isOpen={showAIAssistant}
                 onClose={() => setShowAIAssistant(false)}
-                assistantType="ava"
+                assistantType="strategy_form_agent"
                 sectionTitle="Value Proposition Canvas"
+                additionalContext={`Document Type: value_proposition_canvas\nCurrent Stage: ${user?.entrepreneurship_stage || 'unknown'}\nForm Fields: customer_jobs, customer_pains, customer_gains, offerings, pain_relievers, gain_creators`}
+                currentBusinessId={user?.current_business_id}
                 userNotes={userNotesForAI}
             />
         </>)}

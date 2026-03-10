@@ -295,9 +295,10 @@ export default function StrategyFormDefineYourWhy() {
                 <AITeamModal
                     isOpen={showAIModal}
                     onClose={() => setShowAIModal(false)}
-                    assistantType="elyzet"
+                    assistantType="strategy_form_agent"
                     sectionTitle="Define Your WHY"
-                    additionalContext={JSON.stringify(formData, null, 2)}
+                    additionalContext={`Document Type: define_your_why\nCurrent Stage: ${user?.entrepreneurship_stage || 'unknown'}\nForm Data: ${JSON.stringify(formData, null, 2)}`}
+                    currentBusinessId={user?.current_business_id}
                 />
             </div>)}
         </div>
