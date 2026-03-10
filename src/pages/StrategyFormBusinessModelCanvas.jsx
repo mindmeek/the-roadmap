@@ -350,11 +350,10 @@ export default function StrategyFormBusinessModelCanvas() {
                                 Who are your key partners and suppliers? What key resources are you acquiring from them?
                             </div>
                         </div>
-                        <textarea
-                            value={formData.keyPartners}
-                            onChange={(e) => setFormData({...formData, keyPartners: e.target.value})}
-                            placeholder="e.g., Strategic suppliers, key partners, alliances..."
-                            className="form-input h-32"
+                        <ListField
+                            values={formData.keyPartners}
+                            onChange={(val) => setFormData({...formData, keyPartners: val})}
+                            placeholder="e.g., Strategic supplier, partner, alliance..."
                         />
                     </div>
 
