@@ -1306,7 +1306,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                             <div>
                                 <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Decision Speed</label>
                                 <select
-                                    value={formData.persona.decision_speed || ''}
+                                    value={formData.ideal_client.decision_speed || ''}
                                     onChange={(e) => handleSelectChange('decision_speed', e.target.value)}
                                     className="form-input"
                                 >
