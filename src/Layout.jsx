@@ -1142,6 +1142,7 @@ export default function Layout({ children, currentPageName }) {
     const [user, setUser] = useState(null);
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
     const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+    const [showWelcomeVideo, setShowWelcomeVideo] = useState(false);
     const [isGlobalSearchOpen, setIsGlobalSearchOpen] = useState(false);
     const [isListenDropdownOpen, setIsListenDropdownOpen] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
