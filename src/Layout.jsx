@@ -1185,6 +1185,15 @@ export default function Layout({ children, currentPageName }) {
                 }
             };
 
+            const handleCloseWelcomeVideo = async () => {
+                setShowWelcomeVideo(false);
+                try {
+                    await base44.auth.updateMe({ welcome_video_seen: true });
+                } catch (error) {
+                    console.error("Failed to update welcome video status", error);
+                }
+            };
+
             const handleDeleteAccount = () => {
                 setShowDeleteModal(true);
                 setIsMobileMenuOpen(false);
