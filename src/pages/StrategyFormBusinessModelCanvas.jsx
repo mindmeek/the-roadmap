@@ -438,11 +438,10 @@ export default function StrategyFormBusinessModelCanvas() {
                                 What value do you deliver to customers? What problems are you solving?
                             </div>
                         </div>
-                        <textarea
-                            value={formData.valuePropositions}
-                            onChange={(e) => setFormData({...formData, valuePropositions: e.target.value})}
-                            placeholder="e.g., Newness, performance, customization, 'getting the job done', design, brand/status, price, cost reduction, risk reduction, accessibility, convenience/usability..."
-                            className="form-input h-40"
+                        <ListField
+                            values={formData.valuePropositions}
+                            onChange={(val) => setFormData({...formData, valuePropositions: val})}
+                            placeholder="e.g., Cost reduction, convenience, performance..."
                         />
                     </div>
 
