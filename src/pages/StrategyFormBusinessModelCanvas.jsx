@@ -95,7 +95,19 @@ export default function StrategyFormBusinessModelCanvas() {
 
             if (docs.length > 0) {
                 setExistingDoc(docs[0]);
-                setFormData(docs[0].content || formData);
+                const saved = docs[0].content || {};
+                // Normalize all fields to arrays (handles old string-based data)
+                setFormData({
+                    keyPartners: toArray(saved.keyPartners),
+                    keyActivities: toArray(saved.keyActivities),
+                    keyResources: toArray(saved.keyResources),
+                    valuePropositions: toArray(saved.valuePropositions),
+                    customerRelationships: toArray(saved.customerRelationships),
+                    channels: toArray(saved.channels),
+                    customerSegments: toArray(saved.customerSegments),
+                    costStructure: toArray(saved.costStructure),
+                    revenueStreams: toArray(saved.revenueStreams),
+                });
             }
         } catch (error) {
             console.error("Error loading data:", error);
