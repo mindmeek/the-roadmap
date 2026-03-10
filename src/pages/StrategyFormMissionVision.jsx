@@ -402,6 +402,7 @@ export default function StrategyFormMissionVision() {
                 assistantType="olivia"
                 sectionTitle="Mission & Vision Statements"
             />
+                </>)}
         </div>
     );
 }
