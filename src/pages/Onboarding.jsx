@@ -25,7 +25,10 @@ export default function OnboardingPage() {
         current_challenges: '',
         primary_revenue_streams: '',
         marketing_channels_focus: '',
-        business_type: ''
+        business_type: '',
+        step4_focus: '',
+        step4_challenge: '',
+        step4_win: ''
     });
 
     useEffect(() => {
