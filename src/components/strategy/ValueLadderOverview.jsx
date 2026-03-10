@@ -62,6 +62,11 @@ export default function ValueLadderOverview({ formData }) {
                                         <Users className="w-3 h-3" /> {level.target_audience}
                                     </p>
                                 )}
+                                {level.example && (
+                                    <p className="text-xs text-[var(--text-soft)] mt-1 italic">
+                                        Example: {level.example}
+                                    </p>
+                                )}
                             </div>
                             {idx < (formData.ladder_levels || []).length - 1 && (
                                 <div className="flex justify-center my-1">
