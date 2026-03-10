@@ -109,8 +109,7 @@ export default function StrategyFormDefineYourWhy() {
 
             {viewMode === 'overview' ? (
                 <DefineYourWhyOverview formData={formData} />
-            ) : (
-            <div>
+            ) : (<div>
                 {/* Header */}
                 <div className="mb-8">
                     <button 
