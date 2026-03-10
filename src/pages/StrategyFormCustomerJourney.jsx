@@ -1229,7 +1229,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                             What problems or frustrations do they face?
                         </label>
                         <MultiValueInput
-                            values={formData.persona.pain_points}
+                            values={formData.ideal_client.pain_points}
                             onChange={(values) => handleArrayChange('pain_points', values)}
                             suggestions={PAIN_POINTS_SUGGESTIONS}
                             placeholder="Add pain points (e.g., Lack of time, Limited budget)"
