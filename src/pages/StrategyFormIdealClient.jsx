@@ -7,6 +7,7 @@ import {
     Target, Heart, TrendingUp, AlertCircle, Sparkles, HelpCircle, Brain, DollarSign, Plus, X
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
+import IdealClientOverview from '@/components/strategy/IdealClientOverview';
 
 // Dropdown options matching Customer Journey form
 const DEMOGRAPHICS_OPTIONS = {
