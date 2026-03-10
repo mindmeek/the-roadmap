@@ -314,63 +314,6 @@ export default function DashboardPage() {
                 {/* Streak Counter */}
                 <StreakCounter streak={currentStreak} daysTracked={daysTracked} />
 
-                {/* Today's Progress & Upcoming Tasks - SIDE BY SIDE */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                    {/* Today's Progress */}
-                    <div id="dashboard-daily-progress" className="card relative overflow-hidden p-4 sm:p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200 dark:border-green-700 hover:shadow-xl transition-all" style={{ borderRadius: '2px' }}>
-                        {/* Decorative accent circles */}
-                        <div className="absolute -top-8 -right-8 w-32 h-32 bg-green-200/30 dark:bg-green-600/10 rounded-full blur-2xl"></div>
-                        <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-emerald-200/30 dark:bg-emerald-600/10 rounded-full blur-2xl"></div>
-                        <div className="relative z-10 flex items-center justify-between mb-4 flex-wrap gap-2">
-                            <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)] flex items-center flex-wrap gap-2">
-                                <div className="bg-green-100 dark:bg-green-800 p-2 rounded-lg">
-                                    <TrendingUp className="w-5 h-5 text-green-600" />
-                                </div>
-                                <span>Today's Progress</span>
-                                <Tooltip content="Track your daily 1% improvements. Small, consistent actions compound into massive results over time.">
-                                    <HelpCircle className="w-4 h-4 text-gray-400 dark:text-gray-500" />
-                                </Tooltip>
-                            </h3>
-                            <Link to={createPageUrl('DailyTrack')} className="text-[var(--primary-gold)] hover:text-[#6B5838] flex items-center text-xs sm:text-sm font-medium group">
-                                Track More <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                        </div>
-                        {totalTasksToday > 0 ? (
-                            <div className="relative z-10">
-                                <div className="flex items-center justify-between mb-2">
-                                    <span className="text-xs sm:text-sm text-[var(--text-soft)]">
-                                        {completedTasksToday} of {totalTasksToday} tasks completed
-                                    </span>
-                                    <span className="text-xs sm:text-sm font-bold text-[var(--primary-gold)] bg-[var(--primary-gold)]/10 px-2 py-1 rounded">
-                                        {Math.round((completedTasksToday / totalTasksToday) * 100)}%
-                                    </span>
-                                </div>
-                                <div className="relative w-full bg-gray-200 dark:bg-gray-700 h-3 overflow-hidden" style={{ borderRadius: '2px' }}>
-                                    <div 
-                                        className="bg-gradient-to-r from-green-500 to-emerald-600 h-3 transition-all relative"
-                                        style={{ width: `${(completedTasksToday / totalTasksToday) * 100}%`, borderRadius: '2px' }}
-                                    >
-                                        <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        ) : (
-                            <div className="relative z-10 text-center py-6">
-                                <div className="bg-green-100 dark:bg-green-900/30 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
-                                    <CheckCircle className="w-8 h-8 text-green-600" />
-                                </div>
-                                <p className="text-[var(--text-soft)] mb-4 text-sm">No tasks tracked today yet.</p>
-                                <Link to={createPageUrl('DailyTrack')} className="btn btn-primary text-sm shadow-lg hover:shadow-xl transition-all">
-                                    <CheckCircle className="w-4 h-4 mr-2" />
-                                    Start Tracking
-                                </Link>
-                            </div>
-                        )}
-                    </div>
-
-                    <UpcomingTasksPreview />
-                </div>
-
                 {/* Three Hub Tiles - Business Overview, Marketing Hub, Annual Strategy */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
                     {/* Business Overview - Black & White with Background Image */}
