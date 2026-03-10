@@ -378,11 +378,10 @@ export default function StrategyFormBusinessModelCanvas() {
                                 What are the most important things your company must do to make the business model work?
                             </div>
                         </div>
-                        <textarea
-                            value={formData.keyActivities}
-                            onChange={(e) => setFormData({...formData, keyActivities: e.target.value})}
-                            placeholder="e.g., Production, problem solving, platform/network..."
-                            className="form-input h-32"
+                        <ListField
+                            values={formData.keyActivities}
+                            onChange={(val) => setFormData({...formData, keyActivities: val})}
+                            placeholder="e.g., Production, problem solving, platform..."
                         />
                     </div>
 
