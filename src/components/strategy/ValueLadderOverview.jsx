@@ -50,7 +50,7 @@ export default function ValueLadderOverview({ formData }) {
                                     </div>
                                     {level.price && (
                                         <div>
-                                            <p className="text-xs font-semibold text-[var(--text-soft)] uppercase tracking-wide mb-1">Price</p>
+                                            <p className="text-xs font-bold text-[var(--text-main)] uppercase tracking-wide mb-1">Price</p>
                                             <span className="flex items-center gap-1 font-bold text-[var(--text-main)] text-lg">
                                                 <DollarSign className="w-4 h-4" />
                                                 {level.price}
@@ -62,13 +62,13 @@ export default function ValueLadderOverview({ formData }) {
                                 <div className="grid md:grid-cols-2 gap-4">
                                     {level.description && (
                                         <div>
-                                            <p className="text-xs font-semibold text-[var(--text-soft)] uppercase tracking-wide mb-1">Description</p>
+                                            <p className="text-xs font-bold text-[var(--text-main)] uppercase tracking-wide mb-1">Description</p>
                                             <p className="text-base text-[var(--text-main)]">{level.description}</p>
                                         </div>
                                     )}
                                     {level.target_audience && (
                                         <div>
-                                            <p className="text-xs font-semibold text-[var(--text-soft)] uppercase tracking-wide mb-1 flex items-center gap-1">
+                                            <p className="text-xs font-bold text-[var(--text-main)] uppercase tracking-wide mb-1 flex items-center gap-1">
                                                 <Users className="w-3 h-3" /> Target Audience
                                             </p>
                                             <p className="text-base text-[var(--text-main)]">{level.target_audience}</p>
@@ -76,7 +76,7 @@ export default function ValueLadderOverview({ formData }) {
                                     )}
                                     {level.example && (
                                         <div className="md:col-span-2">
-                                            <p className="text-xs font-semibold text-[var(--text-soft)] uppercase tracking-wide mb-1">Example</p>
+                                            <p className="text-xs font-bold text-[var(--text-main)] uppercase tracking-wide mb-1">Example</p>
                                             <p className="text-base text-[var(--text-main)] italic">{level.example}</p>
                                         </div>
                                     )}
