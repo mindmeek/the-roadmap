@@ -467,8 +467,10 @@ export default function StrategyFormWebsiteLaunch() {
                 <AITeamModal
                     isOpen={showAIAssistant}
                     onClose={() => setShowAIAssistant(false)}
-                    assistantType="sam"
+                    assistantType="strategy_form_agent"
                     sectionTitle="Website Launch Plan"
+                    additionalContext={`Document Type: website_launch\nCurrent Stage: ${user?.entrepreneurship_stage || 'unknown'}\nForm Fields: ${Object.keys(formData).join(', ')}`}
+                    currentBusinessId={user?.current_business_id}
                 />
             </>)}
             </div>
