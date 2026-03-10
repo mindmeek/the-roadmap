@@ -468,6 +468,8 @@ export default function StrategyFormBrandIdentity() {
                 assistantType="sam"
                 sectionTitle="Brand Identity & Messaging"
             />
+        </>)}
         </div>
+    </div>
     );
 }

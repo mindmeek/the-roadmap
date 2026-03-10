@@ -446,6 +446,8 @@ export default function StrategyFormContentStrategy() {
                 assistantType="charlie"
                 sectionTitle="Content Strategy & Planning"
             />
+        </>)}
         </div>
+    </div>
     );
 }

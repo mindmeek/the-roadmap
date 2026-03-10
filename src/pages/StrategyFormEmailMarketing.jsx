@@ -462,6 +462,8 @@ export default function StrategyFormEmailMarketing() {
                 assistantType="charlie"
                 sectionTitle="Email Marketing Strategy"
             />
+        </>)}
         </div>
+    </div>
     );
 }

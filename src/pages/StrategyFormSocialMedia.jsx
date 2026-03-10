@@ -380,6 +380,8 @@ export default function StrategyFormSocialMedia() {
                 assistantType="sam"
                 sectionTitle="Social Media Strategy"
             />
+        </>)}
         </div>
+    </div>
     );
 }
