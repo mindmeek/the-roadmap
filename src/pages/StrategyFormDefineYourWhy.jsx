@@ -301,6 +301,7 @@ export default function StrategyFormDefineYourWhy() {
                 sectionTitle="Define Your WHY"
                 additionalContext={JSON.stringify(formData, null, 2)}
             />
+            )}
         </div>
     );
 }
