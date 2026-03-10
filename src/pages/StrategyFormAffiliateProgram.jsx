@@ -101,6 +101,18 @@ export default function StrategyFormAffiliateProgram() {
     return (
         <div className="px-4 pb-20 md:pb-8">
             <div className="max-w-5xl mx-auto">
+                {/* View Toggle */}
+                <div className="flex justify-end mb-4">
+                    <div className="inline-flex rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+                        <button onClick={() => setViewMode('edit')} className={`px-4 py-2 text-sm font-medium transition-colors ${viewMode === 'edit' ? 'bg-[var(--primary-gold)] text-white' : 'bg-white dark:bg-gray-800 text-[var(--text-soft)] hover:bg-gray-50 dark:hover:bg-gray-700'}`}>Edit</button>
+                        <button onClick={() => setViewMode('overview')} className={`px-4 py-2 text-sm font-medium transition-colors ${viewMode === 'overview' ? 'bg-[var(--primary-gold)] text-white' : 'bg-white dark:bg-gray-800 text-[var(--text-soft)] hover:bg-gray-50 dark:hover:bg-gray-700'}`}>Overview</button>
+                    </div>
+                </div>
+
+                {viewMode === 'overview' ? (
+                    <AffiliateProgramOverview formData={formData} />
+                ) : (<>
+
                 {/* Header */}
                 <div className="mb-6">
                     <Link to={createPageUrl('MyFoundationRoadmap')} className="inline-flex items-center text-sm text-[var(--text-soft)] hover:text-[var(--primary-gold)] mb-4">
