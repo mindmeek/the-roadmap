@@ -466,11 +466,10 @@ export default function StrategyFormBusinessModelCanvas() {
                                 What type of relationship does each customer segment expect? How do you acquire, retain, and grow customers?
                             </div>
                         </div>
-                        <textarea
-                            value={formData.customerRelationships}
-                            onChange={(e) => setFormData({...formData, customerRelationships: e.target.value})}
-                            placeholder="e.g., Personal assistance, dedicated personal assistance, self-service, automated services, communities, co-creation..."
-                            className="form-input h-32"
+                        <ListField
+                            values={formData.customerRelationships}
+                            onChange={(val) => setFormData({...formData, customerRelationships: val})}
+                            placeholder="e.g., Personal assistance, self-service, community..."
                         />
                     </div>
 
