@@ -1217,8 +1217,9 @@ export default function Layout({ children, currentPageName }) {
                 window.location.reload();
             };
 
-    // ChipBot Live Chat
+    // ChipBot Live Chat — only after onboarding is complete
     useEffect(() => {
+        if (!user?.onboarding_completed) return;
         if (document.getElementById('chipbot-script')) return;
         const script = document.createElement('script');
         script.id = 'chipbot-script';
@@ -1226,7 +1227,7 @@ export default function Layout({ children, currentPageName }) {
         script.src = 'https://static.getchipbot.com/edge/p/chipbot.js';
         window[['CHIPBOT','DOMAIN','ID'].join('_')] = 'dom_6n1vr-Vxrh00';
         document.body.appendChild(script);
-    }, []);
+    }, [user?.onboarding_completed]);
 
     // Enhanced PWA Setup
     useEffect(() => {
