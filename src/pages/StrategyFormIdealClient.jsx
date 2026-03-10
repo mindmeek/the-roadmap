@@ -709,35 +709,38 @@ export default function StrategyFormIdealClient() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">How They Describe Themselves</label>
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-1">How They Describe Themselves</label>
+                            <p className="text-xs text-[var(--text-soft)] mb-2"><em>Tip: Use the exact words and phrases your ideal client uses about themselves — then mirror that language in your marketing copy. If they say "I'm a hustler trying to get ahead," use that tone, not corporate-speak.</em></p>
                             <textarea
                                 value={formData.how_they_describe_themselves}
                                 onChange={(e) => setFormData({ ...formData, how_they_describe_themselves: e.target.value })}
                                 className="form-input"
                                 rows="3"
-                                placeholder="If they had to describe themselves in a few sentences, what would they say?"
+                                placeholder='e.g., "I'm a driven mom of two trying to build a business I love without giving up my family time. I wear too many hats and I need systems."'
                             />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">A Day in Their Life</label>
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-1">A Day in Their Life</label>
+                            <p className="text-xs text-[var(--text-soft)] mb-2"><em>Tip: Map out their morning to night — when do they encounter your problem? Where are they when they search for solutions? What emotions do they feel? This reveals the perfect moment and channel to reach them.</em></p>
                             <textarea
                                 value={formData.day_in_the_life}
                                 onChange={(e) => setFormData({ ...formData, day_in_the_life: e.target.value })}
                                 className="form-input"
                                 rows="4"
-                                placeholder="Walk through a typical day from their perspective..."
+                                placeholder='e.g., "6am: scrolls Instagram while kids sleep, sees competitors doing better and feels behind. 9am: juggles client calls + emails. 10pm: exhausted, Googles how to get more clients..."'
                             />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Their Aspirations</label>
+                            <label className="block text-sm font-medium text-[var(--text-main)] mb-1">Their Aspirations</label>
+                            <p className="text-xs text-[var(--text-soft)] mb-2"><em>Tip: Think beyond the surface goal. They don't just want "more money" — they want the <strong>feeling</strong> money brings: security, freedom, respect. Sell the feeling, not just the outcome.</em></p>
                             <textarea
                                 value={formData.aspirations}
                                 onChange={(e) => setFormData({ ...formData, aspirations: e.target.value })}
                                 className="form-input"
                                 rows="3"
-                                placeholder="Where do they see themselves in 1, 5, 10 years?"
+                                placeholder='e.g., "In 1 year: replace my 9-5 income. In 5 years: run a 6-figure business from anywhere. In 10 years: financial freedom and time to mentor others."'
                             />
                         </div>
                     </div>
