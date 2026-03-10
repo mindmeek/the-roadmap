@@ -494,11 +494,10 @@ export default function StrategyFormBusinessModelCanvas() {
                                 How do you reach your customers? Through what channels do they want to be reached?
                             </div>
                         </div>
-                        <textarea
-                            value={formData.channels}
-                            onChange={(e) => setFormData({...formData, channels: e.target.value})}
-                            placeholder="e.g., Direct sales, website, social media, retail stores, partners, own stores..."
-                            className="form-input h-32"
+                        <ListField
+                            values={formData.channels}
+                            onChange={(val) => setFormData({...formData, channels: val})}
+                            placeholder="e.g., Website, social media, direct sales..."
                         />
                     </div>
                 </div>
