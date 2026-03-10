@@ -1,22 +1,37 @@
 import React from 'react';
 import { Briefcase } from 'lucide-react';
 
+// Normalize to array regardless of how data was saved
+function toItems(val) {
+    if (Array.isArray(val)) return val.filter(Boolean);
+    if (typeof val === 'string' && val.trim()) return val.split('\n').filter(Boolean);
+    return [];
+}
+
 function Block({ title, content, color, highlight }) {
-    if (!content) return (
+    const items = toItems(content);
+    if (items.length === 0) return (
         <div className={`border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-lg p-4 h-full min-h-[100px] flex items-center justify-center`}>
             <p className="text-xs text-gray-300 dark:text-gray-600 italic">Not filled yet</p>
         </div>
     );
     return (
         <div className={`border-2 ${highlight ? 'border-[var(--primary-gold)]' : 'border-gray-200 dark:border-gray-700'} rounded-lg p-4 h-full`}>
-            <h4 className={`font-bold text-xs uppercase tracking-wide mb-2 ${highlight ? 'text-[var(--primary-gold)]' : color}`}>{title}</h4>
-            <p className="text-sm text-[var(--text-soft)] leading-relaxed whitespace-pre-line">{content}</p>
+            <h4 className={`font-bold text-sm uppercase tracking-wide mb-3 ${highlight ? 'text-[var(--primary-gold)]' : color}`}>{title}</h4>
+            <ul className="space-y-1">
+                {items.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-[var(--text-main)]">
+                        <span className={`mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${highlight ? 'bg-[var(--primary-gold)]' : 'bg-gray-400'}`} />
+                        {item}
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }
 
 export default function BusinessPlanOverview({ formData }) {
-    const hasData = Object.values(formData).some(v => v && v.trim());
+    const hasData = Object.values(formData).some(v => toItems(v).length > 0);
 
     if (!hasData) {
         return (
