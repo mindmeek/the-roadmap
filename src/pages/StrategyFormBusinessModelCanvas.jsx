@@ -526,11 +526,10 @@ export default function StrategyFormBusinessModelCanvas() {
                                 Who are you creating value for? Define your target customers and their characteristics.
                             </div>
                         </div>
-                        <textarea
-                            value={formData.customerSegments}
-                            onChange={(e) => setFormData({...formData, customerSegments: e.target.value})}
-                            placeholder="e.g., Mass market, niche market, segmented, diversified, multi-sided platforms..."
-                            className="form-input h-40"
+                        <ListField
+                            values={formData.customerSegments}
+                            onChange={(val) => setFormData({...formData, customerSegments: val})}
+                            placeholder="e.g., Small business owners, freelancers..."
                         />
                     </div>
 
