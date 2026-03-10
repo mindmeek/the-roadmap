@@ -145,7 +145,7 @@ export default function WeekPage() {
                         if (staticWeek) {
                             // Map static structure to component expectation
                             foundWeekData = {
-                                stage: staticDataRoot[stageKey].title,
+                                stage: staticDataRoot?.[stageKey]?.title || goalDataSource?.title || 'Your Journey',
                                 week_title: staticWeek.title,
                                 week_description: staticWeek.description,
                                 month_number: m + 1,
