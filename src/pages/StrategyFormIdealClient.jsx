@@ -750,8 +750,8 @@ export default function StrategyFormIdealClient() {
                         Get AI Help
                     </button>
                 </div>
-                </>}
             </div>
+            </>}
 
             <AITeamModal
                 isOpen={showAIAssistant}
