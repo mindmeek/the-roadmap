@@ -1217,6 +1217,17 @@ export default function Layout({ children, currentPageName }) {
                 window.location.reload();
             };
 
+    // ChipBot Live Chat
+    useEffect(() => {
+        if (document.getElementById('chipbot-script')) return;
+        const script = document.createElement('script');
+        script.id = 'chipbot-script';
+        script.async = true;
+        script.src = 'https://static.getchipbot.com/edge/p/chipbot.js';
+        window[['CHIPBOT','DOMAIN','ID'].join('_')] = 'dom_6n1vr-Vxrh00';
+        document.body.appendChild(script);
+    }, []);
+
     // Enhanced PWA Setup
     useEffect(() => {
         // Link to external manifest file for better performance
