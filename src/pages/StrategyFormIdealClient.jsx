@@ -255,6 +255,25 @@ export default function StrategyFormIdealClient() {
                     </div>
                 </div>
 
+                {/* Tabs */}
+                <div className="flex border-b border-gray-200 dark:border-gray-700 mb-6">
+                    <button
+                        onClick={() => setActiveTab('form')}
+                        className={`px-6 py-3 text-sm font-semibold transition-colors ${activeTab === 'form' ? 'border-b-2 border-[var(--primary-gold)] text-[var(--primary-gold)]' : 'text-[var(--text-soft)] hover:text-[var(--text-main)]'}`}
+                    >
+                        Edit Form
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('overview')}
+                        className={`px-6 py-3 text-sm font-semibold transition-colors ${activeTab === 'overview' ? 'border-b-2 border-[var(--primary-gold)] text-[var(--primary-gold)]' : 'text-[var(--text-soft)] hover:text-[var(--text-main)]'}`}
+                    >
+                        View Client Profile
+                    </button>
+                </div>
+
+                {activeTab === 'overview' && <IdealClientOverview formData={formData} />}
+
+                {activeTab === 'form' && <>
                 {/* Guide Section */}
                 <div className="card p-6 mb-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-700">
                     <div className="flex items-start gap-3">
