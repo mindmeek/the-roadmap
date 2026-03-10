@@ -77,15 +77,6 @@ export default function MyFoundationRoadmap() {
                     type: 'interactive'
                 },
                 {
-                    id: 'customer_journey',
-                    icon: Map,
-                    title: 'Customer Journey',
-                    description: 'Map every touchpoint from awareness to advocacy',
-                    color: '#F97316',
-                    link: 'StrategyFormCustomerJourney',
-                    type: 'interactive'
-                },
-                {
                     id: 'value_ladder',
                     icon: TrendingUp,
                     title: 'Value Ladder',
