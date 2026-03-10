@@ -122,6 +122,15 @@ export default function MyFoundationRoadmap() {
             description: 'Launch and build your business foundation',
             sections: [
                 {
+                    id: 'customer_journey',
+                    icon: Map,
+                    title: 'Customer Journey',
+                    description: 'Map every touchpoint from awareness to advocacy',
+                    color: '#F97316',
+                    link: 'StrategyFormCustomerJourney',
+                    type: 'interactive'
+                },
+                {
                     id: 'content_strategy',
                     icon: FileText,
                     title: 'Content Strategy',

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User, StrategyDocument } from '@/entities/all';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +5,7 @@ import { createPageUrl } from '@/utils';
 import { Save, ArrowLeft, CheckCircle, Lightbulb, HelpCircle, Sparkles, Users, Activity, Star, Heart, Target, Box, Send, DollarSign, TrendingUp } from 'lucide-react';
 import StrategyToolGuide from '../components/strategy/StrategyToolGuide';
 import AITeamModal from '@/components/ai/AITeamModal';
+import BusinessPlanOverview from '@/components/strategy/BusinessPlanOverview';
 
 export default function StrategyFormBusinessModelCanvas() {
     const navigate = useNavigate();

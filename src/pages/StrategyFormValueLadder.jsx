@@ -7,6 +7,7 @@ import {
     DollarSign, Users, Target, Sparkles, HelpCircle, Plus, Trash2
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
+import ValueLadderOverview from '@/components/strategy/ValueLadderOverview';
 
 export default function StrategyFormValueLadder() {
     const [user, setUser] = useState(null);

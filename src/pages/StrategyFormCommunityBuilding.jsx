@@ -7,6 +7,7 @@ import {
     Sparkles, HelpCircle, MessageCircle, Heart, Target
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
+import CommunityBuildingOverview from '@/components/strategy/CommunityBuildingOverview';
 
 export default function StrategyFormCommunityBuilding() {
     const [user, setUser] = useState(null);
