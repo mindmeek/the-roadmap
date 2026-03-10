@@ -15,6 +15,7 @@ export default function StrategyFormMissionVision() {
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
+    const [viewMode, setViewMode] = useState('edit');
 
     const [formData, setFormData] = useState({
         mission_statement: '',

@@ -72,7 +72,8 @@ export default function ValuePropositionCanvasPage() { // Renamed from StrategyF
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
-    const [showAIAssistant, setShowAIAssistant] = useState(false); // Added state
+    const [showAIAssistant, setShowAIAssistant] = useState(false);
+    const [viewMode, setViewMode] = useState('edit'); // 'edit' | 'overview'
 
     useEffect(() => {
         loadData();

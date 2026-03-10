@@ -60,8 +60,9 @@ export default function StrategyFormSWOTAnalysis() {
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
-    const [showAIAssistant, setShowAIAssistant] = useState(false); // New state
-    const [aiContext, setAiContext] = useState({}); // New state
+    const [showAIAssistant, setShowAIAssistant] = useState(false);
+    const [aiContext, setAiContext] = useState({});
+    const [viewMode, setViewMode] = useState('edit');
 
     useEffect(() => {
         loadData();

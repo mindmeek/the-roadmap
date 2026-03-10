@@ -12,6 +12,7 @@ export default function StrategyFormDefineYourWhy() {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [showAIModal, setShowAIModal] = useState(false);
+    const [viewMode, setViewMode] = useState('edit');
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         personal_story: '',
