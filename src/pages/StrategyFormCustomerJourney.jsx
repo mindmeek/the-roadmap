@@ -1320,7 +1320,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                             <div>
                                 <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Price Sensitivity</label>
                                 <select
-                                    value={formData.persona.price_sensitivity || ''}
+                                    value={formData.ideal_client.price_sensitivity || ''}
                                     onChange={(e) => handleSelectChange('price_sensitivity', e.target.value)}
                                     className="form-input"
                                 >
