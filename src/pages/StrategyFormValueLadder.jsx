@@ -15,6 +15,7 @@ export default function StrategyFormValueLadder() {
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
+    const [activeTab, setActiveTab] = useState('form');
 
     const [formData, setFormData] = useState({
         ladder_levels: [

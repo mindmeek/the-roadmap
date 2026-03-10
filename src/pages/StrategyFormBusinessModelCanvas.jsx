@@ -29,6 +29,7 @@ export default function StrategyFormBusinessModelCanvas() {
 
     const [showAIAssistant, setShowAIAssistant] = useState(false);
     const [aiContext, setAiContext] = useState({});
+    const [activeTab, setActiveTab] = useState('form');
 
     useEffect(() => {
         loadData();
