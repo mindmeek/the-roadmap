@@ -1166,6 +1166,9 @@ export default function Layout({ children, currentPageName }) {
                 if (userData && userData.onboarding_completed && !userData.welcome_popup_seen) {
                     setTimeout(() => setShowWelcomePopup(true), 500);
                 }
+                if (userData && userData.onboarding_completed && !userData.welcome_video_seen) {
+                    setTimeout(() => setShowWelcomeVideo(true), 1500);
+                }
             } catch (e) {
                 // Not logged in
             }
