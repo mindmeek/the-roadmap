@@ -1208,7 +1208,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                             Values, Interests, Lifestyle & Personality Traits
                         </label>
                         <MultiValueInput
-                            values={formData.persona.psychographics}
+                            values={formData.ideal_client.psychographics}
                             onChange={(values) => handleArrayChange('psychographics', values)}
                             suggestions={PSYCHOGRAPHICS_SUGGESTIONS}
                             placeholder="Add psychographic traits (e.g., Innovation, Creative, Fast-paced)"
