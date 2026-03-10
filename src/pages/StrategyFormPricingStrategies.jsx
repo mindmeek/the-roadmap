@@ -191,6 +191,7 @@ export default function StrategyFormPricingStrategies() {
     const [pricingChallenges, setPricingChallenges] = useState('');
     const [targetCustomerWillingness, setTargetCustomerWillingness] = useState('');
     const [showAIAssistant, setShowAIAssistant] = useState(false);
+    const [viewMode, setViewMode] = useState('edit');
     const [freedomProducts, setFreedomProducts] = useState([]);
 
     useEffect(() => {
