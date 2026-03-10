@@ -458,8 +458,10 @@ export default function StrategyFormStrategicPartnerships() {
                 <AITeamModal
                     isOpen={showAIAssistant}
                     onClose={() => setShowAIAssistant(false)}
-                    assistantType="ava"
+                    assistantType="strategy_form_agent"
                     sectionTitle="Strategic Partnerships"
+                    additionalContext={`Document Type: strategic_partnerships\nCurrent Stage: ${user?.entrepreneurship_stage || 'unknown'}\nForm Fields: ${Object.keys(formData).join(', ')}`}
+                    currentBusinessId={user?.current_business_id}
                 />
             </>)}
             </div>

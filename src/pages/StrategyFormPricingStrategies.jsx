@@ -647,8 +647,10 @@ export default function StrategyFormPricingStrategies() {
             <AITeamModal
                 isOpen={showAIAssistant}
                 onClose={() => setShowAIAssistant(false)}
-                assistantType="finley"
+                assistantType="strategy_form_agent"
                 sectionTitle="Pricing Strategies"
+                additionalContext={`Document Type: pricing_strategies\nCurrent Stage: ${user?.entrepreneurship_stage || 'unknown'}\nForm Fields: ${Object.keys(formData).join(', ')}`}
+                currentBusinessId={user?.current_business_id}
                 userNotes={aiNotes}
             />
         </>)}
