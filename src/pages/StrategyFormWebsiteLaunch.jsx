@@ -463,7 +463,6 @@ export default function StrategyFormWebsiteLaunch() {
                         Get AI Help
                     </button>
                 </div>
-            </div>
 
             <AITeamModal
                 isOpen={showAIAssistant}

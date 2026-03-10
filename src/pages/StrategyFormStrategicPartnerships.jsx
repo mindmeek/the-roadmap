@@ -454,7 +454,6 @@ export default function StrategyFormStrategicPartnerships() {
                         Get AI Help
                     </button>
                 </div>
-            </div>
 
             <AITeamModal
                 isOpen={showAIAssistant}
