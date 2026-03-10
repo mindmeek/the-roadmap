@@ -49,6 +49,13 @@ const AI_TEAM_INFO = {
         avatar: "⚙️",
         color: "from-orange-500 to-amber-600",
         description: "Business operations and systems optimization"
+    },
+    strategy_form_agent: {
+        name: "Strategy Form Assistant",
+        role: "Form Guide & Strategist",
+        avatar: "📋",
+        color: "from-emerald-500 to-teal-600",
+        description: "Guides you through strategy forms step-by-step and auto-fills when possible"
     }
 };
 
