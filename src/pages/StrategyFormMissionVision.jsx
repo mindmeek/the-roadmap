@@ -394,16 +394,15 @@ export default function StrategyFormMissionVision() {
                         Get AI Help
                     </button>
                 </div>
-            </div>
 
-            <AITeamModal
-                isOpen={showAIAssistant}
-                onClose={() => setShowAIAssistant(false)}
-                assistantType="olivia"
-                sectionTitle="Mission & Vision Statements"
-            />
+                <AITeamModal
+                    isOpen={showAIAssistant}
+                    onClose={() => setShowAIAssistant(false)}
+                    assistantType="olivia"
+                    sectionTitle="Mission & Vision Statements"
+                />
             </>)}
-            </div>
         </div>
+    </div>
     );
 }
