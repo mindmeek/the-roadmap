@@ -565,6 +565,12 @@ export default function DashboardPage() {
                     </div>
                 )}
 
+                {/* Member Action Checklist */}
+                <MemberActionChecklist />
+
+                {/* Streak Counter */}
+                <StreakCounter streak={currentStreak} daysTracked={daysTracked} />
+
                 {/* Community + SOP + Upgrade CTAs */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                     {/* Community CTA */}
