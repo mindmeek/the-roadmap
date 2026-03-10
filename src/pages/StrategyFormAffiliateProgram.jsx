@@ -417,8 +417,10 @@ export default function StrategyFormAffiliateProgram() {
                 <AITeamModal
                     isOpen={showAIAssistant}
                     onClose={() => setShowAIAssistant(false)}
-                    assistantType="ava"
+                    assistantType="strategy_form_agent"
                     sectionTitle="Affiliate Program Strategy"
+                    additionalContext={`Document Type: affiliate_program\nCurrent Stage: ${user?.entrepreneurship_stage || 'unknown'}\nForm Fields: ${Object.keys(formData).join(', ')}`}
+                    currentBusinessId={user?.current_business_id}
                 />
             </>)}
             </div>

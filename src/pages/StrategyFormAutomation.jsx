@@ -396,8 +396,10 @@ export default function StrategyFormAutomation() {
                 <AITeamModal
                     isOpen={showAIAssistant}
                     onClose={() => setShowAIAssistant(false)}
-                    assistantType="olivia"
+                    assistantType="strategy_form_agent"
                     sectionTitle="Business Automation & Systematization"
+                    additionalContext={`Document Type: automation\nCurrent Stage: ${user?.entrepreneurship_stage || 'unknown'}\nForm Fields: ${Object.keys(formData).join(', ')}`}
+                    currentBusinessId={user?.current_business_id}
                 />
             </>)}
             </div>
