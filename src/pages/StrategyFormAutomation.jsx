@@ -7,6 +7,7 @@ import {
     Sparkles, HelpCircle, Settings, Target, FileText, Users
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
+import AutomationOverview from '@/components/strategy/AutomationOverview';
 
 export default function StrategyFormAutomation() {
     const [user, setUser] = useState(null);
@@ -14,6 +15,7 @@ export default function StrategyFormAutomation() {
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
+    const [viewMode, setViewMode] = useState('edit');
 
     const [formData, setFormData] = useState({
         automation_goals: '',

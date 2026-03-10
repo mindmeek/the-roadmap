@@ -7,6 +7,7 @@ import {
     Sparkles, HelpCircle, Layout, Image, FileText, Users, Target
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
+import WebsiteLaunchOverview from '@/components/strategy/WebsiteLaunchOverview';
 
 export default function StrategyFormWebsiteLaunch() {
     const [user, setUser] = useState(null);
@@ -14,6 +15,7 @@ export default function StrategyFormWebsiteLaunch() {
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
+    const [viewMode, setViewMode] = useState('edit');
 
     const [formData, setFormData] = useState({
         domain_name: '',

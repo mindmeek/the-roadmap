@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User, StrategyDocument } from '@/entities/all';
 import { Link } from 'react-router-dom';
@@ -8,6 +7,7 @@ import {
     Sparkles, HelpCircle, DollarSign, Users, Target, Gift
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
+import AffiliateProgramOverview from '@/components/strategy/AffiliateProgramOverview';
 
 export default function StrategyFormAffiliateProgram() {
     const [user, setUser] = useState(null);
@@ -15,6 +15,7 @@ export default function StrategyFormAffiliateProgram() {
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
+    const [viewMode, setViewMode] = useState('edit');
 
     const [formData, setFormData] = useState({
         program_goals: '',
