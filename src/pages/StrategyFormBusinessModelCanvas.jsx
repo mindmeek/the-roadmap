@@ -2,10 +2,58 @@ import React, { useState, useEffect } from 'react';
 import { User, StrategyDocument } from '@/entities/all';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Save, ArrowLeft, CheckCircle, Lightbulb, HelpCircle, Sparkles, Users, Activity, Star, Heart, Target, Box, Send, DollarSign, TrendingUp } from 'lucide-react';
+import { Save, ArrowLeft, CheckCircle, Lightbulb, HelpCircle, Sparkles, Users, Activity, Star, Heart, Target, Box, Send, DollarSign, TrendingUp, Plus, Trash2 } from 'lucide-react';
 import StrategyToolGuide from '../components/strategy/StrategyToolGuide';
 import AITeamModal from '@/components/ai/AITeamModal';
 import BusinessPlanOverview from '@/components/strategy/BusinessPlanOverview';
+
+// Helper: normalize a field value to array (handles old string data)
+function toArray(val) {
+    if (Array.isArray(val)) return val.length > 0 ? val : [''];
+    if (typeof val === 'string' && val.trim()) return val.split('\n').filter(Boolean);
+    return [''];
+}
+
+// Reusable list field component
+function ListField({ values, onChange, placeholder }) {
+    const update = (idx, val) => {
+        const next = [...values];
+        next[idx] = val;
+        onChange(next);
+    };
+    const add = () => onChange([...values, '']);
+    const remove = (idx) => {
+        const next = values.filter((_, i) => i !== idx);
+        onChange(next.length > 0 ? next : ['']);
+    };
+    return (
+        <div className="space-y-2">
+            {values.map((val, idx) => (
+                <div key={idx} className="flex items-center gap-2">
+                    <input
+                        type="text"
+                        value={val}
+                        onChange={(e) => update(idx, e.target.value)}
+                        placeholder={placeholder}
+                        className="form-input flex-1"
+                    />
+                    {values.length > 1 && (
+                        <button onClick={() => remove(idx)} className="text-red-400 hover:text-red-600 p-1 flex-shrink-0">
+                            <Trash2 className="w-4 h-4" />
+                        </button>
+                    )}
+                </div>
+            ))}
+            <button
+                onClick={add}
+                className="flex items-center gap-1 text-sm text-[var(--primary-gold)] hover:opacity-80 transition-opacity mt-1"
+            >
+                <Plus className="w-4 h-4" />
+                Add another
+            </button>
+        </div>
+    );
+}
 
 export default function StrategyFormBusinessModelCanvas() {
     const navigate = useNavigate();
