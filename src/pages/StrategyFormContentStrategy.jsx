@@ -442,8 +442,10 @@ export default function StrategyFormContentStrategy() {
             <AITeamModal
                 isOpen={showAIAssistant}
                 onClose={() => setShowAIAssistant(false)}
-                assistantType="charlie"
+                assistantType="strategy_form_agent"
                 sectionTitle="Content Strategy & Planning"
+                additionalContext={`Document Type: content_strategy\nCurrent Stage: ${user?.entrepreneurship_stage || 'unknown'}\nForm Fields: ${Object.keys(formData).join(', ')}`}
+                currentBusinessId={user?.current_business_id}
             />
         </>)}
         </div>

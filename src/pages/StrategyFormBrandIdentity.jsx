@@ -464,8 +464,10 @@ export default function StrategyFormBrandIdentity() {
             <AITeamModal
                 isOpen={showAIAssistant}
                 onClose={() => setShowAIAssistant(false)}
-                assistantType="sam"
+                assistantType="strategy_form_agent"
                 sectionTitle="Brand Identity & Messaging"
+                additionalContext={`Document Type: brand_identity\nCurrent Stage: ${user?.entrepreneurship_stage || 'unknown'}\nForm Fields: ${Object.keys(formData).join(', ')}`}
+                currentBusinessId={user?.current_business_id}
             />
         </>)}
         </div>
