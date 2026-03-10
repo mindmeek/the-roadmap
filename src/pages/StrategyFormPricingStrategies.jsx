@@ -6,6 +6,7 @@ import { DollarSign, Save, Loader2, CheckCircle, TrendingUp, Target, Users, Zap,
 import { Link } from 'react-router-dom';
 import Tooltip from '../components/common/Tooltip';
 import AITeamModal from '@/components/ai/AITeamModal';
+import PricingStrategiesOverview from '@/components/strategy/PricingStrategiesOverview';
 
 const pricingStrategies = [
     {
