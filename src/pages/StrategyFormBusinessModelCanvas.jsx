@@ -584,11 +584,10 @@ export default function StrategyFormBusinessModelCanvas() {
                         What are the most important costs in your business model? Which key resources and activities are most expensive?
                     </div>
                 </div>
-                <textarea
-                    value={formData.costStructure}
-                    onChange={(e) => setFormData({...formData, costStructure: e.target.value})}
-                    placeholder="e.g., Fixed costs, variable costs, economies of scale, economies of scope... List your major cost drivers."
-                    className="form-input h-24"
+                <ListField
+                    values={formData.costStructure}
+                    onChange={(val) => setFormData({...formData, costStructure: val})}
+                    placeholder="e.g., Salaries, hosting, marketing, office rent..."
                 />
             </div>
 
