@@ -1334,7 +1334,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                             <div>
                                 <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Preferred Contact Method</label>
                                 <select
-                                    value={formData.persona.preferred_contact || ''}
+                                    value={formData.ideal_client.preferred_contact || ''}
                                     onChange={(e) => handleSelectChange('preferred_contact', e.target.value)}
                                     className="form-input"
                                 >
