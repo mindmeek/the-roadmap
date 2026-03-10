@@ -421,6 +421,8 @@ export default function StrategyFormAffiliateProgram() {
                 assistantType="ava"
                 sectionTitle="Affiliate Program Strategy"
             />
+        </>)}
         </div>
+    </div>
     );
 }

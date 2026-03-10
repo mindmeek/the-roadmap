@@ -462,6 +462,8 @@ export default function StrategyFormStrategicPartnerships() {
                 assistantType="ava"
                 sectionTitle="Strategic Partnerships"
             />
+        </>)}
         </div>
+    </div>
     );
 }

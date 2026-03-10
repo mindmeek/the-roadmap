@@ -471,6 +471,8 @@ export default function StrategyFormWebsiteLaunch() {
                 assistantType="sam"
                 sectionTitle="Website Launch Plan"
             />
+        </>)}
         </div>
+    </div>
     );
 }

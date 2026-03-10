@@ -400,6 +400,8 @@ export default function StrategyFormAutomation() {
                 assistantType="olivia"
                 sectionTitle="Business Automation & Systematization"
             />
+        </>)}
         </div>
+    </div>
     );
 }
