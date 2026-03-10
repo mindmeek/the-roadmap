@@ -496,7 +496,7 @@ export default function ValuePropositionCanvasPage() { // Renamed from StrategyF
                 sectionTitle="Value Proposition Canvas"
                 userNotes={userNotesForAI}
             />
-            </>)}
+        </>)}
         </div>
     );
 }
