@@ -1271,7 +1271,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                             What principles guide their decisions?
                         </label>
                         <MultiValueInput
-                            values={formData.persona.core_values}
+                            values={formData.ideal_client.core_values}
                             onChange={(values) => handleArrayChange('core_values', values)}
                             suggestions={VALUES_SUGGESTIONS}
                             placeholder="Add core values (e.g., Integrity, Innovation, Family)"
