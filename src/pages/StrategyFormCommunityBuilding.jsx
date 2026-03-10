@@ -121,6 +121,25 @@ export default function StrategyFormCommunityBuilding() {
                     </div>
                 </div>
 
+                {/* Tabs */}
+                <div className="flex border-b border-gray-200 dark:border-gray-700 mb-6">
+                    <button
+                        onClick={() => setActiveTab('form')}
+                        className={`px-6 py-3 text-sm font-semibold transition-colors ${activeTab === 'form' ? 'border-b-2 border-[var(--primary-gold)] text-[var(--primary-gold)]' : 'text-[var(--text-soft)] hover:text-[var(--text-main)]'}`}
+                    >
+                        Edit Form
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('overview')}
+                        className={`px-6 py-3 text-sm font-semibold transition-colors ${activeTab === 'overview' ? 'border-b-2 border-[var(--primary-gold)] text-[var(--primary-gold)]' : 'text-[var(--text-soft)] hover:text-[var(--text-main)]'}`}
+                    >
+                        View Community Plan
+                    </button>
+                </div>
+
+                {activeTab === 'overview' && <CommunityBuildingOverview formData={formData} />}
+
+                {activeTab === 'form' && <>
                 {/* Guide Section */}
                 <div className="card p-6 mb-6 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-2 border-purple-200 dark:border-purple-700">
                     <div className="flex items-start gap-3">
@@ -374,6 +393,9 @@ export default function StrategyFormCommunityBuilding() {
                         Get AI Help
                     </button>
                 </div>
+            </div>
+
+                </>}
             </div>
 
             <AITeamModal
