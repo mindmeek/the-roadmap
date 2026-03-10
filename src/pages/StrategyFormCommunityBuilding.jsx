@@ -393,10 +393,7 @@ export default function StrategyFormCommunityBuilding() {
                         Get AI Help
                     </button>
                 </div>
-            </div>
-
                 </>}
-            </div>
 
             <AITeamModal
                 isOpen={showAIAssistant}
