@@ -1292,7 +1292,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                             <div>
                                 <label className="block text-sm font-medium text-[var(--text-main)] mb-2">Research Method</label>
                                 <select
-                                    value={formData.persona.research_method || ''}
+                                    value={formData.ideal_client.research_method || ''}
                                     onChange={(e) => handleSelectChange('research_method', e.target.value)}
                                     className="form-input"
                                 >
