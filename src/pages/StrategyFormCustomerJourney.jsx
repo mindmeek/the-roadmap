@@ -1250,7 +1250,7 @@ const StageContent = React.memo(({ stage, openAIHelp, formData, handleInputChang
                             What are they trying to achieve?
                         </label>
                         <MultiValueInput
-                            values={formData.persona.goals}
+                            values={formData.ideal_client.goals}
                             onChange={(values) => handleArrayChange('goals', values)}
                             suggestions={GOALS_SUGGESTIONS}
                             placeholder="Add goals (e.g., Start a business, Achieve financial freedom)"
