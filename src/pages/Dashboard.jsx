@@ -139,22 +139,48 @@ export default function DashboardPage() {
         try {
             const currentUser = await User.me();
             
+            // Build personalized message using step4 onboarding answers
+            const focusLabels = {
+                clarify_idea: 'clarify your business idea and validate it',
+                define_brand: 'define your brand identity and positioning',
+                understand_customer: 'deeply understand your ideal customer',
+                create_plan: 'create a clear business plan and strategy',
+                find_why: 'clarify your mission, vision and purpose',
+                first_customers: 'get your first paying customers',
+                launch_offer: 'launch your product or service offer',
+                build_audience: 'build an engaged audience',
+                marketing_system: 'set up a consistent marketing system',
+                online_presence: 'establish your online presence',
+                scale_revenue: 'scale your revenue to the next level',
+                automate: 'automate and systematize your operations',
+                build_team: 'build and manage a high-performing team',
+                marketing_engine: 'build a marketing engine that runs without you',
+                partnerships: 'form strategic partnerships to grow faster',
+            };
+            const focus = currentUser.step4_focus ? focusLabels[currentUser.step4_focus] : null;
+
             const suggestions = {
                 vision: {
                     assistant: 'elyzet',
-                    message: "Ready to clarify your business idea and create a strategic foundation? Elyzet can help you craft a compelling mission statement and validate your concept.",
+                    message: focus
+                        ? `You said your top priority is to ${focus}. Elyzet can help you build the strategic foundation to do exactly that — step by step, with no guesswork.`
+                        : "Ready to clarify your business idea and create a strategic foundation? Elyzet can help you craft a compelling mission statement and validate your concept.",
                     cta: "Talk to Elyzet",
                     stageDescription: "Clarify your business idea and create a strategic foundation"
                 },
                 startup: {
                     assistant: 'ava',
-                    message: "Ready to launch your MVP and craft a unique customer journey? Ava can guide you through acquiring your first customers with proven marketing strategies.",
+                    message: focus
+                        ? `You said your top priority is to ${focus}. Ava specializes in exactly this — she'll help you build a marketing system that gets real results for your stage.`
+                        : "Ready to launch your MVP and craft a unique customer journey? Ava can guide you through acquiring your first customers with proven marketing strategies.",
                     cta: "Talk to Ava",
                     stageDescription: "Launch your MVP and craft a unique customer journey to acquire your first customers"
                 },
                 growth: {
                     assistant: 'finley',
-                    message: "Ready to build systems and automate to scale? Finley can help you optimize operations and grow your proven business model.",
+                    message: focus
+                        ? `You said your top priority is to ${focus}. Finley can help you build the financial systems and growth levers to make that happen at scale.`
+                        : "Ready to build systems and automate to scale? Finley can help you optimize operations and grow your proven business model.",
                     cta: "Talk to Finley",
                     stageDescription: "Build systems, optimize your current ones and customer journey, and automate to scale your proven business model"
                 }
