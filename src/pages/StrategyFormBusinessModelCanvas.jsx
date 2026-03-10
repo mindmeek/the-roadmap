@@ -62,17 +62,17 @@ export default function StrategyFormBusinessModelCanvas() {
     const [isSaving, setIsSaving] = useState(false);
     const [saveMessage, setSaveMessage] = useState('');
 
-    // Form state
+    // Form state - each field is an array of strings
     const [formData, setFormData] = useState({
-        keyPartners: '',
-        keyActivities: '',
-        keyResources: '',
-        valuePropositions: '',
-        customerRelationships: '',
-        channels: '',
-        customerSegments: '',
-        costStructure: '',
-        revenueStreams: ''
+        keyPartners: [''],
+        keyActivities: [''],
+        keyResources: [''],
+        valuePropositions: [''],
+        customerRelationships: [''],
+        channels: [''],
+        customerSegments: [''],
+        costStructure: [''],
+        revenueStreams: ['']
     });
 
     const [showAIAssistant, setShowAIAssistant] = useState(false);
