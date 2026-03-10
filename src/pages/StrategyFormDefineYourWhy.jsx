@@ -5,6 +5,7 @@ import { base44 } from '@/api/base44Client';
 import { User, StrategyDocument } from '@/entities/all';
 import { Sparkles, Heart, Save, Loader2, ArrowLeft } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
+import DefineYourWhyOverview from '@/components/strategy/DefineYourWhyOverview';
 
 export default function StrategyFormDefineYourWhy() {
     const [user, setUser] = useState(null);

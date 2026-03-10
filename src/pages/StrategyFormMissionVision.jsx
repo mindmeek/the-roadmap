@@ -7,6 +7,7 @@ import {
     Sparkles, HelpCircle, Target, Eye, Users
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
+import MissionVisionOverview from '@/components/strategy/MissionVisionOverview';
 
 export default function StrategyFormMissionVision() {
     const [user, setUser] = useState(null);

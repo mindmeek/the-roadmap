@@ -1,10 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
 import { User, StrategyDocument } from '@/entities/all';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { ArrowLeft, Save, Target, Loader2, CheckCircle, Lightbulb, Plus, Minus, Sparkles } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
+import ValuePropositionOverview from '@/components/strategy/ValuePropositionOverview';
 
 const canvasSides = [
     {

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User, StrategyDocument } from '@/entities/all';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +7,8 @@ import {
     Sparkles, AlertTriangle, Zap, Shield 
 } from 'lucide-react';
 import { handleGamification } from '@/functions/handleGamification';
-import AITeamModal from '@/components/ai/AITeamModal'; // New import
+import AITeamModal from '@/components/ai/AITeamModal';
+import SWOTAnalysisOverview from '@/components/strategy/SWOTAnalysisOverview';
 
 const swotQuadrants = [
     {
