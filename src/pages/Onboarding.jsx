@@ -786,7 +786,7 @@ export default function OnboardingPage() {
             case 1: return formData.first_name && formData.last_name && formData.business_name && formData.company_size && formData.legal_structure;
             case 2: return formData.business_type !== '';
             case 3: return formData.entrepreneurship_stage !== '';
-            case 4: return formData.entrepreneurship_stage !== '';
+            case 4: return formData.step4_focus !== '' && formData.step4_challenge !== '';
             case 5: return formData.selected_goal !== '';
             case 6: return true;
             default: return false;
