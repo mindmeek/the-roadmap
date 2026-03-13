@@ -33,7 +33,7 @@ export default function AdminAccountManagers() {
         try {
             const [data, user] = await Promise.all([
                 AccountManagerAssignment.list('-created_date'),
-                User.me()
+                base44.auth.me()
             ]);
             setAssignments(data);
             setAdminUser(user);
