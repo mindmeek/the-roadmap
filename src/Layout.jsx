@@ -1076,7 +1076,8 @@ const MobileMenu = React.memo(({ onClose, user, setIsListenDropdownOpen, onDelet
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             onClick={onClose}
-                                            className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-white bg-gradient-to-r from-green-600 to-emerald-500 w-full"
+                                            className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-white w-full"
+                                            style={{ backgroundColor: '#800000' }}
                                         >
                                             <Sparkles className="mr-3 h-4 w-4 text-white" />
                                             Free 14-Day HQ Trial
