@@ -73,6 +73,7 @@ const myAccountItems = [
 const adminNavItems = [
     { href: "Admin", icon: ShieldCheck, label: "Admin Dashboard", mobileLabel: "Admin" },
     { href: "UserManagement", icon: Users, label: "User Management", mobileLabel: "Users" },
+    { href: "AdminAccountManagers", icon: UserCheck, label: "Account Managers", mobileLabel: "Acct Mgrs" },
     { href: "AdminTestSystems", icon: Zap, label: "System Tests", mobileLabel: "Tests" }
 ];
 
