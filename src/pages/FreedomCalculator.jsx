@@ -659,6 +659,38 @@ export default function MyFinancialGoal() {
           </div>
         </div>
 
+        {/* Affiliate Breakdown */}
+        {affiliatePrograms.length > 0 && (
+          <div className="mb-4 sm:mb-6 bg-purple-50 dark:bg-purple-900/10 border border-purple-200 dark:border-purple-800 rounded-lg p-3 sm:p-4">
+            <h4 className="font-semibold text-[var(--text-main)] mb-3 text-sm sm:text-base flex items-center gap-2">
+              <Users className="w-4 h-4 text-purple-600" /> Affiliate Program Impact
+            </h4>
+            <div className="space-y-2">
+              {affiliatePrograms.map((program, index) => {
+                const num = parseFloat(program.numAffiliates) || 0;
+                const amount = parseFloat(program.paymentAmount) || 0;
+                if (!amount) return null;
+                const label = program.name || `Program ${index + 1}`;
+                if (program.paymentType === 'flat_fee') {
+                  return (
+                    <div key={program.id} className="flex justify-between text-xs sm:text-sm">
+                      <span className="text-[var(--text-soft)]">{label} ({num} affiliates × ${amount}/mo)</span>
+                      <span className="font-semibold text-red-600">+${(num * amount).toLocaleString()}/mo</span>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div key={program.id} className="flex justify-between text-xs sm:text-sm">
+                      <span className="text-[var(--text-soft)]">{label} ({amount}% of revenue)</span>
+                      <span className="font-semibold text-purple-600">Revenue adjusted upward</span>
+                    </div>
+                  );
+                }
+              })}
+            </div>
+          </div>
+        )}
+
         {/* Combined Product Mix */}
         {results.combinedCalculation && results.combinedCalculation.length > 0 && (
           <div className="mb-4 sm:mb-6">
