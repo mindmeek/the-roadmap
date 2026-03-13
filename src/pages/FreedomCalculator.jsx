@@ -573,6 +573,34 @@ export default function MyFinancialGoal() {
                         />
                       </div>
                     </div>
+
+                    {/* Affiliate Settings */}
+                    <div className="pt-3 border-t border-gray-200 dark:border-gray-600">
+                      <label className="flex items-center gap-2 cursor-pointer mb-2">
+                        <input
+                          type="checkbox"
+                          checked={product.affiliateVisible || false}
+                          onChange={(e) => updateProduct(product.id, 'affiliateVisible', e.target.checked)}
+                          className="w-4 h-4 accent-[var(--primary-gold)]"
+                        />
+                        <span className="text-xs sm:text-sm font-medium text-[var(--text-main)]">Affiliates can promote this product</span>
+                      </label>
+                      {product.affiliateVisible && (
+                        <div>
+                          <label className="block text-xs sm:text-sm font-medium text-[var(--text-soft)] mb-1">Affiliate Commission (%)</label>
+                          <input
+                            type="number"
+                            step="0.1"
+                            min="0"
+                            max="100"
+                            placeholder="e.g. 20"
+                            value={product.affiliateCommission || ''}
+                            onChange={(e) => updateProduct(product.id, 'affiliateCommission', e.target.value)}
+                            className="form-input w-full text-sm sm:text-base"
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
