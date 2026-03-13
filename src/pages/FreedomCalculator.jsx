@@ -13,6 +13,28 @@ export default function MyFinancialGoal() {
   const [businessExpenses, setBusinessExpenses] = useState('');
   const [emergencyBuffer, setEmergencyBuffer] = useState('20');
   
+  const [affiliatePrograms, setAffiliatePrograms] = useState([]);
+
+  const addAffiliateProgram = () => {
+    setAffiliatePrograms([...affiliatePrograms, {
+      id: crypto.randomUUID(),
+      name: '',
+      numAffiliates: '',
+      paymentType: 'percentage',
+      paymentAmount: ''
+    }]);
+  };
+
+  const removeAffiliateProgram = (id) => {
+    setAffiliatePrograms(affiliatePrograms.filter(a => a.id !== id));
+  };
+
+  const updateAffiliateProgram = (id, field, value) => {
+    setAffiliatePrograms(affiliatePrograms.map(a =>
+      a.id === id ? { ...a, [field]: value } : a
+    ));
+  };
+
   const [products, setProducts] = useState([
     { 
       id: crypto.randomUUID(), 
