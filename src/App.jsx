@@ -11,6 +11,7 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import AccountManager from '@/pages/AccountManager';
 import AdminAccountManagers from '@/pages/AdminAccountManagers';
+import MyBusinesses from '@/pages/MyBusinesses';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
