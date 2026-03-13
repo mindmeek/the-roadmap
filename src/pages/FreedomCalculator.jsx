@@ -415,7 +415,7 @@ export default function MyFinancialGoal() {
               <div className="flex items-center gap-3">
                 <Users className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--primary-gold)]" />
                 <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)]">Affiliate Programs</h3>
-                <Tooltip content="Add any affiliate programs you run. Flat fee commissions are added to your costs, while percentage-based commissions adjust your required revenue upward so you still hit your goal after payouts.">
+                <Tooltip content="Define your affiliate programs here. Set which products affiliates can promote and their commission % on each product. Your Freedom Number will automatically adjust to cover affiliate payouts.">
                   <HelpCircle className="w-4 h-4 text-gray-400 hover:text-gray-600" />
                 </Tooltip>
               </div>
