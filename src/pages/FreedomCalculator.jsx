@@ -107,7 +107,23 @@ export default function MyFinancialGoal() {
     const bufferNum = parseFloat(emergencyBuffer) || 0;
     
     const totalMonthlyNeeds = expensesNum + salaryNum + businessExpensesNum;
-    const freedomNumber = totalMonthlyNeeds * (1 + bufferNum / 100);
+    const baseTarget = totalMonthlyNeeds * (1 + bufferNum / 100);
+
+    // Calculate total affiliate flat fee costs
+    const totalFlatFeeAffiliateCost = affiliatePrograms
+      .filter(a => a.paymentType === 'flat_fee' && parseFloat(a.numAffiliates) > 0 && parseFloat(a.paymentAmount) > 0)
+      .reduce((sum, a) => sum + parseFloat(a.numAffiliates) * parseFloat(a.paymentAmount), 0);
+
+    // Calculate combined affiliate percentage (e.g. two programs at 10% each = 20% total)
+    const totalAffiliatePercentage = affiliatePrograms
+      .filter(a => a.paymentType === 'percentage' && parseFloat(a.paymentAmount) > 0)
+      .reduce((sum, a) => sum + parseFloat(a.paymentAmount), 0);
+
+    // Adjust revenue target upward to cover flat fees and percentage cuts
+    const afterFlatFees = baseTarget + totalFlatFeeAffiliateCost;
+    const freedomNumber = totalAffiliatePercentage < 100
+      ? afterFlatFees / (1 - totalAffiliatePercentage / 100)
+      : afterFlatFees;
 
     const productCalculations = products.map(product => {
       const price = parseFloat(product.price) || 0;
