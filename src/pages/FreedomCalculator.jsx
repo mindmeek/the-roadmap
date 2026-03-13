@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { User } from '@/entities/User';
-import { PiggyBank, Plus, Trash2, Save, Loader2, Calculator, DollarSign, TrendingUp, Target, HelpCircle } from 'lucide-react';
+import { PiggyBank, Plus, Trash2, Save, Loader2, Calculator, DollarSign, TrendingUp, Target, HelpCircle, Users } from 'lucide-react';
 import Tooltip from '../components/common/Tooltip';
 
 export default function MyFinancialGoal() {
