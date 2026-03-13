@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { AccountManagerAssignment } from '@/entities/all';
-import { User } from '@/entities/all';
+import { base44 } from '@/api/base44Client';
+
+const AccountManagerAssignment = base44.entities.AccountManagerAssignment;
+const User = base44.entities.User;
 import {
     UserCheck, Users, Search, Loader2, CheckCircle, Clock,
     PauseCircle, XCircle, MessageSquare, Plus, Calendar, ChevronDown
