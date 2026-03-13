@@ -426,7 +426,7 @@ export default function MyFinancialGoal() {
             </div>
 
             {affiliatePrograms.length === 0 ? (
-              <p className="text-sm text-[var(--text-soft)] text-center py-4">No affiliate programs added. Click "Add Program" if you run one.</p>
+              <p className="text-sm text-[var(--text-soft)] text-center py-4">No affiliate programs added. Click "Add Program" to get started.</p>
             ) : (
               <div className="space-y-4">
                 {affiliatePrograms.map((program, index) => (
@@ -440,46 +440,27 @@ export default function MyFinancialGoal() {
                     <div className="space-y-3">
                       <input
                         type="text"
-                        placeholder="Program Name (e.g. Main Affiliate Program)"
+                        placeholder="Program Name (e.g. VIP Partner Program)"
                         value={program.name}
                         onChange={(e) => updateAffiliateProgram(program.id, 'name', e.target.value)}
                         className="form-input w-full text-sm sm:text-base"
                       />
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <div>
-                          <label className="block text-xs sm:text-sm font-medium text-[var(--text-soft)] mb-1">Number of Affiliates</label>
-                          <input
-                            type="number"
-                            placeholder="10"
-                            value={program.numAffiliates}
-                            onChange={(e) => updateAffiliateProgram(program.id, 'numAffiliates', e.target.value)}
-                            className="form-input w-full text-sm sm:text-base"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-xs sm:text-sm font-medium text-[var(--text-soft)] mb-1">Commission Type</label>
-                          <select
-                            value={program.paymentType}
-                            onChange={(e) => updateAffiliateProgram(program.id, 'paymentType', e.target.value)}
-                            className="form-input w-full text-sm sm:text-base"
-                          >
-                            <option value="percentage">% of Revenue</option>
-                            <option value="flat_fee">Flat Fee per Affiliate</option>
-                          </select>
-                        </div>
-                        <div>
-                          <label className="block text-xs sm:text-sm font-medium text-[var(--text-soft)] mb-1">
-                            {program.paymentType === 'percentage' ? 'Commission (%)' : 'Fee per Affiliate ($)'}
-                          </label>
-                          <input
-                            type="number"
-                            step="0.01"
-                            placeholder={program.paymentType === 'percentage' ? '20' : '50'}
-                            value={program.paymentAmount}
-                            onChange={(e) => updateAffiliateProgram(program.id, 'paymentAmount', e.target.value)}
-                            className="form-input w-full text-sm sm:text-base"
-                          />
-                        </div>
+                      <textarea
+                        placeholder="Short description (e.g. Affiliates earn commissions promoting our flagship products)"
+                        value={program.description || ''}
+                        onChange={(e) => updateAffiliateProgram(program.id, 'description', e.target.value)}
+                        className="form-input w-full text-sm sm:text-base resize-none"
+                        rows={2}
+                      />
+                      <div>
+                        <label className="block text-xs sm:text-sm font-medium text-[var(--text-soft)] mb-1">Number of Affiliates</label>
+                        <input
+                          type="number"
+                          placeholder="10"
+                          value={program.numAffiliates}
+                          onChange={(e) => updateAffiliateProgram(program.id, 'numAffiliates', e.target.value)}
+                          className="form-input w-full text-sm sm:text-base"
+                        />
                       </div>
                     </div>
                   </div>
