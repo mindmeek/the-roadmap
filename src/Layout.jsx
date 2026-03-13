@@ -25,7 +25,7 @@ import {
     Calendar,
     Sparkles,
     Award,
-    Brain, Lightbulb, UserCircle, Newspaper, Handshake, Loader2, Sun, Moon, CalendarDays, Clock, Globe, Podcast, ShieldCheck, Building, KeyRound, Palette, Video, ListChecks, TrendingUp, PiggyBank, Zap, Search, MessageSquare, ChevronRight, GripVertical, Layers, Share2, Mic, ChevronLeft, Trash2
+    Brain, Lightbulb, UserCircle, Newspaper, Handshake, Loader2, Sun, Moon, CalendarDays, Clock, Globe, Podcast, ShieldCheck, Building, KeyRound, Palette, Video, ListChecks, TrendingUp, PiggyBank, Zap, Search, MessageSquare, ChevronRight, GripVertical, Layers, Share2, Mic, ChevronLeft, Trash2, UserCheck
 } from "lucide-react";
 
 // Lazy load heavy components
