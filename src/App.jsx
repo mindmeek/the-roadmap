@@ -65,6 +65,7 @@ const AuthenticatedApp = () => {
       ))}
       <Route path="/AccountManager" element={<LayoutWrapper currentPageName="AccountManager"><AccountManager /></LayoutWrapper>} />
       <Route path="/AdminAccountManagers" element={<LayoutWrapper currentPageName="AdminAccountManagers"><AdminAccountManagers /></LayoutWrapper>} />
+      <Route path="/MyBusinesses" element={<LayoutWrapper currentPageName="MyBusinesses"><MyBusinesses /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
