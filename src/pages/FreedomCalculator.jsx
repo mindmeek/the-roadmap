@@ -60,14 +60,20 @@ export default function MyFinancialGoal() {
           setBusinessExpenses(String(projections.businessExpenses || ''));
           setEmergencyBuffer(String(projections.emergencyBuffer || '20'));
           setAffiliatePrograms(projections.affiliatePrograms || []);
-          setProducts(projections.products || [{ 
+          setProducts((projections.products || [{ 
             id: crypto.randomUUID(), 
             name: '', 
             price: '', 
             cost: '',
             pricingType: 'per_unit',
-            costType: 'per_unit'
-          }]);
+            costType: 'per_unit',
+            affiliateVisible: false,
+            affiliateCommission: ''
+          }]).map(p => ({
+            affiliateVisible: false,
+            affiliateCommission: '',
+            ...p
+          })));
         }
       } catch (error) {
         console.error("Error loading data:", error);
