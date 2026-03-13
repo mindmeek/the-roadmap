@@ -397,6 +397,85 @@ export default function MyFinancialGoal() {
               className="form-input text-base sm:text-lg"
             />
           </div>
+
+          {/* Affiliate Programs Card */}
+          <div className="card p-4 sm:p-6">
+            <div className="flex items-center justify-between mb-3 sm:mb-4 flex-wrap gap-3">
+              <div className="flex items-center gap-3">
+                <Users className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--primary-gold)]" />
+                <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)]">Affiliate Programs</h3>
+                <Tooltip content="Add any affiliate programs you run. Flat fee commissions are added to your costs, while percentage-based commissions adjust your required revenue upward so you still hit your goal after payouts.">
+                  <HelpCircle className="w-4 h-4 text-gray-400 hover:text-gray-600" />
+                </Tooltip>
+              </div>
+              <button onClick={addAffiliateProgram} className="btn btn-secondary btn-sm text-xs sm:text-sm">
+                <Plus className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
+                Add Program
+              </button>
+            </div>
+
+            {affiliatePrograms.length === 0 ? (
+              <p className="text-sm text-[var(--text-soft)] text-center py-4">No affiliate programs added. Click "Add Program" if you run one.</p>
+            ) : (
+              <div className="space-y-4">
+                {affiliatePrograms.map((program, index) => (
+                  <div key={program.id} className="bg-gray-50 dark:bg-gray-800 p-3 sm:p-4 rounded-lg border">
+                    <div className="flex justify-between items-center mb-3">
+                      <h4 className="font-semibold text-[var(--text-main)] text-sm sm:text-base">Program {index + 1}</h4>
+                      <button onClick={() => removeAffiliateProgram(program.id)} className="text-red-500 hover:text-red-700">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <div className="space-y-3">
+                      <input
+                        type="text"
+                        placeholder="Program Name (e.g. Main Affiliate Program)"
+                        value={program.name}
+                        onChange={(e) => updateAffiliateProgram(program.id, 'name', e.target.value)}
+                        className="form-input w-full text-sm sm:text-base"
+                      />
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div>
+                          <label className="block text-xs sm:text-sm font-medium text-[var(--text-soft)] mb-1">Number of Affiliates</label>
+                          <input
+                            type="number"
+                            placeholder="10"
+                            value={program.numAffiliates}
+                            onChange={(e) => updateAffiliateProgram(program.id, 'numAffiliates', e.target.value)}
+                            className="form-input w-full text-sm sm:text-base"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs sm:text-sm font-medium text-[var(--text-soft)] mb-1">Commission Type</label>
+                          <select
+                            value={program.paymentType}
+                            onChange={(e) => updateAffiliateProgram(program.id, 'paymentType', e.target.value)}
+                            className="form-input w-full text-sm sm:text-base"
+                          >
+                            <option value="percentage">% of Revenue</option>
+                            <option value="flat_fee">Flat Fee per Affiliate</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-xs sm:text-sm font-medium text-[var(--text-soft)] mb-1">
+                            {program.paymentType === 'percentage' ? 'Commission (%)' : 'Fee per Affiliate ($)'}
+                          </label>
+                          <input
+                            type="number"
+                            step="0.01"
+                            placeholder={program.paymentType === 'percentage' ? '20' : '50'}
+                            value={program.paymentAmount}
+                            onChange={(e) => updateAffiliateProgram(program.id, 'paymentAmount', e.target.value)}
+                            className="form-input w-full text-sm sm:text-base"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Products Section */}
