@@ -91,7 +91,9 @@ export default function MyFinancialGoal() {
       price: '', 
       cost: '',
       pricingType: 'per_unit',
-      costType: 'per_unit'
+      costType: 'per_unit',
+      affiliateVisible: false,
+      affiliateCommission: ''
     }]);
   };
 
