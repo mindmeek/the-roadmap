@@ -864,7 +864,8 @@ const SidebarContent = React.memo(({ user, isExpanded, onCloseMobileMenu, setIsL
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={onCloseMobileMenu}
-                            className={`group flex items-center justify-center px-2 py-2.5 text-sm font-bold rounded-md text-white bg-gradient-to-br from-green-600 to-emerald-500 hover:shadow-lg transition-all duration-300`}
+                            className={`group flex items-center justify-center px-2 py-2.5 text-sm font-bold rounded-md text-white hover:shadow-lg transition-all duration-300`}
+                            style={{ backgroundColor: '#800000' }}
                             title={!isExpanded ? 'Free 14-Day Trial' : ''}
                         >
                             <Sparkles className={`h-5 w-5 ${isExpanded ? 'mr-2' : ''}`} />
