@@ -19,9 +19,8 @@ export default function MyFinancialGoal() {
     setAffiliatePrograms([...affiliatePrograms, {
       id: crypto.randomUUID(),
       name: '',
-      numAffiliates: '',
-      paymentType: 'percentage',
-      paymentAmount: ''
+      description: '',
+      numAffiliates: ''
     }]);
   };
 
