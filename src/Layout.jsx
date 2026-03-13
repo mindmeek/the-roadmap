@@ -63,7 +63,7 @@ const connectBuildItems = [
 
 const myAccountItems = [
     { href: "Profile", icon: UserCircle, label: "My Profile", mobileLabel: "Profile" },
-    { href: "MyBusinesses", icon: Building, label: "My Businesses", mobileLabel: "My Businesses" },
+    { href: "MyBusinessHub", icon: Building, label: "My Businesses", mobileLabel: "My Businesses" },
     { href: "AccountManager", icon: UserCheck, label: "Account Manager", mobileLabel: "Acct Manager" },
     { href: "BrandKit", icon: Palette, label: "Brand Kit", mobileLabel: "Brand Kit", requiredLevel: 'business_hq' },
     { href: "ScheduledPosts", icon: Clock, label: "Scheduled Posts", mobileLabel: "Scheduled Posts", requiredLevel: 'business_hq' },
