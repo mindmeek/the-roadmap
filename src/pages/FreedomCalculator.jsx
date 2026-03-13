@@ -118,21 +118,23 @@ export default function MyFinancialGoal() {
     const totalMonthlyNeeds = expensesNum + salaryNum + businessExpensesNum;
     const baseTarget = totalMonthlyNeeds * (1 + bufferNum / 100);
 
-    // Calculate total affiliate flat fee costs
-    const totalFlatFeeAffiliateCost = affiliatePrograms
-      .filter(a => a.paymentType === 'flat_fee' && parseFloat(a.numAffiliates) > 0 && parseFloat(a.paymentAmount) > 0)
-      .reduce((sum, a) => sum + parseFloat(a.numAffiliates) * parseFloat(a.paymentAmount), 0);
+    // For each affiliate program, calculate commissions based on affiliate-visible products.
+    // We estimate monthly revenue per product as: price * unitsNeeded (rough estimate using baseTarget split evenly).
+    // Commission cost per program = numAffiliates * sum(price * unitsNeeded * commissionPct) across visible products.
+    // Since unitsNeeded depends on freedomNumber (circular), we solve iteratively via a simple approximation:
+    // Total affiliate payout % = weighted avg commission across visible products' revenue share.
+    const visibleProducts = products.filter(p => p.affiliateVisible && parseFloat(p.price) > 0 && parseFloat(p.affiliateCommission) > 0);
+    const totalNumAffiliates = affiliatePrograms.reduce((sum, a) => sum + (parseFloat(a.numAffiliates) || 0), 0);
 
-    // Calculate combined affiliate percentage (e.g. two programs at 10% each = 20% total)
-    const totalAffiliatePercentage = affiliatePrograms
-      .filter(a => a.paymentType === 'percentage' && parseFloat(a.paymentAmount) > 0)
-      .reduce((sum, a) => sum + parseFloat(a.paymentAmount), 0);
+    // Sum up the effective commission % applied to total revenue (assuming equal revenue split per visible product)
+    const totalCommissionRate = visibleProducts.length > 0 && totalNumAffiliates > 0
+      ? visibleProducts.reduce((sum, p) => sum + (parseFloat(p.affiliateCommission) || 0), 0) / 100 * totalNumAffiliates
+      : 0;
 
-    // Adjust revenue target upward to cover flat fees and percentage cuts
-    const afterFlatFees = baseTarget + totalFlatFeeAffiliateCost;
-    const freedomNumber = totalAffiliatePercentage < 100
-      ? afterFlatFees / (1 - totalAffiliatePercentage / 100)
-      : afterFlatFees;
+    // Adjust freedomNumber upward: if affiliates take X% of revenue, you need revenue / (1 - X%)
+    const freedomNumber = totalCommissionRate < 1
+      ? baseTarget / (1 - totalCommissionRate)
+      : baseTarget;
 
     const productCalculations = products.map(product => {
       const price = parseFloat(product.price) || 0;
