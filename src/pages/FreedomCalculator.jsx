@@ -210,6 +210,7 @@ export default function MyFinancialGoal() {
           desiredSalary: parseFloat(desiredSalary) || 0,
           businessExpenses: parseFloat(businessExpenses) || 0,
           emergencyBuffer: parseFloat(emergencyBuffer) || 20,
+          affiliatePrograms,
           products,
           freedomNumber: results.freedomNumber,
           calculatedAt: new Date().toISOString()
