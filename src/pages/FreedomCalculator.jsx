@@ -685,27 +685,34 @@ export default function MyFinancialGoal() {
             <h4 className="font-semibold text-[var(--text-main)] mb-3 text-sm sm:text-base flex items-center gap-2">
               <Users className="w-4 h-4 text-purple-600" /> Affiliate Program Impact
             </h4>
-            <div className="space-y-2">
+            <div className="space-y-3">
               {affiliatePrograms.map((program, index) => {
                 const num = parseFloat(program.numAffiliates) || 0;
-                const amount = parseFloat(program.paymentAmount) || 0;
-                if (!amount) return null;
                 const label = program.name || `Program ${index + 1}`;
-                if (program.paymentType === 'flat_fee') {
-                  return (
-                    <div key={program.id} className="flex justify-between text-xs sm:text-sm">
-                      <span className="text-[var(--text-soft)]">{label} ({num} affiliates × ${amount}/mo)</span>
-                      <span className="font-semibold text-red-600">+${(num * amount).toLocaleString()}/mo</span>
+                const affiliableProducts = products.filter(p => p.affiliateVisible && parseFloat(p.affiliateCommission) > 0);
+                return (
+                  <div key={program.id}>
+                    <div className="flex justify-between text-xs sm:text-sm font-semibold text-[var(--text-main)]">
+                      <span>{label}</span>
+                      <span className="text-purple-600">{num} affiliates</span>
                     </div>
-                  );
-                } else {
-                  return (
-                    <div key={program.id} className="flex justify-between text-xs sm:text-sm">
-                      <span className="text-[var(--text-soft)]">{label} ({amount}% of revenue)</span>
-                      <span className="font-semibold text-purple-600">Revenue adjusted upward</span>
-                    </div>
-                  );
-                }
+                    {program.description && (
+                      <p className="text-xs text-[var(--text-soft)] mt-0.5 mb-1">{program.description}</p>
+                    )}
+                    {affiliableProducts.length > 0 ? (
+                      <div className="mt-1 space-y-1 pl-2 border-l-2 border-purple-200">
+                        {affiliableProducts.map(p => (
+                          <div key={p.id} className="flex justify-between text-xs text-[var(--text-soft)]">
+                            <span>{p.name || 'Unnamed Product'}</span>
+                            <span>{p.affiliateCommission}% commission per sale</span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-xs text-[var(--text-soft)] mt-1 pl-2">No affiliate-visible products assigned yet.</p>
+                    )}
+                  </div>
+                );
               })}
             </div>
           </div>
