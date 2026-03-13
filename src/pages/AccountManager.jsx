@@ -55,7 +55,7 @@ export default function AccountManager() {
 
     const loadData = async () => {
         try {
-            const userData = await User.me();
+            const userData = await base44.auth.me();
             setUser(userData);
             const assignments = await AccountManagerAssignment.filter({ member_email: userData.email });
             const active = assignments.find(a => a.status !== 'ended');
