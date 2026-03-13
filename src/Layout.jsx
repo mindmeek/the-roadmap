@@ -849,7 +849,7 @@ const SidebarContent = React.memo(({ user, isExpanded, onCloseMobileMenu, setIsL
 
                 {/* Upgrade CTA - Only for free users - MORE PROMINENT */}
                 {user && user.subscription_level === 'free' && (
-                    <div className="pt-2 border-t border-gray-800">
+                    <div className="pt-2 border-t border-gray-800 space-y-1">
                         <Link
                             to={createPageUrl('Upgrade')}
                             onClick={onCloseMobileMenu}
@@ -859,6 +859,17 @@ const SidebarContent = React.memo(({ user, isExpanded, onCloseMobileMenu, setIsL
                             <Rocket className={`h-5 w-5 ${isExpanded ? 'mr-2' : ''}`} />
                             {isExpanded && <span className="truncate">Upgrade to The HQ</span>}
                         </Link>
+                        <a
+                            href="https://thebusinessminds.com/signup"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={onCloseMobileMenu}
+                            className={`group flex items-center justify-center px-2 py-2.5 text-sm font-bold rounded-md text-white bg-gradient-to-br from-green-600 to-emerald-500 hover:shadow-lg transition-all duration-300`}
+                            title={!isExpanded ? 'Free 14-Day Trial' : ''}
+                        >
+                            <Sparkles className={`h-5 w-5 ${isExpanded ? 'mr-2' : ''}`} />
+                            {isExpanded && <span className="truncate">Free 14-Day HQ Trial</span>}
+                        </a>
                     </div>
                 )}
 

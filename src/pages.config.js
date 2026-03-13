@@ -50,7 +50,9 @@
 import AIConversationHistory from './pages/AIConversationHistory';
 import AIStrategyHub from './pages/AIStrategyHub';
 import AcceptTeamInvitation from './pages/AcceptTeamInvitation';
+import AccountManager from './pages/AccountManager';
 import Admin from './pages/Admin';
+import AdminAccountManagers from './pages/AdminAccountManagers';
 import AdminAnalytics from './pages/AdminAnalytics';
 import AdminContentManagement from './pages/AdminContentManagement';
 import AdminCourseManagement from './pages/AdminCourseManagement';
@@ -107,6 +109,7 @@ import MindsetHack from './pages/MindsetHack';
 import MindsetHacks from './pages/MindsetHacks';
 import MorningRoutineBuilder from './pages/MorningRoutineBuilder';
 import MyBusinessHub from './pages/MyBusinessHub';
+import MyBusinesses from './pages/MyBusinesses';
 import MyFoundation from './pages/MyFoundation';
 import MyFoundationRoadmap from './pages/MyFoundationRoadmap';
 import NicheRoadmap from './pages/NicheRoadmap';
@@ -151,6 +154,7 @@ import StrategyFormValueLadder from './pages/StrategyFormValueLadder';
 import StrategyFormValueProposition from './pages/StrategyFormValueProposition';
 import StrategyFormWebsiteLaunch from './pages/StrategyFormWebsiteLaunch';
 import StrategySession from './pages/StrategySession';
+import SwitchBusiness from './pages/SwitchBusiness';
 import TestEmail from './pages/TestEmail';
 import TheBeacon from './pages/TheBeacon';
 import TheCommunity from './pages/TheCommunity';
@@ -169,7 +173,9 @@ export const PAGES = {
     "AIConversationHistory": AIConversationHistory,
     "AIStrategyHub": AIStrategyHub,
     "AcceptTeamInvitation": AcceptTeamInvitation,
+    "AccountManager": AccountManager,
     "Admin": Admin,
+    "AdminAccountManagers": AdminAccountManagers,
     "AdminAnalytics": AdminAnalytics,
     "AdminContentManagement": AdminContentManagement,
     "AdminCourseManagement": AdminCourseManagement,
@@ -226,6 +232,7 @@ export const PAGES = {
     "MindsetHacks": MindsetHacks,
     "MorningRoutineBuilder": MorningRoutineBuilder,
     "MyBusinessHub": MyBusinessHub,
+    "MyBusinesses": MyBusinesses,
     "MyFoundation": MyFoundation,
     "MyFoundationRoadmap": MyFoundationRoadmap,
     "NicheRoadmap": NicheRoadmap,
@@ -270,6 +277,7 @@ export const PAGES = {
     "StrategyFormValueProposition": StrategyFormValueProposition,
     "StrategyFormWebsiteLaunch": StrategyFormWebsiteLaunch,
     "StrategySession": StrategySession,
+    "SwitchBusiness": SwitchBusiness,
     "TestEmail": TestEmail,
     "TheBeacon": TheBeacon,
     "TheCommunity": TheCommunity,
