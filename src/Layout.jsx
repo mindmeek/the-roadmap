@@ -1061,14 +1061,26 @@ const MobileMenu = React.memo(({ onClose, user, setIsListenDropdownOpen, onDelet
                                     Podcast & Radio
                                 </button>
                                 {user && user.subscription_level === 'free' && (
-                                    <Link
-                                        to={createPageUrl("Upgrade")}
-                                        onClick={onClose}
-                                        className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-white bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 w-full"
-                                    >
-                                        <Rocket className="mr-3 h-4 w-4 text-white" />
-                                        Upgrade to The HQ
-                                    </Link>
+                                    <>
+                                        <Link
+                                            to={createPageUrl("Upgrade")}
+                                            onClick={onClose}
+                                            className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-white bg-gradient-to-r from-[var(--primary-gold)] to-yellow-600 w-full"
+                                        >
+                                            <Rocket className="mr-3 h-4 w-4 text-white" />
+                                            Upgrade to The HQ
+                                        </Link>
+                                        <a
+                                            href="https://thebusinessminds.com/signup"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            onClick={onClose}
+                                            className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-white bg-gradient-to-r from-green-600 to-emerald-500 w-full"
+                                        >
+                                            <Sparkles className="mr-3 h-4 w-4 text-white" />
+                                            Free 14-Day HQ Trial
+                                        </a>
+                                    </>
                                 )}
                             </div>
                         </nav>
