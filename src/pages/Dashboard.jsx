@@ -90,8 +90,10 @@ export default function DashboardPage() {
             const now = moment().format('YYYY-MM-DDTHH:mm');
 
             // Fetch all data in parallel with limits
-            const [progressRecords, highlights, events, customerJourneyDoc, last30Days] = await Promise.all([
+            const yesterday = moment().subtract(1, 'days').format('YYYY-MM-DD');
+            const [progressRecords, yesterdayRecords, highlights, events, customerJourneyDoc, last30Days] = await Promise.all([
                 DailyProgress.filter({ created_by: currentUser.email, date: today }, '-created_date', 1),
+                DailyProgress.filter({ created_by: currentUser.email, date: yesterday }, '-created_date', 1),
                 CommunityHighlight.filter({ is_active: true }, '-created_date', 5),
                 Event.filter({ is_published: true, event_date: { $gte: now } }, 'event_date', 10),
                 currentUser.subscription_level === 'free' && !currentUser.customer_journey_completed_date
