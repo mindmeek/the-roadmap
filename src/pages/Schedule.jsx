@@ -78,10 +78,10 @@ const ScheduleBlock = ({ item, onDelete, onEdit }) => {
   // Calculate position relative to 7 AM start - each hour is 64px (h-16 in Tailwind)
   const scheduleStartMinutes = 7 * 60; // 7:00 AM
   // Position precisely based on start minutes, 64px per hour
-  const topPosition = ((startMinutes - scheduleStartMinutes) / 60) * 64; 
-  // Calculate height based on duration, rounded up to nearest full hour slot for snapping effect (as per outline)
-  // Ensure a minimum height of 32px (half an hour slot)
-  const height = Math.max(32, Math.ceil((endMinutes - startMinutes) / 60) * 64); 
+  const topPosition = ((startMinutes - scheduleStartMinutes) / 60) * 96; 
+  // Calculate height based on duration, rounded up to nearest full hour slot
+  // Ensure a minimum height of 48px
+  const height = Math.max(48, Math.ceil((endMinutes - startMinutes) / 60) * 96); 
   const duration = (endMinutes - startMinutes) / 60; // Duration in hours (float)
 
   // Determine if we have enough space for full details

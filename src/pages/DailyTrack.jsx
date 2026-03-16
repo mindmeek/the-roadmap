@@ -29,6 +29,9 @@ export default function DailyTrack() {
   const [currentStreak, setCurrentStreak] = useState(0);
   const [showActionSelector, setShowActionSelector] = useState(false);
   const [weeklyActionSteps, setWeeklyActionSteps] = useState([]);
+  const [showCarryOverPanel, setShowCarryOverPanel] = useState(false);
+  const [carryOverCandidates, setCarryOverCandidates] = useState([]);
+  const [selectedCarryOver, setSelectedCarryOver] = useState([]);
 
   useEffect(() => {
     loadData();

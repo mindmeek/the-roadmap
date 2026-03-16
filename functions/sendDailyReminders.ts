@@ -78,7 +78,7 @@ Deno.serve(async (req) => {
                                 <h2 style="color: #1F2937;">Hey ${firstName}, quick check-in! 🌙</h2>
                                 <p style="color: #6B7280; font-size: 15px; line-height: 1.6;">You haven't logged today's progress yet. It only takes 2 minutes, and it helps maintain your streak!</p>
                                 <div style="text-align: center; margin: 24px 0;">
-                                    <a href="https://app.thebminds.com/DailyTrack" style="display: inline-block; background: #8B6F4E; color: white; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                                    <a href="https://go.thebminds.com/DailyTrack" style="display: inline-block; background: #8B6F4E; color: white; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: bold;">
                                         📊 Track Today's 1%
                                     </a>
                                 </div>
