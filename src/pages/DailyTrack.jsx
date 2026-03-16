@@ -424,7 +424,7 @@ export default function DailyTrack() {
                         <button onClick={() => setShowActionSelector(true)} className="btn btn-secondary" disabled={isGenerating || totalTasks >= 5}>
                             {isGenerating ? <Loader2 className="w-4 h-4 animate-spin"/> : <Sparkles className="w-4 h-4" />}
                         </button>
-                        <button onClick={() => handleAddTask()} className="btn btn-primary"><Plus className="w-4 h-4" /></button>
+                        <button onClick={() => handleAddTask()} disabled={totalTasks >= 5} className="btn btn-primary disabled:opacity-50"><Plus className="w-4 h-4" /></button>
                     </div>
                 )}
             </div>
