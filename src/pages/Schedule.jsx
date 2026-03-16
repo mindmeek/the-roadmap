@@ -61,7 +61,7 @@ const generateTimeSlots = () => {
 
 const TimeSlot = ({ timeSlot, isWorkHour, onClick }) => (
   <div 
-    className={`h-16 flex items-start justify-between pr-2 text-xs border-t border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ${isWorkHour ? 'bg-red-50 dark:bg-red-900/20' : ''}`}
+    className={`h-24 flex items-start justify-between pr-2 text-xs border-t border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ${isWorkHour ? 'bg-red-50 dark:bg-red-900/20' : ''}`}
     onClick={() => onClick(timeSlot.time24)}
   >
     <span className={isWorkHour ? 'text-red-600 font-semibold' : 'text-gray-400'}>{timeSlot.timeAMPM}</span>
@@ -776,7 +776,7 @@ export default function SchedulePage() {
                         <div
                           ref={provided.innerRef}
                           {...provided.droppableProps}
-                          className={`relative h-16 transition-colors border-t border-gray-200 dark:border-gray-700 cursor-pointer ${
+                          className={`relative h-24 transition-colors border-t border-gray-200 dark:border-gray-700 cursor-pointer ${
                             snapshot.isDraggingOver ? 'bg-blue-50 dark:bg-blue-900/30' : ''
                           } ${isWorkHour(timeSlot.time24) ? 'bg-red-50 dark:bg-red-900/20' : 'hover:bg-gray-50 dark:hover:bg-gray-800'}`}
                           onClick={() => handleTimeSlotClick(timeSlot.time24)}
