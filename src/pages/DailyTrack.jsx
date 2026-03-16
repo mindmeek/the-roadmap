@@ -306,6 +306,44 @@ export default function DailyTrack() {
 
   return (
     <div className="px-4 pb-20 md:pb-8">
+      {/* Carry-Over Panel */}
+      {showCarryOverPanel && carryOverCandidates.length > 0 && (
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[100] p-4">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-lg w-full shadow-2xl">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="bg-orange-100 dark:bg-orange-900/30 p-2 rounded-lg">
+                <ChevronRight className="w-5 h-5 text-orange-600" />
+              </div>
+              <h3 className="font-bold text-xl text-[var(--text-main)]">Carry Over Unfinished Tasks?</h3>
+            </div>
+            <p className="text-[var(--text-soft)] mb-5 text-sm">You had {carryOverCandidates.length} unfinished task{carryOverCandidates.length > 1 ? 's' : ''} yesterday. Select which ones to bring into today.</p>
+            <div className="space-y-2 max-h-64 overflow-y-auto mb-5">
+              {carryOverCandidates.map(task => (
+                <label key={task.id} className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={selectedCarryOver.includes(task.id)}
+                    onChange={e => setSelectedCarryOver(prev =>
+                      e.target.checked ? [...prev, task.id] : prev.filter(id => id !== task.id)
+                    )}
+                    className="w-4 h-4 mt-0.5 flex-shrink-0"
+                  />
+                  <span className="text-sm text-[var(--text-main)]">{task.task}</span>
+                </label>
+              ))}
+            </div>
+            <div className="flex gap-3">
+              <button onClick={() => { setShowCarryOverPanel(false); setCarryOverCandidates([]); setSelectedCarryOver([]); }} className="btn btn-secondary flex-1">
+                Skip
+              </button>
+              <button onClick={handleConfirmCarryOver} disabled={selectedCarryOver.length === 0} className="btn btn-primary flex-1 disabled:opacity-50">
+                Carry Over {selectedCarryOver.length > 0 ? `(${selectedCarryOver.length})` : ''}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {showActionSelector && (
           <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[100] p-4">
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-2xl w-full shadow-2xl transform transition-all animate-in fade-in-0 zoom-in-95">
