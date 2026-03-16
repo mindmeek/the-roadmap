@@ -68,6 +68,7 @@ export default function DashboardPage() {
     const [aiSuggestion, setAiSuggestion] = useState(null);
     const [hasJourney, setHasJourney] = useState(false);
     const [isFoundationOpen, setIsFoundationOpen] = useState(false);
+    const [yesterdayProgress, setYesterdayProgress] = useState(null);
     const [currentStreak, setCurrentStreak] = useState(0);
     const [daysTracked, setDaysTracked] = useState(0);
     
