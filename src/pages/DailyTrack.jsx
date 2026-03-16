@@ -209,6 +209,27 @@ export default function DailyTrack() {
       setFormData(prev => ({...prev, next_day_focus_tasks: newTasks.length > 0 ? newTasks : [""]}));
   };
 
+  const handleConfirmCarryOver = async () => {
+    const tasksToCarryOver = carryOverCandidates
+      .filter(t => selectedCarryOver.includes(t.id))
+      .map(t => ({
+        id: crypto.randomUUID(),
+        task: t.task,
+        completed: false,
+        source_type: 'carried_over',
+        order: formData.daily_tasks.length
+      }));
+
+    if (tasksToCarryOver.length > 0 && dailyProgress) {
+      const updatedTasks = [...formData.daily_tasks, ...tasksToCarryOver];
+      setFormData(prev => ({ ...prev, daily_tasks: updatedTasks }));
+      await DailyProgress.update(dailyProgress.id, { daily_tasks: updatedTasks });
+    }
+    setShowCarryOverPanel(false);
+    setCarryOverCandidates([]);
+    setSelectedCarryOver([]);
+  };
+
   const handleGenerateTasks = async (selectedActionStep) => {
       if (!selectedActionStep) {
         setShowActionSelector(true);
