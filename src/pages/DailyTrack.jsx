@@ -414,8 +414,8 @@ export default function DailyTrack() {
 
         {/* Today's Tasks */}
         <div id="daily-track-tasks" className="card p-6">
-            <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">Today's Tasks ({completedTasks}/{totalTasks})</h2>
+            <div className="flex justify-between items-center mb-1">
+                <h2 className="text-xl font-bold">Today's Focus ({completedTasks}/{totalTasks})</h2>
                 {isEditing && (
                     <div className="flex gap-2">
                         <button onClick={() => setShowActionSelector(true)} className="btn btn-secondary" disabled={isGenerating}>
