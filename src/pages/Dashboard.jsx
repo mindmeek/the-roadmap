@@ -37,6 +37,7 @@ import Tooltip from '../components/common/Tooltip';
 import AITeamModal from '../components/ai/AITeamModal';
 
 import UpcomingTasksPreview from '../components/dashboard/UpcomingTasksPreview';
+import DashboardDailyProgressCard from '../components/dashboard/DashboardDailyProgressCard';
 import DailyInsightTabs from '../components/dashboard/DailyInsightTabs';
 import MemberActionChecklist from '../components/dashboard/MemberActionChecklist';
 import FoundationProgress from '../components/dashboard/VisionStageProgress';
