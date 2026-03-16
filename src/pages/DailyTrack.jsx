@@ -418,7 +418,7 @@ export default function DailyTrack() {
                 <h2 className="text-xl font-bold">Today's Focus ({completedTasks}/{totalTasks})</h2>
                 {isEditing && (
                     <div className="flex gap-2">
-                        <button onClick={() => setShowActionSelector(true)} className="btn btn-secondary" disabled={isGenerating}>
+                        <button onClick={() => setShowActionSelector(true)} className="btn btn-secondary" disabled={isGenerating || totalTasks >= 5}>
                             {isGenerating ? <Loader2 className="w-4 h-4 animate-spin"/> : <Sparkles className="w-4 h-4" />}
                         </button>
                         <button onClick={() => handleAddTask()} className="btn btn-primary"><Plus className="w-4 h-4" /></button>
