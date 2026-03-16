@@ -88,40 +88,22 @@ export default function DailyTrack() {
 
       let currentProgress = todayEntries[0];
       if (currentProgress) {
-          // Carry over tasks from yesterday if they haven't been already
-          const carriedOverTasks = yesterdayEntries[0]?.next_day_focus_tasks?.map(task => ({
-              id: crypto.randomUUID(),
-              task: task.task,
-              completed: false,
-              source_type: 'carried_over',
-              order: 0
-          })) || [];
-
-          const existingCarriedOver = currentProgress.daily_tasks.filter(t => t.source_type === 'carried_over').map(t => t.task);
-          const newCarriedOver = carriedOverTasks.filter(t => !existingCarriedOver.includes(t.task));
-
-          if (newCarriedOver.length > 0) {
-              const updatedTasks = [...currentProgress.daily_tasks, ...newCarriedOver];
-              const updatedProgress = await DailyProgress.update(currentProgress.id, { daily_tasks: updatedTasks });
-              setDailyProgress(updatedProgress);
-              setFormDataFromProgress(updatedProgress);
-          } else {
-              setDailyProgress(currentProgress);
-              setFormDataFromProgress(currentProgress);
-          }
+          setDailyProgress(currentProgress);
+          setFormDataFromProgress(currentProgress);
       } else {
-          // No entry for today, create one and carry over tasks
-          const carriedOverTasks = yesterdayEntries[0]?.next_day_focus_tasks?.map(task => ({
-              id: crypto.randomUUID(),
-              task: task.task,
-              completed: false,
-              source_type: 'carried_over',
-              order: 0
-          })) || [];
+          // New day — find unfinished tasks from yesterday to offer as carry-over
+          const yesterday = yesterdayEntries[0];
+          const unfinished = (yesterday?.daily_tasks || []).filter(t => !t.completed);
           
+          if (unfinished.length > 0) {
+              setCarryOverCandidates(unfinished);
+              setSelectedCarryOver(unfinished.map(t => t.id));
+              setShowCarryOverPanel(true);
+          }
+
           const newProgressData = {
               date: todayStr,
-              daily_tasks: carriedOverTasks,
+              daily_tasks: [],
               reflection: "",
               next_day_focus_tasks: [],
               week_number: userData.current_week,
