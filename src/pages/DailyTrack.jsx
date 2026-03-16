@@ -415,7 +415,10 @@ export default function DailyTrack() {
         {/* Today's Tasks */}
         <div id="daily-track-tasks" className="card p-6">
             <div className="flex justify-between items-center mb-1">
-                <h2 className="text-xl font-bold">Today's Focus ({completedTasks}/{totalTasks})</h2>
+                <div>
+                  <h2 className="text-xl font-bold">Today's Focus ({completedTasks}/{totalTasks})</h2>
+                  <p className="text-xs text-[var(--text-soft)] mt-0.5">Pick 3–5 key things that move your business forward today{totalTasks >= 5 ? ' — max reached!' : ` (${5 - totalTasks} more allowed)`}</p>
+                </div>
                 {isEditing && (
                     <div className="flex gap-2">
                         <button onClick={() => setShowActionSelector(true)} className="btn btn-secondary" disabled={isGenerating || totalTasks >= 5}>
