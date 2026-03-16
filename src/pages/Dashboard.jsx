@@ -105,6 +105,9 @@ export default function DashboardPage() {
             if (progressRecords.length > 0) {
                 setTodayProgress(progressRecords[0]);
             }
+            if (yesterdayRecords.length > 0) {
+                setYesterdayProgress(yesterdayRecords[0]);
+            }
 
             // Calculate streak
             let streak = 0;
