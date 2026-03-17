@@ -456,6 +456,8 @@ export default function StrategyFormEmailMarketing() {
                     </button>
                 </div>
 
+            <FoundationFormNav currentFormId="email_marketing" />
+
             <AITeamModal
                 isOpen={showAIAssistant}
                 onClose={() => setShowAIAssistant(false)}

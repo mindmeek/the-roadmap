@@ -462,6 +462,8 @@ export default function StrategyFormBrandIdentity() {
                     </button>
                 </div>
 
+            <FoundationFormNav currentFormId="brand_identity" />
+
             <AITeamModal
                 isOpen={showAIAssistant}
                 onClose={() => setShowAIAssistant(false)}

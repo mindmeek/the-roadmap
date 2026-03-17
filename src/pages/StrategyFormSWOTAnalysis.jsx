@@ -425,6 +425,8 @@ export default function StrategyFormSWOTAnalysis() {
                 </div>
             </div>
 
+            <FoundationFormNav currentFormId="swot" />
+
             {/* AI Team Modal */}
             <AITeamModal
                 isOpen={showAIAssistant}

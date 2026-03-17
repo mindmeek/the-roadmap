@@ -374,6 +374,8 @@ export default function StrategyFormSocialMedia() {
                     </button>
                 </div>
 
+            <FoundationFormNav currentFormId="social_media_strategy" />
+
             <AITeamModal
                 isOpen={showAIAssistant}
                 onClose={() => setShowAIAssistant(false)}

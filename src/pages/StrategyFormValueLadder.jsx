@@ -414,6 +414,8 @@ export default function StrategyFormValueLadder() {
                 </>}
             </div>
 
+            <FoundationFormNav currentFormId="value_ladder" />
+
             <AITeamModal
                 isOpen={showAIAssistant}
                 onClose={() => setShowAIAssistant(false)}

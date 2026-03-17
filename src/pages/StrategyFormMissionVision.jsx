@@ -396,6 +396,8 @@ export default function StrategyFormMissionVision() {
                     </button>
                 </div>
 
+                <FoundationFormNav currentFormId="mission_vision" />
+
                 <AITeamModal
                     isOpen={showAIAssistant}
                     onClose={() => setShowAIAssistant(false)}

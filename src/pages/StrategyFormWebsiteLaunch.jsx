@@ -465,6 +465,8 @@ export default function StrategyFormWebsiteLaunch() {
                     </button>
                 </div>
 
+                <FoundationFormNav currentFormId="website_launch" />
+
                 <AITeamModal
                     isOpen={showAIAssistant}
                     onClose={() => setShowAIAssistant(false)}

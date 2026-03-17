@@ -415,6 +415,8 @@ export default function StrategyFormAffiliateProgram() {
                     </button>
                 </div>
 
+                <FoundationFormNav currentFormId="affiliate_program" />
+
                 <AITeamModal
                     isOpen={showAIAssistant}
                     onClose={() => setShowAIAssistant(false)}

@@ -618,6 +618,8 @@ export default function StrategyFormBusinessModelCanvas() {
 
             </>}
 
+            <FoundationFormNav currentFormId="business_model" />
+
             {/* AI Team Modal */}
             <AITeamModal
                 isOpen={showAIAssistant}

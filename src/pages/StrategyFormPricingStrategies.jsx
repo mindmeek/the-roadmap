@@ -644,6 +644,8 @@ export default function StrategyFormPricingStrategies() {
                 </button>
             </div>
 
+            <FoundationFormNav currentFormId="pricing_strategies" />
+
             {/* AI Team Modal */}
             <AITeamModal
                 isOpen={showAIAssistant}

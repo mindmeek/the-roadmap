@@ -397,6 +397,8 @@ export default function StrategyFormCommunityBuilding() {
                 </>}
             </div>
 
+            <FoundationFormNav currentFormId="community_building" />
+
             <AITeamModal
                 isOpen={showAIAssistant}
                 onClose={() => setShowAIAssistant(false)}

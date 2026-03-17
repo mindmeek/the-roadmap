@@ -456,6 +456,8 @@ export default function StrategyFormStrategicPartnerships() {
                     </button>
                 </div>
 
+                <FoundationFormNav currentFormId="strategic_partnerships" />
+
                 <AITeamModal
                     isOpen={showAIAssistant}
                     onClose={() => setShowAIAssistant(false)}

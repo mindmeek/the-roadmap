@@ -489,6 +489,8 @@ export default function ValuePropositionCanvasPage() { // Renamed from StrategyF
                 </div>
             </div>
 
+            <FoundationFormNav currentFormId="value_proposition" />
+
             {/* AI Team Modal */}
             <AITeamModal
                 isOpen={showAIAssistant}

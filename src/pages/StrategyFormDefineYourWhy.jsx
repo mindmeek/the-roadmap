@@ -292,6 +292,8 @@ export default function StrategyFormDefineYourWhy() {
                     </button>
                 </div>
 
+                <FoundationFormNav currentFormId="define_your_why" />
+
                 {/* AI Modal */}
                 <AITeamModal
                     isOpen={showAIModal}

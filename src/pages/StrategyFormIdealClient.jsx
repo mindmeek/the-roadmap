@@ -779,6 +779,7 @@ export default function StrategyFormIdealClient() {
                         Get AI Help
                     </button>
                 </div>
+                <FoundationFormNav currentFormId="ideal_client" />
             </>}
             </div>
 

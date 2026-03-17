@@ -394,6 +394,8 @@ export default function StrategyFormAutomation() {
                     </button>
                 </div>
 
+                <FoundationFormNav currentFormId="automation_systematization" />
+
                 <AITeamModal
                     isOpen={showAIAssistant}
                     onClose={() => setShowAIAssistant(false)}

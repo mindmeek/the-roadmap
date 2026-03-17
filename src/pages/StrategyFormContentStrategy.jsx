@@ -440,6 +440,8 @@ export default function StrategyFormContentStrategy() {
                     </button>
                 </div>
 
+            <FoundationFormNav currentFormId="content_strategy" />
+
             <AITeamModal
                 isOpen={showAIAssistant}
                 onClose={() => setShowAIAssistant(false)}
