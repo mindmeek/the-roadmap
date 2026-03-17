@@ -228,14 +228,58 @@ export default function MyFoundationRoadmap() {
         loadData();
     }, []);
 
+    // Map document_type → section id
+    const DOC_TYPE_TO_SECTION = {
+        define_your_why: 'define_your_why',
+        mission_vision: 'mission_vision',
+        brand_identity: 'brand_identity',
+        ideal_client: 'ideal_client',
+        value_proposition_canvas: 'value_proposition',
+        value_ladder: 'value_ladder',
+        swot_analysis: 'swot',
+        business_model_canvas: 'business_model',
+        customer_journey: 'customer_journey',
+        content_strategy: 'content_strategy',
+        website_launch: 'website_launch',
+        email_marketing: 'email_marketing',
+        social_media_strategy: 'social_media_strategy',
+        pricing_strategies: 'pricing_strategies',
+        community_building: 'community_building',
+        affiliate_program: 'affiliate_program',
+        strategic_partnerships: 'strategic_partnerships',
+        automation_systematization: 'automation_systematization',
+    };
+
     const loadData = async () => {
         try {
             const userData = await User.me();
             setUser(userData);
 
-            const progressData = await FoundationProgress.filter({ created_by: userData.email });
+            // Load completion from actual StrategyDocuments
+            const [progressData, strategyDocs] = await Promise.all([
+                FoundationProgress.filter({ created_by: userData.email }),
+                StrategyDocument.filter({ created_by: userData.email })
+            ]);
+
+            // Build completed_steps from completed strategy documents
+            const completedFromDocs = strategyDocs
+                .filter(doc => doc.is_completed)
+                .map(doc => DOC_TYPE_TO_SECTION[doc.document_type])
+                .filter(Boolean);
+
+            // Check financial goal from user data
+            if (userData.financial_projections?.freedom_number) {
+                completedFromDocs.push('financial_goal');
+            }
+
+            const uniqueCompleted = [...new Set(completedFromDocs)];
+
             if (progressData && progressData.length > 0) {
-                setProgress(progressData[0]);
+                // Merge: take union of stored + derived
+                const merged = [...new Set([...(progressData[0].completed_steps || []), ...uniqueCompleted])];
+                setProgress({ ...progressData[0], completed_steps: merged });
+            } else {
+                setProgress(prev => ({ ...prev, completed_steps: uniqueCompleted }));
             }
         } catch (error) {
             console.error('Error loading data:', error);
