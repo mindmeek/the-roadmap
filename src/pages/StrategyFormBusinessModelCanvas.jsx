@@ -6,6 +6,7 @@ import { Save, ArrowLeft, CheckCircle, Lightbulb, HelpCircle, Sparkles, Users, A
 import StrategyToolGuide from '../components/strategy/StrategyToolGuide';
 import AITeamModal from '@/components/ai/AITeamModal';
 import BusinessPlanOverview from '@/components/strategy/BusinessPlanOverview';
+import FoundationFormNav from '@/components/foundation/FoundationFormNav';
 
 // Helper: normalize a field value to array (handles old string data)
 function toArray(val) {

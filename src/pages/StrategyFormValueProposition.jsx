@@ -5,6 +5,7 @@ import { createPageUrl } from '@/utils';
 import { ArrowLeft, Save, Target, Loader2, CheckCircle, Lightbulb, Plus, Minus, Sparkles } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
 import ValuePropositionOverview from '@/components/strategy/ValuePropositionOverview';
+import FoundationFormNav from '@/components/foundation/FoundationFormNav';
 
 const canvasSides = [
     {

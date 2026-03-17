@@ -9,6 +9,7 @@ import {
 import { handleGamification } from '@/functions/handleGamification';
 import AITeamModal from '@/components/ai/AITeamModal';
 import SWOTAnalysisOverview from '@/components/strategy/SWOTAnalysisOverview';
+import FoundationFormNav from '@/components/foundation/FoundationFormNav';
 
 const swotQuadrants = [
     {

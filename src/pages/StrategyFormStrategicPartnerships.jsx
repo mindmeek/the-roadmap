@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
 import StrategicPartnershipsOverview from '@/components/strategy/StrategicPartnershipsOverview';
+import FoundationFormNav from '@/components/foundation/FoundationFormNav';
 
 export default function StrategyFormStrategicPartnerships() {
     const [user, setUser] = useState(null);

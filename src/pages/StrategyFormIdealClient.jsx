@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
 import IdealClientOverview from '@/components/strategy/IdealClientOverview';
+import FoundationFormNav from '@/components/foundation/FoundationFormNav';
 
 // Dropdown options matching Customer Journey form
 const DEMOGRAPHICS_OPTIONS = {

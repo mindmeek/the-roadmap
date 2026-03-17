@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
 import SocialMediaOverview from '@/components/strategy/SocialMediaOverview';
+import FoundationFormNav from '@/components/foundation/FoundationFormNav';
 
 export default function StrategyFormSocialMedia() {
     const [user, setUser] = useState(null);

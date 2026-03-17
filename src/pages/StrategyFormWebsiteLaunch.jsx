@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
 import WebsiteLaunchOverview from '@/components/strategy/WebsiteLaunchOverview';
+import FoundationFormNav from '@/components/foundation/FoundationFormNav';
 
 export default function StrategyFormWebsiteLaunch() {
     const [user, setUser] = useState(null);

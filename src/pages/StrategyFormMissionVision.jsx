@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
 import MissionVisionOverview from '@/components/strategy/MissionVisionOverview';
+import FoundationFormNav from '@/components/foundation/FoundationFormNav';
 
 export default function StrategyFormMissionVision() {
     const [user, setUser] = useState(null);

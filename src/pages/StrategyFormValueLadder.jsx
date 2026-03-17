@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
 import ValueLadderOverview from '@/components/strategy/ValueLadderOverview';
+import FoundationFormNav from '@/components/foundation/FoundationFormNav';
 
 export default function StrategyFormValueLadder() {
     const [user, setUser] = useState(null);

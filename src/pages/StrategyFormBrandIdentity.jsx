@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
 import BrandIdentityOverview from '@/components/strategy/BrandIdentityOverview';
+import FoundationFormNav from '@/components/foundation/FoundationFormNav';
 
 export default function StrategyFormBrandIdentity() {
     const [user, setUser] = useState(null);

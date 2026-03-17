@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
 import EmailMarketingOverview from '@/components/strategy/EmailMarketingOverview';
+import FoundationFormNav from '@/components/foundation/FoundationFormNav';
 
 export default function StrategyFormEmailMarketing() {
     const [user, setUser] = useState(null);

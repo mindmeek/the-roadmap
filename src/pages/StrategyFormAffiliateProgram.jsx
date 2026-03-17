@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
 import AffiliateProgramOverview from '@/components/strategy/AffiliateProgramOverview';
+import FoundationFormNav from '@/components/foundation/FoundationFormNav';
 
 export default function StrategyFormAffiliateProgram() {
     const [user, setUser] = useState(null);

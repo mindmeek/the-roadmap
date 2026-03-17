@@ -27,8 +27,8 @@ Deno.serve(async (req) => {
 
         const teamMember = teamMembers[0];
 
-        // Verify the email matches
-        if (teamMember.email !== user.email) {
+        // Verify the email matches (case-insensitive)
+        if (teamMember.email.toLowerCase() !== user.email.toLowerCase()) {
             return Response.json({ 
                 error: 'This invitation is for a different email address. Please log in with the invited email or contact the team owner.' 
             }, { status: 403 });

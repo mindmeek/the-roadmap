@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import Tooltip from '../components/common/Tooltip';
 import AITeamModal from '@/components/ai/AITeamModal';
 import PricingStrategiesOverview from '@/components/strategy/PricingStrategiesOverview';
+import FoundationFormNav from '@/components/foundation/FoundationFormNav';
 
 const pricingStrategies = [
     {
