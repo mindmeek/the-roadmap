@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { User, FoundationProgress } from '@/entities/all';
+import { User, FoundationProgress, StrategyDocument } from '@/entities/all';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { 
