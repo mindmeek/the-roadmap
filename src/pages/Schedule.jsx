@@ -227,16 +227,25 @@ const ActivityDropdown = ({ isOpen, onClose, time, onAddActivity, weeklyTasks, t
     
     const endTime = `${String(endHour).padStart(2, '0')}:${String(endMinute).padStart(2, '0')}`;
     
+    const assignedMember = teamMembers?.find(m => m.email === assignedTo);
     const newItem = {
       id: crypto.randomUUID(),
-      start_time: time, // This is always 24-hour time passed in
+      start_time: time,
       end_time: endTime,
       title: title,
       category: category,
       linked_task_id: selectedTask || null,
+      assigned_to_email: assignedTo || null,
+      assigned_to_name: assignedMember?.full_name || null,
     };
     
     onAddActivity(newItem);
+
+    // Send notification if assigned to someone else
+    if (assignedTo && assignedTo !== user?.email && onNotify) {
+      onNotify(assignedTo, title, assignedMember?.full_name || '');
+    }
+
     onClose();
     
     // Reset form
@@ -244,6 +253,7 @@ const ActivityDropdown = ({ isOpen, onClose, time, onAddActivity, weeklyTasks, t
     setCustomTitle('');
     setDuration(60);
     setSelectedTask('');
+    setAssignedTo('');
   };
 
   if (!isOpen) return null;
