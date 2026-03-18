@@ -13,6 +13,7 @@ export default function MyFinancialGoal() {
   const [businessExpenses, setBusinessExpenses] = useState('');
   const [emergencyBuffer, setEmergencyBuffer] = useState('20');
   
+  const [teamMembers, setTeamMembers] = useState([]);
   const [affiliatePrograms, setAffiliatePrograms] = useState([]);
 
   const addAffiliateProgram = () => {
