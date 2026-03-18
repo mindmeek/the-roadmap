@@ -16,6 +16,15 @@ export default function MyFinancialGoal() {
   const [teamMembers, setTeamMembers] = useState([]);
   const [affiliatePrograms, setAffiliatePrograms] = useState([]);
 
+  const addTeamMember = () => {
+    setTeamMembers([...teamMembers, { id: crypto.randomUUID(), name: '', role: '', monthlySalary: '' }]);
+  };
+  const removeTeamMember = (id) => setTeamMembers(teamMembers.filter(m => m.id !== id));
+  const updateTeamMember = (id, field, value) => {
+    setTeamMembers(teamMembers.map(m => m.id === id ? { ...m, [field]: value } : m));
+  };
+  const totalTeamSalaryCost = teamMembers.reduce((sum, m) => sum + (parseFloat(m.monthlySalary) || 0), 0);
+
   const addAffiliateProgram = () => {
     setAffiliatePrograms([...affiliatePrograms, {
       id: crypto.randomUUID(),
