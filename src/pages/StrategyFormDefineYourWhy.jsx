@@ -295,6 +295,8 @@ export default function StrategyFormDefineYourWhy() {
 
                 <FoundationFormNav currentFormId="define_your_why" />
 
+                <FloatingSaveButton onSave={handleSave} isSaving={saving} isDirty={true} label="Save Your WHY" />
+
                 {/* AI Modal */}
                 <AITeamModal
                     isOpen={showAIModal}
