@@ -126,7 +126,7 @@ export default function MyFinancialGoal() {
     const businessExpensesNum = parseFloat(businessExpenses) || 0;
     const bufferNum = parseFloat(emergencyBuffer) || 0;
     
-    const totalMonthlyNeeds = expensesNum + salaryNum + businessExpensesNum;
+    const totalMonthlyNeeds = expensesNum + salaryNum + businessExpensesNum + totalTeamSalaryCost;
     const baseTarget = totalMonthlyNeeds * (1 + bufferNum / 100);
 
     // For each affiliate program, calculate commissions based on affiliate-visible products.
