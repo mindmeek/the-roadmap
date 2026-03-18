@@ -190,11 +190,12 @@ const ScheduleBlock = ({ item, onDelete, onEdit }) => {
   );
 };
 
-const ActivityDropdown = ({ isOpen, onClose, time, onAddActivity, weeklyTasks }) => {
+const ActivityDropdown = ({ isOpen, onClose, time, onAddActivity, weeklyTasks, teamMembers, user, onNotify }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [customTitle, setCustomTitle] = useState('');
   const [duration, setDuration] = useState(60);
   const [selectedTask, setSelectedTask] = useState('');
+  const [assignedTo, setAssignedTo] = useState('');
 
   const handleAddActivity = () => {
     if (!selectedCategory && !selectedTask) return;
