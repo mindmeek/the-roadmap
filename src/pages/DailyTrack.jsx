@@ -475,7 +475,24 @@ export default function DailyTrack() {
                         />
                         {isEditing ? (
                             <>
-                                <input type="text" value={task.task} onChange={(e) => handleTaskChange(task.id, e.target.value)} className="form-input flex-1"/>
+                                <div className="flex-1 flex flex-col gap-1">
+                                    <input type="text" value={task.task} onChange={(e) => handleTaskChange(task.id, e.target.value)} className="form-input"/>
+                                    {teamMembers.length > 0 && (
+                                        <select
+                                            value={task.assigned_to_email || ''}
+                                            onChange={e => {
+                                                const m = teamMembers.find(tm => tm.email === e.target.value);
+                                                handleAssignTask(task.id, e.target.value, m?.full_name || '');
+                                            }}
+                                            className="form-input text-xs py-1"
+                                        >
+                                            <option value="">Assign to (optional)...</option>
+                                            {teamMembers.map(m => (
+                                                <option key={m.id} value={m.email}>{m.full_name || m.email} ({m.role})</option>
+                                            ))}
+                                        </select>
+                                    )}
+                                </div>
                                 <button onClick={() => handleRemoveTask(task.id)} className="btn btn-ghost text-red-500 p-2"><Trash2 className="w-4 h-4"/></button>
                             </>
                         ) : (
