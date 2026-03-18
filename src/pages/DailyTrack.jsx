@@ -187,9 +187,34 @@ export default function DailyTrack() {
       completed: false,
       source_type: source_type,
       source_id: source_id,
-      order: formData.daily_tasks.length
+      order: formData.daily_tasks.length,
+      assigned_to_email: '',
+      assigned_to_name: ''
     };
     setFormData(prev => ({...prev, daily_tasks: [...prev.daily_tasks, newTask]}));
+  };
+
+  const handleAssignTask = async (taskId, memberEmail, memberName) => {
+    const updatedTasks = formData.daily_tasks.map(t =>
+      t.id === taskId ? { ...t, assigned_to_email: memberEmail, assigned_to_name: memberName } : t
+    );
+    setFormData(prev => ({ ...prev, daily_tasks: updatedTasks }));
+
+    // Send notification if assigning to someone else
+    if (memberEmail && memberEmail !== user.email) {
+      const task = formData.daily_tasks.find(t => t.id === taskId);
+      try {
+        await sendTaskNotification({
+          assignedToEmail: memberEmail,
+          taskTitle: task?.task || 'New Task',
+          taskDate: format(new Date(), 'MMM d, yyyy'),
+          assignerName: user.full_name,
+          taskType: 'task'
+        });
+      } catch (e) {
+        console.error('Failed to send task notification', e);
+      }
+    }
   };
 
   const handleTaskChange = (id, value) => {
