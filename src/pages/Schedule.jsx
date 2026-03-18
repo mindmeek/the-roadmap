@@ -174,10 +174,15 @@ const ScheduleBlock = ({ item, onDelete, onEdit }) => {
                 </span>
               </div>
               {item.linked_task_id && (
-                <div className="mt-2 pt-2 border-t border-gray-600">
-                  <span className="text-xs text-blue-300">📋 Linked to weekly task</span>
-                </div>
-              )}
+                                <div className="mt-2 pt-2 border-t border-gray-600">
+                                  <span className="text-xs text-blue-300">📋 Linked to weekly task</span>
+                                </div>
+                              )}
+                              {item.assigned_to_name && (
+                                <div className="mt-1">
+                                  <span className="text-xs text-green-300">👤 Assigned to: {item.assigned_to_name}</span>
+                                </div>
+                              )}
             </div>
             
             <div className="mt-3 pt-2 border-t border-gray-600 text-xs text-gray-400">
