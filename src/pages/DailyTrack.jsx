@@ -10,6 +10,7 @@ import { generateDailyTasks } from '@/functions/generateDailyTasks';
 import { showXPToast } from '@/components/common/XPToast';
 import roadmapData from '../components/roadmap';
 import RestartTourButton from '@/components/common/RestartTourButton';
+import { sendTaskNotification } from '@/functions/sendTaskNotification';
 
 export default function DailyTrack() {
   const navigate = useNavigate();
