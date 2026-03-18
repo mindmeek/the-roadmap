@@ -5,6 +5,7 @@ import { base44 } from '@/api/base44Client';
 import { User, StrategyDocument } from '@/entities/all';
 import { Sparkles, Heart, Save, Loader2, ArrowLeft } from 'lucide-react';
 import FoundationFormNav from '@/components/foundation/FoundationFormNav';
+import FloatingSaveButton from '@/components/common/FloatingSaveButton';
 import AITeamModal from '@/components/ai/AITeamModal';
 import DefineYourWhyOverview from '@/components/strategy/DefineYourWhyOverview';
 
