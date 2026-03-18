@@ -69,6 +69,7 @@ export default function MyFinancialGoal() {
           setDesiredSalary(String(projections.desiredSalary || ''));
           setBusinessExpenses(String(projections.businessExpenses || ''));
           setEmergencyBuffer(String(projections.emergencyBuffer || '20'));
+          setTeamMembers(projections.teamMembers || []);
           setAffiliatePrograms(projections.affiliatePrograms || []);
           setProducts((projections.products || [{ 
             id: crypto.randomUUID(), 
