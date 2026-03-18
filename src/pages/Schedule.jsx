@@ -383,6 +383,12 @@ export default function SchedulePage() {
     try {
       const userData = await User.me();
       setUser(userData);
+
+      // Load team members for task assignment
+      try {
+        const members = await base44.entities.TeamMember.filter({ status: 'active' });
+        setTeamMembers(members);
+      } catch (e) { /* no team members */ }
       
       const dateStr = format(date, 'yyyy-MM-dd');
       
