@@ -12,6 +12,7 @@ import { showXPToast } from '@/components/common/XPToast';
 import roadmapData from '../components/roadmap';
 import RestartTourButton from '@/components/common/RestartTourButton';
 import { sendTaskNotification } from '@/functions/sendTaskNotification';
+import { format as formatDate } from 'date-fns';
 
 export default function DailyTrack() {
   const navigate = useNavigate();
@@ -428,10 +429,28 @@ export default function DailyTrack() {
                 )}
             </div>
              {isEditing && (
-                <button onClick={() => navigate(createPageUrl('Schedule'))} className="btn btn-primary"><ListChecks className="w-4 h-4 mr-2" />Plan My Day</button>
-             )}
+                  <button onClick={() => navigate(createPageUrl('Schedule'))} className="btn btn-primary"><ListChecks className="w-4 h-4 mr-2" />Plan My Day in Scheduler</button>
+                  )}
           </div>
         </div>
+
+        {/* Weekly Planning Prompt */}
+        {new Date().getDay() === 0 || new Date().getDay() === 1 ? (
+          <div className="card p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-700 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="flex items-center gap-3 flex-1">
+              <div className="bg-blue-100 dark:bg-blue-800 p-2 rounded-lg flex-shrink-0">
+                <Calendar className="w-5 h-5 text-blue-600" />
+              </div>
+              <div>
+                <p className="font-semibold text-[var(--text-main)] text-sm">📅 It's the start of the week!</p>
+                <p className="text-xs text-[var(--text-soft)]">Take 15 minutes now to plan your week in the scheduler — it'll make every day more focused.</p>
+              </div>
+            </div>
+            <button onClick={() => navigate(createPageUrl('Schedule'))} className="btn btn-primary text-sm flex-shrink-0">
+              <Calendar className="w-4 h-4 mr-2" />Plan This Week
+            </button>
+          </div>
+        ) : null}
 
         {/* 30-Day Overview */}
         <div id="daily-track-stats" className="card p-6">
@@ -465,6 +484,14 @@ export default function DailyTrack() {
                 )}
             </div>
             <div className="space-y-3">
+                {/* Link to scheduler for existing tasks */}
+                {!isEditing && formData.daily_tasks.length > 0 && (
+                  <div className="flex items-center gap-2 mb-2 p-2 bg-blue-50 dark:bg-blue-900/10 rounded-lg border border-blue-200 dark:border-blue-700">
+                    <Calendar className="w-4 h-4 text-blue-500 flex-shrink-0" />
+                    <p className="text-xs text-[var(--text-soft)] flex-1">Schedule your tasks to specific time slots</p>
+                    <button onClick={() => navigate(createPageUrl('Schedule'))} className="text-xs text-blue-600 font-semibold hover:underline flex-shrink-0">Open Scheduler →</button>
+                  </div>
+                )}
                 {formData.daily_tasks.length > 0 ? formData.daily_tasks.map(task => (
                     <div key={task.id} className="flex items-center gap-3">
                         <input 
