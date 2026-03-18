@@ -45,6 +45,14 @@ export default function DailyTrack() {
       const userData = await User.me();
       setUser(userData);
 
+      // Load active team members for task assignment
+      try {
+        const members = await base44.entities.TeamMember.filter({ status: 'active' });
+        setTeamMembers(members);
+      } catch (e) {
+        console.error('Error loading team members:', e);
+      }
+
       // Debug: Log the user data and roadmap structure
       console.log("User data:", {
         stage: userData.entrepreneurship_stage,
