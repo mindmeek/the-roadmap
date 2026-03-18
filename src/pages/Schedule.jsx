@@ -849,9 +849,22 @@ export default function SchedulePage() {
       <ActivityDropdown 
         isOpen={showActivityDropdown}
         onClose={() => setShowActivityDropdown(false)}
-        time={selectedTime} // This is 24-hour time, formatted inside the component for display
+        time={selectedTime}
         onAddActivity={handleAddActivity}
         weeklyTasks={weeklyTasks}
+        teamMembers={teamMembers}
+        user={user}
+        onNotify={async (email, title, memberName) => {
+          try {
+            await sendTaskNotification({
+              assignedToEmail: email,
+              taskTitle: title,
+              taskDate: format(selectedDate, 'MMM d, yyyy'),
+              assignerName: user?.full_name,
+              taskType: 'schedule'
+            });
+          } catch(e) { console.error('Notify error', e); }
+        }}
       />
 
       {/* Edit Modal */}
