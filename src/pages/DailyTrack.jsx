@@ -496,12 +496,16 @@ export default function DailyTrack() {
                                 <button onClick={() => handleRemoveTask(task.id)} className="btn btn-ghost text-red-500 p-2"><Trash2 className="w-4 h-4"/></button>
                             </>
                         ) : (
-                            <span 
-                                className={`flex-1 cursor-pointer select-none ${task.completed ? 'line-through text-gray-500' : ''}`} 
-                                onClick={() => handleTaskToggle(task.id)}
-                            >
-                                {task.task}
-                            </span>
+                            <div className="flex-1" onClick={() => handleTaskToggle(task.id)}>
+                                <span className={`cursor-pointer select-none ${task.completed ? 'line-through text-gray-500' : ''}`}>
+                                    {task.task}
+                                </span>
+                                {task.assigned_to_name && (
+                                    <span className="ml-2 inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-2 py-0.5 rounded-full">
+                                        <UserCircle className="w-3 h-3" />{task.assigned_to_name}
+                                    </span>
+                                )}
+                            </div>
                         )}
                     </div>
                 )) : (
