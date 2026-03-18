@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
-import { Building, Plus, Edit, Loader2, ArrowRight, Globe, Mail, Phone, MapPin } from 'lucide-react';
+import { Building, Plus, Loader2, ArrowRight, Globe, Mail, Phone, MapPin, Users, Crown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function MyBusinesses() {
@@ -19,8 +19,37 @@ export default function MyBusinesses() {
         try {
             const currentUser = await base44.auth.me();
             setUser(currentUser);
-            const data = await base44.entities.Business.filter({ owner_user_id: currentUser.id }, '-updated_date', 20);
-            setBusinesses(data);
+
+            // Get businesses where user is the owner
+            const owned = await base44.entities.Business.filter({ owner_user_id: currentUser.id }, '-updated_date', 20);
+            const ownedIds = new Set(owned.map(b => b.id));
+
+            // Get businesses where user is an active team member
+            const teamMemberships = await base44.entities.TeamMember.filter({
+                email: currentUser.email,
+                status: 'active'
+            });
+
+            // Fetch those businesses (excluding ones already owned)
+            const memberBusinessIds = teamMemberships
+                .map(tm => tm.business_id)
+                .filter(id => !ownedIds.has(id));
+
+            const memberBusinesses = await Promise.all(
+                memberBusinessIds.map(id => base44.entities.Business.get(id).catch(() => null))
+            );
+
+            const allBusinesses = [
+                ...owned.map(b => ({ ...b, _userRole: 'owner' })),
+                ...memberBusinesses
+                    .filter(Boolean)
+                    .map(b => {
+                        const membership = teamMemberships.find(tm => tm.business_id === b.id);
+                        return { ...b, _userRole: membership?.role || 'member' };
+                    })
+            ];
+
+            setBusinesses(allBusinesses);
         } catch (e) {
             console.error(e);
         } finally {
@@ -30,7 +59,7 @@ export default function MyBusinesses() {
 
     const handleCreate = async () => {
         try {
-            const newBusiness = await base44.entities.Business.create({
+            await base44.entities.Business.create({
                 name: 'My New Business',
                 owner_user_id: user.id,
             });
@@ -51,7 +80,7 @@ export default function MyBusinesses() {
             <div className="flex items-center justify-between mb-8">
                 <div>
                     <h1 className="text-3xl font-bold text-[var(--text-main)]">My Businesses</h1>
-                    <p className="text-[var(--text-soft)] mt-1">Manage your business profiles</p>
+                    <p className="text-[var(--text-soft)] mt-1">Manage your business profiles and team memberships</p>
                 </div>
                 <Button onClick={handleCreate} className="btn-primary">
                     <Plus className="w-4 h-4 mr-2" />
@@ -81,7 +110,18 @@ export default function MyBusinesses() {
                                 </div>
                             )}
                             <div className="flex-1 min-w-0">
-                                <h3 className="text-lg font-bold text-[var(--text-main)]">{business.name}</h3>
+                                <div className="flex items-center gap-2 flex-wrap">
+                                    <h3 className="text-lg font-bold text-[var(--text-main)]">{business.name}</h3>
+                                    {business._userRole === 'owner' ? (
+                                        <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 bg-[var(--primary-gold)] text-white rounded-full">
+                                            <Crown className="w-3 h-3" /> Owner
+                                        </span>
+                                    ) : (
+                                        <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full capitalize">
+                                            <Users className="w-3 h-3" /> {business._userRole}
+                                        </span>
+                                    )}
+                                </div>
                                 {business.tagline && <p className="text-sm text-[var(--primary-gold)]">{business.tagline}</p>}
                                 {business.industry && <p className="text-sm text-[var(--text-soft)]">{business.industry}</p>}
                                 <div className="flex flex-wrap gap-3 mt-2 text-xs text-[var(--text-soft)]">
