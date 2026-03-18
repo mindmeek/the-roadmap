@@ -421,6 +421,65 @@ export default function MyFinancialGoal() {
             />
           </div>
 
+          {/* Team Members / Salaries Card */}
+          <div className="card p-4 sm:p-6">
+            <div className="flex items-center justify-between mb-3 sm:mb-4 flex-wrap gap-3">
+              <div className="flex items-center gap-3">
+                <UserCircle className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--primary-gold)]" />
+                <h3 className="text-lg sm:text-xl font-bold text-[var(--text-main)]">Team Members & Salaries</h3>
+                <Tooltip content="Add team members and their monthly salaries. This cost is automatically added to your Freedom Number so you know exactly how much revenue you need to cover your team.">
+                  <HelpCircle className="w-4 h-4 text-gray-400 hover:text-gray-600" />
+                </Tooltip>
+              </div>
+              <button onClick={addTeamMember} className="btn btn-secondary btn-sm text-xs sm:text-sm">
+                <Plus className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
+                Add Member
+              </button>
+            </div>
+            {teamMembers.length === 0 ? (
+              <p className="text-sm text-[var(--text-soft)] text-center py-4">No team members added. Click "Add Member" to include staff salaries in your calculation.</p>
+            ) : (
+              <div className="space-y-3">
+                {teamMembers.map((member, index) => (
+                  <div key={member.id} className="bg-gray-50 dark:bg-gray-800 p-3 sm:p-4 rounded-lg border">
+                    <div className="flex justify-between items-center mb-3">
+                      <h4 className="font-semibold text-[var(--text-main)] text-sm sm:text-base">Member {index + 1}</h4>
+                      <button onClick={() => removeTeamMember(member.id)} className="text-red-500 hover:text-red-700">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <input
+                        type="text"
+                        placeholder="Full Name"
+                        value={member.name}
+                        onChange={e => updateTeamMember(member.id, 'name', e.target.value)}
+                        className="form-input w-full text-sm"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Role / Title"
+                        value={member.role}
+                        onChange={e => updateTeamMember(member.id, 'role', e.target.value)}
+                        className="form-input w-full text-sm"
+                      />
+                      <input
+                        type="number"
+                        placeholder="Monthly Salary ($)"
+                        value={member.monthlySalary}
+                        onChange={e => updateTeamMember(member.id, 'monthlySalary', e.target.value)}
+                        className="form-input w-full text-sm"
+                      />
+                    </div>
+                  </div>
+                ))}
+                <div className="text-right text-sm font-semibold text-[var(--text-main)] mt-2">
+                  Total Team Cost: <span className="text-red-600 dark:text-red-400">${totalTeamSalaryCost.toLocaleString()}/mo</span>
+                </div>
+              </div>
+            )}
+          </div>
+
           {/* Affiliate Programs Card */}
           <div className="card p-4 sm:p-6">
             <div className="flex items-center justify-between mb-3 sm:mb-4 flex-wrap gap-3">
