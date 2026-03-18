@@ -376,6 +376,7 @@ export default function SchedulePage() {
   const [selectedTime, setSelectedTime] = useState('');
   const [weeklyTasks, setWeeklyTasks] = useState([]);
   const [isGeneratingTemplate, setIsGeneratingTemplate] = useState(false);
+  const [teamMembers, setTeamMembers] = useState([]);
 
   const loadData = async (date) => {
     setLoading(true);
