@@ -232,6 +232,7 @@ export default function MyFinancialGoal() {
           desiredSalary: parseFloat(desiredSalary) || 0,
           businessExpenses: parseFloat(businessExpenses) || 0,
           emergencyBuffer: parseFloat(emergencyBuffer) || 20,
+          teamMembers,
           affiliatePrograms,
           products,
           freedomNumber: results.freedomNumber,
