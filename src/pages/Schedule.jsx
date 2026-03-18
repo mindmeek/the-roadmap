@@ -11,6 +11,7 @@ import { exportSchedule } from '@/functions/exportSchedule';
 import { generateScheduleTemplate } from '@/functions/generateScheduleTemplate';
 import roadmapData from '../components/roadmap';
 import RestartTourButton from '@/components/common/RestartTourButton';
+import FloatingSaveButton from '@/components/common/FloatingSaveButton';
 
 const categoryColors = {
   deep_work: "bg-blue-500",
@@ -850,6 +851,23 @@ export default function SchedulePage() {
         </div>
       </DragDropContext>
 
+      {/* Weekly planning prompt - shown on Mon/Sun */}
+      {(new Date().getDay() === 0 || new Date().getDay() === 1) && scheduleItems.length === 0 && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-40 w-[95vw] max-w-xl">
+          <div className="card p-4 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border border-indigo-200 dark:border-indigo-700 flex items-center gap-3 shadow-xl">
+            <div className="bg-indigo-100 dark:bg-indigo-800 p-2 rounded-lg flex-shrink-0">
+              <Calendar className="w-5 h-5 text-indigo-600" />
+            </div>
+            <p className="text-sm text-[var(--text-main)] flex-1">
+              <strong>Start of the week!</strong> Plan your schedule now so each day has clear focus blocks.
+            </p>
+            <button onClick={() => setShowActivityDropdown(true)} className="btn btn-primary text-xs flex-shrink-0">
+              + Add Activity
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Activity Dropdown Modal */}
       <ActivityDropdown 
         isOpen={showActivityDropdown}
@@ -870,6 +888,14 @@ export default function SchedulePage() {
             });
           } catch(e) { console.error('Notify error', e); }
         }}
+      />
+
+      {/* Floating Save Button */}
+      <FloatingSaveButton
+        onSave={handleSaveSchedule}
+        isSaving={saving}
+        isDirty={scheduleItems.length > 0}
+        label="Save Schedule"
       />
 
       {/* Edit Modal */}
