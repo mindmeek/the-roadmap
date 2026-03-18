@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
-import { Building, Plus, Loader2, ArrowRight, Globe, Mail, Phone, MapPin, Users, Crown } from 'lucide-react';
+import { Building, Plus, Loader2, ArrowRight, Globe, Mail, MapPin, Users, Crown, Trash2, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { deleteBusiness } from '@/functions/deleteBusiness';
+import { leaveBusinessTeam } from '@/functions/leaveBusinessTeam';
 
 export default function MyBusinesses() {
     const [businesses, setBusinesses] = useState([]);
@@ -54,6 +56,26 @@ export default function MyBusinesses() {
             console.error(e);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleDeleteBusiness = async (business) => {
+        if (!confirm(`Are you sure you want to permanently delete "${business.name}"? This cannot be undone and will remove all team members and milestones.`)) return;
+        try {
+            await deleteBusiness({ business_id: business.id });
+            await loadBusinesses();
+        } catch (e) {
+            alert(e.response?.data?.error || e.message || 'Failed to delete business');
+        }
+    };
+
+    const handleLeaveBusiness = async (business) => {
+        if (!confirm(`Are you sure you want to leave "${business.name}"?`)) return;
+        try {
+            await leaveBusinessTeam({ business_id: business.id });
+            await loadBusinesses();
+        } catch (e) {
+            alert(e.response?.data?.error || e.message || 'Failed to leave business');
         }
     };
 
@@ -130,12 +152,35 @@ export default function MyBusinesses() {
                                     {business.website_url && <span className="flex items-center gap-1"><Globe className="w-3 h-3" />{business.website_url}</span>}
                                 </div>
                             </div>
-                            <Link to={createPageUrl('BusinessOverview')}>
-                                <Button variant="outline" size="sm">
-                                    <ArrowRight className="w-4 h-4 mr-2" />
-                                    Manage
-                                </Button>
-                            </Link>
+                            <div className="flex items-center gap-2 flex-shrink-0">
+                                <Link to={createPageUrl('BusinessOverview')}>
+                                    <Button variant="outline" size="sm">
+                                        <ArrowRight className="w-4 h-4 mr-2" />
+                                        Manage
+                                    </Button>
+                                </Link>
+                                {business._userRole === 'owner' ? (
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        className="text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20"
+                                        onClick={() => handleDeleteBusiness(business)}
+                                        title="Delete business"
+                                    >
+                                        <Trash2 className="w-4 h-4" />
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        className="text-orange-500 hover:text-orange-700 hover:bg-orange-50 dark:hover:bg-orange-900/20"
+                                        onClick={() => handleLeaveBusiness(business)}
+                                        title="Leave business"
+                                    >
+                                        <LogOut className="w-4 h-4" />
+                                    </Button>
+                                )}
+                            </div>
                         </div>
                     ))}
                 </div>
