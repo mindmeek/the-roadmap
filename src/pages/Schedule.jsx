@@ -337,6 +337,25 @@ const ActivityDropdown = ({ isOpen, onClose, time, onAddActivity, weeklyTasks, t
               </div>
             )}
             
+            {/* Assign to Team Member */}
+            {teamMembers?.length > 0 && (
+              <div>
+                <label className="block text-sm font-medium mb-1 flex items-center gap-1">
+                  <UserCircle className="w-4 h-4" /> Assign to Team Member (optional)
+                </label>
+                <select
+                  value={assignedTo}
+                  onChange={e => setAssignedTo(e.target.value)}
+                  className="form-input w-full"
+                >
+                  <option value="">Myself / Unassigned</option>
+                  {teamMembers.map(m => (
+                    <option key={m.id} value={m.email}>{m.full_name || m.email} ({m.role})</option>
+                  ))}
+                </select>
+              </div>
+            )}
+
             {/* Duration Selection */}
             <div>
               <label className="block text-sm font-medium mb-1">Duration</label>
