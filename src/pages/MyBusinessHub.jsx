@@ -176,7 +176,7 @@ export default function MyBusinessHub() {
                 </div>
 
                 {/* Quick Actions Row */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <Link to={createPageUrl('ElyzetAIAssistants')}>
                         <Card className="hover:shadow-lg transition-all group cursor-pointer h-full bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border border-purple-200 dark:border-purple-700" style={{ borderRadius: '2px' }}>
                             <CardHeader className="pb-3">
@@ -231,8 +231,8 @@ export default function MyBusinessHub() {
 
                 {/* What You'll Find Section */}
                 <div className="card p-6" style={{ borderRadius: '2px' }}>
-                    <h2 className="text-2xl font-bold text-[var(--text-main)] mb-6 text-center">What You'll Find Here</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-main)] mb-6 text-center">What You'll Find Here</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div className="space-y-3">
                             <h3 className="font-bold text-lg text-[var(--text-main)] flex items-center gap-2">
                                 <Briefcase className="w-5 h-5 text-[var(--primary-gold)]" />

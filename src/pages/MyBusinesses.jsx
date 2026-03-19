@@ -99,7 +99,7 @@ export default function MyBusinesses() {
 
     return (
         <div className="max-w-4xl mx-auto px-4 py-8">
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
                 <div>
                     <h1 className="text-3xl font-bold text-[var(--text-main)]">My Businesses</h1>
                     <p className="text-[var(--text-soft)] mt-1">Manage your business profiles and team memberships</p>
@@ -123,7 +123,7 @@ export default function MyBusinesses() {
             ) : (
                 <div className="grid gap-4">
                     {businesses.map(business => (
-                        <div key={business.id} className="card p-6 flex items-center gap-6">
+                        <div key={business.id} className="card p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
                             {business.logo_url ? (
                                 <img src={business.logo_url} alt={business.name} className="w-16 h-16 object-contain rounded-md border border-gray-200 dark:border-gray-700 flex-shrink-0" />
                             ) : (
@@ -152,7 +152,7 @@ export default function MyBusinesses() {
                                     {business.website_url && <span className="flex items-center gap-1"><Globe className="w-3 h-3" />{business.website_url}</span>}
                                 </div>
                             </div>
-                            <div className="flex items-center gap-2 flex-shrink-0">
+                            <div className="flex items-center gap-2 flex-shrink-0 w-full sm:w-auto justify-end">
                                 <Link to={createPageUrl('BusinessOverview')}>
                                     <Button variant="outline" size="sm">
                                         <ArrowRight className="w-4 h-4 mr-2" />

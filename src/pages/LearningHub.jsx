@@ -101,7 +101,7 @@ export default function LearningHub() {
 
                 {/* Bottom CTA */}
                 <div className="card p-6 bg-gradient-to-r from-[var(--primary-gold)]/10 to-yellow-50 dark:to-yellow-900/20 border-2 border-[var(--primary-gold)]/30" style={{ borderRadius: '2px' }}>
-                    <div className="flex items-center gap-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                         <div className="bg-[var(--primary-gold)] p-3 rounded-lg">
                             <Sparkles className="w-6 h-6 text-white" />
                         </div>
@@ -114,8 +114,8 @@ export default function LearningHub() {
                                 Start there, then explore these additional learning materials as needed.
                             </p>
                         </div>
-                        <Link to={createPageUrl('Journey')}>
-                            <Button className="bg-[var(--primary-gold)] hover:bg-[var(--primary-gold)]/90">
+                        <Link to={createPageUrl('Journey')} className="w-full sm:w-auto">
+                            <Button className="bg-[var(--primary-gold)] hover:bg-[var(--primary-gold)]/90 w-full sm:w-auto">
                                 <Target className="w-4 h-4 mr-2" />
                                 View My Journey
                             </Button>
