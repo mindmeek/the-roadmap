@@ -23,11 +23,11 @@ const CommunityIntro = () => (
             <div className="bg-gradient-to-br from-[var(--primary-gold)]/20 to-yellow-100 dark:to-yellow-900/20 p-8 rounded-full inline-block mb-6">
                 <Users className="w-20 h-20 text-[var(--primary-gold)]" />
             </div>
-            <div className="flex justify-center items-start mb-4">
-                <h1 className="text-4xl font-bold text-[var(--text-main)]">Welcome to The Business Minds Community!</h1>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-2 mb-4">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text-main)] text-center">Welcome to The Business Minds Community!</h1>
                 <RestartTourButton tourKey="community" />
             </div>
-            <p className="text-xl text-[var(--text-soft)] max-w-3xl mb-8">
+            <p className="text-base sm:text-xl text-[var(--text-soft)] max-w-3xl mb-8">
                 Your private space to connect with fellow entrepreneurs, share your journey, and accelerate your growth together.
             </p>
         </div>
@@ -46,7 +46,7 @@ const CommunityIntro = () => (
             </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-8">
             {/* What You'll Get */}
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border-2 border-green-200 dark:border-green-800">
                 <h3 className="font-bold text-lg mb-4 text-green-700 dark:text-green-400 flex items-center gap-2">
@@ -114,7 +114,7 @@ const CommunityIntro = () => (
             <p className="text-blue-700 dark:text-blue-300 mb-3">
                 Hosted by founder Christopher Shaw, these sessions are your chance to dive deep and get personalized guidance.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-sm">
                 <div className="bg-white dark:bg-gray-800 p-3 rounded-lg">
                     <div className="font-bold text-blue-800 dark:text-blue-200">When</div>
                     <div className="text-[var(--text-soft)]">Tuesdays & Thursdays</div>
@@ -131,12 +131,12 @@ const CommunityIntro = () => (
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a 
                 href="https://thebminds.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="btn btn-primary text-lg py-4 px-8"
+                className="btn btn-primary text-base sm:text-lg py-3 sm:py-4 px-6 sm:px-8 w-full sm:w-auto text-center"
             >
                 <Users className="w-5 h-5 mr-2" />
                 Access Community Now
@@ -145,7 +145,7 @@ const CommunityIntro = () => (
                 href="https://thebminds.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="btn btn-secondary text-lg py-4 px-8"
+                className="btn btn-secondary text-base sm:text-lg py-3 sm:py-4 px-6 sm:px-8 w-full sm:w-auto text-center"
             >
                 <ArrowRight className="w-5 h-5 mr-2" />
                 Join Live Events
