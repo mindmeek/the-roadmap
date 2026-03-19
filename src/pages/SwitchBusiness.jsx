@@ -8,7 +8,7 @@ import { toast } from "sonner";
 export default function SwitchBusiness() {
     const [loading, setLoading] = useState(true);
     const [userBusinesses, setUserBusinesses] = useState([]);
-    const [activeBusinessId, setActiveBusinessId] = useState(() => localStorage.getItem('activeBusinessId'));
+    const [activeBusinessId, setActiveBusinessId] = useState(() => localStorage.getItem('selectedBusinessId'));
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -56,7 +56,7 @@ export default function SwitchBusiness() {
     }, []);
 
     const handleSwitch = (businessId) => {
-        localStorage.setItem('activeBusinessId', businessId);
+        localStorage.setItem('selectedBusinessId', businessId);
         setActiveBusinessId(businessId);
         toast.success("Business switched!");
         navigate('/BusinessOverview');
@@ -89,7 +89,7 @@ export default function SwitchBusiness() {
                         return (
                             <div
                                 key={business.id}
-                                className={`card p-5 flex items-center gap-4 transition-all ${isActive ? 'border-2 border-[var(--primary-gold)]' : ''}`}
+                                className={`card p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 transition-all ${isActive ? 'border-2 border-[var(--primary-gold)]' : ''}`}
                             >
                                 {business.logo_url ? (
                                     <img src={business.logo_url} alt={business.name} className="w-14 h-14 object-contain rounded-md border border-gray-200 dark:border-gray-700 flex-shrink-0" />
@@ -124,7 +124,7 @@ export default function SwitchBusiness() {
                                     onClick={() => handleSwitch(business.id)}
                                     disabled={isActive}
                                     variant={isActive ? "outline" : "default"}
-                                    className="flex-shrink-0"
+                                    className="flex-shrink-0 w-full sm:w-auto"
                                 >
                                     {isActive ? 'Current' : (
                                         <>Switch <ArrowRight className="w-4 h-4 ml-1" /></>
