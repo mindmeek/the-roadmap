@@ -355,7 +355,7 @@ export default function BusinessOverview() {
             <div className="max-w-5xl mx-auto px-4">
 
             {/* Quick Actions Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6">
                 <ActionCard
                     title="Annual Strategy"
                     description="Plan your year and quarterly goals"
@@ -857,7 +857,7 @@ export default function BusinessOverview() {
                 </div>
                 {strategyDocs['customer_journey'] && strategyDocs['customer_journey'].content?.stages ? (
                     <div className="space-y-4">
-                        <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
                             {strategyDocs['customer_journey'].content.stages.map((stage, idx) => (
                                 <div key={idx} className="border border-gray-200 dark:border-gray-700 p-3" style={{ borderRadius: '1px' }}>
                                     <div className="bg-gradient-to-br from-pink-500 to-rose-600 text-white p-2 text-center mb-2" style={{ borderRadius: '1px' }}>
