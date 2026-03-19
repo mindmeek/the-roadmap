@@ -74,18 +74,43 @@ export default function BusinessOverview() {
             setUser(currentUser);
 
             // Fetch all data in parallel with proper limits
-            const [businesses, allDocs, progress, journeys, plans] = await Promise.all([
+            // Check if user has a selected business from SwitchBusiness
+            const selectedBusinessId = localStorage.getItem('selectedBusinessId');
+
+            const [ownedBusinesses, teamMemberships, allDocs, progress, journeys, plans] = await Promise.all([
                 base44.entities.Business.filter({ owner_user_id: currentUser.id }, '-updated_date', 5),
+                base44.entities.TeamMember.filter({ email: currentUser.email, status: 'active' }),
                 base44.entities.StrategyDocument.filter({ created_by: currentUser.email }, '-updated_date', 20),
                 base44.entities.FoundationProgress.filter({ created_by: currentUser.email }, '-updated_date', 1),
                 base44.entities.SocialMediaPlan.filter({ created_by: currentUser.email, is_active: true }, '-created_date', 1),
                 base44.entities.AnnualPlan.filter({ created_by: currentUser.email }, '-created_date', 5)
             ]);
 
-            // Process Business
-            if (businesses.length > 0) {
-                setBusiness(businesses[0]);
-                setAboutText(businesses[0].description || '');
+            // Fetch member businesses
+            const memberBusinessIds = teamMemberships
+                .map(tm => tm.business_id)
+                .filter(id => !ownedBusinesses.find(b => b.id === id));
+            const memberBusinesses = await Promise.all(
+                memberBusinessIds.map(id => base44.entities.Business.get(id).catch(() => null))
+            );
+            const allBusinesses = [
+                ...ownedBusinesses.map(b => ({ ...b, _userRole: 'owner' })),
+                ...memberBusinesses.filter(Boolean).map(b => {
+                    const tm = teamMemberships.find(t => t.business_id === b.id);
+                    return { ...b, _userRole: tm?.role || 'member' };
+                })
+            ];
+
+            // Process Business — prefer selected, then first owned, then first member business
+            let activeBusiness = null;
+            if (selectedBusinessId) {
+                activeBusiness = allBusinesses.find(b => b.id === selectedBusinessId) || allBusinesses[0];
+            } else {
+                activeBusiness = allBusinesses[0];
+            }
+            if (activeBusiness) {
+                setBusiness(activeBusiness);
+                setAboutText(activeBusiness.description || '');
             }
 
             // Process Strategy Documents
