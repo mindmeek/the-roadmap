@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
@@ -521,7 +521,7 @@ export default function BusinessOverview() {
                 {/* Financial Overview */}
                 {user?.financial_projections ? (
                     <>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                             {/* Monthly Freedom Number */}
                             <div className="bg-green-50 dark:bg-green-900/20 border-2 border-green-500 p-4 text-center" style={{ borderRadius: '1px' }}>
                                 <p className="text-xs text-green-700 dark:text-green-400 font-semibold mb-2">Monthly Freedom Number</p>
@@ -581,7 +581,7 @@ export default function BusinessOverview() {
                                         </Button>
                                     </Link>
                                 </div>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                     {user.financial_projections.products.map((product, idx) => {
                                         const unitsNeeded = calculateUnitsNeeded(product, user.financial_projections.freedomNumber || 0);
                                         return (
@@ -644,7 +644,7 @@ export default function BusinessOverview() {
                         </p>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Your Why */}
                     <div className="border border-gray-200 dark:border-gray-700 p-4 hover:shadow-lg transition-all" style={{ borderRadius: '1px' }}>
                         <div className="flex items-center justify-between mb-3">
@@ -753,7 +753,7 @@ export default function BusinessOverview() {
                         </p>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <StrategyCard
                         title="Business Model Canvas"
                         icon={Briefcase}
@@ -915,7 +915,7 @@ export default function BusinessOverview() {
                         </p>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Current 90-Day Journey */}
                     <div className="border border-gray-200 dark:border-gray-700 p-4" style={{ borderRadius: '1px' }}>
                         <h3 className="font-bold mb-3 flex items-center gap-2">
@@ -1017,7 +1017,7 @@ export default function BusinessOverview() {
                 <h2 className="text-2xl font-bold mb-4 pb-2 border-b-2 border-[var(--primary-gold)]">
                     Growth Hubs & Resources
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <Link to={createPageUrl('MyFoundationRoadmap')}>
                         <div className="border border-gray-200 dark:border-gray-700 p-4 hover:shadow-lg transition-all cursor-pointer h-full text-center" style={{ borderRadius: '1px' }}>
                             <div className="bg-blue-100 dark:bg-blue-900 p-3 inline-block mb-3" style={{ borderRadius: '1px' }}>
@@ -1076,7 +1076,7 @@ export default function BusinessOverview() {
                         Connect with fellow entrepreneurs, share your journey, get feedback, and grow together.
                     </p>
                     
-                    <div className="flex flex-wrap gap-3 justify-center">
+                    <div className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center">
                         <a 
                             href="https://thebminds.com" 
                             target="_blank" 
