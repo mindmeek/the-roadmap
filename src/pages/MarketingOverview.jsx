@@ -212,7 +212,7 @@ export default function MarketingOverviewPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-black pb-20 p-6">
+        <div className="min-h-screen bg-gray-50 dark:bg-black pb-20 p-3 sm:p-6">
             <div className="max-w-7xl mx-auto space-y-8">
                 
                 {/* Header */}
@@ -230,12 +230,12 @@ export default function MarketingOverviewPage() {
                             Follow this step-by-step path to build your complete marketing strategy
                         </p>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap gap-2">
                         {hasBusinessFoundation && (
                             <Button 
                                 onClick={handleGenerateComprehensiveStrategy}
                                 disabled={generatingStrategy}
-                                className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white"
+                                className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-sm"
                             >
                                 {generatingStrategy ? (
                                     <>
@@ -245,15 +245,16 @@ export default function MarketingOverviewPage() {
                                 ) : (
                                     <>
                                         <Zap className="w-4 h-4 mr-2" />
-                                        AI: Generate Complete Strategy
+                                        <span className="hidden sm:inline">AI: Generate Complete Strategy</span>
+                                        <span className="sm:hidden">AI Strategy</span>
                                     </>
                                 )}
                             </Button>
                         )}
                         <Link to={createPageUrl('ElyzetAIAssistants')}>
-                            <Button className="bg-[var(--primary-gold)] hover:bg-[var(--primary-gold)]/90">
+                            <Button className="bg-[var(--primary-gold)] hover:bg-[var(--primary-gold)]/90 text-sm">
                                 <Sparkles className="w-4 h-4 mr-2" />
-                                AI Assistance
+                                AI Help
                             </Button>
                         </Link>
                     </div>
@@ -273,7 +274,7 @@ export default function MarketingOverviewPage() {
                                 <p className="text-sm text-[var(--text-soft)] mb-3">
                                     Based on your ideal client, value proposition, and financial goals, AI will instantly generate:
                                 </p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
                                     <div className="flex items-center gap-2 text-sm text-[var(--text-main)]">
                                         <CheckCircle className="w-4 h-4 text-green-600" />
                                         <span>90-Day Content Calendar</span>
@@ -509,7 +510,7 @@ export default function MarketingOverviewPage() {
                             </Link>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                             <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
                                 <div className="text-sm text-[var(--text-soft)] mb-1">Freedom Number</div>
                                 <div className="text-2xl font-bold text-green-600">
@@ -543,7 +544,7 @@ export default function MarketingOverviewPage() {
                                     <ShoppingCart className="w-4 h-4 text-green-600" />
                                     Your Products/Services ({financialGoals.products.filter(p => p.name && p.price).length})
                                 </h4>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     {financialGoals.products.filter(p => p.name && p.price).map((product, idx) => {
                                         const price = parseFloat(product.price) || 0;
                                         const cost = parseFloat(product.cost) || 0;
@@ -1179,7 +1180,7 @@ export default function MarketingOverviewPage() {
                             and precise targeting. You can reach your exact ideal client demographic, test messaging quickly, 
                             and scale what works. Combined with your organic strategy, ads accelerate your growth dramatically.
                         </p>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             <div className="bg-white dark:bg-gray-800 p-3 rounded-lg">
                                 <h4 className="font-semibold text-sm text-[var(--text-main)] mb-1">Google Ads</h4>
                                 <p className="text-xs text-[var(--text-soft)]">Capture high-intent searchers actively looking for your solution</p>
@@ -1222,7 +1223,7 @@ export default function MarketingOverviewPage() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                         {/* Email Subject Lines */}
                         <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
                             <div className="flex items-center justify-between mb-3">
@@ -1409,7 +1410,7 @@ export default function MarketingOverviewPage() {
                             Post to 9+ social platforms, run email campaigns, manage ads, build landing pages, 
                             and track everything from one unified dashboard.
                         </p>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs mb-6 max-w-4xl mx-auto">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs mb-6 max-w-4xl mx-auto">
                             <div className="bg-white/10 px-3 py-2 rounded">📱 Multi-Platform Posting</div>
                             <div className="bg-white/10 px-3 py-2 rounded">✉️ Email Marketing</div>
                             <div className="bg-white/10 px-3 py-2 rounded">🎯 Ad Management</div>
