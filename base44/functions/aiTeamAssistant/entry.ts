@@ -165,11 +165,16 @@ Deno.serve(async (req) => {
             contextualData += `\n- Milestones: ${allBusinessMilestones.map(m => `${m.title} (${m.status})`).join(', ')}`;
         }
 
-        const fullPrompt = `${assistant.systemPrompt(contextualData)}
+        const systemPrompt = assistant.systemPrompt(contextualData);
 
-User's Question: ${user_prompt}`;
-
-        const response = await base44.integrations.Core.InvokeLLM({ prompt: fullPrompt });
+        const anthropic = new Anthropic({ apiKey: Deno.env.get('ANTHROPIC_API_KEY') });
+        const message = await anthropic.messages.create({
+            model: 'claude-opus-4-5',
+            max_tokens: 1024,
+            system: systemPrompt,
+            messages: [{ role: 'user', content: user_prompt }]
+        });
+        const response = message.content[0].text;
 
         return Response.json({
             success: true,
