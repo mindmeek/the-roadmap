@@ -320,21 +320,31 @@ export default function WeekPage() {
         const savingKey = `step-${stepIndex}`;
         setIsSavingAnswers(prev => ({ ...prev, [savingKey]: true }));
         try {
-            const updatedResponses = Array.isArray(stepAnswers) ? stepAnswers : [];
-            if (weeklyReflection) {
-                await base44.entities.WeeklyReflection.update(weeklyReflection.id, { action_step_responses: updatedResponses });
-            } else {
-                const created = await base44.entities.WeeklyReflection.create({
-                    user_id: user?.id,
-                    week_number: weekNumber,
-                    month_number: weekData?.month_number || 1,
-                    stage: user?.entrepreneurship_stage,
-                    goal_id: user?.selected_goal,
-                    action_step_responses: updatedResponses
+            // Use functional update to get latest state
+            setStepAnswers(prev => {
+                const updatedResponses = Array.isArray(prev) ? prev : [];
+                const saveToDb = async () => {
+                    if (weeklyReflection) {
+                        await base44.entities.WeeklyReflection.update(weeklyReflection.id, { action_step_responses: updatedResponses });
+                    } else {
+                        const created = await base44.entities.WeeklyReflection.create({
+                            user_id: user?.id,
+                            week_number: weekNumber,
+                            month_number: weekData?.month_number || 1,
+                            stage: user?.entrepreneurship_stage,
+                            goal_id: user?.selected_goal,
+                            action_step_responses: updatedResponses
+                        });
+                        setWeeklyReflection(created);
+                    }
+                    setTimeout(() => setIsSavingAnswers(prev2 => ({ ...prev2, [savingKey]: false })), 800);
+                };
+                saveToDb().catch(err => {
+                    console.error("Error saving answer:", err);
+                    setIsSavingAnswers(prev2 => ({ ...prev2, [savingKey]: false }));
                 });
-                setWeeklyReflection(created);
-            }
-            setTimeout(() => setIsSavingAnswers(prev => ({ ...prev, [savingKey]: false })), 800);
+                return prev;
+            });
         } catch (error) {
             console.error("Error saving answer:", error);
             setIsSavingAnswers(prev => ({ ...prev, [savingKey]: false }));
