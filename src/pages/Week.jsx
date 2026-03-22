@@ -224,6 +224,7 @@ export default function WeekPage() {
                         next_week_focus: reflections[0].next_week_focus || ''
                     });
                     setStepAnswers(reflections[0].action_step_responses || []);
+                    // action_step_responses is the array stored in DB
                 }
             } catch (err) {
                 console.warn("Could not load weekly reflection", err);
