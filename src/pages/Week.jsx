@@ -301,10 +301,17 @@ export default function WeekPage() {
         }));
     };
 
-    const handleAnswerChange = (stepIndex, value) => {
+    const handleAnswerChange = (stepIndex, detailIndex, value) => {
         setStepAnswers(prev => {
             const updated = Array.isArray(prev) ? [...prev] : [];
-            updated[stepIndex] = { ...(updated[stepIndex] || {}), response: value, step_title: weekData?.action_steps?.[stepIndex]?.title || '' };
+            const currentStep = updated[stepIndex] ? { ...updated[stepIndex] } : {};
+            const currentResponses = Array.isArray(currentStep.step_responses) ? [...currentStep.step_responses] : [];
+            currentResponses[detailIndex] = value;
+            updated[stepIndex] = {
+                ...currentStep,
+                step_title: weekData?.action_steps?.[stepIndex]?.title || '',
+                step_responses: currentResponses
+            };
             return updated;
         });
     };
