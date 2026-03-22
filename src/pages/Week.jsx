@@ -301,97 +301,67 @@ export default function WeekPage() {
         }));
     };
 
-    const handleAnswerChange = (weekNum, stepIndex, value) => {
-        setStepAnswers(prev => ({
-            ...prev,
-            [weekNum]: {
-                ...(prev[weekNum] || {}),
-                [stepIndex]: {
-                    ...(prev[weekNum]?.[stepIndex] || {}),
-                    answer: value,
-                    last_updated: new Date().toISOString()
-                }
-            }
-        }));
-    };
-
-    const handleAddStepNote = (weekNum, stepIndex) => {
+    const handleAnswerChange = (stepIndex, value) => {
         setStepAnswers(prev => {
-            const currentStepData = prev[weekNum]?.[stepIndex] || {};
-            const currentNotes = currentStepData.additional_notes || [];
-            return {
-                ...prev,
-                [weekNum]: {
-                    ...(prev[weekNum] || {}),
-                    [stepIndex]: {
-                        ...currentStepData,
-                        additional_notes: [
-                            ...currentNotes,
-                            { id: Date.now().toString(), title: `Note Section ${currentNotes.length + 1}`, content: '' }
-                        ],
-                        last_updated: new Date().toISOString()
-                    }
-                }
-            };
+            const updated = Array.isArray(prev) ? [...prev] : [];
+            updated[stepIndex] = { ...(updated[stepIndex] || {}), response: value, step_title: weekData?.action_steps?.[stepIndex]?.title || '' };
+            return updated;
         });
     };
 
-    const handleUpdateStepNote = (weekNum, stepIndex, noteId, field, value) => {
-        setStepAnswers(prev => {
-            const currentStepData = prev[weekNum]?.[stepIndex] || {};
-            const currentNotes = currentStepData.additional_notes || [];
-            return {
-                ...prev,
-                [weekNum]: {
-                    ...(prev[weekNum] || {}),
-                    [stepIndex]: {
-                        ...currentStepData,
-                        additional_notes: currentNotes.map(n => n.id === noteId ? { ...n, [field]: value } : n),
-                        last_updated: new Date().toISOString()
-                    }
-                }
-            };
-        });
-    };
-
-    const handleDeleteStepNote = (weekNum, stepIndex, noteId) => {
-        if (!confirm('Are you sure you want to delete this note section?')) return;
-        setStepAnswers(prev => {
-            const currentStepData = prev[weekNum]?.[stepIndex] || {};
-            const currentNotes = currentStepData.additional_notes || [];
-            return {
-                ...prev,
-                [weekNum]: {
-                    ...(prev[weekNum] || {}),
-                    [stepIndex]: {
-                        ...currentStepData,
-                        additional_notes: currentNotes.filter(n => n.id !== noteId),
-                        last_updated: new Date().toISOString()
-                    }
-                }
-            };
-        });
-    };
-
-    const handleSaveAnswer = async (weekNum, stepIndex) => {
-        if (!foundationProgress) return;
-        
-        const savingKey = `${weekNum}-${stepIndex}`;
+    const handleSaveAnswer = async (stepIndex) => {
+        const savingKey = `step-${stepIndex}`;
         setIsSavingAnswers(prev => ({ ...prev, [savingKey]: true }));
-
         try {
-            const updatedAnswers = { ...stepAnswers };
-            await base44.entities.FoundationProgress.update(foundationProgress.id, {
-                weekly_step_answers: updatedAnswers
-            });
-            
-            // Show success briefly
-            setTimeout(() => {
-                setIsSavingAnswers(prev => ({ ...prev, [savingKey]: false }));
-            }, 500);
+            const updatedResponses = Array.isArray(stepAnswers) ? stepAnswers : [];
+            if (weeklyReflection) {
+                await base44.entities.WeeklyReflection.update(weeklyReflection.id, { action_step_responses: updatedResponses });
+            } else {
+                const created = await base44.entities.WeeklyReflection.create({
+                    user_id: user?.id,
+                    week_number: weekNumber,
+                    month_number: weekData?.month_number || 1,
+                    stage: user?.entrepreneurship_stage,
+                    goal_id: user?.selected_goal,
+                    action_step_responses: updatedResponses
+                });
+                setWeeklyReflection(created);
+            }
+            setTimeout(() => setIsSavingAnswers(prev => ({ ...prev, [savingKey]: false })), 800);
         } catch (error) {
             console.error("Error saving answer:", error);
             setIsSavingAnswers(prev => ({ ...prev, [savingKey]: false }));
+        }
+    };
+
+    const handleSaveReflection = async () => {
+        setIsSavingReflection(true);
+        try {
+            const payload = {
+                user_id: user?.id,
+                week_number: weekNumber,
+                month_number: weekData?.month_number || 1,
+                stage: user?.entrepreneurship_stage,
+                goal_id: user?.selected_goal,
+                main_reflection: reflectionData.main_reflection,
+                key_takeaways: reflectionData.key_takeaways.split('\n').map(s => s.trim()).filter(Boolean),
+                challenges_faced: reflectionData.challenges_faced,
+                next_week_focus: reflectionData.next_week_focus,
+                is_completed: true,
+                completion_date: new Date().toISOString()
+            };
+            if (weeklyReflection) {
+                await base44.entities.WeeklyReflection.update(weeklyReflection.id, payload);
+            } else {
+                const created = await base44.entities.WeeklyReflection.create(payload);
+                setWeeklyReflection(created);
+            }
+            setReflectionSaved(true);
+            setTimeout(() => setReflectionSaved(false), 3000);
+        } catch (error) {
+            console.error("Error saving reflection:", error);
+        } finally {
+            setIsSavingReflection(false);
         }
     };
 
