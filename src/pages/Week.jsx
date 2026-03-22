@@ -54,7 +54,16 @@ export default function WeekPage() {
     const [strategyDocs, setStrategyDocs] = useState({});
     const [stepAnswers, setStepAnswers] = useState({});
     const [isSavingAnswers, setIsSavingAnswers] = useState({});
-    const [activeNoteSection, setActiveNoteSection] = useState(null); // For editing note section titles
+    const [activeNoteSection, setActiveNoteSection] = useState(null);
+    const [weeklyReflection, setWeeklyReflection] = useState(null);
+    const [reflectionData, setReflectionData] = useState({
+        main_reflection: '',
+        key_takeaways: '',
+        challenges_faced: '',
+        next_week_focus: ''
+    });
+    const [isSavingReflection, setIsSavingReflection] = useState(false);
+    const [reflectionSaved, setReflectionSaved] = useState(false);
 
     const [copilotModal, setCopilotModal] = useState({
         isOpen: false,
@@ -88,19 +97,14 @@ export default function WeekPage() {
                 const progressRecords = await base44.entities.FoundationProgress.filter({ created_by: userData.email });
                 if (progressRecords.length > 0) {
                     setFoundationProgress(progressRecords[0]);
-                    // Initialize local answers state from DB
-                    const answers = progressRecords[0].weekly_step_answers || {};
-                    setStepAnswers(answers);
                 } else {
                     const newProgress = await base44.entities.FoundationProgress.create({
                         created_by: userData.email,
                         completed_steps: [],
                         step_completion_dates: {},
-                        notes: {},
-                        weekly_step_answers: {}
+                        notes: {}
                     });
                     setFoundationProgress(newProgress);
-                    setStepAnswers({});
                 }
             } catch (progressError) {
                 console.error("Error loading foundation progress:", progressError);
