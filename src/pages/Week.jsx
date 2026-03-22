@@ -588,14 +588,23 @@ export default function WeekPage() {
                             const isFoundationLinked = step.foundation_step_id && step.link_to && foundationProgress;
                             const isFoundationComplete = isFoundationLinked && foundationProgress?.completed_steps?.includes(step.foundation_step_id);
 
+                            const savingKey = `step-${index}`;
+                            const stepResponses = Array.isArray(stepAnswers) ? (stepAnswers[index]?.step_responses || []) : [];
+
                             return (
                                 <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-                                    <div className="p-3 sm:p-4 bg-gray-50 dark:bg-gray-800">
-                                        <div className="flex items-center justify-between gap-3 mb-2">
+                                    {/* Step Header */}
+                                    <div className="p-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                                        <div className="flex items-center justify-between gap-3 mb-3">
                                             <span className="bg-[var(--primary-gold)] text-white text-xs font-bold px-2 py-1 rounded">
-                                                Step {index + 1}
+                                                Action Step {index + 1}
                                             </span>
-                                            <div className="flex items-center gap-2 flex-shrink-0">
+                                            <div className="flex items-center gap-2">
+                                                {isSavingAnswers[savingKey] && (
+                                                    <span className="text-xs text-green-600 flex items-center gap-1">
+                                                        <CheckCircle className="w-3 h-3" /> Saved
+                                                    </span>
+                                                )}
                                                 <button
                                                     onClick={() => handleCopilotClick(step, index)}
                                                     className="btn btn-ghost p-2 text-[var(--primary-gold)] hover:bg-[var(--primary-gold)] hover:text-white transition-colors"
@@ -603,212 +612,147 @@ export default function WeekPage() {
                                                 >
                                                     <Sparkles className="w-4 h-4" />
                                                 </button>
-
-                                                <button
-                                                    onClick={() => handleExpandStep(index)}
-                                                    className="btn btn-secondary text-xs py-2 px-3 whitespace-nowrap"
-                                                >
-                                                    <span className="hidden sm:inline">{expandedSteps[index] ? 'Hide Details' : 'Show Instructions'}</span>
-                                                    <span className="sm:hidden">{expandedSteps[index] ? 'Hide' : 'Show'}</span>
-                                                    <ArrowRight className={`w-3 h-3 ml-1 transition-transform ${expandedSteps[index] ? 'rotate-90' : ''}`} />
-                                                </button>
                                             </div>
                                         </div>
+                                        <h4 className="font-bold text-[var(--text-main)] text-base mb-1">{step.title}</h4>
+                                        <p className="text-[var(--text-soft)] text-sm leading-relaxed">{step.description}</p>
 
-                                        <div className="w-full">
-                                            <h4 className="font-semibold text-[var(--text-main)] text-sm sm:text-base break-words">
-                                                {step.title}
-                                            </h4>
-                                            <p className="text-[var(--text-soft)] mt-1 text-xs sm:text-sm leading-relaxed">
-                                                {step.description}
-                                            </p>
+                                        <div className="flex flex-wrap gap-3 mt-3">
+                                            {step.deliverable && (
+                                                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 px-3 py-1.5 rounded-md">
+                                                    <p className="text-xs text-blue-800 dark:text-blue-200"><strong>🎯 Deliverable:</strong> {step.deliverable}</p>
+                                                </div>
+                                            )}
+                                            {step.time_estimate && (
+                                                <div className="flex items-center gap-1.5 text-xs text-[var(--text-soft)]">
+                                                    <Clock className="w-3 h-3" />
+                                                    <span>{step.time_estimate}</span>
+                                                </div>
+                                            )}
                                         </div>
 
-                                        <div className="mt-4 space-y-3">
-                                            {step.deliverable && (
-                                                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 p-3 rounded-md">
-                                                    <p className="text-xs sm:text-sm text-blue-800 dark:text-blue-200">
-                                                        <strong>🎯 Deliverable:</strong> {step.deliverable}
-                                                    </p>
-                                                </div>
-                                            )}
+                                        {isFoundationLinked && (
+                                            <button
+                                                onClick={() => navigate(createPageUrl(step.link_to))}
+                                                className="btn btn-primary w-full text-sm mt-3"
+                                            >
+                                                <Wrench className="w-4 h-4 mr-2" />
+                                                {isFoundationComplete ? `Review ${step.title}` : `Open ${step.title} Tool`}
+                                                <ArrowRight className="w-4 h-4 ml-2" />
+                                            </button>
+                                        )}
+                                    </div>
 
-                                            {step.time_estimate && (
-                                                <div className="flex items-center gap-2 text-xs text-[var(--text-soft)]">
-                                                    <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-                                                    <span>Estimated time: {step.time_estimate}</span>
-                                                </div>
-                                            )}
+                                    {/* Instructions + Forms (always visible) */}
+                                    <div className="p-4 bg-white dark:bg-gray-900 space-y-5">
 
-                                            {isFoundationLinked && (
-                                                <button
-                                                    onClick={() => navigate(createPageUrl(step.link_to))}
-                                                    className="btn btn-primary w-full text-sm"
-                                                >
-                                                    <Wrench className="w-4 h-4 mr-2" />
-                                                    {isFoundationComplete ? `Review ${step.title}` : `Go to ${step.title}`}
-                                                    <ArrowRight className="w-4 h-4 ml-2" />
-                                                </button>
-                                            )}
+                                        {/* Tips */}
+                                        {step.tips && step.tips.length > 0 && (
+                                            <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-md p-3">
+                                                <p className="text-xs font-bold text-yellow-800 dark:text-yellow-300 mb-1 flex items-center gap-1"><Lightbulb className="w-3 h-3" /> Pro Tips</p>
+                                                <ul className="space-y-1">
+                                                    {step.tips.map((tip, tIdx) => (
+                                                        <li key={tIdx} className="text-xs text-yellow-800 dark:text-yellow-200 flex items-start gap-1.5">
+                                                            <span className="flex-shrink-0">💡</span><span>{tip}</span>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        )}
 
-                                            {/* Work Area / Answer Section */}
-                                            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-                                                <div className="flex justify-between items-center mb-3">
-                                                    <div className="flex items-center gap-2">
-                                                        <div className="bg-[var(--primary-gold)]/10 p-1.5 rounded-md">
-                                                            <FileText className="w-4 h-4 text-[var(--primary-gold)]" />
-                                                        </div>
-                                                        <div>
-                                                            <label className="text-sm font-bold text-[var(--text-main)] block">
-                                                                ✍️ This Week's Work: Your Answer & Notes
-                                                            </label>
-                                                            <span className="text-xs text-[var(--text-soft)]">
-                                                                Do the work here. Your progress is saved automatically.
+                                        {/* Each detailed step gets its own form */}
+                                        {(step.detailed_steps || []).length > 0 ? (
+                                            <div className="space-y-4">
+                                                <h5 className="text-sm font-bold text-[var(--text-main)] flex items-center gap-2">
+                                                    <ListChecks className="w-4 h-4 text-[var(--primary-gold)]" /> Do The Work
+                                                </h5>
+                                                {(step.detailed_steps || []).map((detailStep, dIdx) => (
+                                                    <div key={dIdx} className="border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden">
+                                                        <div className="flex items-start gap-3 p-3 bg-gray-800">
+                                                            <span className="bg-[var(--primary-gold)] text-white text-xs font-bold px-2 py-1 rounded-full min-w-[24px] text-center flex-shrink-0">
+                                                                {dIdx + 1}
                                                             </span>
+                                                            <p className="text-white text-sm leading-relaxed">{detailStep}</p>
+                                                        </div>
+                                                        <div className="p-3 bg-white dark:bg-gray-900">
+                                                            <textarea
+                                                                value={stepResponses[dIdx] || ''}
+                                                                onChange={(e) => handleAnswerChange(index, dIdx, e.target.value)}
+                                                                onBlur={() => handleSaveAnswer(index)}
+                                                                placeholder="Your response for this step..."
+                                                                rows={3}
+                                                                className="w-full p-3 text-sm bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed resize-none"
+                                                            />
                                                         </div>
                                                     </div>
-                                                    {isSavingAnswers[`${weekNumber}-${index}`] && (
-                                                        <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded-full flex items-center gap-1 animate-pulse">
-                                                            <CheckCircle className="w-3 h-3" /> Saved
-                                                        </span>
-                                                    )}
+                                                ))}
+                                                <div className="flex justify-end">
+                                                    <button onClick={() => handleSaveAnswer(index)} className="btn btn-secondary btn-sm">
+                                                        <Save className="w-3 h-3 mr-1" /> Save Responses
+                                                    </button>
                                                 </div>
-                                                
-                                                {(() => {
-                                                    const currentAnswer = Array.isArray(stepAnswers) ? (stepAnswers[index]?.response || '') : '';
-                                                    const savingKey = `step-${index}`;
-                                                    return (
-                                                        <div className="space-y-3">
-                                                            <textarea
-                                                                value={currentAnswer}
-                                                                onChange={(e) => handleAnswerChange(index, e.target.value)}
-                                                                placeholder={`Write your response, ideas, and work for "${step.title}" here...`}
-                                                                className="w-full min-h-[140px] p-4 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed"
-                                                            />
-                                                            <div className="flex justify-end items-center gap-3">
-                                                                {isSavingAnswers[savingKey] && (
-                                                                    <span className="text-xs text-green-600 flex items-center gap-1">
-                                                                        <CheckCircle className="w-3 h-3" /> Saved
-                                                                    </span>
-                                                                )}
-                                                                <button
-                                                                    onClick={() => handleSaveAnswer(index)}
-                                                                    className="btn btn-secondary btn-sm"
-                                                                >
-                                                                    <Save className="w-3 h-3 mr-1" /> Save
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    );
-                                                })()}
                                             </div>
+                                        ) : (
+                                            // Fallback: single textarea if no detailed steps
+                                            <div className="space-y-2">
+                                                <label className="text-sm font-bold text-[var(--text-main)]">✍️ Your Work</label>
+                                                <textarea
+                                                    value={stepResponses[0] || ''}
+                                                    onChange={(e) => handleAnswerChange(index, 0, e.target.value)}
+                                                    onBlur={() => handleSaveAnswer(index)}
+                                                    placeholder={`Write your work, ideas, and notes for "${step.title}" here...`}
+                                                    rows={4}
+                                                    className="w-full p-3 text-sm bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed"
+                                                />
+                                                <div className="flex justify-end">
+                                                    <button onClick={() => handleSaveAnswer(index)} className="btn btn-secondary btn-sm">
+                                                        <Save className="w-3 h-3 mr-1" /> Save
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )}
 
+                                        {/* Common Challenges */}
+                                        {step.common_challenges && step.common_challenges.length > 0 && (
+                                            <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 rounded-md p-3">
+                                                <p className="text-xs font-bold text-orange-800 dark:text-orange-300 mb-1 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Watch Out For</p>
+                                                <ul className="space-y-1">
+                                                    {step.common_challenges.map((c, cIdx) => (
+                                                        <li key={cIdx} className="text-xs text-orange-800 dark:text-orange-200 flex items-start gap-1.5">
+                                                            <span className="flex-shrink-0">⚠️</span><span>{c}</span>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        )}
 
-                                        </div>
+                                        {/* Success Criteria */}
+                                        {step.success_criteria && step.success_criteria.length > 0 && (
+                                            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-md p-3">
+                                                <p className="text-xs font-bold text-green-800 dark:text-green-300 mb-1 flex items-center gap-1"><CheckCircle className="w-3 h-3" /> You're Done When...</p>
+                                                <ul className="space-y-1">
+                                                    {step.success_criteria.map((sc, scIdx) => (
+                                                        <li key={scIdx} className="text-xs text-green-800 dark:text-green-200 flex items-start gap-1.5">
+                                                            <span className="flex-shrink-0">✅</span><span>{sc}</span>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        )}
 
-                                        <label className="flex items-center space-x-2 cursor-pointer mt-4 border-t border-gray-200 dark:border-gray-700 pt-3">
+                                        {/* Mark Complete */}
+                                        <label className="flex items-center space-x-2 cursor-pointer pt-2 border-t border-gray-200 dark:border-gray-700">
                                             <input
                                                 type="checkbox"
                                                 checked={isFoundationLinked ? isFoundationComplete : !!completedSteps[index]}
                                                 onChange={() => handleStepToggle(index)}
                                                 className="h-4 w-4 rounded border-gray-300 text-[var(--primary-gold)] focus:ring-[var(--primary-gold)]"
                                             />
-                                            <span className="text-[var(--text-main)] text-xs sm:text-sm font-medium">
+                                            <span className="text-[var(--text-main)] text-sm font-medium">
                                                 {(isFoundationLinked ? isFoundationComplete : completedSteps[index]) ? '✅ Completed' : 'Mark as Complete'}
                                             </span>
                                         </label>
                                     </div>
-
-                                    {expandedSteps[index] && (
-                                        <div className="p-4 sm:p-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
-                                            <div className="mb-6">
-                                                <h5 className="text-base sm:text-lg font-semibold text-[var(--text-main)] mb-4 flex items-center gap-2">
-                                                    <ListChecks className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--primary-gold)]" />
-                                                    Step-by-Step Instructions
-                                                </h5>
-                                                <div className="space-y-3">
-                                                    {(step.detailed_steps || []).map((detailStep, stepIdx) => (
-                                                        <div key={stepIdx} className="flex items-start gap-3 p-3 bg-gray-800 rounded-md">
-                                                            <span className="bg-[var(--primary-gold)] text-white text-xs font-bold px-2 py-1 rounded-full min-w-[24px] text-center flex-shrink-0">
-                                                                {stepIdx + 1}
-                                                            </span>
-                                                            <p className="text-white text-xs sm:text-sm leading-relaxed">{detailStep}</p>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-
-                                            {step.resources && step.resources.length > 0 && (
-                                                <div className="mb-6">
-                                                    <h5 className="text-base sm:text-lg font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
-                                                        <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--primary-gold)]" />
-                                                        Required Resources
-                                                    </h5>
-                                                    <div className="grid grid-cols-1 gap-3">
-                                                        {step.resources.map((resource, resourceIdx) => (
-                                                            <div key={resourceIdx} className="flex items-center gap-3 p-3 border border-gray-200 dark:border-gray-700 rounded-md">
-                                                                <span className="text-[var(--primary-gold)]">📋</span>
-                                                                <span className="text-[var(--text-main)] text-xs sm:text-sm">{resource}</span>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            )}
-
-                                            <div className="mb-6">
-                                                <h5 className="text-base sm:text-lg font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
-                                                    <Lightbulb className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--primary-gold)]" />
-                                                    Tips & Best Practices
-                                                </h5>
-                                                <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-md p-4">
-                                                    <ul className="space-y-2">
-                                                        {(step.tips || []).map((tip, tipIdx) => (
-                                                            <li key={tipIdx} className="flex items-start gap-2 text-xs sm:text-sm text-yellow-800 dark:text-yellow-200">
-                                                                <span className="text-yellow-600 mt-1 flex-shrink-0">💡</span>
-                                                                <span>{tip}</span>
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                            {step.common_challenges && step.common_challenges.length > 0 && (
-                                                <div className="mb-6">
-                                                    <h5 className="text-base sm:text-lg font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
-                                                        <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500" />
-                                                        Watch Out For
-                                                    </h5>
-                                                    <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 rounded-md p-4">
-                                                        <ul className="space-y-2">
-                                                            {step.common_challenges.map((challenge, challengeIdx) => (
-                                                                <li key={challengeIdx} className="flex items-start gap-2 text-xs sm:text-sm text-orange-800 dark:text-orange-200">
-                                                                    <span className="text-orange-600 mt-1 flex-shrink-0">⚠️</span>
-                                                                    <span>{challenge}</span>
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            )}
-
-                                            <div>
-                                                <h5 className="text-base sm:text-lg font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
-                                                    <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
-                                                    How You'll Know You're Done
-                                                </h5>
-                                                <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-md p-4">
-                                                    <ul className="space-y-2">
-                                                        {(step.success_criteria || []).map((criteria, criteriaIdx) => (
-                                                            <li key={criteriaIdx} className="flex items-start gap-2 text-xs sm:text-sm text-green-800 dark:text-green-200">
-                                                                <span className="text-green-600 mt-1 flex-shrink-0">✅</span>
-                                                                <span>{criteria}</span>
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
                                 </div>
                             );
                         })}
