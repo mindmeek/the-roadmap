@@ -668,116 +668,31 @@ export default function WeekPage() {
                                                 </div>
                                                 
                                                 {(() => {
-                                                    const strategyType = getStrategyTypeFromLink(step.link_to);
-                                                    const linkedDoc = strategyType ? strategyDocs[strategyType] : null;
-                                                    const currentAnswer = stepAnswers[weekNumber]?.[index]?.answer || "";
-                                                    
-                                                    if (linkedDoc && !currentAnswer) {
-                                                        // Pre-population logic or prompt
-                                                        return (
-                                                            <div className="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-700 rounded-lg p-5">
-                                                                <div className="flex items-start gap-4">
-                                                                    <div className="p-3 bg-indigo-100 dark:bg-indigo-800 rounded-full">
-                                                                        <Database className="w-5 h-5 text-indigo-600 dark:text-indigo-300" />
-                                                                    </div>
-                                                                    <div className="flex-1">
-                                                                        <h5 className="text-base font-bold text-indigo-900 dark:text-indigo-100 mb-1">
-                                                                            Foundational Data Available
-                                                                        </h5>
-                                                                        <p className="text-sm text-indigo-700 dark:text-indigo-300 mb-4">
-                                                                            You've already completed the <strong>{linkedDoc.title || strategyType.replace('_', ' ')}</strong> strategy. 
-                                                                            Would you like to import that data to use as a starting point for this step?
-                                                                        </p>
-                                                                        <div className="flex flex-wrap gap-3">
-                                                                            <button
-                                                                                onClick={() => {
-                                                                                    // Simple dump of content for now
-                                                                                    const content = JSON.stringify(linkedDoc.content, null, 2); 
-                                                                                    handleAnswerChange(weekNumber, index, content);
-                                                                                }}
-                                                                                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-md transition-colors shadow-sm"
-                                                                            >
-                                                                                Yes, Import My Data
-                                                                            </button>
-                                                                            <button
-                                                                                onClick={() => navigate(createPageUrl(step.link_to))}
-                                                                                className="px-4 py-2 bg-white dark:bg-gray-800 border border-indigo-200 dark:border-indigo-700 text-indigo-700 dark:text-indigo-300 text-sm font-medium rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                                                                            >
-                                                                                Review Original Document
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                    const currentAnswer = Array.isArray(stepAnswers) ? (stepAnswers[index]?.response || '') : '';
+                                                    const savingKey = `step-${index}`;
+                                                    return (
+                                                        <div className="space-y-3">
+                                                            <textarea
+                                                                value={currentAnswer}
+                                                                onChange={(e) => handleAnswerChange(index, e.target.value)}
+                                                                placeholder={`Write your response, ideas, and work for "${step.title}" here...`}
+                                                                className="w-full min-h-[140px] p-4 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed"
+                                                            />
+                                                            <div className="flex justify-end items-center gap-3">
+                                                                {isSavingAnswers[savingKey] && (
+                                                                    <span className="text-xs text-green-600 flex items-center gap-1">
+                                                                        <CheckCircle className="w-3 h-3" /> Saved
+                                                                    </span>
+                                                                )}
+                                                                <button
+                                                                    onClick={() => handleSaveAnswer(index)}
+                                                                    className="btn btn-secondary btn-sm"
+                                                                >
+                                                                    <Save className="w-3 h-3 mr-1" /> Save
+                                                                </button>
                                                             </div>
-                                                        );
-                                                    } else {
-                                                        const additionalNotes = stepAnswers[weekNumber]?.[index]?.additional_notes || [];
-                                                        
-                                                        return (
-                                                            <div className="space-y-4">
-                                                                {/* Main Answer Section */}
-                                                                <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3 border border-gray-200 dark:border-gray-700">
-                                                                    <h6 className="text-xs font-bold text-[var(--text-soft)] uppercase tracking-wide mb-2">Main Notes</h6>
-                                                                    <textarea 
-                                                                        value={currentAnswer}
-                                                                        onChange={(e) => handleAnswerChange(weekNumber, index, e.target.value)}
-                                                                        placeholder="Type your work, answers, and ideas for this step here..."
-                                                                        className="w-full min-h-[150px] p-4 text-sm sm:text-base bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed"
-                                                                    />
-                                                                </div>
-
-                                                                {/* Additional Note Sections */}
-                                                                {additionalNotes.map((note) => (
-                                                                    <div key={note.id} className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3 border border-gray-200 dark:border-gray-700 relative group">
-                                                                        <div className="flex justify-between items-center mb-2">
-                                                                            <input
-                                                                                type="text"
-                                                                                value={note.title}
-                                                                                onChange={(e) => handleUpdateStepNote(weekNumber, index, note.id, 'title', e.target.value)}
-                                                                                className="bg-transparent border-b border-transparent hover:border-gray-300 focus:border-[var(--primary-gold)] text-xs font-bold text-[var(--text-soft)] uppercase tracking-wide focus:outline-none w-full max-w-xs"
-                                                                                placeholder="SECTION TITLE"
-                                                                            />
-                                                                            <button 
-                                                                                onClick={() => handleDeleteStepNote(weekNumber, index, note.id)}
-                                                                                className="text-gray-400 hover:text-red-500 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                                                                                title="Delete this section"
-                                                                            >
-                                                                                <Trash2 className="w-3 h-3" />
-                                                                            </button>
-                                                                        </div>
-                                                                        <textarea 
-                                                                            value={note.content}
-                                                                            onChange={(e) => handleUpdateStepNote(weekNumber, index, note.id, 'content', e.target.value)}
-                                                                            placeholder="Add notes for this specific part..."
-                                                                            className="w-full min-h-[100px] p-4 text-sm sm:text-base bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed"
-                                                                        />
-                                                                    </div>
-                                                                ))}
-
-                                                                {/* Actions Footer */}
-                                                                <div className="flex justify-between items-center pt-2">
-                                                                    <button
-                                                                        onClick={() => handleAddStepNote(weekNumber, index)}
-                                                                        className="text-sm text-[var(--primary-gold)] hover:underline flex items-center gap-1 font-medium"
-                                                                    >
-                                                                        <Plus className="w-4 h-4" /> Add Note Section
-                                                                    </button>
-                                                                    
-                                                                    <div className="flex items-center gap-3">
-                                                                        <p className="text-xs text-[var(--text-soft)] italic hidden sm:block">
-                                                                            * Changes save automatically
-                                                                        </p>
-                                                                        <button
-                                                                            onClick={() => handleSaveAnswer(weekNumber, index)}
-                                                                            className="btn btn-secondary btn-sm"
-                                                                        >
-                                                                            <Save className="w-3 h-3 mr-1" /> Force Save
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        );
-                                                    }
+                                                        </div>
+                                                    );
                                                 })()}
                                             </div>
 
