@@ -846,78 +846,95 @@ export default function WeekPage() {
                     </div>
                 )}
 
-                {/* Notes Section */}
-                <div className="card p-6 sm:p-8">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
+                {/* Weekly Reflection Form */}
+                <div className="card p-6 sm:p-8 border-2 border-[var(--primary-gold)]/30">
+                    <div className="flex items-center gap-3 mb-2">
+                        <div className="bg-[var(--primary-gold)]/10 p-2 rounded-lg">
+                            <ClipboardCheck className="w-6 h-6 text-[var(--primary-gold)]" />
+                        </div>
                         <div>
-                            <h2 className="text-2xl font-bold text-[var(--text-main)] flex items-center gap-2">
-                                <FileText className="w-6 h-6 text-[var(--primary-gold)]" />
-                                Week Journal & Additional Notes
-                            </h2>
-                            <p className="text-[var(--text-soft)] text-sm mt-1">Capture extra thoughts, brainstorming, or specific details for this week.</p>
+                            <h2 className="text-2xl font-bold text-[var(--text-main)]">Weekly Reflection</h2>
+                            <p className="text-sm text-[var(--text-soft)]">Complete this at the end of the week to lock in your learning and plan ahead.</p>
                         </div>
-                        <div className="flex gap-2">
-                            <button onClick={addNoteSection} className="btn btn-secondary text-sm">
-                                <Plus className="w-4 h-4 mr-1" /> Add Section
-                            </button>
+                        {weeklyReflection?.is_completed && (
+                            <span className="ml-auto flex items-center gap-1 text-xs text-green-700 bg-green-100 dark:bg-green-900/30 dark:text-green-400 px-3 py-1 rounded-full font-semibold">
+                                <CheckCircle className="w-3 h-3" /> Reflection Saved
+                            </span>
+                        )}
+                    </div>
+
+                    <div className="mt-6 space-y-6">
+                        <div>
+                            <label className="block text-sm font-bold text-[var(--text-main)] mb-2">
+                                1. What was your biggest win or progress this week?
+                            </label>
+                            <textarea
+                                value={reflectionData.main_reflection}
+                                onChange={(e) => setReflectionData(prev => ({ ...prev, main_reflection: e.target.value }))}
+                                placeholder="Describe what you accomplished, how you showed up, and what moved the needle for your business..."
+                                rows={4}
+                                className="w-full p-4 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-bold text-[var(--text-main)] mb-1">
+                                2. What were your top 3 key takeaways or lessons learned?
+                            </label>
+                            <p className="text-xs text-[var(--text-soft)] mb-2">One takeaway per line.</p>
+                            <textarea
+                                value={reflectionData.key_takeaways}
+                                onChange={(e) => setReflectionData(prev => ({ ...prev, key_takeaways: e.target.value }))}
+                                placeholder={"1. I learned that...\n2. I discovered...\n3. The most important insight was..."}
+                                rows={4}
+                                className="w-full p-4 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-bold text-[var(--text-main)] mb-2">
+                                3. What challenges did you face, and how did you handle them?
+                            </label>
+                            <textarea
+                                value={reflectionData.challenges_faced}
+                                onChange={(e) => setReflectionData(prev => ({ ...prev, challenges_faced: e.target.value }))}
+                                placeholder="Be honest. Identifying obstacles is the first step to overcoming them..."
+                                rows={3}
+                                className="w-full p-4 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-bold text-[var(--text-main)] mb-2">
+                                4. What is your #1 focus for next week?
+                            </label>
+                            <textarea
+                                value={reflectionData.next_week_focus}
+                                onChange={(e) => setReflectionData(prev => ({ ...prev, next_week_focus: e.target.value }))}
+                                placeholder="Be specific. What ONE thing, if done, would make next week a success?"
+                                rows={3}
+                                className="w-full p-4 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed"
+                            />
+                        </div>
+
+                        <div className="flex justify-end items-center gap-3 pt-2 border-t border-gray-200 dark:border-gray-700">
+                            {reflectionSaved && (
+                                <span className="text-sm text-green-600 flex items-center gap-1">
+                                    <CheckCircle className="w-4 h-4" /> Reflection saved!
+                                </span>
+                            )}
                             <button
-                                id="save-notes-btn"
-                                onClick={saveAllNotes}
-                                className="btn btn-primary text-sm"
+                                onClick={handleSaveReflection}
+                                disabled={isSavingReflection || !reflectionData.main_reflection.trim()}
+                                className="btn btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                <Save className="w-4 h-4 mr-1" /> Save All
+                                {isSavingReflection ? (
+                                    <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Saving...</>
+                                ) : (
+                                    <><Save className="w-4 h-4 mr-2" /> Save Reflection</>
+                                )}
                             </button>
                         </div>
-                    </div>
-
-                    <div className="space-y-6">
-                        {notes.map((note) => (
-                            <div key={note.id} className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-800/50">
-                                <div className="p-3 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-                                    {activeNoteSection === note.id ? (
-                                        <input
-                                            type="text"
-                                            value={note.title}
-                                            onChange={(e) => updateNoteSection(note.id, 'title', e.target.value)}
-                                            onBlur={() => setActiveNoteSection(null)}
-                                            onKeyDown={(e) => e.key === 'Enter' && setActiveNoteSection(null)}
-                                            className="bg-white dark:bg-gray-700 border border-[var(--primary-gold)] rounded px-2 py-1 text-sm font-bold w-full max-w-xs focus:outline-none"
-                                            autoFocus
-                                        />
-                                    ) : (
-                                        <h3 
-                                            onClick={() => setActiveNoteSection(note.id)}
-                                            className="font-bold text-[var(--text-main)] cursor-pointer hover:text-[var(--primary-gold)] flex items-center gap-2"
-                                            title="Click to rename"
-                                        >
-                                            {note.title}
-                                            <span className="text-xs text-[var(--text-soft)] font-normal opacity-0 hover:opacity-100 transition-opacity">(Edit Title)</span>
-                                        </h3>
-                                    )}
-                                    <button 
-                                        onClick={() => deleteNoteSection(note.id)}
-                                        className="text-gray-400 hover:text-red-500 p-1"
-                                        title="Delete Section"
-                                    >
-                                        <Trash2 className="w-4 h-4" />
-                                    </button>
-                                </div>
-                                <div className="p-0">
-                                    <textarea
-                                        value={note.content}
-                                        onChange={(e) => updateNoteSection(note.id, 'content', e.target.value)}
-                                        placeholder={`Add your ${note.title.toLowerCase()} here...`}
-                                        className="w-full h-40 p-4 bg-transparent border-0 resize-y focus:ring-0 text-[var(--text-main)] text-sm leading-relaxed"
-                                    />
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="mt-6 flex justify-center">
-                        <button onClick={addNoteSection} className="text-sm text-[var(--primary-gold)] hover:underline flex items-center gap-1 font-medium">
-                            <Plus className="w-4 h-4" /> Add another note section
-                        </button>
                     </div>
                 </div>
 
