@@ -671,8 +671,31 @@ export default function WeekPage() {
                                             </div>
                                         )}
 
-                                        {/* Each detailed step gets its own form */}
-                                        {(step.detailed_steps || []).length > 0 ? (
+                                        {/* Each detailed step gets its own form, or link to interactive form */}
+                                        {isFoundationLinked ? (
+                                            <div className="bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-700 rounded-lg p-6 text-center space-y-4">
+                                                <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-full w-fit mx-auto">
+                                                    <Wrench className="w-7 h-7 text-blue-600" />
+                                                </div>
+                                                <div>
+                                                    <p className="text-base font-bold text-[var(--text-main)] mb-1">This step uses an interactive form</p>
+                                                    <p className="text-sm text-[var(--text-soft)]">Complete the form below to work through this step. Your progress is tracked automatically.</p>
+                                                </div>
+                                                <button
+                                                    onClick={() => navigate(createPageUrl(step.link_to))}
+                                                    className="btn btn-primary w-full max-w-sm mx-auto"
+                                                >
+                                                    <Wrench className="w-4 h-4 mr-2" />
+                                                    {isFoundationComplete ? `Review: ${step.title}` : `Open: ${step.title}`}
+                                                    <ArrowRight className="w-4 h-4 ml-2" />
+                                                </button>
+                                                {isFoundationComplete && (
+                                                    <p className="text-sm text-green-600 font-semibold flex items-center justify-center gap-1">
+                                                        <CheckCircle className="w-4 h-4" /> This form has been completed
+                                                    </p>
+                                                )}
+                                            </div>
+                                        ) : (step.detailed_steps || []).length > 0 ? (
                                             <div className="space-y-4">
                                                 <h5 className="text-sm font-bold text-[var(--text-main)] flex items-center gap-2">
                                                     <ListChecks className="w-4 h-4 text-[var(--primary-gold)]" /> Do The Work
@@ -704,7 +727,6 @@ export default function WeekPage() {
                                                 </div>
                                             </div>
                                         ) : (
-                                            // Fallback: single textarea if no detailed steps
                                             <div className="space-y-2">
                                                 <label className="text-sm font-bold text-[var(--text-main)]">✍️ Your Work</label>
                                                 <textarea
@@ -725,12 +747,12 @@ export default function WeekPage() {
 
                                         {/* Common Challenges */}
                                         {step.common_challenges && step.common_challenges.length > 0 && (
-                                            <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 rounded-md p-3">
-                                                <p className="text-xs font-bold text-orange-800 dark:text-orange-300 mb-1 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Watch Out For</p>
-                                                <ul className="space-y-1">
+                                            <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 rounded-lg p-5">
+                                                <p className="text-sm font-bold text-orange-800 dark:text-orange-300 mb-3 flex items-center gap-2"><AlertTriangle className="w-5 h-5" /> Watch Out For</p>
+                                                <ul className="space-y-2">
                                                     {step.common_challenges.map((c, cIdx) => (
-                                                        <li key={cIdx} className="text-xs text-orange-800 dark:text-orange-200 flex items-start gap-1.5">
-                                                            <span className="flex-shrink-0">⚠️</span><span>{c}</span>
+                                                        <li key={cIdx} className="text-sm text-orange-800 dark:text-orange-200 flex items-start gap-2">
+                                                            <span className="flex-shrink-0 mt-0.5">⚠️</span><span className="leading-relaxed">{c}</span>
                                                         </li>
                                                     ))}
                                                 </ul>
@@ -739,12 +761,12 @@ export default function WeekPage() {
 
                                         {/* Success Criteria */}
                                         {step.success_criteria && step.success_criteria.length > 0 && (
-                                            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-md p-3">
-                                                <p className="text-xs font-bold text-green-800 dark:text-green-300 mb-1 flex items-center gap-1"><CheckCircle className="w-3 h-3" /> You're Done When...</p>
-                                                <ul className="space-y-1">
+                                            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg p-5">
+                                                <p className="text-sm font-bold text-green-800 dark:text-green-300 mb-3 flex items-center gap-2"><CheckCircle className="w-5 h-5" /> You're Done When...</p>
+                                                <ul className="space-y-2">
                                                     {step.success_criteria.map((sc, scIdx) => (
-                                                        <li key={scIdx} className="text-xs text-green-800 dark:text-green-200 flex items-start gap-1.5">
-                                                            <span className="flex-shrink-0">✅</span><span>{sc}</span>
+                                                        <li key={scIdx} className="text-sm text-green-800 dark:text-green-200 flex items-start gap-2">
+                                                            <span className="flex-shrink-0 mt-0.5">✅</span><span className="leading-relaxed">{sc}</span>
                                                         </li>
                                                     ))}
                                                 </ul>
