@@ -209,6 +209,26 @@ export default function WeekPage() {
 
             setWeekData(foundWeekData);
 
+            // Load WeeklyReflection for this week
+            try {
+                const reflections = await base44.entities.WeeklyReflection.filter({
+                    created_by: userData.email,
+                    week_number: currentWeek
+                });
+                if (reflections.length > 0) {
+                    setWeeklyReflection(reflections[0]);
+                    setReflectionData({
+                        main_reflection: reflections[0].main_reflection || '',
+                        key_takeaways: (reflections[0].key_takeaways || []).join('\n'),
+                        challenges_faced: reflections[0].challenges_faced || '',
+                        next_week_focus: reflections[0].next_week_focus || ''
+                    });
+                    setStepAnswers(reflections[0].action_step_responses || []);
+                }
+            } catch (err) {
+                console.warn("Could not load weekly reflection", err);
+            }
+
             // Migrate old string notes to new array format if necessary
             const savedNotesRaw = localStorage.getItem(`week_${currentWeek}_notes`);
             let parsedNotes = [];
