@@ -9,6 +9,8 @@ export default function JourneyTimeline({ user }) {
     const [expandedMonth, setExpandedMonth] = useState(null);
     const [roadmapWeeks, setRoadmapWeeks] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [currentWeekSteps, setCurrentWeekSteps] = useState([]);
+    const [currentWeekTitle, setCurrentWeekTitle] = useState('');
 
     if (!user || !user.entrepreneurship_stage || !user.selected_goal) {
         return (

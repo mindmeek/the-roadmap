@@ -352,9 +352,6 @@ export default function DashboardPage() {
                     </div>
                 </div>
 
-                {/* This Week's Focus */}
-                <ThisWeekFocus user={user} />
-
                 {/* Today's Progress & Upcoming Tasks - SIDE BY SIDE */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                     <DashboardDailyProgressCard
