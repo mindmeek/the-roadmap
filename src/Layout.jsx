@@ -1336,9 +1336,13 @@ export default function Layout({ children, currentPageName }) {
         };
     }, []);
 
-    // Close mobile menu on route change
+    // Close mobile menu on route change + scroll to top
     useEffect(() => {
         setIsMobileMenuOpen(false);
+        // Scroll to top on every page navigation
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        const mainEl = document.querySelector('main');
+        if (mainEl) mainEl.scrollTop = 0;
     }, [location.pathname]);
 
     useEffect(() => {

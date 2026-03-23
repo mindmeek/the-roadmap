@@ -17,6 +17,7 @@ import {
   BarChart, Plus, Trash2 // Added Plus and Trash2
 } from 'lucide-react';
 import AICopilotModal from '../components/ai/AICopilotModal';
+import FloatingSaveButton from '../components/common/FloatingSaveButton';
 import roadmapData from '../components/roadmap';
 import { showXPToast } from '@/components/common/XPToast';
 import { handleGamification } from '@/functions/handleGamification';
