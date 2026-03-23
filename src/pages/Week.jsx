@@ -306,6 +306,7 @@ export default function WeekPage() {
     };
 
     const handleAnswerChange = (stepIndex, detailIndex, value) => {
+        setIsDirty(true);
         setStepAnswers(prev => {
             const updated = Array.isArray(prev) ? [...prev] : [];
             const currentStep = updated[stepIndex] ? { ...updated[stepIndex] } : {};
@@ -353,6 +354,13 @@ export default function WeekPage() {
             console.error("Error saving answer:", error);
             setIsSavingAnswers(prev => ({ ...prev, [savingKey]: false }));
         }
+    };
+
+    const handleFloatSave = async () => {
+        setIsFloatSaving(true);
+        await handleSaveReflection();
+        setIsDirty(false);
+        setIsFloatSaving(false);
     };
 
     const handleSaveReflection = async () => {
