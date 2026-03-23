@@ -12,6 +12,54 @@ export default function JourneyTimeline({ user }) {
     const [currentWeekSteps, setCurrentWeekSteps] = useState([]);
     const [currentWeekTitle, setCurrentWeekTitle] = useState('');
 
+    useEffect(() => {
+        if (!user?.entrepreneurship_stage || !user?.selected_goal) return;
+        loadCurrentWeekSteps();
+    }, [user]);
+
+    const loadCurrentWeekSteps = async () => {
+        const currentWeekNum = user.current_week || 1;
+        try {
+            // Try static data first
+            const staticRoot = roadmapData.default || roadmapData;
+            const goalData = staticRoot?.[user.entrepreneurship_stage]?.goals?.[user.selected_goal]
+                || staticRoot?.nicheRoadmaps?.[user.selected_goal];
+
+            if (goalData?.months) {
+                let weekCount = 0;
+                for (const month of goalData.months) {
+                    for (const week of month.weeks) {
+                        weekCount++;
+                        if (weekCount === currentWeekNum) {
+                            setCurrentWeekTitle(week.title);
+                            setCurrentWeekSteps((week.actionSteps || []).map(s => ({
+                                title: s.title,
+                                description: s.description,
+                                deliverable: s.deliverable,
+                                time_estimate: s.timeEstimate,
+                                link_to: s.linkTo,
+                            })));
+                            return;
+                        }
+                    }
+                }
+            }
+            // Fallback to DB
+            const results = await RoadmapContent.filter({
+                stage: user.entrepreneurship_stage,
+                goal_id: user.selected_goal,
+                week_number: currentWeekNum,
+                is_published: true
+            });
+            if (results.length > 0) {
+                setCurrentWeekTitle(results[0].week_title);
+                setCurrentWeekSteps(results[0].action_steps || []);
+            }
+        } catch (err) {
+            console.error('Error loading current week steps:', err);
+        }
+    };
+
     if (!user || !user.entrepreneurship_stage || !user.selected_goal) {
         return (
             <div className="card p-6 h-full flex items-center justify-center">
