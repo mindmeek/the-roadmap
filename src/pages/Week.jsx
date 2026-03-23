@@ -65,6 +65,8 @@ export default function WeekPage() {
     });
     const [isSavingReflection, setIsSavingReflection] = useState(false);
     const [reflectionSaved, setReflectionSaved] = useState(false);
+    const [isDirty, setIsDirty] = useState(false);
+    const [isFloatSaving, setIsFloatSaving] = useState(false);
 
     const [copilotModal, setCopilotModal] = useState({
         isOpen: false,
