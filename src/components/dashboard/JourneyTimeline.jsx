@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ChevronRight, CheckCircle2, Circle, Calendar, Target, TrendingUp, AlertTriangle, Loader2 } from 'lucide-react';
+import { ChevronRight, CheckCircle2, Circle, Calendar, Target, TrendingUp, AlertTriangle, Loader2, Zap, Clock, ArrowRight } from 'lucide-react';
 import { RoadmapContent } from '@/entities/all';
+import roadmapData from '../roadmap';
 
 export default function JourneyTimeline({ user }) {
     const [expandedMonth, setExpandedMonth] = useState(null);
