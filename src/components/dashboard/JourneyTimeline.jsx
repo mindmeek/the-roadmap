@@ -245,16 +245,18 @@ export default function JourneyTimeline({ user }) {
                                                 const isCurrent = week.week_number === currentWeek;
 
                                                 return (
-                                                    <Link
+                                                    <div
                                                         key={week.id}
-                                                        to={createPageUrl('Week') + `?week=${week.week_number}`}
-                                                        className={`block p-3 rounded-lg border transition-all hover:shadow-md ${
+                                                        className={`rounded-lg border transition-all ${
                                                             isCurrent 
                                                                 ? 'border-[var(--primary-gold)] bg-yellow-50 dark:bg-yellow-900/20' 
-                                                                : 'border-gray-200 dark:border-gray-700 hover:border-[var(--primary-gold)]'
+                                                                : 'border-gray-200 dark:border-gray-700'
                                                         }`}
                                                     >
-                                                        <div className="flex items-center justify-between">
+                                                        <Link
+                                                            to={createPageUrl('Week') + `?week=${week.week_number}`}
+                                                            className="flex items-center justify-between p-3 hover:opacity-80 transition-opacity"
+                                                        >
                                                             <div className="flex items-center gap-3">
                                                                 {isCompleted ? (
                                                                     <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
@@ -265,24 +267,58 @@ export default function JourneyTimeline({ user }) {
                                                                     <p className="font-medium text-[var(--text-main)]">
                                                                         Week {week.week_number}: {week.week_title}
                                                                     </p>
-                                                                    {week.week_description && (
-                                                                        <p className="text-xs text-[var(--text-soft)] mt-1">
-                                                                            {week.week_description}
-                                                                        </p>
-                                                                    )}
                                                                     {isCurrent && (
-                                                                        <span className="text-xs text-[var(--primary-gold)] font-semibold">Current Week - Take Action!</span>
+                                                                        <span className="text-xs text-[var(--primary-gold)] font-semibold flex items-center gap-1">
+                                                                            <Zap className="w-3 h-3" /> Current Week — Take Action!
+                                                                        </span>
                                                                     )}
                                                                     {isCompleted && (
-                                                                        <span className="text-xs text-green-600 dark:text-green-400 font-semibold flex items-center gap-1 mt-1">
-                                                                            ✓ Completed
-                                                                        </span>
+                                                                        <span className="text-xs text-green-600 dark:text-green-400 font-semibold">✓ Completed</span>
                                                                     )}
                                                                 </div>
                                                             </div>
                                                             <ChevronRight className="w-4 h-4 text-[var(--text-soft)]" />
-                                                        </div>
-                                                    </Link>
+                                                        </Link>
+
+                                                        {/* Current week action steps */}
+                                                        {isCurrent && currentWeekSteps.length > 0 && (
+                                                            <div className="border-t border-[var(--primary-gold)]/30 p-3 space-y-2">
+                                                                <p className="text-xs font-bold text-[var(--primary-gold)] uppercase tracking-wide mb-2">This Week's Action Steps</p>
+                                                                {currentWeekSteps.map((step, idx) => {
+                                                                    const stepUrl = step.link_to
+                                                                        ? createPageUrl(step.link_to)
+                                                                        : createPageUrl('Week') + `?week=${week.week_number}`;
+                                                                    return (
+                                                                        <Link
+                                                                            key={idx}
+                                                                            to={stepUrl}
+                                                                            className="flex items-start gap-3 p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-[var(--primary-gold)] hover:shadow-sm transition-all group"
+                                                                        >
+                                                                            <span className="flex-shrink-0 bg-[var(--primary-gold)]/10 text-[var(--primary-gold)] text-xs font-bold px-2 py-1 rounded-full min-w-[24px] text-center">
+                                                                                {idx + 1}
+                                                                            </span>
+                                                                            <div className="flex-1 min-w-0">
+                                                                                <p className="font-semibold text-sm text-[var(--text-main)] group-hover:text-[var(--primary-gold)] transition-colors">{step.title}</p>
+                                                                                {step.description && (
+                                                                                    <p className="text-xs text-[var(--text-soft)] mt-0.5 line-clamp-1">{step.description}</p>
+                                                                                )}
+                                                                                <div className="flex items-center gap-3 mt-1">
+                                                                                    {step.time_estimate && (
+                                                                                        <span className="flex items-center gap-1 text-xs text-[var(--text-soft)]">
+                                                                                            <Clock className="w-3 h-3" />{step.time_estimate}
+                                                                                        </span>
+                                                                                    )}
+                                                                                    <span className="flex items-center gap-1 text-xs text-[var(--primary-gold)] font-semibold">
+                                                                                        {step.link_to ? 'Open Tool' : 'Do The Work'} <ArrowRight className="w-3 h-3" />
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </Link>
+                                                                    );
+                                                                })}
+                                                            </div>
+                                                        )}
+                                                    </div>
                                                 );
                                             })}
                                         </div>
