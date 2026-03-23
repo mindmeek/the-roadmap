@@ -865,7 +865,7 @@ export default function WeekPage() {
                             </label>
                             <textarea
                                 value={reflectionData.main_reflection}
-                                onChange={(e) => setReflectionData(prev => ({ ...prev, main_reflection: e.target.value }))}
+                                onChange={(e) => { setReflectionData(prev => ({ ...prev, main_reflection: e.target.value })); setIsDirty(true); }}
                                 placeholder="Describe what you accomplished, how you showed up, and what moved the needle for your business..."
                                 rows={4}
                                 className="w-full p-4 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed"
@@ -879,7 +879,7 @@ export default function WeekPage() {
                             <p className="text-xs text-[var(--text-soft)] mb-2">One takeaway per line.</p>
                             <textarea
                                 value={reflectionData.key_takeaways}
-                                onChange={(e) => setReflectionData(prev => ({ ...prev, key_takeaways: e.target.value }))}
+                                onChange={(e) => { setReflectionData(prev => ({ ...prev, key_takeaways: e.target.value })); setIsDirty(true); }}
                                 placeholder={"1. I learned that...\n2. I discovered...\n3. The most important insight was..."}
                                 rows={4}
                                 className="w-full p-4 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed"
@@ -892,7 +892,7 @@ export default function WeekPage() {
                             </label>
                             <textarea
                                 value={reflectionData.challenges_faced}
-                                onChange={(e) => setReflectionData(prev => ({ ...prev, challenges_faced: e.target.value }))}
+                                onChange={(e) => { setReflectionData(prev => ({ ...prev, challenges_faced: e.target.value })); setIsDirty(true); }}
                                 placeholder="Be honest. Identifying obstacles is the first step to overcoming them..."
                                 rows={3}
                                 className="w-full p-4 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed"
@@ -905,7 +905,7 @@ export default function WeekPage() {
                             </label>
                             <textarea
                                 value={reflectionData.next_week_focus}
-                                onChange={(e) => setReflectionData(prev => ({ ...prev, next_week_focus: e.target.value }))}
+                                onChange={(e) => { setReflectionData(prev => ({ ...prev, next_week_focus: e.target.value })); setIsDirty(true); }}
                                 placeholder="Be specific. What ONE thing, if done, would make next week a success?"
                                 rows={3}
                                 className="w-full p-4 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[var(--primary-gold)] focus:border-transparent transition-all leading-relaxed"
@@ -955,6 +955,13 @@ export default function WeekPage() {
                 onClose={() => setCopilotModal({ isOpen: false, copilotQuestions: [], actionStepTitle: '' })}
                 copilotQuestions={copilotModal.copilotQuestions}
                 actionStepTitle={copilotModal.actionStepTitle}
+            />
+
+            <FloatingSaveButton
+                onSave={handleFloatSave}
+                isSaving={isFloatSaving}
+                isDirty={isDirty}
+                label="Save Progress"
             />
         </div>
     );
