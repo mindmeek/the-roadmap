@@ -114,8 +114,14 @@ export default function MyFinancialGoal() {
       const monthlyRevenue = unitsNeeded * price;
       const monthlyCost = (unitsNeeded * costPerUnit) + fixedMonthlyCost;
       const monthlyProfit = monthlyRevenue - monthlyCost;
-      // Use actual monthly profit vs monthly revenue for accurate margin (handles fixed monthly costs correctly)
-      const profitMarginPct = monthlyRevenue > 0 ? Math.round((monthlyProfit / monthlyRevenue) * 100) : 0;
+      // For per_unit cost: margin = (price - cost) / price. For monthly_subscription cost: use monthly picture.
+      let profitMarginPct = 0;
+      if (product.costType === 'per_unit') {
+        profitMarginPct = price > 0 ? Math.round(((price - cost) / price) * 100) : 0;
+      } else {
+        // monthly_subscription cost: margin based on monthly profit/revenue (requires units > 0)
+        profitMarginPct = monthlyRevenue > 0 ? Math.round((monthlyProfit / monthlyRevenue) * 100) : 0;
+      }
 
       return {
         ...product,
