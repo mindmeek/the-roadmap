@@ -56,6 +56,8 @@ export default function StrategyDocComments({ documentId, documentType, business
         if (!newComment.trim()) return;
         setPosting(true);
         try {
+            const trimmedComment = newComment.trim();
+            const trimmedSection = section.trim() || null;
             const comment = await base44.entities.StrategyDocumentComment.create({
                 document_id: documentId,
                 document_type: documentType,
@@ -63,8 +65,8 @@ export default function StrategyDocComments({ documentId, documentType, business
                 author_email: user.email,
                 author_name: user.full_name || user.email,
                 author_color: getAuthorColor(user.email),
-                content: newComment.trim(),
-                section: section.trim() || null,
+                content: trimmedComment,
+                section: trimmedSection,
                 is_resolved: false,
                 reactions: []
             });
@@ -72,6 +74,18 @@ export default function StrategyDocComments({ documentId, documentType, business
             setNewComment('');
             setSection('');
             setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: 'smooth' }), 100);
+
+            // Notify team members (fire and forget)
+            if (businessId) {
+                base44.functions.invoke('notifyTeamComment', {
+                    document_id: documentId,
+                    document_type: documentType,
+                    business_id: businessId,
+                    comment_content: trimmedComment,
+                    section: trimmedSection,
+                    author_name: user.full_name || user.email
+                }).catch(err => console.error('Notification failed:', err));
+            }
         } catch (err) {
             console.error('Error posting comment:', err);
         } finally {
