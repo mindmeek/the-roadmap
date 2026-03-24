@@ -466,6 +466,65 @@ export default function DashboardPage() {
                     </Link>
                 </div>
 
+                {/* Brand Kit + Team Management Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                    {/* Brand Kit */}
+                    <Link
+                        to={createPageUrl('BrandIdentityGuide')}
+                        className="card relative overflow-hidden p-6 bg-gradient-to-br from-purple-600 via-pink-600 to-rose-500 text-white hover:shadow-2xl hover:scale-[1.02] transition-all group border-2 border-purple-500"
+                        style={{ borderRadius: '2px' }}
+                    >
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl group-hover:bg-white/20 transition-all"></div>
+                        <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-black/10 rounded-full blur-2xl"></div>
+                        <div className="relative z-10">
+                            <div className="flex items-center justify-between mb-4">
+                                <div className="bg-white/20 p-3 rounded-lg group-hover:bg-white/30 group-hover:scale-110 transition-all backdrop-blur-sm shadow-lg">
+                                    <Palette className="w-6 h-6 text-white" />
+                                </div>
+                                <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                            </div>
+                            <h3 className="text-xl font-bold mb-3">Brand Identity Guide</h3>
+                            <p className="text-white/95 text-sm leading-relaxed">
+                                Build your brand voice, generate AI-powered marketing copy, website hero text, social captions, taglines, and your elevator pitch.
+                            </p>
+                            <div className="mt-4 pt-4 border-t border-white/20">
+                                <div className="flex items-center gap-2 text-xs text-white/80">
+                                    <Sparkles className="w-3 h-3" />
+                                    AI-generated brand messaging
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
+
+                    {/* Team Management */}
+                    <Link
+                        to={createPageUrl('TeamCollaboration')}
+                        className="card relative overflow-hidden p-6 bg-gradient-to-br from-slate-700 via-slate-600 to-slate-500 text-white hover:shadow-2xl hover:scale-[1.02] transition-all group border-2 border-slate-600"
+                        style={{ borderRadius: '2px' }}
+                    >
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl group-hover:bg-white/20 transition-all"></div>
+                        <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-black/10 rounded-full blur-2xl"></div>
+                        <div className="relative z-10">
+                            <div className="flex items-center justify-between mb-4">
+                                <div className="bg-white/20 p-3 rounded-lg group-hover:bg-white/30 group-hover:scale-110 transition-all backdrop-blur-sm shadow-lg">
+                                    <UserCheck className="w-6 h-6 text-white" />
+                                </div>
+                                <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                            </div>
+                            <h3 className="text-xl font-bold mb-3">Team Management</h3>
+                            <p className="text-white/95 text-sm leading-relaxed">
+                                Invite team members, assign roles, collaborate on strategy documents, and manage feedback all in one shared workspace.
+                            </p>
+                            <div className="mt-4 pt-4 border-t border-white/20">
+                                <div className="flex items-center gap-2 text-xs text-white/80">
+                                    <Users className="w-3 h-3" />
+                                    Collaborative workspace
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
+                </div>
+
                 {/* Meet Your AI Team */}
                 {aiSuggestion && recommendedAgent && (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
