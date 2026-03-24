@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { generateBrandCopy } from '@/functions/generateBrandCopy';
 import {
     Palette, Sparkles, Loader2, CheckCircle, ArrowLeft, ArrowRight,
-    Save, ChevronRight, Target, Eye, Heart, Users, MessageSquare,
+    Save, ChevronRight, Target, Users, MessageSquare,
     Zap, Copy, RefreshCw, Info, Star, Megaphone, Mail, Mic
 } from 'lucide-react';
 
@@ -71,42 +70,36 @@ export default function BrandIdentityGuide() {
         try {
             const user = await base44.auth.me();
 
-            // Load from Brand Identity strategy form
-            const brandDocs = await base44.entities.StrategyDocument.filter({
-                created_by: user.email,
-                document_type: 'brand_identity'
-            });
+            const [brandDocs, missionDocs, idealClientDocs, kits] = await Promise.all([
+                base44.entities.StrategyDocument.filter({ created_by: user.email, document_type: 'brand_identity' }),
+                base44.entities.StrategyDocument.filter({ created_by: user.email, document_type: 'mission_vision' }),
+                base44.entities.StrategyDocument.filter({ created_by: user.email, document_type: 'ideal_client' }),
+                base44.entities.BrandKit.filter({ created_by: user.email }),
+            ]);
 
-            // Load from Mission/Vision strategy form
-            const missionDocs = await base44.entities.StrategyDocument.filter({
-                created_by: user.email,
-                document_type: 'mission_vision'
-            });
+            const merged = {
+                brand_name: '',
+                mission: '',
+                vision: '',
+                values: ['', '', ''],
+                target_audience: '',
+                tone_of_voice: '',
+                unique_value_proposition: '',
+                brand_personality: '',
+            };
 
-            // Load from Ideal Client form for target audience
-            const idealClientDocs = await base44.entities.StrategyDocument.filter({
-                created_by: user.email,
-                document_type: 'ideal_client'
-            });
-
-            const merged = { ...formData };
-
-            // Pull from mission/vision doc
             if (missionDocs.length > 0) {
                 const mv = missionDocs[0].content || {};
                 if (mv.mission_statement) merged.mission = mv.mission_statement;
                 if (mv.vision_statement) merged.vision = mv.vision_statement;
             }
 
-            // Pull from ideal client doc
             if (idealClientDocs.length > 0) {
                 const ic = idealClientDocs[0].content || {};
-                const audience = [ic.demographics, ic.psychographics, ic.pain_points]
-                    .filter(Boolean).join('. ');
+                const audience = [ic.demographics, ic.psychographics, ic.pain_points].filter(Boolean).join('. ');
                 if (audience) merged.target_audience = audience;
             }
 
-            // Pull from brand identity form (overrides where populated)
             if (brandDocs.length > 0) {
                 const bd = brandDocs[0].content || {};
                 if (bd.brand_name) merged.brand_name = bd.brand_name;
@@ -120,8 +113,6 @@ export default function BrandIdentityGuide() {
 
             setFormData(merged);
 
-            // Load existing BrandKit
-            const kits = await base44.entities.BrandKit.filter({ created_by: user.email });
             if (kits.length > 0) {
                 const kit = kits[0];
                 setBrandKitId(kit.id);
@@ -152,12 +143,7 @@ export default function BrandIdentityGuide() {
             const copy = res.data;
             setGeneratedCopy(copy);
 
-            // Save to BrandKit entity
-            const payload = {
-                ...formData,
-                ...copy,
-                last_generated_date: new Date().toISOString(),
-            };
+            const payload = { ...formData, ...copy, last_generated_date: new Date().toISOString() };
             if (brandKitId) {
                 await base44.entities.BrandKit.update(brandKitId, payload);
             } else {
@@ -175,7 +161,6 @@ export default function BrandIdentityGuide() {
     const handleSaveProgress = async () => {
         setSaving(true);
         try {
-            const user = await base44.auth.me();
             const payload = { ...formData };
             if (brandKitId) {
                 await base44.entities.BrandKit.update(brandKitId, payload);
@@ -334,7 +319,7 @@ export default function BrandIdentityGuide() {
                                 {formData.target_audience && <span className="ml-2 text-xs text-green-600 font-normal">✓ Imported from Ideal Client</span>}
                             </label>
                             <textarea className="form-input" rows={5} value={formData.target_audience} onChange={e => updateValue('target_audience', e.target.value)}
-                                placeholder="Describe who you serve in detail: age, profession, challenges, goals, lifestyle. E.g., 'Ambitious entrepreneurs aged 30-50 who are stuck in their business and want a clear roadmap to scale...'" />
+                                placeholder="Describe who you serve in detail: age, profession, challenges, goals, lifestyle." />
                         </div>
                         <div>
                             <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">Unique Value Proposition</label>
@@ -379,11 +364,11 @@ export default function BrandIdentityGuide() {
                         <div>
                             <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">Brand Personality Traits</label>
                             <textarea className="form-input" rows={3} value={formData.brand_personality} onChange={e => updateValue('brand_personality', e.target.value)}
-                                placeholder="If your brand was a person, how would you describe them? E.g., 'Experienced mentor who is direct, encouraging, and cuts through the noise...'" />
+                                placeholder="If your brand was a person, how would you describe them?" />
                         </div>
                     </div>
 
-                    <div className="card p-6 bg-gradient-to-br from-[var(--primary-gold)]/10 to-yellow-50 dark:from-yellow-900/20 dark:to-orange-900/10 border-2 border-[var(--primary-gold)]">
+                    <div className="card p-6 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/10 border-2 border-[var(--primary-gold)]">
                         <div className="flex items-center gap-3 mb-3">
                             <div className="bg-[var(--primary-gold)] p-2 rounded-lg">
                                 <Sparkles className="w-6 h-6 text-white" />
