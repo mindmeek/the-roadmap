@@ -342,6 +342,9 @@ export default function DashboardPage() {
                     </div>
                 </div>
 
+                {/* Your Next Steps */}
+                <NextStepsCard user={user} />
+
                 {/* Journey Timeline & Financial Snapshot & Daily Insights */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
                     <div className="lg:col-span-2 h-full">

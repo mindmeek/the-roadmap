@@ -453,6 +453,8 @@ export default function WeekPage() {
         });
     };
 
+    const [showCompletionBanner, setShowCompletionBanner] = useState(false);
+
     const markWeekComplete = async () => {
         if (!user || user.completed_weeks?.includes(weekNumber)) return;
 
@@ -462,6 +464,8 @@ export default function WeekPage() {
             setUser(prev => ({ ...prev, completed_weeks: updatedWeeks }));
             showXPToast({ xp: 30, message: `Week ${weekNumber} Complete! 🎉` });
             handleGamification({ action: 'COMPLETE_JOURNEY_WEEK' });
+            setShowCompletionBanner(true);
+            setTimeout(() => setShowCompletionBanner(false), 6000);
         } catch (error) {
             console.error("Error completing week:", error);
         }
