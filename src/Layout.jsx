@@ -66,6 +66,7 @@ const myAccountItems = [
     { href: "MyBusinesses", icon: Building, label: "My Businesses", mobileLabel: "My Businesses" },
     { href: "SwitchBusiness", icon: KeyRound, label: "Switch Business", mobileLabel: "Switch Biz" },
     { href: "AccountManager", icon: UserCheck, label: "Account Manager", mobileLabel: "Acct Manager" },
+    { href: "TeamCollaboration", icon: Users, label: "Team Collaboration", mobileLabel: "Team" },
     { href: "BrandKit", icon: Palette, label: "Brand Kit", mobileLabel: "Brand Kit", requiredLevel: 'business_hq' },
     { href: "ScheduledPosts", icon: Clock, label: "Scheduled Posts", mobileLabel: "Scheduled Posts", requiredLevel: 'business_hq' },
     { href: "AIConversationHistory", icon: MessageSquare, label: "AI Conversation History", mobileLabel: "AI History" },
