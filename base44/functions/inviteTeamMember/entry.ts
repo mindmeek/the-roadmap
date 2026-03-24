@@ -80,6 +80,21 @@ Deno.serve(async (req) => {
             `
         });
 
+        // Also create an in-app notification for the invited user (they may already be a platform member)
+        try {
+            await base44.asServiceRole.entities.Notification.create({
+                recipient_email: email,
+                type: 'team_invite',
+                title: `📩 Team Invitation from ${business.name}`,
+                message: `${user.full_name || user.email} has invited you to join ${business.name} as a ${role}. Check your email to accept.`,
+                is_read: false,
+                related_user_email: user.email,
+                link: `/AcceptTeamInvitation?token=${invitationToken}`
+            });
+        } catch (notifyErr) {
+            console.error('Failed to create in-app notification:', notifyErr);
+        }
+
         return Response.json({ 
             success: true, 
             teamMember,
