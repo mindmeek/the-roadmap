@@ -16,7 +16,8 @@ const STEPS = [
     { id: 4, title: 'Generate Copy', icon: Sparkles, desc: 'AI creates your messaging' },
 ];
 
-const CopyBlock = ({ label, icon: Icon, content, color }) => {
+const CopyBlock = ({ label, icon: IconComp, content, color }) => {
+    const Icon = IconComp;
     const [copied, setCopied] = useState(false);
     const handleCopy = () => {
         navigator.clipboard.writeText(content);
