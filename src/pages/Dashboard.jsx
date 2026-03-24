@@ -27,6 +27,7 @@ import {
 import moment from 'moment';
 
 // Component imports
+import NextStepsCard from '../components/dashboard/NextStepsCard';
 import FoundationRoadmapVisual from '../components/dashboard/FoundationRoadmapVisual';
 import JourneyTimeline from '../components/dashboard/JourneyTimeline';
 import FinancialSnapshot from '../components/dashboard/FinancialSnapshot';
