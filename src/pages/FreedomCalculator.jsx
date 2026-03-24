@@ -114,7 +114,8 @@ export default function MyFinancialGoal() {
       const monthlyRevenue = unitsNeeded * price;
       const monthlyCost = (unitsNeeded * costPerUnit) + fixedMonthlyCost;
       const monthlyProfit = monthlyRevenue - monthlyCost;
-      const profitMarginPct = price > 0 ? Math.round((profitPerUnit / price) * 100) : 0;
+      // Use actual monthly profit vs monthly revenue for accurate margin (handles fixed monthly costs correctly)
+      const profitMarginPct = monthlyRevenue > 0 ? Math.round((monthlyProfit / monthlyRevenue) * 100) : 0;
 
       return {
         ...product,
