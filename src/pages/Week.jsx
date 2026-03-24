@@ -971,6 +971,25 @@ export default function WeekPage() {
                 </div>
             </div>
 
+            {/* Floating AI Nudge */}
+            <div className="fixed bottom-24 lg:bottom-8 right-4 lg:right-6 z-50 flex flex-col items-end gap-2">
+                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl p-3 max-w-[220px] text-xs text-[var(--text-soft)] animate-fade-in">
+                    <p className="font-semibold text-[var(--text-main)] mb-1">💡 Stuck on a step?</p>
+                    <p>Ask your AI Business Team for help with this week's tasks.</p>
+                </div>
+                <button
+                    onClick={() => setCopilotModal({
+                        isOpen: true,
+                        copilotQuestions: weekData?.action_steps?.slice(0, 3).map(s => `Help me with: "${s.title}"`) || [],
+                        actionStepTitle: weekData?.week_title || 'This Week'
+                    })}
+                    className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-3 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all font-semibold text-sm"
+                >
+                    <Sparkles className="w-4 h-4 animate-pulse" />
+                    Ask AI for Help
+                </button>
+            </div>
+
             <AICopilotModal
                 isOpen={copilotModal.isOpen}
                 onClose={() => setCopilotModal({ isOpen: false, copilotQuestions: [], actionStepTitle: '' })}
