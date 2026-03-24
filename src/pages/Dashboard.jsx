@@ -471,8 +471,8 @@ export default function DashboardPage() {
                     {/* Brand Kit */}
                     <Link
                         to={createPageUrl('BrandIdentityGuide')}
-                        className="card relative overflow-hidden p-6 bg-black text-white hover:shadow-2xl hover:scale-[1.02] transition-all group border-2 border-gray-800"
-                        style={{ borderRadius: '2px' }}
+                        className="card relative overflow-hidden p-6 text-white hover:shadow-2xl hover:scale-[1.02] transition-all group border-2 border-gray-800"
+                        style={{ borderRadius: '2px', backgroundColor: '#000000' }}
                     >
                         <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl group-hover:bg-white/20 transition-all"></div>
                         <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-black/10 rounded-full blur-2xl"></div>
