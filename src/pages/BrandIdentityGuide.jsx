@@ -237,7 +237,7 @@ export default function BrandIdentityGuide() {
                         {i < STEPS.length - 1 && (
                             <ChevronRight className={`w-4 h-4 flex-shrink-0 ${s.id < step ? 'text-green-500' : 'text-gray-300'}`} />
                         )}
-                    </React.Fragment>
+                    </div>
                 ))}
             </div>
 
