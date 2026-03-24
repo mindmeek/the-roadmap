@@ -22,7 +22,9 @@ import {
     MessageSquare,
     ChevronDown,
     Map,
-    Briefcase
+    Briefcase,
+    Palette,
+    UserCheck
 } from 'lucide-react';
 import moment from 'moment';
 
