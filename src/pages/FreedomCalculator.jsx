@@ -524,7 +524,7 @@ export default function MyFinancialGoal() {
                     </div>
                     <div>
                       <p className="text-[var(--text-soft)]">Monthly Costs:</p>
-                      <p className="font-semibold text-red-600">${Math.round(product.monthlyRevenue - product.monthlyProfit).toLocaleString()}</p>
+                      <p className="font-semibold text-red-600">${Math.round(product.monthlyCost).toLocaleString()}</p>
                     </div>
                   </div>
                 ) : (
