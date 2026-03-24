@@ -501,6 +501,23 @@ export default function WeekPage() {
         <div className="px-4 pb-20 md:pb-8">
             <div className="max-w-5xl mx-auto space-y-6">
 
+                {/* Week Completion Celebration Banner */}
+                {showCompletionBanner && (
+                    <div className="card p-6 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-center shadow-2xl animate-bounce-once border-2 border-green-400">
+                        <div className="text-4xl mb-2">🎉</div>
+                        <h3 className="text-2xl font-bold mb-1">Week {weekNumber} Complete!</h3>
+                        <p className="text-green-100 mb-3">Outstanding work! You've earned 30 XP and are one week closer to your goal.</p>
+                        {weekNumber < 10 && (
+                            <button
+                                onClick={() => navigateToWeek(weekNumber + 1)}
+                                className="btn bg-white text-green-700 font-bold hover:bg-green-50"
+                            >
+                                Start Week {weekNumber + 1} <ArrowRight className="w-4 h-4 ml-2" />
+                            </button>
+                        )}
+                    </div>
+                )}
+
                 {/* Header */}
                 <div className="card p-6 md:p-8">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-4 sm:gap-0">
