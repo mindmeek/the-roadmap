@@ -142,48 +142,42 @@ export default function JourneyTimeline({ user }) {
         }
     };
 
-    const getMonthProgress = (monthIndex) => {
-        // Calculate progress based on completed weeks in this month
-        const monthNumber = monthIndex + 1;
-        const startWeek = (monthNumber - 1) * 4 + 1;
-        const endWeek = monthNumber * 4;
-        
-        const weeksInMonth = [];
-        for (let w = startWeek; w <= endWeek; w++) {
-            weeksInMonth.push(w);
+    // Get static goal data once for helpers
+    const staticRoot = roadmapData.default || roadmapData;
+    const goalData = staticRoot?.[user.entrepreneurship_stage]?.goals?.[user.selected_goal]
+        || staticRoot?.nicheRoadmaps?.[user.selected_goal];
+
+    const getMonthWeekRange = (monthIndex) => {
+        if (goalData?.months) {
+            let offset = 0;
+            for (let m = 0; m < monthIndex; m++) {
+                offset += goalData.months[m]?.weeks?.length || 0;
+            }
+            const count = goalData.months[monthIndex]?.weeks?.length || 0;
+            return { start: offset + 1, count: count || 4 };
         }
-        
-        const completedInMonth = weeksInMonth.filter(w => completedWeeks.includes(w)).length;
-        return Math.round((completedInMonth / weeksInMonth.length) * 100);
+        // fallback: assume 4 weeks per month
+        return { start: monthIndex * 4 + 1, count: 4 };
     };
 
-    // Static month titles based on stage and goal
+    const getMonthProgress = (monthIndex) => {
+        const { start, count } = getMonthWeekRange(monthIndex);
+        const weeksInMonth = Array.from({ length: count }, (_, i) => start + i);
+        const completedInMonth = weeksInMonth.filter(w => completedWeeks.includes(w)).length;
+        return count > 0 ? Math.round((completedInMonth / count) * 100) : 0;
+    };
+
     const getMonthTitle = (monthIndex) => {
         const monthNumber = monthIndex + 1;
-        
-        // Default titles by stage
-        const defaultTitles = {
-            vision: [
-                'Month 1: Vision & Validation',
-                'Month 2: Business Structure & Brand',
-                'Month 3: Launch & Growth'
-            ],
-            startup: [
-                'Month 1: Market Research & Strategy',
-                'Month 2: Operations & Financial Planning',
-                'Month 3: Launch Strategy & Execution'
-            ],
-            growth: [
-                'Month 1: Optimization Foundation',
-                'Month 2: Systems & Scaling',
-                'Month 3: Growth & Expansion'
-            ]
-        };
-
-        return defaultTitles[user.entrepreneurship_stage]?.[monthIndex] || `Month ${monthNumber}`;
+        // Pull title from static data if available
+        const staticTitle = goalData?.months?.[monthIndex]?.title;
+        if (staticTitle) return `Month ${monthNumber}: ${staticTitle}`;
+        return `Month ${monthNumber}`;
     };
 
-    const months = [0, 1, 2]; // Three months
+    const months = goalData?.months
+        ? goalData.months.map((_, i) => i)
+        : [0, 1, 2];
 
     return (
         <div className="card p-6 h-full flex flex-col">
