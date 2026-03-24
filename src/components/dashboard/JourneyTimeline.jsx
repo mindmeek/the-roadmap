@@ -81,21 +81,49 @@ export default function JourneyTimeline({ user }) {
     const completedWeeks = user.completed_weeks || [];
     const currentWeek = user.current_week || 1;
 
-    // Load weeks for specific month from database
+    // Load weeks for specific month — tries static data first, falls back to DB
     const loadWeeksForMonth = async (monthIndex) => {
         setLoading(true);
         try {
             const monthNumber = monthIndex + 1;
+
+            // 1. Try static roadmap data
+            const staticRoot = roadmapData.default || roadmapData;
+            const goalData = staticRoot?.[user.entrepreneurship_stage]?.goals?.[user.selected_goal]
+                || staticRoot?.nicheRoadmaps?.[user.selected_goal];
+
+            if (goalData?.months?.[monthIndex]?.weeks?.length > 0) {
+                const staticMonth = goalData.months[monthIndex];
+                // Calculate the global week number offset for this month
+                let weekOffset = 0;
+                for (let m = 0; m < monthIndex; m++) {
+                    weekOffset += goalData.months[m]?.weeks?.length || 0;
+                }
+                const weeks = staticMonth.weeks.map((week, i) => ({
+                    id: `static-${monthIndex}-${i}`,
+                    week_number: weekOffset + i + 1,
+                    week_title: week.title,
+                    week_description: week.description,
+                    action_steps: (week.actionSteps || []).map(s => ({
+                        title: s.title,
+                        description: s.description,
+                        deliverable: s.deliverable,
+                        time_estimate: s.timeEstimate,
+                        link_to: s.linkTo,
+                    })),
+                }));
+                setRoadmapWeeks(weeks);
+                return;
+            }
+
+            // 2. Fallback to DB
             const weeks = await RoadmapContent.filter({
                 stage: user.entrepreneurship_stage,
                 goal_id: user.selected_goal,
                 month_number: monthNumber,
                 is_published: true
             });
-            
-            // Sort by week_number
-            const sortedWeeks = weeks.sort((a, b) => a.week_number - b.week_number);
-            setRoadmapWeeks(sortedWeeks);
+            setRoadmapWeeks(weeks.sort((a, b) => a.week_number - b.week_number));
         } catch (error) {
             console.error('Error loading weeks:', error);
             setRoadmapWeeks([]);
