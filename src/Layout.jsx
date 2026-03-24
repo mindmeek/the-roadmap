@@ -68,6 +68,7 @@ const myAccountItems = [
     { href: "AccountManager", icon: UserCheck, label: "Account Manager", mobileLabel: "Acct Manager" },
     { href: "TeamCollaboration", icon: Users, label: "Team Collaboration", mobileLabel: "Team" },
     { href: "BrandKit", icon: Palette, label: "Brand Kit", mobileLabel: "Brand Kit", requiredLevel: 'business_hq' },
+    { href: "BrandIdentityGuide", icon: Sparkles, label: "Brand Identity Guide", mobileLabel: "Brand Guide" },
     { href: "ScheduledPosts", icon: Clock, label: "Scheduled Posts", mobileLabel: "Scheduled Posts", requiredLevel: 'business_hq' },
     { href: "AIConversationHistory", icon: MessageSquare, label: "AI Conversation History", mobileLabel: "AI History" },
     { href: "DeleteAccount", icon: Trash2, label: "Delete Account", mobileLabel: "Delete Account", isAction: true },
