@@ -45,6 +45,30 @@ Deno.serve(async (req) => {
         // Get business details
         const business = await base44.entities.Business.get(teamMember.business_id);
 
+        // Notify the business owner that someone accepted the invite
+        try {
+            const ownerUsers = await base44.asServiceRole.entities.User.filter({ id: business.owner_user_id });
+            if (ownerUsers.length > 0) {
+                const ownerEmail = ownerUsers[0].email;
+                await base44.asServiceRole.integrations.Core.SendEmail({
+                    to: ownerEmail,
+                    subject: `${user.full_name || user.email} joined your team on Business Minds`,
+                    body: `<h2>New Team Member!</h2><p><strong>${user.full_name || user.email}</strong> has accepted your invitation and joined <strong>${business.name}</strong> as a <strong>${teamMember.role}</strong>.</p><p><a href="${req.headers.get('origin')}/TeamCollaboration" style="display:inline-block;padding:12px 24px;background-color:#8B6F4E;color:white;text-decoration:none;border-radius:5px;">View Team</a></p>`
+                });
+                await base44.asServiceRole.entities.Notification.create({
+                    recipient_email: ownerEmail,
+                    type: 'team_invite_accepted',
+                    title: '🎉 New Team Member Joined',
+                    message: `${user.full_name || user.email} accepted your invitation and joined ${business.name} as ${teamMember.role}.`,
+                    is_read: false,
+                    related_user_email: user.email,
+                    link: '/TeamCollaboration'
+                });
+            }
+        } catch (notifyErr) {
+            console.error('Failed to notify owner:', notifyErr);
+        }
+
         return Response.json({ 
             success: true,
             business,

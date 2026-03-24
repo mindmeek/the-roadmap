@@ -44,6 +44,21 @@ Deno.serve(async (req) => {
             role: new_role
         });
 
+        // Notify the affected team member
+        try {
+            await base44.asServiceRole.entities.Notification.create({
+                recipient_email: teamMemberToUpdate.email,
+                type: 'team_role_changed',
+                title: '🔄 Your Team Role Was Updated',
+                message: `Your role in ${business.name} has been changed to ${new_role} by ${user.full_name || user.email}.`,
+                is_read: false,
+                related_user_email: user.email,
+                link: '/TeamCollaboration'
+            });
+        } catch (notifyErr) {
+            console.error('Failed to notify member of role change:', notifyErr);
+        }
+
         return Response.json({ 
             success: true,
             message: 'Role updated successfully'

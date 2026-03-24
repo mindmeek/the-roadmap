@@ -39,6 +39,17 @@ Deno.serve(async (req) => {
             return Response.json({ error: 'Cannot remove the business owner' }, { status: 400 });
         }
 
+        // Notify the removed member via email before deleting
+        try {
+            await base44.asServiceRole.integrations.Core.SendEmail({
+                to: teamMemberToRemove.email,
+                subject: `You have been removed from ${business.name}`,
+                body: `<p>Hi${teamMemberToRemove.full_name ? ' ' + teamMemberToRemove.full_name : ''},</p><p>You have been removed from the team at <strong>${business.name}</strong> on Business Minds.</p><p>If you believe this was a mistake, please contact the business owner.</p>`
+            });
+        } catch (notifyErr) {
+            console.error('Failed to send removal email:', notifyErr);
+        }
+
         // Delete the team member
         await base44.asServiceRole.entities.TeamMember.delete(team_member_id);
 
