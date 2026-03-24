@@ -144,34 +144,29 @@ export default function NextStepsCard({ user }) {
     }
 
     return (
-        <div className="card p-4 sm:p-6" style={{ borderRadius: '2px' }}>
-            <div className="flex items-center gap-3 mb-4">
-                <div className="bg-[var(--primary-gold)]/10 p-2 rounded-lg">
-                    <ArrowRight className="w-5 h-5 text-[var(--primary-gold)]" />
-                </div>
-                <div>
-                    <h3 className="text-lg font-bold text-[var(--text-main)]">Your Next Steps</h3>
-                    <p className="text-xs text-[var(--text-soft)]">Prioritized actions to keep your momentum going</p>
-                </div>
+        <div className="card p-4" style={{ borderRadius: '2px' }}>
+            <div className="flex items-center gap-2 mb-3">
+                <ArrowRight className="w-4 h-4 text-[var(--primary-gold)]" />
+                <h3 className="text-sm font-bold text-[var(--text-main)]">Your Next Steps</h3>
             </div>
 
-            <div className="space-y-3">
-                {steps.map((step, index) => {
+            <div className="space-y-2">
+                {steps.map((step) => {
                     const Icon = step.icon;
                     return (
                         <Link
                             key={step.id}
                             to={step.href}
-                            className={`flex items-center gap-4 p-3 sm:p-4 rounded-lg border ${step.bg} ${step.border} hover:shadow-md transition-all group`}
+                            className={`flex items-center gap-3 p-2.5 rounded-lg border ${step.bg} ${step.border} hover:shadow-md transition-all group`}
                         >
-                            <div className={`p-2 rounded-lg bg-white dark:bg-gray-800 flex-shrink-0 shadow-sm`}>
-                                <Icon className={`w-5 h-5 ${step.color}`} />
+                            <div className="p-1.5 rounded-md bg-white dark:bg-gray-800 flex-shrink-0">
+                                <Icon className={`w-4 h-4 ${step.color}`} />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="font-semibold text-sm text-[var(--text-main)]">{step.label}</p>
+                                <p className="font-semibold text-xs text-[var(--text-main)]">{step.label}</p>
                                 <p className="text-xs text-[var(--text-soft)] truncate">{step.description}</p>
                             </div>
-                            <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[var(--primary-gold)] group-hover:translate-x-1 transition-all flex-shrink-0" />
+                            <ChevronRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-[var(--primary-gold)] group-hover:translate-x-1 transition-all flex-shrink-0" />
                         </Link>
                     );
                 })}

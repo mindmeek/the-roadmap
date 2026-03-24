@@ -342,8 +342,11 @@ export default function DashboardPage() {
                     </div>
                 </div>
 
-                {/* Your Next Steps */}
-                <NextStepsCard user={user} />
+                {/* Your Next Steps + Streak */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                    <NextStepsCard user={user} />
+                    <StreakCounter streak={currentStreak} daysTracked={daysTracked} />
+                </div>
 
                 {/* Journey Timeline & Financial Snapshot & Daily Insights */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
@@ -559,8 +562,7 @@ export default function DashboardPage() {
                 {/* Member Action Checklist */}
                 <MemberActionChecklist />
 
-                {/* Streak Counter */}
-                <StreakCounter streak={currentStreak} daysTracked={daysTracked} />
+                {/* Streak Counter moved up next to NextStepsCard */}
 
                 {/* Community + SOP + Upgrade CTAs */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
