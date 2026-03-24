@@ -219,7 +219,7 @@ export default function BrandIdentityGuide() {
             {/* Step Progress */}
             <div className="flex items-center gap-0 mb-8 overflow-x-auto pb-2">
                 {STEPS.map((s, i) => (
-                    <React.Fragment key={s.id}>
+                    <div key={s.id} className="flex items-center">
                         <button
                             onClick={() => s.id <= step && setStep(s.id)}
                             className={`flex flex-col items-center min-w-[80px] px-2 py-2 rounded-lg transition-all ${
