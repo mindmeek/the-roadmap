@@ -122,6 +122,7 @@ export default function MyFinancialGoal() {
         profit: monthlyProfit,
         unitsNeeded: Math.max(0, unitsNeeded),
         monthlyRevenue: Math.max(0, monthlyRevenue),
+        monthlyCost: Math.max(0, monthlyCost),
         monthlyProfit: Math.max(0, monthlyProfit),
         profitPerUnit: Math.max(0, profitPerUnit),
         profitMarginPct,
