@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { User, StrategyDocument } from '@/entities/all';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { 
@@ -10,87 +9,38 @@ import AITeamModal from '@/components/ai/AITeamModal';
 import AIFormFiller from '@/components/ai/AIFormFiller';
 import MissionVisionOverview from '@/components/strategy/MissionVisionOverview';
 import FoundationFormNav from '@/components/foundation/FoundationFormNav';
+import { useStrategyDoc } from '@/hooks/useStrategyDoc';
+
+const DEFAULT_FORM = {
+    mission_statement: '',
+    mission_what: '',
+    mission_who: '',
+    mission_how: '',
+    mission_why: '',
+    vision_statement: '',
+    vision_future_state: '',
+    vision_timeline: '',
+    vision_impact: '',
+    core_values: ['', '', '', '', ''],
+    guiding_principles: ''
+};
 
 export default function StrategyFormMissionVision() {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
-    const [saved, setSaved] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
     const [viewMode, setViewMode] = useState('edit');
 
-    const [formData, setFormData] = useState({
-        mission_statement: '',
-        mission_what: '',
-        mission_who: '',
-        mission_how: '',
-        mission_why: '',
-        vision_statement: '',
-        vision_future_state: '',
-        vision_timeline: '',
-        vision_impact: '',
-        core_values: ['', '', '', '', ''],
-        guiding_principles: ''
-    });
-
-    useEffect(() => {
-        loadData();
-    }, []);
-
-    const loadData = async () => {
-        try {
-            const userData = await User.me();
-            setUser(userData);
-
-            const docs = await StrategyDocument.filter({ 
-                created_by: userData.email,
-                document_type: 'mission_vision'
-            });
-
-            if (docs && docs.length > 0) {
-                setFormData(docs[0].content);
-            }
-        } catch (error) {
-            console.error('Error loading data:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    const { loading, saving, saved, formData, setFormData, saveDoc, user, canEdit } = useStrategyDoc('mission_vision', DEFAULT_FORM);
 
     const handleSave = async () => {
-        setSaving(true);
         try {
-            const docs = await StrategyDocument.filter({ 
-                created_by: user.email,
-                document_type: 'mission_vision'
-            });
-
-            const docData = {
-                document_type: 'mission_vision',
-                title: 'Mission & Vision Statements',
-                content: formData,
-                is_completed: true,
-                last_updated: new Date().toISOString()
-            };
-
-            if (docs && docs.length > 0) {
-                await StrategyDocument.update(docs[0].id, docData);
-            } else {
-                await StrategyDocument.create(docData);
-            }
-
-            setSaved(true);
-            setTimeout(() => setSaved(false), 3000);
+            await saveDoc();
         } catch (error) {
-            console.error('Error saving:', error);
             alert('Failed to save. Please try again.');
-        } finally {
-            setSaving(false);
         }
     };
 
     const updateArrayField = (field, index, value) => {
-        const newArray = [...formData[field]];
+        const newArray = [...(formData[field] || [])];
         newArray[index] = value;
         setFormData({ ...formData, [field]: newArray });
     };
