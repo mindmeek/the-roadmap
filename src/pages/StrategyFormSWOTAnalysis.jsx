@@ -54,50 +54,15 @@ const swotQuadrants = [
     }
 ];
 
+const DEFAULT_SWOT = Object.fromEntries(swotQuadrants.map(q => [q.id, ['']]));
+
 export default function StrategyFormSWOTAnalysis() {
     const navigate = useNavigate();
-    const [user, setUser] = useState(null);
-    const [document, setDocument] = useState(null); // Corresponds to existingDoc in the outline
-    const [formData, setFormData] = useState({});
-    const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
     const [aiContext, setAiContext] = useState({});
     const [viewMode, setViewMode] = useState('edit');
 
-    useEffect(() => {
-        loadData();
-    }, []);
-
-    const loadData = async () => {
-        try {
-            const userData = await User.me();
-            setUser(userData);
-
-            // Try to load existing document
-            const docs = await StrategyDocument.filter({
-                created_by: userData.email,
-                document_type: 'swot_analysis'
-            }, '-updated_date', 1);
-
-            if (docs.length > 0) {
-                const doc = docs[0];
-                setDocument(doc);
-                setFormData(doc.content || {});
-            } else {
-                // Initialize empty form
-                const emptyForm = {};
-                swotQuadrants.forEach(quad => {
-                    emptyForm[quad.id] = [''];
-                });
-                setFormData(emptyForm);
-            }
-        } catch (error) {
-            console.error("Error loading SWOT data:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    const { loading, saving, saved, formData, setFormData, saveDoc, user } = useStrategyDoc('swot_analysis', DEFAULT_SWOT);
 
     const handleItemChange = (quadrantId, index, value) => {
         setFormData(prev => ({
@@ -163,37 +128,16 @@ export default function StrategyFormSWOTAnalysis() {
     };
 
     const saveDocument = async (markComplete = false) => {
-        setSaving(true);
         try {
-            const documentData = {
-                document_type: 'swot_analysis',
-                title: 'My SWOT Analysis', // Updated title as per outline
-                content: formData,
-                entrepreneurship_stage: user.entrepreneurship_stage,
-                is_completed: markComplete,
-                last_updated: new Date().toISOString()
-            };
-
-            if (document) { // `document` state corresponds to `existingDoc` in outline
-                await StrategyDocument.update(document.id, documentData);
-            } else {
-                const newDoc = await StrategyDocument.create(documentData);
-                setDocument(newDoc);
-            }
-
+            await saveDoc();
             if (markComplete) {
-                // Award XP for completing the document for the first time
-                if (!document?.is_completed) {
-                    await handleGamification({ action: 'COMPLETE_STRATEGY_DOC' });
-                }
-                alert('SWOT Analysis saved successfully!'); // Added success alert as per outline
-                navigate(createPageUrl('MyFoundationRoadmap')); // Changed redirect as per outline
+                await handleGamification({ action: 'COMPLETE_STRATEGY_DOC' });
+                alert('SWOT Analysis saved successfully!');
+                navigate(createPageUrl('MyFoundationRoadmap'));
             }
         } catch (error) {
             console.error("Error saving document:", error);
             alert('Failed to save. Please try again.');
-        } finally {
-            setSaving(false);
         }
     };
 

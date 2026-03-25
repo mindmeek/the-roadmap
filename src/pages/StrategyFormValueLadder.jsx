@@ -11,120 +11,29 @@ import ValueLadderOverview from '@/components/strategy/ValueLadderOverview';
 import FoundationFormNav from '@/components/foundation/FoundationFormNav';
 
 export default function StrategyFormValueLadder() {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
-    const [saved, setSaved] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
     const [activeTab, setActiveTab] = useState('form');
 
-    const [formData, setFormData] = useState({
+    const DEFAULT_FORM = {
         ladder_levels: [
-            { 
-                level: 'Free/Entry',
-                offer_name: '',
-                description: '',
-                price: '$0',
-                target_audience: '',
-                purpose: 'Attract and build trust',
-                example: ''
-            },
-            { 
-                level: 'Low-Ticket',
-                offer_name: '',
-                description: '',
-                price: '',
-                target_audience: '',
-                purpose: 'Convert interest into customers',
-                example: ''
-            },
-            { 
-                level: 'Mid-Ticket',
-                offer_name: '',
-                description: '',
-                price: '',
-                target_audience: '',
-                purpose: 'Deliver significant value and ROI',
-                example: ''
-            },
-            { 
-                level: 'High-Ticket',
-                offer_name: '',
-                description: '',
-                price: '',
-                target_audience: '',
-                purpose: 'Premium transformation and results',
-                example: ''
-            },
-            { 
-                level: 'Continuity/Recurring',
-                offer_name: '',
-                description: '',
-                price: '',
-                target_audience: '',
-                purpose: 'Ongoing value and retention',
-                example: ''
-            }
+            { level: 'Free/Entry', offer_name: '', description: '', price: '$0', target_audience: '', purpose: 'Attract and build trust', example: '' },
+            { level: 'Low-Ticket', offer_name: '', description: '', price: '', target_audience: '', purpose: 'Convert interest into customers', example: '' },
+            { level: 'Mid-Ticket', offer_name: '', description: '', price: '', target_audience: '', purpose: 'Deliver significant value and ROI', example: '' },
+            { level: 'High-Ticket', offer_name: '', description: '', price: '', target_audience: '', purpose: 'Premium transformation and results', example: '' },
+            { level: 'Continuity/Recurring', offer_name: '', description: '', price: '', target_audience: '', purpose: 'Ongoing value and retention', example: '' }
         ],
         upsell_strategy: '',
         cross_sell_opportunities: '',
         retention_plan: ''
-    });
-
-    useEffect(() => {
-        loadData();
-    }, []);
-
-    const loadData = async () => {
-        try {
-            const userData = await User.me();
-            setUser(userData);
-
-            const docs = await StrategyDocument.filter({ 
-                created_by: userData.email,
-                document_type: 'value_ladder'
-            });
-
-            if (docs && docs.length > 0) {
-                const doc = docs[0];
-                setFormData(doc.content);
-            }
-        } catch (error) {
-            console.error('Error loading data:', error);
-        } finally {
-            setLoading(false);
-        }
     };
 
+    const { loading, saving, saved, formData, setFormData, saveDoc, user } = useStrategyDoc('value_ladder', DEFAULT_FORM);
+
     const handleSave = async () => {
-        setSaving(true);
         try {
-            const docs = await StrategyDocument.filter({ 
-                created_by: user.email,
-                document_type: 'value_ladder'
-            });
-
-            const docData = {
-                document_type: 'value_ladder',
-                title: 'My Value Ladder',
-                content: formData,
-                is_completed: true,
-                last_updated: new Date().toISOString()
-            };
-
-            if (docs && docs.length > 0) {
-                await StrategyDocument.update(docs[0].id, docData);
-            } else {
-                await StrategyDocument.create(docData);
-            }
-
-            setSaved(true);
-            setTimeout(() => setSaved(false), 3000);
+            await saveDoc();
         } catch (error) {
-            console.error('Error saving:', error);
             alert('Failed to save. Please try again.');
-        } finally {
-            setSaving(false);
         }
     };
 
