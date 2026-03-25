@@ -320,6 +320,13 @@ export default function ValuePropositionCanvasPage() { // Renamed from StrategyF
                     </div>
                 </div>
 
+                <AIFormFiller
+                    formType="value_proposition_canvas"
+                    currentFormData={formData}
+                    onFillForm={(filled) => setFormData(prev => ({ ...prev, ...filled }))}
+                    contextHint={`Business: ${user?.business_name}, Industry: ${user?.industry}, Stage: ${user?.entrepreneurship_stage}`}
+                />
+
                 {/* AI Help Banner */}
                 <div className="mt-4 p-4 bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20 border-l-4 border-pink-500 rounded">
                     <div className="flex items-start gap-2">

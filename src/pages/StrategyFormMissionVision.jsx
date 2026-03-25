@@ -135,6 +135,13 @@ export default function StrategyFormMissionVision() {
                     </div>
                 </div>
 
+                <AIFormFiller
+                    formType="mission_vision"
+                    currentFormData={formData}
+                    onFillForm={(filled) => setFormData(prev => ({ ...prev, ...filled }))}
+                    contextHint={`Business: ${user?.business_name}, Industry: ${user?.industry}, Stage: ${user?.entrepreneurship_stage}`}
+                />
+
                 {/* Guide Section */}
                 <div className="card p-6 mb-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-700">
                     <div className="flex items-start gap-3">
