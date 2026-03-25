@@ -331,8 +331,52 @@ export default function TeamCollaboration() {
                         </div>
                     </div>
 
-                    {/* Team Member Rows */}
-                    {teamMembers.length === 0 ? (
+                    {/* Pending Invitations Section */}
+                    {teamMembers.filter(m => m.status === 'pending_invitation').length > 0 && (
+                        <div className="card p-4 border-2 border-yellow-300 dark:border-yellow-700 bg-yellow-50 dark:bg-yellow-900/10">
+                            <h3 className="font-bold text-sm text-yellow-700 dark:text-yellow-400 mb-3 flex items-center gap-2">
+                                <Clock className="w-4 h-4" /> Pending Invitations
+                            </h3>
+                            <div className="space-y-2">
+                                {teamMembers.filter(m => m.status === 'pending_invitation').map(member => (
+                                    <div key={member.id} className="flex items-center justify-between bg-white dark:bg-gray-800 rounded-lg p-3 border border-yellow-200 dark:border-yellow-800">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
+                                                style={{ backgroundColor: member.assigned_color || '#F59E0B' }}>
+                                                {(member.full_name || member.email).charAt(0).toUpperCase()}
+                                            </div>
+                                            <div>
+                                                <p className="font-semibold text-sm text-[var(--text-main)]">{member.full_name || '—'}</p>
+                                                <p className="text-xs text-[var(--text-soft)]">{member.email}</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-xs bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 border border-yellow-300 dark:border-yellow-700 px-2 py-1 rounded-full flex items-center gap-1">
+                                                <Clock className="w-3 h-3" /> Invite Sent
+                                            </span>
+                                            {member.invitation_token && canManage && (
+                                                <button
+                                                    onClick={() => copyInviteLink(member.invitation_token)}
+                                                    title="Copy invite link"
+                                                    className="p-1.5 rounded-lg text-gray-500 hover:text-[var(--primary-gold)] hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                                                >
+                                                    {copiedToken === member.invitation_token ? <Check className="w-3 h-3 text-green-600" /> : <Copy className="w-3 h-3" />}
+                                                </button>
+                                            )}
+                                            {canManage && (
+                                                <button onClick={() => handleRemove(member.id)} className="p-1.5 rounded-lg text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+                                                    <Trash2 className="w-3 h-3" />
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Active Team Member Rows */}
+                    {teamMembers.filter(m => m.status !== 'pending_invitation').length === 0 && teamMembers.length === 0 ? (
                         <div className="card p-8 text-center">
                             <Users className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
                             <p className="text-[var(--text-soft)]">No team members yet.</p>
@@ -346,7 +390,7 @@ export default function TeamCollaboration() {
                             )}
                         </div>
                     ) : (
-                        teamMembers.map(member => {
+                        teamMembers.filter(m => m.status !== 'pending_invitation').map(member => {
                             const cfg = ROLE_CONFIG[member.role] || ROLE_CONFIG.viewer;
                             const Icon = cfg.icon;
                             return (
