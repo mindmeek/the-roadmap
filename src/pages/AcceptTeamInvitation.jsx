@@ -34,6 +34,10 @@ export default function AcceptTeamInvitation() {
                 setStatus('success');
                 setMessage(response.data.message);
                 setBusiness(response.data.business);
+                // Auto-select this business so all pages show the company's data immediately
+                if (response.data.business?.id) {
+                    localStorage.setItem('selectedBusinessId', response.data.business.id);
+                }
             } else {
                 setStatus('error');
                 setMessage(response.data.error || 'Failed to accept invitation');
