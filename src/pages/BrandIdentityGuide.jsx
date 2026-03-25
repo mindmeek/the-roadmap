@@ -18,7 +18,7 @@ const STEPS = [
     { id: 5, title: 'Generate Copy', icon: Sparkles, desc: 'AI creates your messaging' },
 ];
 
-const CopyBlock = ({ label, icon: IconComp, content, color }) => {
+const CopyBlock = ({ label, icon: IconComp, content, color, type }) => {
     const Icon = IconComp;
     const [copied, setCopied] = useState(false);
     const handleCopy = () => {
@@ -26,9 +26,34 @@ const CopyBlock = ({ label, icon: IconComp, content, color }) => {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
+
+    // Format content based on type
+    const formatContent = () => {
+        if (type === 'ad_taglines') {
+            return content.split('\n').filter(line => line.trim()).map((line, i) => (
+                <div key={i} className="py-2">{line}</div>
+            ));
+        }
+        if (type === 'social_captions') {
+            return content.split(/(?:\n\n+|---)/g).filter(post => post.trim()).map((post, i) => (
+                <div key={i} className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700 last:border-0 last:mb-0 last:pb-0">
+                    <p className="text-sm text-[var(--text-main)] whitespace-pre-wrap leading-relaxed">{post.trim()}</p>
+                </div>
+            ));
+        }
+        if (type === 'product_descriptions') {
+            return content.split(/(?:\n\n|\d+\.\s)/g).filter(desc => desc.trim()).map((desc, i) => (
+                <div key={i} className="mb-5 pb-5 border-b border-gray-200 dark:border-gray-700 last:border-0 last:mb-0 last:pb-0">
+                    <p className="text-sm text-[var(--text-main)] whitespace-pre-wrap leading-relaxed">{desc.trim()}</p>
+                </div>
+            ));
+        }
+        return <p className="text-sm text-[var(--text-main)] whitespace-pre-line leading-relaxed">{content}</p>;
+    };
+
     return (
         <div className={`card p-5 border-l-4 ${color}`}>
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                     <Icon className="w-5 h-5 text-[var(--primary-gold)]" />
                     <h4 className="font-bold text-[var(--text-main)]">{label}</h4>
@@ -37,7 +62,7 @@ const CopyBlock = ({ label, icon: IconComp, content, color }) => {
                     {copied ? <><CheckCircle className="w-3 h-3 text-green-500" /> Copied!</> : <><Copy className="w-3 h-3" /> Copy</>}
                 </button>
             </div>
-            <p className="text-sm text-[var(--text-main)] whitespace-pre-line leading-relaxed">{content}</p>
+            {formatContent()}
         </div>
     );
 };
@@ -553,13 +578,13 @@ export default function BrandIdentityGuide() {
                     </div>
 
                     {/* Website & Pitches */}
-                    <h3 className="text-sm font-bold text-[var(--text-soft)] uppercase tracking-wider pt-2">Website & Pitches</h3>
+                    <h3 className="text-lg font-bold text-[var(--text-main)] pt-6 pb-3 border-b border-gray-200 dark:border-gray-700">Website & Pitches</h3>
                     {generatedCopy.website_hero_copy && <CopyBlock label="Website Hero Copy" icon={Star} content={generatedCopy.website_hero_copy} color="border-purple-400" />}
                     {generatedCopy.elevator_pitch_long && <CopyBlock label="Elevator Pitch (Long)" icon={Mic} content={generatedCopy.elevator_pitch_long} color="border-blue-400" />}
                     {generatedCopy.elevator_pitch_short && <CopyBlock label="Elevator Pitch (Short)" icon={Mic} content={generatedCopy.elevator_pitch_short} color="border-indigo-400" />}
 
                     {/* Brand Copy */}
-                    <h3 className="text-sm font-bold text-[var(--text-soft)] uppercase tracking-wider pt-2">Brand Pages</h3>
+                    <h3 className="text-lg font-bold text-[var(--text-main)] pt-6 pb-3 border-b border-gray-200 dark:border-gray-700">Brand Pages</h3>
                     {generatedCopy.about_us_copy && <CopyBlock label="About Us Page" icon={Heart} content={generatedCopy.about_us_copy} color="border-rose-400" />}
                     {generatedCopy.services_intro_copy && <CopyBlock label="Services Page Intro" icon={ShoppingBag} content={generatedCopy.services_intro_copy} color="border-teal-400" />}
                     {generatedCopy.why_choose_us_copy && <CopyBlock label="Why Choose Us" icon={CheckCircle} content={generatedCopy.why_choose_us_copy} color="border-emerald-400" />}
@@ -567,18 +592,18 @@ export default function BrandIdentityGuide() {
                     {/* Products */}
                     {generatedCopy.product_descriptions && (
                         <>
-                            <h3 className="text-sm font-bold text-[var(--text-soft)] uppercase tracking-wider pt-2">Product Descriptions</h3>
-                            <CopyBlock label="Product / Service Descriptions" icon={Package} content={generatedCopy.product_descriptions} color="border-orange-400" />
+                            <h3 className="text-lg font-bold text-[var(--text-main)] pt-6 pb-3 border-b border-gray-200 dark:border-gray-700">Product Descriptions</h3>
+                            <CopyBlock label="Product / Service Descriptions" icon={Package} content={generatedCopy.product_descriptions} color="border-orange-400" type="product_descriptions" />
                         </>
                     )}
 
                     {/* Marketing */}
-                    <h3 className="text-sm font-bold text-[var(--text-soft)] uppercase tracking-wider pt-2">Marketing & Social</h3>
-                    {generatedCopy.advertising_taglines && <CopyBlock label="Ad Taglines (3)" icon={Zap} content={generatedCopy.advertising_taglines} color="border-yellow-400" />}
-                    {generatedCopy.social_media_captions && <CopyBlock label="Social Media Captions" icon={Megaphone} content={generatedCopy.social_media_captions} color="border-pink-400" />}
+                    <h3 className="text-lg font-bold text-[var(--text-main)] pt-6 pb-3 border-b border-gray-200 dark:border-gray-700">Marketing & Social</h3>
+                    {generatedCopy.advertising_taglines && <CopyBlock label="Ad Taglines (3)" icon={Zap} content={generatedCopy.advertising_taglines} color="border-yellow-400" type="ad_taglines" />}
+                    {generatedCopy.social_media_captions && <CopyBlock label="Social Media Captions" icon={Megaphone} content={generatedCopy.social_media_captions} color="border-pink-400" type="social_captions" />}
 
                     {/* Email */}
-                    <h3 className="text-sm font-bold text-[var(--text-soft)] uppercase tracking-wider pt-2">Email Marketing</h3>
+                    <h3 className="text-lg font-bold text-[var(--text-main)] pt-6 pb-3 border-b border-gray-200 dark:border-gray-700">Email Marketing</h3>
                     {generatedCopy.email_subject_lines && <CopyBlock label="Email Subject Lines" icon={Mail} content={generatedCopy.email_subject_lines} color="border-cyan-400" />}
                     {generatedCopy.welcome_email_series && <CopyBlock label="3-Part Welcome Email Series" icon={Mail} content={generatedCopy.welcome_email_series} color="border-green-400" />}
 
