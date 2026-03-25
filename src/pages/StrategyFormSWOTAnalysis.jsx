@@ -163,11 +163,16 @@ export default function StrategyFormSWOTAnalysis() {
     return (
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {/* View Toggle */}
-            <div className="flex justify-end mb-4">
+            <div className="flex justify-between items-center mb-4">
                 <div className="inline-flex rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
                     <button onClick={() => setViewMode('edit')} className={`px-4 py-2 text-sm font-medium transition-colors ${viewMode === 'edit' ? 'bg-[var(--primary-gold)] text-white' : 'bg-white dark:bg-gray-800 text-[var(--text-soft)] hover:bg-gray-50 dark:hover:bg-gray-700'}`}>Edit</button>
                     <button onClick={() => setViewMode('overview')} className={`px-4 py-2 text-sm font-medium transition-colors ${viewMode === 'overview' ? 'bg-[var(--primary-gold)] text-white' : 'bg-white dark:bg-gray-800 text-[var(--text-soft)] hover:bg-gray-50 dark:hover:bg-gray-700'}`}>Overview</button>
                 </div>
+                {!canEdit && (
+                    <span className="flex items-center gap-1 text-xs text-gray-500 bg-gray-100 dark:bg-gray-800 px-3 py-1.5 rounded-full">
+                        <Lock className="w-3 h-3" /> View only
+                    </span>
+                )}
             </div>
 
             {viewMode === 'overview' ? (
