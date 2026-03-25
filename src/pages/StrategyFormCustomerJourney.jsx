@@ -566,118 +566,25 @@ const MultiValueInput = ({ values = [], onChange, suggestions = [], placeholder 
     );
 };
 
+const DEFAULT_JOURNEY = {
+    ideal_client: { name: '', age_range: '', gender: '', location: '', income_level: '', education: '', occupation: '', psychographics: [], pain_points: [], goals: [], core_values: [], research_method: '', decision_speed: '', price_sensitivity: '', preferred_contact: '' },
+    awareness: { discovery_channels: '', pain_points: '', messaging: '', tools_checklist: [], selected_pathway: '', pathway_data: {} },
+    consideration: { evaluation_criteria: '', common_questions: '', information_needs: '', tools_checklist: [], selected_pathway: '', pathway_data: {} },
+    decision: { purchase_factors: '', obstacles: '', preferred_methods: '', tools_checklist: [], selected_pathway: '', pathway_data: {} },
+    service: { onboarding_process: '', support_needs: '', communication_preferences: '', tools_checklist: [], selected_pathway: '', pathway_data: {} },
+    loyalty: { retention_strategies: '', advocacy_opportunities: '', feedback_mechanisms: '', tools_checklist: [], selected_pathway: '', pathway_data: {} }
+};
+
 export default function StrategyFormCustomerJourneyPage() {
     const navigate = useNavigate();
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
     const [currentStage, setCurrentStage] = useState(0);
-    const [existingDocument, setExistingDocument] = useState(null);
     const [isImporting, setIsImporting] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
     const [aiContext, setAiContext] = useState({});
-    const [viewMode, setViewMode] = useState('input'); // 'input' or 'overview'
+    const [viewMode, setViewMode] = useState('input');
 
-    const [formData, setFormData] = useState({
-        ideal_client: {
-            name: '',
-            age_range: '',
-            gender: '',
-            location: '',
-            income_level: '',
-            education: '',
-            occupation: '',
-            psychographics: [],
-            pain_points: [],
-            goals: [],
-            core_values: [],
-            research_method: '',
-            decision_speed: '',
-            price_sensitivity: '',
-            preferred_contact: ''
-        },
-        awareness: { discovery_channels: '', pain_points: '', messaging: '', tools_checklist: [], selected_pathway: '', pathway_data: {} },
-        consideration: { evaluation_criteria: '', common_questions: '', information_needs: '', tools_checklist: [], selected_pathway: '', pathway_data: {} },
-        decision: { purchase_factors: '', obstacles: '', preferred_methods: '', tools_checklist: [], selected_pathway: '', pathway_data: {} },
-        service: { onboarding_process: '', support_needs: '', communication_preferences: '', tools_checklist: [], selected_pathway: '', pathway_data: {} },
-        loyalty: { retention_strategies: '', advocacy_opportunities: '', feedback_mechanisms: '', tools_checklist: [], selected_pathway: '', pathway_data: {} }
-    });
-
-    useEffect(() => {
-        loadData();
-    }, []);
-
-    const loadData = async () => {
-        try {
-            const currentUser = await User.me();
-            setUser(currentUser);
-
-            const journeyDocs = await StrategyDocument.filter({
-                created_by: currentUser.email,
-                document_type: 'customer_journey'
-            });
-
-            if (journeyDocs.length > 0) {
-                setExistingDocument(journeyDocs[0]);
-                const loadedContent = journeyDocs[0].content || {};
-
-                // Helper to ensure an object is returned, not null
-                const safeObj = (obj) => (obj && typeof obj === 'object' && !Array.isArray(obj)) ? obj : {};
-
-                setFormData(prev => ({
-                    ...prev,
-                    ...loadedContent,
-                    ideal_client: {
-                        ...prev.ideal_client,
-                        ...(safeObj(loadedContent.ideal_client || loadedContent.persona)),
-                        psychographics: Array.isArray(loadedContent.ideal_client?.psychographics || loadedContent.persona?.psychographics) ? (loadedContent.ideal_client?.psychographics || loadedContent.persona?.psychographics) : [],
-                        pain_points: Array.isArray(loadedContent.ideal_client?.pain_points || loadedContent.persona?.pain_points) ? (loadedContent.ideal_client?.pain_points || loadedContent.persona?.pain_points) : [],
-                        goals: Array.isArray(loadedContent.ideal_client?.goals || loadedContent.persona?.goals) ? (loadedContent.ideal_client?.goals || loadedContent.persona?.goals) : [],
-                        core_values: Array.isArray(loadedContent.ideal_client?.core_values || loadedContent.persona?.core_values) ? (loadedContent.ideal_client?.core_values || loadedContent.persona?.core_values) : []
-                    },
-                    awareness: { 
-                        ...prev.awareness, 
-                        ...safeObj(loadedContent.awareness), 
-                        tools_checklist: Array.isArray(loadedContent.awareness?.tools_checklist) ? loadedContent.awareness.tools_checklist : [],
-                        selected_pathway: loadedContent.awareness?.selected_pathway || '',
-                        pathway_data: safeObj(loadedContent.awareness?.pathway_data)
-                    },
-                    consideration: { 
-                        ...prev.consideration, 
-                        ...safeObj(loadedContent.consideration), 
-                        tools_checklist: Array.isArray(loadedContent.consideration?.tools_checklist) ? loadedContent.consideration.tools_checklist : [],
-                        selected_pathway: loadedContent.consideration?.selected_pathway || '',
-                        pathway_data: safeObj(loadedContent.consideration?.pathway_data)
-                    },
-                    decision: { 
-                        ...prev.decision, 
-                        ...safeObj(loadedContent.decision), 
-                        tools_checklist: Array.isArray(loadedContent.decision?.tools_checklist) ? loadedContent.decision.tools_checklist : [],
-                        selected_pathway: loadedContent.decision?.selected_pathway || '',
-                        pathway_data: safeObj(loadedContent.decision?.pathway_data)
-                    },
-                    service: { 
-                        ...prev.service, 
-                        ...safeObj(loadedContent.service), 
-                        tools_checklist: Array.isArray(loadedContent.service?.tools_checklist) ? loadedContent.service.tools_checklist : [],
-                        selected_pathway: loadedContent.service?.selected_pathway || '',
-                        pathway_data: safeObj(loadedContent.service?.pathway_data)
-                    },
-                    loyalty: { 
-                        ...prev.loyalty, 
-                        ...safeObj(loadedContent.loyalty), 
-                        tools_checklist: Array.isArray(loadedContent.loyalty?.tools_checklist) ? loadedContent.loyalty.tools_checklist : [],
-                        selected_pathway: loadedContent.loyalty?.selected_pathway || '',
-                        pathway_data: safeObj(loadedContent.loyalty?.pathway_data)
-                    },
-                }));
-            }
-        } catch (error) {
-            console.error("Error loading data:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    const { loading, formData, setFormData, saveDoc, user } = useStrategyDoc('customer_journey', DEFAULT_JOURNEY);
 
     const handleImportFromIdealClient = async () => {
         setIsImporting(true);
