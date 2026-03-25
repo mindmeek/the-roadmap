@@ -1,10 +1,9 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { User, BrandKit } from '@/entities/all';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { ArrowLeft, Save, Palette, Loader2, CheckCircle, Upload, X, Plus } from 'lucide-react';
-import { UploadFile } from '@/integrations/Core';
+import { base44 } from '@/api/base44Client';
 
 export default function BrandKitPage() {
     const navigate = useNavigate();
@@ -82,7 +81,7 @@ export default function BrandKitPage() {
         if (!file) return;
         setUploadingLogo(true);
         try {
-            const { file_url } = await UploadFile({ file });
+            const { file_url } = await base44.integrations.Core.UploadFile({ file });
             setFormData(prev => ({ ...prev, logos: [...prev.logos, file_url] }));
         } catch (err) {
             console.error("Error uploading logo:", err);
