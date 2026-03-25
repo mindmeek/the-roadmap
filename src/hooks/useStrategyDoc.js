@@ -55,8 +55,8 @@ export function useStrategyDoc(documentType, defaultContent) {
                             bizData = data.business;
                             setBusiness(data.business);
                             setOwnerEmail(data.ownerEmail);
-                            const editable = ['owner', 'admin', 'editor'].includes(data.myRole);
-                            setCanEdit(editable);
+                            // All team roles can edit
+                            setCanEdit(true);
 
                             // Find the doc in owner's strategy docs
                             const doc = data.strategyDocs.find(d => d.document_type === documentType);
