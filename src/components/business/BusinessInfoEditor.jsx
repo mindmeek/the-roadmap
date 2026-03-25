@@ -83,7 +83,11 @@ export default function BusinessInfoEditor({ business, onSave, onCancel }) {
             };
 
             if (business?.id) {
-                await base44.entities.Business.update(business.id, updateData);
+                // Use the team-admin-aware backend function so admin team members can also save
+                await base44.functions.invoke('updateBusinessAsTeamAdmin', {
+                    business_id: business.id,
+                    update_data: updateData
+                });
             } else {
                 await base44.entities.Business.create(updateData);
             }
