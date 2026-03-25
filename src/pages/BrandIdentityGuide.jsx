@@ -774,8 +774,8 @@ export default function BrandIdentityGuide() {
                             </div>
                         </div>
 
-                    {/* Website & Pitches */}
-                    <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
+                        {/* Website & Pitches */}
+                        <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
                         <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">04</span> Website & Pitches
                     </h3>
                     {generatedCopy.website_hero_copy && <CopyBlock label="Website Hero Copy" icon={Star} content={generatedCopy.website_hero_copy} color="border-purple-400" />}
