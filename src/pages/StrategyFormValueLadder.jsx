@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { User, StrategyDocument } from '@/entities/all';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useStrategyDoc } from '@/hooks/useStrategyDoc';
 import { createPageUrl } from '@/utils';
 import { 
     TrendingUp, Save, Loader2, CheckCircle, ArrowLeft, 

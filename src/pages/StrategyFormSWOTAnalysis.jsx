@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { User, StrategyDocument } from '@/entities/all';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { 
@@ -10,6 +9,7 @@ import { handleGamification } from '@/functions/handleGamification';
 import AITeamModal from '@/components/ai/AITeamModal';
 import SWOTAnalysisOverview from '@/components/strategy/SWOTAnalysisOverview';
 import FoundationFormNav from '@/components/foundation/FoundationFormNav';
+import { useStrategyDoc } from '@/hooks/useStrategyDoc';
 
 const swotQuadrants = [
     {
