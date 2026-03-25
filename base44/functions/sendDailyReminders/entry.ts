@@ -32,6 +32,28 @@ Deno.serve(async (req) => {
                     case 'morning':
                         title = '☀️ Good morning!';
                         message = 'Ready to make 1% progress today? Start your daily tracker!';
+                        const firstName = targetUser.first_name || targetUser.full_name?.split(' ')[0] || 'there';
+                        await resend.emails.send({
+                            from: `The Business Minds HQ <${FROM_EMAIL}>`,
+                            to: targetUser.email,
+                            subject: `☀️ ${firstName}, time to make your 1% progress!`,
+                            html: `
+                            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                                <div style="background: #000000; padding: 30px; text-align: center;">
+                                    <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/688e3deef052dd144c001643/ebdea9911_THEHQLOGO1200x330pxfdf.png" alt="The HQ" style="height: 40px;" />
+                                </div>
+                                <div style="padding: 30px; background: #fafafa;">
+                                    <h2 style="color: #1F2937;">Good morning, ${firstName}! ☀️</h2>
+                                    <p style="color: #6B7280; font-size: 15px; line-height: 1.6;">Your daily 1% is waiting. Every small action today compounds into massive results. Let's go!</p>
+                                    <div style="text-align: center; margin: 24px 0;">
+                                        <a href="https://app.thebminds.com/DailyTrack" style="display: inline-block; background: #8B6F4E; color: white; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                                            📊 Track Your 1% Now
+                                        </a>
+                                    </div>
+                                    <p style="color: #9CA3AF; font-size: 13px;">Make today count! 💪</p>
+                                </div>
+                            </div>`
+                        }).catch(e => console.error('Email send error:', e.message));
                         break;
                     case 'evening':
                         const todayProgress = await base44.asServiceRole.entities.DailyProgress.filter({
@@ -71,7 +93,7 @@ Deno.serve(async (req) => {
                         subject: `🌙 ${firstName}, don't forget to log today's progress!`,
                         html: `
                         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                            <div style="background: #1a1a1a; padding: 30px; text-align: center;">
+                            <div style="background: #000000; padding: 30px; text-align: center;">
                                 <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/688e3deef052dd144c001643/ebdea9911_THEHQLOGO1200x330pxfdf.png" alt="The HQ" style="height: 40px;" />
                             </div>
                             <div style="padding: 30px; background: #fafafa;">

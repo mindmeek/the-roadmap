@@ -36,7 +36,7 @@ function getStreakEmailContent(user, streak) {
         subject: `${milestone.emoji} ${milestone.title}`,
         html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff;">
-            <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding: 40px 30px; text-align: center;">
+            <div style="background: #000000; padding: 40px 30px; text-align: center;">
                 <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/688e3deef052dd144c001643/ebdea9911_THEHQLOGO1200x330pxfdf.png" alt="The HQ" style="height: 50px; margin-bottom: 20px;" />
                 <div style="font-size: 64px; margin-bottom: 10px;">${milestone.emoji}</div>
                 <h1 style="color: #ffffff; font-size: 26px; margin: 0; font-weight: 900;">${streak}-Day Streak!</h1>
@@ -57,7 +57,7 @@ function getStreakEmailContent(user, streak) {
                     </a>
                 </div>
             </div>
-            <div style="padding: 20px 30px; background: #1a1a1a; text-align: center;">
+            <div style="padding: 20px 30px; background: #000000; text-align: center;">
                 <p style="color: #9CA3AF; font-size: 13px; margin: 0;">The Business Minds HQ · Your daily 1% compound growth engine</p>
             </div>
         </div>`
