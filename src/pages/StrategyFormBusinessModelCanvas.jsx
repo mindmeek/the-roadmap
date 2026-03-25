@@ -543,26 +543,14 @@ export default function StrategyFormBusinessModelCanvas() {
 
             {/* Save Button */}
             <div className="flex justify-end gap-3 mt-6">
-                <button
-                    onClick={() => navigate(createPageUrl('MyFoundationRoadmap'))}
-                    className="btn btn-secondary"
-                >
-                    Cancel
+                <button onClick={() => navigate(createPageUrl('MyFoundationRoadmap'))} className="btn btn-secondary">
+                    Back
                 </button>
-                <button
-                    onClick={handleSave}
-                    disabled={isSaving}
-                    className="btn btn-primary"
-                >
-                    {isSaving ? (
-                        <>Saving...</>
-                    ) : (
-                        <>
-                            <Save className="w-4 h-4 mr-2" />
-                            Save One Page Business Plan
-                        </>
-                    )}
-                </button>
+                {canEdit && (
+                    <button onClick={handleSave} disabled={isSaving} className="btn btn-primary">
+                        {isSaving ? <>Saving...</> : <><Save className="w-4 h-4 mr-2" />Save One Page Business Plan</>}
+                    </button>
+                )}
             </div>
 
             </>}
