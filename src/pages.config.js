@@ -287,7 +287,6 @@ export const PAGES = {
     "VisionStrategySession": VisionStrategySession,
     "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
     "Week": Week,
-    "layout": layout,
 }
 
 export const pagesConfig = {
