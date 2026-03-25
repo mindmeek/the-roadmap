@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { User } from '@/entities/User';
+import { base44 } from '@/api/base44Client';
 import {
   PiggyBank, Plus, Trash2, Save, Loader2, Calculator, DollarSign,
   TrendingUp, Target, HelpCircle, Users, UserCircle, Lightbulb,
