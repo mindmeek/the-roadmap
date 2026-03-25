@@ -8,6 +8,7 @@ import {
     UserPlus, RefreshCw, Copy, Check
 } from 'lucide-react';
 import StrategyDocComments from '@/components/team/StrategyDocComments';
+import { useBusinessContext } from '@/hooks/useBusinessContext';
 
 const ROLE_CONFIG = {
     owner:  { label: 'Owner',  icon: Crown,   color: 'text-yellow-600',  bg: 'bg-yellow-50 dark:bg-yellow-900/20',  border: 'border-yellow-200 dark:border-yellow-800', desc: 'Full control of the business' },
