@@ -3195,21 +3195,9 @@ const nicheRoadmaps = {
     courseTitle: "Musical Artist Growth Plan",
     courseDescription: "Launch your music career and build a superfan community"
   },
-  social_enterprise_growth: {
-    stage: "startup",
-    businessType: "social_business",
-    icon: "🌱",
-    courseTitle: "Social Enterprise Growth Plan",
-    courseDescription: "Build a profitable business model that creates measurable social impact"
-  },
-  sustainable_business_growth: {
-    stage: "growth",
-    businessType: "social_business",
-    icon: "♻️",
-    courseTitle: "Sustainable Business Scaling Plan",
-    courseDescription: "Scale your eco-friendly business while maintaining environmental mission"
-  },
-  social_business_growth: { ...socialBusinessGrowthRoadmap, stage: "startup", businessType: "social_business", icon: "🌍" }
+  social_enterprise_growth: { stage: "startup", businessType: "social_business", icon: "🌱", courseTitle: "Social Enterprise Growth Plan", courseDescription: "Build a profitable business model that creates measurable social impact" },
+  sustainable_business_growth: { stage: "growth", businessType: "social_business", icon: "♻️", courseTitle: "Sustainable Business Scaling Plan", courseDescription: "Scale your eco-friendly business while maintaining environmental mission" },
+  social_business_growth: { stage: "startup", businessType: "social_business", icon: "🌍", courseTitle: "Social Business Growth Plan: 90-Day Dual-Impact System", courseDescription: "Scale your revenue while deepening your social mission through impact investment, customer acquisition, and dual-bottom-line metrics." }
 };
 
 const roadmapData = { vision, startup, growth, nicheRoadmaps };
