@@ -69,7 +69,23 @@ export default function OnboardingPage() {
     };
 
     const handleInputChange = (field, value) => {
-        setFormData(prev => ({ ...prev, [field]: value }));
+        setFormData(prev => {
+            const updated = { ...prev, [field]: value };
+            // Auto-select the dedicated roadmap goal when a mission-driven business type is chosen
+            if (field === 'business_type') {
+                if (value === 'non_profit') {
+                    updated.selected_goal = 'social_enterprises';
+                } else if (value === 'social_business') {
+                    updated.selected_goal = 'social_business_growth';
+                } else {
+                    // Clear auto-selected goal if switching back to for_profit
+                    if (prev.selected_goal === 'social_enterprises' || prev.selected_goal === 'social_business_growth') {
+                        updated.selected_goal = '';
+                    }
+                }
+            }
+            return updated;
+        });
     };
 
     const availableGoals = useMemo(() => {
