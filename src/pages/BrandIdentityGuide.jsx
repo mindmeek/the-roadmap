@@ -42,21 +42,23 @@ const CopyBlock = ({ label, icon: IconComp, content, color, type }) => {
             ));
         }
         if (type === 'product_descriptions') {
-            return content.split(/(?:\n\n+)/g).filter(desc => desc.trim()).map((desc, i) => {
-                const lines = desc.trim().split('\n');
-                const firstLine = lines[0];
-                // Extract product name and price (assumes format like "Product Name - $99")
-                const priceMatch = firstLine.match(/^(.*?)\s*-\s*(\$[\d,.]+)$/);
-                const productName = priceMatch ? priceMatch[1] : firstLine;
-                const price = priceMatch ? priceMatch[2] : '';
-                const productText = lines.slice(1).join('\n');
+            return content.split(/\n(?=\*\*|###|[A-Z][^:]*:\s*\$|\d+\.)/g).filter(desc => desc.trim()).map((desc, i) => {
+                const cleaned = desc.trim();
+                // Extract first line as product name + price
+                const firstLineMatch = cleaned.match(/^([^\n]+)/);
+                const firstLine = firstLineMatch ? firstLineMatch[1] : '';
+                const priceMatch = firstLine.match(/(\$[\d,.]+\/?\w*|\$[\d,.]+)/);
+                const productName = firstLine.replace(/\*\*/g, '').replace(priceMatch ? priceMatch[0] : '', '').trim();
+                const price = priceMatch ? priceMatch[0] : '';
+                const restOfText = cleaned.slice(firstLine.length).trim();
+                
                 return (
                     <div key={i} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-6">
-                        <div className="flex justify-between items-start gap-2 mb-2">
+                        <div className="flex justify-between items-start gap-2 mb-3">
                             <h4 className="font-bold text-sm text-[var(--text-main)]">{productName}</h4>
                             {price && <span className="font-bold text-sm text-[var(--primary-gold)] whitespace-nowrap">{price}</span>}
                         </div>
-                        <p className="text-sm text-[var(--text-soft)] leading-relaxed whitespace-normal">{productText}</p>
+                        <p className="text-sm text-[var(--text-soft)] leading-relaxed">{restOfText.split('\n').map((line, j) => <div key={j} className="mb-2 last:mb-0">{line}</div>)}</p>
                     </div>
                 );
             });
