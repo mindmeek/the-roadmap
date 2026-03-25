@@ -351,7 +351,7 @@ export default function TeamCollaboration() {
                     )}
 
                     {/* Active Team Member Rows */}
-                    {teamMembers.filter(m => m.status !== 'pending_invitation').length === 0 && teamMembers.length === 0 ? (
+                    {teamMembers.filter(m => m.status === 'active').length === 0 ? (
                         <div className="card p-8 text-center">
                             <Users className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
                             <p className="text-[var(--text-soft)]">No team members yet.</p>
