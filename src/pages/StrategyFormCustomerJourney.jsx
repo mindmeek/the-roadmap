@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useStrategyDoc } from '@/hooks/useStrategyDoc';
+import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import { Loader2, Save, ChevronRight, CheckCircle, UserCircle, Eye, Search, ShoppingCart, HeartHandshake, Trophy, Share2, MessageSquare, Palette, Globe, DollarSign, Smartphone, FolderKanban, Star, Users, Zap, Lightbulb, Sparkles, Plus, X, Wrench, Rocket, Wand2, Map } from 'lucide-react';
 import SubscriptionGate from '../components/subscription/SubscriptionGate';
