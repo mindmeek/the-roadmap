@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
+import { useStrategyDoc } from '@/hooks/useStrategyDoc';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { DollarSign, Save, Loader2, CheckCircle, TrendingUp, Target, Users, Zap, Award, ArrowRight, HelpCircle, Sparkles, Calculator } from 'lucide-react';
