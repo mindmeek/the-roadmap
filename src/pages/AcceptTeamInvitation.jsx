@@ -38,6 +38,7 @@ export default function AcceptTeamInvitation() {
                 if (response.data.business?.id) {
                     localStorage.setItem('selectedBusinessId', response.data.business.id);
                 }
+                setRole(response.data.role);
             } else {
                 setStatus('error');
                 setMessage(response.data.error || 'Failed to accept invitation');
