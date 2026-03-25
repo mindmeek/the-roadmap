@@ -185,19 +185,16 @@ export default function StrategyFormIdealClient() {
                 </div>
 
                 {/* Tabs */}
-                <div className="flex border-b border-gray-200 dark:border-gray-700 mb-6">
-                    <button
-                        onClick={() => setActiveTab('form')}
-                        className={`px-6 py-3 text-sm font-semibold transition-colors ${activeTab === 'form' ? 'border-b-2 border-[var(--primary-gold)] text-[var(--primary-gold)]' : 'text-[var(--text-soft)] hover:text-[var(--text-main)]'}`}
-                    >
-                        Edit Form
-                    </button>
-                    <button
-                        onClick={() => setActiveTab('overview')}
-                        className={`px-6 py-3 text-sm font-semibold transition-colors ${activeTab === 'overview' ? 'border-b-2 border-[var(--primary-gold)] text-[var(--primary-gold)]' : 'text-[var(--text-soft)] hover:text-[var(--text-main)]'}`}
-                    >
-                        View Client Profile
-                    </button>
+                <div className="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 mb-6">
+                    <div className="flex">
+                        <button onClick={() => setActiveTab('form')} className={`px-6 py-3 text-sm font-semibold transition-colors ${activeTab === 'form' ? 'border-b-2 border-[var(--primary-gold)] text-[var(--primary-gold)]' : 'text-[var(--text-soft)] hover:text-[var(--text-main)]'}`}>Edit Form</button>
+                        <button onClick={() => setActiveTab('overview')} className={`px-6 py-3 text-sm font-semibold transition-colors ${activeTab === 'overview' ? 'border-b-2 border-[var(--primary-gold)] text-[var(--primary-gold)]' : 'text-[var(--text-soft)] hover:text-[var(--text-main)]'}`}>View Client Profile</button>
+                    </div>
+                    {!canEdit && (
+                        <span className="flex items-center gap-1 text-xs text-gray-500 bg-gray-100 dark:bg-gray-800 px-3 py-1.5 rounded-full mr-2">
+                            <Lock className="w-3 h-3" /> View only
+                        </span>
+                    )}
                 </div>
 
                 {activeTab === 'overview' && <IdealClientOverview formData={formData} />}
