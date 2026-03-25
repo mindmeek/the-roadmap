@@ -643,6 +643,19 @@ export default function OnboardingPage() {
             description: "Select the specific outcome you want to achieve in the next 90 days",
             content: (
                 <div className="space-y-6">
+                    {(formData.business_type === 'non_profit' || formData.business_type === 'social_business') && formData.selected_goal && (
+                        <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-300 dark:border-green-700 rounded-lg flex items-start gap-3">
+                            <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                            <div>
+                                <p className="font-semibold text-[var(--text-main)] text-sm">
+                                    {formData.business_type === 'non_profit' ? '❤️ Non-Profit Roadmap Auto-Selected' : '🌍 Social Business Roadmap Auto-Selected'}
+                                </p>
+                                <p className="text-xs text-[var(--text-soft)] mt-1">
+                                    We've automatically selected the best 90-day roadmap for your {formData.business_type === 'non_profit' ? 'non-profit organization' : 'social business'}. You can still choose a different goal below.
+                                </p>
+                            </div>
+                        </div>
+                    )}
                     {!formData.entrepreneurship_stage || !formData.business_type ? (
                         <div className="text-center py-12">
                             <p className="text-[var(--text-soft)]">Please select your business type and entrepreneurship stage first</p>
