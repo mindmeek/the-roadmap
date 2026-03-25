@@ -441,6 +441,117 @@ export default function TeamCollaboration() {
                 </div>
             )}
 
+            {/* Business Snapshot Tab */}
+            {activeTab === 'snapshot' && (
+                <div className="space-y-4">
+                    <p className="text-sm text-[var(--text-soft)]">Business overview and key financial data for <strong>{business?.name}</strong>.</p>
+
+                    {/* Business Info */}
+                    {business && (
+                        <div className="card p-6">
+                            <div className="flex items-start gap-4 mb-4">
+                                {business.logo_url && (
+                                    <img src={business.logo_url} alt="Logo" className="w-16 h-16 rounded-lg object-cover flex-shrink-0" />
+                                )}
+                                <div>
+                                    <h3 className="text-xl font-bold text-[var(--text-main)]">{business.name}</h3>
+                                    {business.tagline && <p className="text-[var(--primary-gold)] font-medium text-sm">{business.tagline}</p>}
+                                    {business.industry && <p className="text-sm text-[var(--text-soft)]">{business.industry}</p>}
+                                    {business.description && <p className="text-sm text-[var(--text-main)] mt-2">{business.description}</p>}
+                                </div>
+                            </div>
+                            {business.services && business.services.length > 0 && (
+                                <div>
+                                    <h4 className="font-semibold text-[var(--text-main)] mb-2">Services</h4>
+                                    <div className="grid sm:grid-cols-2 gap-2">
+                                        {business.services.map((svc, i) => (
+                                            <div key={i} className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+                                                <p className="font-medium text-sm text-[var(--text-main)]">{svc.name}</p>
+                                                {svc.price && <p className="text-xs text-[var(--primary-gold)] font-semibold">{svc.price}</p>}
+                                                {svc.description && <p className="text-xs text-[var(--text-soft)] mt-1">{svc.description}</p>}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    {/* Financial Snapshot */}
+                    {ownerProfile?.financial_projections && (
+                        <div className="card p-6">
+                            <h3 className="font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
+                                <DollarSign className="w-5 h-5 text-green-600" />
+                                Financial Goals
+                            </h3>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                {ownerProfile.financial_projections.freedom_number && (
+                                    <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-200 dark:border-green-800">
+                                        <p className="text-xs text-[var(--text-soft)]">Freedom Number</p>
+                                        <p className="text-xl font-bold text-green-700 dark:text-green-400">
+                                            ${Number(ownerProfile.financial_projections.freedom_number).toLocaleString()}
+                                        </p>
+                                        <p className="text-xs text-[var(--text-soft)]">/ month</p>
+                                    </div>
+                                )}
+                                {ownerProfile.financial_projections.monthly_revenue_target && (
+                                    <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border border-blue-200 dark:border-blue-800">
+                                        <p className="text-xs text-[var(--text-soft)]">Revenue Target</p>
+                                        <p className="text-xl font-bold text-blue-700 dark:text-blue-400">
+                                            ${Number(ownerProfile.financial_projections.monthly_revenue_target).toLocaleString()}
+                                        </p>
+                                        <p className="text-xs text-[var(--text-soft)]">/ month</p>
+                                    </div>
+                                )}
+                                {ownerProfile.entrepreneurship_stage && (
+                                    <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg border border-purple-200 dark:border-purple-800">
+                                        <p className="text-xs text-[var(--text-soft)]">Current Stage</p>
+                                        <p className="text-base font-bold text-purple-700 dark:text-purple-400 capitalize">{ownerProfile.entrepreneurship_stage}</p>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Products */}
+                            {ownerProfile.financial_projections.products?.length > 0 && (
+                                <div className="mt-4">
+                                    <h4 className="font-semibold text-[var(--text-main)] mb-2 text-sm">Products / Services</h4>
+                                    <div className="grid sm:grid-cols-2 gap-2">
+                                        {ownerProfile.financial_projections.products.filter(p => p.name).map((p, i) => (
+                                            <div key={i} className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+                                                <p className="font-medium text-sm text-[var(--text-main)]">{p.name}</p>
+                                                {p.price && <p className="text-xs text-[var(--primary-gold)] font-semibold">${Number(p.price).toLocaleString()}</p>}
+                                                {p.description && <p className="text-xs text-[var(--text-soft)] mt-1">{p.description}</p>}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    {/* Strategy Docs Summary */}
+                    {strategyDocs.length > 0 && (
+                        <div className="card p-6">
+                            <h3 className="font-bold text-[var(--text-main)] mb-3 flex items-center gap-2">
+                                <Target className="w-5 h-5 text-[var(--primary-gold)]" />
+                                Strategy Documents ({strategyDocs.length})
+                            </h3>
+                            <div className="grid sm:grid-cols-2 gap-2">
+                                {strategyDocs.map(doc => (
+                                    <div key={doc.id} className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <FileText className={`w-4 h-4 flex-shrink-0 ${doc.is_completed ? 'text-green-600' : 'text-gray-400'}`} />
+                                        <span className="text-sm text-[var(--text-main)] truncate">
+                                            {DOC_TYPE_LABELS[doc.document_type] || doc.title || doc.document_type}
+                                        </span>
+                                        {doc.is_completed && <CheckCircle className="w-3 h-3 text-green-600 flex-shrink-0 ml-auto" />}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            )}
+
             {/* Strategy Docs Feedback Tab */}
             {activeTab === 'docs' && (
                 <div className="space-y-4">
