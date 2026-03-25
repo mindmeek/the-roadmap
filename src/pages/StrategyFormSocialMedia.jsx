@@ -98,6 +98,10 @@ export default function StrategyFormSocialMedia() {
         setFormData({ ...formData, [field]: newArray });
     };
 
+    const selectedChannels = Object.keys(formData.target_platforms).filter(
+        platform => formData.target_platforms[platform].enabled
+    );
+
     if (loading) {
         return (
             <div className="flex justify-center items-center h-screen">
