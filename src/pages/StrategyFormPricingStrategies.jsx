@@ -652,7 +652,7 @@ export default function StrategyFormPricingStrategies() {
                 onClose={() => setShowAIAssistant(false)}
                 assistantType="strategy_form_agent"
                 sectionTitle="Pricing Strategies"
-                additionalContext={`Document Type: pricing_strategies\nCurrent Stage: ${user?.entrepreneurship_stage || 'unknown'}\nForm Fields: ${Object.keys(formData).join(', ')}`}
+                additionalContext={`Document Type: pricing_strategies\nCurrent Stage: ${user?.entrepreneurship_stage || 'unknown'}`}
                 currentBusinessId={user?.current_business_id}
                 userNotes={aiNotes}
             />
