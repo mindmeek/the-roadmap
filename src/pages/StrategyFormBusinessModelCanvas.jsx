@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { User, StrategyDocument } from '@/entities/all';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Save, ArrowLeft, CheckCircle, Lightbulb, HelpCircle, Sparkles, Users, Activity, Star, Heart, Target, Box, Send, DollarSign, TrendingUp, Plus, Trash2 } from 'lucide-react';
+import { Save, ArrowLeft, CheckCircle, Lightbulb, HelpCircle, Sparkles, Users, Activity, Star, Heart, Target, Box, Send, DollarSign, TrendingUp, Plus, Trash2, Lock, Loader2 } from 'lucide-react';
+import useTeamStrategyDoc from '@/hooks/useTeamStrategyDoc';
 import StrategyToolGuide from '../components/strategy/StrategyToolGuide';
 import AITeamModal from '@/components/ai/AITeamModal';
 import BusinessPlanOverview from '@/components/strategy/BusinessPlanOverview';
