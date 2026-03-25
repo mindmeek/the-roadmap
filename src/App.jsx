@@ -92,6 +92,26 @@ const AuthenticatedApp = () => {
       <Route path="/SwitchBusiness" element={<LayoutWrapper currentPageName="SwitchBusiness"><SwitchBusiness /></LayoutWrapper>} />
       <Route path="/TeamCollaboration" element={<LayoutWrapper currentPageName="TeamCollaboration"><TeamCollaboration /></LayoutWrapper>} />
       <Route path="/BrandIdentityGuide" element={<LayoutWrapper currentPageName="BrandIdentityGuide"><BrandIdentityGuide /></LayoutWrapper>} />
+      <Route path="/MyFoundationRoadmap" element={<LayoutWrapper currentPageName="MyFoundationRoadmap"><MyFoundationRoadmap /></LayoutWrapper>} />
+      <Route path="/StrategyFormDefineYourWhy" element={<LayoutWrapper currentPageName="StrategyFormDefineYourWhy"><StrategyFormDefineYourWhy /></LayoutWrapper>} />
+      <Route path="/StrategyFormMissionVision" element={<LayoutWrapper currentPageName="StrategyFormMissionVision"><StrategyFormMissionVision /></LayoutWrapper>} />
+      <Route path="/StrategyFormBrandIdentity" element={<LayoutWrapper currentPageName="StrategyFormBrandIdentity"><StrategyFormBrandIdentity /></LayoutWrapper>} />
+      <Route path="/StrategyFormIdealClient" element={<LayoutWrapper currentPageName="StrategyFormIdealClient"><StrategyFormIdealClient /></LayoutWrapper>} />
+      <Route path="/StrategyFormValueProposition" element={<LayoutWrapper currentPageName="StrategyFormValueProposition"><StrategyFormValueProposition /></LayoutWrapper>} />
+      <Route path="/StrategyFormValueLadder" element={<LayoutWrapper currentPageName="StrategyFormValueLadder"><StrategyFormValueLadder /></LayoutWrapper>} />
+      <Route path="/StrategyFormSWOTAnalysis" element={<LayoutWrapper currentPageName="StrategyFormSWOTAnalysis"><StrategyFormSWOTAnalysis /></LayoutWrapper>} />
+      <Route path="/StrategyFormBusinessModelCanvas" element={<LayoutWrapper currentPageName="StrategyFormBusinessModelCanvas"><StrategyFormBusinessModelCanvas /></LayoutWrapper>} />
+      <Route path="/FreedomCalculator" element={<LayoutWrapper currentPageName="FreedomCalculator"><FreedomCalculator /></LayoutWrapper>} />
+      <Route path="/StrategyFormCustomerJourney" element={<LayoutWrapper currentPageName="StrategyFormCustomerJourney"><StrategyFormCustomerJourney /></LayoutWrapper>} />
+      <Route path="/StrategyFormContentStrategy" element={<LayoutWrapper currentPageName="StrategyFormContentStrategy"><StrategyFormContentStrategy /></LayoutWrapper>} />
+      <Route path="/StrategyFormWebsiteLaunch" element={<LayoutWrapper currentPageName="StrategyFormWebsiteLaunch"><StrategyFormWebsiteLaunch /></LayoutWrapper>} />
+      <Route path="/StrategyFormEmailMarketing" element={<LayoutWrapper currentPageName="StrategyFormEmailMarketing"><StrategyFormEmailMarketing /></LayoutWrapper>} />
+      <Route path="/StrategyFormSocialMedia" element={<LayoutWrapper currentPageName="StrategyFormSocialMedia"><StrategyFormSocialMedia /></LayoutWrapper>} />
+      <Route path="/StrategyFormPricingStrategies" element={<LayoutWrapper currentPageName="StrategyFormPricingStrategies"><StrategyFormPricingStrategies /></LayoutWrapper>} />
+      <Route path="/StrategyFormCommunityBuilding" element={<LayoutWrapper currentPageName="StrategyFormCommunityBuilding"><StrategyFormCommunityBuilding /></LayoutWrapper>} />
+      <Route path="/StrategyFormAffiliateProgram" element={<LayoutWrapper currentPageName="StrategyFormAffiliateProgram"><StrategyFormAffiliateProgram /></LayoutWrapper>} />
+      <Route path="/StrategyFormStrategicPartnerships" element={<LayoutWrapper currentPageName="StrategyFormStrategicPartnerships"><StrategyFormStrategicPartnerships /></LayoutWrapper>} />
+      <Route path="/StrategyFormAutomation" element={<LayoutWrapper currentPageName="StrategyFormAutomation"><StrategyFormAutomation /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
