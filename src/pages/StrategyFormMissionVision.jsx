@@ -295,7 +295,7 @@ export default function StrategyFormMissionVision() {
                     </p>
                     
                     <div className="space-y-3">
-                        {formData.core_values.map((value, index) => (
+                        {coreValues.map((value, index) => (
                             <input
                                 key={index}
                                 type="text"
