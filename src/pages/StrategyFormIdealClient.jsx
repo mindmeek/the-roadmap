@@ -134,99 +134,26 @@ const MultiValueInput = ({ values = [], onChange, suggestions = [], placeholder 
     );
 };
 
+const DEFAULT_FORM = {
+    age_range: '', gender: '', location: '', income_level: '', education: '', occupation: '',
+    psychographics: [], pain_points: [], goals: [], core_values: [],
+    research_method: '', decision_speed: '', price_sensitivity: '', preferred_contact: '',
+    how_they_describe_themselves: '', aspirations: '', client_avatar_name: '', day_in_the_life: ''
+};
+
 export default function StrategyFormIdealClient() {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
-    const [saved, setSaved] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
     const [activeTab, setActiveTab] = useState('form');
+    const [formData, setFormData] = useState(DEFAULT_FORM);
 
-    const [formData, setFormData] = useState({
-        // Demographics
-        age_range: '',
-        gender: '',
-        location: '',
-        income_level: '',
-        education: '',
-        occupation: '',
-        
-        // Psychographics - now arrays
-        psychographics: [],
-        pain_points: [],
-        goals: [],
-        core_values: [],
-        
-        // Buying Behaviors - now single dropdowns
-        research_method: '',
-        decision_speed: '',
-        price_sensitivity: '',
-        preferred_contact: '',
-        
-        // Identity
-        how_they_describe_themselves: '',
-        aspirations: '',
-        
-        // Summary
-        client_avatar_name: '',
-        day_in_the_life: ''
-    });
+    const { formData: savedData, loading, saving, saved, saveDoc, canEdit, user } = useTeamStrategyDoc('ideal_client');
 
     useEffect(() => {
-        loadData();
-    }, []);
-
-    const loadData = async () => {
-        try {
-            const userData = await User.me();
-            setUser(userData);
-
-            const docs = await StrategyDocument.filter({ 
-                created_by: userData.email,
-                document_type: 'ideal_client'
-            });
-
-            if (docs && docs.length > 0) {
-                const doc = docs[0];
-                setFormData(doc.content);
-            }
-        } catch (error) {
-            console.error('Error loading data:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+        if (savedData) setFormData(savedData);
+    }, [savedData]);
 
     const handleSave = async () => {
-        setSaving(true);
-        try {
-            const docs = await StrategyDocument.filter({ 
-                created_by: user.email,
-                document_type: 'ideal_client'
-            });
-
-            const docData = {
-                document_type: 'ideal_client',
-                title: 'My Ideal Client Profile',
-                content: formData,
-                is_completed: true,
-                last_updated: new Date().toISOString()
-            };
-
-            if (docs && docs.length > 0) {
-                await StrategyDocument.update(docs[0].id, docData);
-            } else {
-                await StrategyDocument.create(docData);
-            }
-
-            setSaved(true);
-            setTimeout(() => setSaved(false), 3000);
-        } catch (error) {
-            console.error('Error saving:', error);
-            alert('Failed to save. Please try again.');
-        } finally {
-            setSaving(false);
-        }
+        await saveDoc(formData, 'My Ideal Client Profile');
     };
 
     if (loading) {
