@@ -58,92 +58,35 @@ function ListField({ values, onChange, placeholder }) {
 
 export default function StrategyFormBusinessModelCanvas() {
     const navigate = useNavigate();
-    const [user, setUser] = useState(null);
-    const [existingDoc, setExistingDoc] = useState(null);
-    const [isSaving, setIsSaving] = useState(false);
-    const [saveMessage, setSaveMessage] = useState('');
-
-    // Form state - each field is an array of strings
-    const [formData, setFormData] = useState({
-        keyPartners: [''],
-        keyActivities: [''],
-        keyResources: [''],
-        valuePropositions: [''],
-        customerRelationships: [''],
-        channels: [''],
-        customerSegments: [''],
-        costStructure: [''],
-        revenueStreams: ['']
-    });
-
     const [showAIAssistant, setShowAIAssistant] = useState(false);
     const [aiContext, setAiContext] = useState({});
     const [activeTab, setActiveTab] = useState('form');
+    const [formData, setFormData] = useState({
+        keyPartners: [''], keyActivities: [''], keyResources: [''],
+        valuePropositions: [''], customerRelationships: [''], channels: [''],
+        customerSegments: [''], costStructure: [''], revenueStreams: ['']
+    });
+
+    const { formData: savedData, loading, saving: isSaving, saved, saveDoc, canEdit, user } = useTeamStrategyDoc('business_model_canvas');
 
     useEffect(() => {
-        loadData();
-    }, []);
-
-    const loadData = async () => {
-        try {
-            const userData = await User.me();
-            setUser(userData);
-
-            const docs = await StrategyDocument.filter({ 
-                created_by: userData.email,
-                document_type: 'business_model_canvas'
+        if (savedData) {
+            setFormData({
+                keyPartners: toArray(savedData.keyPartners),
+                keyActivities: toArray(savedData.keyActivities),
+                keyResources: toArray(savedData.keyResources),
+                valuePropositions: toArray(savedData.valuePropositions),
+                customerRelationships: toArray(savedData.customerRelationships),
+                channels: toArray(savedData.channels),
+                customerSegments: toArray(savedData.customerSegments),
+                costStructure: toArray(savedData.costStructure),
+                revenueStreams: toArray(savedData.revenueStreams),
             });
-
-            if (docs.length > 0) {
-                setExistingDoc(docs[0]);
-                const saved = docs[0].content || {};
-                // Normalize all fields to arrays (handles old string-based data)
-                setFormData({
-                    keyPartners: toArray(saved.keyPartners),
-                    keyActivities: toArray(saved.keyActivities),
-                    keyResources: toArray(saved.keyResources),
-                    valuePropositions: toArray(saved.valuePropositions),
-                    customerRelationships: toArray(saved.customerRelationships),
-                    channels: toArray(saved.channels),
-                    customerSegments: toArray(saved.customerSegments),
-                    costStructure: toArray(saved.costStructure),
-                    revenueStreams: toArray(saved.revenueStreams),
-                });
-            }
-        } catch (error) {
-            console.error("Error loading data:", error);
         }
-    };
+    }, [savedData]);
 
     const handleSave = async () => {
-        if (!user) return;
-
-        setIsSaving(true);
-        try {
-            const docData = {
-                document_type: 'business_model_canvas',
-                title: 'One Page Business Plan',
-                content: formData,
-                entrepreneurship_stage: user.entrepreneurship_stage,
-                is_completed: true,
-                last_updated: new Date().toISOString()
-            };
-
-            if (existingDoc) {
-                await StrategyDocument.update(existingDoc.id, docData);
-            } else {
-                const newDoc = await StrategyDocument.create(docData);
-                setExistingDoc(newDoc);
-            }
-
-            setSaveMessage('✓ One Page Business Plan saved successfully!');
-            setTimeout(() => setSaveMessage(''), 3000);
-        } catch (error) {
-            console.error("Error saving:", error);
-            setSaveMessage('Error saving. Please try again.');
-        } finally {
-            setIsSaving(false);
-        }
+        await saveDoc(formData, 'One Page Business Plan');
     };
 
     const openAIHelp = (sectionKey) => {
