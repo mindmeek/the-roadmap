@@ -66,17 +66,24 @@ Deno.serve(async (req) => {
         
         await base44.asServiceRole.integrations.Core.SendEmail({
             to: email,
-            subject: `You're invited to join ${business.name} on Business Minds`,
+            subject: `You've been invited to join ${business.name} on The HQ Roadmap`,
             body: `
-                <h2>Team Invitation</h2>
-                <p>Hi${full_name ? ' ' + full_name : ''},</p>
-                <p>You've been invited to join <strong>${business.name}</strong> as a <strong>${role}</strong>.</p>
-                <p>Click the link below to accept the invitation:</p>
-                <a href="${invitationUrl}" style="display: inline-block; padding: 12px 24px; background-color: #8B6F4E; color: white; text-decoration: none; border-radius: 5px; margin: 20px 0;">Accept Invitation</a>
-                <p>Or copy this link: ${invitationUrl}</p>
-                <p>This invitation was sent by ${user.full_name} (${user.email}).</p>
-                <br>
-                <p>Best regards,<br>The Business Minds Team</p>
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h1 style="color: #8B6F4E; margin: 0;">The HQ Roadmap</h1>
+                        <p style="color: #6B7280; margin: 4px 0 0;">Business Growth Platform</p>
+                    </div>
+                    <h2 style="color: #1F2937;">You're Invited!</h2>
+                    <p>Hi${full_name ? ' ' + full_name : ''},</p>
+                    <p><strong>${user.full_name || user.email}</strong> has invited you to collaborate on <strong>${business.name}</strong> as a <strong>${role}</strong> on The HQ Roadmap.</p>
+                    <p>Click the button below to accept your invitation and get started:</p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="${invitationUrl}" style="display: inline-block; padding: 14px 32px; background-color: #8B6F4E; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 16px;">Accept Invitation</a>
+                    </div>
+                    <p style="color: #6B7280; font-size: 13px;">Or copy and paste this link into your browser:<br><a href="${invitationUrl}" style="color: #8B6F4E;">${invitationUrl}</a></p>
+                    <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 30px 0;">
+                    <p style="color: #6B7280; font-size: 13px;">Best regards,<br>The Business Minds HQ Team</p>
+                </div>
             `
         });
 
