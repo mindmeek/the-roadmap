@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { User, StrategyDocument } from '@/entities/all';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, Save, Target, Loader2, CheckCircle, Lightbulb, Plus, Minus, Sparkles, Lock } from 'lucide-react';
-import useTeamStrategyDoc from '@/hooks/useTeamStrategyDoc';
+import { ArrowLeft, Save, Target, Loader2, CheckCircle, Lightbulb, Plus, Minus, Sparkles } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
 import AIFormFiller from '@/components/ai/AIFormFiller';
 import ValuePropositionOverview from '@/components/strategy/ValuePropositionOverview';
@@ -67,23 +67,49 @@ const canvasSides = [
     }
 ];
 
-export default function ValuePropositionCanvasPage() {
+export default function ValuePropositionCanvasPage() { // Renamed from StrategyFormValueProposition to keep original name
     const navigate = useNavigate();
-    const [showAIAssistant, setShowAIAssistant] = useState(false);
-    const [viewMode, setViewMode] = useState('edit');
+    const [user, setUser] = useState(null);
+    const [document, setDocument] = useState(null);
     const [formData, setFormData] = useState({});
-
-    const { formData: savedData, loading, saving, saveDoc, canEdit, user } = useTeamStrategyDoc('value_proposition_canvas');
+    const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
+    const [showAIAssistant, setShowAIAssistant] = useState(false);
+    const [viewMode, setViewMode] = useState('edit'); // 'edit' | 'overview'
 
     useEffect(() => {
-        if (savedData) {
-            setFormData(savedData);
-        } else if (!loading) {
-            const emptyForm = {};
-            canvasSides.forEach(side => { side.sections.forEach(section => { emptyForm[section.id] = ['']; }); });
-            setFormData(emptyForm);
+        loadData();
+    }, []);
+
+    const loadData = async () => {
+        try {
+            const userData = await User.me();
+            setUser(userData);
+
+            const docs = await StrategyDocument.filter({
+                created_by: userData.email,
+                document_type: 'value_proposition_canvas'
+            }, '-updated_date', 1);
+
+            if (docs.length > 0) {
+                const doc = docs[0];
+                setDocument(doc);
+                setFormData(doc.content || {});
+            } else {
+                const emptyForm = {};
+                canvasSides.forEach(side => {
+                    side.sections.forEach(section => {
+                        emptyForm[section.id] = [''];
+                    });
+                });
+                setFormData(emptyForm);
+            }
+        } catch (error) {
+            console.error("Error loading value proposition data:", error);
+        } finally {
+            setLoading(false);
         }
-    }, [savedData, loading]);
+    };
 
     const handleItemChange = (sectionId, index, value) => {
         setFormData(prev => ({
@@ -140,12 +166,59 @@ export default function ValuePropositionCanvasPage() {
     };
 
     const saveDraft = async () => {
-        await saveDoc(formData, 'Value Proposition Canvas');
+        setSaving(true);
+        try {
+            const documentData = {
+                document_type: 'value_proposition_canvas',
+                title: 'Value Proposition Canvas', // Keep original title for draft
+                content: formData,
+                entrepreneurship_stage: user.entrepreneurship_stage,
+                is_completed: false, // Always false for draft
+                last_updated: new Date().toISOString()
+            };
+
+            if (document) {
+                await StrategyDocument.update(document.id, documentData);
+            } else {
+                const newDoc = await StrategyDocument.create(documentData);
+                setDocument(newDoc);
+            }
+            // No navigation on draft save
+        } catch (error) {
+            console.error("Error saving draft:", error);
+            alert('Failed to save draft. Please try again.');
+        } finally {
+            setSaving(false);
+        }
     };
 
     const saveAndComplete = async () => {
-        await saveDoc(formData, 'My Unique Value Proposition Canvas');
-        navigate(createPageUrl('MyFoundationRoadmap'));
+        setSaving(true);
+        try {
+            const docData = {
+                document_type: 'value_proposition_canvas',
+                title: 'My Unique Value Proposition Canvas', // Updated title as per outline
+                content: formData,
+                entrepreneurship_stage: user.entrepreneurship_stage,
+                is_completed: true, // Mark as complete
+                last_updated: new Date().toISOString()
+            };
+
+            if (document) { // 'document' state acts as 'existingDoc'
+                await StrategyDocument.update(document.id, docData);
+            } else {
+                const newDoc = await StrategyDocument.create(docData);
+                setDocument(newDoc);
+            }
+
+            alert('Unique Value Proposition Canvas saved successfully!'); // New alert as per outline
+            navigate(createPageUrl('MyFoundationRoadmap')); // Updated navigation target as per outline
+        } catch (error) {
+            console.error('Error saving and completing:', error);
+            alert('Failed to save and complete. Please try again.');
+        } finally {
+            setSaving(false);
+        }
     };
 
     if (loading) {

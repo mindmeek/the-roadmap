@@ -60,20 +60,26 @@ Deno.serve(async (req) => {
             base44.asServiceRole.entities.StrategyDocument.filter({ business_id: targetBusinessId }, '-updated_date', 50)
         ]);
 
-        // If no docs with business_id, fall back to owner's docs (migration)
+        // If no docs with business_id, fall back to owner's docs and auto-tag them (migration)
         let docsToReturn = strategyDocs;
         if (strategyDocs.length === 0) {
-            try {
-                const ownerUsers = await base44.asServiceRole.entities.User.filter({ id: business.owner_user_id });
-                if (ownerUsers.length > 0) {
-                    const ownerEmail = ownerUsers[0].email;
-                    const ownerDocs = await base44.asServiceRole.entities.StrategyDocument.filter(
-                        { created_by: ownerEmail }, '-updated_date', 50
-                    );
-                    docsToReturn = ownerDocs;
+            const ownerUsers = await base44.asServiceRole.entities.User.filter({ id: business.owner_user_id });
+            if (ownerUsers.length > 0) {
+                const ownerEmail = ownerUsers[0].email;
+                const ownerDocs = await base44.asServiceRole.entities.StrategyDocument.filter(
+                    { created_by: ownerEmail }, '-updated_date', 50
+                );
+                docsToReturn = ownerDocs;
+
+                // Auto-tag existing docs with business_id so team members can access them going forward
+                const untagged = ownerDocs.filter(d => !d.business_id);
+                for (const doc of untagged) {
+                    try {
+                        await base44.asServiceRole.entities.StrategyDocument.update(doc.id, { business_id: targetBusinessId });
+                    } catch (e) {
+                        console.error('Failed to tag doc', doc.id, e);
+                    }
                 }
-            } catch (migrationErr) {
-                console.error('Migration fallback failed:', migrationErr);
             }
         }
 

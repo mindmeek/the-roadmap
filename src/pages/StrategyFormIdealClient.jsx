@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { User, StrategyDocument } from '@/entities/all';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { 
     Users, Save, Loader2, CheckCircle, ArrowLeft, 
-    Target, Heart, TrendingUp, AlertCircle, Sparkles, HelpCircle, Brain, DollarSign, Plus, X, Lock
+    Target, Heart, TrendingUp, AlertCircle, Sparkles, HelpCircle, Brain, DollarSign, Plus, X
 } from 'lucide-react';
-import useTeamStrategyDoc from '@/hooks/useTeamStrategyDoc';
 import AITeamModal from '@/components/ai/AITeamModal';
 import AIFormFiller from '@/components/ai/AIFormFiller';
 import IdealClientOverview from '@/components/strategy/IdealClientOverview';
@@ -134,26 +134,99 @@ const MultiValueInput = ({ values = [], onChange, suggestions = [], placeholder 
     );
 };
 
-const DEFAULT_FORM = {
-    age_range: '', gender: '', location: '', income_level: '', education: '', occupation: '',
-    psychographics: [], pain_points: [], goals: [], core_values: [],
-    research_method: '', decision_speed: '', price_sensitivity: '', preferred_contact: '',
-    how_they_describe_themselves: '', aspirations: '', client_avatar_name: '', day_in_the_life: ''
-};
-
 export default function StrategyFormIdealClient() {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
+    const [saved, setSaved] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
     const [activeTab, setActiveTab] = useState('form');
-    const [formData, setFormData] = useState(DEFAULT_FORM);
 
-    const { formData: savedData, loading, saving, saved, saveDoc, canEdit, user } = useTeamStrategyDoc('ideal_client');
+    const [formData, setFormData] = useState({
+        // Demographics
+        age_range: '',
+        gender: '',
+        location: '',
+        income_level: '',
+        education: '',
+        occupation: '',
+        
+        // Psychographics - now arrays
+        psychographics: [],
+        pain_points: [],
+        goals: [],
+        core_values: [],
+        
+        // Buying Behaviors - now single dropdowns
+        research_method: '',
+        decision_speed: '',
+        price_sensitivity: '',
+        preferred_contact: '',
+        
+        // Identity
+        how_they_describe_themselves: '',
+        aspirations: '',
+        
+        // Summary
+        client_avatar_name: '',
+        day_in_the_life: ''
+    });
 
     useEffect(() => {
-        if (savedData) setFormData(savedData);
-    }, [savedData]);
+        loadData();
+    }, []);
+
+    const loadData = async () => {
+        try {
+            const userData = await User.me();
+            setUser(userData);
+
+            const docs = await StrategyDocument.filter({ 
+                created_by: userData.email,
+                document_type: 'ideal_client'
+            });
+
+            if (docs && docs.length > 0) {
+                const doc = docs[0];
+                setFormData(doc.content);
+            }
+        } catch (error) {
+            console.error('Error loading data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleSave = async () => {
-        await saveDoc(formData, 'My Ideal Client Profile');
+        setSaving(true);
+        try {
+            const docs = await StrategyDocument.filter({ 
+                created_by: user.email,
+                document_type: 'ideal_client'
+            });
+
+            const docData = {
+                document_type: 'ideal_client',
+                title: 'My Ideal Client Profile',
+                content: formData,
+                is_completed: true,
+                last_updated: new Date().toISOString()
+            };
+
+            if (docs && docs.length > 0) {
+                await StrategyDocument.update(docs[0].id, docData);
+            } else {
+                await StrategyDocument.create(docData);
+            }
+
+            setSaved(true);
+            setTimeout(() => setSaved(false), 3000);
+        } catch (error) {
+            console.error('Error saving:', error);
+            alert('Failed to save. Please try again.');
+        } finally {
+            setSaving(false);
+        }
     };
 
     if (loading) {
@@ -185,16 +258,19 @@ export default function StrategyFormIdealClient() {
                 </div>
 
                 {/* Tabs */}
-                <div className="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 mb-6">
-                    <div className="flex">
-                        <button onClick={() => setActiveTab('form')} className={`px-6 py-3 text-sm font-semibold transition-colors ${activeTab === 'form' ? 'border-b-2 border-[var(--primary-gold)] text-[var(--primary-gold)]' : 'text-[var(--text-soft)] hover:text-[var(--text-main)]'}`}>Edit Form</button>
-                        <button onClick={() => setActiveTab('overview')} className={`px-6 py-3 text-sm font-semibold transition-colors ${activeTab === 'overview' ? 'border-b-2 border-[var(--primary-gold)] text-[var(--primary-gold)]' : 'text-[var(--text-soft)] hover:text-[var(--text-main)]'}`}>View Client Profile</button>
-                    </div>
-                    {!canEdit && (
-                        <span className="flex items-center gap-1 text-xs text-gray-500 bg-gray-100 dark:bg-gray-800 px-3 py-1.5 rounded-full mr-2">
-                            <Lock className="w-3 h-3" /> View only
-                        </span>
-                    )}
+                <div className="flex border-b border-gray-200 dark:border-gray-700 mb-6">
+                    <button
+                        onClick={() => setActiveTab('form')}
+                        className={`px-6 py-3 text-sm font-semibold transition-colors ${activeTab === 'form' ? 'border-b-2 border-[var(--primary-gold)] text-[var(--primary-gold)]' : 'text-[var(--text-soft)] hover:text-[var(--text-main)]'}`}
+                    >
+                        Edit Form
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('overview')}
+                        className={`px-6 py-3 text-sm font-semibold transition-colors ${activeTab === 'overview' ? 'border-b-2 border-[var(--primary-gold)] text-[var(--primary-gold)]' : 'text-[var(--text-soft)] hover:text-[var(--text-main)]'}`}
+                    >
+                        View Client Profile
+                    </button>
                 </div>
 
                 {activeTab === 'overview' && <IdealClientOverview formData={formData} />}
@@ -680,18 +756,37 @@ export default function StrategyFormIdealClient() {
                 </div>
 
                 {/* Action Buttons */}
-                {canEdit && (
-                    <div className="flex flex-col sm:flex-row gap-3 sticky bottom-20 md:bottom-6 z-10">
-                        <button onClick={handleSave} disabled={saving} className="btn btn-primary flex-1">
-                            {saving ? <><Loader2 className="w-5 h-5 mr-2 animate-spin" />Saving...</>
-                            : saved ? <><CheckCircle className="w-5 h-5 mr-2" />Saved!</>
-                            : <><Save className="w-5 h-5 mr-2" />Save Ideal Client Profile</>}
-                        </button>
-                        <button onClick={() => setShowAIAssistant(true)} className="btn btn-secondary">
-                            <Sparkles className="w-5 h-5 mr-2" />Get AI Help
-                        </button>
-                    </div>
-                )}
+                <div className="flex flex-col sm:flex-row gap-3 sticky bottom-20 md:bottom-6 z-10">
+                    <button
+                        onClick={handleSave}
+                        disabled={saving}
+                        className="btn btn-primary flex-1"
+                    >
+                        {saving ? (
+                            <>
+                                <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                                Saving...
+                            </>
+                        ) : saved ? (
+                            <>
+                                <CheckCircle className="w-5 h-5 mr-2" />
+                                Saved!
+                            </>
+                        ) : (
+                            <>
+                                <Save className="w-5 h-5 mr-2" />
+                                Save Ideal Client Profile
+                            </>
+                        )}
+                    </button>
+                    <button
+                        onClick={() => setShowAIAssistant(true)}
+                        className="btn btn-secondary"
+                    >
+                        <Sparkles className="w-5 h-5 mr-2" />
+                        Get AI Help
+                    </button>
+                </div>
                 <FoundationFormNav currentFormId="ideal_client" />
             </>}
             </div>

@@ -381,8 +381,9 @@ export default function StrategyFormSocialMedia() {
                 onClose={() => setShowAIAssistant(false)}
                 assistantType="strategy_form_agent"
                 sectionTitle="Social Media Strategy"
-                additionalContext={`Document Type: social_media\nCurrent Stage: ${user?.entrepreneurship_stage || 'unknown'}`}
+                additionalContext={`Document Type: social_media\nCurrent Stage: ${user?.entrepreneurship_stage || 'unknown'}\nSelected Channels: ${selectedChannels.join(', ')}\nForm Fields: ${Object.keys(formData).join(', ')}`}
                 currentBusinessId={user?.current_business_id}
+                selectedChannels={selectedChannels}
             />
         </>)}
         </div>

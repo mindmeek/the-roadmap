@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { User, StrategyDocument } from '@/entities/all';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Save, ArrowLeft, CheckCircle, Lightbulb, HelpCircle, Sparkles, Users, Activity, Star, Heart, Target, Box, Send, DollarSign, TrendingUp, Plus, Trash2, Lock, Loader2 } from 'lucide-react';
-import useTeamStrategyDoc from '@/hooks/useTeamStrategyDoc';
+import { Save, ArrowLeft, CheckCircle, Lightbulb, HelpCircle, Sparkles, Users, Activity, Star, Heart, Target, Box, Send, DollarSign, TrendingUp, Plus, Trash2 } from 'lucide-react';
 import StrategyToolGuide from '../components/strategy/StrategyToolGuide';
 import AITeamModal from '@/components/ai/AITeamModal';
 import BusinessPlanOverview from '@/components/strategy/BusinessPlanOverview';
@@ -58,35 +58,92 @@ function ListField({ values, onChange, placeholder }) {
 
 export default function StrategyFormBusinessModelCanvas() {
     const navigate = useNavigate();
+    const [user, setUser] = useState(null);
+    const [existingDoc, setExistingDoc] = useState(null);
+    const [isSaving, setIsSaving] = useState(false);
+    const [saveMessage, setSaveMessage] = useState('');
+
+    // Form state - each field is an array of strings
+    const [formData, setFormData] = useState({
+        keyPartners: [''],
+        keyActivities: [''],
+        keyResources: [''],
+        valuePropositions: [''],
+        customerRelationships: [''],
+        channels: [''],
+        customerSegments: [''],
+        costStructure: [''],
+        revenueStreams: ['']
+    });
+
     const [showAIAssistant, setShowAIAssistant] = useState(false);
     const [aiContext, setAiContext] = useState({});
     const [activeTab, setActiveTab] = useState('form');
-    const [formData, setFormData] = useState({
-        keyPartners: [''], keyActivities: [''], keyResources: [''],
-        valuePropositions: [''], customerRelationships: [''], channels: [''],
-        customerSegments: [''], costStructure: [''], revenueStreams: ['']
-    });
-
-    const { formData: savedData, loading, saving: isSaving, saved, saveDoc, canEdit, user } = useTeamStrategyDoc('business_model_canvas');
 
     useEffect(() => {
-        if (savedData) {
-            setFormData({
-                keyPartners: toArray(savedData.keyPartners),
-                keyActivities: toArray(savedData.keyActivities),
-                keyResources: toArray(savedData.keyResources),
-                valuePropositions: toArray(savedData.valuePropositions),
-                customerRelationships: toArray(savedData.customerRelationships),
-                channels: toArray(savedData.channels),
-                customerSegments: toArray(savedData.customerSegments),
-                costStructure: toArray(savedData.costStructure),
-                revenueStreams: toArray(savedData.revenueStreams),
+        loadData();
+    }, []);
+
+    const loadData = async () => {
+        try {
+            const userData = await User.me();
+            setUser(userData);
+
+            const docs = await StrategyDocument.filter({ 
+                created_by: userData.email,
+                document_type: 'business_model_canvas'
             });
+
+            if (docs.length > 0) {
+                setExistingDoc(docs[0]);
+                const saved = docs[0].content || {};
+                // Normalize all fields to arrays (handles old string-based data)
+                setFormData({
+                    keyPartners: toArray(saved.keyPartners),
+                    keyActivities: toArray(saved.keyActivities),
+                    keyResources: toArray(saved.keyResources),
+                    valuePropositions: toArray(saved.valuePropositions),
+                    customerRelationships: toArray(saved.customerRelationships),
+                    channels: toArray(saved.channels),
+                    customerSegments: toArray(saved.customerSegments),
+                    costStructure: toArray(saved.costStructure),
+                    revenueStreams: toArray(saved.revenueStreams),
+                });
+            }
+        } catch (error) {
+            console.error("Error loading data:", error);
         }
-    }, [savedData]);
+    };
 
     const handleSave = async () => {
-        await saveDoc(formData, 'One Page Business Plan');
+        if (!user) return;
+
+        setIsSaving(true);
+        try {
+            const docData = {
+                document_type: 'business_model_canvas',
+                title: 'One Page Business Plan',
+                content: formData,
+                entrepreneurship_stage: user.entrepreneurship_stage,
+                is_completed: true,
+                last_updated: new Date().toISOString()
+            };
+
+            if (existingDoc) {
+                await StrategyDocument.update(existingDoc.id, docData);
+            } else {
+                const newDoc = await StrategyDocument.create(docData);
+                setExistingDoc(newDoc);
+            }
+
+            setSaveMessage('✓ One Page Business Plan saved successfully!');
+            setTimeout(() => setSaveMessage(''), 3000);
+        } catch (error) {
+            console.error("Error saving:", error);
+            setSaveMessage('Error saving. Please try again.');
+        } finally {
+            setIsSaving(false);
+        }
     };
 
     const openAIHelp = (sectionKey) => {
@@ -177,23 +234,17 @@ export default function StrategyFormBusinessModelCanvas() {
         ]
     };
 
-    if (loading) return <div className="flex justify-center items-center h-screen"><Loader2 className="w-8 h-8 animate-spin text-[var(--primary-gold)]" /></div>;
-
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {/* Header */}
             <div className="card p-6 mb-6">
-                <div className="flex items-center justify-between mb-4">
-                    <button onClick={() => navigate(createPageUrl('MyFoundationRoadmap'))} className="btn btn-ghost">
-                        <ArrowLeft className="w-4 h-4 mr-2" />
-                        Back to Foundation Roadmap
-                    </button>
-                    {!canEdit && (
-                        <span className="flex items-center gap-1 text-xs text-gray-500 bg-gray-100 dark:bg-gray-800 px-3 py-1.5 rounded-full">
-                            <Lock className="w-3 h-3" /> View only
-                        </span>
-                    )}
-                </div>
+                <button
+                    onClick={() => navigate(createPageUrl('MyFoundationRoadmap'))}
+                    className="btn btn-ghost mb-4"
+                >
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Back to Foundation Roadmap
+                </button>
                 
                 <div className="flex items-start justify-between">
                     <div className="flex-1">
@@ -205,10 +256,10 @@ export default function StrategyFormBusinessModelCanvas() {
                     <StrategyToolGuide content={guideContent} />
                 </div>
 
-                {saved && (
+                {saveMessage && (
                     <div className="mt-4 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg text-green-700 dark:text-green-300 flex items-center">
                         <CheckCircle className="w-5 h-5 mr-2" />
-                        ✓ One Page Business Plan saved successfully!
+                        {saveMessage}
                     </div>
                 )}
                 
@@ -543,14 +594,26 @@ export default function StrategyFormBusinessModelCanvas() {
 
             {/* Save Button */}
             <div className="flex justify-end gap-3 mt-6">
-                <button onClick={() => navigate(createPageUrl('MyFoundationRoadmap'))} className="btn btn-secondary">
-                    Back
+                <button
+                    onClick={() => navigate(createPageUrl('MyFoundationRoadmap'))}
+                    className="btn btn-secondary"
+                >
+                    Cancel
                 </button>
-                {canEdit && (
-                    <button onClick={handleSave} disabled={isSaving} className="btn btn-primary">
-                        {isSaving ? <>Saving...</> : <><Save className="w-4 h-4 mr-2" />Save One Page Business Plan</>}
-                    </button>
-                )}
+                <button
+                    onClick={handleSave}
+                    disabled={isSaving}
+                    className="btn btn-primary"
+                >
+                    {isSaving ? (
+                        <>Saving...</>
+                    ) : (
+                        <>
+                            <Save className="w-4 h-4 mr-2" />
+                            Save One Page Business Plan
+                        </>
+                    )}
+                </button>
             </div>
 
             </>}

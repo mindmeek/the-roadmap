@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { User, StrategyDocument } from '@/entities/all';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { 
     ArrowLeft, Save, TrendingUp, Loader2, CheckCircle, Lightbulb, Plus, Minus,
-    Sparkles, AlertTriangle, Zap, Shield, Lock
+    Sparkles, AlertTriangle, Zap, Shield 
 } from 'lucide-react';
+import { handleGamification } from '@/functions/handleGamification';
 import AITeamModal from '@/components/ai/AITeamModal';
 import SWOTAnalysisOverview from '@/components/strategy/SWOTAnalysisOverview';
 import FoundationFormNav from '@/components/foundation/FoundationFormNav';
-import useTeamStrategyDoc from '@/hooks/useTeamStrategyDoc';
 
 const swotQuadrants = [
     {
@@ -55,22 +56,48 @@ const swotQuadrants = [
 
 export default function StrategyFormSWOTAnalysis() {
     const navigate = useNavigate();
+    const [user, setUser] = useState(null);
+    const [document, setDocument] = useState(null); // Corresponds to existingDoc in the outline
+    const [formData, setFormData] = useState({});
+    const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
     const [aiContext, setAiContext] = useState({});
     const [viewMode, setViewMode] = useState('edit');
-    const [formData, setFormData] = useState({});
-
-    const { formData: savedData, loading, saving, saved, saveDoc, canEdit, user } = useTeamStrategyDoc('swot_analysis');
 
     useEffect(() => {
-        if (savedData) {
-            setFormData(savedData);
-        } else if (!loading) {
-            const emptyForm = {};
-            swotQuadrants.forEach(quad => { emptyForm[quad.id] = ['']; });
-            setFormData(emptyForm);
+        loadData();
+    }, []);
+
+    const loadData = async () => {
+        try {
+            const userData = await User.me();
+            setUser(userData);
+
+            // Try to load existing document
+            const docs = await StrategyDocument.filter({
+                created_by: userData.email,
+                document_type: 'swot_analysis'
+            }, '-updated_date', 1);
+
+            if (docs.length > 0) {
+                const doc = docs[0];
+                setDocument(doc);
+                setFormData(doc.content || {});
+            } else {
+                // Initialize empty form
+                const emptyForm = {};
+                swotQuadrants.forEach(quad => {
+                    emptyForm[quad.id] = [''];
+                });
+                setFormData(emptyForm);
+            }
+        } catch (error) {
+            console.error("Error loading SWOT data:", error);
+        } finally {
+            setLoading(false);
         }
-    }, [savedData, loading]);
+    };
 
     const handleItemChange = (quadrantId, index, value) => {
         setFormData(prev => ({
@@ -136,9 +163,37 @@ export default function StrategyFormSWOTAnalysis() {
     };
 
     const saveDocument = async (markComplete = false) => {
-        await saveDoc(formData, 'My SWOT Analysis');
-        if (markComplete) {
-            navigate(createPageUrl('MyFoundationRoadmap'));
+        setSaving(true);
+        try {
+            const documentData = {
+                document_type: 'swot_analysis',
+                title: 'My SWOT Analysis', // Updated title as per outline
+                content: formData,
+                entrepreneurship_stage: user.entrepreneurship_stage,
+                is_completed: markComplete,
+                last_updated: new Date().toISOString()
+            };
+
+            if (document) { // `document` state corresponds to `existingDoc` in outline
+                await StrategyDocument.update(document.id, documentData);
+            } else {
+                const newDoc = await StrategyDocument.create(documentData);
+                setDocument(newDoc);
+            }
+
+            if (markComplete) {
+                // Award XP for completing the document for the first time
+                if (!document?.is_completed) {
+                    await handleGamification({ action: 'COMPLETE_STRATEGY_DOC' });
+                }
+                alert('SWOT Analysis saved successfully!'); // Added success alert as per outline
+                navigate(createPageUrl('MyFoundationRoadmap')); // Changed redirect as per outline
+            }
+        } catch (error) {
+            console.error("Error saving document:", error);
+            alert('Failed to save. Please try again.');
+        } finally {
+            setSaving(false);
         }
     };
 
@@ -163,16 +218,11 @@ export default function StrategyFormSWOTAnalysis() {
     return (
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {/* View Toggle */}
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex justify-end mb-4">
                 <div className="inline-flex rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
                     <button onClick={() => setViewMode('edit')} className={`px-4 py-2 text-sm font-medium transition-colors ${viewMode === 'edit' ? 'bg-[var(--primary-gold)] text-white' : 'bg-white dark:bg-gray-800 text-[var(--text-soft)] hover:bg-gray-50 dark:hover:bg-gray-700'}`}>Edit</button>
                     <button onClick={() => setViewMode('overview')} className={`px-4 py-2 text-sm font-medium transition-colors ${viewMode === 'overview' ? 'bg-[var(--primary-gold)] text-white' : 'bg-white dark:bg-gray-800 text-[var(--text-soft)] hover:bg-gray-50 dark:hover:bg-gray-700'}`}>Overview</button>
                 </div>
-                {!canEdit && (
-                    <span className="flex items-center gap-1 text-xs text-gray-500 bg-gray-100 dark:bg-gray-800 px-3 py-1.5 rounded-full">
-                        <Lock className="w-3 h-3" /> View only
-                    </span>
-                )}
             </div>
 
             {viewMode === 'overview' ? (
@@ -201,18 +251,24 @@ export default function StrategyFormSWOTAnalysis() {
                             </div>
                         </div>
                     </div>
-                    {canEdit && (
-                        <div className="flex gap-2">
-                            <button onClick={() => saveDocument(false)} disabled={saving} className="btn btn-secondary">
-                                <Save className="w-4 h-4" />
-                                {saving ? 'Saving...' : 'Save Draft'}
-                            </button>
-                            <button onClick={() => saveDocument(true)} disabled={saving} className="btn btn-primary">
-                                <CheckCircle className="w-4 h-4" />
-                                Complete & Save
-                            </button>
-                        </div>
-                    )}
+                    <div className="flex gap-2">
+                        <button 
+                            onClick={() => saveDocument(false)}
+                            disabled={saving}
+                            className="btn btn-secondary"
+                        >
+                            <Save className="w-4 h-4" />
+                            {saving ? 'Saving...' : 'Save Draft'}
+                        </button>
+                        <button 
+                            onClick={() => saveDocument(true)}
+                            disabled={saving}
+                            className="btn btn-primary"
+                        >
+                            <CheckCircle className="w-4 h-4" />
+                            Complete & Save
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -315,9 +371,8 @@ export default function StrategyFormSWOTAnalysis() {
                                             onChange={(e) => handleItemChange(quadrant.id, index, e.target.value)}
                                             placeholder={`${quadrant.title.slice(0, -1)} ${index + 1}`}
                                             className="form-input flex-1 text-sm"
-                                            disabled={!canEdit}
                                         />
-                                        {canEdit && (formData[quadrant.id] || []).length > 1 && (
+                                        {(formData[quadrant.id] || []).length > 1 && (
                                             <button
                                                 onClick={() => removeItem(quadrant.id, index)}
                                                 className="btn btn-ghost p-2 text-red-500 hover:text-red-700"
@@ -328,14 +383,12 @@ export default function StrategyFormSWOTAnalysis() {
                                         )}
                                     </div>
                                 ))}
-                                {canEdit && (
-                                    <button
-                                        onClick={() => addItem(quadrant.id)}
-                                        className="btn btn-secondary btn-sm w-full mt-2"
-                                    >
-                                        <Plus className="w-4 h-4 mr-2" /> Add {quadrant.title.slice(0, -1)}
-                                    </button>
-                                )}
+                                <button
+                                    onClick={() => addItem(quadrant.id)}
+                                    className="btn btn-secondary btn-sm w-full mt-2"
+                                >
+                                    <Plus className="w-4 h-4 mr-2" /> Add {quadrant.title.slice(0, -1)}
+                                </button>
                             </div>
 
                             {/* Stage-specific guidance */}
@@ -353,18 +406,24 @@ export default function StrategyFormSWOTAnalysis() {
             </div>
 
             {/* Save Actions (Mobile) */}
-            {canEdit && (
-                <div className="md:hidden fixed bottom-20 left-0 right-0 p-4 bg-white dark:bg-black border-t border-gray-200 dark:border-gray-700">
-                    <div className="flex gap-2 max-w-sm mx-auto">
-                        <button onClick={() => saveDocument(false)} disabled={saving} className="btn btn-secondary flex-1">
-                            Save Draft
-                        </button>
-                        <button onClick={() => saveDocument(true)} disabled={saving} className="btn btn-primary flex-1">
-                            Complete
-                        </button>
-                    </div>
+            <div className="md:hidden fixed bottom-20 left-0 right-0 p-4 bg-white dark:bg-black border-t border-gray-200 dark:border-gray-700">
+                <div className="flex gap-2 max-w-sm mx-auto">
+                    <button 
+                        onClick={() => saveDocument(false)}
+                        disabled={saving}
+                        className="btn btn-secondary flex-1"
+                    >
+                        Save Draft
+                    </button>
+                    <button 
+                        onClick={() => saveDocument(true)}
+                        disabled={saving}
+                        className="btn btn-primary flex-1"
+                    >
+                        Complete
+                    </button>
                 </div>
-            )}
+            </div>
 
             <FoundationFormNav currentFormId="swot" />
 
