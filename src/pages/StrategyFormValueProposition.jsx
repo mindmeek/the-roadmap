@@ -140,59 +140,12 @@ export default function ValuePropositionCanvasPage() {
     };
 
     const saveDraft = async () => {
-        setSaving(true);
-        try {
-            const documentData = {
-                document_type: 'value_proposition_canvas',
-                title: 'Value Proposition Canvas', // Keep original title for draft
-                content: formData,
-                entrepreneurship_stage: user.entrepreneurship_stage,
-                is_completed: false, // Always false for draft
-                last_updated: new Date().toISOString()
-            };
-
-            if (document) {
-                await StrategyDocument.update(document.id, documentData);
-            } else {
-                const newDoc = await StrategyDocument.create(documentData);
-                setDocument(newDoc);
-            }
-            // No navigation on draft save
-        } catch (error) {
-            console.error("Error saving draft:", error);
-            alert('Failed to save draft. Please try again.');
-        } finally {
-            setSaving(false);
-        }
+        await saveDoc(formData, 'Value Proposition Canvas');
     };
 
     const saveAndComplete = async () => {
-        setSaving(true);
-        try {
-            const docData = {
-                document_type: 'value_proposition_canvas',
-                title: 'My Unique Value Proposition Canvas', // Updated title as per outline
-                content: formData,
-                entrepreneurship_stage: user.entrepreneurship_stage,
-                is_completed: true, // Mark as complete
-                last_updated: new Date().toISOString()
-            };
-
-            if (document) { // 'document' state acts as 'existingDoc'
-                await StrategyDocument.update(document.id, docData);
-            } else {
-                const newDoc = await StrategyDocument.create(docData);
-                setDocument(newDoc);
-            }
-
-            alert('Unique Value Proposition Canvas saved successfully!'); // New alert as per outline
-            navigate(createPageUrl('MyFoundationRoadmap')); // Updated navigation target as per outline
-        } catch (error) {
-            console.error('Error saving and completing:', error);
-            alert('Failed to save and complete. Please try again.');
-        } finally {
-            setSaving(false);
-        }
+        await saveDoc(formData, 'My Unique Value Proposition Canvas');
+        navigate(createPageUrl('MyFoundationRoadmap'));
     };
 
     if (loading) {
