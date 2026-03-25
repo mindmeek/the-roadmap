@@ -165,6 +165,7 @@ import ViewSOP from './pages/ViewSOP';
 import VisionStrategySession from './pages/VisionStrategySession';
 import WebsiteDevelopmentGuidePage from './pages/WebsiteDevelopmentGuidePage';
 import Week from './pages/Week';
+import layout from './pages/layout';
 import __Layout from './Layout.jsx';
 
 
@@ -287,6 +288,7 @@ export const PAGES = {
     "VisionStrategySession": VisionStrategySession,
     "WebsiteDevelopmentGuidePage": WebsiteDevelopmentGuidePage,
     "Week": Week,
+    "layout": layout,
 }
 
 export const pagesConfig = {

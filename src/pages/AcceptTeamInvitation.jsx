@@ -10,7 +10,6 @@ export default function AcceptTeamInvitation() {
     const [status, setStatus] = useState('processing'); // processing, success, error
     const [message, setMessage] = useState('');
     const [business, setBusiness] = useState(null);
-    const [role, setRole] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -39,7 +38,6 @@ export default function AcceptTeamInvitation() {
                 if (response.data.business?.id) {
                     localStorage.setItem('selectedBusinessId', response.data.business.id);
                 }
-                setRole(response.data.role);
             } else {
                 setStatus('error');
                 setMessage(response.data.error || 'Failed to accept invitation');
@@ -91,28 +89,16 @@ export default function AcceptTeamInvitation() {
                                             {business.industry && (
                                                 <p className="text-sm text-[var(--text-soft)]">{business.industry}</p>
                                             )}
-                                            {role && (
-                                                <p className="text-sm text-[var(--primary-gold)] font-semibold capitalize mt-1">Your role: {role}</p>
-                                            )}
                                         </div>
                                     </div>
                                 </div>
                             )}
-                            <div className="space-y-3">
-                                <Button
-                                    onClick={() => navigate(createPageUrl('TeamCollaboration'))}
-                                    className="btn-primary w-full"
-                                >
-                                    View Team & Strategy Docs
-                                </Button>
-                                <Button
-                                    onClick={() => navigate(createPageUrl('BusinessOverview'))}
-                                    variant="outline"
-                                    className="w-full"
-                                >
-                                    Go to Business Dashboard
-                                </Button>
-                            </div>
+                            <Button
+                                onClick={() => navigate(createPageUrl('BusinessOverview'))}
+                                className="btn-primary w-full"
+                            >
+                                Go to Business Dashboard
+                            </Button>
                         </>
                     ) : (
                         <>
