@@ -5,7 +5,7 @@ import { createPageUrl } from '@/utils';
 import {
     Users, Plus, Mail, Trash2, CheckCircle, Clock, Loader2, Shield, Eye,
     Pencil, ChevronRight, MessageSquare, FileText, Crown, AlertTriangle,
-    UserPlus, RefreshCw, Copy, Check
+    UserPlus, RefreshCw, Copy, Check, DollarSign, Target, BarChart2
 } from 'lucide-react';
 import StrategyDocComments from '@/components/team/StrategyDocComments';
 
