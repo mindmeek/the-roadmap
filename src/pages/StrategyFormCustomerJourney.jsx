@@ -589,7 +589,7 @@ export default function StrategyFormCustomerJourneyPage() {
     const handleImportFromIdealClient = async () => {
         setIsImporting(true);
         try {
-            const idealClientDocs = await StrategyDocument.filter({
+            const idealClientDocs = await base44.entities.StrategyDocument.filter({
                 created_by: user.email,
                 document_type: 'ideal_client'
             });
@@ -756,38 +756,8 @@ export default function StrategyFormCustomerJourneyPage() {
     const handleSave = async () => {
         setIsSaving(true);
         try {
-            const allStagesComplete =
-                !!formData.ideal_client.name &&
-                !!formData.awareness.discovery_channels &&
-                !!formData.consideration.evaluation_criteria &&
-                !!formData.decision.purchase_factors &&
-                !!formData.service.onboarding_process &&
-                !!formData.loyalty.retention_strategies;
-
-            const documentData = {
-                document_type: 'customer_journey',
-                title: 'My Customer Journey Map',
-                content: formData,
-                entrepreneurship_stage: user.entrepreneurship_stage,
-                is_completed: allStagesComplete,
-                last_updated: new Date().toISOString()
-            };
-
-            if (existingDocument) {
-                await StrategyDocument.update(existingDocument.id, documentData);
-            } else {
-                await StrategyDocument.create(documentData);
-            }
-
-            if (allStagesComplete && user.subscription_level === 'free' && !user.customer_journey_completed_date) {
-                await User.updateMyUserData({
-                    customer_journey_completed_date: new Date().toISOString().split('T')[0]
-                });
-                alert('🎉 Congratulations! You\'ve completed your Customer Journey Map and unlocked a special discount for The Business Minds HQ!');
-            } else {
-                alert('Customer Journey Map saved successfully!');
-            }
-
+            await saveDoc();
+            alert('Customer Journey Map saved successfully!');
             navigate(createPageUrl('MyFoundationRoadmap'));
         } catch (error) {
             console.error('Error saving:', error);
