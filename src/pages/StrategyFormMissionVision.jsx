@@ -40,10 +40,13 @@ export default function StrategyFormMissionVision() {
     };
 
     const updateArrayField = (field, index, value) => {
-        const newArray = [...(formData[field] || [])];
-        newArray[index] = value;
-        setFormData({ ...formData, [field]: newArray });
+        const arr = Array.isArray(formData[field]) ? [...formData[field]] : ['', '', '', '', ''];
+        arr[index] = value;
+        setFormData({ ...formData, [field]: arr });
     };
+
+    // Ensure core_values is always an array of 5
+    const coreValues = Array.isArray(formData.core_values) ? formData.core_values : ['', '', '', '', ''];
 
     if (loading) {
         return (
