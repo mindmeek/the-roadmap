@@ -42,16 +42,32 @@ const CopyBlock = ({ label, icon: IconComp, content, color, type }) => {
             ));
         }
         if (type === 'product_descriptions') {
-            const products = content.split(/(?:^|\n)(?=\d+\.\s+\*\*|###\s+\*\*|\*\*[^*]+\*\*\s*-\s*\$)/m).filter(p => p.trim());
+            const products = content.split(/\n\n+/).filter(p => p.trim());
             return products.map((product, i) => {
-                const lines = product.trim().split('\n').filter(l => l.trim());
-                if (lines.length === 0) return null;
+                const cleanedProduct = product.trim();
+                const lines = cleanedProduct.split('\n');
                 
-                const headerLine = lines[0].replace(/^[\d.]+\s*/, '').replace(/^#+\s*/, '');
-                const priceMatch = headerLine.match(/(\$[\d,.]+(?:\/\w+)?)/);
-                const productName = headerLine.replace(/\*\*/g, '').replace(priceMatch ? priceMatch[0] : '', '').trim();
-                const price = priceMatch ? priceMatch[0] : '';
-                const description = lines.slice(1).join('\n').replace(/\*\*/g, '').trim();
+                let productName = '';
+                let price = '';
+                let description = '';
+                
+                if (lines.length > 0) {
+                    const firstLine = lines[0].replace(/^[\d.]*\s*/, '').trim();
+                    const priceMatch = firstLine.match(/\$[\d,.]+(?:\/\w+)?|\$[\d,.]+/);
+                    
+                    if (priceMatch) {
+                        price = priceMatch[0];
+                        productName = firstLine.replace(priceMatch[0], '').replace(/\*\*/g, '').trim();
+                    } else {
+                        productName = firstLine.replace(/\*\*/g, '').trim();
+                    }
+                    
+                    if (lines.length > 1) {
+                        description = lines.slice(1).join('\n').replace(/\*\*/g, '').trim();
+                    }
+                }
+                
+                if (!productName) return null;
                 
                 return (
                     <div key={i} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-6">
