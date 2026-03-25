@@ -181,57 +181,39 @@ const pricingStrategies = [
     }
 ];
 
+const DEFAULT_PRICING = {
+    selected_strategies: [],
+    strategy_details: {},
+    current_pricing: '',
+    pricing_challenges: '',
+    target_customer_willingness: ''
+};
+
 export default function StrategyFormPricingStrategies() {
     const navigate = useNavigate();
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
-    
-    const [selectedStrategies, setSelectedStrategies] = useState([]);
-    const [strategyDetails, setStrategyDetails] = useState({});
-    const [currentPricing, setCurrentPricing] = useState('');
-    const [pricingChallenges, setPricingChallenges] = useState('');
-    const [targetCustomerWillingness, setTargetCustomerWillingness] = useState('');
     const [showAIAssistant, setShowAIAssistant] = useState(false);
     const [viewMode, setViewMode] = useState('edit');
     const [freedomProducts, setFreedomProducts] = useState([]);
 
+    const { loading, saving, formData, setFormData, saveDoc, user } = useStrategyDoc('pricing_strategies', DEFAULT_PRICING);
+
+    const selectedStrategies = formData.selected_strategies || [];
+    const strategyDetails = formData.strategy_details || {};
+    const currentPricing = formData.current_pricing || '';
+    const pricingChallenges = formData.pricing_challenges || '';
+    const targetCustomerWillingness = formData.target_customer_willingness || '';
+
     useEffect(() => {
-        loadData();
+        const loadProducts = async () => {
+            try {
+                const currentUser = await base44.auth.me();
+                if (currentUser.financial_projections?.products) {
+                    setFreedomProducts(currentUser.financial_projections.products.filter(p => p.name && p.name.trim() !== ''));
+                }
+            } catch (e) {}
+        };
+        loadProducts();
     }, []);
-
-    const loadData = async () => {
-        try {
-            const currentUser = await base44.auth.me();
-            setUser(currentUser);
-
-            // Load Freedom Calculator products
-            if (currentUser.financial_projections?.products) {
-                const validProducts = currentUser.financial_projections.products.filter(
-                    p => p.name && p.name.trim() !== ''
-                );
-                setFreedomProducts(validProducts);
-            }
-
-            const docs = await base44.entities.StrategyDocument.filter({
-                created_by: currentUser.email,
-                document_type: 'pricing_strategies'
-            });
-
-            if (docs.length > 0) {
-                const doc = docs[0];
-                setSelectedStrategies(doc.content.selected_strategies || []);
-                setStrategyDetails(doc.content.strategy_details || {});
-                setCurrentPricing(doc.content.current_pricing || '');
-                setPricingChallenges(doc.content.pricing_challenges || '');
-                setTargetCustomerWillingness(doc.content.target_customer_willingness || '');
-            }
-        } catch (error) {
-            console.error('Error loading data:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
 
     const handleStrategyToggle = (strategyId) => {
         if (selectedStrategies.includes(strategyId)) {
