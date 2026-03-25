@@ -185,17 +185,25 @@ export default function MyFinancialGoal() {
     setSaving(true);
     try {
       const results = calculateResults();
-      await User.updateMyUserData({
-        financial_projections: {
-          monthlyExpenses: parseFloat(monthlyExpenses) || 0,
-          desiredSalary: parseFloat(desiredSalary) || 0,
-          businessExpenses: parseFloat(businessExpenses) || 0,
-          emergencyBuffer: parseFloat(emergencyBuffer) || 20,
-          teamMembers, affiliatePrograms, products,
-          freedomNumber: results.freedomNumber,
-          calculatedAt: new Date().toISOString()
-        }
-      });
+      const projections = {
+        monthlyExpenses: parseFloat(monthlyExpenses) || 0,
+        desiredSalary: parseFloat(desiredSalary) || 0,
+        businessExpenses: parseFloat(businessExpenses) || 0,
+        emergencyBuffer: parseFloat(emergencyBuffer) || 20,
+        teamMembers, affiliatePrograms, products,
+        freedomNumber: results.freedomNumber,
+        calculatedAt: new Date().toISOString()
+      };
+
+      if (teamBusinessId) {
+        // Save to the business owner's account via service function
+        await base44.functions.invoke('saveOwnerFinancialProjections', {
+          business_id: teamBusinessId,
+          financial_projections: projections
+        });
+      } else {
+        await User.updateMyUserData({ financial_projections: projections });
+      }
       alert('Financial projections saved successfully!');
     } catch (error) {
       console.error('Error saving:', error);
