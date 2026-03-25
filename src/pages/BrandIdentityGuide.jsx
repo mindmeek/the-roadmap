@@ -42,15 +42,13 @@ const CopyBlock = ({ label, icon: IconComp, content, color, type }) => {
             ));
         }
         if (type === 'product_descriptions') {
-            return content.split(/\n(?=\*\*|###|[A-Z][^:]*:\s*\$|\d+\.)/g).filter(desc => desc.trim()).map((desc, i) => {
-                const cleaned = desc.trim();
-                // Extract first line as product name + price
-                const firstLineMatch = cleaned.match(/^([^\n]+)/);
-                const firstLine = firstLineMatch ? firstLineMatch[1] : '';
-                const priceMatch = firstLine.match(/(\$[\d,.]+\/?\w*|\$[\d,.]+)/);
-                const productName = firstLine.replace(/\*\*/g, '').replace(priceMatch ? priceMatch[0] : '', '').trim();
+            return content.split(/\n\n+/g).filter(desc => desc.trim()).map((desc, i) => {
+                const lines = desc.trim().split('\n');
+                const firstLine = lines[0].replace(/\*\*/g, '');
+                const priceMatch = firstLine.match(/(\$[\d,.]+)/);
+                const productName = priceMatch ? firstLine.replace(priceMatch[0], '').trim() : firstLine;
                 const price = priceMatch ? priceMatch[0] : '';
-                const restOfText = cleaned.slice(firstLine.length).trim();
+                const descriptionLines = lines.slice(1).map(line => line.replace(/\*\*/g, '')).join('\n');
                 
                 return (
                     <div key={i} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-6">
@@ -58,7 +56,7 @@ const CopyBlock = ({ label, icon: IconComp, content, color, type }) => {
                             <h4 className="font-bold text-sm text-[var(--text-main)]">{productName}</h4>
                             {price && <span className="font-bold text-sm text-[var(--primary-gold)] whitespace-nowrap">{price}</span>}
                         </div>
-                        <p className="text-sm text-[var(--text-soft)] leading-relaxed">{restOfText.split('\n').map((line, j) => <div key={j} className="mb-2 last:mb-0">{line}</div>)}</p>
+                        <p className="text-sm text-[var(--text-soft)] leading-relaxed whitespace-pre-wrap">{descriptionLines}</p>
                     </div>
                 );
             });
