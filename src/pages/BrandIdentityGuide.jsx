@@ -36,65 +36,67 @@ const CopyBlock = ({ label, icon: IconComp, content, color, type }) => {
     };
 
     // Format content based on type
-    const formatContent = () => {
-        if (type === 'ad_taglines') {
-            return content.split('\n').filter(line => line.trim()).map((line, i) => (
-                <div key={i} className="py-4 text-sm text-[var(--text-main)]">{line}</div>
-            ));
-        }
-        if (type === 'social_captions' || type === 'social_single') {
-            const items = type === 'social_single' ? [content] : parseContentArray(content);
-            return items.map((post, i) => (
-                <div key={i} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-                    <p className="text-sm text-[var(--text-main)] leading-relaxed whitespace-normal">{post.trim()}</p>
-                </div>
-            ));
-        }
-        if (type === 'product_descriptions') {
-            const products = content.split(/\n\n+/).filter(p => p.trim());
-            return products.map((product, i) => {
-                const cleanedProduct = product.trim();
-                const lines = cleanedProduct.split('\n');
-                
-                let productName = '';
-                let price = '';
-                let description = '';
-                
-                if (lines.length > 0) {
-                    const firstLine = lines[0].replace(/^[\d.]*\s*/, '').trim();
-                    const priceMatch = firstLine.match(/\$[\d,.]+(?:\/\w+)?|\$[\d,.]+/);
-                    
-                    if (priceMatch) {
-                        price = priceMatch[0];
-                        productName = firstLine.replace(priceMatch[0], '').replace(/\*\*/g, '').trim();
-                    } else {
-                        productName = firstLine.replace(/\*\*/g, '').trim();
-                    }
-                    
-                    if (lines.length > 1) {
-                        description = lines.slice(1).join('\n').replace(/\*\*/g, '').trim();
-                    }
-                }
-                
-                if (!productName) return null;
-                
-                return (
-                    <div key={i} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-6">
-                        <div className="flex justify-between items-start gap-2 mb-3">
-                            <h4 className="font-bold text-sm text-[var(--text-main)]">{productName}</h4>
-                            {price && <span className="font-bold text-sm text-[var(--primary-gold)] whitespace-nowrap">{price}</span>}
-                        </div>
-                        {description && <p className="text-sm text-[var(--text-soft)] leading-relaxed whitespace-pre-wrap">{description}</p>}
+        const formatContent = () => {
+            if (type === 'ad_taglines') {
+                return content.split('\n').filter(line => line.trim()).map((line, i) => (
+                    <div key={i} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-3">
+                        <p className="text-sm text-[var(--text-main)] leading-relaxed">{line}</p>
                     </div>
-                );
-            }).filter(Boolean);
-        }
-        // Break up longer content by natural paragraph breaks
-        const lines = content.split('\n').filter(line => line.trim());
-        return lines.map((line, i) => (
-            <p key={i} className="text-sm text-[var(--text-main)] leading-relaxed mb-3 last:mb-0">{line}</p>
-        ));
-    };
+                ));
+            }
+            if (type === 'social_captions' || type === 'social_single') {
+                const items = type === 'social_single' ? [content] : parseContentArray(content);
+                return items.map((post, i) => (
+                    <div key={i} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5 mb-4">
+                        <p className="text-sm text-[var(--text-main)] leading-relaxed whitespace-normal">{post.trim()}</p>
+                    </div>
+                ));
+            }
+            if (type === 'product_descriptions') {
+                const products = content.split(/\n\n+/).filter(p => p.trim());
+                return products.map((product, i) => {
+                    const cleanedProduct = product.trim();
+                    const lines = cleanedProduct.split('\n');
+
+                    let productName = '';
+                    let price = '';
+                    let description = '';
+
+                    if (lines.length > 0) {
+                        const firstLine = lines[0].replace(/^[\d.]*\s*/, '').trim();
+                        const priceMatch = firstLine.match(/\$[\d,.]+(?:\/\w+)?|\$[\d,.]+/);
+
+                        if (priceMatch) {
+                            price = priceMatch[0];
+                            productName = firstLine.replace(priceMatch[0], '').replace(/\*\*/g, '').trim();
+                        } else {
+                            productName = firstLine.replace(/\*\*/g, '').trim();
+                        }
+
+                        if (lines.length > 1) {
+                            description = lines.slice(1).join('\n').replace(/\*\*/g, '').trim();
+                        }
+                    }
+
+                    if (!productName) return null;
+
+                    return (
+                        <div key={i} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5 mb-4">
+                            <div className="flex justify-between items-start gap-3 mb-4 pb-3 border-b border-gray-100 dark:border-gray-700">
+                                <h4 className="font-bold text-base text-[var(--text-main)]">{productName}</h4>
+                                {price && <span className="font-bold text-base text-[var(--primary-gold)] whitespace-nowrap">{price}</span>}
+                            </div>
+                            {description && <p className="text-sm text-[var(--text-soft)] leading-relaxed whitespace-pre-wrap">{description}</p>}
+                        </div>
+                    );
+                }).filter(Boolean);
+            }
+            // Break up longer content by natural paragraph breaks
+            const lines = content.split('\n').filter(line => line.trim());
+            return lines.map((line, i) => (
+                <p key={i} className="text-sm text-[var(--text-main)] leading-relaxed mb-4 last:mb-0">{line}</p>
+            ));
+        };
 
     return (
         <div className={`card p-5 border-l-4 ${color}`}>
@@ -963,6 +965,79 @@ export default function BrandIdentityGuide() {
                                 </div>
                             </div>
                         )}
+
+                        {/* Growth Channels */}
+                        <div className="page-break">
+                            <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">12</span> Growth Channels
+                            </h3>
+                            <div className="grid grid-cols-1 gap-6">
+                                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+                                    <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gray-100 dark:border-gray-700">
+                                        <Mic className="w-6 h-6 text-[var(--primary-gold)]" />
+                                        <h4 className="text-lg font-bold text-[var(--text-main)]">Branded Podcast</h4>
+                                    </div>
+                                    <div className="space-y-4">
+                                        <div>
+                                            <p className="text-xs font-semibold text-[var(--text-soft)] uppercase tracking-wider mb-2">Podcast Name</p>
+                                            <p className="text-base text-[var(--text-main)] leading-relaxed">
+                                                <strong>"{formData.brand_name} Podcast" or "{formData.brand_name} Insights"</strong>
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p className="text-xs font-semibold text-[var(--text-soft)] uppercase tracking-wider mb-2">Podcast Overview</p>
+                                            <p className="text-sm text-[var(--text-main)] leading-relaxed">
+                                                A podcast where you share industry insights, interview experts, discuss trends, and provide actionable advice to your audience. 
+                                                This positions you as a thought leader and builds deep audience connection through storytelling and expertise.
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p className="text-xs font-semibold text-[var(--text-soft)] uppercase tracking-wider mb-2">Key Benefits</p>
+                                            <ul className="text-sm text-[var(--text-main)] space-y-1 ml-4">
+                                                <li>• Build authority and thought leadership</li>
+                                                <li>• Create multiple content assets from each episode</li>
+                                                <li>• Deepen audience relationships through intimate format</li>
+                                                <li>• Generate affiliate and sponsorship opportunities</li>
+                                                <li>• Improve search visibility</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+                                    <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gray-100 dark:border-gray-700">
+                                        <Users className="w-6 h-6 text-[var(--primary-gold)]" />
+                                        <h4 className="text-lg font-bold text-[var(--text-main)]">Private Community</h4>
+                                    </div>
+                                    <div className="space-y-4">
+                                        <div>
+                                            <p className="text-xs font-semibold text-[var(--text-soft)] uppercase tracking-wider mb-2">Community Name</p>
+                                            <p className="text-base text-[var(--text-main)] leading-relaxed">
+                                                <strong>"{formData.brand_name} Insiders" or "{formData.brand_name} Elite Community"</strong>
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p className="text-xs font-semibold text-[var(--text-soft)] uppercase tracking-wider mb-2">Community Overview</p>
+                                            <p className="text-sm text-[var(--text-main)] leading-relaxed">
+                                                An exclusive membership-based community where your best customers connect, get exclusive access to your expertise, 
+                                                network with peers, and gain insider status. This is your highest-value relationship channel.
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p className="text-xs font-semibold text-[var(--text-soft)] uppercase tracking-wider mb-2">Key Benefits</p>
+                                            <ul className="text-sm text-[var(--text-main)] space-y-1 ml-4">
+                                                <li>• Recurring revenue stream</li>
+                                                <li>• Highest customer lifetime value</li>
+                                                <li>• Direct feedback loop for product development</li>
+                                                <li>• Peer-to-peer networking creates stickiness</li>
+                                                <li>• Loyal brand advocates and referral source</li>
+                                                <li>• Testing ground for new offerings</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Action Buttons */}
