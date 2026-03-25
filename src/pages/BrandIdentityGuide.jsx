@@ -74,11 +74,11 @@ export default function BrandIdentityGuide() {
             const user = await base44.auth.me();
 
             const [brandDocs, missionDocs, idealClientDocs, vpDocs, kits] = await Promise.all([
-                base44.entities.StrategyDocument.filter({ created_by: user.email, document_type: 'brand_identity' }),
-                base44.entities.StrategyDocument.filter({ created_by: user.email, document_type: 'mission_vision' }),
-                base44.entities.StrategyDocument.filter({ created_by: user.email, document_type: 'ideal_client' }),
-                base44.entities.StrategyDocument.filter({ created_by: user.email, document_type: 'value_proposition_canvas' }),
-                base44.entities.BrandKit.filter({ created_by: user.email }),
+                base44.entities.StrategyDocument.filter({ created_by: user.email, document_type: 'brand_identity' }).catch(() => []),
+                base44.entities.StrategyDocument.filter({ created_by: user.email, document_type: 'mission_vision' }).catch(() => []),
+                base44.entities.StrategyDocument.filter({ created_by: user.email, document_type: 'ideal_client' }).catch(() => []),
+                base44.entities.StrategyDocument.filter({ created_by: user.email, document_type: 'value_proposition_canvas' }).catch(() => []),
+                base44.entities.BrandKit.filter({ created_by: user.email }).catch(() => []),
             ]);
 
             // Pull products from financial projections
@@ -109,7 +109,12 @@ export default function BrandIdentityGuide() {
 
             if (idealClientDocs.length > 0) {
                 const ic = idealClientDocs[0].content || {};
-                const audience = [ic.demographics, ic.psychographics, ic.pain_points].filter(Boolean).join('. ');
+                const parts = [];
+                if (ic.client_avatar_name) parts.push(ic.client_avatar_name);
+                if (ic.how_they_describe_themselves) parts.push(ic.how_they_describe_themselves);
+                if (Array.isArray(ic.pain_points) && ic.pain_points.length > 0) parts.push(`Pain points: ${ic.pain_points.join(', ')}`);
+                if (Array.isArray(ic.goals) && ic.goals.length > 0) parts.push(`Goals: ${ic.goals.join(', ')}`);
+                const audience = parts.filter(Boolean).join('. ');
                 if (audience) merged.target_audience = audience;
             }
 
@@ -253,14 +258,19 @@ export default function BrandIdentityGuide() {
                 <Link to={createPageUrl('StrategyFormBrandIdentity')} className="inline-flex items-center text-sm text-[var(--text-soft)] hover:text-[var(--primary-gold)] mb-4">
                     <ArrowLeft className="w-4 h-4 mr-1" /> Back to Brand Identity Form
                 </Link>
-                <div className="flex items-center gap-3">
-                    <div className="bg-gradient-to-br from-purple-500 to-pink-600 p-3 rounded-xl">
-                        <Palette className="w-8 h-8 text-white" />
+                <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                        <div className="bg-gradient-to-br from-purple-500 to-pink-600 p-3 rounded-xl">
+                            <Palette className="w-8 h-8 text-white" />
+                        </div>
+                        <div>
+                            <h1 className="text-3xl font-bold text-[var(--text-main)]">Brand Identity Guide</h1>
+                            <p className="text-[var(--text-soft)]">AI-powered brand messaging, copy & content generation</p>
+                        </div>
                     </div>
-                    <div>
-                        <h1 className="text-3xl font-bold text-[var(--text-main)]">Brand Identity Guide</h1>
-                        <p className="text-[var(--text-soft)]">AI-powered brand messaging, copy & content generation</p>
-                    </div>
+                    <button onClick={loadData} className="btn btn-secondary text-xs flex-shrink-0">
+                        <RefreshCw className="w-4 h-4" />
+                    </button>
                 </div>
             </div>
 
