@@ -1,19 +1,21 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { generateBrandCopy } from '@/functions/generateBrandCopy';
 import {
     Palette, Sparkles, Loader2, CheckCircle, ArrowLeft, ArrowRight,
     Save, ChevronRight, Target, Users, MessageSquare,
-    Zap, Copy, RefreshCw, Info, Star, Megaphone, Mail, Mic
+    Zap, Copy, RefreshCw, Info, Star, Megaphone, Mail, Mic,
+    Package, Eye, Globe, HelpCircle, Heart, ShoppingBag
 } from 'lucide-react';
 
 const STEPS = [
     { id: 1, title: 'Brand Foundation', icon: Target, desc: 'Mission, vision & values' },
-    { id: 2, title: 'Your Audience', icon: Users, desc: 'Who you serve' },
-    { id: 3, title: 'Brand Voice', icon: MessageSquare, desc: 'Tone & personality' },
-    { id: 4, title: 'Generate Copy', icon: Sparkles, desc: 'AI creates your messaging' },
+    { id: 2, title: 'Audience & UVP', icon: Users, desc: 'Who you serve' },
+    { id: 3, title: 'Voice & Look', icon: Eye, desc: 'Tone, personality & visuals' },
+    { id: 4, title: 'Products', icon: Package, desc: 'Your offerings' },
+    { id: 5, title: 'Generate Copy', icon: Sparkles, desc: 'AI creates your messaging' },
 ];
 
 const CopyBlock = ({ label, icon: IconComp, content, color }) => {
@@ -41,7 +43,6 @@ const CopyBlock = ({ label, icon: IconComp, content, color }) => {
 };
 
 export default function BrandIdentityGuide() {
-    const navigate = useNavigate();
     const [step, setStep] = useState(1);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -59,11 +60,13 @@ export default function BrandIdentityGuide() {
         tone_of_voice: '',
         unique_value_proposition: '',
         brand_personality: '',
+        brand_colors: '',
+        brand_fonts: '',
+        brand_visual_style: '',
+        products: [],
     });
 
-    useEffect(() => {
-        loadData();
-    }, []);
+    useEffect(() => { loadData(); }, []);
 
     const loadData = async () => {
         setLoading(true);
@@ -77,6 +80,11 @@ export default function BrandIdentityGuide() {
                 base44.entities.BrandKit.filter({ created_by: user.email }),
             ]);
 
+            // Pull products from financial projections
+            const financialProducts = (user.financial_projections?.products || [])
+                .filter(p => p.name)
+                .map(p => ({ id: p.id, name: p.name, description: p.description || '', price: p.price || '' }));
+
             const merged = {
                 brand_name: '',
                 mission: '',
@@ -86,6 +94,10 @@ export default function BrandIdentityGuide() {
                 tone_of_voice: '',
                 unique_value_proposition: '',
                 brand_personality: '',
+                brand_colors: '',
+                brand_fonts: '',
+                brand_visual_style: '',
+                products: financialProducts,
             };
 
             if (missionDocs.length > 0) {
@@ -111,22 +123,34 @@ export default function BrandIdentityGuide() {
                 if (bd.brand_personality?.traits) merged.brand_personality = bd.brand_personality.traits;
             }
 
-            setFormData(merged);
-
             if (kits.length > 0) {
                 const kit = kits[0];
                 setBrandKitId(kit.id);
+                if (kit.brand_colors) merged.brand_colors = kit.brand_colors;
+                if (kit.brand_fonts) merged.brand_fonts = kit.brand_fonts;
+                if (kit.brand_visual_style) merged.brand_visual_style = kit.brand_visual_style;
+                // Prefer saved products in kit if they exist, else use financial products
+                if (kit.products && kit.products.length > 0) merged.products = kit.products;
+
                 if (kit.website_hero_copy) {
                     setGeneratedCopy({
                         website_hero_copy: kit.website_hero_copy,
                         social_media_captions: kit.social_media_captions,
                         advertising_taglines: kit.advertising_taglines,
                         email_subject_lines: kit.email_subject_lines,
-                        elevator_pitch: kit.elevator_pitch,
+                        elevator_pitch_long: kit.elevator_pitch_long,
+                        elevator_pitch_short: kit.elevator_pitch_short,
+                        welcome_email_series: kit.welcome_email_series,
+                        about_us_copy: kit.about_us_copy,
+                        services_intro_copy: kit.services_intro_copy,
+                        why_choose_us_copy: kit.why_choose_us_copy,
+                        product_descriptions: kit.product_descriptions,
                     });
-                    setStep(4);
+                    setStep(5);
                 }
             }
+
+            setFormData(merged);
         } catch (e) {
             console.error('Error loading brand data:', e);
         } finally {
@@ -135,6 +159,24 @@ export default function BrandIdentityGuide() {
     };
 
     const updateValue = (key, val) => setFormData(prev => ({ ...prev, [key]: val }));
+
+    const updateProduct = (id, field, val) => {
+        setFormData(prev => ({
+            ...prev,
+            products: prev.products.map(p => p.id === id ? { ...p, [field]: val } : p)
+        }));
+    };
+
+    const addProduct = () => {
+        setFormData(prev => ({
+            ...prev,
+            products: [...prev.products, { id: crypto.randomUUID(), name: '', description: '', price: '' }]
+        }));
+    };
+
+    const removeProduct = (id) => {
+        setFormData(prev => ({ ...prev, products: prev.products.filter(p => p.id !== id) }));
+    };
 
     const handleGenerate = async () => {
         setGenerating(true);
@@ -150,7 +192,7 @@ export default function BrandIdentityGuide() {
                 const created = await base44.entities.BrandKit.create(payload);
                 setBrandKitId(created.id);
             }
-            setStep(4);
+            setStep(5);
         } catch (e) {
             console.error('Generation error:', e);
         } finally {
@@ -185,6 +227,13 @@ export default function BrandIdentityGuide() {
         );
     }
 
+    const SaveBtn = () => (
+        <button onClick={handleSaveProgress} className="btn btn-secondary">
+            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : saved ? <CheckCircle className="w-4 h-4 text-green-500" /> : <Save className="w-4 h-4" />}
+            <span className="ml-2">{saved ? 'Saved!' : 'Save Progress'}</span>
+        </button>
+    );
+
     return (
         <div className="px-4 pb-24 md:pb-10 max-w-3xl mx-auto">
 
@@ -199,7 +248,7 @@ export default function BrandIdentityGuide() {
                     </div>
                     <div>
                         <h1 className="text-3xl font-bold text-[var(--text-main)]">Brand Identity Guide</h1>
-                        <p className="text-[var(--text-soft)]">AI walks you through your brand & generates your messaging</p>
+                        <p className="text-[var(--text-soft)]">AI-powered brand messaging, copy & content generation</p>
                     </div>
                 </div>
             </div>
@@ -208,10 +257,9 @@ export default function BrandIdentityGuide() {
             <div className="card p-4 mb-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 flex items-start gap-3">
                 <Info className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
                 <div>
-                    <p className="text-sm font-semibold text-blue-800 dark:text-blue-200">Auto-filled from your Foundation Roadmap</p>
+                    <p className="text-sm font-semibold text-blue-800 dark:text-blue-200">Auto-filled from your Foundation Roadmap & Financial Calculator</p>
                     <p className="text-xs text-blue-600 dark:text-blue-300 mt-0.5">
-                        We pulled your mission, vision, values and audience from your existing strategy documents. Review and refine below.{' '}
-                        <Link to={createPageUrl('StrategyFormBrandIdentity')} className="underline font-medium">Edit in Brand Identity Form →</Link>
+                        Products are pulled from your <Link to={createPageUrl('FreedomCalculator')} className="underline font-medium">Financial Calculator</Link>. Mission, vision & audience from your strategy documents. Review and refine below.
                     </p>
                 </div>
             </div>
@@ -222,16 +270,12 @@ export default function BrandIdentityGuide() {
                     <div key={s.id} className="flex items-center">
                         <button
                             onClick={() => s.id <= step && setStep(s.id)}
-                            className={`flex flex-col items-center min-w-[80px] px-2 py-2 rounded-lg transition-all ${
+                            className={`flex flex-col items-center min-w-[72px] px-2 py-2 rounded-lg transition-all ${
                                 step === s.id ? 'bg-[var(--primary-gold)] text-white' :
                                 s.id < step ? 'text-green-600 dark:text-green-400' : 'text-[var(--text-soft)]'
                             }`}
                         >
-                            {s.id < step ? (
-                                <CheckCircle className="w-5 h-5 mb-1" />
-                            ) : (
-                                <s.icon className="w-5 h-5 mb-1" />
-                            )}
+                            {s.id < step ? <CheckCircle className="w-5 h-5 mb-1" /> : <s.icon className="w-5 h-5 mb-1" />}
                             <span className="text-xs font-semibold text-center leading-tight">{s.title}</span>
                         </button>
                         {i < STEPS.length - 1 && (
@@ -241,17 +285,15 @@ export default function BrandIdentityGuide() {
                 ))}
             </div>
 
-            {/* STEP 1: Brand Foundation */}
+            {/* ===== STEP 1: Brand Foundation ===== */}
             {step === 1 && (
                 <div className="space-y-6">
                     <div className="card p-6 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border border-purple-200 dark:border-purple-700">
                         <div className="flex items-center gap-2 mb-2">
                             <Target className="w-5 h-5 text-purple-600" />
-                            <h3 className="font-bold text-lg text-[var(--text-main)]">Step 1: Your Brand Foundation</h3>
+                            <h3 className="font-bold text-lg text-[var(--text-main)]">Step 1: Brand Foundation</h3>
                         </div>
-                        <p className="text-sm text-[var(--text-soft)]">
-                            These are pulled from your Foundation Roadmap forms. Review and update them here — they're the core of your brand.
-                        </p>
+                        <p className="text-sm text-[var(--text-soft)]">These core elements define your brand's purpose. They inform every piece of copy the AI will write.</p>
                     </div>
 
                     <div className="card p-6 space-y-4">
@@ -261,94 +303,80 @@ export default function BrandIdentityGuide() {
                         </div>
                         <div>
                             <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">
-                                Mission Statement
-                                {formData.mission && <span className="ml-2 text-xs text-green-600 font-normal">✓ Imported from your forms</span>}
+                                Mission Statement {formData.mission && <span className="ml-2 text-xs text-green-600 font-normal">✓ Imported</span>}
                             </label>
                             <textarea className="form-input" rows={3} value={formData.mission} onChange={e => updateValue('mission', e.target.value)} placeholder="What you do and why you do it..." />
                         </div>
                         <div>
                             <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">
-                                Vision Statement
-                                {formData.vision && <span className="ml-2 text-xs text-green-600 font-normal">✓ Imported from your forms</span>}
+                                Vision Statement {formData.vision && <span className="ml-2 text-xs text-green-600 font-normal">✓ Imported</span>}
                             </label>
-                            <textarea className="form-input" rows={3} value={formData.vision} onChange={e => updateValue('vision', e.target.value)} placeholder="Where you're heading and what you aspire to achieve..." />
+                            <textarea className="form-input" rows={3} value={formData.vision} onChange={e => updateValue('vision', e.target.value)} placeholder="Where you're heading..." />
                         </div>
                         <div>
                             <label className="block text-sm font-semibold text-[var(--text-main)] mb-2">Core Values</label>
                             <div className="space-y-2">
                                 {formData.values.map((val, i) => (
                                     <input key={i} className="form-input" value={val} onChange={e => {
-                                        const arr = [...formData.values];
-                                        arr[i] = e.target.value;
-                                        updateValue('values', arr);
-                                    }} placeholder={`Core Value ${i + 1} (e.g., Integrity, Excellence)`} />
+                                        const arr = [...formData.values]; arr[i] = e.target.value; updateValue('values', arr);
+                                    }} placeholder={`Core Value ${i + 1} (e.g., Integrity)`} />
                                 ))}
                             </div>
                         </div>
                     </div>
 
                     <div className="flex justify-between">
-                        <button onClick={handleSaveProgress} className="btn btn-secondary">
-                            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : saved ? <CheckCircle className="w-4 h-4 text-green-500" /> : <Save className="w-4 h-4" />}
-                            <span className="ml-2">{saved ? 'Saved!' : 'Save Progress'}</span>
-                        </button>
-                        <button onClick={() => setStep(2)} className="btn btn-primary">
-                            Next: Your Audience <ArrowRight className="w-4 h-4 ml-2" />
-                        </button>
+                        <SaveBtn />
+                        <button onClick={() => setStep(2)} className="btn btn-primary">Next: Audience <ArrowRight className="w-4 h-4 ml-2" /></button>
                     </div>
                 </div>
             )}
 
-            {/* STEP 2: Target Audience */}
+            {/* ===== STEP 2: Audience & UVP ===== */}
             {step === 2 && (
                 <div className="space-y-6">
                     <div className="card p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-700">
                         <div className="flex items-center gap-2 mb-2">
                             <Users className="w-5 h-5 text-blue-600" />
-                            <h3 className="font-bold text-lg text-[var(--text-main)]">Step 2: Your Target Audience</h3>
+                            <h3 className="font-bold text-lg text-[var(--text-main)]">Step 2: Target Audience & UVP</h3>
                         </div>
-                        <p className="text-sm text-[var(--text-soft)]">
-                            The AI needs to know exactly who you're speaking to in order to craft the right message. Be as specific as possible.
-                        </p>
+                        <p className="text-sm text-[var(--text-soft)]">The AI needs to know exactly who you're speaking to in order to craft the right message.</p>
                     </div>
 
                     <div className="card p-6 space-y-4">
                         <div>
                             <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">
-                                Target Audience Description
-                                {formData.target_audience && <span className="ml-2 text-xs text-green-600 font-normal">✓ Imported from Ideal Client</span>}
+                                Target Audience {formData.target_audience && <span className="ml-2 text-xs text-green-600 font-normal">✓ Imported from Ideal Client</span>}
                             </label>
                             <textarea className="form-input" rows={5} value={formData.target_audience} onChange={e => updateValue('target_audience', e.target.value)}
-                                placeholder="Describe who you serve in detail: age, profession, challenges, goals, lifestyle." />
+                                placeholder="Describe who you serve: age, profession, challenges, goals, lifestyle." />
                         </div>
                         <div>
                             <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">Unique Value Proposition</label>
                             <textarea className="form-input" rows={3} value={formData.unique_value_proposition} onChange={e => updateValue('unique_value_proposition', e.target.value)}
-                                placeholder="In one clear statement, what unique value do you offer that competitors don't?" />
+                                placeholder="What unique value do you offer that competitors don't?" />
                         </div>
                     </div>
 
                     <div className="flex justify-between">
                         <button onClick={() => setStep(1)} className="btn btn-secondary"><ArrowLeft className="w-4 h-4 mr-2" /> Back</button>
-                        <button onClick={() => setStep(3)} className="btn btn-primary">Next: Brand Voice <ArrowRight className="w-4 h-4 ml-2" /></button>
+                        <button onClick={() => setStep(3)} className="btn btn-primary">Next: Voice & Look <ArrowRight className="w-4 h-4 ml-2" /></button>
                     </div>
                 </div>
             )}
 
-            {/* STEP 3: Brand Voice */}
+            {/* ===== STEP 3: Voice & Look ===== */}
             {step === 3 && (
                 <div className="space-y-6">
                     <div className="card p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-700">
                         <div className="flex items-center gap-2 mb-2">
-                            <MessageSquare className="w-5 h-5 text-green-600" />
-                            <h3 className="font-bold text-lg text-[var(--text-main)]">Step 3: Brand Voice & Personality</h3>
+                            <Eye className="w-5 h-5 text-green-600" />
+                            <h3 className="font-bold text-lg text-[var(--text-main)]">Step 3: Brand Voice & Visual Identity</h3>
                         </div>
-                        <p className="text-sm text-[var(--text-soft)]">
-                            This is how your brand sounds and feels. The AI will use this to write copy that matches your exact communication style.
-                        </p>
+                        <p className="text-sm text-[var(--text-soft)]">How your brand sounds AND looks. The AI uses this to ensure all copy matches your style and aesthetic.</p>
                     </div>
 
-                    <div className="card p-6 space-y-4">
+                    <div className="card p-6 space-y-5">
                         <div>
                             <label className="block text-sm font-semibold text-[var(--text-main)] mb-2">Tone of Voice</label>
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-3">
@@ -359,78 +387,169 @@ export default function BrandIdentityGuide() {
                                     </button>
                                 ))}
                             </div>
-                            <input className="form-input" value={formData.tone_of_voice} onChange={e => updateValue('tone_of_voice', e.target.value)} placeholder="Or type your own tone description..." />
+                            <input className="form-input" value={formData.tone_of_voice} onChange={e => updateValue('tone_of_voice', e.target.value)} placeholder="Or describe your own tone..." />
                         </div>
                         <div>
-                            <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">Brand Personality Traits</label>
-                            <textarea className="form-input" rows={3} value={formData.brand_personality} onChange={e => updateValue('brand_personality', e.target.value)}
+                            <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">Brand Personality</label>
+                            <textarea className="form-input" rows={2} value={formData.brand_personality} onChange={e => updateValue('brand_personality', e.target.value)}
                                 placeholder="If your brand was a person, how would you describe them?" />
                         </div>
-                    </div>
 
-                    <div className="card p-6 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/10 border-2 border-[var(--primary-gold)]">
-                        <div className="flex items-center gap-3 mb-3">
-                            <div className="bg-[var(--primary-gold)] p-2 rounded-lg">
-                                <Sparkles className="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                                <h3 className="font-bold text-[var(--text-main)]">Ready to generate your brand copy!</h3>
-                                <p className="text-sm text-[var(--text-soft)]">The AI will create website copy, social posts, ad taglines, email subject lines & your elevator pitch.</p>
+                        <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+                            <p className="text-sm font-bold text-[var(--text-main)] mb-3 flex items-center gap-2">
+                                <Palette className="w-4 h-4 text-[var(--primary-gold)]" /> Visual Brand Identity
+                            </p>
+                            <div className="space-y-3">
+                                <div>
+                                    <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">Brand Colors</label>
+                                    <input className="form-input" value={formData.brand_colors} onChange={e => updateValue('brand_colors', e.target.value)}
+                                        placeholder="e.g., Primary: Deep Navy #1A2B4C, Accent: Gold #C9A84C, White" />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">Brand Fonts / Typography</label>
+                                    <input className="form-input" value={formData.brand_fonts} onChange={e => updateValue('brand_fonts', e.target.value)}
+                                        placeholder="e.g., Headlines: Poppins Bold, Body: Inter Regular" />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">Visual Style & Aesthetic</label>
+                                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-2">
+                                        {['Clean & Minimal', 'Bold & Modern', 'Luxury & Premium', 'Playful & Fun', 'Earthy & Natural', 'Corporate & Classic'].map(style => (
+                                            <button key={style} onClick={() => updateValue('brand_visual_style', style)}
+                                                className={`px-3 py-2 text-sm rounded-lg border transition-all ${formData.brand_visual_style === style ? 'bg-[var(--primary-gold)] text-white border-[var(--primary-gold)]' : 'border-gray-200 dark:border-gray-700 text-[var(--text-main)] hover:border-[var(--primary-gold)]'}`}>
+                                                {style}
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <input className="form-input" value={formData.brand_visual_style} onChange={e => updateValue('brand_visual_style', e.target.value)}
+                                        placeholder="Or describe your visual style..." />
+                                </div>
                             </div>
                         </div>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs text-[var(--text-soft)] mb-4">
-                            {['Website Hero Copy', 'Social Media Captions', 'Ad Taglines', 'Email Subject Lines', 'Elevator Pitch'].map(item => (
-                                <div key={item} className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-green-500" /> {item}</div>
-                            ))}
-                        </div>
-                        <p className="text-xs text-[var(--text-soft)] italic">Uses Claude AI — may take 15–20 seconds</p>
                     </div>
 
                     <div className="flex justify-between">
                         <button onClick={() => setStep(2)} className="btn btn-secondary"><ArrowLeft className="w-4 h-4 mr-2" /> Back</button>
+                        <button onClick={() => setStep(4)} className="btn btn-primary">Next: Products <ArrowRight className="w-4 h-4 ml-2" /></button>
+                    </div>
+                </div>
+            )}
+
+            {/* ===== STEP 4: Products ===== */}
+            {step === 4 && (
+                <div className="space-y-6">
+                    <div className="card p-6 bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20 border border-orange-200 dark:border-orange-700">
+                        <div className="flex items-center gap-2 mb-2">
+                            <Package className="w-5 h-5 text-orange-600" />
+                            <h3 className="font-bold text-lg text-[var(--text-main)]">Step 4: Your Products & Services</h3>
+                        </div>
+                        <p className="text-sm text-[var(--text-soft)]">
+                            Products are auto-imported from your <Link to={createPageUrl('FreedomCalculator')} className="underline text-orange-600 font-medium">Financial Calculator</Link>. 
+                            Add descriptions so the AI can write compelling product copy.
+                        </p>
+                    </div>
+
+                    <div className="card p-6">
+                        {formData.products.length === 0 ? (
+                            <div className="text-center py-8">
+                                <ShoppingBag className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                                <p className="text-[var(--text-soft)] mb-4">No products found. Add them in your Financial Calculator or create one here.</p>
+                                <Link to={createPageUrl('FreedomCalculator')} className="btn btn-secondary text-sm mr-3">
+                                    Go to Financial Calculator
+                                </Link>
+                                <button onClick={addProduct} className="btn btn-primary text-sm">Add Product Manually</button>
+                            </div>
+                        ) : (
+                            <div className="space-y-4">
+                                {formData.products.map((product, i) => (
+                                    <div key={product.id} className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border">
+                                        <div className="flex justify-between items-center mb-3">
+                                            <span className="font-semibold text-sm text-[var(--text-main)]">Product / Service {i + 1}</span>
+                                            <button onClick={() => removeProduct(product.id)} className="text-red-400 hover:text-red-600 text-xs">Remove</button>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <input className="form-input" value={product.name} onChange={e => updateProduct(product.id, 'name', e.target.value)} placeholder="Product/Service name" />
+                                            <textarea className="form-input" rows={2} value={product.description} onChange={e => updateProduct(product.id, 'description', e.target.value)}
+                                                placeholder="Describe this product/service — what it is, who it's for, the key benefit..." />
+                                            <input className="form-input" value={product.price} onChange={e => updateProduct(product.id, 'price', e.target.value)} placeholder="Price (e.g., $99, $499/mo)" />
+                                        </div>
+                                    </div>
+                                ))}
+                                <button onClick={addProduct} className="btn btn-secondary w-full text-sm">+ Add Another Product</button>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="card p-6 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/10 border-2 border-[var(--primary-gold)]">
+                        <div className="flex items-center gap-3 mb-3">
+                            <div className="bg-[var(--primary-gold)] p-2 rounded-lg"><Sparkles className="w-6 h-6 text-white" /></div>
+                            <div>
+                                <h3 className="font-bold text-[var(--text-main)]">Ready to generate your full brand kit!</h3>
+                                <p className="text-sm text-[var(--text-soft)]">The AI will create all of the following in one shot:</p>
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs text-[var(--text-soft)] mb-3">
+                            {['Website Hero Copy', 'Social Media Captions (3)', '3 Ad Taglines', 'Email Subject Lines', 'Long Elevator Pitch', 'Short Elevator Pitch', '3-Part Welcome Email Series', 'About Us Page', 'Services Page Intro', 'Why Choose Us', 'Product Descriptions'].map(item => (
+                                <div key={item} className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-green-500 flex-shrink-0" /> {item}</div>
+                            ))}
+                        </div>
+                        <p className="text-xs text-[var(--text-soft)] italic">Uses Claude AI — may take 20–30 seconds to generate everything</p>
+                    </div>
+
+                    <div className="flex justify-between">
+                        <button onClick={() => setStep(3)} className="btn btn-secondary"><ArrowLeft className="w-4 h-4 mr-2" /> Back</button>
                         <button onClick={handleGenerate} disabled={generating} className="btn btn-primary text-base px-6">
-                            {generating ? (
-                                <><Loader2 className="w-5 h-5 mr-2 animate-spin" /> Generating Copy...</>
-                            ) : (
-                                <><Sparkles className="w-5 h-5 mr-2" /> Generate My Brand Copy</>
-                            )}
+                            {generating ? <><Loader2 className="w-5 h-5 mr-2 animate-spin" /> Generating...</> : <><Sparkles className="w-5 h-5 mr-2" /> Generate Full Brand Kit</>}
                         </button>
                     </div>
                 </div>
             )}
 
-            {/* STEP 4: Generated Copy */}
-            {step === 4 && generatedCopy && (
+            {/* ===== STEP 5: Generated Copy ===== */}
+            {step === 5 && generatedCopy && (
                 <div className="space-y-5">
                     <div className="card p-5 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-300 dark:border-green-700 flex items-center gap-3">
                         <CheckCircle className="w-8 h-8 text-green-500 flex-shrink-0" />
                         <div>
-                            <h3 className="font-bold text-[var(--text-main)]">Your Brand Messaging is Ready! 🎉</h3>
-                            <p className="text-sm text-[var(--text-soft)]">All copy is saved to your Brand Kit. Click any section to copy it.</p>
+                            <h3 className="font-bold text-[var(--text-main)]">Your Full Brand Kit is Ready! 🎉</h3>
+                            <p className="text-sm text-[var(--text-soft)]">All copy saved to your Brand Kit. Click any section to copy it.</p>
                         </div>
-                        <button onClick={() => { setGeneratedCopy(null); setStep(3); }} className="btn btn-ghost text-xs ml-auto flex-shrink-0">
+                        <button onClick={() => { setGeneratedCopy(null); setStep(4); }} className="btn btn-ghost text-xs ml-auto flex-shrink-0">
                             <RefreshCw className="w-3 h-3 mr-1" /> Regenerate
                         </button>
                     </div>
 
-                    {generatedCopy.website_hero_copy && (
-                        <CopyBlock label="Website Hero Copy" icon={Star} content={generatedCopy.website_hero_copy} color="border-purple-400" />
-                    )}
-                    {generatedCopy.elevator_pitch && (
-                        <CopyBlock label="Elevator Pitch" icon={Mic} content={generatedCopy.elevator_pitch} color="border-blue-400" />
-                    )}
-                    {generatedCopy.social_media_captions && (
-                        <CopyBlock label="Social Media Captions" icon={Megaphone} content={generatedCopy.social_media_captions} color="border-pink-400" />
-                    )}
-                    {generatedCopy.advertising_taglines && (
-                        <CopyBlock label="Advertising Taglines" icon={Zap} content={generatedCopy.advertising_taglines} color="border-yellow-400" />
-                    )}
-                    {generatedCopy.email_subject_lines && (
-                        <CopyBlock label="Email Subject Lines" icon={Mail} content={generatedCopy.email_subject_lines} color="border-green-400" />
+                    {/* Website & Pitches */}
+                    <h3 className="text-sm font-bold text-[var(--text-soft)] uppercase tracking-wider pt-2">Website & Pitches</h3>
+                    {generatedCopy.website_hero_copy && <CopyBlock label="Website Hero Copy" icon={Star} content={generatedCopy.website_hero_copy} color="border-purple-400" />}
+                    {generatedCopy.elevator_pitch_long && <CopyBlock label="Elevator Pitch (Long)" icon={Mic} content={generatedCopy.elevator_pitch_long} color="border-blue-400" />}
+                    {generatedCopy.elevator_pitch_short && <CopyBlock label="Elevator Pitch (Short)" icon={Mic} content={generatedCopy.elevator_pitch_short} color="border-indigo-400" />}
+
+                    {/* Brand Copy */}
+                    <h3 className="text-sm font-bold text-[var(--text-soft)] uppercase tracking-wider pt-2">Brand Pages</h3>
+                    {generatedCopy.about_us_copy && <CopyBlock label="About Us Page" icon={Heart} content={generatedCopy.about_us_copy} color="border-rose-400" />}
+                    {generatedCopy.services_intro_copy && <CopyBlock label="Services Page Intro" icon={ShoppingBag} content={generatedCopy.services_intro_copy} color="border-teal-400" />}
+                    {generatedCopy.why_choose_us_copy && <CopyBlock label="Why Choose Us" icon={CheckCircle} content={generatedCopy.why_choose_us_copy} color="border-emerald-400" />}
+
+                    {/* Products */}
+                    {generatedCopy.product_descriptions && (
+                        <>
+                            <h3 className="text-sm font-bold text-[var(--text-soft)] uppercase tracking-wider pt-2">Product Descriptions</h3>
+                            <CopyBlock label="Product / Service Descriptions" icon={Package} content={generatedCopy.product_descriptions} color="border-orange-400" />
+                        </>
                     )}
 
+                    {/* Marketing */}
+                    <h3 className="text-sm font-bold text-[var(--text-soft)] uppercase tracking-wider pt-2">Marketing & Social</h3>
+                    {generatedCopy.advertising_taglines && <CopyBlock label="Ad Taglines (3)" icon={Zap} content={generatedCopy.advertising_taglines} color="border-yellow-400" />}
+                    {generatedCopy.social_media_captions && <CopyBlock label="Social Media Captions" icon={Megaphone} content={generatedCopy.social_media_captions} color="border-pink-400" />}
+
+                    {/* Email */}
+                    <h3 className="text-sm font-bold text-[var(--text-soft)] uppercase tracking-wider pt-2">Email Marketing</h3>
+                    {generatedCopy.email_subject_lines && <CopyBlock label="Email Subject Lines" icon={Mail} content={generatedCopy.email_subject_lines} color="border-cyan-400" />}
+                    {generatedCopy.welcome_email_series && <CopyBlock label="3-Part Welcome Email Series" icon={Mail} content={generatedCopy.welcome_email_series} color="border-green-400" />}
+
                     <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                        <button onClick={() => setStep(3)} className="btn btn-secondary flex-1">
+                        <button onClick={() => setStep(4)} className="btn btn-secondary flex-1">
                             <ArrowLeft className="w-4 h-4 mr-2" /> Refine & Regenerate
                         </button>
                         <Link to={createPageUrl('StrategyFormBrandIdentity')} className="btn btn-primary flex-1 justify-center">
@@ -440,11 +559,11 @@ export default function BrandIdentityGuide() {
                 </div>
             )}
 
-            {step === 4 && !generatedCopy && (
+            {step === 5 && !generatedCopy && (
                 <div className="text-center py-10">
                     <Sparkles className="w-10 h-10 text-[var(--primary-gold)] mx-auto mb-3" />
                     <p className="text-[var(--text-soft)]">No copy generated yet. Go back and complete your brand details.</p>
-                    <button onClick={() => setStep(3)} className="btn btn-primary mt-4">Back to Generate</button>
+                    <button onClick={() => setStep(4)} className="btn btn-primary mt-4">Back to Generate</button>
                 </div>
             )}
         </div>
