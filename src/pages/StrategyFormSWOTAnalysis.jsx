@@ -55,48 +55,22 @@ const swotQuadrants = [
 
 export default function StrategyFormSWOTAnalysis() {
     const navigate = useNavigate();
-    const [user, setUser] = useState(null);
-    const [document, setDocument] = useState(null); // Corresponds to existingDoc in the outline
-    const [formData, setFormData] = useState({});
-    const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
     const [aiContext, setAiContext] = useState({});
     const [viewMode, setViewMode] = useState('edit');
+    const [formData, setFormData] = useState({});
+
+    const { formData: savedData, loading, saving, saved, saveDoc, canEdit, user } = useTeamStrategyDoc('swot_analysis');
 
     useEffect(() => {
-        loadData();
-    }, []);
-
-    const loadData = async () => {
-        try {
-            const userData = await User.me();
-            setUser(userData);
-
-            // Try to load existing document
-            const docs = await StrategyDocument.filter({
-                created_by: userData.email,
-                document_type: 'swot_analysis'
-            }, '-updated_date', 1);
-
-            if (docs.length > 0) {
-                const doc = docs[0];
-                setDocument(doc);
-                setFormData(doc.content || {});
-            } else {
-                // Initialize empty form
-                const emptyForm = {};
-                swotQuadrants.forEach(quad => {
-                    emptyForm[quad.id] = [''];
-                });
-                setFormData(emptyForm);
-            }
-        } catch (error) {
-            console.error("Error loading SWOT data:", error);
-        } finally {
-            setLoading(false);
+        if (savedData) {
+            setFormData(savedData);
+        } else if (!loading) {
+            const emptyForm = {};
+            swotQuadrants.forEach(quad => { emptyForm[quad.id] = ['']; });
+            setFormData(emptyForm);
         }
-    };
+    }, [savedData, loading]);
 
     const handleItemChange = (quadrantId, index, value) => {
         setFormData(prev => ({
