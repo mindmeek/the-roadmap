@@ -217,65 +217,25 @@ export default function StrategyFormPricingStrategies() {
 
     const handleStrategyToggle = (strategyId) => {
         if (selectedStrategies.includes(strategyId)) {
-            setSelectedStrategies(selectedStrategies.filter(id => id !== strategyId));
             const newDetails = { ...strategyDetails };
             delete newDetails[strategyId];
-            setStrategyDetails(newDetails);
+            setFormData({ ...formData, selected_strategies: selectedStrategies.filter(id => id !== strategyId), strategy_details: newDetails });
         } else {
-            setSelectedStrategies([...selectedStrategies, strategyId]);
+            setFormData({ ...formData, selected_strategies: [...selectedStrategies, strategyId] });
         }
     };
 
     const handleStrategyDetailChange = (strategyId, field, value) => {
-        setStrategyDetails({
-            ...strategyDetails,
-            [strategyId]: {
-                ...strategyDetails[strategyId],
-                [field]: value
-            }
-        });
+        setFormData({ ...formData, strategy_details: { ...strategyDetails, [strategyId]: { ...strategyDetails[strategyId], [field]: value } } });
     };
 
     const handleSave = async () => {
-        setSaving(true);
         try {
-            const content = {
-                selected_strategies: selectedStrategies,
-                strategy_details: strategyDetails,
-                current_pricing: currentPricing,
-                pricing_challenges: pricingChallenges,
-                target_customer_willingness: targetCustomerWillingness
-            };
-
-            const existingDocs = await base44.entities.StrategyDocument.filter({
-                created_by: user.email,
-                document_type: 'pricing_strategies'
-            });
-
-            if (existingDocs.length > 0) {
-                await base44.entities.StrategyDocument.update(existingDocs[0].id, {
-                    content,
-                    is_completed: true,
-                    last_updated: new Date().toISOString()
-                });
-            } else {
-                await base44.entities.StrategyDocument.create({
-                    document_type: 'pricing_strategies',
-                    title: 'My Pricing Strategies',
-                    content,
-                    is_completed: true,
-                    entrepreneurship_stage: user.entrepreneurship_stage,
-                    last_updated: new Date().toISOString()
-                });
-            }
-
+            await saveDoc();
             alert('Pricing strategies saved successfully!');
             navigate(createPageUrl('MyFoundationRoadmap'));
         } catch (error) {
-            console.error('Error saving:', error);
             alert('Failed to save pricing strategies.');
-        } finally {
-            setSaving(false);
         }
     };
 
