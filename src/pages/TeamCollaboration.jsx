@@ -29,62 +29,23 @@ const DOC_TYPE_LABELS = {
 };
 
 export default function TeamCollaboration() {
-    const [user, setUser] = useState(null);
-    const [business, setBusiness] = useState(null);
+    const { loading, business, teamMembers: initialMembers, strategyDocs, myRole, currentUser: user, reload } = useBusinessContext();
     const [teamMembers, setTeamMembers] = useState([]);
-    const [strategyDocs, setStrategyDocs] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('team');
     const [showInviteForm, setShowInviteForm] = useState(false);
     const [inviteData, setInviteData] = useState({ email: '', full_name: '', role: 'editor' });
     const [inviting, setInviting] = useState(false);
     const [inviteSuccess, setInviteSuccess] = useState(false);
-    const [currentUserRole, setCurrentUserRole] = useState(null);
     const [selectedDoc, setSelectedDoc] = useState(null);
     const [copiedToken, setCopiedToken] = useState(null);
 
     useEffect(() => {
-        loadAll();
-    }, []);
+        setTeamMembers(initialMembers || []);
+    }, [initialMembers]);
 
-    const loadAll = async () => {
-        setLoading(true);
-        try {
-            const userData = await base44.auth.me();
-            setUser(userData);
+    const currentUserRole = myRole;
 
-            const selectedBusinessId = localStorage.getItem('selectedBusinessId');
-
-            const [businesses, docs] = await Promise.all([
-                base44.entities.Business.filter({ owner_user_id: userData.id }, '-updated_date', 10),
-                base44.entities.StrategyDocument.filter({}, '-updated_date', 20),
-            ]);
-
-            let biz = null;
-            if (selectedBusinessId) {
-                biz = businesses.find(b => b.id === selectedBusinessId) || businesses[0] || null;
-            } else {
-                biz = businesses[0] || null;
-            }
-
-            setBusiness(biz);
-            setStrategyDocs(docs);
-
-            if (biz) {
-                const members = await base44.entities.TeamMember.filter({ business_id: biz.id });
-                console.log('Loaded team members for business', biz.id, ':', members);
-                setTeamMembers(members);
-                const myRecord = members.find(m => m.user_id === userData.id || m.email === userData.email);
-                setCurrentUserRole(myRecord?.role || (biz.owner_user_id === userData.id ? 'owner' : null));
-            } else {
-                setCurrentUserRole('owner');
-            }
-        } catch (err) {
-            console.error('Error loading team data:', err);
-        } finally {
-            setLoading(false);
-        }
-    };
+    const loadAll = reload;
 
     const canManage = ['owner', 'admin'].includes(currentUserRole) || user?.role === 'admin';
 
