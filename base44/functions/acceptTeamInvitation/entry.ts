@@ -42,8 +42,8 @@ Deno.serve(async (req) => {
             invitation_token: ''
         });
 
-        // Get business details
-        const business = await base44.entities.Business.get(teamMember.business_id);
+        // Get business details (use service role so it works regardless of RLS)
+        const business = await base44.asServiceRole.entities.Business.get(teamMember.business_id);
 
         // Notify the business owner that someone accepted the invite
         try {
