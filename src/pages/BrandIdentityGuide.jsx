@@ -133,7 +133,8 @@ export default function BrandIdentityGuide() {
                 if (bd.core_values?.some(Boolean)) merged.values = bd.core_values;
                 if (bd.unique_value_proposition) merged.unique_value_proposition = bd.unique_value_proposition;
                 if (bd.tone_of_voice) merged.tone_of_voice = bd.tone_of_voice;
-                if (bd.brand_personality) merged.brand_personality = bd.brand_personality;
+                // Handle brand_personality as a string, not object
+                if (typeof bd.brand_personality === 'string') merged.brand_personality = bd.brand_personality;
                 if (bd.brand_colors) merged.brand_colors = bd.brand_colors;
                 if (bd.brand_fonts) merged.brand_fonts = bd.brand_fonts;
                 if (bd.brand_visual_style) merged.brand_visual_style = bd.brand_visual_style;
