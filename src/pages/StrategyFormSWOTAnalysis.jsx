@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { User, StrategyDocument } from '@/entities/all';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { 
     ArrowLeft, Save, TrendingUp, Loader2, CheckCircle, Lightbulb, Plus, Minus,
-    Sparkles, AlertTriangle, Zap, Shield 
+    Sparkles, AlertTriangle, Zap, Shield, Lock
 } from 'lucide-react';
-import { handleGamification } from '@/functions/handleGamification';
 import AITeamModal from '@/components/ai/AITeamModal';
 import SWOTAnalysisOverview from '@/components/strategy/SWOTAnalysisOverview';
 import FoundationFormNav from '@/components/foundation/FoundationFormNav';
+import useTeamStrategyDoc from '@/hooks/useTeamStrategyDoc';
 
 const swotQuadrants = [
     {
