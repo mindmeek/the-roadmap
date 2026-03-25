@@ -37,18 +37,22 @@ const CopyBlock = ({ label, icon: IconComp, content, color, type }) => {
         if (type === 'social_captions') {
             return content.split(/(?:\n\n+|---)/g).filter(post => post.trim()).map((post, i) => (
                 <div key={i} className="mb-8 pb-8 border-b-2 border-gray-200 dark:border-gray-700 last:border-0 last:mb-0 last:pb-0">
-                    <p className="text-sm text-[var(--text-main)] whitespace-pre-wrap leading-relaxed">{post.trim()}</p>
+                    <p className="text-sm text-[var(--text-main)] leading-relaxed whitespace-normal">{post.trim()}</p>
                 </div>
             ));
         }
         if (type === 'product_descriptions') {
             return content.split(/(?:\n\n+)/g).filter(desc => desc.trim()).map((desc, i) => (
                 <div key={i} className="mb-8 pb-8 border-b-2 border-gray-200 dark:border-gray-700 last:border-0 last:mb-0 last:pb-0">
-                    <p className="text-sm text-[var(--text-main)] whitespace-pre-wrap leading-relaxed">{desc.trim()}</p>
+                    <p className="text-sm text-[var(--text-main)] leading-relaxed whitespace-normal">{desc.trim()}</p>
                 </div>
             ));
         }
-        return <p className="text-sm text-[var(--text-main)] whitespace-pre-line leading-relaxed">{content}</p>;
+        // Break up longer content by natural paragraph breaks
+        const lines = content.split('\n').filter(line => line.trim());
+        return lines.map((line, i) => (
+            <p key={i} className="text-sm text-[var(--text-main)] leading-relaxed mb-3 last:mb-0">{line}</p>
+        ));
     };
 
     return (
