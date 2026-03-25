@@ -73,10 +73,11 @@ export default function BrandIdentityGuide() {
         try {
             const user = await base44.auth.me();
 
-            const [brandDocs, missionDocs, idealClientDocs, kits] = await Promise.all([
+            const [brandDocs, missionDocs, idealClientDocs, vpDocs, kits] = await Promise.all([
                 base44.entities.StrategyDocument.filter({ created_by: user.email, document_type: 'brand_identity' }),
                 base44.entities.StrategyDocument.filter({ created_by: user.email, document_type: 'mission_vision' }),
                 base44.entities.StrategyDocument.filter({ created_by: user.email, document_type: 'ideal_client' }),
+                base44.entities.StrategyDocument.filter({ created_by: user.email, document_type: 'value_proposition_canvas' }),
                 base44.entities.BrandKit.filter({ created_by: user.email }),
             ]);
 
@@ -112,6 +113,13 @@ export default function BrandIdentityGuide() {
                 if (audience) merged.target_audience = audience;
             }
 
+            if (vpDocs.length > 0) {
+                const vp = vpDocs[0].content || {};
+                if (!merged.unique_value_proposition && vp.unique_value_proposition) {
+                    merged.unique_value_proposition = vp.unique_value_proposition;
+                }
+            }
+
             if (brandDocs.length > 0) {
                 const bd = brandDocs[0].content || {};
                 if (bd.brand_name) merged.brand_name = bd.brand_name;
@@ -119,8 +127,11 @@ export default function BrandIdentityGuide() {
                 if (bd.vision_statement) merged.vision = bd.vision_statement;
                 if (bd.core_values?.some(Boolean)) merged.values = bd.core_values;
                 if (bd.unique_value_proposition) merged.unique_value_proposition = bd.unique_value_proposition;
-                if (bd.brand_personality?.tone_of_voice) merged.tone_of_voice = bd.brand_personality.tone_of_voice;
-                if (bd.brand_personality?.traits) merged.brand_personality = bd.brand_personality.traits;
+                if (bd.tone_of_voice) merged.tone_of_voice = bd.tone_of_voice;
+                if (bd.brand_personality) merged.brand_personality = bd.brand_personality;
+                if (bd.brand_colors) merged.brand_colors = bd.brand_colors;
+                if (bd.brand_fonts) merged.brand_fonts = bd.brand_fonts;
+                if (bd.brand_visual_style) merged.brand_visual_style = bd.brand_visual_style;
             }
 
             if (kits.length > 0) {
@@ -352,7 +363,9 @@ export default function BrandIdentityGuide() {
                                 placeholder="Describe who you serve: age, profession, challenges, goals, lifestyle." />
                         </div>
                         <div>
-                            <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">Unique Value Proposition</label>
+                            <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">
+                                Unique Value Proposition {formData.unique_value_proposition && <span className="ml-2 text-xs text-green-600 font-normal">✓ Imported</span>}
+                            </label>
                             <textarea className="form-input" rows={3} value={formData.unique_value_proposition} onChange={e => updateValue('unique_value_proposition', e.target.value)}
                                 placeholder="What unique value do you offer that competitors don't?" />
                         </div>
@@ -378,7 +391,9 @@ export default function BrandIdentityGuide() {
 
                     <div className="card p-6 space-y-5">
                         <div>
-                            <label className="block text-sm font-semibold text-[var(--text-main)] mb-2">Tone of Voice</label>
+                            <label className="block text-sm font-semibold text-[var(--text-main)] mb-2">
+                                Tone of Voice {formData.tone_of_voice && <span className="ml-2 text-xs text-green-600 font-normal">✓ Imported</span>}
+                            </label>
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-3">
                                 {['Professional', 'Conversational', 'Bold & Confident', 'Warm & Empathetic', 'Inspirational', 'Educational'].map(tone => (
                                     <button key={tone} onClick={() => updateValue('tone_of_voice', tone)}
@@ -390,7 +405,9 @@ export default function BrandIdentityGuide() {
                             <input className="form-input" value={formData.tone_of_voice} onChange={e => updateValue('tone_of_voice', e.target.value)} placeholder="Or describe your own tone..." />
                         </div>
                         <div>
-                            <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">Brand Personality</label>
+                            <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">
+                                Brand Personality {formData.brand_personality && <span className="ml-2 text-xs text-green-600 font-normal">✓ Imported</span>}
+                            </label>
                             <textarea className="form-input" rows={2} value={formData.brand_personality} onChange={e => updateValue('brand_personality', e.target.value)}
                                 placeholder="If your brand was a person, how would you describe them?" />
                         </div>
@@ -401,17 +418,23 @@ export default function BrandIdentityGuide() {
                             </p>
                             <div className="space-y-3">
                                 <div>
-                                    <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">Brand Colors</label>
+                                    <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">
+                                        Brand Colors {formData.brand_colors && <span className="ml-2 text-xs text-green-600 font-normal">✓ Imported</span>}
+                                    </label>
                                     <input className="form-input" value={formData.brand_colors} onChange={e => updateValue('brand_colors', e.target.value)}
                                         placeholder="e.g., Primary: Deep Navy #1A2B4C, Accent: Gold #C9A84C, White" />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">Brand Fonts / Typography</label>
+                                    <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">
+                                        Brand Fonts / Typography {formData.brand_fonts && <span className="ml-2 text-xs text-green-600 font-normal">✓ Imported</span>}
+                                    </label>
                                     <input className="form-input" value={formData.brand_fonts} onChange={e => updateValue('brand_fonts', e.target.value)}
                                         placeholder="e.g., Headlines: Poppins Bold, Body: Inter Regular" />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">Visual Style & Aesthetic</label>
+                                    <label className="block text-sm font-semibold text-[var(--text-main)] mb-1">
+                                        Visual Style & Aesthetic {formData.brand_visual_style && <span className="ml-2 text-xs text-green-600 font-normal">✓ Imported</span>}
+                                    </label>
                                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-2">
                                         {['Clean & Minimal', 'Bold & Modern', 'Luxury & Premium', 'Playful & Fun', 'Earthy & Natural', 'Corporate & Classic'].map(style => (
                                             <button key={style} onClick={() => updateValue('brand_visual_style', style)}
