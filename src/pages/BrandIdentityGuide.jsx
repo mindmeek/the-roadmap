@@ -814,7 +814,6 @@ export default function BrandIdentityGuide() {
                     {generatedCopy.email_subject_lines && <CopyBlock label="Email Subject Lines" icon={Mail} content={generatedCopy.email_subject_lines} color="border-cyan-400" />}
                     {generatedCopy.welcome_email_series && <CopyBlock label="3-Part Welcome Email Series" icon={Mail} content={generatedCopy.welcome_email_series} color="border-green-400" />}
                     </div>
-                    </div>
 
                     {/* Action Buttons */}
                     <div className="flex flex-col sm:flex-row gap-3 pt-6 no-print">
