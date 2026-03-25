@@ -48,24 +48,48 @@ export default function MyFinancialGoal() {
     pricingType: 'per_unit', costType: 'per_unit', affiliateVisible: false, affiliateCommission: ''
   }]);
 
+  const applyProjections = (projections) => {
+    if (projections) {
+      setMonthlyExpenses(String(projections.monthlyExpenses || ''));
+      setDesiredSalary(String(projections.desiredSalary || ''));
+      setBusinessExpenses(String(projections.businessExpenses || ''));
+      setEmergencyBuffer(String(projections.emergencyBuffer || '20'));
+      setTeamMembers(projections.teamMembers || []);
+      setAffiliatePrograms(projections.affiliatePrograms || []);
+      setProducts((projections.products || [{
+        id: crypto.randomUUID(), name: '', price: '', cost: '',
+        pricingType: 'per_unit', costType: 'per_unit', affiliateVisible: false, affiliateCommission: ''
+      }]).map(p => ({ affiliateVisible: false, affiliateCommission: '', ...p })));
+    }
+  };
+
   useEffect(() => {
     const loadData = async () => {
       try {
         const userData = await User.me();
         setUser(userData);
-        const projections = userData.financial_projections;
-        if (projections) {
-          setMonthlyExpenses(String(projections.monthlyExpenses || ''));
-          setDesiredSalary(String(projections.desiredSalary || ''));
-          setBusinessExpenses(String(projections.businessExpenses || ''));
-          setEmergencyBuffer(String(projections.emergencyBuffer || '20'));
-          setTeamMembers(projections.teamMembers || []);
-          setAffiliatePrograms(projections.affiliatePrograms || []);
-          setProducts((projections.products || [{
-            id: crypto.randomUUID(), name: '', price: '', cost: '',
-            pricingType: 'per_unit', costType: 'per_unit', affiliateVisible: false, affiliateCommission: ''
-          }]).map(p => ({ affiliateVisible: false, affiliateCommission: '', ...p })));
+
+        // Check if user is viewing as a team member
+        const selectedBusinessId = localStorage.getItem('selectedBusinessId');
+        if (selectedBusinessId) {
+          // Check if user owns this business
+          const ownedBiz = await base44.entities.Business.filter({ owner_user_id: userData.id });
+          const isOwner = ownedBiz.some(b => b.id === selectedBusinessId);
+
+          if (!isOwner) {
+            // Team member — load owner's financial projections
+            const result = await base44.functions.invoke('getOwnerFinancialProjections', { business_id: selectedBusinessId });
+            if (result.data.success) {
+              setTeamBusinessId(selectedBusinessId);
+              applyProjections(result.data.financial_projections);
+              setLoading(false);
+              return;
+            }
+          }
         }
+
+        // Owner or no business selected — load own data
+        applyProjections(userData.financial_projections);
       } catch (error) {
         console.error("Error loading data:", error);
       } finally {
