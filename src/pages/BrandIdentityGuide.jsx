@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { generateBrandCopy } from '@/functions/generateBrandCopy';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import {
     Palette, Sparkles, Loader2, CheckCircle, ArrowLeft, ArrowRight,
     Save, ChevronRight, Target, Users, MessageSquare,
     Zap, Copy, RefreshCw, Info, Star, Megaphone, Mail, Mic,
-    Package, Eye, Globe, HelpCircle, Heart, ShoppingBag
+    Package, Eye, Globe, HelpCircle, Heart, ShoppingBag, Download
 } from 'lucide-react';
 
 const STEPS = [
@@ -111,6 +113,8 @@ export default function BrandIdentityGuide() {
     const [saved, setSaved] = useState(false);
     const [brandKitId, setBrandKitId] = useState(null);
     const [generatedCopy, setGeneratedCopy] = useState(null);
+    const [exporting, setExporting] = useState(false);
+    const pdfRef = useRef(null);
 
     const [formData, setFormData] = useState({
         brand_name: '',
@@ -305,6 +309,46 @@ export default function BrandIdentityGuide() {
         );
     }
 
+    const handleExportPDF = async () => {
+        if (!pdfRef.current) return;
+        setExporting(true);
+        try {
+            const canvas = await html2canvas(pdfRef.current, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#ffffff'
+            });
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            });
+            const imgWidth = 210;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 0;
+
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= 297;
+
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= 297;
+            }
+
+            pdf.save(`${formData.brand_name || 'Brand-Identity'}-Guide.pdf`);
+        } catch (error) {
+            console.error('PDF export error:', error);
+            alert('Failed to export PDF. Please try again.');
+        } finally {
+            setExporting(false);
+        }
+    };
+
     const SaveBtn = () => (
         <button onClick={handleSaveProgress} className="btn btn-secondary">
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : saved ? <CheckCircle className="w-4 h-4 text-green-500" /> : <Save className="w-4 h-4" />}
@@ -313,26 +357,34 @@ export default function BrandIdentityGuide() {
     );
 
     return (
-        <div className="px-4 pb-24 md:pb-10 max-w-3xl mx-auto">
+        <div className="px-4 pb-24 md:pb-10 max-w-5xl mx-auto">
 
             {/* Header */}
-            <div className="mb-6 mt-2">
+            <div className="mb-8 mt-2">
                 <Link to={createPageUrl('StrategyFormBrandIdentity')} className="inline-flex items-center text-sm text-[var(--text-soft)] hover:text-[var(--primary-gold)] mb-4">
                     <ArrowLeft className="w-4 h-4 mr-1" /> Back to Brand Identity Form
                 </Link>
-                <div className="flex items-center justify-between gap-3">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
                         <div className="bg-gradient-to-br from-purple-500 to-pink-600 p-3 rounded-xl">
                             <Palette className="w-8 h-8 text-white" />
                         </div>
                         <div>
                             <h1 className="text-3xl font-bold text-[var(--text-main)]">Brand Identity Guide</h1>
-                            <p className="text-[var(--text-soft)]">AI-powered brand messaging, copy & content generation</p>
+                            <p className="text-[var(--text-soft)]">Professional brand overview & messaging system</p>
                         </div>
                     </div>
-                    <button onClick={loadData} className="btn btn-secondary text-xs flex-shrink-0">
-                        <RefreshCw className="w-4 h-4" />
-                    </button>
+                    <div className="flex gap-2 flex-wrap">
+                        {step === 5 && generatedCopy && (
+                            <button onClick={handleExportPDF} disabled={exporting} className="btn btn-primary text-sm">
+                                {exporting ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Download className="w-4 h-4 mr-1" />}
+                                Export PDF
+                            </button>
+                        )}
+                        <button onClick={loadData} className="btn btn-secondary text-sm" title="Refresh data">
+                            <RefreshCw className="w-4 h-4" />
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -601,26 +653,139 @@ export default function BrandIdentityGuide() {
 
             {/* ===== STEP 5: Generated Copy ===== */}
             {step === 5 && generatedCopy && (
-                <div className="space-y-5">
-                    <div className="card p-5 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-300 dark:border-green-700 flex items-center gap-3">
+                <div className="space-y-8">
+                    {/* PDF Export Section */}
+                    <div className="card p-5 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-300 dark:border-green-700 flex items-center gap-3 no-print">
                         <CheckCircle className="w-8 h-8 text-green-500 flex-shrink-0" />
-                        <div>
+                        <div className="flex-1">
                             <h3 className="font-bold text-[var(--text-main)]">Your Full Brand Kit is Ready! 🎉</h3>
-                            <p className="text-sm text-[var(--text-soft)]">All copy saved to your Brand Kit. Click any section to copy it.</p>
+                            <p className="text-sm text-[var(--text-soft)]">All copy saved to your Brand Kit. Download as PDF or click any section to copy.</p>
                         </div>
-                        <button onClick={() => { setGeneratedCopy(null); setStep(4); }} className="btn btn-ghost text-xs ml-auto flex-shrink-0">
-                            <RefreshCw className="w-3 h-3 mr-1" /> Regenerate
-                        </button>
+                        <div className="flex gap-2 flex-shrink-0">
+                            <button onClick={handleExportPDF} disabled={exporting} className="btn btn-primary text-xs">
+                                {exporting ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <Download className="w-3 h-3 mr-1" />}
+                                PDF
+                            </button>
+                            <button onClick={() => { setGeneratedCopy(null); setStep(4); }} className="btn btn-ghost text-xs">
+                                <RefreshCw className="w-3 h-3 mr-1" /> Regenerate
+                            </button>
+                        </div>
                     </div>
 
+                    {/* Printable Content */}
+                    <div ref={pdfRef} className="space-y-12 bg-white dark:bg-gray-900 p-8 rounded-lg border border-gray-200 dark:border-gray-700">
+                        {/* PDF Header Section */}
+                        <div className="text-center pb-8 border-b-2 border-gray-200">
+                            <h1 className="text-4xl font-bold text-[var(--text-main)] mb-2">{formData.brand_name || 'Brand Identity'}</h1>
+                            <p className="text-lg text-[var(--text-soft)] mb-1">Complete Brand Identity Guide</p>
+                            <p className="text-sm text-[var(--text-soft)]">Generated {new Date().toLocaleDateString()}</p>
+                        </div>
+
+                        {/* Brand Foundation Section */}
+                        <div className="page-break">
+                            <h2 className="text-2xl font-bold text-[var(--text-main)] mb-6 flex items-center gap-2">
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">01</span> Brand Foundation
+                            </h2>
+                            <div className="grid grid-cols-1 gap-6">
+                                {formData.mission && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Mission</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed">{formData.mission}</p>
+                                    </div>
+                                )}
+                                {formData.vision && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Vision</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed">{formData.vision}</p>
+                                    </div>
+                                )}
+                                {formData.values?.some(v => v.trim()) && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-3">Core Values</h3>
+                                        <div className="grid grid-cols-3 gap-3">
+                                            {formData.values.filter(v => v.trim()).map((val, i) => (
+                                                <div key={i} className="bg-white dark:bg-gray-700 p-3 rounded border border-gray-200 dark:border-gray-600">
+                                                    <p className="text-sm font-semibold text-[var(--text-main)]">{val}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Brand Identity Section */}
+                        <div className="page-break">
+                            <h2 className="text-2xl font-bold text-[var(--text-main)] mb-6 flex items-center gap-2">
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">02</span> Brand Identity
+                            </h2>
+                            <div className="grid grid-cols-1 gap-6">
+                                {formData.brand_personality && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Brand Personality</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed">{formData.brand_personality}</p>
+                                    </div>
+                                )}
+                                {formData.tone_of_voice && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Tone of Voice</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed">{formData.tone_of_voice}</p>
+                                    </div>
+                                )}
+                                {formData.brand_colors && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Brand Colors</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed">{formData.brand_colors}</p>
+                                    </div>
+                                )}
+                                {formData.brand_fonts && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Typography</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed">{formData.brand_fonts}</p>
+                                    </div>
+                                )}
+                                {formData.brand_visual_style && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Visual Style</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed">{formData.brand_visual_style}</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Market Position Section */}
+                        <div className="page-break">
+                            <h2 className="text-2xl font-bold text-[var(--text-main)] mb-6 flex items-center gap-2">
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">03</span> Market Position
+                            </h2>
+                            <div className="grid grid-cols-1 gap-6">
+                                {formData.target_audience && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Target Audience</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed whitespace-pre-wrap">{formData.target_audience}</p>
+                                    </div>
+                                )}
+                                {formData.unique_value_proposition && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Unique Value Proposition</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed whitespace-pre-wrap">{formData.unique_value_proposition}</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
                     {/* Website & Pitches */}
-                    <h3 className="text-lg font-bold text-[var(--text-main)] pt-6 pb-3 border-b border-gray-200 dark:border-gray-700">Website & Pitches</h3>
+                    <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
+                        <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">04</span> Website & Pitches
+                    </h3>
                     {generatedCopy.website_hero_copy && <CopyBlock label="Website Hero Copy" icon={Star} content={generatedCopy.website_hero_copy} color="border-purple-400" />}
                     {generatedCopy.elevator_pitch_long && <CopyBlock label="Elevator Pitch (Long)" icon={Mic} content={generatedCopy.elevator_pitch_long} color="border-blue-400" />}
                     {generatedCopy.elevator_pitch_short && <CopyBlock label="Elevator Pitch (Short)" icon={Mic} content={generatedCopy.elevator_pitch_short} color="border-indigo-400" />}
 
                     {/* Brand Copy */}
-                    <h3 className="text-lg font-bold text-[var(--text-main)] pt-6 pb-3 border-b border-gray-200 dark:border-gray-700">Brand Pages</h3>
+                    <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
+                        <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">05</span> Brand Pages
+                    </h3>
                     {generatedCopy.about_us_copy && <CopyBlock label="About Us Page" icon={Heart} content={generatedCopy.about_us_copy} color="border-rose-400" />}
                     {generatedCopy.services_intro_copy && <CopyBlock label="Services Page Intro" icon={ShoppingBag} content={generatedCopy.services_intro_copy} color="border-teal-400" />}
                     {generatedCopy.why_choose_us_copy && <CopyBlock label="Why Choose Us" icon={CheckCircle} content={generatedCopy.why_choose_us_copy} color="border-emerald-400" />}
@@ -628,22 +793,31 @@ export default function BrandIdentityGuide() {
                     {/* Products */}
                     {generatedCopy.product_descriptions && (
                         <>
-                            <h3 className="text-lg font-bold text-[var(--text-main)] pt-6 pb-3 border-b border-gray-200 dark:border-gray-700">Product Descriptions</h3>
+                            <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">06</span> Product Descriptions
+                            </h3>
                             <CopyBlock label="Product / Service Descriptions" icon={Package} content={generatedCopy.product_descriptions} color="border-orange-400" type="product_descriptions" />
                         </>
                     )}
 
                     {/* Marketing */}
-                    <h3 className="text-lg font-bold text-[var(--text-main)] pt-6 pb-3 border-b border-gray-200 dark:border-gray-700">Marketing & Social</h3>
+                    <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
+                        <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">07</span> Marketing & Social
+                    </h3>
                     {generatedCopy.advertising_taglines && <CopyBlock label="Ad Taglines (3)" icon={Zap} content={generatedCopy.advertising_taglines} color="border-yellow-400" type="ad_taglines" />}
                     {generatedCopy.social_media_captions && <CopyBlock label="Social Media Captions" icon={Megaphone} content={generatedCopy.social_media_captions} color="border-pink-400" type="social_captions" />}
 
                     {/* Email */}
-                    <h3 className="text-lg font-bold text-[var(--text-main)] pt-6 pb-3 border-b border-gray-200 dark:border-gray-700">Email Marketing</h3>
+                    <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
+                        <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">08</span> Email Marketing
+                    </h3>
                     {generatedCopy.email_subject_lines && <CopyBlock label="Email Subject Lines" icon={Mail} content={generatedCopy.email_subject_lines} color="border-cyan-400" />}
                     {generatedCopy.welcome_email_series && <CopyBlock label="3-Part Welcome Email Series" icon={Mail} content={generatedCopy.welcome_email_series} color="border-green-400" />}
+                    </div>
+                    </div>
 
-                    <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                    {/* Action Buttons */}
+                    <div className="flex flex-col sm:flex-row gap-3 pt-6 no-print">
                         <button onClick={() => setStep(4)} className="btn btn-secondary flex-1">
                             <ArrowLeft className="w-4 h-4 mr-2" /> Refine & Regenerate
                         </button>
