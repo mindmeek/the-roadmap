@@ -36,17 +36,23 @@ const CopyBlock = ({ label, icon: IconComp, content, color, type }) => {
         }
         if (type === 'social_captions') {
             return content.split(/(?:\n\n+|---)/g).filter(post => post.trim()).map((post, i) => (
-                <div key={i} className="mb-8 pb-8 border-b-2 border-gray-200 dark:border-gray-700 last:border-0 last:mb-0 last:pb-0">
+                <div key={i} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-4 last:mb-0">
                     <p className="text-sm text-[var(--text-main)] leading-relaxed whitespace-normal">{post.trim()}</p>
                 </div>
             ));
         }
         if (type === 'product_descriptions') {
-            return content.split(/(?:\n\n+)/g).filter(desc => desc.trim()).map((desc, i) => (
-                <div key={i} className="mb-8 pb-8 border-b-2 border-gray-200 dark:border-gray-700 last:border-0 last:mb-0 last:pb-0">
-                    <p className="text-sm text-[var(--text-main)] leading-relaxed whitespace-normal">{desc.trim()}</p>
-                </div>
-            ));
+            return content.split(/(?:\n\n+)/g).filter(desc => desc.trim()).map((desc, i) => {
+                const lines = desc.trim().split('\n');
+                const productName = lines[0];
+                const productText = lines.slice(1).join('\n');
+                return (
+                    <div key={i} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-4 last:mb-0">
+                        <h4 className="font-bold text-sm text-[var(--text-main)] mb-2">{productName}</h4>
+                        <p className="text-sm text-[var(--text-soft)] leading-relaxed whitespace-normal">{productText}</p>
+                    </div>
+                );
+            });
         }
         // Break up longer content by natural paragraph breaks
         const lines = content.split('\n').filter(line => line.trim());
