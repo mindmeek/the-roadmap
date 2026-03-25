@@ -52,8 +52,8 @@ Deno.serve(async (req) => {
                 const ownerEmail = ownerUsers[0].email;
                 await base44.asServiceRole.integrations.Core.SendEmail({
                     to: ownerEmail,
-                    subject: `${user.full_name || user.email} joined your team on Business Minds`,
-                    body: `<h2>New Team Member!</h2><p><strong>${user.full_name || user.email}</strong> has accepted your invitation and joined <strong>${business.name}</strong> as a <strong>${teamMember.role}</strong>.</p><p><a href="${req.headers.get('origin')}/TeamCollaboration" style="display:inline-block;padding:12px 24px;background-color:#8B6F4E;color:white;text-decoration:none;border-radius:5px;">View Team</a></p>`
+                    subject: `${user.full_name || user.email} joined your team on The HQ Roadmap`,
+                    body: `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;"><h1 style="color:#8B6F4E;">The HQ Roadmap</h1><h2>New Team Member!</h2><p><strong>${user.full_name || user.email}</strong> has accepted your invitation and joined <strong>${business.name}</strong> as a <strong>${teamMember.role}</strong>.</p><div style="text-align:center;margin:30px 0;"><a href="${req.headers.get('origin')}/TeamCollaboration" style="display:inline-block;padding:12px 24px;background-color:#8B6F4E;color:white;text-decoration:none;border-radius:5px;font-weight:bold;">View Team</a></div><p style="color:#6B7280;font-size:13px;">The Business Minds HQ Team</p></div>`
                 });
                 await base44.asServiceRole.entities.Notification.create({
                     recipient_email: ownerEmail,
