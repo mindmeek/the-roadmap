@@ -315,6 +315,7 @@ export default function StrategyFormSWOTAnalysis() {
                                             onChange={(e) => handleItemChange(quadrant.id, index, e.target.value)}
                                             placeholder={`${quadrant.title.slice(0, -1)} ${index + 1}`}
                                             className="form-input flex-1 text-sm"
+                                            disabled={!canEdit}
                                         />
                                         {(formData[quadrant.id] || []).length > 1 && (
                                             <button
