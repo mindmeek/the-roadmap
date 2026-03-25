@@ -132,9 +132,20 @@ export default function BrandIdentityGuide() {
         tone_of_voice: '',
         unique_value_proposition: '',
         brand_personality: '',
+        brand_archetype: '',
+        brand_promise: '',
+        brand_positioning_statement: '',
         brand_colors: '',
         brand_fonts: '',
         brand_visual_style: '',
+        logo_usage_guidelines: '',
+        iconography_style: '',
+        photography_imagery_guidelines: '',
+        brand_elements_patterns: '',
+        extended_key_messages: '',
+        vocabulary_glossary: '',
+        content_style_guide: '',
+        brand_touchpoints_checklist: '',
         products: [],
     });
 
@@ -688,10 +699,37 @@ export default function BrandIdentityGuide() {
                             <p className="text-sm text-[var(--text-soft)]">Generated {new Date().toLocaleDateString()}</p>
                         </div>
 
+                        {/* Brand Framework Section */}
+                        <div className="page-break">
+                            <h2 className="text-2xl font-bold text-[var(--text-main)] mb-6 flex items-center gap-2">
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">01</span> Brand Framework
+                            </h2>
+                            <div className="grid grid-cols-1 gap-6">
+                                {formData.brand_archetype && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Brand Archetype</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed">{formData.brand_archetype}</p>
+                                    </div>
+                                )}
+                                {formData.brand_promise && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Brand Promise</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed">{formData.brand_promise}</p>
+                                    </div>
+                                )}
+                                {formData.brand_positioning_statement && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Brand Positioning Statement</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed">{formData.brand_positioning_statement}</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
                         {/* Brand Foundation Section */}
                         <div className="page-break">
                             <h2 className="text-2xl font-bold text-[var(--text-main)] mb-6 flex items-center gap-2">
-                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">01</span> Brand Foundation
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">02</span> Brand Foundation
                             </h2>
                             <div className="grid grid-cols-1 gap-6">
                                 {formData.mission && (
@@ -760,10 +798,43 @@ export default function BrandIdentityGuide() {
                             </div>
                         </div>
 
+                        {/* Visual & Design Guidelines */}
+                        <div className="page-break">
+                            <h2 className="text-2xl font-bold text-[var(--text-main)] mb-6 flex items-center gap-2">
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">03</span> Visual & Design Guidelines
+                            </h2>
+                            <div className="grid grid-cols-1 gap-6">
+                                {formData.logo_usage_guidelines && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Logo Usage Guidelines</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed whitespace-pre-wrap">{formData.logo_usage_guidelines}</p>
+                                    </div>
+                                )}
+                                {formData.iconography_style && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Iconography Style</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed whitespace-pre-wrap">{formData.iconography_style}</p>
+                                    </div>
+                                )}
+                                {formData.photography_imagery_guidelines && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Photography & Imagery Guidelines</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed whitespace-pre-wrap">{formData.photography_imagery_guidelines}</p>
+                                    </div>
+                                )}
+                                {formData.brand_elements_patterns && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Brand Elements & Patterns</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed whitespace-pre-wrap">{formData.brand_elements_patterns}</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
                         {/* Market Position Section */}
                         <div className="page-break">
                             <h2 className="text-2xl font-bold text-[var(--text-main)] mb-6 flex items-center gap-2">
-                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">03</span> Market Position
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">04</span> Market Position
                             </h2>
                             <div className="grid grid-cols-1 gap-6">
                                 {formData.target_audience && (
@@ -781,10 +852,37 @@ export default function BrandIdentityGuide() {
                             </div>
                         </div>
 
+                        {/* Verbal & Messaging Guidelines */}
+                        <div className="page-break">
+                            <h2 className="text-2xl font-bold text-[var(--text-main)] mb-6 flex items-center gap-2">
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">05</span> Verbal & Messaging Guidelines
+                            </h2>
+                            <div className="grid grid-cols-1 gap-6">
+                                {formData.extended_key_messages && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Extended Key Messages</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed whitespace-pre-wrap">{formData.extended_key_messages}</p>
+                                    </div>
+                                )}
+                                {formData.vocabulary_glossary && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Vocabulary & Glossary</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed whitespace-pre-wrap">{formData.vocabulary_glossary}</p>
+                                    </div>
+                                )}
+                                {formData.content_style_guide && (
+                                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <h3 className="text-sm font-bold text-[var(--primary-gold)] uppercase tracking-wider mb-2">Content Style Guide</h3>
+                                        <p className="text-base text-[var(--text-main)] leading-relaxed whitespace-pre-wrap">{formData.content_style_guide}</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
                         {/* Website & Pitches */}
                         <div className="page-break">
                             <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
-                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">04</span> Website & Pitches
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">06</span> Website & Pitches
                             </h3>
                             {generatedCopy.website_hero_copy && <CopyBlock label="Website Hero Copy" icon={Star} content={generatedCopy.website_hero_copy} color="border-purple-400" />}
                             {generatedCopy.elevator_pitch_long && <CopyBlock label="Elevator Pitch (Long)" icon={Mic} content={generatedCopy.elevator_pitch_long} color="border-blue-400" />}
@@ -794,7 +892,7 @@ export default function BrandIdentityGuide() {
                         {/* Brand Copy */}
                         <div className="page-break">
                             <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
-                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">05</span> Brand Pages
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">07</span> Brand Pages
                             </h3>
                             {generatedCopy.about_us_copy && <CopyBlock label="About Us Page" icon={Heart} content={generatedCopy.about_us_copy} color="border-rose-400" />}
                             {generatedCopy.services_intro_copy && <CopyBlock label="Services Page Intro" icon={ShoppingBag} content={generatedCopy.services_intro_copy} color="border-teal-400" />}
@@ -805,7 +903,7 @@ export default function BrandIdentityGuide() {
                         {generatedCopy.product_descriptions && (
                             <div className="page-break">
                                 <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
-                                    <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">06</span> Product Descriptions
+                                    <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">08</span> Product Descriptions
                                 </h3>
                                 <CopyBlock label="Product / Service Descriptions" icon={Package} content={generatedCopy.product_descriptions} color="border-orange-400" type="product_descriptions" />
                             </div>
@@ -814,7 +912,7 @@ export default function BrandIdentityGuide() {
                         {/* Marketing */}
                         <div className="page-break">
                             <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
-                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">07</span> Marketing & Social
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">09</span> Marketing & Social
                             </h3>
                             {generatedCopy.advertising_taglines && <CopyBlock label="Ad Taglines (3)" icon={Zap} content={generatedCopy.advertising_taglines} color="border-yellow-400" type="ad_taglines" />}
                             {generatedCopy.social_media_captions && (
@@ -836,7 +934,7 @@ export default function BrandIdentityGuide() {
                         {/* Email */}
                         <div className="page-break">
                             <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
-                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">08</span> Email Marketing
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">10</span> Email Marketing
                             </h3>
                             {generatedCopy.email_subject_lines && <CopyBlock label="Email Subject Lines" icon={Mail} content={generatedCopy.email_subject_lines} color="border-cyan-400" />}
                             {generatedCopy.welcome_email_series && (
@@ -853,6 +951,18 @@ export default function BrandIdentityGuide() {
                                 </div>
                             )}
                         </div>
+
+                        {/* Brand Touchpoints Checklist */}
+                        {generatedCopy.brand_touchpoints_checklist && (
+                            <div className="page-break">
+                                <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
+                                    <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">11</span> Brand Touchpoints Checklist
+                                </h3>
+                                <div className="card p-5 border-l-4 border-purple-400">
+                                    <div className="text-sm text-[var(--text-main)] leading-relaxed whitespace-pre-wrap">{generatedCopy.brand_touchpoints_checklist}</div>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {/* Action Buttons */}
