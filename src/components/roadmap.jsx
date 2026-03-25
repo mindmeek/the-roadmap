@@ -2,8 +2,7 @@ import { createPageUrl } from "@/utils";
 import { nonProfitGrowthRoadmap } from './course_content/nonProfitGrowth';
 import { ecommerceGrowthRoadmap } from './course_content/ecommerceGrowth';
 import { privateCommunityGrowthRoadmap } from './course_content/privateCommunityGrowth';
-
-// Add businessType and stage to imported niche roadmaps
+import { socialBusinessGrowthRoadmap } from './course_content/socialBusinessGrowth';
 nonProfitGrowthRoadmap.businessType = "non_profit";
 nonProfitGrowthRoadmap.stage = "startup";
 nonProfitGrowthRoadmap.icon = "❤️";
