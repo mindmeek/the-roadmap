@@ -89,7 +89,7 @@ export default function TeamCollaboration() {
             await base44.functions.invoke('removeTeamMember', { team_member_id: memberId });
             setTeamMembers(prev => prev.filter(m => m.id !== memberId));
         } catch (err) {
-            alert(err.response?.data?.error || 'Failed to remove member');
+            alert(err?.response?.data?.error || 'Failed to remove member');
         }
     };
 
