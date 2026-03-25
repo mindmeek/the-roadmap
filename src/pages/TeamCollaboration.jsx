@@ -411,32 +411,15 @@ export default function TeamCollaboration() {
                                                     <span className={`text-xs px-2 py-0.5 rounded-full border flex items-center gap-1 ${cfg.bg} ${cfg.border} ${cfg.color}`}>
                                                         <Icon className="w-3 h-3" />{cfg.label}
                                                     </span>
-                                                    {member.status === 'pending_invitation' ? (
-                                                        <span className="text-xs bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800 px-2 py-0.5 rounded-full flex items-center gap-1">
-                                                            <Clock className="w-3 h-3" /> Pending
-                                                        </span>
-                                                    ) : (
-                                                        <span className="text-xs bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800 px-2 py-0.5 rounded-full flex items-center gap-1">
-                                                            <CheckCircle className="w-3 h-3" /> Active
-                                                        </span>
-                                                    )}
+                                                    <span className="text-xs bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                                        <CheckCircle className="w-3 h-3" /> Active
+                                                    </span>
                                                 </div>
                                                 <p className="text-sm text-[var(--text-soft)]">{member.email}</p>
                                             </div>
                                         </div>
 
                                         <div className="flex items-center gap-2">
-                                            {/* Copy invite link for pending */}
-                                            {member.status === 'pending_invitation' && member.invitation_token && canManage && (
-                                                <button
-                                                    onClick={() => copyInviteLink(member.invitation_token)}
-                                                    title="Copy invite link"
-                                                    className="p-2 rounded-lg text-gray-500 hover:text-[var(--primary-gold)] hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                                                >
-                                                    {copiedToken === member.invitation_token ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
-                                                </button>
-                                            )}
-
                                             {canManage && member.role !== 'owner' && (
                                                 <>
                                                     {(currentUserRole === 'owner' || user?.role === 'admin') && (
