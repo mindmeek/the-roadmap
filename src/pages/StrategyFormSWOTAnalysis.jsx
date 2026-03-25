@@ -330,12 +330,14 @@ export default function StrategyFormSWOTAnalysis() {
                                         )}
                                     </div>
                                 ))}
-                                <button
-                                    onClick={() => addItem(quadrant.id)}
-                                    className="btn btn-secondary btn-sm w-full mt-2"
-                                >
-                                    <Plus className="w-4 h-4 mr-2" /> Add {quadrant.title.slice(0, -1)}
-                                </button>
+                                {canEdit && (
+                                    <button
+                                        onClick={() => addItem(quadrant.id)}
+                                        className="btn btn-secondary btn-sm w-full mt-2"
+                                    >
+                                        <Plus className="w-4 h-4 mr-2" /> Add {quadrant.title.slice(0, -1)}
+                                    </button>
+                                )}
                             </div>
 
                             {/* Stage-specific guidance */}
