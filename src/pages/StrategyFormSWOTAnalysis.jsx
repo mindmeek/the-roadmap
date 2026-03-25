@@ -136,37 +136,9 @@ export default function StrategyFormSWOTAnalysis() {
     };
 
     const saveDocument = async (markComplete = false) => {
-        setSaving(true);
-        try {
-            const documentData = {
-                document_type: 'swot_analysis',
-                title: 'My SWOT Analysis', // Updated title as per outline
-                content: formData,
-                entrepreneurship_stage: user.entrepreneurship_stage,
-                is_completed: markComplete,
-                last_updated: new Date().toISOString()
-            };
-
-            if (document) { // `document` state corresponds to `existingDoc` in outline
-                await StrategyDocument.update(document.id, documentData);
-            } else {
-                const newDoc = await StrategyDocument.create(documentData);
-                setDocument(newDoc);
-            }
-
-            if (markComplete) {
-                // Award XP for completing the document for the first time
-                if (!document?.is_completed) {
-                    await handleGamification({ action: 'COMPLETE_STRATEGY_DOC' });
-                }
-                alert('SWOT Analysis saved successfully!'); // Added success alert as per outline
-                navigate(createPageUrl('MyFoundationRoadmap')); // Changed redirect as per outline
-            }
-        } catch (error) {
-            console.error("Error saving document:", error);
-            alert('Failed to save. Please try again.');
-        } finally {
-            setSaving(false);
+        await saveDoc(formData, 'My SWOT Analysis');
+        if (markComplete) {
+            navigate(createPageUrl('MyFoundationRoadmap'));
         }
     };
 
