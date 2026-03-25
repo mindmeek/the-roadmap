@@ -67,49 +67,23 @@ const canvasSides = [
     }
 ];
 
-export default function ValuePropositionCanvasPage() { // Renamed from StrategyFormValueProposition to keep original name
+export default function ValuePropositionCanvasPage() {
     const navigate = useNavigate();
-    const [user, setUser] = useState(null);
-    const [document, setDocument] = useState(null);
-    const [formData, setFormData] = useState({});
-    const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
     const [showAIAssistant, setShowAIAssistant] = useState(false);
-    const [viewMode, setViewMode] = useState('edit'); // 'edit' | 'overview'
+    const [viewMode, setViewMode] = useState('edit');
+    const [formData, setFormData] = useState({});
+
+    const { formData: savedData, loading, saving, saveDoc, canEdit, user } = useTeamStrategyDoc('value_proposition_canvas');
 
     useEffect(() => {
-        loadData();
-    }, []);
-
-    const loadData = async () => {
-        try {
-            const userData = await User.me();
-            setUser(userData);
-
-            const docs = await StrategyDocument.filter({
-                created_by: userData.email,
-                document_type: 'value_proposition_canvas'
-            }, '-updated_date', 1);
-
-            if (docs.length > 0) {
-                const doc = docs[0];
-                setDocument(doc);
-                setFormData(doc.content || {});
-            } else {
-                const emptyForm = {};
-                canvasSides.forEach(side => {
-                    side.sections.forEach(section => {
-                        emptyForm[section.id] = [''];
-                    });
-                });
-                setFormData(emptyForm);
-            }
-        } catch (error) {
-            console.error("Error loading value proposition data:", error);
-        } finally {
-            setLoading(false);
+        if (savedData) {
+            setFormData(savedData);
+        } else if (!loading) {
+            const emptyForm = {};
+            canvasSides.forEach(side => { side.sections.forEach(section => { emptyForm[section.id] = ['']; }); });
+            setFormData(emptyForm);
         }
-    };
+    }, [savedData, loading]);
 
     const handleItemChange = (sectionId, index, value) => {
         setFormData(prev => ({
