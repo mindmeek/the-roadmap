@@ -335,7 +335,7 @@ export default function StrategyFormPricingStrategies() {
                         </label>
                         <textarea
                             value={currentPricing}
-                            onChange={(e) => setCurrentPricing(e.target.value)}
+                            onChange={(e) => setFormData({ ...formData, current_pricing: e.target.value })}
                             placeholder="Describe how you currently price your products/services..."
                             className="form-input w-full h-24"
                         />
@@ -347,7 +347,7 @@ export default function StrategyFormPricingStrategies() {
                         </label>
                         <textarea
                             value={pricingChallenges}
-                            onChange={(e) => setPricingChallenges(e.target.value)}
+                            onChange={(e) => setFormData({ ...formData, pricing_challenges: e.target.value })}
                             placeholder="Are you pricing too low? Too high? Facing price objections? Not sure how to price?"
                             className="form-input w-full h-24"
                         />
@@ -359,7 +359,7 @@ export default function StrategyFormPricingStrategies() {
                         </label>
                         <textarea
                             value={targetCustomerWillingness}
-                            onChange={(e) => setTargetCustomerWillingness(e.target.value)}
+                            onChange={(e) => setFormData({ ...formData, target_customer_willingness: e.target.value })}
                             placeholder="Based on market research, customer feedback, or competitor analysis..."
                             className="form-input w-full h-24"
                         />
