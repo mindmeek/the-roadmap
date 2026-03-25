@@ -60,11 +60,12 @@ export default function TeamCollaboration() {
                 business_id: selectedBusinessId || null
             });
 
-            const { business: biz, teamMembers: members, strategyDocs: docs, myRole } = result.data;
+            const { business: biz, teamMembers: members, strategyDocs: docs, myRole, ownerProfile: op } = result.data;
 
             setBusiness(biz || null);
             setTeamMembers(members || []);
             setStrategyDocs(docs || []);
+            setOwnerProfile(op || null);
             setCurrentUserRole(myRole || (biz?.owner_user_id === userData.id ? 'owner' : null));
 
         } catch (err) {
