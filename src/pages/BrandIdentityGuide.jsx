@@ -31,19 +31,19 @@ const CopyBlock = ({ label, icon: IconComp, content, color, type }) => {
     const formatContent = () => {
         if (type === 'ad_taglines') {
             return content.split('\n').filter(line => line.trim()).map((line, i) => (
-                <div key={i} className="py-2">{line}</div>
+                <div key={i} className="py-4 text-sm text-[var(--text-main)]">{line}</div>
             ));
         }
         if (type === 'social_captions') {
             return content.split(/(?:\n\n+|---)/g).filter(post => post.trim()).map((post, i) => (
-                <div key={i} className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700 last:border-0 last:mb-0 last:pb-0">
+                <div key={i} className="mb-8 pb-8 border-b-2 border-gray-200 dark:border-gray-700 last:border-0 last:mb-0 last:pb-0">
                     <p className="text-sm text-[var(--text-main)] whitespace-pre-wrap leading-relaxed">{post.trim()}</p>
                 </div>
             ));
         }
         if (type === 'product_descriptions') {
-            return content.split(/(?:\n\n|\d+\.\s)/g).filter(desc => desc.trim()).map((desc, i) => (
-                <div key={i} className="mb-5 pb-5 border-b border-gray-200 dark:border-gray-700 last:border-0 last:mb-0 last:pb-0">
+            return content.split(/(?:\n\n+)/g).filter(desc => desc.trim()).map((desc, i) => (
+                <div key={i} className="mb-8 pb-8 border-b-2 border-gray-200 dark:border-gray-700 last:border-0 last:mb-0 last:pb-0">
                     <p className="text-sm text-[var(--text-main)] whitespace-pre-wrap leading-relaxed">{desc.trim()}</p>
                 </div>
             ));
