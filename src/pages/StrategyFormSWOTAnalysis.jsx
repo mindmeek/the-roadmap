@@ -318,13 +318,15 @@ export default function StrategyFormSWOTAnalysis() {
                                             disabled={!canEdit}
                                         />
                                         {(formData[quadrant.id] || []).length > 1 && (
-                                            <button
-                                                onClick={() => removeItem(quadrant.id, index)}
-                                                className="btn btn-ghost p-2 text-red-500 hover:text-red-700"
-                                                title="Remove item"
-                                            >
-                                                <Minus className="w-4 h-4" />
-                                            </button>
+                                            {canEdit && (
+                                                <button
+                                                    onClick={() => removeItem(quadrant.id, index)}
+                                                    className="btn btn-ghost p-2 text-red-500 hover:text-red-700"
+                                                    title="Remove item"
+                                                >
+                                                    <Minus className="w-4 h-4" />
+                                                </button>
+                                            )}
                                         )}
                                     </div>
                                 ))}
