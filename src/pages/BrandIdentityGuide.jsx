@@ -775,44 +775,52 @@ export default function BrandIdentityGuide() {
                         </div>
 
                         {/* Website & Pitches */}
-                        <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
-                        <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">04</span> Website & Pitches
-                    </h3>
-                    {generatedCopy.website_hero_copy && <CopyBlock label="Website Hero Copy" icon={Star} content={generatedCopy.website_hero_copy} color="border-purple-400" />}
-                    {generatedCopy.elevator_pitch_long && <CopyBlock label="Elevator Pitch (Long)" icon={Mic} content={generatedCopy.elevator_pitch_long} color="border-blue-400" />}
-                    {generatedCopy.elevator_pitch_short && <CopyBlock label="Elevator Pitch (Short)" icon={Mic} content={generatedCopy.elevator_pitch_short} color="border-indigo-400" />}
-
-                    {/* Brand Copy */}
-                    <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
-                        <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">05</span> Brand Pages
-                    </h3>
-                    {generatedCopy.about_us_copy && <CopyBlock label="About Us Page" icon={Heart} content={generatedCopy.about_us_copy} color="border-rose-400" />}
-                    {generatedCopy.services_intro_copy && <CopyBlock label="Services Page Intro" icon={ShoppingBag} content={generatedCopy.services_intro_copy} color="border-teal-400" />}
-                    {generatedCopy.why_choose_us_copy && <CopyBlock label="Why Choose Us" icon={CheckCircle} content={generatedCopy.why_choose_us_copy} color="border-emerald-400" />}
-
-                    {/* Products */}
-                    {generatedCopy.product_descriptions && (
-                        <>
+                        <div className="page-break">
                             <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
-                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">06</span> Product Descriptions
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">04</span> Website & Pitches
                             </h3>
-                            <CopyBlock label="Product / Service Descriptions" icon={Package} content={generatedCopy.product_descriptions} color="border-orange-400" type="product_descriptions" />
-                        </>
-                    )}
+                            {generatedCopy.website_hero_copy && <CopyBlock label="Website Hero Copy" icon={Star} content={generatedCopy.website_hero_copy} color="border-purple-400" />}
+                            {generatedCopy.elevator_pitch_long && <CopyBlock label="Elevator Pitch (Long)" icon={Mic} content={generatedCopy.elevator_pitch_long} color="border-blue-400" />}
+                            {generatedCopy.elevator_pitch_short && <CopyBlock label="Elevator Pitch (Short)" icon={Mic} content={generatedCopy.elevator_pitch_short} color="border-indigo-400" />}
+                        </div>
 
-                    {/* Marketing */}
-                    <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
-                        <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">07</span> Marketing & Social
-                    </h3>
-                    {generatedCopy.advertising_taglines && <CopyBlock label="Ad Taglines (3)" icon={Zap} content={generatedCopy.advertising_taglines} color="border-yellow-400" type="ad_taglines" />}
-                    {generatedCopy.social_media_captions && <CopyBlock label="Social Media Captions" icon={Megaphone} content={generatedCopy.social_media_captions} color="border-pink-400" type="social_captions" />}
+                        {/* Brand Copy */}
+                        <div className="page-break">
+                            <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">05</span> Brand Pages
+                            </h3>
+                            {generatedCopy.about_us_copy && <CopyBlock label="About Us Page" icon={Heart} content={generatedCopy.about_us_copy} color="border-rose-400" />}
+                            {generatedCopy.services_intro_copy && <CopyBlock label="Services Page Intro" icon={ShoppingBag} content={generatedCopy.services_intro_copy} color="border-teal-400" />}
+                            {generatedCopy.why_choose_us_copy && <CopyBlock label="Why Choose Us" icon={CheckCircle} content={generatedCopy.why_choose_us_copy} color="border-emerald-400" />}
+                        </div>
 
-                    {/* Email */}
-                    <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
-                        <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">08</span> Email Marketing
-                    </h3>
-                    {generatedCopy.email_subject_lines && <CopyBlock label="Email Subject Lines" icon={Mail} content={generatedCopy.email_subject_lines} color="border-cyan-400" />}
-                    {generatedCopy.welcome_email_series && <CopyBlock label="3-Part Welcome Email Series" icon={Mail} content={generatedCopy.welcome_email_series} color="border-green-400" />}
+                        {/* Products */}
+                        {generatedCopy.product_descriptions && (
+                            <div className="page-break">
+                                <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
+                                    <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">06</span> Product Descriptions
+                                </h3>
+                                <CopyBlock label="Product / Service Descriptions" icon={Package} content={generatedCopy.product_descriptions} color="border-orange-400" type="product_descriptions" />
+                            </div>
+                        )}
+
+                        {/* Marketing */}
+                        <div className="page-break">
+                            <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">07</span> Marketing & Social
+                            </h3>
+                            {generatedCopy.advertising_taglines && <CopyBlock label="Ad Taglines (3)" icon={Zap} content={generatedCopy.advertising_taglines} color="border-yellow-400" type="ad_taglines" />}
+                            {generatedCopy.social_media_captions && <CopyBlock label="Social Media Captions" icon={Megaphone} content={generatedCopy.social_media_captions} color="border-pink-400" type="social_captions" />}
+                        </div>
+
+                        {/* Email */}
+                        <div className="page-break">
+                            <h3 className="text-2xl font-bold text-[var(--text-main)] pt-12 pb-6 border-t-2 border-gray-200 flex items-center gap-2">
+                                <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">08</span> Email Marketing
+                            </h3>
+                            {generatedCopy.email_subject_lines && <CopyBlock label="Email Subject Lines" icon={Mail} content={generatedCopy.email_subject_lines} color="border-cyan-400" />}
+                            {generatedCopy.welcome_email_series && <CopyBlock label="3-Part Welcome Email Series" icon={Mail} content={generatedCopy.welcome_email_series} color="border-green-400" />}
+                        </div>
                     </div>
 
                     {/* Action Buttons */}
