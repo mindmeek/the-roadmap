@@ -33,30 +33,51 @@ export default function useTeamStrategyDoc(documentType) {
             const selectedBusinessId = localStorage.getItem('selectedBusinessId');
 
             // Use the team business data function to get business + docs
-            const result = await base44.functions.invoke('getTeamBusinessData', {
-                business_id: selectedBusinessId || null
-            });
-
-            const { business, strategyDocs, myRole } = result.data;
+            let business = null, strategyDocs = [], myRole = null;
+            try {
+                const result = await base44.functions.invoke('getTeamBusinessData', {
+                    business_id: selectedBusinessId || null
+                });
+                if (result.data && !result.data.error) {
+                    business = result.data.business;
+                    strategyDocs = result.data.strategyDocs || [];
+                    myRole = result.data.myRole;
+                }
+            } catch (fnError) {
+                console.error('getTeamBusinessData failed, falling back to direct load:', fnError);
+            }
 
             if (business) {
                 setBusinessId(business.id);
-                // Only viewers cannot edit
                 const editableRoles = ['owner', 'admin', 'editor'];
                 setCanEdit(editableRoles.includes(myRole) || userData.role === 'admin');
             } else {
-                // No team business found — fall back to user's own docs (owner creating first doc)
                 setCanEdit(true);
             }
 
             // Find the doc for this document type
-            const doc = strategyDocs?.find(d => d.document_type === documentType);
+            const doc = strategyDocs.find(d => d.document_type === documentType);
             if (doc) {
                 setFormData(doc.content);
                 setDocId(doc.id);
+            } else if (!business) {
+                // Fallback: load directly from entity if no business context
+                try {
+                    const directDocs = await base44.entities.StrategyDocument.filter({
+                        created_by: userData.email,
+                        document_type: documentType
+                    }, '-updated_date', 1);
+                    if (directDocs.length > 0) {
+                        setFormData(directDocs[0].content);
+                        setDocId(directDocs[0].id);
+                    }
+                } catch (e) {
+                    console.error('Fallback doc load failed:', e);
+                }
             }
         } catch (error) {
             console.error('Error loading strategy doc:', error);
+            setCanEdit(true);
         } finally {
             setLoading(false);
         }
