@@ -355,24 +355,18 @@ export default function StrategyFormSWOTAnalysis() {
             </div>
 
             {/* Save Actions (Mobile) */}
-            <div className="md:hidden fixed bottom-20 left-0 right-0 p-4 bg-white dark:bg-black border-t border-gray-200 dark:border-gray-700">
-                <div className="flex gap-2 max-w-sm mx-auto">
-                    <button 
-                        onClick={() => saveDocument(false)}
-                        disabled={saving}
-                        className="btn btn-secondary flex-1"
-                    >
-                        Save Draft
-                    </button>
-                    <button 
-                        onClick={() => saveDocument(true)}
-                        disabled={saving}
-                        className="btn btn-primary flex-1"
-                    >
-                        Complete
-                    </button>
+            {canEdit && (
+                <div className="md:hidden fixed bottom-20 left-0 right-0 p-4 bg-white dark:bg-black border-t border-gray-200 dark:border-gray-700">
+                    <div className="flex gap-2 max-w-sm mx-auto">
+                        <button onClick={() => saveDocument(false)} disabled={saving} className="btn btn-secondary flex-1">
+                            Save Draft
+                        </button>
+                        <button onClick={() => saveDocument(true)} disabled={saving} className="btn btn-primary flex-1">
+                            Complete
+                        </button>
+                    </div>
                 </div>
-            </div>
+            )}
 
             <FoundationFormNav currentFormId="swot" />
 
