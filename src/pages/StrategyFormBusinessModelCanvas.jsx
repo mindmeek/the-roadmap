@@ -177,17 +177,23 @@ export default function StrategyFormBusinessModelCanvas() {
         ]
     };
 
+    if (loading) return <div className="flex justify-center items-center h-screen"><Loader2 className="w-8 h-8 animate-spin text-[var(--primary-gold)]" /></div>;
+
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {/* Header */}
             <div className="card p-6 mb-6">
-                <button
-                    onClick={() => navigate(createPageUrl('MyFoundationRoadmap'))}
-                    className="btn btn-ghost mb-4"
-                >
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Back to Foundation Roadmap
-                </button>
+                <div className="flex items-center justify-between mb-4">
+                    <button onClick={() => navigate(createPageUrl('MyFoundationRoadmap'))} className="btn btn-ghost">
+                        <ArrowLeft className="w-4 h-4 mr-2" />
+                        Back to Foundation Roadmap
+                    </button>
+                    {!canEdit && (
+                        <span className="flex items-center gap-1 text-xs text-gray-500 bg-gray-100 dark:bg-gray-800 px-3 py-1.5 rounded-full">
+                            <Lock className="w-3 h-3" /> View only
+                        </span>
+                    )}
+                </div>
                 
                 <div className="flex items-start justify-between">
                     <div className="flex-1">
@@ -199,10 +205,10 @@ export default function StrategyFormBusinessModelCanvas() {
                     <StrategyToolGuide content={guideContent} />
                 </div>
 
-                {saveMessage && (
+                {saved && (
                     <div className="mt-4 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg text-green-700 dark:text-green-300 flex items-center">
                         <CheckCircle className="w-5 h-5 mr-2" />
-                        {saveMessage}
+                        ✓ One Page Business Plan saved successfully!
                     </div>
                 )}
                 
