@@ -20,6 +20,12 @@ const STEPS = [
     { id: 5, title: 'Generate Copy', icon: Sparkles, desc: 'AI creates your messaging' },
 ];
 
+// Helper function to parse content into array of items
+const parseContentArray = (content, delimiter = /\n\n+|---/) => {
+    if (Array.isArray(content)) return content;
+    return content.split(delimiter).filter(item => item.trim());
+};
+
 const CopyBlock = ({ label, icon: IconComp, content, color, type }) => {
     const Icon = IconComp;
     const [copied, setCopied] = useState(false);
@@ -36,9 +42,10 @@ const CopyBlock = ({ label, icon: IconComp, content, color, type }) => {
                 <div key={i} className="py-4 text-sm text-[var(--text-main)]">{line}</div>
             ));
         }
-        if (type === 'social_captions') {
-            return content.split(/(?:\n\n+|---)/g).filter(post => post.trim()).map((post, i) => (
-                <div key={i} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-4 last:mb-0">
+        if (type === 'social_captions' || type === 'social_single') {
+            const items = type === 'social_single' ? [content] : parseContentArray(content);
+            return items.map((post, i) => (
+                <div key={i} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                     <p className="text-sm text-[var(--text-main)] leading-relaxed whitespace-normal">{post.trim()}</p>
                 </div>
             ));
@@ -810,7 +817,20 @@ export default function BrandIdentityGuide() {
                                 <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">07</span> Marketing & Social
                             </h3>
                             {generatedCopy.advertising_taglines && <CopyBlock label="Ad Taglines (3)" icon={Zap} content={generatedCopy.advertising_taglines} color="border-yellow-400" type="ad_taglines" />}
-                            {generatedCopy.social_media_captions && <CopyBlock label="Social Media Captions" icon={Megaphone} content={generatedCopy.social_media_captions} color="border-pink-400" type="social_captions" />}
+                            {generatedCopy.social_media_captions && (
+                                <div className="space-y-4">
+                                    {parseContentArray(generatedCopy.social_media_captions).map((caption, i) => (
+                                        <CopyBlock 
+                                            key={i}
+                                            label={`Social Media Caption ${i + 1}`} 
+                                            icon={Megaphone} 
+                                            content={caption} 
+                                            color="border-pink-400" 
+                                            type="social_single"
+                                        />
+                                    ))}
+                                </div>
+                            )}
                         </div>
 
                         {/* Email */}
@@ -819,7 +839,19 @@ export default function BrandIdentityGuide() {
                                 <span className="bg-[var(--primary-gold)] text-white px-3 py-1 rounded text-sm">08</span> Email Marketing
                             </h3>
                             {generatedCopy.email_subject_lines && <CopyBlock label="Email Subject Lines" icon={Mail} content={generatedCopy.email_subject_lines} color="border-cyan-400" />}
-                            {generatedCopy.welcome_email_series && <CopyBlock label="3-Part Welcome Email Series" icon={Mail} content={generatedCopy.welcome_email_series} color="border-green-400" />}
+                            {generatedCopy.welcome_email_series && (
+                                <div className="space-y-4">
+                                    {parseContentArray(generatedCopy.welcome_email_series).map((email, i) => (
+                                        <CopyBlock 
+                                            key={i}
+                                            label={`Welcome Email ${i + 1}`} 
+                                            icon={Mail} 
+                                            content={email} 
+                                            color="border-green-400"
+                                        />
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
 
