@@ -7,6 +7,7 @@ import {
     Sparkles, HelpCircle, Target, Eye, Users
 } from 'lucide-react';
 import AITeamModal from '@/components/ai/AITeamModal';
+import AIFormFiller from '@/components/ai/AIFormFiller';
 import MissionVisionOverview from '@/components/strategy/MissionVisionOverview';
 import FoundationFormNav from '@/components/foundation/FoundationFormNav';
 
