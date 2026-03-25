@@ -262,6 +262,7 @@ export default function TeamCollaboration() {
             <div className="flex border-b border-gray-200 dark:border-gray-700">
                 {[
                     { id: 'team', label: 'Team Members', icon: Users },
+                    { id: 'snapshot', label: 'Business Snapshot', icon: BarChart2 },
                     { id: 'docs', label: 'Strategy Feedback', icon: MessageSquare },
                 ].map(tab => (
                     <button
