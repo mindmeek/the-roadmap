@@ -37,6 +37,7 @@ export default function AcceptTeamInvitation() {
                 // Auto-select this business so all pages show the company's data immediately
                 if (response.data.business?.id) {
                     localStorage.setItem('selectedBusinessId', response.data.business.id);
+                    console.log('Selected business set to:', response.data.business.id, response.data.business.name);
                 }
             } else {
                 setStatus('error');
