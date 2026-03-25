@@ -49,6 +49,19 @@ export default function TeamCollaboration() {
 
     const canManage = ['owner', 'admin'].includes(currentUserRole) || user?.role === 'admin';
 
+    // Reload team members after operations
+    const refreshMembers = async () => {
+        if (!business) return;
+        try {
+            const result = await base44.functions.invoke('getBusinessTeamData', { business_id: business.id });
+            if (result.data.success) {
+                setTeamMembers(result.data.teamMembers || []);
+            }
+        } catch (e) {
+            console.error('refresh error:', e);
+        }
+    };
+
     const handleInvite = async () => {
         if (!business) return;
         setInviting(true);
