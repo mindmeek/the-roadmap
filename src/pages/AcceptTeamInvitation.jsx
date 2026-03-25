@@ -91,16 +91,28 @@ export default function AcceptTeamInvitation() {
                                             {business.industry && (
                                                 <p className="text-sm text-[var(--text-soft)]">{business.industry}</p>
                                             )}
+                                            {role && (
+                                                <p className="text-sm text-[var(--primary-gold)] font-semibold capitalize mt-1">Your role: {role}</p>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
                             )}
-                            <Button
-                                onClick={() => navigate(createPageUrl('BusinessOverview'))}
-                                className="btn-primary w-full"
-                            >
-                                Go to Business Dashboard
-                            </Button>
+                            <div className="space-y-3">
+                                <Button
+                                    onClick={() => navigate(createPageUrl('TeamCollaboration'))}
+                                    className="btn-primary w-full"
+                                >
+                                    View Team & Strategy Docs
+                                </Button>
+                                <Button
+                                    onClick={() => navigate(createPageUrl('BusinessOverview'))}
+                                    variant="outline"
+                                    className="w-full"
+                                >
+                                    Go to Business Dashboard
+                                </Button>
+                            </div>
                         </>
                     ) : (
                         <>
