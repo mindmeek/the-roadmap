@@ -10,6 +10,7 @@ export default function AcceptTeamInvitation() {
     const [status, setStatus] = useState('processing'); // processing, success, error
     const [message, setMessage] = useState('');
     const [business, setBusiness] = useState(null);
+    const [role, setRole] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
