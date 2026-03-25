@@ -74,7 +74,7 @@ export default function TeamCollaboration() {
             });
             setInviteSuccess(true);
             setInviteData({ email: '', full_name: '', role: 'editor' });
-            await loadAll();
+            await refreshMembers();
             setTimeout(() => { setInviteSuccess(false); setShowInviteForm(false); }, 2000);
         } catch (err) {
             alert(err.response?.data?.error || 'Failed to send invitation');
