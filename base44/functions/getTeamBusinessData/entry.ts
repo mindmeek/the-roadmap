@@ -60,24 +60,44 @@ Deno.serve(async (req) => {
             base44.asServiceRole.entities.StrategyDocument.filter({ business_id: targetBusinessId }, '-updated_date', 50)
         ]);
 
-        // If no docs with business_id, fall back to owner's docs (legacy data before business_id was set)
+        // If no docs with business_id, fall back to owner's docs and auto-tag them (migration)
         let docsToReturn = strategyDocs;
         if (strategyDocs.length === 0) {
-            // Get the owner's email and fetch their docs
             const ownerUsers = await base44.asServiceRole.entities.User.filter({ id: business.owner_user_id });
             if (ownerUsers.length > 0) {
                 const ownerEmail = ownerUsers[0].email;
-                docsToReturn = await base44.asServiceRole.entities.StrategyDocument.filter(
+                const ownerDocs = await base44.asServiceRole.entities.StrategyDocument.filter(
                     { created_by: ownerEmail }, '-updated_date', 50
                 );
+                docsToReturn = ownerDocs;
+
+                // Auto-tag existing docs with business_id so team members can access them going forward
+                const untagged = ownerDocs.filter(d => !d.business_id);
+                for (const doc of untagged) {
+                    try {
+                        await base44.asServiceRole.entities.StrategyDocument.update(doc.id, { business_id: targetBusinessId });
+                    } catch (e) {
+                        console.error('Failed to tag doc', doc.id, e);
+                    }
+                }
             }
         }
+
+        // Also get the business owner's financial data (user profile) to share with team
+        const ownerUsers = await base44.asServiceRole.entities.User.filter({ id: business.owner_user_id });
+        const ownerProfile = ownerUsers.length > 0 ? {
+            financial_projections: ownerUsers[0].financial_projections,
+            business_name: ownerUsers[0].business_name,
+            industry: ownerUsers[0].industry,
+            entrepreneurship_stage: ownerUsers[0].entrepreneurship_stage,
+        } : null;
 
         return Response.json({
             business,
             teamMembers,
             strategyDocs: docsToReturn,
-            myRole
+            myRole,
+            ownerProfile
         });
 
     } catch (error) {
