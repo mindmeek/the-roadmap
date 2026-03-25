@@ -201,24 +201,18 @@ export default function StrategyFormSWOTAnalysis() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex gap-2">
-                        <button 
-                            onClick={() => saveDocument(false)}
-                            disabled={saving}
-                            className="btn btn-secondary"
-                        >
-                            <Save className="w-4 h-4" />
-                            {saving ? 'Saving...' : 'Save Draft'}
-                        </button>
-                        <button 
-                            onClick={() => saveDocument(true)}
-                            disabled={saving}
-                            className="btn btn-primary"
-                        >
-                            <CheckCircle className="w-4 h-4" />
-                            Complete & Save
-                        </button>
-                    </div>
+                    {canEdit && (
+                        <div className="flex gap-2">
+                            <button onClick={() => saveDocument(false)} disabled={saving} className="btn btn-secondary">
+                                <Save className="w-4 h-4" />
+                                {saving ? 'Saving...' : 'Save Draft'}
+                            </button>
+                            <button onClick={() => saveDocument(true)} disabled={saving} className="btn btn-primary">
+                                <CheckCircle className="w-4 h-4" />
+                                Complete & Save
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
 
