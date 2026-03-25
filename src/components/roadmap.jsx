@@ -1,4 +1,3 @@
-
 import { createPageUrl } from "@/utils";
 import { nonProfitGrowthRoadmap } from './course_content/nonProfitGrowth';
 import { ecommerceGrowthRoadmap } from './course_content/ecommerceGrowth';
@@ -3210,13 +3209,7 @@ const nicheRoadmaps = {
     courseTitle: "Sustainable Business Scaling Plan",
     courseDescription: "Scale your eco-friendly business while maintaining environmental mission"
   },
-  impact_driven_startup: {
-    stage: "startup",
-    businessType: "social_business",
-    icon: "💚",
-    courseTitle: "Impact-Driven Startup Plan",
-    courseDescription: "Launch a business where profit and purpose work hand-in-hand"
-  }
+  social_business_growth: { ...socialBusinessGrowthRoadmap, stage: "startup", businessType: "social_business", icon: "🌍" }
 };
 
 const roadmapData = { vision, startup, growth, nicheRoadmaps };
