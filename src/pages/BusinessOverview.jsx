@@ -147,7 +147,11 @@ export default function BusinessOverview() {
         if (!business) return;
         setSavingAbout(true);
         try {
-            await base44.entities.Business.update(business.id, { description: aboutText });
+            // Use team-admin-aware function so admin team members can also save
+            await base44.functions.invoke('updateBusinessAsTeamAdmin', {
+                business_id: business.id,
+                update_data: { description: aboutText }
+            });
             setBusiness({ ...business, description: aboutText });
             setIsEditingAbout(false);
         } catch (error) {
