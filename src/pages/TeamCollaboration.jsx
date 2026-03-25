@@ -54,30 +54,18 @@ export default function TeamCollaboration() {
 
             const selectedBusinessId = localStorage.getItem('selectedBusinessId');
 
-            const [businesses, docs] = await Promise.all([
-                base44.entities.Business.filter({ owner_user_id: userData.id }, '-updated_date', 10),
-                base44.entities.StrategyDocument.filter({}, '-updated_date', 20),
-            ]);
+            // Use the backend function which handles both owners and team members
+            const result = await base44.functions.invoke('getTeamBusinessData', {
+                business_id: selectedBusinessId || null
+            });
 
-            let biz = null;
-            if (selectedBusinessId) {
-                biz = businesses.find(b => b.id === selectedBusinessId) || businesses[0] || null;
-            } else {
-                biz = businesses[0] || null;
-            }
+            const { business: biz, teamMembers: members, strategyDocs: docs, myRole } = result.data;
 
-            setBusiness(biz);
-            setStrategyDocs(docs);
+            setBusiness(biz || null);
+            setTeamMembers(members || []);
+            setStrategyDocs(docs || []);
+            setCurrentUserRole(myRole || (biz?.owner_user_id === userData.id ? 'owner' : null));
 
-            if (biz) {
-                const members = await base44.entities.TeamMember.filter({ business_id: biz.id });
-                console.log('Loaded team members for business', biz.id, ':', members);
-                setTeamMembers(members);
-                const myRecord = members.find(m => m.user_id === userData.id || m.email === userData.email);
-                setCurrentUserRole(myRecord?.role || (biz.owner_user_id === userData.id ? 'owner' : null));
-            } else {
-                setCurrentUserRole('owner');
-            }
         } catch (err) {
             console.error('Error loading team data:', err);
         } finally {
