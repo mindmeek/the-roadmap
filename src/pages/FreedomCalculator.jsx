@@ -13,6 +13,7 @@ export default function MyFinancialGoal() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [user, setUser] = useState(null);
+  const [teamBusinessId, setTeamBusinessId] = useState(null); // set if viewing as team member
   const [showScenario, setShowScenario] = useState(false);
   const [scenarioSalary, setScenarioSalary] = useState('');
   const [scenarioTeamAdd, setScenarioTeamAdd] = useState('');
