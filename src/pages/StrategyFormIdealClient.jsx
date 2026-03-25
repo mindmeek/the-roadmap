@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { User, StrategyDocument } from '@/entities/all';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { 
     Users, Save, Loader2, CheckCircle, ArrowLeft, 
-    Target, Heart, TrendingUp, AlertCircle, Sparkles, HelpCircle, Brain, DollarSign, Plus, X
+    Target, Heart, TrendingUp, AlertCircle, Sparkles, HelpCircle, Brain, DollarSign, Plus, X, Lock
 } from 'lucide-react';
+import useTeamStrategyDoc from '@/hooks/useTeamStrategyDoc';
 import AITeamModal from '@/components/ai/AITeamModal';
 import AIFormFiller from '@/components/ai/AIFormFiller';
 import IdealClientOverview from '@/components/strategy/IdealClientOverview';
