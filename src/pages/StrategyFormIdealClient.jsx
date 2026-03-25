@@ -680,37 +680,18 @@ export default function StrategyFormIdealClient() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3 sticky bottom-20 md:bottom-6 z-10">
-                    <button
-                        onClick={handleSave}
-                        disabled={saving}
-                        className="btn btn-primary flex-1"
-                    >
-                        {saving ? (
-                            <>
-                                <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                                Saving...
-                            </>
-                        ) : saved ? (
-                            <>
-                                <CheckCircle className="w-5 h-5 mr-2" />
-                                Saved!
-                            </>
-                        ) : (
-                            <>
-                                <Save className="w-5 h-5 mr-2" />
-                                Save Ideal Client Profile
-                            </>
-                        )}
-                    </button>
-                    <button
-                        onClick={() => setShowAIAssistant(true)}
-                        className="btn btn-secondary"
-                    >
-                        <Sparkles className="w-5 h-5 mr-2" />
-                        Get AI Help
-                    </button>
-                </div>
+                {canEdit && (
+                    <div className="flex flex-col sm:flex-row gap-3 sticky bottom-20 md:bottom-6 z-10">
+                        <button onClick={handleSave} disabled={saving} className="btn btn-primary flex-1">
+                            {saving ? <><Loader2 className="w-5 h-5 mr-2 animate-spin" />Saving...</>
+                            : saved ? <><CheckCircle className="w-5 h-5 mr-2" />Saved!</>
+                            : <><Save className="w-5 h-5 mr-2" />Save Ideal Client Profile</>}
+                        </button>
+                        <button onClick={() => setShowAIAssistant(true)} className="btn btn-secondary">
+                            <Sparkles className="w-5 h-5 mr-2" />Get AI Help
+                        </button>
+                    </div>
+                )}
                 <FoundationFormNav currentFormId="ideal_client" />
             </>}
             </div>
