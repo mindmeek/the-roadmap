@@ -71,15 +71,13 @@ Deno.serve(async (req) => {
                 );
                 docsToReturn = ownerDocs;
 
-                // Auto-tag existing docs with business_id so team members can access them going forward
+                // Auto-tag existing docs with business_id (best-effort, non-blocking)
                 const untagged = ownerDocs.filter(d => !d.business_id);
-                for (const doc of untagged) {
-                    try {
-                        await base44.asServiceRole.entities.StrategyDocument.update(doc.id, { business_id: targetBusinessId });
-                    } catch (e) {
-                        console.error('Failed to tag doc', doc.id, e);
-                    }
-                }
+                Promise.allSettled(
+                    untagged.map(doc =>
+                        base44.asServiceRole.entities.StrategyDocument.update(doc.id, { business_id: targetBusinessId })
+                    )
+                ).catch(() => {});
             }
         }
 
