@@ -32,6 +32,7 @@ export default function TeamCollaboration() {
     const [business, setBusiness] = useState(null);
     const [teamMembers, setTeamMembers] = useState([]);
     const [strategyDocs, setStrategyDocs] = useState([]);
+    const [ownerProfile, setOwnerProfile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('team');
     const [showInviteForm, setShowInviteForm] = useState(false);
