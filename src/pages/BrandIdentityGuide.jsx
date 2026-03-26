@@ -941,15 +941,49 @@ export default function BrandIdentityGuide() {
                             {generatedCopy.email_subject_lines && <CopyBlock label="Email Subject Lines" icon={Mail} content={generatedCopy.email_subject_lines} color="border-cyan-400" />}
                             {generatedCopy.welcome_email_series && (
                                 <div className="space-y-4">
-                                    {parseContentArray(generatedCopy.welcome_email_series).map((email, i) => (
-                                        <CopyBlock 
-                                            key={i}
-                                            label={`Welcome Email ${i + 1}`} 
-                                            icon={Mail} 
-                                            content={email} 
-                                            color="border-green-400"
-                                        />
-                                    ))}
+                                    {(() => {
+                                        const raw = generatedCopy.welcome_email_series;
+                                        // Split into exactly 3 emails by detecting EMAIL 1 / EMAIL 2 / EMAIL 3 headers
+                                        const emailBlocks = [];
+                                        const parts = raw.split(/(?=EMAIL\s*[123]\s*[-–:]?\s*SUBJECT)/i);
+                                        parts.filter(p => p.trim()).forEach((block, i) => {
+                                            // Extract subject and body from each block
+                                            const subjectMatch = block.match(/EMAIL\s*\d\s*[-–:]?\s*SUBJECT\s*[:\-]?\s*(.+?)(?=\n|EMAIL\s*\d\s*[-–:]?\s*BODY)/is);
+                                            const bodyMatch = block.match(/EMAIL\s*\d\s*[-–:]?\s*BODY\s*[:\-]?\s*([\s\S]+)/i);
+                                            const subject = subjectMatch ? subjectMatch[1].trim() : '';
+                                            const body = bodyMatch ? bodyMatch[1].trim() : block.trim();
+                                            emailBlocks.push({ subject, body, index: i });
+                                        });
+                                        // Fallback: if parsing failed, show as 3 equal chunks
+                                        if (emailBlocks.length === 0) {
+                                            const chunks = raw.split(/\n\n\n+/);
+                                            return chunks.slice(0, 3).map((chunk, i) => (
+                                                <CopyBlock key={i} label={`Welcome Email ${i + 1}`} icon={Mail} content={chunk} color="border-green-400" />
+                                            ));
+                                        }
+                                        return emailBlocks.slice(0, 3).map(({ subject, body, index }) => (
+                                            <div key={index} className="card p-5 border-l-4 border-green-400">
+                                                <div className="flex items-center justify-between mb-4">
+                                                    <div className="flex items-center gap-2">
+                                                        <Mail className="w-5 h-5 text-[var(--primary-gold)]" />
+                                                        <h4 className="font-bold text-[var(--text-main)]">Welcome Email {index + 1}</h4>
+                                                    </div>
+                                                </div>
+                                                {subject && (
+                                                    <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 mb-4 border border-gray-200 dark:border-gray-700">
+                                                        <p className="text-xs font-semibold text-[var(--text-soft)] uppercase tracking-wider mb-1">Subject Line</p>
+                                                        <p className="text-sm font-bold text-[var(--text-main)]">{subject}</p>
+                                                    </div>
+                                                )}
+                                                <div>
+                                                    <p className="text-xs font-semibold text-[var(--text-soft)] uppercase tracking-wider mb-2">Email Body</p>
+                                                    {body.split('\n').filter(l => l.trim()).map((line, li) => (
+                                                        <p key={li} className="text-sm text-[var(--text-main)] leading-relaxed mb-3">{line}</p>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        ));
+                                    })()}
                                 </div>
                             )}
                         </div>
