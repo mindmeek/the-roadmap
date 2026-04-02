@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Magazine as MagazineEntity } from '@/entities/all';
-import { Loader2, Download, Newspaper } from 'lucide-react';
+import { Loader2, Download, Newspaper, Users } from 'lucide-react';
 import moment from 'moment';
 
 export default function MagazinePage() {

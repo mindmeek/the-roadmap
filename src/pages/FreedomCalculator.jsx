@@ -72,19 +72,18 @@ export default function MyFinancialGoal() {
         // Check if user is viewing as a team member
         const selectedBusinessId = localStorage.getItem('selectedBusinessId');
         if (selectedBusinessId) {
-          // Check if user owns this business
-          const ownedBiz = await base44.entities.Business.filter({ owner_user_id: userData.id });
-          const isOwner = ownedBiz.some(b => b.id === selectedBusinessId);
-
-          if (!isOwner) {
-            // Team member — load owner's financial projections
-            const result = await base44.functions.invoke('getOwnerFinancialProjections', { business_id: selectedBusinessId });
-            if (result.data.success) {
+          // Try to load owner's financial projections via backend
+          const result = await base44.functions.invoke('getOwnerFinancialProjections', { business_id: selectedBusinessId });
+          if (result.data.success) {
+            const isOwner = result.data.myRole === 'owner';
+            if (!isOwner) {
+              // Team member — show owner's data read-only
               setTeamBusinessId(selectedBusinessId);
               applyProjections(result.data.financial_projections);
               setLoading(false);
               return;
             }
+            // Owner — use their own local data (fall through)
           }
         }
 

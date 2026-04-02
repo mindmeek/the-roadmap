@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User } from '@/entities/User';
 import { pushNotifications } from '@/functions/pushNotifications';
@@ -128,7 +127,7 @@ const PushNotificationSetup = () => {
     const getVapidPublicKey = async () => {
         // Return the actual VAPID public key you generated
         // This needs to match the public key you set in the secrets
-        return Deno.env.get('VAPID_PUBLIC_KEY') || 'BF8Q8J9X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X2Q8X';
+        return import.meta.env.VITE_VAPID_PUBLIC_KEY || '';
     };
 
     const urlBase64ToUint8Array = (base64String) => {
