@@ -13,7 +13,7 @@ const XP_VALUES = {
 
 const LEVEL_FORMULA = (level) => Math.floor(level * 100 * 1.2);
 
-const checkAchievements = async (user, action, context) => {
+const checkAchievements = async (base44, user, action, context) => {
     const { unlocked_achievements = [], level } = user;
     let newAchievements = [];
     let bonusXp = 0;
@@ -76,7 +76,7 @@ Deno.serve(async (req) => {
             });
         }
         
-        const { newAchievements, bonusXp } = await checkAchievements({ ...user, level }, action, context);
+        const { newAchievements, bonusXp } = await checkAchievements(base44, { ...user, level }, action, context);
         if (newAchievements.length > 0) {
             xp_points += bonusXp;
             unlocked_achievements = [...unlocked_achievements, ...newAchievements.map(a => a.achievement_id)];
