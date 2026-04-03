@@ -472,12 +472,12 @@ export default function StrategyFormIdealClient() {
                         <div>
                             <div className="flex items-center justify-between mb-1">
                                 <label className="block text-sm font-medium text-[var(--text-main)]">Interests & Hobbies <span className="text-[var(--primary-gold)]">(Pick your top 3)</span></label>
-                                <span className="text-xs text-[var(--text-soft)]">{(formData.interests ? formData.interests.split(', ').filter(v=>v) : []).length}/3 selected</span>
+                                <span className="text-xs text-[var(--text-soft)]">{(formData.interests ? formData.interests.split(',').map(v=>v.trim()).filter(v=>v) : []).length}/3 selected</span>
                             </div>
                             <p className="text-xs text-[var(--text-soft)] mb-3">Where do they spend their time and attention? <em>Tip: If your client is into "Personal Development" + "Business," they're likely listening to podcasts and reading books — that's where your ads and content should live.</em></p>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                 {['Business & Entrepreneurship', 'Technology', 'Health & Fitness', 'Travel', 'Reading', 'Sports', 'Arts & Creativity', 'Personal Development', 'Networking', 'Investing'].map(interest => {
-                                    const current = formData.interests ? formData.interests.split(', ').filter(v => v) : [];
+                                    const current = formData.interests ? formData.interests.split(',').map(v => v.trim()).filter(v => v) : [];
                                     const isSelected = current.includes(interest);
                                     const isDisabled = !isSelected && current.length >= 3;
                                     return (
@@ -487,7 +487,7 @@ export default function StrategyFormIdealClient() {
                                                 checked={isSelected}
                                                 disabled={isDisabled}
                                                 onChange={(e) => {
-                                                    const current2 = formData.interests ? formData.interests.split(', ').filter(v => v) : [];
+                                                    const current2 = formData.interests ? formData.interests.split(',').map(v => v.trim()).filter(v => v) : [];
                                                     const updated = e.target.checked ? [...current2, interest] : current2.filter(v => v !== interest);
                                                     setFormData({ ...formData, interests: updated.join(', ') });
                                                 }}
